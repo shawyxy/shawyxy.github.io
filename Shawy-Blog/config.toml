@@ -6,10 +6,10 @@ baseURL = "https://man9oo.top/"
 theme = 'hugo-bearblog'
 
 # Basic metadata configuration for your blog.
-title = "Hugo ʕ•ᴥ•ʔ Bear Blog"
-author = "Jane Doe"
-copyright = "Copyright © 2020, Jane Doe."
-languageCode = "en-US"
+title = "Shawy's Blog"
+author = "Shawy"
+copyright = "Copyright © 2024, Shawy."
+languageCode = "zh-CN"
 
 # Generate a nice robots.txt for SEO
 enableRobotsTXT = true
