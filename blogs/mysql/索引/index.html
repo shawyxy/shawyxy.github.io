@@ -1,0 +1,1764 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <link rel="icon shortcut" href="/favicon.ico" sizes="32x32" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="/favicon-dark.svg" type="image/svg+xml" media="(prefers-color-scheme: dark)" />
+<link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16" />
+<link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+<link fetchpriority="low" href="/site.webmanifest" rel="manifest" />
+
+  <title>索引 – Shawy&#39;s Blog</title>
+  <meta name="description" content="什么是索引索引是一种数据结构，用于快速查找和访问数据库表中的数据。索引的主要目的是提高查询效率，减少数据库的搜索时间。可以把它想象成一本书的目录：不需要逐页浏览整本书来找到特定的内容，而是直接查看目录，快速定位到所需的部分。
+数据库按记录为单位存储数据，如果不使用索引而采取遍历查询数据，其时间复杂度是$O(N)$。
+总结：索引是数据的目录。在 MySQL 中，索引也叫做 Key。
+索引的效率取决于索引列的值是否散列，即该列的值如果越互不相同，那么索引效率越高。反之，如果记录的列存在大量相同的值，例如性别只记录了男或者女，那么它们大概各占一半，因此对该列创建索引无意义，它不是散列的。
+可以对一张表创建多个索引。索引的优点是提高了查询效率，缺点是在插入、更新和删除记录时，需要同时修改索引，因此，索引越多，插入、更新和删除记录的速度就越慢。索引虽然不够完美，但是它足够物美价廉，而且贴合数据库的使用场景：提高检索海量数据的速度。
+磁盘和内存的 I/O 次数越少，效率越高。
+对于主键，关系数据库会自动对其创建主键索引。使用主键索引的效率是最高的，因为主键会保证绝对唯一。
+测试表 首先用一个测试表来看看索引的威力。
+drop database if exists `index_demon`; create database if not exists `index_demon` default character set utf8; use `index_demon`; -- 构建一个 8000000 条记录的数据 -- 构建的海量表数据需要有差异性，所以使用存储过程来创建 -- 产生随机字符串 delimiter $$ create function rand_string(n INT) returns varchar(255) begin declare chars_str varchar(100) default &#39;abcdefghijklmnopqrstuvwxyzABCDEFJHIJKLMNOPQRSTUVWXYZ&#39;; declare return_str varchar(255) default &#39;&#39;; declare i int default 0; while i &lt; n do set return_str =concat(return_str,substring(chars_str,floor(1&#43;rand()*52),1)); set i = i &#43; 1; end while; return return_str; end $$ delimiter ; -- 产生随机数字 delimiter $$ create function rand_num( ) returns int(5) begin declare i int default 0; set i = floor(10&#43;rand()*500); return i; end $$ delimiter ; -- 创建存储过程，向雇员表添加海量数据 delimiter $$ create procedure insert_emp(in start int(10),in max_num int(10)) begin declare i int default 0; set autocommit = 0; repeat set i = i &#43; 1; insert into EMP values ((start&#43;i) ,rand_string(6),&#39;SALESMAN&#39;,0001,curdate(),2000,400,rand_num()); until i = max_num end repeat; commit; end $$ delimiter ; -- 雇员表 CREATE TABLE `EMP` ( `empno` int(6) unsigned zerofill NOT NULL COMMENT &#39;雇员编号&#39;, `ename` varchar(10) DEFAULT NULL COMMENT &#39;雇员姓名&#39;, `job` varchar(9) DEFAULT NULL COMMENT &#39;雇员职位&#39;, `mgr` int(4) unsigned zerofill DEFAULT NULL COMMENT &#39;雇员领导编号&#39;, `hiredate` datetime DEFAULT NULL COMMENT &#39;雇佣时间&#39;, `sal` decimal(7,2) DEFAULT NULL COMMENT &#39;工资月薪&#39;, `comm` decimal(7,2) DEFAULT NULL COMMENT &#39;奖金&#39;, `deptno` int(2) unsigned zerofill DEFAULT NULL COMMENT &#39;部门编号&#39; ); -- 执行存储过程，添加 8000000 条记录 call insert_emp(100001, 8000000); 使用方法：" />
+  
+  
+    <link rel="canonical" href="/blogs/mysql/%E7%B4%A2%E5%BC%95/" itemprop="url" />
+  
+
+  
+
+<meta property="og:title" content="索引" />
+<meta property="og:description" content="什么是索引索引是一种数据结构，用于快速查找和访问数据库表中的数据。索引的主要目的是提高查询效率，减少数据库的搜索时间。可以把它想象成一本书的目录：不需要逐页浏览整本书来找到特定的内容，而是直接查看目录，快速定位到所需的部分。
+数据库按记录为单位存储数据，如果不使用索引而采取遍历查询数据，其时间复杂度是$O(N)$。
+总结：索引是数据的目录。在 MySQL 中，索引也叫做 Key。
+索引的效率取决于索引列的值是否散列，即该列的值如果越互不相同，那么索引效率越高。反之，如果记录的列存在大量相同的值，例如性别只记录了男或者女，那么它们大概各占一半，因此对该列创建索引无意义，它不是散列的。
+可以对一张表创建多个索引。索引的优点是提高了查询效率，缺点是在插入、更新和删除记录时，需要同时修改索引，因此，索引越多，插入、更新和删除记录的速度就越慢。索引虽然不够完美，但是它足够物美价廉，而且贴合数据库的使用场景：提高检索海量数据的速度。
+磁盘和内存的 I/O 次数越少，效率越高。
+对于主键，关系数据库会自动对其创建主键索引。使用主键索引的效率是最高的，因为主键会保证绝对唯一。
+测试表 首先用一个测试表来看看索引的威力。
+drop database if exists `index_demon`; create database if not exists `index_demon` default character set utf8; use `index_demon`; -- 构建一个 8000000 条记录的数据 -- 构建的海量表数据需要有差异性，所以使用存储过程来创建 -- 产生随机字符串 delimiter $$ create function rand_string(n INT) returns varchar(255) begin declare chars_str varchar(100) default &#39;abcdefghijklmnopqrstuvwxyzABCDEFJHIJKLMNOPQRSTUVWXYZ&#39;; declare return_str varchar(255) default &#39;&#39;; declare i int default 0; while i &lt; n do set return_str =concat(return_str,substring(chars_str,floor(1&#43;rand()*52),1)); set i = i &#43; 1; end while; return return_str; end $$ delimiter ; -- 产生随机数字 delimiter $$ create function rand_num( ) returns int(5) begin declare i int default 0; set i = floor(10&#43;rand()*500); return i; end $$ delimiter ; -- 创建存储过程，向雇员表添加海量数据 delimiter $$ create procedure insert_emp(in start int(10),in max_num int(10)) begin declare i int default 0; set autocommit = 0; repeat set i = i &#43; 1; insert into EMP values ((start&#43;i) ,rand_string(6),&#39;SALESMAN&#39;,0001,curdate(),2000,400,rand_num()); until i = max_num end repeat; commit; end $$ delimiter ; -- 雇员表 CREATE TABLE `EMP` ( `empno` int(6) unsigned zerofill NOT NULL COMMENT &#39;雇员编号&#39;, `ename` varchar(10) DEFAULT NULL COMMENT &#39;雇员姓名&#39;, `job` varchar(9) DEFAULT NULL COMMENT &#39;雇员职位&#39;, `mgr` int(4) unsigned zerofill DEFAULT NULL COMMENT &#39;雇员领导编号&#39;, `hiredate` datetime DEFAULT NULL COMMENT &#39;雇佣时间&#39;, `sal` decimal(7,2) DEFAULT NULL COMMENT &#39;工资月薪&#39;, `comm` decimal(7,2) DEFAULT NULL COMMENT &#39;奖金&#39;, `deptno` int(2) unsigned zerofill DEFAULT NULL COMMENT &#39;部门编号&#39; ); -- 执行存储过程，添加 8000000 条记录 call insert_emp(100001, 8000000); 使用方法：" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/blogs/mysql/%E7%B4%A2%E5%BC%95/" /><meta property="article:section" content="blogs" />
+
+
+
+  
+  <meta itemprop="name" content="索引">
+  <meta itemprop="description" content="什么是索引索引是一种数据结构，用于快速查找和访问数据库表中的数据。索引的主要目的是提高查询效率，减少数据库的搜索时间。可以把它想象成一本书的目录：不需要逐页浏览整本书来找到特定的内容，而是直接查看目录，快速定位到所需的部分。
+数据库按记录为单位存储数据，如果不使用索引而采取遍历查询数据，其时间复杂度是$O(N)$。
+总结：索引是数据的目录。在 MySQL 中，索引也叫做 Key。
+索引的效率取决于索引列的值是否散列，即该列的值如果越互不相同，那么索引效率越高。反之，如果记录的列存在大量相同的值，例如性别只记录了男或者女，那么它们大概各占一半，因此对该列创建索引无意义，它不是散列的。
+可以对一张表创建多个索引。索引的优点是提高了查询效率，缺点是在插入、更新和删除记录时，需要同时修改索引，因此，索引越多，插入、更新和删除记录的速度就越慢。索引虽然不够完美，但是它足够物美价廉，而且贴合数据库的使用场景：提高检索海量数据的速度。
+磁盘和内存的 I/O 次数越少，效率越高。
+对于主键，关系数据库会自动对其创建主键索引。使用主键索引的效率是最高的，因为主键会保证绝对唯一。
+测试表 首先用一个测试表来看看索引的威力。
+drop database if exists `index_demon`; create database if not exists `index_demon` default character set utf8; use `index_demon`; -- 构建一个 8000000 条记录的数据 -- 构建的海量表数据需要有差异性，所以使用存储过程来创建 -- 产生随机字符串 delimiter $$ create function rand_string(n INT) returns varchar(255) begin declare chars_str varchar(100) default &#39;abcdefghijklmnopqrstuvwxyzABCDEFJHIJKLMNOPQRSTUVWXYZ&#39;; declare return_str varchar(255) default &#39;&#39;; declare i int default 0; while i &lt; n do set return_str =concat(return_str,substring(chars_str,floor(1&#43;rand()*52),1)); set i = i &#43; 1; end while; return return_str; end $$ delimiter ; -- 产生随机数字 delimiter $$ create function rand_num( ) returns int(5) begin declare i int default 0; set i = floor(10&#43;rand()*500); return i; end $$ delimiter ; -- 创建存储过程，向雇员表添加海量数据 delimiter $$ create procedure insert_emp(in start int(10),in max_num int(10)) begin declare i int default 0; set autocommit = 0; repeat set i = i &#43; 1; insert into EMP values ((start&#43;i) ,rand_string(6),&#39;SALESMAN&#39;,0001,curdate(),2000,400,rand_num()); until i = max_num end repeat; commit; end $$ delimiter ; -- 雇员表 CREATE TABLE `EMP` ( `empno` int(6) unsigned zerofill NOT NULL COMMENT &#39;雇员编号&#39;, `ename` varchar(10) DEFAULT NULL COMMENT &#39;雇员姓名&#39;, `job` varchar(9) DEFAULT NULL COMMENT &#39;雇员职位&#39;, `mgr` int(4) unsigned zerofill DEFAULT NULL COMMENT &#39;雇员领导编号&#39;, `hiredate` datetime DEFAULT NULL COMMENT &#39;雇佣时间&#39;, `sal` decimal(7,2) DEFAULT NULL COMMENT &#39;工资月薪&#39;, `comm` decimal(7,2) DEFAULT NULL COMMENT &#39;奖金&#39;, `deptno` int(2) unsigned zerofill DEFAULT NULL COMMENT &#39;部门编号&#39; ); -- 执行存储过程，添加 8000000 条记录 call insert_emp(100001, 8000000); 使用方法：">
+  <meta itemprop="wordCount" content="1434"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="索引">
+<meta name="twitter:description" content="什么是索引索引是一种数据结构，用于快速查找和访问数据库表中的数据。索引的主要目的是提高查询效率，减少数据库的搜索时间。可以把它想象成一本书的目录：不需要逐页浏览整本书来找到特定的内容，而是直接查看目录，快速定位到所需的部分。
+数据库按记录为单位存储数据，如果不使用索引而采取遍历查询数据，其时间复杂度是$O(N)$。
+总结：索引是数据的目录。在 MySQL 中，索引也叫做 Key。
+索引的效率取决于索引列的值是否散列，即该列的值如果越互不相同，那么索引效率越高。反之，如果记录的列存在大量相同的值，例如性别只记录了男或者女，那么它们大概各占一半，因此对该列创建索引无意义，它不是散列的。
+可以对一张表创建多个索引。索引的优点是提高了查询效率，缺点是在插入、更新和删除记录时，需要同时修改索引，因此，索引越多，插入、更新和删除记录的速度就越慢。索引虽然不够完美，但是它足够物美价廉，而且贴合数据库的使用场景：提高检索海量数据的速度。
+磁盘和内存的 I/O 次数越少，效率越高。
+对于主键，关系数据库会自动对其创建主键索引。使用主键索引的效率是最高的，因为主键会保证绝对唯一。
+测试表 首先用一个测试表来看看索引的威力。
+drop database if exists `index_demon`; create database if not exists `index_demon` default character set utf8; use `index_demon`; -- 构建一个 8000000 条记录的数据 -- 构建的海量表数据需要有差异性，所以使用存储过程来创建 -- 产生随机字符串 delimiter $$ create function rand_string(n INT) returns varchar(255) begin declare chars_str varchar(100) default &#39;abcdefghijklmnopqrstuvwxyzABCDEFJHIJKLMNOPQRSTUVWXYZ&#39;; declare return_str varchar(255) default &#39;&#39;; declare i int default 0; while i &lt; n do set return_str =concat(return_str,substring(chars_str,floor(1&#43;rand()*52),1)); set i = i &#43; 1; end while; return return_str; end $$ delimiter ; -- 产生随机数字 delimiter $$ create function rand_num( ) returns int(5) begin declare i int default 0; set i = floor(10&#43;rand()*500); return i; end $$ delimiter ; -- 创建存储过程，向雇员表添加海量数据 delimiter $$ create procedure insert_emp(in start int(10),in max_num int(10)) begin declare i int default 0; set autocommit = 0; repeat set i = i &#43; 1; insert into EMP values ((start&#43;i) ,rand_string(6),&#39;SALESMAN&#39;,0001,curdate(),2000,400,rand_num()); until i = max_num end repeat; commit; end $$ delimiter ; -- 雇员表 CREATE TABLE `EMP` ( `empno` int(6) unsigned zerofill NOT NULL COMMENT &#39;雇员编号&#39;, `ename` varchar(10) DEFAULT NULL COMMENT &#39;雇员姓名&#39;, `job` varchar(9) DEFAULT NULL COMMENT &#39;雇员职位&#39;, `mgr` int(4) unsigned zerofill DEFAULT NULL COMMENT &#39;雇员领导编号&#39;, `hiredate` datetime DEFAULT NULL COMMENT &#39;雇佣时间&#39;, `sal` decimal(7,2) DEFAULT NULL COMMENT &#39;工资月薪&#39;, `comm` decimal(7,2) DEFAULT NULL COMMENT &#39;奖金&#39;, `deptno` int(2) unsigned zerofill DEFAULT NULL COMMENT &#39;部门编号&#39; ); -- 执行存储过程，添加 8000000 条记录 call insert_emp(100001, 8000000); 使用方法：">
+
+    <link rel="preload" href="/css/compiled/main.min.5a06ca26e024c4f511f45ee6c33a2a1faefaebe6be8a38d36e100f40a4c59c06.css" as="style" integrity="sha256-WgbKJuAkxPUR9F7mwzoqH6766&#43;a&#43;ijjTbhAPQKTFnAY=" />
+    <link href="/css/compiled/main.min.5a06ca26e024c4f511f45ee6c33a2a1faefaebe6be8a38d36e100f40a4c59c06.css" rel="stylesheet" integrity="sha256-WgbKJuAkxPUR9F7mwzoqH6766&#43;a&#43;ijjTbhAPQKTFnAY=" />
+
+
+
+  <link href="/css/custom.min.e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css" rel="stylesheet" integrity="sha256-47DEQpj8HBSa&#43;/TImW&#43;5JCeuQeRkm5NMpJWZG3hSuFU=" />
+
+
+
+  
+
+
+  <script>
+     
+    const defaultTheme = 'system';
+
+    const setDarkTheme = () => {
+      document.documentElement.classList.add("dark");
+      document.documentElement.style.colorScheme = "dark";
+    }
+    const setLightTheme = () => {
+      document.documentElement.classList.remove("dark");
+      document.documentElement.style.colorScheme = "light";
+    }
+
+    if ("color-theme" in localStorage) {
+      localStorage.getItem("color-theme") === "dark" ? setDarkTheme() : setLightTheme();
+    } else {
+      defaultTheme === "dark" ? setDarkTheme() : setLightTheme();
+      if (defaultTheme === "system") {
+        window.matchMedia("(prefers-color-scheme: dark)").matches ? setDarkTheme() : setLightTheme();
+      }
+    }
+  </script>
+
+  
+</head>
+<body dir="ltr"><div class="nav-container sticky top-0 z-20 w-full bg-transparent print:hidden">
+  <div class="nav-container-blur pointer-events-none absolute z-[-1] h-full w-full bg-white dark:bg-dark shadow-[0_2px_4px_rgba(0,0,0,.02),0_1px_0_rgba(0,0,0,.06)] contrast-more:shadow-[0_0_0_1px_#000] dark:shadow-[0_-1px_0_rgba(255,255,255,.1)_inset] contrast-more:dark:shadow-[0_0_0_1px_#fff]"></div>
+
+  <nav class="mx-auto flex items-center justify-end gap-2 h-16 px-6 max-w-[90rem]">
+    <a class="flex items-center hover:opacity-75 ltr:mr-auto rtl:ml-auto" href="/">
+        <span class="mx-2 font-extrabold inline select-none" title="Shawy&#39;s Blog">Shawy&#39;s Blog</span>
+    </a><a
+            title="Blogs"
+            href="/blogs"
+            
+            class="text-sm contrast-more:text-gray-700 contrast-more:dark:text-gray-100 relative -ml-2 hidden whitespace-nowrap p-2 md:inline-block font-medium"
+          >
+            <span class="text-center">Blogs</span>
+          </a><a
+            title="About"
+            href="/about"
+            
+            class="text-sm contrast-more:text-gray-700 contrast-more:dark:text-gray-100 relative -ml-2 hidden whitespace-nowrap p-2 md:inline-block text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
+          >
+            <span class="text-center">About</span>
+          </a><a
+            title="Contact ↗"
+            href="https://blog.csdn.net/m0_63312733?type=blog"
+            target="_blank" rel="noreferer"
+            class="text-sm contrast-more:text-gray-700 contrast-more:dark:text-gray-100 relative -ml-2 hidden whitespace-nowrap p-2 md:inline-block text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
+          >
+            <span class="text-center">Contact ↗</span>
+          </a><div class="search-wrapper relative md:w-64">
+  <div class="relative flex items-center text-gray-900 contrast-more:text-gray-800 dark:text-gray-300 contrast-more:dark:text-gray-300">
+    <input
+      placeholder="Search..."
+      class="search-input block w-full appearance-none rounded-lg px-3 py-2 transition-colors text-base leading-tight md:text-sm bg-black/[.05] dark:bg-gray-50/10 focus:bg-white dark:focus:bg-dark placeholder:text-gray-500 dark:placeholder:text-gray-400 contrast-more:border contrast-more:border-current"
+      type="search"
+      value=""
+      spellcheck="false"
+    />
+    <kbd
+      class="absolute my-1.5 select-none ltr:right-1.5 rtl:left-1.5 h-5 rounded bg-white px-1.5 font-mono text-[10px] font-medium text-gray-500 border dark:border-gray-100/20 dark:bg-dark/50 contrast-more:border-current contrast-more:text-current contrast-more:dark:border-current items-center gap-1 transition-opacity pointer-events-none hidden sm:flex"
+    >
+      CTRL K
+    </kbd>
+  </div>
+
+  <div>
+    <ul
+      class="search-results hextra-scrollbar hidden border border-gray-200 bg-white text-gray-100 dark:border-neutral-800 dark:bg-neutral-900 absolute top-full z-20 mt-2 overflow-auto overscroll-contain rounded-xl py-2.5 shadow-xl max-h-[min(calc(50vh-11rem-env(safe-area-inset-bottom)),400px)] md:max-h-[min(calc(100vh-5rem-env(safe-area-inset-bottom)),400px)] inset-x-0 ltr:md:left-auto rtl:md:right-auto contrast-more:border contrast-more:border-gray-900 contrast-more:dark:border-gray-50 w-screen min-h-[100px] max-w-[min(calc(100vw-2rem),calc(100%+20rem))]"
+      style="transition: max-height 0.2s ease 0s;"
+    ></ul>
+  </div>
+</div>
+
+          <a class="p-2 text-current" target="_blank" rel="noreferer" href="https://github.com/shawyxy" title="GitHub"><svg height=24 fill="currentColor" viewBox="3 3 18 18">
+  <path d="M12 3C7.0275 3 3 7.12937 3 12.2276C3 16.3109 5.57625 19.7597 9.15374 20.9824C9.60374 21.0631 9.77249 20.7863 9.77249 20.5441C9.77249 20.3249 9.76125 19.5982 9.76125 18.8254C7.5 19.2522 6.915 18.2602 6.735 17.7412C6.63375 17.4759 6.19499 16.6569 5.8125 16.4378C5.4975 16.2647 5.0475 15.838 5.80124 15.8264C6.51 15.8149 7.01625 16.4954 7.18499 16.7723C7.99499 18.1679 9.28875 17.7758 9.80625 17.5335C9.885 16.9337 10.1212 16.53 10.38 16.2993C8.3775 16.0687 6.285 15.2728 6.285 11.7432C6.285 10.7397 6.63375 9.9092 7.20749 9.26326C7.1175 9.03257 6.8025 8.08674 7.2975 6.81794C7.2975 6.81794 8.05125 6.57571 9.77249 7.76377C10.4925 7.55615 11.2575 7.45234 12.0225 7.45234C12.7875 7.45234 13.5525 7.55615 14.2725 7.76377C15.9937 6.56418 16.7475 6.81794 16.7475 6.81794C17.2424 8.08674 16.9275 9.03257 16.8375 9.26326C17.4113 9.9092 17.76 10.7281 17.76 11.7432C17.76 15.2843 15.6563 16.0687 13.6537 16.2993C13.98 16.5877 14.2613 17.1414 14.2613 18.0065C14.2613 19.2407 14.25 20.2326 14.25 20.5441C14.25 20.7863 14.4188 21.0746 14.8688 20.9824C16.6554 20.364 18.2079 19.1866 19.3078 17.6162C20.4077 16.0457 20.9995 14.1611 21 12.2276C21 7.12937 16.9725 3 12 3Z"></path>
+</svg>
+<span class="sr-only">GitHub</span>
+          </a><button type="button" aria-label="Menu" class="hamburger-menu -mr-2 rounded p-2 active:bg-gray-400/20 md:hidden"><svg height=24 fill="none" viewBox="0 0 24 24" stroke="currentColor"><g><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8H20"></path></g><g><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16H20"></path></g></svg></button>
+  </nav>
+</div>
+
+  <div class='mx-auto flex max-w-screen-xl'>
+    <div class="mobile-menu-overlay [transition:background-color_1.5s_ease] fixed inset-0 z-10 bg-black/80 dark:bg-black/60 hidden"></div>
+<aside class="sidebar-container flex flex-col print:hidden md:top-16 md:shrink-0 md:w-64 md:self-start max-md:[transform:translate3d(0,-100%,0)] md:hidden xl:block">
+  
+  <div class="px-4 pt-4 md:hidden">
+    <div class="search-wrapper relative md:w-64">
+  <div class="relative flex items-center text-gray-900 contrast-more:text-gray-800 dark:text-gray-300 contrast-more:dark:text-gray-300">
+    <input
+      placeholder="Search..."
+      class="search-input block w-full appearance-none rounded-lg px-3 py-2 transition-colors text-base leading-tight md:text-sm bg-black/[.05] dark:bg-gray-50/10 focus:bg-white dark:focus:bg-dark placeholder:text-gray-500 dark:placeholder:text-gray-400 contrast-more:border contrast-more:border-current"
+      type="search"
+      value=""
+      spellcheck="false"
+    />
+    <kbd
+      class="absolute my-1.5 select-none ltr:right-1.5 rtl:left-1.5 h-5 rounded bg-white px-1.5 font-mono text-[10px] font-medium text-gray-500 border dark:border-gray-100/20 dark:bg-dark/50 contrast-more:border-current contrast-more:text-current contrast-more:dark:border-current items-center gap-1 transition-opacity pointer-events-none hidden sm:flex"
+    >
+      CTRL K
+    </kbd>
+  </div>
+
+  <div>
+    <ul
+      class="search-results hextra-scrollbar hidden border border-gray-200 bg-white text-gray-100 dark:border-neutral-800 dark:bg-neutral-900 absolute top-full z-20 mt-2 overflow-auto overscroll-contain rounded-xl py-2.5 shadow-xl max-h-[min(calc(50vh-11rem-env(safe-area-inset-bottom)),400px)] md:max-h-[min(calc(100vh-5rem-env(safe-area-inset-bottom)),400px)] inset-x-0 ltr:md:left-auto rtl:md:right-auto contrast-more:border contrast-more:border-gray-900 contrast-more:dark:border-gray-50 w-screen min-h-[100px] max-w-[min(calc(100vw-2rem),calc(100%+20rem))]"
+      style="transition: max-height 0.2s ease 0s;"
+    ></ul>
+  </div>
+</div>
+
+  </div>
+  <div class="hextra-scrollbar overflow-y-auto overflow-x-hidden p-4 grow md:h-[calc(100vh-var(--navbar-height)-var(--menu-height))]">
+    <ul class="flex flex-col gap-1 md:hidden">
+      
+      
+          <li class=""><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/about/"
+    
+  >About
+    </a></li>
+          <li class="open"><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/"
+    
+  >Notes
+        <span class="hextra-sidebar-collapsible-button"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-[18px] min-w-[18px] rounded-sm p-0.5 hover:bg-gray-800/5 dark:hover:bg-gray-100/5"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" class="origin-center transition-transform rtl:-rotate-180"></path></svg></span>
+    </a><div class="ltr:pr-0 overflow-hidden">
+        <ul class='relative flex flex-col gap-1 before:absolute before:inset-y-1 before:w-px before:bg-gray-200 before:content-[""] ltr:ml-3 ltr:pl-3 ltr:before:left-0 rtl:mr-3 rtl:pr-3 rtl:before:right-0 dark:before:bg-neutral-800'><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/c&#43;&#43;/"
+    
+  >C/C&#43;&#43;
+    </a>
+              
+            </li><li class="flex flex-col open"><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/mysql/"
+    
+  >MySQL
+        <span class="hextra-sidebar-collapsible-button"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-[18px] min-w-[18px] rounded-sm p-0.5 hover:bg-gray-800/5 dark:hover:bg-gray-100/5"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" class="origin-center transition-transform rtl:-rotate-180"></path></svg></span>
+    </a>
+              <div class="ltr:pr-0 overflow-hidden">
+        <ul class='relative flex flex-col gap-1 before:absolute before:inset-y-1 before:w-px before:bg-gray-200 before:content-[""] ltr:ml-3 ltr:pl-3 ltr:before:left-0 rtl:mr-3 rtl:pr-3 rtl:before:right-0 dark:before:bg-neutral-800'><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/mysql/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E7%A1%80%E4%B8%80/"
+    
+  >数据库基础（一）
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/mysql/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E7%A1%80%E4%BA%8C/"
+    
+  >数据库基础（二）
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/mysql/%E5%BA%93%E7%9A%84%E6%93%8D%E4%BD%9C/"
+    
+  >库的操作
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/mysql/%E8%A1%A8%E7%BB%93%E6%9E%84%E7%9A%84%E6%93%8D%E4%BD%9C/"
+    
+  >表结构的操作
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/mysql/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/"
+    
+  >数据类型
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/mysql/%E8%A1%A8%E7%9A%84%E7%BA%A6%E6%9D%9F/"
+    
+  >表的约束
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/mysql/%E8%A1%A8%E5%86%85%E5%AE%B9%E7%9A%84%E6%93%8D%E4%BD%9C/"
+    
+  >表内容的操作
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/mysql/%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0/"
+    
+  >内置函数
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/mysql/%E5%A4%8D%E5%90%88%E6%9F%A5%E8%AF%A2/"
+    
+  >复合查询
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/mysql/%E8%A1%A8%E7%9A%84%E8%BF%9E%E6%8E%A5/"
+    
+  >表的连接
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/mysql/%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/"
+    
+  >用户管理
+    </a>
+              
+            </li><li class="flex flex-col open"><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      sidebar-active-item bg-primary-100 font-semibold text-primary-800 contrast-more:border contrast-more:border-primary-500 dark:bg-primary-400/10 dark:text-primary-600 contrast-more:dark:border-primary-500"
+    href="/blogs/mysql/%E7%B4%A2%E5%BC%95/"
+    
+  >索引
+    </a>
+  
+    <ul class='flex flex-col gap-1 relative before:absolute before:inset-y-1 before:w-px before:bg-gray-200 before:content-[""] dark:before:bg-neutral-800 ltr:pl-3 ltr:before:left-0 rtl:pr-3 rtl:before:right-0 ltr:ml-3 rtl:mr-3'><li>
+              <a
+                href="#%e6%b5%8b%e8%af%95%e8%a1%a8"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >测试表</a>
+            </li>
+          <li>
+              <a
+                href="#%e4%ba%86%e8%a7%a3%e7%a3%81%e7%9b%98"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >了解磁盘</a>
+            </li>
+          <li>
+              <a
+                href="#mysql-%e7%9a%84%e5%b7%a5%e4%bd%9c%e5%8e%9f%e7%90%86"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >MySQL 的工作原理</a>
+            </li>
+          <li>
+              <a
+                href="#buffer-pool"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >Buffer Pool</a>
+            </li>
+          <li>
+              <a
+                href="#%e5%bc%95%e5%85%a5"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >引入</a>
+            </li>
+          <li>
+              <a
+                href="#page-%e7%9a%84%e7%bb%93%e6%9e%84"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >Page 的结构</a>
+            </li>
+          <li>
+              <a
+                href="#%e9%a1%b5%e5%86%85%e7%9b%ae%e5%bd%95page-directory"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >页内目录（Page Directory）</a>
+            </li>
+          <li>
+              <a
+                href="#%e5%a4%9a%e9%a1%b5%e6%83%85%e5%86%b5"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >多页情况</a>
+            </li>
+          <li>
+              <a
+                href="#b-%e6%a0%91%e5%92%8c-b%e6%a0%91"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >B 树和 B&#43;树</a>
+            </li>
+          <li>
+              <a
+                href="#%e8%81%9a%e7%b0%87%e7%b4%a2%e5%bc%95%e5%92%8c%e9%9d%9e%e8%81%9a%e7%b0%87%e7%b4%a2%e5%bc%95"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >聚簇索引和非聚簇索引</a>
+            </li>
+          <li>
+              <a
+                href="#%e5%88%9b%e5%bb%ba"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >创建</a>
+            </li>
+          <li>
+              <a
+                href="#%e4%b8%bb%e8%a6%81%e7%89%b9%e7%82%b9"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >主要特点</a>
+            </li>
+          <li>
+              <a
+                href="#%e4%b8%8e%e4%b8%bb%e9%94%ae%e7%b4%a2%e5%bc%95%e7%9a%84%e5%8c%ba%e5%88%ab"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >与主键索引的区别</a>
+            </li>
+          <li>
+              <a
+                href="#%e4%bd%bf%e7%94%a8%e5%9c%ba%e6%99%af"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >使用场景</a>
+            </li>
+          <li>
+              <a
+                href="#%e5%88%9b%e5%bb%ba-1"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >创建</a>
+            </li>
+          <li>
+              <a
+                href="#%e5%b7%a5%e4%bd%9c%e5%8e%9f%e7%90%86"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >工作原理</a>
+            </li>
+          <li>
+              <a
+                href="#%e4%bc%98%e7%82%b9"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >优点</a>
+            </li>
+          <li>
+              <a
+                href="#%e5%88%9b%e5%bb%ba-2"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >创建</a>
+            </li>
+          <li>
+              <a
+                href="#%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >注意事项</a>
+            </li>
+          <li>
+              <a
+                href="#%e6%9c%80%e5%b7%a6%e5%8c%b9%e9%85%8d%e5%8e%9f%e5%88%99"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >最左匹配原则</a>
+            </li>
+          <li>
+              <a
+                href="#%e4%b8%bb%e8%a6%81%e7%89%b9%e7%82%b9-1"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >主要特点</a>
+            </li>
+          <li>
+              <a
+                href="#%e4%bd%bf%e7%94%a8%e5%9c%ba%e6%99%af-1"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >使用场景</a>
+            </li>
+          <li>
+              <a
+                href="#%e5%88%9b%e5%bb%ba%e5%92%8c%e7%bb%b4%e6%8a%a4"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >创建和维护</a>
+            </li>
+          <li>
+              <a
+                href="#%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9-2"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >注意事项</a>
+            </li>
+          <li>
+              <a
+                href="#%e5%88%9b%e5%bb%ba-3"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >创建</a>
+            </li>
+          <li>
+              <a
+                href="#%e4%b8%bb%e8%a6%81%e7%89%b9%e6%80%a7"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >主要特性</a>
+            </li>
+          <li>
+              <a
+                href="#%e5%ba%94%e7%94%a8%e5%9c%ba%e6%99%af"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >应用场景</a>
+            </li>
+          <li>
+              <a
+                href="#%e5%88%9b%e5%bb%ba-4"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >创建</a>
+            </li>
+          <li>
+              <a
+                href="#%e8%a1%a5%e5%85%85explain-%e5%91%bd%e4%bb%a4"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >补充：explain 命令</a>
+            </li>
+          <li>
+              <a
+                href="#%e9%80%89%e6%8b%a9%e6%80%a7%e9%ab%98%e7%9a%84%e5%88%97"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >选择性高的列</a>
+            </li>
+          <li>
+              <a
+                href="#%e5%b8%b8%e7%94%a8%e4%ba%8e%e6%9f%a5%e8%af%a2%e6%9d%a1%e4%bb%b6%e7%9a%84%e5%88%97"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >常用于查询条件的列</a>
+            </li>
+          <li>
+              <a
+                href="#%e8%80%83%e8%99%91%e5%88%97%e7%9a%84%e6%95%b0%e6%8d%ae%e7%b1%bb%e5%9e%8b"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >考虑列的数据类型</a>
+            </li>
+          <li>
+              <a
+                href="#%e8%a6%86%e7%9b%96%e7%b4%a2%e5%bc%95"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >覆盖索引</a>
+            </li>
+          <li>
+              <a
+                href="#%e8%81%94%e5%90%88%e7%b4%a2%e5%bc%95%e7%9a%84%e5%88%9b%e5%bb%ba"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >联合索引的创建</a>
+            </li>
+          <li>
+              <a
+                href="#%e9%81%bf%e5%85%8d%e8%bf%87%e5%a4%9a%e7%9a%84%e7%b4%a2%e5%bc%95"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >避免过多的索引</a>
+            </li>
+          <li>
+              <a
+                href="#%e4%bd%bf%e7%94%a8%e5%89%8d%e7%bc%80%e7%b4%a2%e5%bc%95"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >使用前缀索引</a>
+            </li>
+          </ul>
+  
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/mysql/%E4%BA%8B%E5%8A%A1/"
+    
+  >事务
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/mysql/%E8%A7%86%E5%9B%BE/"
+    
+  >视图
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/mysql/c%E8%AF%AD%E8%A8%80%E8%BF%9E%E6%8E%A5/"
+    
+  >C语言连接
+    </a>
+              
+            </li></ul>
+      </div>
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"
+    
+  >操作系统
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"
+    
+  >数据结构与算法
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"
+    
+  >计算机网络
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/%E9%A1%B9%E7%9B%AE/"
+    
+  >项目
+        <span class="hextra-sidebar-collapsible-button"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-[18px] min-w-[18px] rounded-sm p-0.5 hover:bg-gray-800/5 dark:hover:bg-gray-100/5"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" class="origin-center transition-transform rtl:-rotate-180"></path></svg></span>
+    </a>
+              <div class="ltr:pr-0 overflow-hidden">
+        <ul class='relative flex flex-col gap-1 before:absolute before:inset-y-1 before:w-px before:bg-gray-200 before:content-[""] ltr:ml-3 ltr:pl-3 ltr:before:left-0 rtl:mr-3 rtl:pr-3 rtl:before:right-0 dark:before:bg-neutral-800'><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/%E9%A1%B9%E7%9B%AE/%E9%AB%98%E5%B9%B6%E5%8F%91%E5%86%85%E5%AD%98%E6%B1%A0/"
+    
+  >高并发内存池
+    </a>
+              
+            </li></ul>
+      </div>
+            </li></ul>
+      </div></li>
+    </ul>
+
+    <div class="max-xl:hidden h-0 w-64 shrink-0"></div></div>
+  
+  
+    <div class="md:hidden  sticky bottom-0 bg-white dark:bg-dark mx-4 py-4 shadow-[0_-12px_16px_#fff] flex items-center gap-2 dark:border-neutral-800 dark:shadow-[0_-12px_16px_#111] contrast-more:border-neutral-400 contrast-more:shadow-none contrast-more:dark:shadow-none border-t" data-toggle-animation="show"><div class="flex grow flex-col"><button
+  title="Change theme"
+  data-theme="light"
+  class="theme-toggle group h-7 rounded-md px-2 text-left text-xs font-medium text-gray-600 transition-colors dark:text-gray-400 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-primary-100/5 dark:hover:text-gray-50"
+  type="button"
+  aria-label="Change theme"
+>
+  <div class="flex items-center gap-2 capitalize"><svg height=12 class="group-data-[theme=light]:hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg><span class="group-data-[theme=light]:hidden">Light</span><svg height=12 class="group-data-[theme=dark]:hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg><span class="group-data-[theme=dark]:hidden">Dark</span></div>
+</button>
+</div></div></aside>
+    
+<nav class="hextra-toc order-last hidden w-64 shrink-0 xl:block print:hidden px-4" aria-label="table of contents">
+    <div class="hextra-scrollbar sticky top-16 overflow-y-auto pr-4 pt-6 text-sm [hyphens:auto] max-h-[calc(100vh-var(--navbar-height)-env(safe-area-inset-bottom))] ltr:-mr-4 rtl:-ml-4"><p class="mb-4 font-semibold tracking-tight">On this page</p><ul>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%b5%8b%e8%af%95%e8%a1%a8">测试表
+        </a>
+      </li></ul><ul>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%ba%86%e8%a7%a3%e7%a3%81%e7%9b%98">了解磁盘
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#mysql-%e7%9a%84%e5%b7%a5%e4%bd%9c%e5%8e%9f%e7%90%86">MySQL 的工作原理
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#buffer-pool">Buffer Pool
+        </a>
+      </li></ul><ul>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%bc%95%e5%85%a5">引入
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#page-%e7%9a%84%e7%bb%93%e6%9e%84">Page 的结构
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e9%a1%b5%e5%86%85%e7%9b%ae%e5%bd%95page-directory">页内目录（Page Directory）
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%a4%9a%e9%a1%b5%e6%83%85%e5%86%b5">多页情况
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#b-%e6%a0%91%e5%92%8c-b%e6%a0%91">B 树和 B&#43;树
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e8%81%9a%e7%b0%87%e7%b4%a2%e5%bc%95%e5%92%8c%e9%9d%9e%e8%81%9a%e7%b0%87%e7%b4%a2%e5%bc%95">聚簇索引和非聚簇索引
+        </a>
+      </li></ul><ul>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%88%9b%e5%bb%ba">创建
+        </a>
+      </li></ul><ul>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%b8%bb%e8%a6%81%e7%89%b9%e7%82%b9">主要特点
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%b8%8e%e4%b8%bb%e9%94%ae%e7%b4%a2%e5%bc%95%e7%9a%84%e5%8c%ba%e5%88%ab">与主键索引的区别
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%bd%bf%e7%94%a8%e5%9c%ba%e6%99%af">使用场景
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%88%9b%e5%bb%ba-1">创建
+        </a>
+      </li></ul><ul>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%b7%a5%e4%bd%9c%e5%8e%9f%e7%90%86">工作原理
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%bc%98%e7%82%b9">优点
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%88%9b%e5%bb%ba-2">创建
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9">注意事项
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%9c%80%e5%b7%a6%e5%8c%b9%e9%85%8d%e5%8e%9f%e5%88%99">最左匹配原则
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%8e%9f%e7%90%86">原理
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e7%a4%ba%e4%be%8b">示例
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%bd%9c%e7%94%a8">作用
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9-1">注意事项
+        </a>
+      </li></ul><ul>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%b8%bb%e8%a6%81%e7%89%b9%e7%82%b9-1">主要特点
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%bd%bf%e7%94%a8%e5%9c%ba%e6%99%af-1">使用场景
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%88%9b%e5%bb%ba%e5%92%8c%e7%bb%b4%e6%8a%a4">创建和维护
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9-2">注意事项
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%9b%9e%e8%a1%a8">回表
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e7%b4%a2%e5%bc%95%e8%a6%86%e7%9b%96">索引覆盖
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%88%9b%e5%bb%ba-3">创建
+        </a>
+      </li></ul><ul>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%b8%bb%e8%a6%81%e7%89%b9%e6%80%a7">主要特性
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%ba%94%e7%94%a8%e5%9c%ba%e6%99%af">应用场景
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%88%9b%e5%bb%ba-4">创建
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e8%a1%a5%e5%85%85explain-%e5%91%bd%e4%bb%a4">补充：explain 命令
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%bd%bf%e7%94%a8-explain">使用 EXPLAIN
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#explain-%e8%be%93%e5%87%ba%e7%9a%84%e5%85%b3%e9%94%ae%e5%88%97">EXPLAIN 输出的关键列
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%bd%bf%e7%94%a8-explain-%e8%bf%9b%e8%a1%8c%e4%bc%98%e5%8c%96">使用 EXPLAIN 进行优化
+        </a>
+      </li></ul><ul></ul><ul></ul><ul></ul><ul>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e9%80%89%e6%8b%a9%e6%80%a7%e9%ab%98%e7%9a%84%e5%88%97">选择性高的列
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%b8%b8%e7%94%a8%e4%ba%8e%e6%9f%a5%e8%af%a2%e6%9d%a1%e4%bb%b6%e7%9a%84%e5%88%97">常用于查询条件的列
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e8%80%83%e8%99%91%e5%88%97%e7%9a%84%e6%95%b0%e6%8d%ae%e7%b1%bb%e5%9e%8b">考虑列的数据类型
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e8%a6%86%e7%9b%96%e7%b4%a2%e5%bc%95">覆盖索引
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e8%81%94%e5%90%88%e7%b4%a2%e5%bc%95%e7%9a%84%e5%88%9b%e5%bb%ba">联合索引的创建
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e9%81%bf%e5%85%8d%e8%bf%87%e5%a4%9a%e7%9a%84%e7%b4%a2%e5%bc%95">避免过多的索引
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%bd%bf%e7%94%a8%e5%89%8d%e7%bc%80%e7%b4%a2%e5%bc%95">使用前缀索引
+        </a>
+      </li></ul><ul></ul>
+      <div class="mt-8 border-t bg-white pt-8 shadow-[0_-12px_16px_white] dark:bg-dark dark:shadow-[0_-12px_16px_#111] sticky bottom-0 flex flex-col items-start gap-2 pb-8 dark:border-neutral-800 contrast-more:border-t contrast-more:border-neutral-400 contrast-more:shadow-none contrast-more:dark:border-neutral-400">
+        <button aria-hidden="true" id="backToTop" onClick="scrollUp();" class="transition-all transition duration-75 opacity-0 text-xs font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 contrast-more:text-gray-800 contrast-more:dark:text-gray-50">
+          <span>Scroll to top</span>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="inline ml-1 h-3.5 w-3.5 border rounded-full border-gray-500 hover:border-gray-900 dark:border-gray-400 dark:hover:border-gray-100 contrast-more:border-gray-800 contrast-more:dark:border-gray-50">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+
+    <article class="w-full break-words flex min-h-[calc(100vh-var(--navbar-height))] min-w-0 justify-center pb-8 pr-[calc(env(safe-area-inset-right)-1.5rem)]">
+      <main class="w-full min-w-0 max-w-6xl px-6 pt-4 md:px-12">
+        <br class="mt-1.5 text-sm" />
+        <h1 class="text-center mt-2 text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100">索引</h1>
+        <div class="mb-16"></div>
+        <div class="content">
+          <h1>什么是索引</h1><p>索引是一种数据结构，用于快速查找和访问数据库表中的数据。索引的主要目的是提高查询效率，减少数据库的搜索时间。可以把它想象成一本书的目录：不需要逐页浏览整本书来找到特定的内容，而是直接查看目录，快速定位到所需的部分。</p>
+<blockquote>
+<p>数据库按记录为单位存储数据，如果不使用索引而采取遍历查询数据，其时间复杂度是$O(N)$。</p>
+</blockquote>
+<p>总结：<strong>索引是数据的目录</strong>。在 MySQL 中，索引也叫做 Key。</p>
+<p>索引的效率取决于索引列的值是否散列，即该列的值如果越互不相同，那么索引效率越高。反之，如果记录的列存在大量相同的值，例如性别只记录了男或者女，那么它们大概各占一半，因此对该列创建索引无意义，它不是散列的。</p>
+<p>可以对一张表创建多个索引。索引的优点是提高了查询效率，<strong>缺点是在插入、更新和删除记录时，需要同时修改索引，因此，索引越多，插入、更新和删除记录的速度就越慢</strong>。索引虽然不够完美，但是它足够物美价廉，而且贴合数据库的使用场景：提高检索海量数据的速度。</p>
+<blockquote>
+<p>磁盘和内存的 I/O 次数越少，效率越高。</p>
+</blockquote>
+<p>对于主键，关系数据库会自动对其创建主键索引。使用主键索引的效率是最高的，因为主键会保证绝对唯一。</p>
+<h2>测试表<span class="absolute -mt-20" id="测试表"></span>
+    <a href="#%e6%b5%8b%e8%af%95%e8%a1%a8" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>首先用一个测试表来看看索引的威力。</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-SQL" data-lang="SQL"><span class="line"><span class="cl"><span class="k">drop</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="k">exists</span><span class="w"> </span><span class="o">`</span><span class="n">index_demon</span><span class="o">`</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">create</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">exists</span><span class="w"> </span><span class="o">`</span><span class="n">index_demon</span><span class="o">`</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="nb">character</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">utf8</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">use</span><span class="w"> </span><span class="o">`</span><span class="n">index_demon</span><span class="o">`</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 构建一个 8000000 条记录的数据
+</span></span></span><span class="line"><span class="cl"><span class="c1">-- 构建的海量表数据需要有差异性，所以使用存储过程来创建
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 产生随机字符串
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">delimiter</span><span class="w"> </span><span class="err">$$</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">create</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="n">rand_string</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="nb">INT</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">returns</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">begin</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">declare</span><span class="w"> </span><span class="n">chars_str</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="k">default</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="s1">&#39;abcdefghijklmnopqrstuvwxyzABCDEFJHIJKLMNOPQRSTUVWXYZ&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">declare</span><span class="w"> </span><span class="n">return_str</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">declare</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="nb">int</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">while</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="k">do</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">set</span><span class="w"> </span><span class="n">return_str</span><span class="w"> </span><span class="o">=</span><span class="n">concat</span><span class="p">(</span><span class="n">return_str</span><span class="p">,</span><span class="k">substring</span><span class="p">(</span><span class="n">chars_str</span><span class="p">,</span><span class="n">floor</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">rand</span><span class="p">()</span><span class="o">*</span><span class="mi">52</span><span class="p">),</span><span class="mi">1</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">set</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">end</span><span class="w"> </span><span class="n">while</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">return</span><span class="w"> </span><span class="n">return_str</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">end</span><span class="w"> </span><span class="err">$$</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">delimiter</span><span class="w"> </span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 产生随机数字
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">delimiter</span><span class="w"> </span><span class="err">$$</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">create</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="n">rand_num</span><span class="p">(</span><span class="w"> </span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">returns</span><span class="w"> </span><span class="nb">int</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">begin</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">declare</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="nb">int</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">set</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">floor</span><span class="p">(</span><span class="mi">10</span><span class="o">+</span><span class="n">rand</span><span class="p">()</span><span class="o">*</span><span class="mi">500</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">return</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">end</span><span class="w"> </span><span class="err">$$</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">delimiter</span><span class="w"> </span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 创建存储过程，向雇员表添加海量数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">delimiter</span><span class="w"> </span><span class="err">$$</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">create</span><span class="w"> </span><span class="k">procedure</span><span class="w"> </span><span class="n">insert_emp</span><span class="p">(</span><span class="k">in</span><span class="w"> </span><span class="k">start</span><span class="w"> </span><span class="nb">int</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span><span class="k">in</span><span class="w"> </span><span class="n">max_num</span><span class="w"> </span><span class="nb">int</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">begin</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">declare</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="nb">int</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">set</span><span class="w"> </span><span class="n">autocommit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">repeat</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">set</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">EMP</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="p">((</span><span class="k">start</span><span class="o">+</span><span class="n">i</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">,</span><span class="n">rand_string</span><span class="p">(</span><span class="mi">6</span><span class="p">),</span><span class="s1">&#39;SALESMAN&#39;</span><span class="p">,</span><span class="mi">0001</span><span class="p">,</span><span class="n">curdate</span><span class="p">(),</span><span class="mi">2000</span><span class="p">,</span><span class="mi">400</span><span class="p">,</span><span class="n">rand_num</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">until</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max_num</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">end</span><span class="w"> </span><span class="n">repeat</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">commit</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">end</span><span class="w"> </span><span class="err">$$</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">delimiter</span><span class="w"> </span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 雇员表
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">`</span><span class="n">EMP</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="o">`</span><span class="n">empno</span><span class="o">`</span><span class="w"> </span><span class="nb">int</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span><span class="w"> </span><span class="n">unsigned</span><span class="w"> </span><span class="n">zerofill</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;雇员编号&#39;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="o">`</span><span class="n">ename</span><span class="o">`</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;雇员姓名&#39;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="o">`</span><span class="n">job</span><span class="o">`</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;雇员职位&#39;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="o">`</span><span class="n">mgr</span><span class="o">`</span><span class="w"> </span><span class="nb">int</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="n">unsigned</span><span class="w"> </span><span class="n">zerofill</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;雇员领导编号&#39;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="o">`</span><span class="n">hiredate</span><span class="o">`</span><span class="w"> </span><span class="n">datetime</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;雇佣时间&#39;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="o">`</span><span class="n">sal</span><span class="o">`</span><span class="w"> </span><span class="nb">decimal</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;工资月薪&#39;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="o">`</span><span class="n">comm</span><span class="o">`</span><span class="w"> </span><span class="nb">decimal</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;奖金&#39;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="o">`</span><span class="n">deptno</span><span class="o">`</span><span class="w"> </span><span class="nb">int</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="n">unsigned</span><span class="w"> </span><span class="n">zerofill</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;部门编号&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 执行存储过程，添加 8000000 条记录
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">call</span><span class="w"> </span><span class="n">insert_emp</span><span class="p">(</span><span class="mi">100001</span><span class="p">,</span><span class="w"> </span><span class="mi">8000000</span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<blockquote>
+<p>使用方法：</p>
+<ol>
+<li>退出 MySQL，将以上 SQL 保存在一个文件中，例如<code>index_data.sql</code></li>
+<li>然后进入 MySQL server，使用命令<code>source index_data.sql</code>执行它。</li>
+</ol>
+</blockquote>
+<p>由于它创建了 8000000 万条记录到数据库中，因此需要耗费一定时间（光标闪烁）：</p>
+<img src="./索引.IMG/image-20240223194918635.png" alt="image-20240223194918635" style="zoom:50%;" />
+<p>进入数据库中：</p>
+<img src="./索引.IMG/image-20240223195036598.png" alt="image-20240223195036598" style="zoom:50%;" />
+<p>表的内容和结构如下：</p>
+<img src="./索引.IMG/image-20240223195139154.png" alt="image-20240223195139154" style="zoom:50%;" />
+<p>表结构中表明它没有建立索引。</p>
+<p>先尝试查询几条记录：
+<img src="./%e7%b4%a2%e5%bc%95.IMG/image-20240223195412904.png" alt="image-20240223195412904" loading="lazy" /></p>
+<p>为员工编号建立索引后查询相同的记录：</p>
+<img src="./索引.IMG/image-20240223195938286.png" alt="image-20240223195938286" style="zoom:50%;" />
+<p>结果显而易见。关于索引，这里只是简单地展示了它在使用时的性能，更多篇幅将会讨论它的实现原理，以更好地理解并使用索引。</p>
+<h1>磁盘和 MySQL 的交互</h1><h2>了解磁盘<span class="absolute -mt-20" id="了解磁盘"></span>
+    <a href="#%e4%ba%86%e8%a7%a3%e7%a3%81%e7%9b%98" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>磁盘在操作系统这门课中已经了解过，在此仅讨论和数据库索引有关的部分。以下内容部分引用自：<a href="https://yey.world/2021/01/02/LearnedIndex-03/" target="_blank" rel="noopener">数据库中的 B 树与 B+ 树</a></p>
+<p>&lt;img src=&quot;./IMG/2021-01-02-WX20210102-105134@2x.png&quot; alt=&ldquo;数据库中的 B 树与 B<sup style="zoom:50%;" >+</sup> 树- YEY 的博客| YEY Blog&rdquo; /&gt;</p>
+<p>我们来看一下 <strong>磁盘 (disk)</strong> 的结构：一个典型的磁盘驱动器由一个或多个 <strong>盘片 (platter)</strong> 组成，它们以一个固定的速度围绕一个共同的 <strong>主轴 (spindle)</strong> 旋转。每个盘片表面覆盖着一层可磁化的物质。驱动器通过 <strong>磁臂 (arm)</strong> 末尾的 <strong>磁头 (head)</strong> 来读/写盘片。</p>
+<p>盘片在 <strong>逻辑上 （而非物理上）</strong> 被划分为一系列的同心环状区域，数据就存储在这样的同心圆环上面，这些同心圆环被称为 <strong>磁道 (track)</strong>。每个盘面可以划分多个磁道，最外圈的磁道是 0 号磁道，向圆心增长依次为 1 号磁道、2 号磁道……磁盘的数据存放就是从最外圈开始的。</p>
+<p>根据硬盘的规格不同，磁道数可以从几百到成千上万不等。每个磁道可以存储几个 Kb 的数据，但是计算机不必要每次都读写这么多数据。因此，再把每个磁道划分为若干个弧段，每个弧段就是一个 <strong>扇区 (sector)</strong>。</p>
+<img src="./索引.IMG/2021-01-02-WX20210102-131058@2x.png" alt="img" style="zoom:50%;" />
+<p>一个盘片被划分为许多磁道和扇区，一个磁道和一个扇区相交的区域称为一个 <strong>块 (block)</strong>。因此，磁盘上的任意一个块都可以通过其对应的磁道编号和扇区编号来寻址，也就是说，磁盘上的块地址格式由磁道编号和扇区编号组成：
+$$
+块地址 = （磁道编号，扇区编号）
+$$
+块是硬盘上存储的物理单位。出于稳定性考虑，通常一个块存储 512 字节的数据，但是实际上其容量可以是任意大小，具体取决于磁盘制造商和磁盘型号。</p>
+<p>这里，我们假设每个块的容量为 512 字节。当我们从磁盘上读取或写入数据时，我们总是以块为单位进行读/写。如果现在我们读取一个 512 字节的块，假设其中第一个字节的地址为 0，最后一个字节的地址为 511，那么其中每个字节都有其各自的地址，我们称之为 <strong>偏移量 (offset)</strong>。</p>
+<img src="./索引.IMG/2021-01-02-WX20210102-121031@2x.png" alt="img" style="zoom:50%;" />
+<p>假设磁盘上的每个块的第一个和最后一个字节的偏移量都分别为 0 和 511。因此，我们只需要知道 <strong>磁道编号</strong>、<strong>扇区编号</strong> 和 <strong>偏移量</strong> 这三个信息就可以定位到磁盘上的任意一个字节：首先，利用磁道编号和扇区编号定位到该字节所在的块；然后，在块内通过偏移量定位到该字节。</p>
+<p>正常情况下，我们可以通过盘片的旋转来选择扇区，通过磁头的轴向移动来选择磁道，也就是说，我们可以通过旋转盘片和移动磁头来定位到某个块，而数据总是以块的形式存储在磁盘上的。</p>
+<p>我们知道，数据处理无法直接在磁盘上进行，数据需要被读入内存中处理后再写回磁盘，才能被程序读取。</p>
+<img src="./索引.IMG/2021-01-02-WX20210102-141040@2x.png" alt="img" style="zoom:50%;" />
+<p>内存中的数据可以被程序直接访问，我们将其称为 <strong>数据结构 (data structure)</strong>。而在磁盘上高效组织数据使得其能够以一种简单方式被利用的系统被称为 <strong>数据库管理系统 (DBMS)</strong>。因此要查找某个数据，本质就是在磁盘上找到这个数据存在的扇区。</p>
+<h2>MySQL 的工作原理<span class="absolute -mt-20" id="mysql-的工作原理"></span>
+    <a href="#mysql-%e7%9a%84%e5%b7%a5%e4%bd%9c%e5%8e%9f%e7%90%86" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>MySQL 服务器（mysqld）在操作系统中是一个进程，在网络中是一个服务器，所以 MySQL 是运行在内存中的，因此对数据的所有操作包括索引都要在内存中进行。</p>
+<p>MySQL 与磁盘交互的基本单位是“页”（Page）。在 MySQL 中，尤其是在 InnoDB 存储引擎中，数据以页为单位进行读写。和操作系统的“页”类似，这种设计有几个原因：</p>
+<ul>
+<li>提高 I/O 效率</li>
+<li>减少数据碎片，提高磁盘利用率</li>
+<li>并发控制和恢复</li>
+<li>缓存管理</li>
+</ul>
+<blockquote>
+<p>无特殊说明，下文都是在存储引擎为 InnoDB 的基础上讨论的。</p>
+</blockquote>
+<p>通常情况下，MySQL 和磁盘交互的基本单位指的是 InnoDB 的默认页大小，是 16KB。</p>
+<img src="./索引.IMG/image-20240223210513998.png" alt="image-20240223210513998" style="zoom:50%;" />
+<blockquote>
+<p>为什么是 16KB 而不是和操作系统一样是 4KB？</p>
+</blockquote>
+<p>16KB 的默认页大小是 InnoDB 存储引擎根据多年的经验和性能测试选择的，旨在为广泛的应用场景提供最佳的性能平衡。然而，根据特定的工作负载和硬件配置，MySQL 提供了一定程度的灵活性，允许数据库管理员根据需要调整页大小。</p>
+<ol>
+<li><strong>性能优化</strong>：
+<ul>
+<li><strong>减少磁盘 I/O</strong>：较大的页大小意味着单次磁盘 I/O 操作可以读写更多的数据。这在处理大量数据时尤其有效，因为它可以减少需要进行的总 I/O 操作次数，从而提高查询和数据加载的速度。</li>
+<li><strong>提高缓存效率</strong>：更大的页可以优化缓存利用率，因为它允许更多的数据被缓存在同一内存区域。这有助于减少对磁盘的访问需求，尤其是在处理关联查询和范围查询时。</li>
+</ul>
+</li>
+<li>数据存储效率：
+<ul>
+<li>在数据库中，大量的小型 I/O 操作比少量的大型 I/O 操作更低效。较大的页大小有助于在数据库和磁盘之间传输更多的数据，尤其是当数据频繁被连续访问时。</li>
+<li>较大的页还可以更有效地处理大型数据对象和 BLOB（二进制大对象），这些在 4KB 的页面上可能会产生更多的管理开销和碎片。</li>
+</ul>
+</li>
+<li>系统兼容性：
+<ul>
+<li>尽管操作系统页通常为 4KB，但数据库系统通过自己的内部页管理和缓冲策略来优化性能。数据库设计者会根据数据访问模式和典型工作负载来选择最佳的页大小，以平衡 CPU 缓存利用、内存管理和磁盘 I/O 效率。</li>
+<li>数据库系统通常需要处理的是大量的、复杂的查询和数据处理操作，这与操作系统处理的广泛类型的任务有所不同。因此，数据库可以通过使用与操作系统不同的页大小来优化这些特定的工作负载。</li>
+</ul>
+</li>
+<li>历史和兼容性考虑：
+<ul>
+<li>InnoDB 的设计和优化是基于典型的服务器硬件和应用程序的性能特性进行的。16KB 页大小是一个折中的结果，它在许多情况下都能提供良好的性能表现，尽管对于特定应用来说，可能需要调整这个大小以获得最佳性能。</li>
+</ul>
+</li>
+</ol>
+<p>简单地说，操作系统和数据库都为了 I/O 的效率设置了一个交互的基本单位：页（page），这是一个经验值。而 MySQL 作为数据库，它的 I/O 事件比操作系统更频繁，所以单位要更大一些。</p>
+<blockquote>
+<p>注意，I/O 次数相比于单次 I/O 数据大小对 I/O 效率的影响大得多。</p>
+</blockquote>
+<h2>Buffer Pool<span class="absolute -mt-20" id="buffer-pool"></span>
+    <a href="#buffer-pool" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>从冯诺依曼体系架构来看，MySQL 就是一个应用层的协议，它的作用类似一个文件系统，运行在操作系统之上，管理着磁盘中的数据。数据要被 CPU 处理，就必须加载到 mysqld 申请的内存中，然后通过系统调用写回磁盘。要管理这些数据，本质上是管理这些文件。和操作系统的思想类似，<strong>先描述</strong>，<strong>再组织</strong>。</p>
+<p>为了减少内存和磁盘的 I/O 次数，mysqld 会为此向系统申请一块内存空间作为缓存，即 Buffer Pool。在数据发生改动后，MySQL 不会立即将它回写到磁盘中，而是存放在 Buffer Pool 中，当缓冲区有了一定数量的待写入数据后才会刷新。然而，内核也是有缓冲区的，因此 MySQL 中的待写入数据将会经过两个缓冲区的拷贝才会由内核写入磁盘。</p>
+<p>谈到内存，往往避免不了要谈局部性原理。MySQL 和磁盘 I/O（跳过了磁盘和操作系统）的基本单位是一个 Page，这么做的目的是减少 I/O 次数，从而提高 I/O 效率。原因是下一次要访问的数据很可能也在这个 Page 中。</p>
+<p>MySQL 作为运行在 OS 之上的应用软件，它只和文件交互，而不直接和数据交互（数据保存在文件中）。也就是说，为了减少和磁盘的交互次数，MySQL 尽量将所有操作都在它申请的内存中进行。</p>
+<p>Buffer Pool 是 InnoDB 存储引擎的一个关键组件，用于提高数据库操作的性能。下面是 Buffer Pool 的作用：</p>
+<ol>
+<li>缓存数据页：Buffer Pool 缓存来自 InnoDB 表的数据页。当查询数据时，MySQL 首先查看数据是否在 Buffer Pool 中。如果是，直接从内存读取，速度快。如果不是，从磁盘读取并存入 Buffer Pool，未来访问会更快。</li>
+<li>缓存索引页：除了数据，索引页也被缓存。这意味着数据查找和索引扫描也能从快速的内存操作中受益。</li>
+<li>写回机制：Buffer Pool 还管理数据的写回磁盘。它不是立即写回，而是采用一定策略，比如脏页（修改过的页）的定期写回，以此减少 I/O 操作。</li>
+<li>配置和管理：Buffer Pool 的大小是可配置的，根据系统的内存大小和数据库负载进行调整可以最大化其效能。</li>
+<li>LRU 算法：为了管理内存，Buffer Pool 使用最近最少使用（LRU）算法来决定哪些页被保留，哪些被淘汰。</li>
+</ol>
+<h1>理解索引</h1><h2>引入<span class="absolute -mt-20" id="引入"></span>
+    <a href="#%e5%bc%95%e5%85%a5" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>首先用一个以 ID 作为主键的信息表作为测试表。</p>
+<img src="./索引.IMG/image-20240224133951215.png" alt="image-20240224133951215" style="zoom:50%;" />
+<p>然后以 ID 乱序插入若干记录。</p>
+<img src="./索引.IMG/image-20240224134158879.png" alt="image-20240224134158879" style="zoom:50%;" />
+<p>可以看到即使插入的主键是乱序的，MySQL 会按照主键对插入的记录进行排序。</p>
+<blockquote>
+<p>为什么要这么做？</p>
+</blockquote>
+<p>类似书本中的目录，一个 Page 相当于一个章节，章节内部的每一页都有编号，这样方便查找。Page 本身对于整个文件而言也相当于目录。Page 和 Page 中的记录都以链表的形式被组织起来。</p>
+<h2>Page 的结构<span class="absolute -mt-20" id="page-的结构"></span>
+    <a href="#page-%e7%9a%84%e7%bb%93%e6%9e%84" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>一个 Page 的结构主要包括几个关键部分（了解即可）：</p>
+<ol>
+<li><strong>文件头部（File Header）</strong>：包含了该页的一些元信息，如页类型（比如是否为叶子节点）、==上一个和下一个页的指针==等。</li>
+<li><strong>页头部（Page Header）</strong>：包含页的特定信息，如记录数量、最后一个记录的位置等。</li>
+<li><strong>Infimum 和 Supremum 记录</strong>：这是两个虚拟的记录，分别表示页中最小和最大的记录。它们用于辅助记录的插入操作。</li>
+<li><strong>用户记录（User Records）</strong>：实际存储的==数据记录==，可以是表中的行数据或者是索引条目。</li>
+<li><strong>空闲空间（Free Space）</strong>：页中未被使用的部分，可以用来存储将来插入的记录。</li>
+<li><strong>页目录（Page Directory）</strong>：页中记录的索引，用于快速定位记录。它通过记录的相对位置（slot）来组织记录，有助于加速页内搜索。</li>
+<li><strong>文件尾部（File Trailer）</strong>：包含页的校验和信息，用于检查页数据在磁盘上的完整性。</li>
+</ol>
+<img src="./索引.IMG/INDEX_Page_Overview.png" alt="img" style="zoom: 67%;" />
+<p>图片来自：https://blog.j 列 e.us/2013/01/07/the-physical-structure-of-innodb-index-pages/</p>
+<p>InnoDB 通过这样的页结构，实现了其高效的数据存储和访问机制。每个页都通过 B+树结构组织在一起，无论是数据页（B+树的叶子层）还是索引页（B+树的非叶子层），都遵循这种结构。这使得 InnoDB 能够高效地进行数据的读取、插入、更新和删除操作。</p>
+<img src="./索引.IMG/image-20240224152401673.png" alt="image-20240224152401673" style="zoom:50%;" />
+<blockquote>
+<p>其中 User Records 存储的是数据，图示将它作为“数据字段”，其他部分作为“属性字段”。B+树将会在后续介绍。</p>
+</blockquote>
+<p>值得注意的是，在 MySQL 的 InnoDB 存储引擎中，一个 Page（页面）记录的数据通常<strong>不会</strong>来自不同的表。每个 Page 是专门用于存储单一表中的数据或索引信息的。这是因为 InnoDB 的表和索引是基于 B+树数据结构组织的，而每个 B+树结构是独立于表的基础上构建的。这一点将会在后文中解释。</p>
+<h2>页内目录（Page Directory）<span class="absolute -mt-20" id="页内目录page-directory"></span>
+    <a href="#%e9%a1%b5%e5%86%85%e7%9b%ae%e5%bd%95page-directory" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>一个页中存放的数据记录以链表的形式被组织起来，当达到一定数量后，线性查找的时间复杂度会降低效率，在页内维护数据记录的目录以提高查找效率。</p>
+<p>页内目录的目的：</p>
+<ul>
+<li>提高搜索效率：页内目录使得 InnoDB 能够通过二分查找快速定位页内的记录，而不是线性扫描整个页。二分查找的前提是有序，这样就使得查找的每一步都是有效的。</li>
+<li>有序组织：尽管页内的记录是按照插入顺序存储的，页目录却按照键值的顺序维护指向这些记录的指针，以加速查找操作。</li>
+</ul>
+<p>页内目录的结构：</p>
+<ul>
+<li>指针数组：页内目录由一组指针（或称为槽）组成，这些指针指向页内的记录。这些指针并不是指向所有记录，而是指向“关键记录”。</li>
+<li>关键记录：在 B+树的叶子页中，关键记录通常是指页内按键值排序后每隔一定间隔的记录。这样，每个槽大致代表了页内一段范围的记录。</li>
+</ul>
+<p>页内目录的机制：</p>
+<ol>
+<li>记录插入：当一个记录被插入到页中时，它会被放置在页内适当的位置以保持记录的总体顺序。如果这个插入导致了一个新的“关键记录”的产生，页目录也会相应更新。</li>
+<li>记录查找：进行查找时，InnoDB 首先使用二分查找法在页目录中查找最接近的关键记录。一旦找到最接近的槽，就在该槽指向的记录附近开始线性搜索，直到找到目标记录。</li>
+</ol>
+<p>页内目录的好处</p>
+<ul>
+<li>效率：通过减少必须检查的记录数量，页目录显著提高了页内搜索的效率。</li>
+<li>适应性：页目录的设计允许页内记录保持物理插入顺序，而不影响查找性能。</li>
+</ul>
+<p>由于页内目录是 Page 内的记录，所以这是一种空间换时间的做法，现实中书本的目录也是如此。</p>
+<img src="./索引.IMG/image-20240224152416298.png" alt="image-20240224152416298" style="zoom:50%;" />
+<p>现在能解释最初为什么 MySQL 可以对记录排序了。因为 MySQL 默认会对含有主键的表的记录进行排序。页内部的数据记录本质是一个链表，链表的特点是增删快而查改慢，所以只要是有序的，那么二分查找的每一步都是有效的。并且主键的性质能保证排序是一定正确的，反之排序的依据不是主键（例如是性别），那么为之建立的索引也是无意义的。</p>
+<h2>多页情况<span class="absolute -mt-20" id="多页情况"></span>
+    <a href="#%e5%a4%9a%e9%a1%b5%e6%83%85%e5%86%b5" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>MySQL 的一页大小是 16KB，如果单页不断被插入记录，那么在容量不足时 MySQL 会开辟新页来储存新记录，然后通过指针记录新页的位置。</p>
+<img src="./索引.IMG/2c1dc87069364f989542aa14879d70fd.png" alt="在这里插入图片描述" style="zoom:50%;" />
+<p>图片来源（包括下文）：https://blog.csdn.net/chenlong_cxy/article/details/128784469</p>
+<p>值得注意的是，每一个 Page 内部和整体都是保持有序的，这意味着并不是每一条新纪录都会在新的 Page 中。这些关联在一起的 Page 共同维护着同一张表的所有记录，如果 Page 数量过多，那么 MySQL 在查询时仍然需要遍历 Page。虽然事先在 Page 内部使用了页内目录，但是首先得找到正确的 Page 后它才能发挥作用。</p>
+<p>类似地，为每一个 Page 都建立目录，以供 MySQL 更快地找到正确的 Page。这类似某些检索系统，通过多级索引，最终划分到细支上。</p>
+<h2>B 树和 B+树<span class="absolute -mt-20" id="b-树和-b树"></span>
+    <a href="#b-%e6%a0%91%e5%92%8c-b%e6%a0%91" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>以上讨论的 Page 的目录，叫做 B+树索引。那么什么是 B+树呢？有没有 B 树？</p>
+<p><a href="https://yey.world/2021/01/02/LearnedIndex-03/" target="_blank" rel="noopener">参看本文的第六、七、八节</a></p>
+<p>总之，B+树是含有索引的查找树，如果不断地为 Page 建立索引，那么最终总会有一个根结点作为索引的入口。</p>
+<img src="./索引.IMG/053ad0bdb200421ca2ed8bd400804bd1.png" alt="img" style="zoom:50%;" />
+<p>这是 InnoDB 存储引擎的索引结构，它是一棵 B+树。当一张表的数据量增加到需要多个页来存储时，InnoDB 使用一种结构来组织这些页，这个结构称为** B+树索引**。</p>
+<blockquote>
+<p>在操作系统中的多级页表和多级索引也是类似的思想。</p>
+</blockquote>
+<p>注意：在 B+树中，所有的数据记录都存储在叶子节点中，而内部节点仅存储键值作为索引。</p>
+<p>B+树的特点：</p>
+<ul>
+<li>所有叶子节点都位于同一层，并且通过指针相互连接，这为全范围扫描提供了便利。</li>
+<li>内部节点的键作为指向子节点的指针，它们并不直接关联于实际的数据记录，只用于导航。</li>
+<li>叶子节点包含所有键值及指向数据记录的指针，因此 B+树通常有更高的分支因子，减少树的高度更进一步。</li>
+</ul>
+<p>当表被设置主键后，MySQL 会将它以 B+树的形式维护起来（叶子节点存数据，其他节点存索引），通过查询 B+树来提高效率。<strong>在一个有主键索引的表中，一个 B+树通常维护的是一张表中的所有记录</strong>。</p>
+<blockquote>
+<p>是否所有 page 节点都需要加入到 Buffer Pool？</p>
+</blockquote>
+<ul>
+<li>按需缓存：理论上，所有的 page 节点都可以被缓存到 Buffer Pool 中。但实际上，由于 Buffer Pool 的大小是有限的，因此并不是所有的 page 节点都会被缓存。</li>
+<li>缓存策略：InnoDB 使用一系列的缓存策略来管理 Buffer Pool 的内容，包括最近最少使用（LRU）算法、从 Buffer Pool 中逐出不常用的页来为新的页腾出空间等。这意味着频繁访问的页更有可能被缓存。</li>
+<li>写回策略：对于被修改的页（称为脏页），InnoDB 会定期将它们写回到磁盘，以确保数据的持久性。这个过程叫做“刷新”（flushing）。</li>
+</ul>
+<blockquote>
+<p>B+树一般有几层，在保证一定性能的情况下可以保存多少条记录？</p>
+</blockquote>
+<p>B+树的层数和它能保存的记录数量依赖于几个关键因素，包括树的阶（即每个节点可以包含的最大子节点数），页（节点）的大小，以及记录的大小。这些参数决定了 B+树的高度和它能够有效管理的数据量大小。</p>
+<p>B+树的层数通常很少，这是因为每个节点可以包含大量的子节点，这样的高分支因子使得即使是在存储大量记录的情况下，B+树的高度也相对较低。这是 B+树非常适合用于数据库索引的一个原因，因为即使是庞大的数据集也可以通过几次磁盘 I/O 操作访问到。</p>
+<p>假设一个 B+树的阶是 100，这意味着每个内部节点可以最多有 100 个子节点，而每个叶节点可以包含最多 99 个记录（或索引项）。</p>
+<ul>
+<li><strong>一层</strong>：只有一个根节点的 B+树可以直接存储最多 99 条记录。</li>
+<li><strong>两层</strong>：一层内部节点加上叶节点层，可以存储大约 ($100 \times 99 = 9,900$) 条记录。</li>
+<li><strong>三层</strong>：可以存储大约 ($100^2 \times 99 = 990,000$) 条记录。</li>
+<li><strong>四层</strong>：可以存储大约 ($100^3 \times 99 = 99,000,000$) 条记录。</li>
+</ul>
+<p>实际上，即使是几百万到几十亿条记录，B+树的层数也通常只需维持在 3 到 4 层，这极大地减少了数据检索时的磁盘 I/O 次数，保证了数据库操作的高效性。</p>
+<blockquote>
+<p>为什么 B+树的非叶子节点不存储数据呢？</p>
+</blockquote>
+<p>索引和记录都被记录在 Page 的数据段中，这么做可以让一个 Page 都记录索引，这样这棵 B+树就会比较“矮胖”。换句话说就是让存放数据的节点只有一层叶子节点，其他节点就能全部用作存储索引，层数越低，I/O 次数越少，效率越高。如果数据和记录一起存储在一个 Page 中，那么 B+树就会变得比较高。</p>
+<p>从 B+树的结构来看，它是边使用边构建的。</p>
+<blockquote>
+<p>索引可以使用什么数据结构？</p>
+</blockquote>
+<ul>
+<li><input disabled="" type="checkbox"> 链表：查找效率低（平均时间复杂度为$O(n)$），不支持快速随机访问和有效的范围查询。</li>
+<li><input disabled="" type="checkbox"> 二叉搜索树：最坏情况下（如插入已排序的数据时）退化为链表，性能大幅下降。</li>
+<li><input disabled="" type="checkbox"> AVL 树和红黑树：相比于 B+树，节点存储数据导致树的高度较高，增加了磁盘 I/O 操作，特别是在大量数据存储的场景下。</li>
+<li><input checked="" disabled="" type="checkbox"> 哈希表：官方的索引实现方式中 MySQL 是支持哈希表的，只不过 InnoDB 和 MyISAM 存储引擎并不支持。哈希表的优点就是它查找的时间复杂度是$O(1)$ 的，缺点是不支持范围查询，哈希冲突处理可能会影响性能，数据无序。</li>
+</ul>
+<p>下面是几个常见的存储引擎，与其所支持的索引类型：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">存储引擎</th>
+<th style="text-align:center">支持的索引类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">InnoDB</td>
+<td style="text-align:center">BTREE</td>
+</tr>
+<tr>
+<td style="text-align:center">MyISAM</td>
+<td style="text-align:center">BTREE</td>
+</tr>
+<tr>
+<td style="text-align:center">MEMORY/HEAP</td>
+<td style="text-align:center">HASH、BTREE</td>
+</tr>
+<tr>
+<td style="text-align:center">NDB</td>
+<td style="text-align:center">HASH、BTREE</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>为什么不使用 B 树作为索引的结构？</p>
+</blockquote>
+<ol>
+<li>B 树可以将数据和指针存储在任意节点，原因见上</li>
+<li>B 树的叶子节点之间没有用链表关联起来，不利于范围查找。</li>
+</ol>
+<p>而其他数据结构虽然很高效，但是效率接近二分，而 B+树的效率高于二分，每次都可以筛掉一大部分不符合条件的分支。哈希空间满后需要重新构建哈希，这样反而效率会降低，虽然这可以通过新老哈希来解决，但是和 B+树相比，还是有点麻烦了。</p>
+<h2>聚簇索引和非聚簇索引<span class="absolute -mt-20" id="聚簇索引和非聚簇索引"></span>
+    <a href="#%e8%81%9a%e7%b0%87%e7%b4%a2%e5%bc%95%e5%92%8c%e9%9d%9e%e8%81%9a%e7%b0%87%e7%b4%a2%e5%bc%95" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>像 B+树这样，将所有数据存储在叶子节点的索引就是聚簇索引，反之是非聚簇索引。</p>
+<p>不同存储引擎使用不同的索引结构，例如 MyISAM 就是非聚簇索引，InnoDB 就是聚簇索引。我们知道在 MySQL 中建表，实际上是在磁盘中创建文件，其中<code>.frm</code>是结构文件。</p>
+<p>采用 InnoDB 存储引擎创建表时会生成一个<code>.ibd</code>文件，该文件中存储的是索引和数据相关的信息，索引和数据是存储在同一个文件中的。</p>
+<p>采用 MyISAM 存储引擎创建表时会生成一个<code>.MYD</code>文件和一个<code>.MYI</code>文件，其中<code>.MYD</code>文件中存储的是数据相关的信息，而<code>.MYI</code>文件中存储的是索引相关的信息，索引和数据是分开存储的。</p>
+<p>当插入记录时，使用 MyISAM 的表会立即写入到磁盘中，而使用 InnoDB 的需要刷新才会变化。</p>
+<h1>主键索引</h1><p>主键索引是数据库表中的一种特殊索引，用于唯一标识表中的每一行记录。</p>
+<p>主键索引的主要特点和作用包括：</p>
+<ul>
+<li>
+<p>唯一性：主键的值必须是唯一的，不能有重复。这意味着通过主键可以唯一确定表中的每一条记录。</p>
+</li>
+<li>
+<p>非空性：主键字段不能为 NULL。每一行都必须有一个主键值。</p>
+</li>
+<li>
+<p>索引：主键自动成为一个索引（在大多数数据库管理系统中是聚簇索引），这使得基于主键的数据检索非常快速。因为聚簇索引影响数据的物理存储顺序，所以基于主键的查询可以高效地执行。</p>
+</li>
+<li>
+<p>数据完整性：主键帮助维护数据的完整性。它确保了表中的每一行都可以被清晰地识别和引用。</p>
+</li>
+<li>
+<p>外键关联：在关系型数据库中，其他表可以通过主键来引用该表中的记录，主键成为这种关系的基础。这种通过主键和外键建立的链接是维护数据完整性和实现数据之间关系的关键机制。</p>
+</li>
+<li>
+<p>使用场景：选择主键时，通常选择不会更改的数据列。常用的主键类型包括自增整数（在很多数据库系统中被称为自动编号的字段）和全局唯一标识符（GUID）。</p>
+</li>
+</ul>
+<h2>创建<span class="absolute -mt-20" id="创建"></span>
+    <a href="#%e5%88%9b%e5%bb%ba" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>方法一：在属性名后指定</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">t1</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="nb">int</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<p>方法二：在表后指定</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">t2</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="nb">int</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<p>方法三：在已有表中使用 alter 和 add 添加</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">t3</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="nb">int</span><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">t3</span><span class="w"> </span><span class="k">add</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">(</span><span class="n">id</span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<p>注意，不要随意定义主键，一张表只能有一个主键，即只能有一个索引。mysqld 会为有主键的表自动构建主键索引（聚簇索引和非聚簇索引）。</p>
+<p>复合主键形式上虽然是两个主键，但它们的列值组合是唯一的，所以可以当做一个主键来使用，复合主键将自动成为表的聚簇索引。</p>
+<h1>唯一索引</h1><p>唯一索引是数据库表中的一种索引，它确保索引键列中的每个值都是唯一的。这意味着两行不能有相同的索引键值。唯一索引用于防止数据表中出现重复的记录，从而保持数据的完整性和准确性。它既可以作为数据完整性的一个约束，也可以提高基于这些列的查询的效率。</p>
+<h2>主要特点<span class="absolute -mt-20" id="主要特点"></span>
+    <a href="#%e4%b8%bb%e8%a6%81%e7%89%b9%e7%82%b9" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><ul>
+<li><strong>唯一性</strong>：唯一索引保证了表中每个索引键值的唯一性。尝试插入或更新重复的索引键值时，数据库系统将拒绝这些操作。</li>
+<li><strong>非空性（可选）</strong>：唯一索引允许索引键中的值为 NULL，但这取决于具体的数据库管理系统（DBMS）实现。大多数 DBMS 允许唯一索引列包含 NULL 值，但通常限制为只能有一个 NULL 值，因为 NULL 通常被视为未知且不相等的值。</li>
+<li><strong>查询优化</strong>：唯一索引不仅用于数据完整性检查，也用于加速对唯一索引列的查询操作。</li>
+</ul>
+<h2>与主键索引的区别<span class="absolute -mt-20" id="与主键索引的区别"></span>
+    <a href="#%e4%b8%8e%e4%b8%bb%e9%94%ae%e7%b4%a2%e5%bc%95%e7%9a%84%e5%8c%ba%e5%88%ab" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><ul>
+<li><strong>唯一性约束</strong>：主键索引和唯一索引都强制实施唯一性约束，但每个表只能有一个主键，而可以有多个唯一索引。</li>
+<li><strong>非空约束</strong>：主键字段不允许 NULL 值，而唯一索引字段通常允许包含一个 NULL 值（具体取决于 DBMS）。</li>
+<li><strong>用途</strong>：主键索引是标识表中每行的唯一标识符，而唯一索引是用来防止特定列或列组合中的重复值。</li>
+</ul>
+<h2>使用场景<span class="absolute -mt-20" id="使用场景"></span>
+    <a href="#%e4%bd%bf%e7%94%a8%e5%9c%ba%e6%99%af" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><ul>
+<li><strong>数据完整性</strong>：当你希望确保某列（如电子邮件地址、身份证号码等）中的数据值不重复时，可以使用唯一索引。</li>
+<li><strong>性能优化</strong>：对于经常用作查询条件的列，如果它们的值是唯一的或几乎唯一的，创建唯一索引可以提高查询性能。</li>
+</ul>
+<h2>创建<span class="absolute -mt-20" id="创建-1"></span>
+    <a href="#%e5%88%9b%e5%bb%ba-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>方法一：在属性名后指定</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">t1</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="nb">int</span><span class="w"> </span><span class="k">unique</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<p>方法二：在表后指定</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">t2</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="nb">int</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">unique</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<p>方法三：在已有表中使用 alter 和 add 添加</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">t3</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="nb">int</span><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">t3</span><span class="w"> </span><span class="k">add</span><span class="w"> </span><span class="k">unique</span><span class="p">(</span><span class="n">id</span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<h1>联合索引</h1><p>联合索引（也称为复合索引）是在数据库表的两个或多个列上创建的索引。这种类型的索引可以极大地提高涉及这些列的查询性能，尤其是当查询条件包含这些列的组合时。联合索引利用了数据库表中列的组合关系，以优化查询、更新和管理数据的操作。</p>
+<h2>工作原理<span class="absolute -mt-20" id="工作原理"></span>
+    <a href="#%e5%b7%a5%e4%bd%9c%e5%8e%9f%e7%90%86" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>联合索引的创建遵循特定的列顺序，这一点对于查询的优化至关重要。例如，如果在列 1 和列 2 上创建一个联合索引，则索引会首先按列 1 排序，然后在列 1 的每个值内部按列 2 排序。这意味着，当你的查询条件同时包含列 1 和列 2 时，该索引可以非常高效地使用。然而，如果查询只涉及列 2，则这个联合索引可能不会被使用（除非索引是覆盖索引，即查询只需要索引中的数据）。</p>
+<h2>优点<span class="absolute -mt-20" id="优点"></span>
+    <a href="#%e4%bc%98%e7%82%b9" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><ol>
+<li><strong>提高查询效率</strong>：对于包含 WHERE 子句中有多个条件的查询，联合索引可以减少查找和排序的时间。</li>
+<li><strong>优化排序和分组查询</strong>：对于包含 ORDER BY 或 GROUP BY 多个列的查询，如果这些列在同一个联合索引中，可以显著提高查询的效率。</li>
+<li>*<strong>支持索引覆盖</strong>：如果查询只需要索引中的列，即使查询不使用所有的索引列，也可以避免访问表数据，从而提高查询速度。</li>
+</ol>
+<h2>创建<span class="absolute -mt-20" id="创建-2"></span>
+    <a href="#%e5%88%9b%e5%bb%ba-2" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>在 MySQL 中，可以使用以下 SQL 语句创建联合索引：</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">index_name</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">table_name</span><span class="err">（列</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="err">列</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="p">...);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<p>或者在创建表的时候直接定义索引：</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">table_name</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="err">列</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">datatype</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="err">列</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="n">datatype</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">INDEX</span><span class="w"> </span><span class="n">index_name</span><span class="w"> </span><span class="err">（列</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="err">列</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="p">...)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<h2>注意事项<span class="absolute -mt-20" id="注意事项"></span>
+    <a href="#%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><ul>
+<li>索引列的顺序很重要：查询性能的提升在很大程度上依赖于联合索引中列的顺序，以及查询中使用这些列的方式。</li>
+<li>避免过度索引：虽然索引可以提高查询性能，但每个额外的索引都会消耗更多的存储空间，并且会在插入、更新和删除数据时增加额外的性能开销。</li>
+<li>选择性和宽度：高选择性的列（即具有许多唯一值的列）通常是创建索引的好候选，但是过宽的索引（即包含许多列或很长的列）可能会减慢操作速度。</li>
+</ul>
+<h2>最左匹配原则<span class="absolute -mt-20" id="最左匹配原则"></span>
+    <a href="#%e6%9c%80%e5%b7%a6%e5%8c%b9%e9%85%8d%e5%8e%9f%e5%88%99" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>最左匹配原则（Leftmost Prefix Principle）是数据库索引特别是复合索引查询过程中的一个重要原则。它涉及到如何利用复合索引进行查询优化和索引选择，从而影响使用数据库的效率。</p>
+<h3>原理<span class="absolute -mt-20" id="原理"></span>
+    <a href="#%e5%8e%9f%e7%90%86" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>复合索引是在表的两个或多个列上创建的索引。最左匹配原则指的是，在使用复合索引时，<strong>查询条件必须从索引的最左边的列开始</strong>，并且按照索引列的顺序进行匹配。数据库能够利用索引加速查询的能力取决于查询条件如何与索引的最左边的列对应起来。</p>
+<h3>示例<span class="absolute -mt-20" id="示例"></span>
+    <a href="#%e7%a4%ba%e4%be%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>假设有一个复合索引是在<code>col1</code>, <code>col2</code>, <code>col3</code>上创建的（按此顺序）。根据最左匹配原则：</p>
+<ul>
+<li>查询条件包含<code>col1</code>，可以有效利用这个索引。</li>
+<li>查询条件包含<code>col1</code>和<code>col2</code>，也可以有效利用这个索引。</li>
+<li>查询条件如果只包含<code>col2</code>或只包含<code>col3</code>，则无法有效利用这个复合索引。</li>
+</ul>
+<h3>作用<span class="absolute -mt-20" id="作用"></span>
+    <a href="#%e4%bd%9c%e7%94%a8" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
+<li><strong>查询优化</strong>：理解最左匹配原则对于编写可以充分利用复合索引的查询至关重要。这可以显著提高查询性能，特别是在处理大量数据时。</li>
+<li><strong>索引设计</strong>：在设计复合索引时，应考虑查询模式，并将<strong>最常用作查询条件的列放在索引的最左边</strong>。</li>
+<li><strong>减少全表扫描</strong>：正确使用复合索引可以避免不必要的全表扫描，从而减少 I/O 操作，提高查询速度。</li>
+</ul>
+<h3>注意事项<span class="absolute -mt-20" id="注意事项-1"></span>
+    <a href="#%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
+<li>范围查询：在复合索引中，一旦某一列用于范围查询（如<code>&gt;</code>、<code>&lt;</code>、<code>BETWEEN</code>等），它右边的列就不能再利用这个索引进行优化查询了。</li>
+<li>前缀匹配：最左匹配原则也适用于 LIKE 查询，但一旦 LIKE 模式的开头是通配符（如<code>%</code>或<code>_</code>），索引就不会被使用。</li>
+<li>函数和表达式：如果查询条件中列被函数或表达式包含，那么即使这些列在索引中，索引也可能不会被使用。</li>
+</ul>
+<h1>普通索引</h1><p>普通索引，也称为标准索引或单列索引，是数据库中最基本类型的索引（实际应用多）。普通索引不强制实施任何数据完整性约束，如唯一性约束。这意味着，即使是使用了普通索引的列也可以<strong>包含重复的值</strong>。</p>
+<blockquote>
+<p>普通（辅助）索引和主键索引最主要的差别是它的主键不能重复，非主键可以重复。</p>
+</blockquote>
+<h2>主要特点<span class="absolute -mt-20" id="主要特点-1"></span>
+    <a href="#%e4%b8%bb%e8%a6%81%e7%89%b9%e7%82%b9-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><ul>
+<li><strong>数据检索</strong>：普通索引主要用于提高查询效率，特别是对于那些经常作为查询条件（WHERE 子句）、联结条件（JOIN 子句）或排序（ORDER BY 子句）的字段。</li>
+<li><strong>无唯一性要求</strong>：与唯一索引或主键索引不同，普通索引允许索引列中存在重复的值。</li>
+<li><strong>单列索引</strong>：通常指为表中的单一列创建的索引，但也可以为多个列创建组合索引，组合索引中的第一列可以视为普通索引。</li>
+</ul>
+<h2>使用场景<span class="absolute -mt-20" id="使用场景-1"></span>
+    <a href="#%e4%bd%bf%e7%94%a8%e5%9c%ba%e6%99%af-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><ul>
+<li>当你希望提高基于某个字段的查询性能，但该字段不需要是唯一的，就可以为该字段创建一个普通索引。</li>
+<li>对于那些可能会在查询中作为过滤条件出现的列，尤其是那些包含大量数据的列，使用普通索引可以显著减少查询时间。</li>
+</ul>
+<h2>创建和维护<span class="absolute -mt-20" id="创建和维护"></span>
+    <a href="#%e5%88%9b%e5%bb%ba%e5%92%8c%e7%bb%b4%e6%8a%a4" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><ul>
+<li><strong>创建索引</strong>：在数据库中，可以通过 CREATE INDEX 语句来为表中的列创建索引。</li>
+<li><strong>维护开销</strong>：虽然索引可以提高查询性能，但它们也需要在插入、更新或删除操作时进行维护，这可能会影响这些操作的性能。因此，需要在提高查询效率与维护索引的开销之间找到平衡。</li>
+</ul>
+<h2>注意事项<span class="absolute -mt-20" id="注意事项-2"></span>
+    <a href="#%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9-2" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><ul>
+<li>使用普通索引时，应仔细选择需要索引的列。过多的索引会增加数据库的存储需求，并可能降低写操作的性能。</li>
+<li>在选择索引的列时，考虑查询的模式和数据的分布情况。选择那些能够显著改善查询性能而对写操作影响最小的列。</li>
+</ul>
+<p>对于 MyISAM 存储引擎，构建主键索引或普通索引就是构建 B+树，叶子节点保存的是数据记录的地址。</p>
+<p>InnoDB 存储引擎中构建主键索引（聚簇索引）和普通索引（二级索引或非聚簇索引）有所不同，其区别主要体现在数据的存储结构和访问方式上。这些区别直接影响了数据的检索效率和存储方式。</p>
+<p>主键索引（聚簇索引）</p>
+<ul>
+<li><strong>数据和索引的结合</strong>：在 InnoDB 中，聚簇索引将数据直接存储在索引的叶子节点中。这意味着，表数据按照主键的顺序进行存储。</li>
+<li><strong>唯一标识</strong>：<strong>每个 InnoDB 表都有一个聚簇索引</strong>，如果表定义了主键，那么主键自动成为聚簇索引；如果没有显式定义主键，InnoDB 会选择一个唯一的非空索引代替；如果这样的索引也不存在，InnoDB 内部会生成一个隐藏的行 ID 作为聚簇索引。</li>
+</ul>
+<p>普通索引（非聚簇索引）</p>
+<ul>
+<li><strong>指向聚簇索引的指针</strong>：普通索引的叶子节点包含了聚簇索引键的值，而不是直接指向行数据的物理位置。因此，使用普通索引找到数据时，通常需要通过聚簇索引键的值来定位实际的数据行（即“回表”操作）。</li>
+<li><strong>索引的独立存储</strong>：普通索引存储在表空间的独立部分，与聚簇索引物理分开。</li>
+</ul>
+<h3>回表<span class="absolute -mt-20" id="回表"></span>
+    <a href="#%e5%9b%9e%e8%a1%a8" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>下面这张表中 ID 是主键：</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><pre><code>CREATE TABLE `student` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT &#39;自增主键&#39;,
+  `name` varchar(32) 列 LATE utf8_bin NOT NULL COMMENT &#39;名称&#39;,
+  `age` int(3) unsigned NOT NULL DEFAULT &#39;1&#39; COMMENT &#39;年龄&#39;,
+  PRIMARY KEY (`id`),
+  KEY `I_name` (`name`)
+) ENGINE=InnoDB;
+
+id		name		age
+1		小王			12
+2		小陈			13
+3		小刘			14</code></pre><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<p>对于查询：</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-SQL" data-lang="SQL"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">student</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;小王&#39;</span><span class="p">;</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<p>主键索引的 B+树的叶子节点存储了整条记录：</p>
+<img src="./索引.IMG/image-20240226093157620.png" alt="image-20240226093157620" style="zoom:50%;" />
+<p>而普通索引的 B+树的叶子节点只存储主键：</p>
+<img src="./索引.IMG/image-20240226095129703.png" alt="image-20240226095129703" style="zoom:50%;" />
+<p>回表（Bookmark Lookup）</p>
+<ul>
+<li><strong>定义</strong>：回表是 InnoDB 执行普通索引查询时的一种操作。当通过普通索引（非聚簇索引）查找数据时，数据库首先找到对应的聚簇索引键值，然后使用这个键值在聚簇索引中再次查找以获取实际的行数据。这个过程称为“回表”操作，因为它需要回到聚簇索引去查找完整的行数据。</li>
+<li><strong>性能影响</strong>：回表操作需要额外的索引查找，可能会对查询性能产生影响。单次回表不会对效率产生影响，因为 B+树的层高一般是 3 到 4 层。当包含大量普通索引查找的查询时，回表操作可能会成为性能瓶颈。</li>
+</ul>
+<h3>索引覆盖<span class="absolute -mt-20" id="索引覆盖"></span>
+    <a href="#%e7%b4%a2%e5%bc%95%e8%a6%86%e7%9b%96" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>回表会对性能产生影响，优化的方式是索引覆盖（covering index，或覆盖索引）。</p>
+<p>当一个查询能够完全通过一个或多个索引来获取所需的所有数据，而无需访问数据行本身时，我们称这种情况为“索引覆盖”。这意味着查询操作只需要读取索引，而不必访问表中的数据行。索引覆盖能够显著提高查询效率，因为索引结构（如 B+树）通常优化了数据的读取操作，且<strong>索引的大小通常小于整个表的大小</strong>，从而减少了磁盘 I/O 操作和提高了查询速度。</p>
+<p>覆盖索引的使用方式如下：</p>
+<p>对于查询：</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-SQL" data-lang="SQL"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">student</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;小刘&#39;</span><span class="p">;</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<p>上面以 NAME 建立的普通索引首先需要被删除，然后以 NAME 和 AGE 建立联合索引。</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-SQL" data-lang="SQL"><span class="line"><span class="cl"><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">student</span><span class="w"> </span><span class="k">DROP</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">I_name</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">student</span><span class="w"> </span><span class="k">ADD</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">I_name_age</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">age</span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<p>如果在创建表时，可以这样建立联合索引：</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-SQL" data-lang="SQL"><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="n">INDEDX</span><span class="w"> </span><span class="n">i_name_age</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">student</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">age</span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<p>这个需求是常见的：根据名称获取年龄或其他信息。那么建立它们的复合索引，索引本身包含了需要查询的年龄列，数据库可以直接用索引中获取这些数据而无需回表。这个索引是一个覆盖索引，它覆盖了上面的查询。</p>
+<h2>创建<span class="absolute -mt-20" id="创建-3"></span>
+    <a href="#%e5%88%9b%e5%bb%ba-3" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>方法一：</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">t4</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="nb">int</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">index</span><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<p>方法二：在已有表中使用 alter 和 add 添加</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">t5</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="nb">int</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">t5</span><span class="w"> </span><span class="k">add</span><span class="w"> </span><span class="k">index</span><span class="p">(</span><span class="n">name</span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<p>方法三：在已有表中使用 create 和 on 添加</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">t6</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="nb">int</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">create</span><span class="w"> </span><span class="k">index</span><span class="w"> </span><span class="n">idx_name</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">t6</span><span class="p">(</span><span class="n">name</span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<h1>全文索引</h1><p>全文索引是一种特殊类型的数据库索引，它允许对文本内容中的所有单词进行索引，以便进行高效的全文搜索。这种索引类型适用于包含大量文本的字段，如文章、报告、评论等，使得可以快速检索包含指定关键词或短语的记录。全文索引的设计旨在解决传统索引方法（如 B 树索引）在处理文本搜索时效率不高的问题。</p>
+<h2>主要特性<span class="absolute -mt-20" id="主要特性"></span>
+    <a href="#%e4%b8%bb%e8%a6%81%e7%89%b9%e6%80%a7" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><ul>
+<li>高效文本搜索：全文索引通过预先索引文本中的所有单词，提供了比 LIKE 子句或正则表达式更快的文本搜索能力。</li>
+<li>支持复杂查询：支持多种查询操作，包括词汇匹配、短语匹配、布尔查询等，以及对查询结果的相关性排序。</li>
+<li>自然语言处理：在建立索引过程中，通常会涉及到词干提取（stemming）、停用词过滤（stopwords filtering）等自然语言处理技术，以提高搜索的准确性和相关性。</li>
+</ul>
+<h2>应用场景<span class="absolute -mt-20" id="应用场景"></span>
+    <a href="#%e5%ba%94%e7%94%a8%e5%9c%ba%e6%99%af" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><ul>
+<li>内容管理系统（CMS）：在新闻、博客和文档管理系统中快速查找包含特定关键词的文章或页面。</li>
+<li>电子商务平台：在商品描述中搜索用户输入的关键词，快速定位相关商品。</li>
+<li>社交网络和论坛：在用户生成的内容中搜索特定话题或信息。</li>
+</ul>
+<h2>创建<span class="absolute -mt-20" id="创建-4"></span>
+    <a href="#%e5%88%9b%e5%bb%ba-4" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>测试表如下，其中正文主题 body 是 text 类型。</p>
+<img src="./索引.IMG/image-20240225142740183.png" alt="image-20240225142740183" style="zoom:50%;" />
+<p>由于 InnoDB 只有在版本 5.6 之后的 mysqld 才支持全文索引，所以这里指定存储引擎为 MyISAM。</p>
+<p>插入几条测试记录。</p>
+<img src="./索引.IMG/image-20240225142923398.png" alt="image-20240225142923398" style="zoom:50%;" />
+<p>用模糊搜索：</p>
+<img src="./索引.IMG/image-20240225143045487.png" alt="image-20240225143045487" style="zoom:50%;" />
+<p>虽然这样能搜索到，但是通过<code>explain</code>命令可以看到，模糊查询并未使用到索引，因此在本文很长时就需要耗费时间。</p>
+<p>全文索引的使用方式：</p>
+<img src="./索引.IMG/image-20240225143749906.png" alt="image-20240225143749906" style="zoom:50%;" />
+<p>但是在 MySQL 的默认设置中，最小搜索长度通常是 3 或 4，这意味着全文索引只会为长度大于等于 4 或 3 的词语建立索引。</p>
+<p>如果搜索的字符串长度小于 3：</p>
+<img src="./索引.IMG/image-20240225143925350.png" alt="image-20240225143925350" style="zoom:50%;" />
+<p>原因是这些词语没有被建立全文索引，无法用索引定位。</p>
+<p>查看存储引擎的最小/最大搜索长度：
+<img src="./索引.IMG/image-20240225144037407.png" alt="image-20240225144037407" style="zoom:50%;" /></p>
+<p>可以在<code>/etc/my.cnf</code>中的<code>[mysqld] </code>选项下追加以下内容：</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">[mysqld]
+</span></span><span class="line"><span class="cl">innodb_ft_min_token_size = 1</span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<p>然后重启 MySQL 服务器，并修复全文索引。注意，修改完参数以后，一定要修复索引，否则参数不会生效。</p>
+<p>方法一：使用命令<code>repair table productnotes quick;</code></p>
+<p>方法二：删除并重新建立索引</p>
+<h2>补充：explain 命令<span class="absolute -mt-20" id="补充explain-命令"></span>
+    <a href="#%e8%a1%a5%e5%85%85explain-%e5%91%bd%e4%bb%a4" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>在 MySQL 中，<code>EXPLAIN</code>命令是一个非常有用的工具，用于分析 MySQL 如何执行一个查询。开发者和数据库管理员经常使用<code>EXPLAIN</code>来查看查询的执行计划，包括 MySQL 如何使用索引，是否进行了表扫描，查询如何连接表，以及估算的行数等。通过理解<code>EXPLAIN</code>的输出，可以帮助优化查询语句，改善数据库的性能。</p>
+<h3>使用 EXPLAIN<span class="absolute -mt-20" id="使用-explain"></span>
+    <a href="#%e4%bd%bf%e7%94%a8-explain" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>要使用<code>EXPLAIN</code>命令，只需在你的 SELECT 查询前加上关键字<code>EXPLAIN</code>：</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">EXPLAIN</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">your_table</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">your_列</span><span class="w"> </span><span class="n">umn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;some_value&#39;</span><span class="p">;</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<p>这将返回 MySQL 如何执行该查询的详细信息。</p>
+<h3>EXPLAIN 输出的关键列<span class="absolute -mt-20" id="explain-输出的关键列"></span>
+    <a href="#explain-%e8%be%93%e5%87%ba%e7%9a%84%e5%85%b3%e9%94%ae%e5%88%97" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p><code>EXPLAIN</code>命令输出的结果中包含多个列，每列都提供了执行计划的不同方面的信息。以下是一些最重要的列：</p>
+<ul>
+<li><strong>id</strong>：查询的标识符，如果查询包含子查询，每个子查询和主查询都会有不同的 id。</li>
+<li><strong>select_type</strong>：查询的类型，例如，SIMPLE 表示简单的 SELECT 查询，而 SUBQUERY 表示结果来自子查询。</li>
+<li><strong>table</strong>：显示行是从哪个表获得的。</li>
+<li><strong>type</strong>：显示连接类型，这是重要的性能指标。值可能包括 ALL（全表扫描）、index（索引扫描）等，其中 ALL 通常是最慢的。</li>
+<li><strong>possible_keys</strong>：显示 MySQL 能使用哪些索引来优化该查询。</li>
+<li><strong>key</strong>：实际使用的索引。如果没有使用索引，则为 NULL。</li>
+<li><strong>key_len</strong>：使用的索引的长度。较短的索引通常更优。</li>
+<li><strong>ref</strong>：显示索引的哪一部分被使用了，如果可能的话，它会与某个值比较。</li>
+<li><strong>rows</strong>：MySQL 认为必须检查的行数，以找到查询结果。估算的行数越少，查询通常越快。</li>
+<li><strong>Extra</strong>：包含 MySQL 解决查询的详细信息，如是否使用了索引覆盖、是否进行了临时表排序等。</li>
+</ul>
+<h3>使用 EXPLAIN 进行优化<span class="absolute -mt-20" id="使用-explain-进行优化"></span>
+    <a href="#%e4%bd%bf%e7%94%a8-explain-%e8%bf%9b%e8%a1%8c%e4%bc%98%e5%8c%96" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>通过<code>EXPLAIN</code>的输出，你可以识别查询中的性能瓶颈，如是否进行了全表扫描（type 列为 ALL），是否有更好的索引可以使用（possible_keys 与 key 列），以及查询涉及的行数（rows 列）等。</p>
+<p>基于这些信息，你可能需要：</p>
+<ul>
+<li>优化查询语句，比如改变 JOIN 的顺序。</li>
+<li>添加或修改索引，以确保查询可以利用索引来提高效率。</li>
+<li>调整数据库的配置，或者重新设计表结构来提高性能。</li>
+</ul>
+<p>例如在使用聚合函数<code>count(*)</code>检查表的行数时，由于这是一个精确的数字，所以可能需要遍历整个表而耗费时间，但是<code>explain</code>可以迅速地返回一个估计值。</p>
+<h1>查询索引</h1><p>方法一：通过<code>show keys from 表名</code>查询。</p>
+<img src="./索引.IMG/image-20240224174530448.png" alt="image-20240224174530448" style="zoom:50%;" />
+<p>其中：</p>
+<ul>
+<li>Table： 表示创建索引的表的名称。</li>
+<li>Non_unique： 表示该索引是否是唯一索引，如果是则为 0，如果不是则为 1。</li>
+<li>Key_name： 表示索引的名称。</li>
+<li>Seq_in_index： 表示该列在索引中的位置，如果索引是单列的，则该列的值为 1，如果索引是复合索引，则该列的值为每列在索引定义中的顺序。</li>
+<li>列 umn_name： 表示定义索引的列字段。</li>
+<li>列 lation： 表示列以何种顺序存储在索引中，“A”表示升序，NULL 表示无分类。</li>
+<li>Cardinality： 索引中唯一值数目的估计值。基数根据被存储为整数的统计数据计数，所以即使对于小型表，该值也没有必要是精确的。基数越大，当进行联合时，MySQL 使用该索引的机会就越大。</li>
+<li>Sub_part： 表示列中被编入索引的字符的数量，若列只是部分被编入索引，则该列的值为被编入索引的字符的数目，若整列被编入索引，则该列的值为 NULL。</li>
+<li>Packed： 指示关键字如何被压缩。若没有被压缩，则值为 NULL。</li>
+<li>Null： 用于显示索引列中是否包含 NULL，若包含则为 YES，若不包含则为 NO。</li>
+<li>Index_type： 显示索引使用的类型和方法（BTREE、FULLTEXT、HASH、RTREE）。</li>
+<li>Comment： 显示评注。</li>
+</ul>
+<p>方式二：<code>show index from 表名</code></p>
+<img src="./索引.IMG/image-20240224174733260.png" alt="image-20240224174733260" style="zoom:50%;" />
+<p>方式三：<code>desc 表名</code></p>
+<img src="./索引.IMG/image-20240224174820626.png" alt="image-20240224174820626" style="zoom:50%;" />
+<h1>删除索引</h1><p>假如测试表的结构如下。</p>
+<img src="./索引.IMG/image-20240224175342606.png" alt="image-20240224175342606" style="zoom:50%;" />
+<p>删除主键索引：<code>alter table 表名 drop primary key</code></p>
+<img src="./索引.IMG/image-20240224175437050.png" alt="image-20240224175437050" style="zoom:50%;" />
+<p>删除非主键索引：<code>alter table 表名 drop index 索引名</code></p>
+<img src="./索引.IMG/image-20240224175533022.png" alt="image-20240224175533022" style="zoom:50%;" />
+<p>也可以使用：<code>drop index 索引名 on 表名</code>删除非主键索引</p>
+<img src="./索引.IMG/image-20240224175644686.png" alt="image-20240224175644686" style="zoom:50%;" />
+<p>由于一个表只有一个主键索引，所以在删除主键索引的时候不用指明索引名，而一个表中可能有多个非主键索引，所以在删除非主键索引时需要指明索引名。</p>
+<h1>索引的特点</h1><ul>
+<li><strong>提高查询速度</strong>：索引能够大幅度提高数据检索的速度，避免了全表扫描，因为它允许数据库引擎快速定位到表中的数据行。</li>
+<li>增加写操作成本：虽然索引可以提高查询速度，但同时也会增加插入、删除和更新数据时的成本。因为每当表数据变更时，索引也需要被更新。</li>
+<li>占用额外空间：索引需要占用物理存储空间。对于大型表，索引可能会占用大量的磁盘空间（就像书本目录一样）。</li>
+<li>索引类型多样：
+<ul>
+<li>主键索引：唯一标识表中每一行的索引。每个表只能有一个主键索引，且主键的值不能重复。</li>
+<li>唯一索引：保证数据库表中每行数据在索引列上的值是唯一的。</li>
+<li>普通索引：最基本的索引类型，没有唯一性的限制。</li>
+<li>全文索引：用于全文检索，特别适用于查找文本中的关键字。</li>
+<li>复合索引：基于表中的多个列构建，用于优化多列的查询条件。</li>
+</ul>
+</li>
+<li>选择合适的索引：不是所有的列都适合建立索引。通常，频繁作为查询条件的列、有唯一性要求的列、经常参与连接的列、有大量数据的列更适合建立索引。</li>
+<li>索引覆盖：如果一个查询只需要访问索引中的信息，那么这个查询就可以被完全“覆盖”而无需访问表数据，这可以极大提高查询效率。</li>
+<li>索引分裂和碎片整理：随着数据的不断更新，索引可能会发生分裂，导致索引碎片化。这时，可能需要对索引进行碎片整理，以保持数据库性能。</li>
+<li>索引选择性：索引的选择性是衡量索引效果的一个重要因素，选择性高的索引意味着通过索引能够更准确地定位数据行。唯一索引的选择性是最高的。</li>
+</ul>
+<h1>索引创建的原则</h1><h2>选择性高的列<span class="absolute -mt-20" id="选择性高的列"></span>
+    <a href="#%e9%80%89%e6%8b%a9%e6%80%a7%e9%ab%98%e7%9a%84%e5%88%97" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><ul>
+<li>选择唯一性接近或完全唯一的列：索引的选择性是指不重复的索引值与表中总行数的比例。选择性越高的列作为索引，查询效率通常越高。</li>
+</ul>
+<h2>常用于查询条件的列<span class="absolute -mt-20" id="常用于查询条件的列"></span>
+    <a href="#%e5%b8%b8%e7%94%a8%e4%ba%8e%e6%9f%a5%e8%af%a2%e6%9d%a1%e4%bb%b6%e7%9a%84%e5%88%97" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><ul>
+<li>WHERE 子句中的列：经常用作查询条件的列是索引的好候选。</li>
+<li>JOIN 操作的列：如果两个表常常需要通过某列进行连接，那么这列在两个表中都应该被索引。</li>
+</ul>
+<h2>考虑列的数据类型<span class="absolute -mt-20" id="考虑列的数据类型"></span>
+    <a href="#%e8%80%83%e8%99%91%e5%88%97%e7%9a%84%e6%95%b0%e6%8d%ae%e7%b1%bb%e5%9e%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><ul>
+<li>使用较小的数据类型：较小的数据类型通常意味着索引结构更小，索引扫描更快。</li>
+<li>避免 NULL：尽可能不要在允许 NULL 值的列上创建索引，处理 NULL 值会使索引效率降低。</li>
+</ul>
+<h2>覆盖索引<span class="absolute -mt-20" id="覆盖索引"></span>
+    <a href="#%e8%a6%86%e7%9b%96%e7%b4%a2%e5%bc%95" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><ul>
+<li>利用覆盖索引进行查询优化：如果一个索引包含了查询所需的所有列，查询可以直接使用索引来获取数据，避免访问表数据，这样可以极大提高查询效率。</li>
+</ul>
+<h2>联合索引的创建<span class="absolute -mt-20" id="联合索引的创建"></span>
+    <a href="#%e8%81%94%e5%90%88%e7%b4%a2%e5%bc%95%e7%9a%84%e5%88%9b%e5%bb%ba" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><ul>
+<li>遵循最左前缀匹配原则：在创建联合索引时，应该将最常用作查询条件的列放在最左边。</li>
+<li>考虑索引列的顺序：索引的列顺序会影响索引的使用，正确的顺序可以使索引更有效。</li>
+</ul>
+<h2>避免过多的索引<span class="absolute -mt-20" id="避免过多的索引"></span>
+    <a href="#%e9%81%bf%e5%85%8d%e8%bf%87%e5%a4%9a%e7%9a%84%e7%b4%a2%e5%bc%95" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><ul>
+<li>权衡索引的利弊：虽然索引可以加快查询速度，但过多的索引会增加写操作（如 INSERT、UPDATE、DELETE）的成本，因为每次写操作都需要更新所有的索引。</li>
+<li>监控和调整：定期监控索引的使用情况，删除不再使用或很少使用的索引，保持索引集合的精简和高效。</li>
+</ul>
+<h2>使用前缀索引<span class="absolute -mt-20" id="使用前缀索引"></span>
+    <a href="#%e4%bd%bf%e7%94%a8%e5%89%8d%e7%bc%80%e7%b4%a2%e5%bc%95" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><ul>
+<li>对于文本类型的长字符串，可以使用前缀索引来减少索引的大小，提高索引效率。但需要根据实际情况选择合适的前缀长度。</li>
+</ul>
+<h1>参考资料</h1><ul>
+<li>
+<p><a href="https://www.liaoxuefeng.com/wiki/1177760294764384/1218728442198976" target="_blank" rel="noopener">索引|廖雪峰</a></p>
+</li>
+<li>
+<p><a href="https://blog.csdn.net/chenlong_cxy/article/details/128784469" target="_blank" rel="noopener">MySQL 索引特性</a></p>
+</li>
+<li>
+<p><a href="https://xiaolincoding.com/mysql/index/index_interview.html#%E4%BB%80%E4%B9%88%E6%98%AF%E7%B4%A2%E5%BC%95" target="_blank" rel="noopener"> 索引常见面试题|小林 coding</a></p>
+</li>
+<li>
+<p><a href="https://yey.world/2021/01/02/LearnedIndex-03/" target="_blank" rel="noopener">数据库中的 B 树与 B+ 树</a></p>
+</li>
+<li>
+<p><a href="https://juejin.cn/post/6844903967365791752" target="_blank" rel="noopener">MySQL 覆盖索引详解</a></p>
+</li>
+</ul>
+
+        </div>
+        <div class="mt-16"></div>
+        
+      </main>
+    </article>
+  </div>
+
+      <footer class="hextra-footer bg-gray-100 pb-[env(safe-area-inset-bottom)] dark:bg-neutral-900 print:bg-transparent"><div class="mx-auto flex gap-2 py-2 px-4 max-w-screen-xl"><button
+  title="Change theme"
+  data-theme="light"
+  class="theme-toggle group h-7 rounded-md px-2 text-left text-xs font-medium text-gray-600 transition-colors dark:text-gray-400 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-primary-100/5 dark:hover:text-gray-50"
+  type="button"
+  aria-label="Change theme"
+>
+  <div class="flex items-center gap-2 capitalize"><svg height=12 class="group-data-[theme=light]:hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg><span class="group-data-[theme=light]:hidden">Light</span><svg height=12 class="group-data-[theme=dark]:hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg><span class="group-data-[theme=dark]:hidden">Dark</span></div>
+</button>
+</div><hr class="dark:border-neutral-800" /><div
+    class="max-w-screen-xl mx-auto flex justify-center py-12 pl-[max(env(safe-area-inset-left),1.5rem)] pr-[max(env(safe-area-inset-right),1.5rem)] text-gray-600 dark:text-gray-400 md:justify-start"
+  >
+    <div class="flex w-full flex-col items-center sm:items-start"><div class="font-semibold"><a class="flex text-sm items-center gap-1 text-current" target="_blank" rel="noopener noreferrer" title="Hextra GitHub Homepage" href="https://github.com/imfing/hextra">
+    <span>Powered by Hextra<svg height=1em class="inline-block ml-1 align-[-2.5px]" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="m 105.50024,22.224647 c -9.59169,-5.537563 -21.40871,-5.537563 -31.000093,0 L 39.054693,42.689119 C 29.463353,48.226675 23.55484,58.460531 23.55484,69.535642 v 40.928918 c 0,11.07542 5.908513,21.3092 15.499853,26.84652 l 35.445453,20.46446 c 9.591313,5.53732 21.408404,5.53732 31.000094,0 l 35.44507,-20.46446 c 9.59131,-5.53732 15.49985,-15.7711 15.49985,-26.84652 V 69.535642 c 0,-11.075111 -5.90854,-21.308967 -15.49985,-26.846523 z M 34.112797,85.737639 c -1.384445,2.397827 -1.384445,5.352099 0,7.749927 l 24.781554,42.922974 c 1.38437,2.39783 3.942853,3.87496 6.711592,3.87496 h 49.563107 c 2.76905,0 5.3273,-1.47713 6.71144,-3.87496 l 24.78194,-42.922974 c 1.38414,-2.397828 1.38414,-5.3521 0,-7.749927 L 121.88049,42.814746 c -1.38414,-2.397828 -3.94239,-3.874964 -6.71144,-3.874964 H 65.605944 c -2.768739,0 -5.327223,1.477059 -6.711592,3.874964 z" style="stroke-width:0.774993" /></svg></span>
+  </a></div>
+    </div>
+  </div>
+</footer>
+    
+  </body>
+  <script defer src="/js/main.min.5250a01f9a9cabefdb65e77efc7c04221397882cded9c5c058a5504e730b11b3.js" integrity="sha256-UlCgH5qcq&#43;/bZed&#43;/HwEIhOXiCze2cXAWKVQTnMLEbM="></script>
+
+
+<script defer src="/lib/flexsearch/flexsearch.bundle.min.0425860527cc9968f9f049421c7a56b39327d475e2e3a8f550416be3a9134327.js" integrity="sha256-BCWGBSfMmWj58ElCHHpWs5Mn1HXi46j1UEFr46kTQyc="></script>
+    <script defer src="/en.search.min.9afdc7c586c6f971dd94df10b989f10faaf38e5702571fd8cfc9ff9135c2d495.js" integrity="sha256-mv3HxYbG&#43;XHdlN8QuYnxD6rzjlcCVx/Yz8n/kTXC1JU="></script>
+<link type="text/css" rel="stylesheet" href="/lib/katex/katex.min.df9ef84e97d38557de02183e238f8ddfd10988b37741492e12c3157bc856011e.css" integrity="sha256-3574TpfThVfeAhg&#43;I4&#43;N39EJiLN3QUkuEsMVe8hWAR4=" />
+  <script defer src="/lib/katex/katex.min.d4f0ea25c4ccb7986b229d6427794b7063cf3209b0376cf5a64bfc4dd7918c95.js" integrity="sha256-1PDqJcTMt5hrIp1kJ3lLcGPPMgmwN2z1pkv8TdeRjJU="></script>
+  <script defer src="/lib/katex/auto-render.min.9cb8dacfc086c2966c9ec4ba54f4a2dc43b7cbe2b33cec1a2743d886c7fb47a7.js" integrity="sha256-nLjaz8CGwpZsnsS6VPSi3EO3y&#43;KzPOwaJ0PYhsf7R6c="></script>
+  <script defer src="/lib/katex/mhchem.min.f0ca03df194b8c3d6017ff455db6a0ef98857905663fa311a6cded788b15340b.js" integrity="sha256-8MoD3xlLjD1gF/9FXbag75iFeQVmP6MRps3teIsVNAs="></script>
+  <script>
+    
+    document.addEventListener("DOMContentLoaded", function () {
+      renderMathInElement(document.body, {
+        delimiters: [
+          { left: "$$", right: "$$", display: true },
+          { left: "$", right: "$", display: false },
+          { left: "\\(", right: "\\)", display: false },
+          { left: "\\[", right: "\\]", display: true },
+        ],
+        throwOnError: false,
+      });
+    });
+  </script>
+
+
+</html>

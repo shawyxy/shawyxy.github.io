@@ -11,27 +11,67 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
 <link fetchpriority="low" href="/site.webmanifest" rel="manifest" />
 
-  <title>About – Shawy&#39;s Blog</title>
-  <meta name="description" content="This is my CSDN account." />
+  <title>用户管理 – Shawy&#39;s Blog</title>
+  <meta name="description" content="查看用户信息在名为mysql的数据库中有一个表user维护着 MySQL 的用户信息。
+其中：
+user： 表示该用户的用户名。 host： 表示该用户可以从哪个主机登录，localhost 表示只能从本机登录（127.0.0.1），% 表示可以从任意地方登录。 authentication_string： 表示该用户的密码经过 password 函数加密后的值。 xxx_priv： 表示该用户是否拥有对应权限。 其中 password 函数可以对参数进行摘要。
+尝试查看它们的值：
+由于 user 表中 Host 和 User 属性共同作为联合主键，所以只要用户名和主机 IP 的组合唯一即可，这是合理的，一台主机可能有多个用户。
+MySQL 的所有用户管理工作都通过 user 表来进行，实际上，后续所有的用户操作都会被 MySQL 解析为 SQL 来执行，并且允许用户直接通过 SQL 对 user 表修改。例如通过 INSERT 添加用户，UPDATE&#43;password 函数来修改用户密码登操作，都是可行的。但是这只能作为特殊情况的补救措施，因为这么做有风险。
+创建用户SQL：
+CREATE USER &#39;用户名&#39;@&#39;登录主机&#39; IDENTIFIED BY &#39;密码&#39;; 如果你设置的密码过于简单，由于 MySQL 的密码策略等级，会出现以下错误：
+Your password does not satisfy the current policy requirements 通过SHOW VARIABLES LIKE &#39;validate_password%&#39;;查看密码策略，从而设计符合条件的密码。
+或者修改密码策略：
+set global validate_password_policy=0; set global validate_password_length=1; 创建用户：" />
   
   
-    <link rel="canonical" href="/about/" itemprop="url" />
+    <link rel="canonical" href="/blogs/mysql/%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" itemprop="url" />
   
 
   
 
-<meta property="og:title" content="About" />
-<meta property="og:description" content="This is my CSDN account." />
+<meta property="og:title" content="用户管理" />
+<meta property="og:description" content="查看用户信息在名为mysql的数据库中有一个表user维护着 MySQL 的用户信息。
+其中：
+user： 表示该用户的用户名。 host： 表示该用户可以从哪个主机登录，localhost 表示只能从本机登录（127.0.0.1），% 表示可以从任意地方登录。 authentication_string： 表示该用户的密码经过 password 函数加密后的值。 xxx_priv： 表示该用户是否拥有对应权限。 其中 password 函数可以对参数进行摘要。
+尝试查看它们的值：
+由于 user 表中 Host 和 User 属性共同作为联合主键，所以只要用户名和主机 IP 的组合唯一即可，这是合理的，一台主机可能有多个用户。
+MySQL 的所有用户管理工作都通过 user 表来进行，实际上，后续所有的用户操作都会被 MySQL 解析为 SQL 来执行，并且允许用户直接通过 SQL 对 user 表修改。例如通过 INSERT 添加用户，UPDATE&#43;password 函数来修改用户密码登操作，都是可行的。但是这只能作为特殊情况的补救措施，因为这么做有风险。
+创建用户SQL：
+CREATE USER &#39;用户名&#39;@&#39;登录主机&#39; IDENTIFIED BY &#39;密码&#39;; 如果你设置的密码过于简单，由于 MySQL 的密码策略等级，会出现以下错误：
+Your password does not satisfy the current policy requirements 通过SHOW VARIABLES LIKE &#39;validate_password%&#39;;查看密码策略，从而设计符合条件的密码。
+或者修改密码策略：
+set global validate_password_policy=0; set global validate_password_length=1; 创建用户：" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="/about/" /><meta property="article:section" content="" />
+<meta property="og:url" content="/blogs/mysql/%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" /><meta property="article:section" content="blogs" />
 
 
 
   
-  <meta itemprop="name" content="About">
-  <meta itemprop="description" content="This is my CSDN account.">
-  <meta itemprop="wordCount" content="5"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="About">
-<meta name="twitter:description" content="This is my CSDN account.">
+  <meta itemprop="name" content="用户管理">
+  <meta itemprop="description" content="查看用户信息在名为mysql的数据库中有一个表user维护着 MySQL 的用户信息。
+其中：
+user： 表示该用户的用户名。 host： 表示该用户可以从哪个主机登录，localhost 表示只能从本机登录（127.0.0.1），% 表示可以从任意地方登录。 authentication_string： 表示该用户的密码经过 password 函数加密后的值。 xxx_priv： 表示该用户是否拥有对应权限。 其中 password 函数可以对参数进行摘要。
+尝试查看它们的值：
+由于 user 表中 Host 和 User 属性共同作为联合主键，所以只要用户名和主机 IP 的组合唯一即可，这是合理的，一台主机可能有多个用户。
+MySQL 的所有用户管理工作都通过 user 表来进行，实际上，后续所有的用户操作都会被 MySQL 解析为 SQL 来执行，并且允许用户直接通过 SQL 对 user 表修改。例如通过 INSERT 添加用户，UPDATE&#43;password 函数来修改用户密码登操作，都是可行的。但是这只能作为特殊情况的补救措施，因为这么做有风险。
+创建用户SQL：
+CREATE USER &#39;用户名&#39;@&#39;登录主机&#39; IDENTIFIED BY &#39;密码&#39;; 如果你设置的密码过于简单，由于 MySQL 的密码策略等级，会出现以下错误：
+Your password does not satisfy the current policy requirements 通过SHOW VARIABLES LIKE &#39;validate_password%&#39;;查看密码策略，从而设计符合条件的密码。
+或者修改密码策略：
+set global validate_password_policy=0; set global validate_password_length=1; 创建用户：">
+  <meta itemprop="wordCount" content="260"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="用户管理">
+<meta name="twitter:description" content="查看用户信息在名为mysql的数据库中有一个表user维护着 MySQL 的用户信息。
+其中：
+user： 表示该用户的用户名。 host： 表示该用户可以从哪个主机登录，localhost 表示只能从本机登录（127.0.0.1），% 表示可以从任意地方登录。 authentication_string： 表示该用户的密码经过 password 函数加密后的值。 xxx_priv： 表示该用户是否拥有对应权限。 其中 password 函数可以对参数进行摘要。
+尝试查看它们的值：
+由于 user 表中 Host 和 User 属性共同作为联合主键，所以只要用户名和主机 IP 的组合唯一即可，这是合理的，一台主机可能有多个用户。
+MySQL 的所有用户管理工作都通过 user 表来进行，实际上，后续所有的用户操作都会被 MySQL 解析为 SQL 来执行，并且允许用户直接通过 SQL 对 user 表修改。例如通过 INSERT 添加用户，UPDATE&#43;password 函数来修改用户密码登操作，都是可行的。但是这只能作为特殊情况的补救措施，因为这么做有风险。
+创建用户SQL：
+CREATE USER &#39;用户名&#39;@&#39;登录主机&#39; IDENTIFIED BY &#39;密码&#39;; 如果你设置的密码过于简单，由于 MySQL 的密码策略等级，会出现以下错误：
+Your password does not satisfy the current policy requirements 通过SHOW VARIABLES LIKE &#39;validate_password%&#39;;查看密码策略，从而设计符合条件的密码。
+或者修改密码策略：
+set global validate_password_policy=0; set global validate_password_length=1; 创建用户：">
 
     <link rel="preload" href="/css/compiled/main.min.5a06ca26e024c4f511f45ee6c33a2a1faefaebe6be8a38d36e100f40a4c59c06.css" as="style" integrity="sha256-WgbKJuAkxPUR9F7mwzoqH6766&#43;a&#43;ijjTbhAPQKTFnAY=" />
     <link href="/css/compiled/main.min.5a06ca26e024c4f511f45ee6c33a2a1faefaebe6be8a38d36e100f40a4c59c06.css" rel="stylesheet" integrity="sha256-WgbKJuAkxPUR9F7mwzoqH6766&#43;a&#43;ijjTbhAPQKTFnAY=" />
@@ -80,14 +120,14 @@
             title="Blogs"
             href="/blogs"
             
-            class="text-sm contrast-more:text-gray-700 contrast-more:dark:text-gray-100 relative -ml-2 hidden whitespace-nowrap p-2 md:inline-block text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
+            class="text-sm contrast-more:text-gray-700 contrast-more:dark:text-gray-100 relative -ml-2 hidden whitespace-nowrap p-2 md:inline-block font-medium"
           >
             <span class="text-center">Blogs</span>
           </a><a
             title="About"
             href="/about"
             
-            class="text-sm contrast-more:text-gray-700 contrast-more:dark:text-gray-100 relative -ml-2 hidden whitespace-nowrap p-2 md:inline-block font-medium"
+            class="text-sm contrast-more:text-gray-700 contrast-more:dark:text-gray-100 relative -ml-2 hidden whitespace-nowrap p-2 md:inline-block text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
           >
             <span class="text-center">About</span>
           </a><a
@@ -163,15 +203,14 @@
     <ul class="flex flex-col gap-1 md:hidden">
       
       
-          <li class="open"><a
+          <li class=""><a
     class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
-      sidebar-active-item bg-primary-100 font-semibold text-primary-800 contrast-more:border contrast-more:border-primary-500 dark:bg-primary-400/10 dark:text-primary-600 contrast-more:dark:border-primary-500"
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
     href="/about/"
     
   >About
-    </a>
-  </li>
-          <li class=""><a
+    </a></li>
+          <li class="open"><a
     class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
       text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
     href="/blogs/"
@@ -187,7 +226,7 @@
   >C/C&#43;&#43;
     </a>
               
-            </li><li class="flex flex-col "><a
+            </li><li class="flex flex-col open"><a
     class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
       text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
     href="/blogs/mysql/"
@@ -276,13 +315,16 @@
   >表的连接
     </a>
               
-            </li><li class="flex flex-col "><a
+            </li><li class="flex flex-col open"><a
     class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
-      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+      sidebar-active-item bg-primary-100 font-semibold text-primary-800 contrast-more:border contrast-more:border-primary-500 dark:bg-primary-400/10 dark:text-primary-600 contrast-more:dark:border-primary-500"
     href="/blogs/mysql/%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/"
     
   >用户管理
     </a>
+  
+    <ul class='flex flex-col gap-1 relative before:absolute before:inset-y-1 before:w-px before:bg-gray-200 before:content-[""] dark:before:bg-neutral-800 ltr:pl-3 ltr:before:left-0 rtl:pr-3 rtl:before:right-0 ltr:ml-3 rtl:mr-3'></ul>
+  
               
             </li><li class="flex flex-col "><a
     class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
@@ -380,8 +422,8 @@
 </div></div></aside>
     
 <nav class="hextra-toc order-last hidden w-64 shrink-0 xl:block print:hidden px-4" aria-label="table of contents">
-    <div class="hextra-scrollbar sticky top-16 overflow-y-auto pr-4 pt-6 text-sm [hyphens:auto] max-h-[calc(100vh-var(--navbar-height)-env(safe-area-inset-bottom))] ltr:-mr-4 rtl:-ml-4">
-      <div class=" sticky bottom-0 flex flex-col items-start gap-2 pb-8 dark:border-neutral-800 contrast-more:border-t contrast-more:border-neutral-400 contrast-more:shadow-none contrast-more:dark:border-neutral-400">
+    <div class="hextra-scrollbar sticky top-16 overflow-y-auto pr-4 pt-6 text-sm [hyphens:auto] max-h-[calc(100vh-var(--navbar-height)-env(safe-area-inset-bottom))] ltr:-mr-4 rtl:-ml-4"><p class="mb-4 font-semibold tracking-tight">On this page</p><ul></ul><ul></ul><ul></ul><ul></ul><ul></ul><ul></ul>
+      <div class="mt-8 border-t bg-white pt-8 shadow-[0_-12px_16px_white] dark:bg-dark dark:shadow-[0_-12px_16px_#111] sticky bottom-0 flex flex-col items-start gap-2 pb-8 dark:border-neutral-800 contrast-more:border-t contrast-more:border-neutral-400 contrast-more:shadow-none contrast-more:dark:border-neutral-400">
         <button aria-hidden="true" id="backToTop" onClick="scrollUp();" class="transition-all transition duration-75 opacity-0 text-xs font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 contrast-more:text-gray-800 contrast-more:dark:text-gray-50">
           <span>Scroll to top</span>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="inline ml-1 h-3.5 w-3.5 border rounded-full border-gray-500 hover:border-gray-900 dark:border-gray-400 dark:hover:border-gray-100 contrast-more:border-gray-800 contrast-more:dark:border-gray-50">
@@ -396,10 +438,322 @@
     <article class="w-full break-words flex min-h-[calc(100vh-var(--navbar-height))] min-w-0 justify-center pb-8 pr-[calc(env(safe-area-inset-right)-1.5rem)]">
       <main class="w-full min-w-0 max-w-6xl px-6 pt-4 md:px-12">
         <br class="mt-1.5 text-sm" />
-        <h1 class="text-center mt-2 text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100">About</h1>
+        <h1 class="text-center mt-2 text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100">用户管理</h1>
         <div class="mb-16"></div>
         <div class="content">
-          <p>This is my <a href="https://blog.csdn.net/m0_63312733?spm=1000.2115.3001.5343" target="_blank" rel="noopener">CSDN account</a>.</p>
+          <h1>查看用户信息</h1><p>在名为<code>mysql</code>的数据库中有一个表<code>user</code>维护着 MySQL 的用户信息。</p>
+<img src="./用户管理.IMG/image-20240227164127584.png" alt="image-20240227164127584" style="zoom:50%;" />
+<p>其中：</p>
+<ul>
+<li>user： 表示该用户的用户名。</li>
+<li>host： 表示该用户可以从哪个主机登录，localhost 表示只能从本机登录（127.0.0.1），% 表示可以从任意地方登录。</li>
+<li>authentication_string： 表示该用户的密码经过 password 函数加密后的值。</li>
+<li>xxx_priv： 表示该用户是否拥有对应权限。</li>
+</ul>
+<p>其中 password 函数可以对参数进行摘要。</p>
+<p>尝试查看它们的值：</p>
+<img src="./用户管理.IMG/image-20240227164314212.png" alt="image-20240227164314212" style="zoom:50%;" />
+<p>由于 user 表中 Host 和 User 属性共同作为联合主键，所以只要用户名和主机 IP 的组合唯一即可，这是合理的，一台主机可能有多个用户。</p>
+<p>MySQL 的所有用户管理工作都通过 user 表来进行，实际上，后续所有的用户操作都会被 MySQL 解析为 SQL 来执行，并且允许用户直接通过 SQL 对 user 表修改。例如通过 INSERT 添加用户，UPDATE+password 函数来修改用户密码登操作，都是可行的。但是这只能作为特殊情况的补救措施，因为这么做有风险。</p>
+<h1>创建用户</h1><p>SQL：</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;用户名&#39;</span><span class="o">@</span><span class="s1">&#39;登录主机&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;密码&#39;</span><span class="p">;</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<p>如果你设置的密码过于简单，由于 MySQL 的密码策略等级，会出现以下错误：</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><pre><code>Your password does not satisfy the current policy requirements</code></pre><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<p>通过<code>SHOW VARIABLES LIKE 'validate_password%';</code>查看密码策略，从而设计符合条件的密码。</p>
+<img src="./用户管理.IMG/image-20240227170352013.png" alt="image-20240227170352013" style="zoom:50%;" />
+<p>或者修改密码策略：</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">set</span><span class="w"> </span><span class="k">global</span><span class="w"> </span><span class="n">validate_password_policy</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">set</span><span class="w"> </span><span class="k">global</span><span class="w"> </span><span class="n">validate_password_length</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<p>创建用户：</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">create</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="s1">&#39;new_user&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="w"> </span><span class="n">identified</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="s1">&#39;12345&#39;</span><span class="p">;</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<img src="./用户管理.IMG/image-20240227170511859.png" alt="image-20240227170511859" style="zoom:50%;" />
+<p>现在可以以新用户的身份登录 MySQL：</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><pre><code>mysql -unew_user -p</code></pre><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<p>登录后可以查看客户端信息：</p>
+<img src="./用户管理.IMG/image-20240227170751017.png" alt="image-20240227170751017" style="zoom:50%;" />
+<p>由于<code>%</code>表示允许来自任何主机的用户登录，所以在远端登录 MySQL 的方式也是一样的。需要注意的是，可能在连接时会不被允许，这可能是服务端主机没有开放 3306（MySQL 服务器）端口，为了测试可以在<code>/etc/mysql.cnf</code>修改 MySQL 的端口配置为测试端口如 8080。实际应用中，数据库不对外开放而只在内网中使用。</p>
+<h1>修改密码</h1><p>用户自己修改密码：</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">set</span><span class="w"> </span><span class="n">password</span><span class="o">=</span><span class="n">password</span><span class="p">(</span><span class="s1">&#39;新密码&#39;</span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<p>超级用户修改任意用户的密码：</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">set</span><span class="w"> </span><span class="n">password</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="s1">&#39;用户名&#39;</span><span class="o">@</span><span class="s1">&#39;登录主机&#39;</span><span class="o">=</span><span class="n">password</span><span class="p">(</span><span class="s1">&#39;新密码&#39;</span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<h1>删除用户</h1><p>SQL：</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">DROP</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;用户名&#39;</span><span class="o">@</span><span class="s1">&#39;登录地址&#39;</span><span class="p">;</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<p>注意，如果不指明待用户的登录地址，则默认删除的是登录地址为 % 的用户。</p>
+<h1>授予权限</h1><p>MySQL 数据库提供的权限如下：</p>
+<table>
+<thead>
+<tr>
+<th>权限</th>
+<th>列名</th>
+<th>上下文</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CREATE</td>
+<td>Create_priv</td>
+<td>数据库、表或索引</td>
+</tr>
+<tr>
+<td>DROP</td>
+<td>Drop_priv</td>
+<td>数据库或表</td>
+</tr>
+<tr>
+<td>GRANT OPTION</td>
+<td>Grant_priv</td>
+<td>数据库、表或保存的程序</td>
+</tr>
+<tr>
+<td>REFERENCES</td>
+<td>References_priv</td>
+<td>数据库或表</td>
+</tr>
+<tr>
+<td>ALTER</td>
+<td>Alter_priv</td>
+<td>表</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>Delete_priv</td>
+<td>表</td>
+</tr>
+<tr>
+<td>INDEX</td>
+<td>Index_priv</td>
+<td>表</td>
+</tr>
+<tr>
+<td>SELECT</td>
+<td>Select_priv</td>
+<td>表</td>
+</tr>
+<tr>
+<td>UPDATE</td>
+<td>Update_priv</td>
+<td>表</td>
+</tr>
+<tr>
+<td>CREATE VIEW</td>
+<td>Create_view_priv</td>
+<td>视图</td>
+</tr>
+<tr>
+<td>SHOW VIEW</td>
+<td>Show_view_priv</td>
+<td>视图</td>
+</tr>
+<tr>
+<td>ALTER ROUTINE</td>
+<td>Alter_routine_priv</td>
+<td>保存的程序</td>
+</tr>
+<tr>
+<td>CREATE ROUTINE</td>
+<td>Create_routine_priv</td>
+<td>保存的程序</td>
+</tr>
+<tr>
+<td>EXECUTE</td>
+<td>Execute_priv</td>
+<td>保存的程序</td>
+</tr>
+<tr>
+<td>FILE</td>
+<td>File_priv</td>
+<td>服务器主机上的文件访问</td>
+</tr>
+<tr>
+<td>CREATE TEMPORARY TABLES</td>
+<td>Create_tmp_table_priv</td>
+<td>服务器管理</td>
+</tr>
+<tr>
+<td>LOCK TABLES</td>
+<td>Lock_tables_priv</td>
+<td>服务器管理</td>
+</tr>
+<tr>
+<td>CREATE USER</td>
+<td>Create_user_priv</td>
+<td>服务器管理</td>
+</tr>
+<tr>
+<td>PROCESS</td>
+<td>Process_priv</td>
+<td>服务器管理</td>
+</tr>
+<tr>
+<td>RELOAD</td>
+<td>Reload_priv</td>
+<td>服务器管理</td>
+</tr>
+<tr>
+<td>REPLICATION CLIENT</td>
+<td>Repl_client_priv</td>
+<td>服务器管理</td>
+</tr>
+<tr>
+<td>REPLICATION SLAVE</td>
+<td>Repl_slave_priv</td>
+<td>服务器管理</td>
+</tr>
+<tr>
+<td>SHOW DATABASES</td>
+<td>Show_db_priv</td>
+<td>服务器管理</td>
+</tr>
+<tr>
+<td>SHUTDOWN</td>
+<td>Shutdown_priv</td>
+<td>服务器管理</td>
+</tr>
+<tr>
+<td>SUPER</td>
+<td>Super_priv</td>
+<td>服务器管理</td>
+</tr>
+</tbody>
+</table>
+<p>新创建的用户没有任何权限，创建用户后需要给用户授权。</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">GRANT</span><span class="w"> </span><span class="err">权限列表</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="err">库名。对象名</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;用户名&#39;</span><span class="o">@</span><span class="s1">&#39;登录地址&#39;</span><span class="w"> </span><span class="p">[</span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;密码&#39;</span><span class="p">];</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<p>其中：</p>
+<ul>
+<li><code>'用户名'@'登录地址'</code>：表示给哪一个用户授权。</li>
+<li><code>库名。对象名</code>：表示要授予用户哪个数据库下的哪个对象的权限。</li>
+<li><code>权限列表</code>：表示要授予用户何种权限，多个权限之间用逗号隔开。</li>
+<li><code>IDENTIFIED BY '密码'</code>可选：如果用户存在，则在授予权限的同时修改该用户的密码，如果用户不存在，则创建该用户。</li>
+</ul>
+<p>例如授予用户<code>new_user</code>在<code>curd_db</code>数据库下所有对象的<code>select</code>权限：</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">grant</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">curd_db</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="s1">&#39;new_user&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="w"> </span><span class="n">identified</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="s1">&#39;12345&#39;</span><span class="p">;</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<p>这样新用户就能看到 curd_db 这个数据库了。</p>
+<img src="./用户管理.IMG/image-20240227172042611.png" alt="image-20240227172042611" style="zoom:50%;" />
+<p>查看用户的权限：</p>
+<img src="./用户管理.IMG/image-20240227172310098.png" alt="image-20240227172310098" style="zoom:50%;" />
+<p>其中：</p>
+<ul>
+<li>创建用户后该用户默认会有 USAGE 权限，该权限只能用于数据库登录，不能执行任何操作。</li>
+<li><code>*.*</code>表示所有数据库的所有对象，<code>库名。*</code>表示某个数据库的所有对象（表、视图、存储过程等）。</li>
+<li>information_schema 数据库保存的了 MySQL 服务器所维护的所有其他数据库的信息。新用户默认只能看到它。</li>
+</ul>
+<p>但是目前只有 select 权限，不能对数据库内容做修改。授予<code>new_user</code>在<code>curd_db</code>数据库下以所有权限：</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">grant</span><span class="w"> </span><span class="k">all</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">curd_db</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="s1">&#39;new_user&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="p">;</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<h1>收回权限</h1><div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">REVOKE</span><span class="w"> </span><span class="err">权限列表</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="err">库名。对象名</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="s1">&#39;用户名&#39;</span><span class="o">@</span><span class="s1">&#39;登录地址&#39;</span><span class="p">;</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<img src="./用户管理.IMG/image-20240227172947228.png" alt="image-20240227172947228" style="zoom:50%;" />
+<p>注意：</p>
+<ul>
+<li>回收用户在某一数据库下的权限后，在该用户下一次进入该数据库时才会起作用。</li>
+<li>如果回收权限时该用户正在使用对应数据库，那么回收权限后该用户仍然拥有对应的权限。</li>
+</ul>
 
         </div>
         <div class="mt-16"></div>

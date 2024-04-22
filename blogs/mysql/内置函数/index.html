@@ -11,27 +11,83 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
 <link fetchpriority="low" href="/site.webmanifest" rel="manifest" />
 
-  <title>About – Shawy&#39;s Blog</title>
-  <meta name="description" content="This is my CSDN account." />
+  <title>内置函数 – Shawy&#39;s Blog</title>
+  <meta name="description" content="MySQL 内置函数MySQL 的内置函数主要分为以下几种：
+字符串函数：用于对字符串进行操作，如连接、截取、替换、反转、格式化等。 数值函数：用于对数值进行计算，如求和、平均、最大、最小、绝对值、幂、对数、三角函数等。 日期和时间函数：用于对日期和时间进行操作，如获取当前日期和时间、格式化日期和时间、计算日期和时间的差值、提取日期和时间的部分等。例如，NOW() 函数可以返回当前的日期和时间，DATE_FORMAT(date,format) 函数可以按照指定的格式返回日期，DATEDIFF(date1,date2) 函数可以返回两个日期之间的天数，YEAR(date) 函数可以返回日期的年份，HOUR(time) 函数可以返回时间的小时部分。1 聚合函数：用于对一组数据进行统计，如计数、求和、平均、最大、最小、标准差、方差等。 流程控制函数：用于根据条件执行不同的操作，如条件判断、选择、循环等。 信息函数：用于获取数据库、表、列、用户等的信息，如数据库名、表名、列名、用户名、版本号等。 日期和时间函数常用的日期和时间函数有：
+函数名称 描述 current_date() 获取当前日期 current_time() 获取当前时间 current_timestamp() 获取当前时间戳 now() 获取当前日期时间 date(datetime) 获取 datetime 参数的日期部分 date_add(date, interval d_value_type) 在 date 中添加日期或时间，interval 后的数值单位可以是：year、month、day、hour、minute、second date_sub(date, interval d_value_type) 在 date 中减去日期或时间，interval 后的数值单位可以是：year、month、day、hour、minute、second datediff(date1, date2) 获取两个日期的差，单位是天 current_date 函数、current_time 函数、current_timestamp 函数和 now 函数：获取当前日期、时间、时间戳以及当前日期时间：
+date 函数：获取获取 datetime 参数的日期部分：
+在已有日期的基础上添加日期或时间：
+操作的单位可以是日期或时间，根据原有的日期或时间而可以精确到秒数。
+date_sub 函数的功能完全相同，只是它对已有日期或时间操作的是减法运算。
+获取两个日期的差，单位是天：
+日期和时间是数据的一种属性，例如在网上发表评论，需要用日期和时间标记。
+评论测试表：
+插入记录并查询：
+用户可能不需要这么精确的日期或时间，对于比较久远的评论，可以只精确到天：
+如果要查询 2 分钟之前的评论，就可能需要用若干函数组合来查询了：
+字符串函数常用字符串函数有：
+函数名称 描述 charset(str) 获取字符串使用的字符集 concat(str1, str2 [, …]) 获取连接后的字符串 instr(str, substr) 获取 substr 在 str 中首次出现的位置，没有出现返回 0 ucase(str) 获取转换成大写后的字符串 lcase(str) 获取转换成小写后的字符串 left(str, length) 从字符串的左边开始，向后截取 length 个字符 length(str) 获取字符串占用的字节数 replace(str, search_str, replace_str) 将字符串中的 search_str 替换成 replace_str strcmp(str1, str2) 逐字符比较两个字符串的大小 substring(str, position [, length]) 从字符串的 position 开始，向后截取 length 个字符 ltrim(str)、rtrim(str)、trim(str) 去除字符串的前空格、后空格、前后空格 charset 函数用来返回指定字符串的字符集。字符集是一种给定一系列字符并赋予对应的编码的方式。例如，给定字符列表为 {‘A’,’B’}时， {‘A’=&gt;0, ‘B’=&gt;1}就是一个字符集。" />
   
   
-    <link rel="canonical" href="/about/" itemprop="url" />
+    <link rel="canonical" href="/blogs/mysql/%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0/" itemprop="url" />
   
 
   
 
-<meta property="og:title" content="About" />
-<meta property="og:description" content="This is my CSDN account." />
+<meta property="og:title" content="内置函数" />
+<meta property="og:description" content="MySQL 内置函数MySQL 的内置函数主要分为以下几种：
+字符串函数：用于对字符串进行操作，如连接、截取、替换、反转、格式化等。 数值函数：用于对数值进行计算，如求和、平均、最大、最小、绝对值、幂、对数、三角函数等。 日期和时间函数：用于对日期和时间进行操作，如获取当前日期和时间、格式化日期和时间、计算日期和时间的差值、提取日期和时间的部分等。例如，NOW() 函数可以返回当前的日期和时间，DATE_FORMAT(date,format) 函数可以按照指定的格式返回日期，DATEDIFF(date1,date2) 函数可以返回两个日期之间的天数，YEAR(date) 函数可以返回日期的年份，HOUR(time) 函数可以返回时间的小时部分。1 聚合函数：用于对一组数据进行统计，如计数、求和、平均、最大、最小、标准差、方差等。 流程控制函数：用于根据条件执行不同的操作，如条件判断、选择、循环等。 信息函数：用于获取数据库、表、列、用户等的信息，如数据库名、表名、列名、用户名、版本号等。 日期和时间函数常用的日期和时间函数有：
+函数名称 描述 current_date() 获取当前日期 current_time() 获取当前时间 current_timestamp() 获取当前时间戳 now() 获取当前日期时间 date(datetime) 获取 datetime 参数的日期部分 date_add(date, interval d_value_type) 在 date 中添加日期或时间，interval 后的数值单位可以是：year、month、day、hour、minute、second date_sub(date, interval d_value_type) 在 date 中减去日期或时间，interval 后的数值单位可以是：year、month、day、hour、minute、second datediff(date1, date2) 获取两个日期的差，单位是天 current_date 函数、current_time 函数、current_timestamp 函数和 now 函数：获取当前日期、时间、时间戳以及当前日期时间：
+date 函数：获取获取 datetime 参数的日期部分：
+在已有日期的基础上添加日期或时间：
+操作的单位可以是日期或时间，根据原有的日期或时间而可以精确到秒数。
+date_sub 函数的功能完全相同，只是它对已有日期或时间操作的是减法运算。
+获取两个日期的差，单位是天：
+日期和时间是数据的一种属性，例如在网上发表评论，需要用日期和时间标记。
+评论测试表：
+插入记录并查询：
+用户可能不需要这么精确的日期或时间，对于比较久远的评论，可以只精确到天：
+如果要查询 2 分钟之前的评论，就可能需要用若干函数组合来查询了：
+字符串函数常用字符串函数有：
+函数名称 描述 charset(str) 获取字符串使用的字符集 concat(str1, str2 [, …]) 获取连接后的字符串 instr(str, substr) 获取 substr 在 str 中首次出现的位置，没有出现返回 0 ucase(str) 获取转换成大写后的字符串 lcase(str) 获取转换成小写后的字符串 left(str, length) 从字符串的左边开始，向后截取 length 个字符 length(str) 获取字符串占用的字节数 replace(str, search_str, replace_str) 将字符串中的 search_str 替换成 replace_str strcmp(str1, str2) 逐字符比较两个字符串的大小 substring(str, position [, length]) 从字符串的 position 开始，向后截取 length 个字符 ltrim(str)、rtrim(str)、trim(str) 去除字符串的前空格、后空格、前后空格 charset 函数用来返回指定字符串的字符集。字符集是一种给定一系列字符并赋予对应的编码的方式。例如，给定字符列表为 {‘A’,’B’}时， {‘A’=&gt;0, ‘B’=&gt;1}就是一个字符集。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="/about/" /><meta property="article:section" content="" />
+<meta property="og:url" content="/blogs/mysql/%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0/" /><meta property="article:section" content="blogs" />
 
 
 
   
-  <meta itemprop="name" content="About">
-  <meta itemprop="description" content="This is my CSDN account.">
-  <meta itemprop="wordCount" content="5"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="About">
-<meta name="twitter:description" content="This is my CSDN account.">
+  <meta itemprop="name" content="内置函数">
+  <meta itemprop="description" content="MySQL 内置函数MySQL 的内置函数主要分为以下几种：
+字符串函数：用于对字符串进行操作，如连接、截取、替换、反转、格式化等。 数值函数：用于对数值进行计算，如求和、平均、最大、最小、绝对值、幂、对数、三角函数等。 日期和时间函数：用于对日期和时间进行操作，如获取当前日期和时间、格式化日期和时间、计算日期和时间的差值、提取日期和时间的部分等。例如，NOW() 函数可以返回当前的日期和时间，DATE_FORMAT(date,format) 函数可以按照指定的格式返回日期，DATEDIFF(date1,date2) 函数可以返回两个日期之间的天数，YEAR(date) 函数可以返回日期的年份，HOUR(time) 函数可以返回时间的小时部分。1 聚合函数：用于对一组数据进行统计，如计数、求和、平均、最大、最小、标准差、方差等。 流程控制函数：用于根据条件执行不同的操作，如条件判断、选择、循环等。 信息函数：用于获取数据库、表、列、用户等的信息，如数据库名、表名、列名、用户名、版本号等。 日期和时间函数常用的日期和时间函数有：
+函数名称 描述 current_date() 获取当前日期 current_time() 获取当前时间 current_timestamp() 获取当前时间戳 now() 获取当前日期时间 date(datetime) 获取 datetime 参数的日期部分 date_add(date, interval d_value_type) 在 date 中添加日期或时间，interval 后的数值单位可以是：year、month、day、hour、minute、second date_sub(date, interval d_value_type) 在 date 中减去日期或时间，interval 后的数值单位可以是：year、month、day、hour、minute、second datediff(date1, date2) 获取两个日期的差，单位是天 current_date 函数、current_time 函数、current_timestamp 函数和 now 函数：获取当前日期、时间、时间戳以及当前日期时间：
+date 函数：获取获取 datetime 参数的日期部分：
+在已有日期的基础上添加日期或时间：
+操作的单位可以是日期或时间，根据原有的日期或时间而可以精确到秒数。
+date_sub 函数的功能完全相同，只是它对已有日期或时间操作的是减法运算。
+获取两个日期的差，单位是天：
+日期和时间是数据的一种属性，例如在网上发表评论，需要用日期和时间标记。
+评论测试表：
+插入记录并查询：
+用户可能不需要这么精确的日期或时间，对于比较久远的评论，可以只精确到天：
+如果要查询 2 分钟之前的评论，就可能需要用若干函数组合来查询了：
+字符串函数常用字符串函数有：
+函数名称 描述 charset(str) 获取字符串使用的字符集 concat(str1, str2 [, …]) 获取连接后的字符串 instr(str, substr) 获取 substr 在 str 中首次出现的位置，没有出现返回 0 ucase(str) 获取转换成大写后的字符串 lcase(str) 获取转换成小写后的字符串 left(str, length) 从字符串的左边开始，向后截取 length 个字符 length(str) 获取字符串占用的字节数 replace(str, search_str, replace_str) 将字符串中的 search_str 替换成 replace_str strcmp(str1, str2) 逐字符比较两个字符串的大小 substring(str, position [, length]) 从字符串的 position 开始，向后截取 length 个字符 ltrim(str)、rtrim(str)、trim(str) 去除字符串的前空格、后空格、前后空格 charset 函数用来返回指定字符串的字符集。字符集是一种给定一系列字符并赋予对应的编码的方式。例如，给定字符列表为 {‘A’,’B’}时， {‘A’=&gt;0, ‘B’=&gt;1}就是一个字符集。">
+  <meta itemprop="wordCount" content="264"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="内置函数">
+<meta name="twitter:description" content="MySQL 内置函数MySQL 的内置函数主要分为以下几种：
+字符串函数：用于对字符串进行操作，如连接、截取、替换、反转、格式化等。 数值函数：用于对数值进行计算，如求和、平均、最大、最小、绝对值、幂、对数、三角函数等。 日期和时间函数：用于对日期和时间进行操作，如获取当前日期和时间、格式化日期和时间、计算日期和时间的差值、提取日期和时间的部分等。例如，NOW() 函数可以返回当前的日期和时间，DATE_FORMAT(date,format) 函数可以按照指定的格式返回日期，DATEDIFF(date1,date2) 函数可以返回两个日期之间的天数，YEAR(date) 函数可以返回日期的年份，HOUR(time) 函数可以返回时间的小时部分。1 聚合函数：用于对一组数据进行统计，如计数、求和、平均、最大、最小、标准差、方差等。 流程控制函数：用于根据条件执行不同的操作，如条件判断、选择、循环等。 信息函数：用于获取数据库、表、列、用户等的信息，如数据库名、表名、列名、用户名、版本号等。 日期和时间函数常用的日期和时间函数有：
+函数名称 描述 current_date() 获取当前日期 current_time() 获取当前时间 current_timestamp() 获取当前时间戳 now() 获取当前日期时间 date(datetime) 获取 datetime 参数的日期部分 date_add(date, interval d_value_type) 在 date 中添加日期或时间，interval 后的数值单位可以是：year、month、day、hour、minute、second date_sub(date, interval d_value_type) 在 date 中减去日期或时间，interval 后的数值单位可以是：year、month、day、hour、minute、second datediff(date1, date2) 获取两个日期的差，单位是天 current_date 函数、current_time 函数、current_timestamp 函数和 now 函数：获取当前日期、时间、时间戳以及当前日期时间：
+date 函数：获取获取 datetime 参数的日期部分：
+在已有日期的基础上添加日期或时间：
+操作的单位可以是日期或时间，根据原有的日期或时间而可以精确到秒数。
+date_sub 函数的功能完全相同，只是它对已有日期或时间操作的是减法运算。
+获取两个日期的差，单位是天：
+日期和时间是数据的一种属性，例如在网上发表评论，需要用日期和时间标记。
+评论测试表：
+插入记录并查询：
+用户可能不需要这么精确的日期或时间，对于比较久远的评论，可以只精确到天：
+如果要查询 2 分钟之前的评论，就可能需要用若干函数组合来查询了：
+字符串函数常用字符串函数有：
+函数名称 描述 charset(str) 获取字符串使用的字符集 concat(str1, str2 [, …]) 获取连接后的字符串 instr(str, substr) 获取 substr 在 str 中首次出现的位置，没有出现返回 0 ucase(str) 获取转换成大写后的字符串 lcase(str) 获取转换成小写后的字符串 left(str, length) 从字符串的左边开始，向后截取 length 个字符 length(str) 获取字符串占用的字节数 replace(str, search_str, replace_str) 将字符串中的 search_str 替换成 replace_str strcmp(str1, str2) 逐字符比较两个字符串的大小 substring(str, position [, length]) 从字符串的 position 开始，向后截取 length 个字符 ltrim(str)、rtrim(str)、trim(str) 去除字符串的前空格、后空格、前后空格 charset 函数用来返回指定字符串的字符集。字符集是一种给定一系列字符并赋予对应的编码的方式。例如，给定字符列表为 {‘A’,’B’}时， {‘A’=&gt;0, ‘B’=&gt;1}就是一个字符集。">
 
     <link rel="preload" href="/css/compiled/main.min.5a06ca26e024c4f511f45ee6c33a2a1faefaebe6be8a38d36e100f40a4c59c06.css" as="style" integrity="sha256-WgbKJuAkxPUR9F7mwzoqH6766&#43;a&#43;ijjTbhAPQKTFnAY=" />
     <link href="/css/compiled/main.min.5a06ca26e024c4f511f45ee6c33a2a1faefaebe6be8a38d36e100f40a4c59c06.css" rel="stylesheet" integrity="sha256-WgbKJuAkxPUR9F7mwzoqH6766&#43;a&#43;ijjTbhAPQKTFnAY=" />
@@ -80,14 +136,14 @@
             title="Blogs"
             href="/blogs"
             
-            class="text-sm contrast-more:text-gray-700 contrast-more:dark:text-gray-100 relative -ml-2 hidden whitespace-nowrap p-2 md:inline-block text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
+            class="text-sm contrast-more:text-gray-700 contrast-more:dark:text-gray-100 relative -ml-2 hidden whitespace-nowrap p-2 md:inline-block font-medium"
           >
             <span class="text-center">Blogs</span>
           </a><a
             title="About"
             href="/about"
             
-            class="text-sm contrast-more:text-gray-700 contrast-more:dark:text-gray-100 relative -ml-2 hidden whitespace-nowrap p-2 md:inline-block font-medium"
+            class="text-sm contrast-more:text-gray-700 contrast-more:dark:text-gray-100 relative -ml-2 hidden whitespace-nowrap p-2 md:inline-block text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
           >
             <span class="text-center">About</span>
           </a><a
@@ -163,15 +219,14 @@
     <ul class="flex flex-col gap-1 md:hidden">
       
       
-          <li class="open"><a
+          <li class=""><a
     class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
-      sidebar-active-item bg-primary-100 font-semibold text-primary-800 contrast-more:border contrast-more:border-primary-500 dark:bg-primary-400/10 dark:text-primary-600 contrast-more:dark:border-primary-500"
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
     href="/about/"
     
   >About
-    </a>
-  </li>
-          <li class=""><a
+    </a></li>
+          <li class="open"><a
     class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
       text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
     href="/blogs/"
@@ -187,7 +242,7 @@
   >C/C&#43;&#43;
     </a>
               
-            </li><li class="flex flex-col "><a
+            </li><li class="flex flex-col open"><a
     class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
       text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
     href="/blogs/mysql/"
@@ -252,13 +307,16 @@
   >表内容的操作
     </a>
               
-            </li><li class="flex flex-col "><a
+            </li><li class="flex flex-col open"><a
     class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
-      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+      sidebar-active-item bg-primary-100 font-semibold text-primary-800 contrast-more:border contrast-more:border-primary-500 dark:bg-primary-400/10 dark:text-primary-600 contrast-more:dark:border-primary-500"
     href="/blogs/mysql/%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0/"
     
   >内置函数
     </a>
+  
+    <ul class='flex flex-col gap-1 relative before:absolute before:inset-y-1 before:w-px before:bg-gray-200 before:content-[""] dark:before:bg-neutral-800 ltr:pl-3 ltr:before:left-0 rtl:pr-3 rtl:before:right-0 ltr:ml-3 rtl:mr-3'></ul>
+  
               
             </li><li class="flex flex-col "><a
     class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
@@ -380,8 +438,8 @@
 </div></div></aside>
     
 <nav class="hextra-toc order-last hidden w-64 shrink-0 xl:block print:hidden px-4" aria-label="table of contents">
-    <div class="hextra-scrollbar sticky top-16 overflow-y-auto pr-4 pt-6 text-sm [hyphens:auto] max-h-[calc(100vh-var(--navbar-height)-env(safe-area-inset-bottom))] ltr:-mr-4 rtl:-ml-4">
-      <div class=" sticky bottom-0 flex flex-col items-start gap-2 pb-8 dark:border-neutral-800 contrast-more:border-t contrast-more:border-neutral-400 contrast-more:shadow-none contrast-more:dark:border-neutral-400">
+    <div class="hextra-scrollbar sticky top-16 overflow-y-auto pr-4 pt-6 text-sm [hyphens:auto] max-h-[calc(100vh-var(--navbar-height)-env(safe-area-inset-bottom))] ltr:-mr-4 rtl:-ml-4"><p class="mb-4 font-semibold tracking-tight">On this page</p><ul></ul><ul></ul><ul></ul><ul></ul><ul></ul><ul></ul>
+      <div class="mt-8 border-t bg-white pt-8 shadow-[0_-12px_16px_white] dark:bg-dark dark:shadow-[0_-12px_16px_#111] sticky bottom-0 flex flex-col items-start gap-2 pb-8 dark:border-neutral-800 contrast-more:border-t contrast-more:border-neutral-400 contrast-more:shadow-none contrast-more:dark:border-neutral-400">
         <button aria-hidden="true" id="backToTop" onClick="scrollUp();" class="transition-all transition duration-75 opacity-0 text-xs font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 contrast-more:text-gray-800 contrast-more:dark:text-gray-50">
           <span>Scroll to top</span>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="inline ml-1 h-3.5 w-3.5 border rounded-full border-gray-500 hover:border-gray-900 dark:border-gray-400 dark:hover:border-gray-100 contrast-more:border-gray-800 contrast-more:dark:border-gray-50">
@@ -396,10 +454,250 @@
     <article class="w-full break-words flex min-h-[calc(100vh-var(--navbar-height))] min-w-0 justify-center pb-8 pr-[calc(env(safe-area-inset-right)-1.5rem)]">
       <main class="w-full min-w-0 max-w-6xl px-6 pt-4 md:px-12">
         <br class="mt-1.5 text-sm" />
-        <h1 class="text-center mt-2 text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100">About</h1>
+        <h1 class="text-center mt-2 text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100">内置函数</h1>
         <div class="mb-16"></div>
         <div class="content">
-          <p>This is my <a href="https://blog.csdn.net/m0_63312733?spm=1000.2115.3001.5343" target="_blank" rel="noopener">CSDN account</a>.</p>
+          <h1>MySQL 内置函数</h1><p>MySQL 的内置函数主要分为以下几种：</p>
+<ul>
+<li>字符串函数：用于对字符串进行操作，如连接、截取、替换、反转、格式化等。</li>
+<li>数值函数：用于对数值进行计算，如求和、平均、最大、最小、绝对值、幂、对数、三角函数等。</li>
+<li>日期和时间函数：用于对日期和时间进行操作，如获取当前日期和时间、格式化日期和时间、计算日期和时间的差值、提取日期和时间的部分等。例如，NOW() 函数可以返回当前的日期和时间，DATE_FORMAT(date,format) 函数可以按照指定的格式返回日期，DATEDIFF(date1,date2) 函数可以返回两个日期之间的天数，YEAR(date) 函数可以返回日期的年份，HOUR(time) 函数可以返回时间的小时部分。1</li>
+<li>聚合函数：用于对一组数据进行统计，如计数、求和、平均、最大、最小、标准差、方差等。</li>
+<li>流程控制函数：用于根据条件执行不同的操作，如条件判断、选择、循环等。</li>
+<li>信息函数：用于获取数据库、表、列、用户等的信息，如数据库名、表名、列名、用户名、版本号等。</li>
+</ul>
+<h1>日期和时间函数</h1><p>常用的日期和时间函数有：</p>
+<table>
+<thead>
+<tr>
+<th>函数名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>current_date()</td>
+<td>获取当前日期</td>
+</tr>
+<tr>
+<td>current_time()</td>
+<td>获取当前时间</td>
+</tr>
+<tr>
+<td>current_timestamp()</td>
+<td>获取当前时间戳</td>
+</tr>
+<tr>
+<td>now()</td>
+<td>获取当前日期时间</td>
+</tr>
+<tr>
+<td>date(datetime)</td>
+<td>获取 datetime 参数的日期部分</td>
+</tr>
+<tr>
+<td>date_add(date, interval d_value_type)</td>
+<td>在 date 中添加日期或时间，interval 后的数值单位可以是：year、month、day、hour、minute、second</td>
+</tr>
+<tr>
+<td>date_sub(date, interval d_value_type)</td>
+<td>在 date 中减去日期或时间，interval 后的数值单位可以是：year、month、day、hour、minute、second</td>
+</tr>
+<tr>
+<td>datediff(date1, date2)</td>
+<td>获取两个日期的差，单位是天</td>
+</tr>
+</tbody>
+</table>
+<p>current_date 函数、current_time 函数、current_timestamp 函数和 now 函数：获取当前日期、时间、时间戳以及当前日期时间：</p>
+<img src="./内置函数.IMG/image-20231126162905547.png" alt="image-20231126162905547" style="zoom:50%;" />
+<p>date 函数：获取获取 datetime 参数的日期部分：</p>
+<img src="./内置函数.IMG/image-20231126163204482.png" alt="image-20231126163204482" style="zoom:50%;" />
+<p>在已有日期的基础上添加日期或时间：</p>
+<img src="./内置函数.IMG/image-20231126163427798.png" alt="image-20231126163427798" style="zoom:50%;" />
+<p>操作的单位可以是日期或时间，根据原有的日期或时间而可以精确到秒数。</p>
+<p>date_sub 函数的功能完全相同，只是它对已有日期或时间操作的是减法运算。</p>
+<p>获取两个日期的差，单位是天：</p>
+<img src="./内置函数.IMG/image-20231126163913008.png" alt="image-20231126163913008" style="zoom:50%;" />
+<p>日期和时间是数据的一种属性，例如在网上发表评论，需要用日期和时间标记。</p>
+<p>评论测试表：</p>
+<img src="./内置函数.IMG/image-20231126165005903.png" alt="image-20231126165005903" style="zoom:50%;" />
+<p>插入记录并查询：</p>
+<img src="./内置函数.IMG/image-20231126165034820.png" alt="image-20231126165034820" style="zoom:50%;" />
+<p>用户可能不需要这么精确的日期或时间，对于比较久远的评论，可以只精确到天：</p>
+<img src="./内置函数.IMG/image-20231126165239802.png" alt="image-20231126165239802" style="zoom:50%;" />
+<p>如果要查询 2 分钟之前的评论，就可能需要用若干函数组合来查询了：</p>
+<img src="./内置函数.IMG/image-20231126165737087.png" alt="image-20231126165737087" style="zoom:50%;" />
+<h1>字符串函数</h1><p>常用字符串函数有：</p>
+<table>
+<thead>
+<tr>
+<th>函数名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>charset(str)</td>
+<td>获取字符串使用的字符集</td>
+</tr>
+<tr>
+<td>concat(str1, str2 [, …])</td>
+<td>获取连接后的字符串</td>
+</tr>
+<tr>
+<td>instr(str, substr)</td>
+<td>获取 substr 在 str 中首次出现的位置，没有出现返回 0</td>
+</tr>
+<tr>
+<td>ucase(str)</td>
+<td>获取转换成大写后的字符串</td>
+</tr>
+<tr>
+<td>lcase(str)</td>
+<td>获取转换成小写后的字符串</td>
+</tr>
+<tr>
+<td>left(str, length)</td>
+<td>从字符串的左边开始，向后截取 length 个字符</td>
+</tr>
+<tr>
+<td>length(str)</td>
+<td>获取字符串占用的字节数</td>
+</tr>
+<tr>
+<td>replace(str, search_str, replace_str)</td>
+<td>将字符串中的 search_str 替换成 replace_str</td>
+</tr>
+<tr>
+<td>strcmp(str1, str2)</td>
+<td>逐字符比较两个字符串的大小</td>
+</tr>
+<tr>
+<td>substring(str, position [, length])</td>
+<td>从字符串的 position 开始，向后截取 length 个字符</td>
+</tr>
+<tr>
+<td>ltrim(str)、rtrim(str)、trim(str)</td>
+<td>去除字符串的前空格、后空格、前后空格</td>
+</tr>
+</tbody>
+</table>
+<p>charset 函数用来返回指定字符串的字符集。字符集是一种给定一系列字符并赋予对应的编码的方式。例如，给定字符列表为 {‘A’,’B’}时， {‘A’=&gt;0, ‘B’=&gt;1}就是一个字符集。</p>
+<p>例如查看这张员工雇佣表中名字这一列的字符集：</p>
+<img src="./内置函数.IMG/image-20231128141857258.png" alt="image-20231128141857258" style="zoom:50%;" />
+<p>concat 函数：按参数顺序连接字符串。例如将上面的雇佣表的列属性按照如下方式连接成一个字符串。</p>
+<img src="./内置函数.IMG/image-20231128142250417.png" alt="image-20231128142250417" style="zoom:50%;" />
+<p>instr 函数：获取一个字符串在另一个字符串中首次出现的位置，如果没有出现则返回 0。</p>
+<img src="./内置函数.IMG/image-20231128142353993.png" alt="image-20231128142353993" style="zoom:50%;" />
+<p>ucase 函数：获取转换成大写后的字符串。</p>
+<img src="./内置函数.IMG/image-20231128142434264.png" alt="image-20231128142434264" style="zoom:50%;" />
+<p>lcase 函数：获取转换成小写后的字符串。</p>
+<img src="./内置函数.IMG/image-20231128142516985.png" alt="image-20231128142516985" style="zoom:50%;" />
+<p>left 函数：从字符串的左边开始，向后截取指定个数的字符。</p>
+<img src="./内置函数.IMG/image-20231128142712051.png" alt="image-20231128142712051" style="zoom:50%;" />
+<p>length 函数：获取字符串占用的字节数。</p>
+<img src="./内置函数.IMG/image-20231128142758258.png" alt="image-20231128142758258" style="zoom:50%;" />
+<p>值得注意的是这个函数返回的是字节数而不是字符数，如果是汉字，utf8 占 3 个字节，gbk 占 2 个字节。</p>
+<p>replace 函数：将字符串中的指定子字符串替换成另一个字符串。</p>
+<img src="./内置函数.IMG/image-20231128143010442.png" alt="image-20231128143010442" style="zoom:50%;" />
+<p>strcmp 函数：逐字符按照 ASCII 码比较两个字符串的大小，两个字符串大小相等返回 0，前者大返回 1，后者大返回 - 1。且不区分大小写。</p>
+<img src="./内置函数.IMG/image-20231128143205001.png" alt="image-20231128143205001" style="zoom:50%;" />
+<p>substring 函数：从字符串的指定位置开始，向后截取指定个数的字符。</p>
+<img src="./内置函数.IMG/image-20231128143253039.png" alt="image-20231128143253039" style="zoom:50%;" />
+<p>trim 函数：去除字符串的前后空格。</p>
+<p>ltrim 和 rtrim 函数：去除字符串的前空格和后空格。</p>
+<img src="./内置函数.IMG/image-20231128143542322.png" alt="image-20231128143542322" style="zoom:50%;" />
+<p>以首字母小写的方式显示员工表中所有员工的姓名：</p>
+<ol>
+<li>substring 函数和 lcase 函数将姓名的第一个字母转换成小写。</li>
+<li>substring 函数截取员工姓名的第二个字符及其后续字符。</li>
+<li>concat 函数用于连接上面获得的两个字符串。</li>
+</ol>
+<img src="./内置函数.IMG/image-20231128143820702.png" alt="image-20231128143820702" style="zoom:50%;" />
+<h1>数学函数</h1><p>常用的数学函数如下：</p>
+<table>
+<thead>
+<tr>
+<th>函数名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>abs(number)</td>
+<td>绝对值函数</td>
+</tr>
+<tr>
+<td>bin(decimal_number)</td>
+<td>十进制转换成二进制</td>
+</tr>
+<tr>
+<td>hex(decimal_number)</td>
+<td>十进制转换成十六进制</td>
+</tr>
+<tr>
+<td>conv(number, from_base, to_base)</td>
+<td>from_base 进制转换成 to_base 进制</td>
+</tr>
+<tr>
+<td>ceiling(number)</td>
+<td>向上取整</td>
+</tr>
+<tr>
+<td>floor(number)</td>
+<td>向下取整</td>
+</tr>
+<tr>
+<td>format(number, n)</td>
+<td>格式化，保留 n 位小数（四舍五入）</td>
+</tr>
+<tr>
+<td>rand()</td>
+<td>生成随机浮点数，范围 [0.0, 1.0)</td>
+</tr>
+<tr>
+<td>mod(number, denominator)</td>
+<td>求余</td>
+</tr>
+</tbody>
+</table>
+<p>abs 函数：获取参数绝对值。</p>
+<img src="./内置函数.IMG/image-20231128144934588.png" alt="image-20231128144934588" style="zoom:50%;" />
+<p>bin 函数和 hex 函数：将参数转换为二进制或十六进制：
+<img src="./内置函数.IMG/image-20231128145011445.png" alt="image-20231128145011445" style="zoom:50%;" /></p>
+<p>conv 函数：进制转换。</p>
+<img src="./内置函数.IMG/image-20231128145049121.png" alt="image-20231128145049121" style="zoom:50%;" />
+<p>ceiling 函数：对参数向上取整。</p>
+<img src="./内置函数.IMG/image-20231128145147136.png" alt="image-20231128145147136" style="zoom:50%;" />
+<p>floor 函数：对参数向下取整。</p>
+<img src="./内置函数.IMG/image-20231128145231947.png" alt="image-20231128145231947" style="zoom:50%;" />
+<p>format 函数：对参数格式化，以四舍五入的方式保留指定位数的小数。</p>
+<img src="./内置函数.IMG/image-20231128145317310.png" alt="image-20231128145317310" style="zoom:50%;" />
+<p>rand 函数：生成 0.0 到 1.0 的随机浮点数。</p>
+<img src="./内置函数.IMG/image-20231128145344356.png" alt="image-20231128145344356" style="zoom:50%;" />
+<p>如果想要生成 0 到 100 的随机数，可以用生成的随机浮点数乘以 100，然后再取整。</p>
+<img src="./内置函数.IMG/image-20231128145421317.png" alt="image-20231128145421317" style="zoom:50%;" />
+<p>mod 函数：对参数求余。</p>
+<img src="./内置函数.IMG/image-20231128145514818.png" alt="image-20231128145514818" style="zoom:50%;" />
+<h1>信息函数</h1><p>user 函数：获取 MySQL 连接的当前用户名和主机名。</p>
+<img src="./内置函数.IMG/image-20231128145718504.png" alt="image-20231128145718504" style="zoom:50%;" />
+<p>md5 函数：对一个字符串进行 md5 摘要，摘要后得到一个 32 位字符串。</p>
+<img src="./内置函数.IMG/image-20231128145735586.png" alt="image-20231128145735586" style="zoom:50%;" />
+<p>md5 是一种密码散列函数，它可以将任意长度的信息映射为固定长度（通常为 32bit）的哈希值。它具有不可逆性、唯一性和抗碰撞性。并且由于哈希算法的雪崩效应，即使被加密的信息发生了一个很微小的改动，也会使得最后的哈希值变得完全不同。这是因为密码哈希算法通常采用对轮迭代和复杂的非线性变换，使得输入的每一位都会影响输出的每一位（信息安全专业的同学应该会比较了解）。</p>
+<p>在工业应用中持久化存储用户的账号和密码这样的私密信息时，为了用户的安全是不会存储明文的，而是存储它的摘要，在验证时也是也是以同样的方式对用户输入的密码进行摘要，通过与数据库中的哈希值比较以验证用户身份。</p>
+<p>这么做也有一个好处，不论用户的密码多长，加密得到的哈希值总是固定的，这样在设计表时就可以用固定长度的列存储密码摘要。</p>
+<p>database 函数：显示当前正在使用的数据库。</p>
+<img src="./内置函数.IMG/image-20231128150651038.png" alt="image-20231128150651038" style="zoom:50%;" />
+<p>password 函数：对用户数据进行加密。</p>
+<img src="./内置函数.IMG/image-20231128150639319.png" alt="image-20231128150639319" style="zoom:50%;" />
+<p>另外，像 password 这样涉及用户隐私的函数，它不会被保存在 MySQL 的历史命令中（键盘上下方向键查看）。</p>
+<p>ifnull 函数接受两个参数，如果第一个参数不为 null 则返回第一个参数值，否则返回第二个参数值。</p>
+<img src="./内置函数.IMG/image-20231128150733468.png" alt="image-20231128150733468" style="zoom:50%;" />
+<h1>参考资料</h1><ul>
+<li><a href="https://www.runoob.com/mysql/mysql-functions.html" target="_blank" rel="noopener">MySQL 函数|菜鸟教程</a></li>
+<li><a href="https://blog.csdn.net/chenlong_cxy/article/details/128538165" target="_blank" rel="noopener">MySQL 内置函数</a></li>
+</ul>
 
         </div>
         <div class="mt-16"></div>

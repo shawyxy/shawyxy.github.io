@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <link rel="icon shortcut" href="/favicon.ico" sizes="32x32" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="/favicon-dark.svg" type="image/svg+xml" media="(prefers-color-scheme: dark)" />
+<link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16" />
+<link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+<link fetchpriority="low" href="/site.webmanifest" rel="manifest" />
+
+  <title>表内容的操作 – Shawy&#39;s Blog</title>
+  <meta name="description" content="阅读前导：
+一般来说，对表的操作可以分为对表结构和对表内容的操作。
+对表结构的操作，就是用数据定义语言 DDL 来创建、修改或删除表中的对象，比如字段、索引、约束等。常用的命令有 CREATE、ALTER、DROP 等。 对表内容的操作，就是用数据操作语言 DML 来插入、更新或删除表中的记录，比如数据行或列。常用的命令有 INSERT、UPDATE、DELETE 等。 前者已经在介绍了 表结构的操作。
+表的 CRUDCRUD 即：Create（新增），Retrieve（查找），Update（修改），Delete（删除）。
+SQL 标准规定大写单词表示关键字，在使用时为了方便和可读性，可以小写，因为 MySQL 会自动优化合并。
+Create（增加）插入记录 INSERT [INTO] table_name [(column1 [, column2] ...)] VALUES (value_list1) [, (value_list2)] ...; VALUES 关键字前后分别指的是参数名和参数要插入的值，它们的位置是一一对应的。如果插入的值是这个表的所有列，那么前面的若干参数名可以省略。
+创建表：
+mysql&gt; create table students( -&gt; id int primary key, -&gt; name varchar(20) not null, -&gt; class int not null -&gt; ); 指定列插入：
+如果插入的是所有列，那么可以省略列名：
+如果将 id 列的属性设置为自增，那么自增的值将是当前 id 的最大值&#43;1，即 3。这允许插入时不指定 id 的值： 也就是说，只要表的约束允许插入列值时可以为空，那么在插入时就可以不指定列名，不过需要注意列名和列值位置和数量上的对应。
+上面是每次插入一条数据，也可以在指定列名后，插入多条记录的列值：" />
+  
+  
+    <link rel="canonical" href="/blogs/mysql/%E8%A1%A8%E5%86%85%E5%AE%B9%E7%9A%84%E6%93%8D%E4%BD%9C/" itemprop="url" />
+  
+
+  
+
+<meta property="og:title" content="表内容的操作" />
+<meta property="og:description" content="阅读前导：
+一般来说，对表的操作可以分为对表结构和对表内容的操作。
+对表结构的操作，就是用数据定义语言 DDL 来创建、修改或删除表中的对象，比如字段、索引、约束等。常用的命令有 CREATE、ALTER、DROP 等。 对表内容的操作，就是用数据操作语言 DML 来插入、更新或删除表中的记录，比如数据行或列。常用的命令有 INSERT、UPDATE、DELETE 等。 前者已经在介绍了 表结构的操作。
+表的 CRUDCRUD 即：Create（新增），Retrieve（查找），Update（修改），Delete（删除）。
+SQL 标准规定大写单词表示关键字，在使用时为了方便和可读性，可以小写，因为 MySQL 会自动优化合并。
+Create（增加）插入记录 INSERT [INTO] table_name [(column1 [, column2] ...)] VALUES (value_list1) [, (value_list2)] ...; VALUES 关键字前后分别指的是参数名和参数要插入的值，它们的位置是一一对应的。如果插入的值是这个表的所有列，那么前面的若干参数名可以省略。
+创建表：
+mysql&gt; create table students( -&gt; id int primary key, -&gt; name varchar(20) not null, -&gt; class int not null -&gt; ); 指定列插入：
+如果插入的是所有列，那么可以省略列名：
+如果将 id 列的属性设置为自增，那么自增的值将是当前 id 的最大值&#43;1，即 3。这允许插入时不指定 id 的值： 也就是说，只要表的约束允许插入列值时可以为空，那么在插入时就可以不指定列名，不过需要注意列名和列值位置和数量上的对应。
+上面是每次插入一条数据，也可以在指定列名后，插入多条记录的列值：" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/blogs/mysql/%E8%A1%A8%E5%86%85%E5%AE%B9%E7%9A%84%E6%93%8D%E4%BD%9C/" /><meta property="article:section" content="blogs" />
+
+
+
+  
+  <meta itemprop="name" content="表内容的操作">
+  <meta itemprop="description" content="阅读前导：
+一般来说，对表的操作可以分为对表结构和对表内容的操作。
+对表结构的操作，就是用数据定义语言 DDL 来创建、修改或删除表中的对象，比如字段、索引、约束等。常用的命令有 CREATE、ALTER、DROP 等。 对表内容的操作，就是用数据操作语言 DML 来插入、更新或删除表中的记录，比如数据行或列。常用的命令有 INSERT、UPDATE、DELETE 等。 前者已经在介绍了 表结构的操作。
+表的 CRUDCRUD 即：Create（新增），Retrieve（查找），Update（修改），Delete（删除）。
+SQL 标准规定大写单词表示关键字，在使用时为了方便和可读性，可以小写，因为 MySQL 会自动优化合并。
+Create（增加）插入记录 INSERT [INTO] table_name [(column1 [, column2] ...)] VALUES (value_list1) [, (value_list2)] ...; VALUES 关键字前后分别指的是参数名和参数要插入的值，它们的位置是一一对应的。如果插入的值是这个表的所有列，那么前面的若干参数名可以省略。
+创建表：
+mysql&gt; create table students( -&gt; id int primary key, -&gt; name varchar(20) not null, -&gt; class int not null -&gt; ); 指定列插入：
+如果插入的是所有列，那么可以省略列名：
+如果将 id 列的属性设置为自增，那么自增的值将是当前 id 的最大值&#43;1，即 3。这允许插入时不指定 id 的值： 也就是说，只要表的约束允许插入列值时可以为空，那么在插入时就可以不指定列名，不过需要注意列名和列值位置和数量上的对应。
+上面是每次插入一条数据，也可以在指定列名后，插入多条记录的列值：">
+  <meta itemprop="wordCount" content="1373"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="表内容的操作">
+<meta name="twitter:description" content="阅读前导：
+一般来说，对表的操作可以分为对表结构和对表内容的操作。
+对表结构的操作，就是用数据定义语言 DDL 来创建、修改或删除表中的对象，比如字段、索引、约束等。常用的命令有 CREATE、ALTER、DROP 等。 对表内容的操作，就是用数据操作语言 DML 来插入、更新或删除表中的记录，比如数据行或列。常用的命令有 INSERT、UPDATE、DELETE 等。 前者已经在介绍了 表结构的操作。
+表的 CRUDCRUD 即：Create（新增），Retrieve（查找），Update（修改），Delete（删除）。
+SQL 标准规定大写单词表示关键字，在使用时为了方便和可读性，可以小写，因为 MySQL 会自动优化合并。
+Create（增加）插入记录 INSERT [INTO] table_name [(column1 [, column2] ...)] VALUES (value_list1) [, (value_list2)] ...; VALUES 关键字前后分别指的是参数名和参数要插入的值，它们的位置是一一对应的。如果插入的值是这个表的所有列，那么前面的若干参数名可以省略。
+创建表：
+mysql&gt; create table students( -&gt; id int primary key, -&gt; name varchar(20) not null, -&gt; class int not null -&gt; ); 指定列插入：
+如果插入的是所有列，那么可以省略列名：
+如果将 id 列的属性设置为自增，那么自增的值将是当前 id 的最大值&#43;1，即 3。这允许插入时不指定 id 的值： 也就是说，只要表的约束允许插入列值时可以为空，那么在插入时就可以不指定列名，不过需要注意列名和列值位置和数量上的对应。
+上面是每次插入一条数据，也可以在指定列名后，插入多条记录的列值：">
+
+    <link rel="preload" href="/css/compiled/main.min.5a06ca26e024c4f511f45ee6c33a2a1faefaebe6be8a38d36e100f40a4c59c06.css" as="style" integrity="sha256-WgbKJuAkxPUR9F7mwzoqH6766&#43;a&#43;ijjTbhAPQKTFnAY=" />
+    <link href="/css/compiled/main.min.5a06ca26e024c4f511f45ee6c33a2a1faefaebe6be8a38d36e100f40a4c59c06.css" rel="stylesheet" integrity="sha256-WgbKJuAkxPUR9F7mwzoqH6766&#43;a&#43;ijjTbhAPQKTFnAY=" />
+
+
+
+  <link href="/css/custom.min.e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css" rel="stylesheet" integrity="sha256-47DEQpj8HBSa&#43;/TImW&#43;5JCeuQeRkm5NMpJWZG3hSuFU=" />
+
+
+
+  
+
+
+  <script>
+     
+    const defaultTheme = 'system';
+
+    const setDarkTheme = () => {
+      document.documentElement.classList.add("dark");
+      document.documentElement.style.colorScheme = "dark";
+    }
+    const setLightTheme = () => {
+      document.documentElement.classList.remove("dark");
+      document.documentElement.style.colorScheme = "light";
+    }
+
+    if ("color-theme" in localStorage) {
+      localStorage.getItem("color-theme") === "dark" ? setDarkTheme() : setLightTheme();
+    } else {
+      defaultTheme === "dark" ? setDarkTheme() : setLightTheme();
+      if (defaultTheme === "system") {
+        window.matchMedia("(prefers-color-scheme: dark)").matches ? setDarkTheme() : setLightTheme();
+      }
+    }
+  </script>
+
+  
+</head>
+<body dir="ltr"><div class="nav-container sticky top-0 z-20 w-full bg-transparent print:hidden">
+  <div class="nav-container-blur pointer-events-none absolute z-[-1] h-full w-full bg-white dark:bg-dark shadow-[0_2px_4px_rgba(0,0,0,.02),0_1px_0_rgba(0,0,0,.06)] contrast-more:shadow-[0_0_0_1px_#000] dark:shadow-[0_-1px_0_rgba(255,255,255,.1)_inset] contrast-more:dark:shadow-[0_0_0_1px_#fff]"></div>
+
+  <nav class="mx-auto flex items-center justify-end gap-2 h-16 px-6 max-w-[90rem]">
+    <a class="flex items-center hover:opacity-75 ltr:mr-auto rtl:ml-auto" href="/">
+        <span class="mx-2 font-extrabold inline select-none" title="Shawy&#39;s Blog">Shawy&#39;s Blog</span>
+    </a><a
+            title="Blogs"
+            href="/blogs"
+            
+            class="text-sm contrast-more:text-gray-700 contrast-more:dark:text-gray-100 relative -ml-2 hidden whitespace-nowrap p-2 md:inline-block font-medium"
+          >
+            <span class="text-center">Blogs</span>
+          </a><a
+            title="About"
+            href="/about"
+            
+            class="text-sm contrast-more:text-gray-700 contrast-more:dark:text-gray-100 relative -ml-2 hidden whitespace-nowrap p-2 md:inline-block text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
+          >
+            <span class="text-center">About</span>
+          </a><a
+            title="Contact ↗"
+            href="https://blog.csdn.net/m0_63312733?type=blog"
+            target="_blank" rel="noreferer"
+            class="text-sm contrast-more:text-gray-700 contrast-more:dark:text-gray-100 relative -ml-2 hidden whitespace-nowrap p-2 md:inline-block text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
+          >
+            <span class="text-center">Contact ↗</span>
+          </a><div class="search-wrapper relative md:w-64">
+  <div class="relative flex items-center text-gray-900 contrast-more:text-gray-800 dark:text-gray-300 contrast-more:dark:text-gray-300">
+    <input
+      placeholder="Search..."
+      class="search-input block w-full appearance-none rounded-lg px-3 py-2 transition-colors text-base leading-tight md:text-sm bg-black/[.05] dark:bg-gray-50/10 focus:bg-white dark:focus:bg-dark placeholder:text-gray-500 dark:placeholder:text-gray-400 contrast-more:border contrast-more:border-current"
+      type="search"
+      value=""
+      spellcheck="false"
+    />
+    <kbd
+      class="absolute my-1.5 select-none ltr:right-1.5 rtl:left-1.5 h-5 rounded bg-white px-1.5 font-mono text-[10px] font-medium text-gray-500 border dark:border-gray-100/20 dark:bg-dark/50 contrast-more:border-current contrast-more:text-current contrast-more:dark:border-current items-center gap-1 transition-opacity pointer-events-none hidden sm:flex"
+    >
+      CTRL K
+    </kbd>
+  </div>
+
+  <div>
+    <ul
+      class="search-results hextra-scrollbar hidden border border-gray-200 bg-white text-gray-100 dark:border-neutral-800 dark:bg-neutral-900 absolute top-full z-20 mt-2 overflow-auto overscroll-contain rounded-xl py-2.5 shadow-xl max-h-[min(calc(50vh-11rem-env(safe-area-inset-bottom)),400px)] md:max-h-[min(calc(100vh-5rem-env(safe-area-inset-bottom)),400px)] inset-x-0 ltr:md:left-auto rtl:md:right-auto contrast-more:border contrast-more:border-gray-900 contrast-more:dark:border-gray-50 w-screen min-h-[100px] max-w-[min(calc(100vw-2rem),calc(100%+20rem))]"
+      style="transition: max-height 0.2s ease 0s;"
+    ></ul>
+  </div>
+</div>
+
+          <a class="p-2 text-current" target="_blank" rel="noreferer" href="https://github.com/shawyxy" title="GitHub"><svg height=24 fill="currentColor" viewBox="3 3 18 18">
+  <path d="M12 3C7.0275 3 3 7.12937 3 12.2276C3 16.3109 5.57625 19.7597 9.15374 20.9824C9.60374 21.0631 9.77249 20.7863 9.77249 20.5441C9.77249 20.3249 9.76125 19.5982 9.76125 18.8254C7.5 19.2522 6.915 18.2602 6.735 17.7412C6.63375 17.4759 6.19499 16.6569 5.8125 16.4378C5.4975 16.2647 5.0475 15.838 5.80124 15.8264C6.51 15.8149 7.01625 16.4954 7.18499 16.7723C7.99499 18.1679 9.28875 17.7758 9.80625 17.5335C9.885 16.9337 10.1212 16.53 10.38 16.2993C8.3775 16.0687 6.285 15.2728 6.285 11.7432C6.285 10.7397 6.63375 9.9092 7.20749 9.26326C7.1175 9.03257 6.8025 8.08674 7.2975 6.81794C7.2975 6.81794 8.05125 6.57571 9.77249 7.76377C10.4925 7.55615 11.2575 7.45234 12.0225 7.45234C12.7875 7.45234 13.5525 7.55615 14.2725 7.76377C15.9937 6.56418 16.7475 6.81794 16.7475 6.81794C17.2424 8.08674 16.9275 9.03257 16.8375 9.26326C17.4113 9.9092 17.76 10.7281 17.76 11.7432C17.76 15.2843 15.6563 16.0687 13.6537 16.2993C13.98 16.5877 14.2613 17.1414 14.2613 18.0065C14.2613 19.2407 14.25 20.2326 14.25 20.5441C14.25 20.7863 14.4188 21.0746 14.8688 20.9824C16.6554 20.364 18.2079 19.1866 19.3078 17.6162C20.4077 16.0457 20.9995 14.1611 21 12.2276C21 7.12937 16.9725 3 12 3Z"></path>
+</svg>
+<span class="sr-only">GitHub</span>
+          </a><button type="button" aria-label="Menu" class="hamburger-menu -mr-2 rounded p-2 active:bg-gray-400/20 md:hidden"><svg height=24 fill="none" viewBox="0 0 24 24" stroke="currentColor"><g><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8H20"></path></g><g><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16H20"></path></g></svg></button>
+  </nav>
+</div>
+
+  <div class='mx-auto flex max-w-screen-xl'>
+    <div class="mobile-menu-overlay [transition:background-color_1.5s_ease] fixed inset-0 z-10 bg-black/80 dark:bg-black/60 hidden"></div>
+<aside class="sidebar-container flex flex-col print:hidden md:top-16 md:shrink-0 md:w-64 md:self-start max-md:[transform:translate3d(0,-100%,0)] md:hidden xl:block">
+  
+  <div class="px-4 pt-4 md:hidden">
+    <div class="search-wrapper relative md:w-64">
+  <div class="relative flex items-center text-gray-900 contrast-more:text-gray-800 dark:text-gray-300 contrast-more:dark:text-gray-300">
+    <input
+      placeholder="Search..."
+      class="search-input block w-full appearance-none rounded-lg px-3 py-2 transition-colors text-base leading-tight md:text-sm bg-black/[.05] dark:bg-gray-50/10 focus:bg-white dark:focus:bg-dark placeholder:text-gray-500 dark:placeholder:text-gray-400 contrast-more:border contrast-more:border-current"
+      type="search"
+      value=""
+      spellcheck="false"
+    />
+    <kbd
+      class="absolute my-1.5 select-none ltr:right-1.5 rtl:left-1.5 h-5 rounded bg-white px-1.5 font-mono text-[10px] font-medium text-gray-500 border dark:border-gray-100/20 dark:bg-dark/50 contrast-more:border-current contrast-more:text-current contrast-more:dark:border-current items-center gap-1 transition-opacity pointer-events-none hidden sm:flex"
+    >
+      CTRL K
+    </kbd>
+  </div>
+
+  <div>
+    <ul
+      class="search-results hextra-scrollbar hidden border border-gray-200 bg-white text-gray-100 dark:border-neutral-800 dark:bg-neutral-900 absolute top-full z-20 mt-2 overflow-auto overscroll-contain rounded-xl py-2.5 shadow-xl max-h-[min(calc(50vh-11rem-env(safe-area-inset-bottom)),400px)] md:max-h-[min(calc(100vh-5rem-env(safe-area-inset-bottom)),400px)] inset-x-0 ltr:md:left-auto rtl:md:right-auto contrast-more:border contrast-more:border-gray-900 contrast-more:dark:border-gray-50 w-screen min-h-[100px] max-w-[min(calc(100vw-2rem),calc(100%+20rem))]"
+      style="transition: max-height 0.2s ease 0s;"
+    ></ul>
+  </div>
+</div>
+
+  </div>
+  <div class="hextra-scrollbar overflow-y-auto overflow-x-hidden p-4 grow md:h-[calc(100vh-var(--navbar-height)-var(--menu-height))]">
+    <ul class="flex flex-col gap-1 md:hidden">
+      
+      
+          <li class=""><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/about/"
+    
+  >About
+    </a></li>
+          <li class="open"><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/"
+    
+  >Notes
+        <span class="hextra-sidebar-collapsible-button"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-[18px] min-w-[18px] rounded-sm p-0.5 hover:bg-gray-800/5 dark:hover:bg-gray-100/5"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" class="origin-center transition-transform rtl:-rotate-180"></path></svg></span>
+    </a><div class="ltr:pr-0 overflow-hidden">
+        <ul class='relative flex flex-col gap-1 before:absolute before:inset-y-1 before:w-px before:bg-gray-200 before:content-[""] ltr:ml-3 ltr:pl-3 ltr:before:left-0 rtl:mr-3 rtl:pr-3 rtl:before:right-0 dark:before:bg-neutral-800'><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/c&#43;&#43;/"
+    
+  >C/C&#43;&#43;
+    </a>
+              
+            </li><li class="flex flex-col open"><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/mysql/"
+    
+  >MySQL
+        <span class="hextra-sidebar-collapsible-button"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-[18px] min-w-[18px] rounded-sm p-0.5 hover:bg-gray-800/5 dark:hover:bg-gray-100/5"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" class="origin-center transition-transform rtl:-rotate-180"></path></svg></span>
+    </a>
+              <div class="ltr:pr-0 overflow-hidden">
+        <ul class='relative flex flex-col gap-1 before:absolute before:inset-y-1 before:w-px before:bg-gray-200 before:content-[""] ltr:ml-3 ltr:pl-3 ltr:before:left-0 rtl:mr-3 rtl:pr-3 rtl:before:right-0 dark:before:bg-neutral-800'><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/mysql/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E7%A1%80%E4%B8%80/"
+    
+  >数据库基础（一）
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/mysql/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E7%A1%80%E4%BA%8C/"
+    
+  >数据库基础（二）
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/mysql/%E5%BA%93%E7%9A%84%E6%93%8D%E4%BD%9C/"
+    
+  >库的操作
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/mysql/%E8%A1%A8%E7%BB%93%E6%9E%84%E7%9A%84%E6%93%8D%E4%BD%9C/"
+    
+  >表结构的操作
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/mysql/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/"
+    
+  >数据类型
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/mysql/%E8%A1%A8%E7%9A%84%E7%BA%A6%E6%9D%9F/"
+    
+  >表的约束
+    </a>
+              
+            </li><li class="flex flex-col open"><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      sidebar-active-item bg-primary-100 font-semibold text-primary-800 contrast-more:border contrast-more:border-primary-500 dark:bg-primary-400/10 dark:text-primary-600 contrast-more:dark:border-primary-500"
+    href="/blogs/mysql/%E8%A1%A8%E5%86%85%E5%AE%B9%E7%9A%84%E6%93%8D%E4%BD%9C/"
+    
+  >表内容的操作
+    </a>
+  
+    <ul class='flex flex-col gap-1 relative before:absolute before:inset-y-1 before:w-px before:bg-gray-200 before:content-[""] dark:before:bg-neutral-800 ltr:pl-3 ltr:before:left-0 rtl:pr-3 rtl:before:right-0 ltr:ml-3 rtl:mr-3'><li>
+              <a
+                href="#%e6%8f%92%e5%85%a5%e8%ae%b0%e5%bd%95"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >插入记录</a>
+            </li>
+          <li>
+              <a
+                href="#%e6%8f%92%e5%85%a5%e5%86%b2%e7%aa%81%e5%88%99%e6%9b%b4%e6%96%b0%e8%ae%b0%e5%bd%95"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >插入冲突则更新记录</a>
+            </li>
+          <li>
+              <a
+                href="#%e6%9b%bf%e6%8d%a2%e8%ae%b0%e5%bd%95"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >替换记录</a>
+            </li>
+          <li>
+              <a
+                href="#%e6%9f%a5%e6%89%be%e8%ae%b0%e5%bd%95"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >查找记录</a>
+            </li>
+          <li>
+              <a
+                href="#%e6%8c%87%e5%ae%9a%e8%a1%a8%e8%be%be%e5%bc%8f%e7%9a%84%e5%88%ab%e5%90%8d"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >指定表达式的别名</a>
+            </li>
+          <li>
+              <a
+                href="#%e4%b8%ba%e7%bb%93%e6%9e%9c%e5%8e%bb%e9%87%8d"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >为结果去重</a>
+            </li>
+          <li>
+              <a
+                href="#where-%e5%ad%90%e5%8f%a5"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >WHERE 子句</a>
+            </li>
+          <li>
+              <a
+                href="#%e5%af%b9%e7%bb%93%e6%9e%9c%e6%8e%92%e5%ba%8f"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >对结果排序</a>
+            </li>
+          <li>
+              <a
+                href="#%e7%ad%9b%e9%80%89%e5%88%86%e9%a1%b5%e7%bb%93%e6%9e%9c"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >筛选分页结果</a>
+            </li>
+          <li>
+              <a
+                href="#delete"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >DELETE</a>
+            </li>
+          <li>
+              <a
+                href="#truncate"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >TRUNCATE</a>
+            </li>
+          <li>
+              <a
+                href="#%e8%ae%b0%e5%bd%95%e5%8e%bb%e9%87%8d"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >记录去重</a>
+            </li>
+          <li>
+              <a
+                href="#having"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >HAVING</a>
+            </li>
+          </ul>
+  
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/mysql/%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0/"
+    
+  >内置函数
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/mysql/%E5%A4%8D%E5%90%88%E6%9F%A5%E8%AF%A2/"
+    
+  >复合查询
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/mysql/%E8%A1%A8%E7%9A%84%E8%BF%9E%E6%8E%A5/"
+    
+  >表的连接
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/mysql/%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/"
+    
+  >用户管理
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/mysql/%E7%B4%A2%E5%BC%95/"
+    
+  >索引
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/mysql/%E4%BA%8B%E5%8A%A1/"
+    
+  >事务
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/mysql/%E8%A7%86%E5%9B%BE/"
+    
+  >视图
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/mysql/c%E8%AF%AD%E8%A8%80%E8%BF%9E%E6%8E%A5/"
+    
+  >C语言连接
+    </a>
+              
+            </li></ul>
+      </div>
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"
+    
+  >操作系统
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"
+    
+  >数据结构与算法
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"
+    
+  >计算机网络
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/%E9%A1%B9%E7%9B%AE/"
+    
+  >项目
+        <span class="hextra-sidebar-collapsible-button"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-[18px] min-w-[18px] rounded-sm p-0.5 hover:bg-gray-800/5 dark:hover:bg-gray-100/5"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" class="origin-center transition-transform rtl:-rotate-180"></path></svg></span>
+    </a>
+              <div class="ltr:pr-0 overflow-hidden">
+        <ul class='relative flex flex-col gap-1 before:absolute before:inset-y-1 before:w-px before:bg-gray-200 before:content-[""] ltr:ml-3 ltr:pl-3 ltr:before:left-0 rtl:mr-3 rtl:pr-3 rtl:before:right-0 dark:before:bg-neutral-800'><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/%E9%A1%B9%E7%9B%AE/%E9%AB%98%E5%B9%B6%E5%8F%91%E5%86%85%E5%AD%98%E6%B1%A0/"
+    
+  >高并发内存池
+    </a>
+              
+            </li></ul>
+      </div>
+            </li></ul>
+      </div></li>
+    </ul>
+
+    <div class="max-xl:hidden h-0 w-64 shrink-0"></div></div>
+  
+  
+    <div class="md:hidden  sticky bottom-0 bg-white dark:bg-dark mx-4 py-4 shadow-[0_-12px_16px_#fff] flex items-center gap-2 dark:border-neutral-800 dark:shadow-[0_-12px_16px_#111] contrast-more:border-neutral-400 contrast-more:shadow-none contrast-more:dark:shadow-none border-t" data-toggle-animation="show"><div class="flex grow flex-col"><button
+  title="Change theme"
+  data-theme="light"
+  class="theme-toggle group h-7 rounded-md px-2 text-left text-xs font-medium text-gray-600 transition-colors dark:text-gray-400 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-primary-100/5 dark:hover:text-gray-50"
+  type="button"
+  aria-label="Change theme"
+>
+  <div class="flex items-center gap-2 capitalize"><svg height=12 class="group-data-[theme=light]:hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg><span class="group-data-[theme=light]:hidden">Light</span><svg height=12 class="group-data-[theme=dark]:hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg><span class="group-data-[theme=dark]:hidden">Dark</span></div>
+</button>
+</div></div></aside>
+    
+<nav class="hextra-toc order-last hidden w-64 shrink-0 xl:block print:hidden px-4" aria-label="table of contents">
+    <div class="hextra-scrollbar sticky top-16 overflow-y-auto pr-4 pt-6 text-sm [hyphens:auto] max-h-[calc(100vh-var(--navbar-height)-env(safe-area-inset-bottom))] ltr:-mr-4 rtl:-ml-4"><p class="mb-4 font-semibold tracking-tight">On this page</p><ul></ul><ul>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%8f%92%e5%85%a5%e8%ae%b0%e5%bd%95">插入记录
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%8f%92%e5%85%a5%e5%86%b2%e7%aa%81%e5%88%99%e6%9b%b4%e6%96%b0%e8%ae%b0%e5%bd%95">插入冲突则更新记录
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%9b%bf%e6%8d%a2%e8%ae%b0%e5%bd%95">替换记录
+        </a>
+      </li></ul><ul>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%9f%a5%e6%89%be%e8%ae%b0%e5%bd%95">查找记录
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%8c%87%e5%ae%9a%e8%a1%a8%e8%be%be%e5%bc%8f%e7%9a%84%e5%88%ab%e5%90%8d">指定表达式的别名
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%b8%ba%e7%bb%93%e6%9e%9c%e5%8e%bb%e9%87%8d">为结果去重
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#where-%e5%ad%90%e5%8f%a5">WHERE 子句
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e8%bf%90%e7%ae%97%e7%ac%a6">运算符
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%9d%a1%e4%bb%b6%e6%9f%a5%e8%af%a2">条件查询
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%8c%ba%e9%97%b4%e6%9f%a5%e8%af%a2">区间查询
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%a8%a1%e7%b3%8a%e6%9f%a5%e8%af%a2">模糊查询
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e7%a9%ba%e5%80%bc%e6%9f%a5%e8%af%a2">空值查询
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%af%b9%e7%bb%93%e6%9e%9c%e6%8e%92%e5%ba%8f">对结果排序
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e7%ad%9b%e9%80%89%e5%88%86%e9%a1%b5%e7%bb%93%e6%9e%9c">筛选分页结果
+        </a>
+      </li></ul><ul></ul><ul>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#delete">DELETE
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#truncate">TRUNCATE
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e8%ae%b0%e5%bd%95%e5%8e%bb%e9%87%8d">记录去重
+        </a>
+      </li></ul><ul></ul><ul>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#having">HAVING
+        </a>
+      </li></ul>
+      <div class="mt-8 border-t bg-white pt-8 shadow-[0_-12px_16px_white] dark:bg-dark dark:shadow-[0_-12px_16px_#111] sticky bottom-0 flex flex-col items-start gap-2 pb-8 dark:border-neutral-800 contrast-more:border-t contrast-more:border-neutral-400 contrast-more:shadow-none contrast-more:dark:border-neutral-400">
+        <button aria-hidden="true" id="backToTop" onClick="scrollUp();" class="transition-all transition duration-75 opacity-0 text-xs font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 contrast-more:text-gray-800 contrast-more:dark:text-gray-50">
+          <span>Scroll to top</span>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="inline ml-1 h-3.5 w-3.5 border rounded-full border-gray-500 hover:border-gray-900 dark:border-gray-400 dark:hover:border-gray-100 contrast-more:border-gray-800 contrast-more:dark:border-gray-50">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+
+    <article class="w-full break-words flex min-h-[calc(100vh-var(--navbar-height))] min-w-0 justify-center pb-8 pr-[calc(env(safe-area-inset-right)-1.5rem)]">
+      <main class="w-full min-w-0 max-w-6xl px-6 pt-4 md:px-12">
+        <br class="mt-1.5 text-sm" />
+        <h1 class="text-center mt-2 text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100">表内容的操作</h1>
+        <div class="mb-16"></div>
+        <div class="content">
+          <p>阅读前导：</p>
+<p>一般来说，对表的操作可以分为对表结构和对表内容的操作。</p>
+<ul>
+<li>对表结构的操作，就是用数据定义语言 DDL 来创建、修改或删除表中的对象，比如字段、索引、约束等。常用的命令有 CREATE、ALTER、DROP 等。</li>
+<li>对表内容的操作，就是用数据操作语言 DML 来插入、更新或删除表中的记录，比如数据行或列。常用的命令有 INSERT、UPDATE、DELETE 等。</li>
+</ul>
+<p>前者已经在介绍了 <a href="https://blog.csdn.net/m0_63312733/article/details/133977132?spm=1001.2014.3001.5502" target="_blank" rel="noopener">表结构的操作</a>。</p>
+<h1>表的 CRUD</h1><p>CRUD 即：Create（新增），Retrieve（查找），Update（修改），Delete（删除）。</p>
+<p>SQL 标准规定大写单词表示关键字，在使用时为了方便和可读性，可以小写，因为 MySQL 会自动优化合并。</p>
+<h1>Create（增加）</h1><h2>插入记录<span class="absolute -mt-20" id="插入记录"></span>
+    <a href="#%e6%8f%92%e5%85%a5%e8%ae%b0%e5%bd%95" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="k">INSERT</span><span class="w"> </span><span class="p">[</span><span class="k">INTO</span><span class="p">]</span><span class="w"> </span><span class="n">table_name</span><span class="w"> </span><span class="p">[(</span><span class="n">column1</span><span class="w"> </span><span class="p">[,</span><span class="w"> </span><span class="n">column2</span><span class="p">]</span><span class="w"> </span><span class="p">...)]</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="n">value_list1</span><span class="p">)</span><span class="w"> </span><span class="p">[,</span><span class="w"> </span><span class="p">(</span><span class="n">value_list2</span><span class="p">)]</span><span class="w"> </span><span class="p">...;</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<p>VALUES 关键字前后分别指的是参数名和参数要插入的值，它们的位置是一一对应的。如果插入的值是这个表的所有列，那么前面的若干参数名可以省略。</p>
+<p>创建表：</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="nf">students</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">class</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="no">null</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<img src="./表内容的操作.IMG/image-20231030141126948.png" alt="image-20231030141126948" style="zoom:50%;" />
+<p>指定列插入：</p>
+<img src="./表内容的操作.IMG/image-20231030141330864.png" alt="image-20231030141330864" style="zoom:50%;" />
+<p>如果插入的是所有列，那么可以省略列名：</p>
+<img src="./表内容的操作.IMG/image-20231030141453258.png" alt="image-20231030141453258" style="zoom:50%;" />
+<p>如果将 id 列的属性设置为自增，那么自增的值将是当前 id 的最大值+1，即 3。这允许插入时不指定 id 的值：
+<img src="./表内容的操作.IMG/image-20231030142703270.png" alt="image-20231030142703270" style="zoom:50%;" /></p>
+<img src="./表内容的操作.IMG/image-20231030142738265.png" alt="image-20231030142738265" style="zoom:50%;" />
+<p>也就是说，只要表的约束允许插入列值时可以为空，那么在插入时就可以不指定列名，不过需要注意列名和列值位置和数量上的对应。</p>
+<p>上面是每次插入一条数据，也可以在指定列名后，插入多条记录的列值：</p>
+<img src="./表内容的操作.IMG/image-20231030143253181.png" alt="image-20231030143253181" style="zoom:50%;" />
+<h2>插入冲突则更新记录<span class="absolute -mt-20" id="插入冲突则更新记录"></span>
+    <a href="#%e6%8f%92%e5%85%a5%e5%86%b2%e7%aa%81%e5%88%99%e6%9b%b4%e6%96%b0%e8%ae%b0%e5%bd%95" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="nf">table_name</span><span class="w"> </span><span class="p">(</span><span class="n">column1</span><span class="p">,</span><span class="w"> </span><span class="n">column2</span><span class="p">,..)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="n">value1</span><span class="p">,</span><span class="w"> </span><span class="n">value2</span><span class="p">,..)</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">DUPLICATE</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">column1</span><span class="o">=</span><span class="n">value1</span><span class="p">,</span><span class="w"> </span><span class="n">column2</span><span class="o">=</span><span class="n">value2</span><span class="p">,..;</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<p>如果在插入之前和表中的主键或唯一键产生冲突，那么则「更新」，否则直接插入。更新，即插入这个已存在的记录除了主键或唯一键之外不同的列值。</p>
+<p>例如将上表中 id=5 的记录修改为：</p>
+<img src="./表内容的操作.IMG/image-20231030145410028.png" alt="image-20231030145410028" style="zoom:50%;" />
+<p>如果插入了一条不存在的记录，那么相当于直接插入：</p>
+<img src="./表内容的操作.IMG/image-20231030145613304.png" alt="image-20231030145613304" style="zoom:50%;" />
+<p>它们的不同之处在于 MySQL 打印的日志信息，前者是<code>2 rows affected</code>，表示这条已存在的记录中数据有冲突（先删除后插入）；后者是<code>1 rows affected</code>，表示没有数据冲突（直接插入）。如果是<code>0 rows affected</code>，则说明插入的和原来的记录相同。</p>
+<h2>替换记录<span class="absolute -mt-20" id="替换记录"></span>
+    <a href="#%e6%9b%bf%e6%8d%a2%e8%ae%b0%e5%bd%95" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>替换记录的语法和插入类似，只需要将 INSERT 换成 REPLACE。</p>
+<p>替换的记录有冲突，实际上是先删除这条记录，然后再插入：</p>
+<img src="./表内容的操作.IMG/image-20231030150028381.png" alt="image-20231030150028381" style="zoom:50%;" />
+<p>所以 MySQL 会提示有 2 行被影响。</p>
+<p>如果不存在这条记录，相当于直接插入：
+<img src="./表内容的操作.IMG/image-20231030150147812.png" alt="image-20231030150147812" style="zoom:50%;" /></p>
+<h1>Retrieve（查找）</h1><h2>查找记录<span class="absolute -mt-20" id="查找记录"></span>
+    <a href="#%e6%9f%a5%e6%89%be%e8%ae%b0%e5%bd%95" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="p">[</span><span class="k">DISTINCT</span><span class="p">]</span><span class="w"> </span><span class="err">{</span><span class="o">*</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="err">{</span><span class="n">column1</span><span class="w"> </span><span class="p">[,</span><span class="w"> </span><span class="n">column2</span><span class="p">]</span><span class="w"> </span><span class="p">...</span><span class="err">}}</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">table_name</span><span class="w"> </span><span class="p">[</span><span class="k">WHERE</span><span class="w"> </span><span class="p">...]</span><span class="w"> </span><span class="p">[</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="p">...]</span><span class="w"> </span><span class="p">[</span><span class="k">LIMIT</span><span class="w"> </span><span class="p">...];</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<p>查找语句是数据库最常用的工具。</p>
+<p>和插入数据类似，在查询时可以指定类名，位置要对应。</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="nf">en_exam</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="w"> </span><span class="kp">auto_increment</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">listening</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">speaking</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">writing</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="no">null</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<img src="./表内容的操作.IMG/image-20231030152116596.png" alt="image-20231030152116596" style="zoom:50%;" />
+<p>插入若干数据以测试：</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">en_exam</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">values</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;B&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;C&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">9</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;D&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;E&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">9</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<p>查询表中指定列名的值：
+<img src="./表内容的操作.IMG/image-20231030152605413.png" alt="image-20231030152605413" style="zoom:50%;" /></p>
+<p>通过通配符<code>*</code>来查询全列信息：
+<img src="./表内容的操作.IMG/image-20231030152703550.png" alt="image-20231030152703550" style="zoom:50%;" /></p>
+<p>在测试时表的结构简单，通常用全列查询。但实际上数据库的一张表中就可能维护着成千上万条记录，这么做不但可读性差，而且如果是通过网络连接到 MySQL 服务器，可能对 MySQL 客户端的性能产生影响。</p>
+<p>因此在查询时通常会指定查询条件。</p>
+<p>事实上在 MySQL 中，select 命令可以执行表达式，例如计算一个四则运算，执行一个函数。那么言外之意是，在含有 select 关键字的 SQL 中，select 是最后才执行的。</p>
+<p>例如计算上面这张表中所有人的总分和平均分：</p>
+<img src="./表内容的操作.IMG/image-20231030153556040.png" alt="image-20231030153556040" style="zoom:50%;" />
+<p>关于更多类似的做法，将会在下面介绍。</p>
+<h2>指定表达式的别名<span class="absolute -mt-20" id="指定表达式的别名"></span>
+    <a href="#%e6%8c%87%e5%ae%9a%e8%a1%a8%e8%be%be%e5%bc%8f%e7%9a%84%e5%88%ab%e5%90%8d" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="k">column</span><span class="w"> </span><span class="p">[</span><span class="k">AS</span><span class="p">]</span><span class="w"> </span><span class="n">alias_name</span><span class="w"> </span><span class="p">[...]</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">table_name</span><span class="p">;</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<p>在上面这个例子中，计算总分和平均分这个表达式在 select 语句中相当于一个列，相比于其他列而言，直接将表达式作为列名可读性较差，可以为这个表达式的返回值取一个别名。</p>
+<img src="./表内容的操作.IMG/image-20231030153920065.png" alt="image-20231030153920065" style="zoom:50%;" />
+<h2>为结果去重<span class="absolute -mt-20" id="为结果去重"></span>
+    <a href="#%e4%b8%ba%e7%bb%93%e6%9e%9c%e5%8e%bb%e9%87%8d" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>在 select 关键字后加上 DISTINCT 关键字以对表指定的列值去重：</p>
+<img src="./表内容的操作.IMG/image-20231031150016331.png" alt="image-20231031150016331" style="zoom:50%;" />
+<h2>WHERE 子句<span class="absolute -mt-20" id="where-子句"></span>
+    <a href="#where-%e5%ad%90%e5%8f%a5" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>WHERE 子句用于从表中选择满足指定条件的数据。用户可以使用不同的比较运算符、逻辑运算符、通配符等来构造过滤表达式。WHERE 子句可以用在 SELECT、UPDATE、DELETE 等语句中。</p>
+<p>那么，SELECT 等语句在查询表时，是根据 WHERE 子句筛选结果的，也就是说 WHERE 子句的执行在 SELECT 等语句之前。</p>
+<h3>运算符<span class="absolute -mt-20" id="运算符"></span>
+    <a href="#%e8%bf%90%e7%ae%97%e7%ac%a6" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>比较运算符：</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&gt;、&gt;=、&lt;、&lt;=</td>
+<td>大于、大于等于、小于、小于等于</td>
+</tr>
+<tr>
+<td>=</td>
+<td>等于。NULL 不安全，例如 NULL=NULL 的结果是 NULL 而不是 TRUE(1)</td>
+</tr>
+<tr>
+<td>&lt;=&gt;</td>
+<td>等于。NULL 安全，例如 NULL&lt;=&gt;NULL 的结果就是 TRUE(1)</td>
+</tr>
+<tr>
+<td>!=、&lt;&gt;</td>
+<td>不等于</td>
+</tr>
+<tr>
+<td>BETWEEN a0 AND a1</td>
+<td>范围匹配。如果 a0&lt;=value&lt;=a1，则返回 TRUE(1)</td>
+</tr>
+<tr>
+<td>IN(option1, option2, …)</td>
+<td>如果是 IN 中的任意一个 option，则返回 TRUE(1)</td>
+</tr>
+<tr>
+<td>IS NULL</td>
+<td>如果是 NULL，则返回 TRUE(1)</td>
+</tr>
+<tr>
+<td>IS NOT NULL</td>
+<td>如果不是 NULL，则返回 TRUE(1)</td>
+</tr>
+<tr>
+<td>LIKE</td>
+<td>模糊匹配。<code>%</code>表示任意多个字符（包括 0 个），<code>_</code>表示任意一个字符</td>
+</tr>
+</tbody>
+</table>
+<p>逻辑运算符：</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AND</td>
+<td>多个条件同时为 TRUE(1)，则结果为 TRUE(1)，否则为 FALSE(0)</td>
+</tr>
+<tr>
+<td>OR</td>
+<td>任意一个条件为 TRUE(1)，则结果为 TRUE(1)，否则为 FALSE(0)</td>
+</tr>
+<tr>
+<td>NOT</td>
+<td>条件为 TRUE(1)，则结果为 FALSE(0)；条件为 FALSE(0)，则结果为 TRUE(1)</td>
+</tr>
+</tbody>
+</table>
+<p>其中和编程语言的习惯不同的主要是“等于”（=，&lt;=&gt;）和“不等于”（&lt;&gt;），需要注意区分。</p>
+<h3>条件查询<span class="absolute -mt-20" id="条件查询"></span>
+    <a href="#%e6%9d%a1%e4%bb%b6%e6%9f%a5%e8%af%a2" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>在 en_exam 表中，做一下条件查询：
+<img src="./表内容的操作.IMG/image-20231031155349033.png" alt="image-20231031155349033" style="zoom:50%;" /></p>
+<p>查询听力在 6 分以下的人的姓名：</p>
+<img src="./表内容的操作.IMG/image-20231031160029065.png" alt="image-20231031160029065" style="zoom:50%;" />
+<p>WHERE 子句中的条件并没有标准来规范格式，所以不需要添加空格。</p>
+<p>在查询时，可以指定表中存在的任意列名。例如查询听力为 9 分的人的姓名和写作成绩：</p>
+<img src="./表内容的操作.IMG/image-20231031160414195.png" alt="image-20231031160414195" style="zoom:50%;" />
+<h3>区间查询<span class="absolute -mt-20" id="区间查询"></span>
+    <a href="#%e5%8c%ba%e9%97%b4%e6%9f%a5%e8%af%a2" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>查询口语成绩在 5~8 分之间的人的姓名：</p>
+<img src="./表内容的操作.IMG/image-20231031160808261.png" alt="image-20231031160808261" style="zoom:50%;" />
+<p>也可以使用 BETWEEN a AND b 来查询 [a, b] 这个区间的值：</p>
+<img src="./表内容的操作.IMG/image-20231031160914606.png" alt="image-20231031160914606" style="zoom:50%;" />
+<p>查询听力成绩在 6~8 分之间<strong>或者</strong>口语成绩大于 6 分的人的写作成绩：</p>
+<img src="./表内容的操作.IMG/image-20231031161215464.png" alt="image-20231031161215464" style="zoom:50%;" />
+<p>在练习时可以以行（回车）来划分不同的关键字。</p>
+<p>查询听力成绩比口语成绩更好的人的姓名：</p>
+<img src="./表内容的操作.IMG/image-20231031161917185.png" alt="image-20231031161917185" style="zoom:50%;" />
+<p>查询听力成绩为 5 分或者 7 分或者 9 分的人的姓名：</p>
+<img src="./表内容的操作.IMG/image-20231031161500964.png" alt="image-20231031161500964" style="zoom:50%;" />
+<p>也可以用 xx IN (&hellip;) 来判断 xx 是否存在于后面这个集合中：
+<img src="./表内容的操作.IMG/image-20231031161640157.png" alt="image-20231031161640157" style="zoom:50%;" /></p>
+<p>由于 WHERE 子句在 SELECT 语句之前执行，所以不能在 WHERE 子句中使用在 SELECT 语句中定义的别名。</p>
+<p>例如查找总成绩大于 21 分的人的姓名和总分：</p>
+<img src="./表内容的操作.IMG/image-20231031163209001.png" alt="image-20231031163209001" style="zoom:50%;" />
+<p>因为 SELECT 语句在 WHERE 子句之后执行，所以在前者中定义的别名对于后者是未知值。</p>
+<img src="./表内容的操作.IMG/image-20231031163307803.png" alt="image-20231031163307803" style="zoom:50%;" />
+<h3>模糊查询<span class="absolute -mt-20" id="模糊查询"></span>
+    <a href="#%e6%a8%a1%e7%b3%8a%e6%9f%a5%e8%af%a2" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>插入了两条记录：</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">en_exam</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;孙大勇&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;森破&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<p>模糊查询：查询孙某某同学和森某同学的记录：</p>
+<img src="./表内容的操作.IMG/image-20231115131254099.png" alt="image-20231115131254099" style="zoom:50%;" />
+<p>注意下划线的数量要和字符的个数匹配。</p>
+<p>如果要查找姓孙和姓森的记录，只需要匹配第一个字符：</p>
+<img src="./表内容的操作.IMG/image-20231120142112678.png" alt="image-20231120142112678" style="zoom:50%;" />
+<h3>空值查询<span class="absolute -mt-20" id="空值查询"></span>
+    <a href="#%e7%a9%ba%e5%80%bc%e6%9f%a5%e8%af%a2" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>现在表的内容：</p>
+<img src="./表内容的操作.IMG/image-20231115131508706.png" alt="image-20231115131508706" style="zoom:50%;" />
+<p>其中只有 8,9 号的 school 非空。</p>
+<p>查询学校为空的记录：</p>
+<img src="./表内容的操作.IMG/image-20231115131735384.png" alt="image-20231115131735384" style="zoom:50%;" />
+<p>查询学校不为空的记录：</p>
+<img src="./表内容的操作.IMG/image-20231115131803759.png" alt="image-20231115131803759" style="zoom:50%;" />
+<p>也可以用运算符<code>&lt;=&gt;</code>查询空值，但是其他运算符<code>&lt;&gt;</code>、<code>!=</code>等都不能与 NULL 比较。这是因为在数据库中 NULL 值表示遗漏或位置的数据，它和任何值都不相等，它是一个空的占位符，没有实际值，因此不能用常规方式比较。所以除了<code>&lt;=&gt;</code>外的常规运算符，都不是“NULL 安全的”。</p>
+<img src="./表内容的操作.IMG/image-20231115132319120.png" alt="image-20231115132319120" style="zoom:50%;" />
+<h2>对结果排序<span class="absolute -mt-20" id="对结果排序"></span>
+    <a href="#%e5%af%b9%e7%bb%93%e6%9e%9c%e6%8e%92%e5%ba%8f" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">table_name</span><span class="w"> </span><span class="p">[</span><span class="k">WHERE</span><span class="w"> </span><span class="p">...]</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">column</span><span class="w"> </span><span class="p">[</span><span class="k">ASC</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">DESC</span><span class="p">]</span><span class="w"> </span><span class="p">[,</span><span class="w"> </span><span class="p">...];</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<p>其中：ASC 和 DESC 分别代表的是排升序和排降序，默认为 ASC。如果查询 SQL 中没有 order by 子句，那么返回的顺序是未定义的。</p>
+<p>查询口语成绩，分别按升序和降序排序：</p>
+<img src="./表内容的操作.IMG/image-20231120140255098.png" alt="image-20231120140255098" style="zoom:50%;" />
+<p>查询学校编号，分别按升序排序：</p>
+<img src="./表内容的操作.IMG/image-20231120140406328.png" alt="image-20231120140406328" style="zoom:50%;" />
+<p>NULL 值表示为空，虽然它参与运算没有意义，但是在排序时视为比任何值都要小。</p>
+<p>除了对一列属性进行排序之外，还可以对多列进行排序：</p>
+<img src="./表内容的操作.IMG/image-20231120141126348.png" alt="image-20231120141126348" style="zoom:50%;" />
+<p>注意只需要一个 order by 关键字，要排序的列属性之间用逗号隔开。</p>
+<p>order by 子句的执行在 select 语句之后，所以在 order by 子句中也可以使用 select 中指定的别名：</p>
+<img src="./表内容的操作.IMG/image-20231120141833754.png" alt="image-20231120141833754" style="zoom:50%;" />
+<p>但是排序的前提是要有数据。</p>
+<p>查询姓孙或姓森的同学及其口语成绩，按口语成绩降序显示。</p>
+<p>对于这个查询，首先要找到要查询的记录，然后再对它们排序。</p>
+<img src="./表内容的操作.IMG/image-20231120142447279.png" alt="image-20231120142447279" style="zoom:50%;" />
+<h2>筛选分页结果<span class="absolute -mt-20" id="筛选分页结果"></span>
+    <a href="#%e7%ad%9b%e9%80%89%e5%88%86%e9%a1%b5%e7%bb%93%e6%9e%9c" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>从第 0 条记录开始，向后筛选出 n 条记录：</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">table_name</span><span class="w"> </span><span class="p">[</span><span class="k">WHERE</span><span class="w"> </span><span class="p">..]</span><span class="w"> </span><span class="p">[</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="p">...]</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="n">n</span><span class="p">;</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<p>从第 s 条记录开始，向后筛选出 n 条记录：</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">table_name</span><span class="w"> </span><span class="p">[</span><span class="k">WHERE</span><span class="w"> </span><span class="p">...]</span><span class="w"> </span><span class="p">[</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="p">...]</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="p">;</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<p>从第 s 条记录开始，向后筛选出 n 条记录：</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><pre><code>SELECT ... FROM table_name [WHERE ...] [ORDER BY ...] LIMIT n OFFSET s;</code></pre><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<p>其中：</p>
+<ul>
+<li>查询 SQL 中各语句的执行顺序为：where、select、order by、limit（按照某种条件筛选记录，然后从这个记录中再筛选若干条）。</li>
+<li>limit 子句在筛选记录时，记录的下标从 0 开始。</li>
+</ul>
+<p>通常情况下一张表中的数据可能非常多，所以最好在 对未知表进行查询时最好在查询 SQL 后加上 limit 1。</p>
+<p>按 id 进行分页，每页 3 条记录，分别显示第 1、2、3 页：</p>
+<img src="./表内容的操作.IMG/image-20231120143214156.png" alt="image-20231120143214156" style="zoom:50%;" />
+<p>这些查询记录的子句，每一步都相当于从原表中摘出来的一张新的子表，后执行的语句都是在这张子表的基础上进行的。</p>
+<h1>Update（修改）</h1><div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="k">UPDATE</span><span class="w"> </span><span class="n">table_name</span><span class="w"> </span><span class="kt">SET</span><span class="w"> </span><span class="n">column1</span><span class="o">=</span><span class="n">expr1</span><span class="w"> </span><span class="p">[,</span><span class="w"> </span><span class="n">column2</span><span class="o">=</span><span class="n">expr2</span><span class="p">]</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">[</span><span class="k">WHERE</span><span class="w"> </span><span class="p">...]</span><span class="w"> </span><span class="p">[</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="p">...]</span><span class="w"> </span><span class="p">[</span><span class="k">LIMIT</span><span class="w"> </span><span class="p">...];</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<p>其中：</p>
+<ul>
+<li>SQL 中的 column=expr，表示将记录中列名为 column 的值修改为 expr。</li>
+<li>修改记录的前提是这条记录存在，所以 update 语句中的 where、order by 和 limit 子句就是用来找到符合条件的记录。</li>
+</ul>
+<p>将姓孙的同学的写作成绩改为 7：</p>
+<img src="./表内容的操作.IMG/image-20231120144000854.png" alt="image-20231120144000854" style="zoom:50%;" />
+<p>修改子句总是最后才执行的，因为前面的子句都是查询。</p>
+<p>将口语成绩前 3 的同学的口语成绩全部+3 分：
+<img src="./表内容的操作.IMG/image-20231120144521647.png" alt="image-20231120144521647" style="zoom:50%;" /></p>
+<p>不论是多复杂的查询，总是要先得到查询后的这张子表，在子表中修改属性的值。另外注意 MySQL 不支持诸如+=这样的运算符。前 3 名+3 分后仍然是前三，但是如果是倒数 3 名+3 分后，可能就不是了。</p>
+<h1>Delete（删除）</h1><h2>DELETE<span class="absolute -mt-20" id="delete"></span>
+    <a href="#delete" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">table_name</span><span class="w"> </span><span class="p">[</span><span class="k">WHERE</span><span class="w"> </span><span class="p">...]</span><span class="w"> </span><span class="p">[</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="p">...]</span><span class="w"> </span><span class="p">[</span><span class="k">LIMIT</span><span class="w"> </span><span class="p">...];</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<p>和修改数记录一样，删除记录的前提是这条记录存在。所以 delete 子句也是在找到最终这张子表之后进行的。</p>
+<p>删除孙大勇的记录：
+<img src="./表内容的操作.IMG/image-20231120145205253.png" alt="image-20231120145205253" style="zoom:50%;" /></p>
+<p>删除表：</p>
+<img src="./表内容的操作.IMG/image-20231120145825939.png" alt="image-20231120145825939" style="zoom:50%;" />
+<p>对于这张表，id 是一个自增属性，尝试删除它。</p>
+<img src="./表内容的操作.IMG/image-20231120145959466.png" alt="image-20231120145959466" style="zoom:50%;" />
+<p>删除后这张表中就没有记录了，再向它插入几条不指定 id 的记录，可见自增变量即使在删除表以后仍然是删除前的最大值。</p>
+<h2>TRUNCATE<span class="absolute -mt-20" id="truncate"></span>
+    <a href="#truncate" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>删除表中所有数据。</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="n">TRUNCATE</span><span class="w"> </span><span class="p">[</span><span class="k">TABLE</span><span class="p">]</span><span class="w"> </span><span class="n">table_name</span><span class="p">;</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<p>truncate 子句的作用类似于没有 where 条件的 delete 语句，或者是先 drop 表再 create 表的操作，但是 truncate 子句更高效，因为它直接删除并重新创建表，而不是逐行删除数据。</p>
+<p>注意：</p>
+<ul>
+<li>truncate 在删除数据时不经过真正的事务，所以无法回滚。</li>
+<li>truncate 会重置<code>AUTO_INCREMENT=n</code>选项。</li>
+</ul>
+<p>对于同样的一张表：</p>
+<img src="./表内容的操作.IMG/image-20231120150519782.png" alt="image-20231120150519782" style="zoom:50%;" />
+<p>执行 truncate 操作，会将表中的数据清空，包括自增长属性。</p>
+<img src="./表内容的操作.IMG/image-20231120150635623.png" alt="image-20231120150635623" style="zoom:50%;" />
+<p>由于 truncate 不对数据操作，而是直接 drop 表，所以执行截断操作后影响行数为 0。</p>
+<img src="./表内容的操作.IMG/image-20231120150809508.png" alt="image-20231120150809508" style="zoom:50%;" />
+<p>截断表后再插入记录，从 1 开始自增。</p>
+<h2>记录去重<span class="absolute -mt-20" id="记录去重"></span>
+    <a href="#%e8%ae%b0%e5%bd%95%e5%8e%bb%e9%87%8d" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>只保留重复记录中的一份，通常的做法是使用一个临时表。这种方法可以通过创建一个和原表结构相同的临时表，然后将原表中不重复的数据插入到临时表中，再删除原表并将临时表重命名为原表的名字。</p>
+<p>下面这张表中有两份重复记录：</p>
+<img src="./表内容的操作.IMG/image-20231120152312258.png" alt="image-20231120152312258" style="zoom:50%;" />
+<p>首先创建一个结构和原表一样的临时表：</p>
+<img src="./表内容的操作.IMG/image-20231120152436598.png" alt="image-20231120152436598" style="zoom:50%;" />
+<p>可以使用 like 关键字来创建。</p>
+<p>还记得上面我们说不论多复杂的查询，每一步都是在已有表的基础上，得到一张新的子表吗？这里我们可以在原表中查询出一张没有重复记录的子表，然后将这个子表插入到临时表中。</p>
+<img src="./表内容的操作.IMG/image-20231120152736444.png" alt="image-20231120152736444" style="zoom:50%;" />
+<p>这样临时表中的记录就不会重复了。</p>
+<p>最后可以将旧表删除，将临时表的名字改为旧表的名字。或者改为 xx_backup，表示它是原表的一个备份。</p>
+<img src="./表内容的操作.IMG/image-20231120153004759.png" alt="image-20231120153004759" style="zoom:50%;" />
+<h1>聚合函数</h1><p>聚合函数是一类用于对一组值进行计算并返回单个值的函数。MySQL 提供了多种聚合函数，可以用来计算平均值，总和，计数，最大值，最小值等。聚合函数通常和 GROUP BY 子句一起使用，来对数据进行分组和统计。</p>
+<p>常用的聚合函数有：</p>
+<ul>
+<li>
+<p>COUNT(expr)：返回 expr 的非 NULL 值的个数。如果没有匹配的行，返回 0。可以使用 COUNT(*) 来返回所有行的个数，包括 NULL 值。可以使用 DISTINCT 关键字来指定只计算不同的值。</p>
+</li>
+<li>
+<p>AVG(expr)：返回 expr 的平均值，忽略 NULL 值。</p>
+</li>
+<li>
+<p>SUM(expr)：返回 expr 的总和，忽略 NULL 值。可以使用 DISTINCT 关键字来指定只计算不同的值。</p>
+</li>
+<li>
+<p>MAX(expr)：返回 expr 的最大值，忽略 NULL 值。可以用于数值，字符串，日期等类型的数据。</p>
+</li>
+<li>
+<p>MIN(expr)：返回 expr 的最小值，忽略 NULL 值。</p>
+</li>
+</ul>
+<p>在这张表中测试聚合函数：</p>
+<img src="./表内容的操作.IMG/image-20231120215840516.png" alt="image-20231120215840516" style="zoom:50%;" />
+<p>统计这张表中总共有多少条记录：
+<img src="./表内容的操作.IMG/image-20231120220626042.png" alt="image-20231120220626042" style="zoom:50%;" /></p>
+<p>分别用<code>*</code>和表达式<code>1</code>作为参数，得到的结果是一样的。这是因为后者这种写法相当于在查询时在原表中新增了一个值为 1 的列，然后 count 函数就会计算出有多少行值为 1 的列。</p>
+<p>实际上 count(1) 数的是这一列：</p>
+<img src="./表内容的操作.IMG/image-20231120220937996.png" alt="image-20231120220937996" style="zoom:50%;" />
+<p>统计这张表中有学校信息的记录：</p>
+<img src="./表内容的操作.IMG/image-20231120221040375.png" alt="image-20231120221040375" style="zoom:50%;" />
+<p>如果 count 函数的参数是一个确定的列名，那么 count 函数将会忽略该列中的 NULL 值。</p>
+<p>统计这次考试中口语成绩的所有情况的个数，即口语成绩去重后的结果：</p>
+<img src="./表内容的操作.IMG/image-20231120221229567.png" alt="image-20231120221229567" style="zoom:50%;" />
+<p>统计口语成绩的总分：</p>
+<img src="./表内容的操作.IMG/image-20231120221544826.png" alt="image-20231120221544826" style="zoom:50%;" />
+<p>统计所有成绩的平均分：</p>
+<img src="./表内容的操作.IMG/image-20231120221706037.png" alt="image-20231120221706037" style="zoom:50%;" />
+<p>找到写作成绩的最高分和最低分：</p>
+<img src="./表内容的操作.IMG/image-20231120221805974.png" alt="image-20231120221805974" style="zoom:50%;" />
+<h1>分组查询</h1><p>分组查询是一种用于对查询结果按照一个或多个字段进行分组的查询方式。分组查询可以配合聚合函数来对每个分组进行统计或计算。</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="n">column1</span><span class="w"> </span><span class="p">[,</span><span class="w"> </span><span class="n">column2</span><span class="p">],</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">table_name</span><span class="w"> </span><span class="p">[</span><span class="k">WHERE</span><span class="w"> </span><span class="p">...]</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">column</span><span class="w"> </span><span class="p">[,</span><span class="w"> </span><span class="p">...]</span><span class="w"> </span><span class="p">[</span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="p">...]</span><span class="w"> </span><span class="p">[</span><span class="k">LIMIT</span><span class="w"> </span><span class="p">...];</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<p>由于聚合函数是直接或间接地统计某些列的数据，所以首先要有查询后的结果，然后再对它进行排序或者分组。SQL 中各语句的执行顺序为：where、group by、select、order by、limit。</p>
+<p>此前做的查询都是将记录作为一个整体查询的，在 MySQL 中可以支持按照指定列对记录分组，然后通过 SQL 在划分好的组中进行操作。因为现实中的表中的数据很可能是很多的，而我们要操作的数据可能是很少的，如果不对它做划分，操作起来可行性几乎为 0。</p>
+<p>雇员信息表中包含三张表，分别是员工表（emp）、部门表（dept）和工资等级表（salgrade）。</p>
+<p>员工表（emp）：</p>
+<ul>
+<li>雇员编号（empno）</li>
+<li>雇员姓名（ename）</li>
+<li>雇员职位（job）</li>
+<li>雇员领导编号（mgr）</li>
+<li>雇佣时间（hiredate）</li>
+<li>工资月薪（sal）</li>
+<li>奖金（comm）</li>
+<li>部门编号（deptno）</li>
+</ul>
+<p>部门表（dept）：</p>
+<ul>
+<li>部门编号（deptno）</li>
+<li>部门名称（dname）</li>
+<li>部门所在地点（loc）</li>
+</ul>
+<p>工资等级表（salgrade）：</p>
+<ul>
+<li>等级（grade）</li>
+<li>此等级最低工资（losal）</li>
+<li>此等级最高工资（hisal）</li>
+</ul>
+<p>雇员信息表的 SQL：</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-MySQL" data-lang="MySQL"><span class="line"><span class="cl"><span class="k">DROP</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="o">`</span><span class="n">scott</span><span class="o">`</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="o">`</span><span class="n">scott</span><span class="o">`</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">CHARACTER</span><span class="w"> </span><span class="kt">SET</span><span class="w"> </span><span class="n">utf8</span><span class="w"> </span><span class="k">COLLATE</span><span class="w"> </span><span class="n">utf8_general_ci</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">USE</span><span class="w"> </span><span class="o">`</span><span class="n">scott</span><span class="o">`</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">DROP</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="o">`</span><span class="n">dept</span><span class="o">`</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">`</span><span class="n">dept</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="o">`</span><span class="n">deptno</span><span class="o">`</span><span class="w"> </span><span class="kt">int</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">unsigned</span><span class="w"> </span><span class="k">zerofill</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="no">NULL</span><span class="w"> </span><span class="n">COMMENT</span><span class="w"> </span><span class="s1">&#39;部门编号&#39;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="o">`</span><span class="n">dname</span><span class="o">`</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">14</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="no">NULL</span><span class="w"> </span><span class="n">COMMENT</span><span class="w"> </span><span class="s1">&#39;部门名称&#39;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="o">`</span><span class="n">loc</span><span class="o">`</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">13</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="no">NULL</span><span class="w"> </span><span class="n">COMMENT</span><span class="w"> </span><span class="s1">&#39;部门所在地点&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">DROP</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="o">`</span><span class="n">emp</span><span class="o">`</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">`</span><span class="n">emp</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="o">`</span><span class="n">empno</span><span class="o">`</span><span class="w"> </span><span class="kt">int</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span><span class="w"> </span><span class="k">unsigned</span><span class="w"> </span><span class="k">zerofill</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="no">NULL</span><span class="w"> </span><span class="n">COMMENT</span><span class="w"> </span><span class="s1">&#39;雇员编号&#39;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="o">`</span><span class="n">ename</span><span class="o">`</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="no">NULL</span><span class="w"> </span><span class="n">COMMENT</span><span class="w"> </span><span class="s1">&#39;雇员姓名&#39;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="o">`</span><span class="n">job</span><span class="o">`</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="no">NULL</span><span class="w"> </span><span class="n">COMMENT</span><span class="w"> </span><span class="s1">&#39;雇员职位&#39;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="o">`</span><span class="n">mgr</span><span class="o">`</span><span class="w"> </span><span class="kt">int</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="k">unsigned</span><span class="w"> </span><span class="k">zerofill</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="no">NULL</span><span class="w"> </span><span class="n">COMMENT</span><span class="w"> </span><span class="s1">&#39;雇员领导编号&#39;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="o">`</span><span class="n">hiredate</span><span class="o">`</span><span class="w"> </span><span class="kt">datetime</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="no">NULL</span><span class="w"> </span><span class="n">COMMENT</span><span class="w"> </span><span class="s1">&#39;雇佣时间&#39;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="o">`</span><span class="n">sal</span><span class="o">`</span><span class="w"> </span><span class="kt">decimal</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="no">NULL</span><span class="w"> </span><span class="n">COMMENT</span><span class="w"> </span><span class="s1">&#39;工资月薪&#39;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="o">`</span><span class="n">comm</span><span class="o">`</span><span class="w"> </span><span class="kt">decimal</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="no">NULL</span><span class="w"> </span><span class="n">COMMENT</span><span class="w"> </span><span class="s1">&#39;奖金&#39;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="o">`</span><span class="n">deptno</span><span class="o">`</span><span class="w"> </span><span class="kt">int</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">unsigned</span><span class="w"> </span><span class="k">zerofill</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="no">NULL</span><span class="w"> </span><span class="n">COMMENT</span><span class="w"> </span><span class="s1">&#39;部门编号&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">DROP</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="o">`</span><span class="n">salgrade</span><span class="o">`</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">`</span><span class="n">salgrade</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="o">`</span><span class="n">grade</span><span class="o">`</span><span class="w"> </span><span class="kt">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="no">NULL</span><span class="w"> </span><span class="n">COMMENT</span><span class="w"> </span><span class="s1">&#39;等级&#39;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="o">`</span><span class="n">losal</span><span class="o">`</span><span class="w"> </span><span class="kt">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="no">NULL</span><span class="w"> </span><span class="n">COMMENT</span><span class="w"> </span><span class="s1">&#39;此等级最低工资&#39;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="o">`</span><span class="n">hisal</span><span class="o">`</span><span class="w"> </span><span class="kt">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="no">NULL</span><span class="w"> </span><span class="n">COMMENT</span><span class="w"> </span><span class="s1">&#39;此等级最高工资&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="nf">dept</span><span class="w"> </span><span class="p">(</span><span class="n">deptno</span><span class="p">,</span><span class="w"> </span><span class="n">dname</span><span class="p">,</span><span class="w"> </span><span class="n">loc</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;ACCOUNTING&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;NEW YORK&#39;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="nf">dept</span><span class="w"> </span><span class="p">(</span><span class="n">deptno</span><span class="p">,</span><span class="w"> </span><span class="n">dname</span><span class="p">,</span><span class="w"> </span><span class="n">loc</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;RESEARCH&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;DALLAS&#39;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="nf">dept</span><span class="w"> </span><span class="p">(</span><span class="n">deptno</span><span class="p">,</span><span class="w"> </span><span class="n">dname</span><span class="p">,</span><span class="w"> </span><span class="n">loc</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SALES&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;CHICAGO&#39;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="nf">dept</span><span class="w"> </span><span class="p">(</span><span class="n">deptno</span><span class="p">,</span><span class="w"> </span><span class="n">dname</span><span class="p">,</span><span class="w"> </span><span class="n">loc</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="mi">40</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;OPERATIONS&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;BOSTON&#39;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="nf">emp</span><span class="w"> </span><span class="p">(</span><span class="n">empno</span><span class="p">,</span><span class="w"> </span><span class="n">ename</span><span class="p">,</span><span class="w"> </span><span class="n">job</span><span class="p">,</span><span class="w"> </span><span class="n">mgr</span><span class="p">,</span><span class="w"> </span><span class="n">hiredate</span><span class="p">,</span><span class="w"> </span><span class="n">sal</span><span class="p">,</span><span class="w"> </span><span class="n">comm</span><span class="p">,</span><span class="w"> </span><span class="n">deptno</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="mi">7369</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SMITH&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;CLERK&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">7902</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;1980-12-17&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">800</span><span class="p">,</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="nf">emp</span><span class="w"> </span><span class="p">(</span><span class="n">empno</span><span class="p">,</span><span class="w"> </span><span class="n">ename</span><span class="p">,</span><span class="w"> </span><span class="n">job</span><span class="p">,</span><span class="w"> </span><span class="n">mgr</span><span class="p">,</span><span class="w"> </span><span class="n">hiredate</span><span class="p">,</span><span class="w"> </span><span class="n">sal</span><span class="p">,</span><span class="w"> </span><span class="n">comm</span><span class="p">,</span><span class="w"> </span><span class="n">deptno</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="mi">7499</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;ALLEN&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SALESMAN&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">7698</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;1981-02-20&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1600</span><span class="p">,</span><span class="w"> </span><span class="mi">300</span><span class="p">,</span><span class="w"> </span><span class="mi">30</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="nf">emp</span><span class="w"> </span><span class="p">(</span><span class="n">empno</span><span class="p">,</span><span class="w"> </span><span class="n">ename</span><span class="p">,</span><span class="w"> </span><span class="n">job</span><span class="p">,</span><span class="w"> </span><span class="n">mgr</span><span class="p">,</span><span class="w"> </span><span class="n">hiredate</span><span class="p">,</span><span class="w"> </span><span class="n">sal</span><span class="p">,</span><span class="w"> </span><span class="n">comm</span><span class="p">,</span><span class="w"> </span><span class="n">deptno</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="mi">7521</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;WARD&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SALESMAN&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">7698</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;1981-02-22&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1250</span><span class="p">,</span><span class="w"> </span><span class="mi">500</span><span class="p">,</span><span class="w"> </span><span class="mi">30</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="nf">emp</span><span class="w"> </span><span class="p">(</span><span class="n">empno</span><span class="p">,</span><span class="w"> </span><span class="n">ename</span><span class="p">,</span><span class="w"> </span><span class="n">job</span><span class="p">,</span><span class="w"> </span><span class="n">mgr</span><span class="p">,</span><span class="w"> </span><span class="n">hiredate</span><span class="p">,</span><span class="w"> </span><span class="n">sal</span><span class="p">,</span><span class="w"> </span><span class="n">comm</span><span class="p">,</span><span class="w"> </span><span class="n">deptno</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="mi">7566</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;JONES&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;MANAGER&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">7839</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;1981-04-02&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">2975</span><span class="p">,</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="nf">emp</span><span class="w"> </span><span class="p">(</span><span class="n">empno</span><span class="p">,</span><span class="w"> </span><span class="n">ename</span><span class="p">,</span><span class="w"> </span><span class="n">job</span><span class="p">,</span><span class="w"> </span><span class="n">mgr</span><span class="p">,</span><span class="w"> </span><span class="n">hiredate</span><span class="p">,</span><span class="w"> </span><span class="n">sal</span><span class="p">,</span><span class="w"> </span><span class="n">comm</span><span class="p">,</span><span class="w"> </span><span class="n">deptno</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="mi">7654</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;MARTIN&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SALESMAN&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">7698</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;1981-09-28&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1250</span><span class="p">,</span><span class="w"> </span><span class="mi">1400</span><span class="p">,</span><span class="w"> </span><span class="mi">30</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="nf">emp</span><span class="w"> </span><span class="p">(</span><span class="n">empno</span><span class="p">,</span><span class="w"> </span><span class="n">ename</span><span class="p">,</span><span class="w"> </span><span class="n">job</span><span class="p">,</span><span class="w"> </span><span class="n">mgr</span><span class="p">,</span><span class="w"> </span><span class="n">hiredate</span><span class="p">,</span><span class="w"> </span><span class="n">sal</span><span class="p">,</span><span class="w"> </span><span class="n">comm</span><span class="p">,</span><span class="w"> </span><span class="n">deptno</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="mi">7698</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;BLAKE&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;MANAGER&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">7839</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;1981-05-01&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">2850</span><span class="p">,</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w"> </span><span class="mi">30</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="nf">emp</span><span class="w"> </span><span class="p">(</span><span class="n">empno</span><span class="p">,</span><span class="w"> </span><span class="n">ename</span><span class="p">,</span><span class="w"> </span><span class="n">job</span><span class="p">,</span><span class="w"> </span><span class="n">mgr</span><span class="p">,</span><span class="w"> </span><span class="n">hiredate</span><span class="p">,</span><span class="w"> </span><span class="n">sal</span><span class="p">,</span><span class="w"> </span><span class="n">comm</span><span class="p">,</span><span class="w"> </span><span class="n">deptno</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="mi">7782</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;CLARK&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;MANAGER&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">7839</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;1981-06-09&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">2450</span><span class="p">,</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="nf">emp</span><span class="w"> </span><span class="p">(</span><span class="n">empno</span><span class="p">,</span><span class="w"> </span><span class="n">ename</span><span class="p">,</span><span class="w"> </span><span class="n">job</span><span class="p">,</span><span class="w"> </span><span class="n">mgr</span><span class="p">,</span><span class="w"> </span><span class="n">hiredate</span><span class="p">,</span><span class="w"> </span><span class="n">sal</span><span class="p">,</span><span class="w"> </span><span class="n">comm</span><span class="p">,</span><span class="w"> </span><span class="n">deptno</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="mi">7788</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SCOTT&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;ANALYST&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">7566</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;1987-04-19&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">3000</span><span class="p">,</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="nf">emp</span><span class="w"> </span><span class="p">(</span><span class="n">empno</span><span class="p">,</span><span class="w"> </span><span class="n">ename</span><span class="p">,</span><span class="w"> </span><span class="n">job</span><span class="p">,</span><span class="w"> </span><span class="n">mgr</span><span class="p">,</span><span class="w"> </span><span class="n">hiredate</span><span class="p">,</span><span class="w"> </span><span class="n">sal</span><span class="p">,</span><span class="w"> </span><span class="n">comm</span><span class="p">,</span><span class="w"> </span><span class="n">deptno</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="mi">7839</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;KING&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;PRESIDENT&#39;</span><span class="p">,</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;1981-11-17&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">5000</span><span class="p">,</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="nf">emp</span><span class="w"> </span><span class="p">(</span><span class="n">empno</span><span class="p">,</span><span class="w"> </span><span class="n">ename</span><span class="p">,</span><span class="w"> </span><span class="n">job</span><span class="p">,</span><span class="w"> </span><span class="n">mgr</span><span class="p">,</span><span class="w"> </span><span class="n">hiredate</span><span class="p">,</span><span class="w"> </span><span class="n">sal</span><span class="p">,</span><span class="w"> </span><span class="n">comm</span><span class="p">,</span><span class="w"> </span><span class="n">deptno</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="mi">7844</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;TURNER&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SALESMAN&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">7698</span><span class="p">,</span><span class="s1">&#39;1981-09-08&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1500</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">30</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="nf">emp</span><span class="w"> </span><span class="p">(</span><span class="n">empno</span><span class="p">,</span><span class="w"> </span><span class="n">ename</span><span class="p">,</span><span class="w"> </span><span class="n">job</span><span class="p">,</span><span class="w"> </span><span class="n">mgr</span><span class="p">,</span><span class="w"> </span><span class="n">hiredate</span><span class="p">,</span><span class="w"> </span><span class="n">sal</span><span class="p">,</span><span class="w"> </span><span class="n">comm</span><span class="p">,</span><span class="w"> </span><span class="n">deptno</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="mi">7876</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;ADAMS&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;CLERK&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">7788</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;1987-05-23&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1100</span><span class="p">,</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="nf">emp</span><span class="w"> </span><span class="p">(</span><span class="n">empno</span><span class="p">,</span><span class="w"> </span><span class="n">ename</span><span class="p">,</span><span class="w"> </span><span class="n">job</span><span class="p">,</span><span class="w"> </span><span class="n">mgr</span><span class="p">,</span><span class="w"> </span><span class="n">hiredate</span><span class="p">,</span><span class="w"> </span><span class="n">sal</span><span class="p">,</span><span class="w"> </span><span class="n">comm</span><span class="p">,</span><span class="w"> </span><span class="n">deptno</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="mi">7900</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;JAMES&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;CLERK&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">7698</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;1981-12-03&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">950</span><span class="p">,</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w"> </span><span class="mi">30</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="nf">emp</span><span class="w"> </span><span class="p">(</span><span class="n">empno</span><span class="p">,</span><span class="w"> </span><span class="n">ename</span><span class="p">,</span><span class="w"> </span><span class="n">job</span><span class="p">,</span><span class="w"> </span><span class="n">mgr</span><span class="p">,</span><span class="w"> </span><span class="n">hiredate</span><span class="p">,</span><span class="w"> </span><span class="n">sal</span><span class="p">,</span><span class="w"> </span><span class="n">comm</span><span class="p">,</span><span class="w"> </span><span class="n">deptno</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="mi">7902</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;FORD&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;ANALYST&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">7566</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;1981-12-03&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">3000</span><span class="p">,</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="nf">emp</span><span class="w"> </span><span class="p">(</span><span class="n">empno</span><span class="p">,</span><span class="w"> </span><span class="n">ename</span><span class="p">,</span><span class="w"> </span><span class="n">job</span><span class="p">,</span><span class="w"> </span><span class="n">mgr</span><span class="p">,</span><span class="w"> </span><span class="n">hiredate</span><span class="p">,</span><span class="w"> </span><span class="n">sal</span><span class="p">,</span><span class="w"> </span><span class="n">comm</span><span class="p">,</span><span class="w"> </span><span class="n">deptno</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="mi">7934</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;MILLER&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;CLERK&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">7782</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;1982-01-23&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1300</span><span class="p">,</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="nf">salgrade</span><span class="w"> </span><span class="p">(</span><span class="n">grade</span><span class="p">,</span><span class="w"> </span><span class="n">losal</span><span class="p">,</span><span class="w"> </span><span class="n">hisal</span><span class="p">)</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">700</span><span class="p">,</span><span class="w"> </span><span class="mi">1200</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="nf">salgrade</span><span class="w"> </span><span class="p">(</span><span class="n">grade</span><span class="p">,</span><span class="w"> </span><span class="n">losal</span><span class="p">,</span><span class="w"> </span><span class="n">hisal</span><span class="p">)</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">1201</span><span class="p">,</span><span class="w"> </span><span class="mi">1400</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="nf">salgrade</span><span class="w"> </span><span class="p">(</span><span class="n">grade</span><span class="p">,</span><span class="w"> </span><span class="n">losal</span><span class="p">,</span><span class="w"> </span><span class="n">hisal</span><span class="p">)</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">1401</span><span class="p">,</span><span class="w"> </span><span class="mi">2000</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="nf">salgrade</span><span class="w"> </span><span class="p">(</span><span class="n">grade</span><span class="p">,</span><span class="w"> </span><span class="n">losal</span><span class="p">,</span><span class="w"> </span><span class="n">hisal</span><span class="p">)</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">2001</span><span class="p">,</span><span class="w"> </span><span class="mi">3000</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="nf">salgrade</span><span class="w"> </span><span class="p">(</span><span class="n">grade</span><span class="p">,</span><span class="w"> </span><span class="n">losal</span><span class="p">,</span><span class="w"> </span><span class="n">hisal</span><span class="p">)</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">3001</span><span class="p">,</span><span class="w"> </span><span class="mi">9999</span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<p>这些 SQL 将保存在一个以<code>.sql</code>结尾的文件中，然后再 MySQL 中使用 source 命令执行它：</p>
+<img src="./表内容的操作.IMG/image-20231120224457885.png" alt="image-20231120224457885" style="zoom:50%;" />
+<img src="./表内容的操作.IMG/image-20231120224535610.png" alt="image-20231120224535610" style="zoom:50%;" />
+<p>部门表的结构和内容：</p>
+<img src="./表内容的操作.IMG/image-20231120224615277.png" alt="image-20231120224615277" style="zoom:50%;" />
+<p>员工表的结构和内容：</p>
+<img src="./表内容的操作.IMG/image-20231120224654193.png" alt="image-20231120224654193" style="zoom:50%;" />
+<p>工资等级表的结构和内容：</p>
+<img src="./表内容的操作.IMG/image-20231120224735460.png" alt="image-20231120224735460" style="zoom:50%;" />
+<p>显示每个部门的平均工资和最高工资：</p>
+<img src="./表内容的操作.IMG/image-20231120224838846.png" alt="image-20231120224838846" style="zoom:50%;" />
+<p>首先按照部门号分组，然后在各自的组内做聚合查询，得到各个组的平均和最高工资。</p>
+<p>显示每个部门的每种岗位的平均工资和最低工资：</p>
+<img src="./表内容的操作.IMG/image-20231120225022199.png" alt="image-20231120225022199" style="zoom:50%;" />
+<p>注意：group by 子句中可以指明按照多个字段进行分组，各个字段之间使用逗号隔开，分组优先级与书写顺序相同。当两条记录的部门号相同时，将会继续按照岗位进行分组。</p>
+<h2>HAVING<span class="absolute -mt-20" id="having"></span>
+    <a href="#having" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>HAVING 子句是用来在 SELECT 语句中指定一组行或聚合的过滤条件的。HAVING 子句通常与 GROUP BY 子句一起使用，以根据指定的条件过滤分组。如果省略 GROUP BY 子句，则 HAVING 子句的行为与 WHERE 子句类似。</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">table_name</span><span class="w"> </span><span class="p">[</span><span class="k">WHERE</span><span class="w"> </span><span class="p">...]</span><span class="w"> </span><span class="p">[</span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="p">...]</span><span class="w"> </span><span class="p">[</span><span class="k">HAVING</span><span class="w"> </span><span class="p">...]</span><span class="w"> </span><span class="p">[</span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="p">...]</span><span class="w"> </span><span class="p">[</span><span class="k">LIMIT</span><span class="w"> </span><span class="p">...];</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<p>其中：</p>
+<ul>
+<li>SQL 中各语句的执行顺序为：
+<ul>
+<li>根据 where 子句筛选出符合条件的记录。</li>
+<li>根据 group by 子句对数据进行分组。</li>
+<li>将分组后的数据依次执行 select 语句。</li>
+<li>根据 having 子句对分组后的数据进行进一步筛选。</li>
+<li>根据 order by 子句对数据进行排序。</li>
+<li>根据 limit 子句筛选若干条记录进行显示。</li>
+</ul>
+</li>
+<li>having 子句中可以指明一个或多个筛选条件。</li>
+</ul>
+<p>having 子句和 where 子句的区别：</p>
+<ul>
+<li>where 子句放在表名后面，而 having 子句必须搭配 group by 子句使用，放在 group by 子句的后面。</li>
+<li>where 子句是对整表的数据进行筛选，having 子句是对分组后的数据进行筛选。</li>
+<li>where 子句中不能使用聚合函数和别名，而 having 子句中可以使用聚合函数和别名。</li>
+</ul>
+<p>显示平均工资低于 2500 的部门和它的平均工资：</p>
+<img src="./表内容的操作.IMG/image-20231120230751534.png" alt="image-20231120230751534" style="zoom:50%;" />
+
+        </div>
+        <div class="mt-16"></div>
+        
+      </main>
+    </article>
+  </div>
+
+      <footer class="hextra-footer bg-gray-100 pb-[env(safe-area-inset-bottom)] dark:bg-neutral-900 print:bg-transparent"><div class="mx-auto flex gap-2 py-2 px-4 max-w-screen-xl"><button
+  title="Change theme"
+  data-theme="light"
+  class="theme-toggle group h-7 rounded-md px-2 text-left text-xs font-medium text-gray-600 transition-colors dark:text-gray-400 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-primary-100/5 dark:hover:text-gray-50"
+  type="button"
+  aria-label="Change theme"
+>
+  <div class="flex items-center gap-2 capitalize"><svg height=12 class="group-data-[theme=light]:hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg><span class="group-data-[theme=light]:hidden">Light</span><svg height=12 class="group-data-[theme=dark]:hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg><span class="group-data-[theme=dark]:hidden">Dark</span></div>
+</button>
+</div><hr class="dark:border-neutral-800" /><div
+    class="max-w-screen-xl mx-auto flex justify-center py-12 pl-[max(env(safe-area-inset-left),1.5rem)] pr-[max(env(safe-area-inset-right),1.5rem)] text-gray-600 dark:text-gray-400 md:justify-start"
+  >
+    <div class="flex w-full flex-col items-center sm:items-start"><div class="font-semibold"><a class="flex text-sm items-center gap-1 text-current" target="_blank" rel="noopener noreferrer" title="Hextra GitHub Homepage" href="https://github.com/imfing/hextra">
+    <span>Powered by Hextra<svg height=1em class="inline-block ml-1 align-[-2.5px]" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="m 105.50024,22.224647 c -9.59169,-5.537563 -21.40871,-5.537563 -31.000093,0 L 39.054693,42.689119 C 29.463353,48.226675 23.55484,58.460531 23.55484,69.535642 v 40.928918 c 0,11.07542 5.908513,21.3092 15.499853,26.84652 l 35.445453,20.46446 c 9.591313,5.53732 21.408404,5.53732 31.000094,0 l 35.44507,-20.46446 c 9.59131,-5.53732 15.49985,-15.7711 15.49985,-26.84652 V 69.535642 c 0,-11.075111 -5.90854,-21.308967 -15.49985,-26.846523 z M 34.112797,85.737639 c -1.384445,2.397827 -1.384445,5.352099 0,7.749927 l 24.781554,42.922974 c 1.38437,2.39783 3.942853,3.87496 6.711592,3.87496 h 49.563107 c 2.76905,0 5.3273,-1.47713 6.71144,-3.87496 l 24.78194,-42.922974 c 1.38414,-2.397828 1.38414,-5.3521 0,-7.749927 L 121.88049,42.814746 c -1.38414,-2.397828 -3.94239,-3.874964 -6.71144,-3.874964 H 65.605944 c -2.768739,0 -5.327223,1.477059 -6.711592,3.874964 z" style="stroke-width:0.774993" /></svg></span>
+  </a></div>
+    </div>
+  </div>
+</footer>
+    
+  </body>
+  <script defer src="/js/main.min.5250a01f9a9cabefdb65e77efc7c04221397882cded9c5c058a5504e730b11b3.js" integrity="sha256-UlCgH5qcq&#43;/bZed&#43;/HwEIhOXiCze2cXAWKVQTnMLEbM="></script>
+
+
+<script defer src="/lib/flexsearch/flexsearch.bundle.min.0425860527cc9968f9f049421c7a56b39327d475e2e3a8f550416be3a9134327.js" integrity="sha256-BCWGBSfMmWj58ElCHHpWs5Mn1HXi46j1UEFr46kTQyc="></script>
+    <script defer src="/en.search.min.9afdc7c586c6f971dd94df10b989f10faaf38e5702571fd8cfc9ff9135c2d495.js" integrity="sha256-mv3HxYbG&#43;XHdlN8QuYnxD6rzjlcCVx/Yz8n/kTXC1JU="></script>
+
+
+</html>
