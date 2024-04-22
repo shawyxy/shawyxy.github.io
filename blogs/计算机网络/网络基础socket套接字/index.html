@@ -11,36 +11,15 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
 <link fetchpriority="low" href="/site.webmanifest" rel="manifest" />
 
-  <title>Shawy&#39;s Blog</title>
+  <title>网络基础：socket 套接字 – Shawy&#39;s Blog</title>
   <meta name="description" content="1. 前导知识友情链接：网络基础入门
-1.1 源MAC地址和目的MAC地址 MAC地址（Media Access Control Address， 局域网地址）在OSI模型的第二层数据链路层发挥作用，标识本地网络上的设备物理地址。
-对于处于同一局域网的多台主机，它们直接向局域网发送的数据是被所有主机共享的（包括发送的主机自己），也就相当于广播，但是只有特定的主机才会处理它（虽然所有主机都收到了信息）。这是因为主机发送的数据中包含了指定主机的MAC地址，除此之外，为了校验数据的完整性，还包含了发生数据的主机本身的MAC地址，以供主机在发送信息后再接收校验。
-其中，发送信息的主机的MAC地址叫做源MAC地址，接收信息的主机的MAC地址叫做目的MAC地址。
-1.2 源IP地址和目的IP地址 IP地址（Internet Protocol， 互联网协议）在OSI模型的第三层网络层发挥作用，它是一个逻辑地址，用于唯一标识互联网连接设备。
-MAC地址标识着设备的全球唯一性，但是仅靠MAC地址无法完成不同网络中数据的传输。我们知道，数据传输是通过网络协议栈传输的，数据自上而下传输时会被每一层协议封装一个报头信息，当数据自下而上传输时，每一层协议会解封装，直到应用层取到数据本身。但是不同的网络可能在某些层的协议有所区别，因此报头的封装和解封装的过程就不像局域网那样对称，因此需要配合IP地址在不同的网络中跳转。
-1.3 MAC地址和IP地址的配合 在不同网络中，路由器起着“指路人”的作用，实际上数据在传输过程中可能会经过多个不同网络，那么报头信息中的两个MAC地址一直在随着路由器（路由器也是硬件）的变化而变化，但是源IP地址和目的IP地址不会改变。这就像唐僧每到一个地方都会说“自东土大唐而来，去西天取经”，出发点和目的地是不应该被改变的（在某些特殊情况源IP可能会被改变，但是目的IP绝对不会被改变），但是遇到的好心人听到这句话以后都会告诉唐僧下一个地方应该怎么走，这就是MAC地址和IP地址在不同网络中配合数据传输的过程。
-1.4 源端口号和目的端口号 端口号（PORT）的主要作用是表示一台计算机中的特定（特指网络服务）进程所提供的服务，它在传输层发挥作用，标识主机上进程的唯一性。言外之意是一个端口号只能被一个进程使用，而一个进程可以使用多个端口号。
-端口号是一个16位的无符号整数，范围从0到65535。在Internet上，端口号用于识别不同的网络服务。例如，Web服务器通常使用端口号80，SMTP服务器使用端口号25等 。
-结合进程相关知识，数据本身是被运行起来的进程处理的，因此数据通过网络传输到不同主机中只是一个搬运的过程。因此可以认为数据是在不同主机中的不同进程之间传输，也就是网络层面上的进程间通信。端口号的名字很形象，现实中的港口（port）也是类似的。主机中各种不同的进程就好像一个个蓄势待发的货船，它们在不同编号的位置等待货物，一旦货物就绪，一个个进程就会对其处理。
-IP地址标识了公网中主机的唯一性，端口号标识主机上进程的唯一性，那么IP地址&#43;端口号就标识了网络上某台主机中的进程的唯一性。和IP地址类似，端口号会在传输层被封装进报头信息中。
-既然PID和端口号都能表示主机上进程的唯一性，为什么不用PID进行网络传输？
-端口号标识的进程是PID标识的进程的子集，它们标识的范围不同。PID就像每个人的身份证，虽然它能表示我们在这片土地上的唯一性，但是我们很多时候不使用它，而是使用范围合适、便于管理的标识，例如在教室用座位号、在学校用学号、在高考中用准考证和在银行里用身份证等等。使用PID当然可以，但是这样会增加筛选所有进程中的网络服务进程的负担，也会增加其他非网络服务进程的安全风险。这也是一种解耦的做法，单独用一种标识表示特定种类的元素，能省去筛选的成本。
-1.5 Socket Socket（套接字）是计算机网络中的一个软件结构，它用于在计算机网络中的节点之间发送和接收数据。套接字的结构和属性由网络架构的应用程序编程接口（API）定义。它允许应用程序将I/O插入到网络中，并与网络中的其他应用程序进行通信。简单来说，Socket是计算机之间进行通信的一种约定或一种方式。
-Socket这个词在计算机网络中的翻译为“套接字”，原意指的是插座或者插槽。在计算机网络中，它被用来描述两个程序之间建立连接的端点。就像电器插头需要插入插座才能通电一样，两个程序之间也需要一个“插座”来建立连接。因此，这个词被引申为“套接字”。
-Socket函数是应用程序与TCP/IP协议族通信的中间软件抽象层，它是一组接口。在设计模式中，Socket其实就是一个门面模式，它把复杂的TCP/IP协议族隐藏在Socket接口后面，对用户来说，一组简单的接口就是全部。它将底层复杂的协议体系、执行流程进行了封装，封装完的结果就是一个SOCKET了，也就是说，SOCKET是我们调用协议进行通信的操作接口。
-Socket起源于Unix，而Unix/Linux基本哲学之一就是“一切皆文件”，都可以用“打开open –&gt; 读写write/read –&gt; 关闭close”模式来操作。Socket就是该模式的一个实现，socket即是一种特殊的文件，一些socket函数就是对其进行的操作（读/写IO、打开、关闭）。
-在实践过程中，其实不必要关心它的各种定义，可以简单地理解为它就是一个数据包，是包含各种通信相关属性的结构体。内置的库中有许多函数，它们会在函数内部对这个数据包中的属性处理。值得注意的是，socket本质是一个按照某种规则（协议）构造出来的一个文件，只要通信两端都按照约定好的规则使用它其中的数据，就能实现通信过程。
-友情链接：
-socket是什么？套接字是什么？ SOCK、SOCKET和TCP_SOCK之间的关系 1.6 UCP协议和TCP协议 下面简单介绍UCP协议和TCP协议。
-TCP（Transmission Control Protocol，传输控制协议）提供的是面向连接，可靠的字节流服务。即客户和服务器交换数据前，必须现在双方之间建立一个TCP连接，之后才能传输数据。并且提供超时重发，丢弃重复数据，检验数据，流量控制等功能，保证数据能从一端传到另一端。
-UDP（User Datagram Protocol，用户数据报协议）是一个简单的面向数据报的运输层协议。它不提供可靠性，只是把应用程序传给IP层的数据报发送出去，但是不能保证它们能到达目的地。由于UDP在传输数据报前不用再客户和服务器之间建立一个连接，且没有超时重发等机制，所以传输速度很快。
-简单地说，TCP就像打电话，首先要通信信道才能进行通信。
-为什么UDP不提供可靠性，还要使用它？
-尽管UDP不提供可靠性，但它的优点在于传输速度快。由于UDP在传输数据报前不用再客户和服务器之间建立一个连接，且没有超时重发等机制，所以传输速度很快 。这对于一些对实时性要求较高的应用程序来说非常重要，例如在线游戏、实时音视频传输等。在这些情况下，使用UDP协议能够提供更快的响应速度。一般情况下，为了数据安全都使用TCP，在特殊场景下（例如直播和视频）可能会使用UDP。在优秀的通信算法中，常常会同时使用TCP和UDP，根据实际情况调度策略。
-实际上，这里的“可靠”是相对的，是中性词。也就是说，TCP为了达到“可靠”，付出了很多代价，例如协议更复杂、维护难度高，因此它的传输速度没有UDP快。其“可靠”与否是协议本身的特点。如果它们会说话的话，那么UDP可能会对TCP说“何必这么累呢？跟我一样直接把数据甩给对面不就好了？”
-1.7 网络字节序 高低位 对于任意一个十进制的数值，它可以用多项式$10^n$的和表示，例如$123 = {1×10^2} &#43; {2×10^1} &#43; {3×10^0}$，字节的高低对应着权值的大小。例如，对于整数0x12345678，0x12是最高位字节，它的权值是16的三次方；0x78是最低位字节，它的权值是16的零次方。
-高低地址 内存地址的高低是指内存地址的数值大小。比如，0x1000是一个比0x0100更高的地址。
-简单地说，就是左边低，右边高。" />
+1.1 源 MAC 地址和目的 MAC 地址 MAC 地址（Media Access Control Address， 局域网地址）在 OSI 模型的第二层数据链路层发挥作用，标识本地网络上的设备物理地址。
+对于处于同一局域网的多台主机，它们直接向局域网发送的数据是被所有主机共享的（包括发送的主机自己），也就相当于广播，但是只有特定的主机才会处理它（虽然所有主机都收到了信息）。这是因为主机发送的数据中包含了指定主机的 MAC 地址，除此之外，为了校验数据的完整性，还包含了发生数据的主机本身的 MAC 地址，以供主机在发送信息后再接收校验。
+其中，发送信息的主机的 MAC 地址叫做源 MAC 地址，接收信息的主机的 MAC 地址叫做目的 MAC 地址。
+1.2 源 IP 地址和目的 IP 地址 IP 地址（Internet Protocol， 互联网协议）在 OSI 模型的第三层网络层发挥作用，它是一个逻辑地址，用于唯一标识互联网连接设备。
+MAC 地址标识着设备的全球唯一性，但是仅靠 MAC 地址无法完成不同网络中数据的传输。我们知道，数据传输是通过网络协议栈传输的，数据自上而下传输时会被每一层协议封装一个报头信息，当数据自下而上传输时，每一层协议会解封装，直到应用层取到数据本身。但是不同的网络可能在某些层的协议有所区别，因此报头的封装和解封装的过程就不像局域网那样对称，因此需要配合 IP 地址在不同的网络中跳转。
+1.3 MAC 地址和 IP 地址的配合 在不同网络中，路由器起着“指路人”的作用，实际上数据在传输过程中可能会经过多个不同网络，那么报头信息中的两个 MAC 地址一直在随着路由器（路由器也是硬件）的变化而变化，但是源 IP 地址和目的 IP 地址不会改变。这就像唐僧每到一个地方都会说“自东土大唐而来，去西天取经”，出发点和目的地是不应该被改变的（在某些特殊情况源 IP 可能会被改变，但是目的 IP 绝对不会被改变），但是遇到的好心人听到这句话以后都会告诉唐僧下一个地方应该怎么走，这就是 MAC 地址和 IP 地址在不同网络中配合数据传输的过程。
+1.4 源端口号和目的端口号 端口号（PORT）的主要作用是表示一台计算机中的特定（特指网络服务）进程所提供的服务，它在传输层发挥作用，标识主机上进程的唯一性。言外之意是一个端口号只能被一个进程使用，而一个进程可以使用多个端口号。" />
   
   
     <link rel="canonical" href="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80socket%E5%A5%97%E6%8E%A5%E5%AD%97/" itemprop="url" />
@@ -48,102 +27,39 @@ UDP（User Datagram Protocol，用户数据报协议）是一个简单的面向�
 
   
 
-<meta property="og:title" content="" />
+<meta property="og:title" content="网络基础：socket 套接字" />
 <meta property="og:description" content="1. 前导知识友情链接：网络基础入门
-1.1 源MAC地址和目的MAC地址 MAC地址（Media Access Control Address， 局域网地址）在OSI模型的第二层数据链路层发挥作用，标识本地网络上的设备物理地址。
-对于处于同一局域网的多台主机，它们直接向局域网发送的数据是被所有主机共享的（包括发送的主机自己），也就相当于广播，但是只有特定的主机才会处理它（虽然所有主机都收到了信息）。这是因为主机发送的数据中包含了指定主机的MAC地址，除此之外，为了校验数据的完整性，还包含了发生数据的主机本身的MAC地址，以供主机在发送信息后再接收校验。
-其中，发送信息的主机的MAC地址叫做源MAC地址，接收信息的主机的MAC地址叫做目的MAC地址。
-1.2 源IP地址和目的IP地址 IP地址（Internet Protocol， 互联网协议）在OSI模型的第三层网络层发挥作用，它是一个逻辑地址，用于唯一标识互联网连接设备。
-MAC地址标识着设备的全球唯一性，但是仅靠MAC地址无法完成不同网络中数据的传输。我们知道，数据传输是通过网络协议栈传输的，数据自上而下传输时会被每一层协议封装一个报头信息，当数据自下而上传输时，每一层协议会解封装，直到应用层取到数据本身。但是不同的网络可能在某些层的协议有所区别，因此报头的封装和解封装的过程就不像局域网那样对称，因此需要配合IP地址在不同的网络中跳转。
-1.3 MAC地址和IP地址的配合 在不同网络中，路由器起着“指路人”的作用，实际上数据在传输过程中可能会经过多个不同网络，那么报头信息中的两个MAC地址一直在随着路由器（路由器也是硬件）的变化而变化，但是源IP地址和目的IP地址不会改变。这就像唐僧每到一个地方都会说“自东土大唐而来，去西天取经”，出发点和目的地是不应该被改变的（在某些特殊情况源IP可能会被改变，但是目的IP绝对不会被改变），但是遇到的好心人听到这句话以后都会告诉唐僧下一个地方应该怎么走，这就是MAC地址和IP地址在不同网络中配合数据传输的过程。
-1.4 源端口号和目的端口号 端口号（PORT）的主要作用是表示一台计算机中的特定（特指网络服务）进程所提供的服务，它在传输层发挥作用，标识主机上进程的唯一性。言外之意是一个端口号只能被一个进程使用，而一个进程可以使用多个端口号。
-端口号是一个16位的无符号整数，范围从0到65535。在Internet上，端口号用于识别不同的网络服务。例如，Web服务器通常使用端口号80，SMTP服务器使用端口号25等 。
-结合进程相关知识，数据本身是被运行起来的进程处理的，因此数据通过网络传输到不同主机中只是一个搬运的过程。因此可以认为数据是在不同主机中的不同进程之间传输，也就是网络层面上的进程间通信。端口号的名字很形象，现实中的港口（port）也是类似的。主机中各种不同的进程就好像一个个蓄势待发的货船，它们在不同编号的位置等待货物，一旦货物就绪，一个个进程就会对其处理。
-IP地址标识了公网中主机的唯一性，端口号标识主机上进程的唯一性，那么IP地址&#43;端口号就标识了网络上某台主机中的进程的唯一性。和IP地址类似，端口号会在传输层被封装进报头信息中。
-既然PID和端口号都能表示主机上进程的唯一性，为什么不用PID进行网络传输？
-端口号标识的进程是PID标识的进程的子集，它们标识的范围不同。PID就像每个人的身份证，虽然它能表示我们在这片土地上的唯一性，但是我们很多时候不使用它，而是使用范围合适、便于管理的标识，例如在教室用座位号、在学校用学号、在高考中用准考证和在银行里用身份证等等。使用PID当然可以，但是这样会增加筛选所有进程中的网络服务进程的负担，也会增加其他非网络服务进程的安全风险。这也是一种解耦的做法，单独用一种标识表示特定种类的元素，能省去筛选的成本。
-1.5 Socket Socket（套接字）是计算机网络中的一个软件结构，它用于在计算机网络中的节点之间发送和接收数据。套接字的结构和属性由网络架构的应用程序编程接口（API）定义。它允许应用程序将I/O插入到网络中，并与网络中的其他应用程序进行通信。简单来说，Socket是计算机之间进行通信的一种约定或一种方式。
-Socket这个词在计算机网络中的翻译为“套接字”，原意指的是插座或者插槽。在计算机网络中，它被用来描述两个程序之间建立连接的端点。就像电器插头需要插入插座才能通电一样，两个程序之间也需要一个“插座”来建立连接。因此，这个词被引申为“套接字”。
-Socket函数是应用程序与TCP/IP协议族通信的中间软件抽象层，它是一组接口。在设计模式中，Socket其实就是一个门面模式，它把复杂的TCP/IP协议族隐藏在Socket接口后面，对用户来说，一组简单的接口就是全部。它将底层复杂的协议体系、执行流程进行了封装，封装完的结果就是一个SOCKET了，也就是说，SOCKET是我们调用协议进行通信的操作接口。
-Socket起源于Unix，而Unix/Linux基本哲学之一就是“一切皆文件”，都可以用“打开open –&gt; 读写write/read –&gt; 关闭close”模式来操作。Socket就是该模式的一个实现，socket即是一种特殊的文件，一些socket函数就是对其进行的操作（读/写IO、打开、关闭）。
-在实践过程中，其实不必要关心它的各种定义，可以简单地理解为它就是一个数据包，是包含各种通信相关属性的结构体。内置的库中有许多函数，它们会在函数内部对这个数据包中的属性处理。值得注意的是，socket本质是一个按照某种规则（协议）构造出来的一个文件，只要通信两端都按照约定好的规则使用它其中的数据，就能实现通信过程。
-友情链接：
-socket是什么？套接字是什么？ SOCK、SOCKET和TCP_SOCK之间的关系 1.6 UCP协议和TCP协议 下面简单介绍UCP协议和TCP协议。
-TCP（Transmission Control Protocol，传输控制协议）提供的是面向连接，可靠的字节流服务。即客户和服务器交换数据前，必须现在双方之间建立一个TCP连接，之后才能传输数据。并且提供超时重发，丢弃重复数据，检验数据，流量控制等功能，保证数据能从一端传到另一端。
-UDP（User Datagram Protocol，用户数据报协议）是一个简单的面向数据报的运输层协议。它不提供可靠性，只是把应用程序传给IP层的数据报发送出去，但是不能保证它们能到达目的地。由于UDP在传输数据报前不用再客户和服务器之间建立一个连接，且没有超时重发等机制，所以传输速度很快。
-简单地说，TCP就像打电话，首先要通信信道才能进行通信。
-为什么UDP不提供可靠性，还要使用它？
-尽管UDP不提供可靠性，但它的优点在于传输速度快。由于UDP在传输数据报前不用再客户和服务器之间建立一个连接，且没有超时重发等机制，所以传输速度很快 。这对于一些对实时性要求较高的应用程序来说非常重要，例如在线游戏、实时音视频传输等。在这些情况下，使用UDP协议能够提供更快的响应速度。一般情况下，为了数据安全都使用TCP，在特殊场景下（例如直播和视频）可能会使用UDP。在优秀的通信算法中，常常会同时使用TCP和UDP，根据实际情况调度策略。
-实际上，这里的“可靠”是相对的，是中性词。也就是说，TCP为了达到“可靠”，付出了很多代价，例如协议更复杂、维护难度高，因此它的传输速度没有UDP快。其“可靠”与否是协议本身的特点。如果它们会说话的话，那么UDP可能会对TCP说“何必这么累呢？跟我一样直接把数据甩给对面不就好了？”
-1.7 网络字节序 高低位 对于任意一个十进制的数值，它可以用多项式$10^n$的和表示，例如$123 = {1×10^2} &#43; {2×10^1} &#43; {3×10^0}$，字节的高低对应着权值的大小。例如，对于整数0x12345678，0x12是最高位字节，它的权值是16的三次方；0x78是最低位字节，它的权值是16的零次方。
-高低地址 内存地址的高低是指内存地址的数值大小。比如，0x1000是一个比0x0100更高的地址。
-简单地说，就是左边低，右边高。" />
+1.1 源 MAC 地址和目的 MAC 地址 MAC 地址（Media Access Control Address， 局域网地址）在 OSI 模型的第二层数据链路层发挥作用，标识本地网络上的设备物理地址。
+对于处于同一局域网的多台主机，它们直接向局域网发送的数据是被所有主机共享的（包括发送的主机自己），也就相当于广播，但是只有特定的主机才会处理它（虽然所有主机都收到了信息）。这是因为主机发送的数据中包含了指定主机的 MAC 地址，除此之外，为了校验数据的完整性，还包含了发生数据的主机本身的 MAC 地址，以供主机在发送信息后再接收校验。
+其中，发送信息的主机的 MAC 地址叫做源 MAC 地址，接收信息的主机的 MAC 地址叫做目的 MAC 地址。
+1.2 源 IP 地址和目的 IP 地址 IP 地址（Internet Protocol， 互联网协议）在 OSI 模型的第三层网络层发挥作用，它是一个逻辑地址，用于唯一标识互联网连接设备。
+MAC 地址标识着设备的全球唯一性，但是仅靠 MAC 地址无法完成不同网络中数据的传输。我们知道，数据传输是通过网络协议栈传输的，数据自上而下传输时会被每一层协议封装一个报头信息，当数据自下而上传输时，每一层协议会解封装，直到应用层取到数据本身。但是不同的网络可能在某些层的协议有所区别，因此报头的封装和解封装的过程就不像局域网那样对称，因此需要配合 IP 地址在不同的网络中跳转。
+1.3 MAC 地址和 IP 地址的配合 在不同网络中，路由器起着“指路人”的作用，实际上数据在传输过程中可能会经过多个不同网络，那么报头信息中的两个 MAC 地址一直在随着路由器（路由器也是硬件）的变化而变化，但是源 IP 地址和目的 IP 地址不会改变。这就像唐僧每到一个地方都会说“自东土大唐而来，去西天取经”，出发点和目的地是不应该被改变的（在某些特殊情况源 IP 可能会被改变，但是目的 IP 绝对不会被改变），但是遇到的好心人听到这句话以后都会告诉唐僧下一个地方应该怎么走，这就是 MAC 地址和 IP 地址在不同网络中配合数据传输的过程。
+1.4 源端口号和目的端口号 端口号（PORT）的主要作用是表示一台计算机中的特定（特指网络服务）进程所提供的服务，它在传输层发挥作用，标识主机上进程的唯一性。言外之意是一个端口号只能被一个进程使用，而一个进程可以使用多个端口号。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80socket%E5%A5%97%E6%8E%A5%E5%AD%97/" /><meta property="article:section" content="blogs" />
 
 
 
   
-  <meta itemprop="name" content="Shawy&#39;s Blog">
+  <meta itemprop="name" content="网络基础：socket 套接字">
   <meta itemprop="description" content="1. 前导知识友情链接：网络基础入门
-1.1 源MAC地址和目的MAC地址 MAC地址（Media Access Control Address， 局域网地址）在OSI模型的第二层数据链路层发挥作用，标识本地网络上的设备物理地址。
-对于处于同一局域网的多台主机，它们直接向局域网发送的数据是被所有主机共享的（包括发送的主机自己），也就相当于广播，但是只有特定的主机才会处理它（虽然所有主机都收到了信息）。这是因为主机发送的数据中包含了指定主机的MAC地址，除此之外，为了校验数据的完整性，还包含了发生数据的主机本身的MAC地址，以供主机在发送信息后再接收校验。
-其中，发送信息的主机的MAC地址叫做源MAC地址，接收信息的主机的MAC地址叫做目的MAC地址。
-1.2 源IP地址和目的IP地址 IP地址（Internet Protocol， 互联网协议）在OSI模型的第三层网络层发挥作用，它是一个逻辑地址，用于唯一标识互联网连接设备。
-MAC地址标识着设备的全球唯一性，但是仅靠MAC地址无法完成不同网络中数据的传输。我们知道，数据传输是通过网络协议栈传输的，数据自上而下传输时会被每一层协议封装一个报头信息，当数据自下而上传输时，每一层协议会解封装，直到应用层取到数据本身。但是不同的网络可能在某些层的协议有所区别，因此报头的封装和解封装的过程就不像局域网那样对称，因此需要配合IP地址在不同的网络中跳转。
-1.3 MAC地址和IP地址的配合 在不同网络中，路由器起着“指路人”的作用，实际上数据在传输过程中可能会经过多个不同网络，那么报头信息中的两个MAC地址一直在随着路由器（路由器也是硬件）的变化而变化，但是源IP地址和目的IP地址不会改变。这就像唐僧每到一个地方都会说“自东土大唐而来，去西天取经”，出发点和目的地是不应该被改变的（在某些特殊情况源IP可能会被改变，但是目的IP绝对不会被改变），但是遇到的好心人听到这句话以后都会告诉唐僧下一个地方应该怎么走，这就是MAC地址和IP地址在不同网络中配合数据传输的过程。
-1.4 源端口号和目的端口号 端口号（PORT）的主要作用是表示一台计算机中的特定（特指网络服务）进程所提供的服务，它在传输层发挥作用，标识主机上进程的唯一性。言外之意是一个端口号只能被一个进程使用，而一个进程可以使用多个端口号。
-端口号是一个16位的无符号整数，范围从0到65535。在Internet上，端口号用于识别不同的网络服务。例如，Web服务器通常使用端口号80，SMTP服务器使用端口号25等 。
-结合进程相关知识，数据本身是被运行起来的进程处理的，因此数据通过网络传输到不同主机中只是一个搬运的过程。因此可以认为数据是在不同主机中的不同进程之间传输，也就是网络层面上的进程间通信。端口号的名字很形象，现实中的港口（port）也是类似的。主机中各种不同的进程就好像一个个蓄势待发的货船，它们在不同编号的位置等待货物，一旦货物就绪，一个个进程就会对其处理。
-IP地址标识了公网中主机的唯一性，端口号标识主机上进程的唯一性，那么IP地址&#43;端口号就标识了网络上某台主机中的进程的唯一性。和IP地址类似，端口号会在传输层被封装进报头信息中。
-既然PID和端口号都能表示主机上进程的唯一性，为什么不用PID进行网络传输？
-端口号标识的进程是PID标识的进程的子集，它们标识的范围不同。PID就像每个人的身份证，虽然它能表示我们在这片土地上的唯一性，但是我们很多时候不使用它，而是使用范围合适、便于管理的标识，例如在教室用座位号、在学校用学号、在高考中用准考证和在银行里用身份证等等。使用PID当然可以，但是这样会增加筛选所有进程中的网络服务进程的负担，也会增加其他非网络服务进程的安全风险。这也是一种解耦的做法，单独用一种标识表示特定种类的元素，能省去筛选的成本。
-1.5 Socket Socket（套接字）是计算机网络中的一个软件结构，它用于在计算机网络中的节点之间发送和接收数据。套接字的结构和属性由网络架构的应用程序编程接口（API）定义。它允许应用程序将I/O插入到网络中，并与网络中的其他应用程序进行通信。简单来说，Socket是计算机之间进行通信的一种约定或一种方式。
-Socket这个词在计算机网络中的翻译为“套接字”，原意指的是插座或者插槽。在计算机网络中，它被用来描述两个程序之间建立连接的端点。就像电器插头需要插入插座才能通电一样，两个程序之间也需要一个“插座”来建立连接。因此，这个词被引申为“套接字”。
-Socket函数是应用程序与TCP/IP协议族通信的中间软件抽象层，它是一组接口。在设计模式中，Socket其实就是一个门面模式，它把复杂的TCP/IP协议族隐藏在Socket接口后面，对用户来说，一组简单的接口就是全部。它将底层复杂的协议体系、执行流程进行了封装，封装完的结果就是一个SOCKET了，也就是说，SOCKET是我们调用协议进行通信的操作接口。
-Socket起源于Unix，而Unix/Linux基本哲学之一就是“一切皆文件”，都可以用“打开open –&gt; 读写write/read –&gt; 关闭close”模式来操作。Socket就是该模式的一个实现，socket即是一种特殊的文件，一些socket函数就是对其进行的操作（读/写IO、打开、关闭）。
-在实践过程中，其实不必要关心它的各种定义，可以简单地理解为它就是一个数据包，是包含各种通信相关属性的结构体。内置的库中有许多函数，它们会在函数内部对这个数据包中的属性处理。值得注意的是，socket本质是一个按照某种规则（协议）构造出来的一个文件，只要通信两端都按照约定好的规则使用它其中的数据，就能实现通信过程。
-友情链接：
-socket是什么？套接字是什么？ SOCK、SOCKET和TCP_SOCK之间的关系 1.6 UCP协议和TCP协议 下面简单介绍UCP协议和TCP协议。
-TCP（Transmission Control Protocol，传输控制协议）提供的是面向连接，可靠的字节流服务。即客户和服务器交换数据前，必须现在双方之间建立一个TCP连接，之后才能传输数据。并且提供超时重发，丢弃重复数据，检验数据，流量控制等功能，保证数据能从一端传到另一端。
-UDP（User Datagram Protocol，用户数据报协议）是一个简单的面向数据报的运输层协议。它不提供可靠性，只是把应用程序传给IP层的数据报发送出去，但是不能保证它们能到达目的地。由于UDP在传输数据报前不用再客户和服务器之间建立一个连接，且没有超时重发等机制，所以传输速度很快。
-简单地说，TCP就像打电话，首先要通信信道才能进行通信。
-为什么UDP不提供可靠性，还要使用它？
-尽管UDP不提供可靠性，但它的优点在于传输速度快。由于UDP在传输数据报前不用再客户和服务器之间建立一个连接，且没有超时重发等机制，所以传输速度很快 。这对于一些对实时性要求较高的应用程序来说非常重要，例如在线游戏、实时音视频传输等。在这些情况下，使用UDP协议能够提供更快的响应速度。一般情况下，为了数据安全都使用TCP，在特殊场景下（例如直播和视频）可能会使用UDP。在优秀的通信算法中，常常会同时使用TCP和UDP，根据实际情况调度策略。
-实际上，这里的“可靠”是相对的，是中性词。也就是说，TCP为了达到“可靠”，付出了很多代价，例如协议更复杂、维护难度高，因此它的传输速度没有UDP快。其“可靠”与否是协议本身的特点。如果它们会说话的话，那么UDP可能会对TCP说“何必这么累呢？跟我一样直接把数据甩给对面不就好了？”
-1.7 网络字节序 高低位 对于任意一个十进制的数值，它可以用多项式$10^n$的和表示，例如$123 = {1×10^2} &#43; {2×10^1} &#43; {3×10^0}$，字节的高低对应着权值的大小。例如，对于整数0x12345678，0x12是最高位字节，它的权值是16的三次方；0x78是最低位字节，它的权值是16的零次方。
-高低地址 内存地址的高低是指内存地址的数值大小。比如，0x1000是一个比0x0100更高的地址。
-简单地说，就是左边低，右边高。">
-  <meta itemprop="wordCount" content="339"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="">
+1.1 源 MAC 地址和目的 MAC 地址 MAC 地址（Media Access Control Address， 局域网地址）在 OSI 模型的第二层数据链路层发挥作用，标识本地网络上的设备物理地址。
+对于处于同一局域网的多台主机，它们直接向局域网发送的数据是被所有主机共享的（包括发送的主机自己），也就相当于广播，但是只有特定的主机才会处理它（虽然所有主机都收到了信息）。这是因为主机发送的数据中包含了指定主机的 MAC 地址，除此之外，为了校验数据的完整性，还包含了发生数据的主机本身的 MAC 地址，以供主机在发送信息后再接收校验。
+其中，发送信息的主机的 MAC 地址叫做源 MAC 地址，接收信息的主机的 MAC 地址叫做目的 MAC 地址。
+1.2 源 IP 地址和目的 IP 地址 IP 地址（Internet Protocol， 互联网协议）在 OSI 模型的第三层网络层发挥作用，它是一个逻辑地址，用于唯一标识互联网连接设备。
+MAC 地址标识着设备的全球唯一性，但是仅靠 MAC 地址无法完成不同网络中数据的传输。我们知道，数据传输是通过网络协议栈传输的，数据自上而下传输时会被每一层协议封装一个报头信息，当数据自下而上传输时，每一层协议会解封装，直到应用层取到数据本身。但是不同的网络可能在某些层的协议有所区别，因此报头的封装和解封装的过程就不像局域网那样对称，因此需要配合 IP 地址在不同的网络中跳转。
+1.3 MAC 地址和 IP 地址的配合 在不同网络中，路由器起着“指路人”的作用，实际上数据在传输过程中可能会经过多个不同网络，那么报头信息中的两个 MAC 地址一直在随着路由器（路由器也是硬件）的变化而变化，但是源 IP 地址和目的 IP 地址不会改变。这就像唐僧每到一个地方都会说“自东土大唐而来，去西天取经”，出发点和目的地是不应该被改变的（在某些特殊情况源 IP 可能会被改变，但是目的 IP 绝对不会被改变），但是遇到的好心人听到这句话以后都会告诉唐僧下一个地方应该怎么走，这就是 MAC 地址和 IP 地址在不同网络中配合数据传输的过程。
+1.4 源端口号和目的端口号 端口号（PORT）的主要作用是表示一台计算机中的特定（特指网络服务）进程所提供的服务，它在传输层发挥作用，标识主机上进程的唯一性。言外之意是一个端口号只能被一个进程使用，而一个进程可以使用多个端口号。">
+  <meta itemprop="wordCount" content="647"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="网络基础：socket 套接字">
 <meta name="twitter:description" content="1. 前导知识友情链接：网络基础入门
-1.1 源MAC地址和目的MAC地址 MAC地址（Media Access Control Address， 局域网地址）在OSI模型的第二层数据链路层发挥作用，标识本地网络上的设备物理地址。
-对于处于同一局域网的多台主机，它们直接向局域网发送的数据是被所有主机共享的（包括发送的主机自己），也就相当于广播，但是只有特定的主机才会处理它（虽然所有主机都收到了信息）。这是因为主机发送的数据中包含了指定主机的MAC地址，除此之外，为了校验数据的完整性，还包含了发生数据的主机本身的MAC地址，以供主机在发送信息后再接收校验。
-其中，发送信息的主机的MAC地址叫做源MAC地址，接收信息的主机的MAC地址叫做目的MAC地址。
-1.2 源IP地址和目的IP地址 IP地址（Internet Protocol， 互联网协议）在OSI模型的第三层网络层发挥作用，它是一个逻辑地址，用于唯一标识互联网连接设备。
-MAC地址标识着设备的全球唯一性，但是仅靠MAC地址无法完成不同网络中数据的传输。我们知道，数据传输是通过网络协议栈传输的，数据自上而下传输时会被每一层协议封装一个报头信息，当数据自下而上传输时，每一层协议会解封装，直到应用层取到数据本身。但是不同的网络可能在某些层的协议有所区别，因此报头的封装和解封装的过程就不像局域网那样对称，因此需要配合IP地址在不同的网络中跳转。
-1.3 MAC地址和IP地址的配合 在不同网络中，路由器起着“指路人”的作用，实际上数据在传输过程中可能会经过多个不同网络，那么报头信息中的两个MAC地址一直在随着路由器（路由器也是硬件）的变化而变化，但是源IP地址和目的IP地址不会改变。这就像唐僧每到一个地方都会说“自东土大唐而来，去西天取经”，出发点和目的地是不应该被改变的（在某些特殊情况源IP可能会被改变，但是目的IP绝对不会被改变），但是遇到的好心人听到这句话以后都会告诉唐僧下一个地方应该怎么走，这就是MAC地址和IP地址在不同网络中配合数据传输的过程。
-1.4 源端口号和目的端口号 端口号（PORT）的主要作用是表示一台计算机中的特定（特指网络服务）进程所提供的服务，它在传输层发挥作用，标识主机上进程的唯一性。言外之意是一个端口号只能被一个进程使用，而一个进程可以使用多个端口号。
-端口号是一个16位的无符号整数，范围从0到65535。在Internet上，端口号用于识别不同的网络服务。例如，Web服务器通常使用端口号80，SMTP服务器使用端口号25等 。
-结合进程相关知识，数据本身是被运行起来的进程处理的，因此数据通过网络传输到不同主机中只是一个搬运的过程。因此可以认为数据是在不同主机中的不同进程之间传输，也就是网络层面上的进程间通信。端口号的名字很形象，现实中的港口（port）也是类似的。主机中各种不同的进程就好像一个个蓄势待发的货船，它们在不同编号的位置等待货物，一旦货物就绪，一个个进程就会对其处理。
-IP地址标识了公网中主机的唯一性，端口号标识主机上进程的唯一性，那么IP地址&#43;端口号就标识了网络上某台主机中的进程的唯一性。和IP地址类似，端口号会在传输层被封装进报头信息中。
-既然PID和端口号都能表示主机上进程的唯一性，为什么不用PID进行网络传输？
-端口号标识的进程是PID标识的进程的子集，它们标识的范围不同。PID就像每个人的身份证，虽然它能表示我们在这片土地上的唯一性，但是我们很多时候不使用它，而是使用范围合适、便于管理的标识，例如在教室用座位号、在学校用学号、在高考中用准考证和在银行里用身份证等等。使用PID当然可以，但是这样会增加筛选所有进程中的网络服务进程的负担，也会增加其他非网络服务进程的安全风险。这也是一种解耦的做法，单独用一种标识表示特定种类的元素，能省去筛选的成本。
-1.5 Socket Socket（套接字）是计算机网络中的一个软件结构，它用于在计算机网络中的节点之间发送和接收数据。套接字的结构和属性由网络架构的应用程序编程接口（API）定义。它允许应用程序将I/O插入到网络中，并与网络中的其他应用程序进行通信。简单来说，Socket是计算机之间进行通信的一种约定或一种方式。
-Socket这个词在计算机网络中的翻译为“套接字”，原意指的是插座或者插槽。在计算机网络中，它被用来描述两个程序之间建立连接的端点。就像电器插头需要插入插座才能通电一样，两个程序之间也需要一个“插座”来建立连接。因此，这个词被引申为“套接字”。
-Socket函数是应用程序与TCP/IP协议族通信的中间软件抽象层，它是一组接口。在设计模式中，Socket其实就是一个门面模式，它把复杂的TCP/IP协议族隐藏在Socket接口后面，对用户来说，一组简单的接口就是全部。它将底层复杂的协议体系、执行流程进行了封装，封装完的结果就是一个SOCKET了，也就是说，SOCKET是我们调用协议进行通信的操作接口。
-Socket起源于Unix，而Unix/Linux基本哲学之一就是“一切皆文件”，都可以用“打开open –&gt; 读写write/read –&gt; 关闭close”模式来操作。Socket就是该模式的一个实现，socket即是一种特殊的文件，一些socket函数就是对其进行的操作（读/写IO、打开、关闭）。
-在实践过程中，其实不必要关心它的各种定义，可以简单地理解为它就是一个数据包，是包含各种通信相关属性的结构体。内置的库中有许多函数，它们会在函数内部对这个数据包中的属性处理。值得注意的是，socket本质是一个按照某种规则（协议）构造出来的一个文件，只要通信两端都按照约定好的规则使用它其中的数据，就能实现通信过程。
-友情链接：
-socket是什么？套接字是什么？ SOCK、SOCKET和TCP_SOCK之间的关系 1.6 UCP协议和TCP协议 下面简单介绍UCP协议和TCP协议。
-TCP（Transmission Control Protocol，传输控制协议）提供的是面向连接，可靠的字节流服务。即客户和服务器交换数据前，必须现在双方之间建立一个TCP连接，之后才能传输数据。并且提供超时重发，丢弃重复数据，检验数据，流量控制等功能，保证数据能从一端传到另一端。
-UDP（User Datagram Protocol，用户数据报协议）是一个简单的面向数据报的运输层协议。它不提供可靠性，只是把应用程序传给IP层的数据报发送出去，但是不能保证它们能到达目的地。由于UDP在传输数据报前不用再客户和服务器之间建立一个连接，且没有超时重发等机制，所以传输速度很快。
-简单地说，TCP就像打电话，首先要通信信道才能进行通信。
-为什么UDP不提供可靠性，还要使用它？
-尽管UDP不提供可靠性，但它的优点在于传输速度快。由于UDP在传输数据报前不用再客户和服务器之间建立一个连接，且没有超时重发等机制，所以传输速度很快 。这对于一些对实时性要求较高的应用程序来说非常重要，例如在线游戏、实时音视频传输等。在这些情况下，使用UDP协议能够提供更快的响应速度。一般情况下，为了数据安全都使用TCP，在特殊场景下（例如直播和视频）可能会使用UDP。在优秀的通信算法中，常常会同时使用TCP和UDP，根据实际情况调度策略。
-实际上，这里的“可靠”是相对的，是中性词。也就是说，TCP为了达到“可靠”，付出了很多代价，例如协议更复杂、维护难度高，因此它的传输速度没有UDP快。其“可靠”与否是协议本身的特点。如果它们会说话的话，那么UDP可能会对TCP说“何必这么累呢？跟我一样直接把数据甩给对面不就好了？”
-1.7 网络字节序 高低位 对于任意一个十进制的数值，它可以用多项式$10^n$的和表示，例如$123 = {1×10^2} &#43; {2×10^1} &#43; {3×10^0}$，字节的高低对应着权值的大小。例如，对于整数0x12345678，0x12是最高位字节，它的权值是16的三次方；0x78是最低位字节，它的权值是16的零次方。
-高低地址 内存地址的高低是指内存地址的数值大小。比如，0x1000是一个比0x0100更高的地址。
-简单地说，就是左边低，右边高。">
+1.1 源 MAC 地址和目的 MAC 地址 MAC 地址（Media Access Control Address， 局域网地址）在 OSI 模型的第二层数据链路层发挥作用，标识本地网络上的设备物理地址。
+对于处于同一局域网的多台主机，它们直接向局域网发送的数据是被所有主机共享的（包括发送的主机自己），也就相当于广播，但是只有特定的主机才会处理它（虽然所有主机都收到了信息）。这是因为主机发送的数据中包含了指定主机的 MAC 地址，除此之外，为了校验数据的完整性，还包含了发生数据的主机本身的 MAC 地址，以供主机在发送信息后再接收校验。
+其中，发送信息的主机的 MAC 地址叫做源 MAC 地址，接收信息的主机的 MAC 地址叫做目的 MAC 地址。
+1.2 源 IP 地址和目的 IP 地址 IP 地址（Internet Protocol， 互联网协议）在 OSI 模型的第三层网络层发挥作用，它是一个逻辑地址，用于唯一标识互联网连接设备。
+MAC 地址标识着设备的全球唯一性，但是仅靠 MAC 地址无法完成不同网络中数据的传输。我们知道，数据传输是通过网络协议栈传输的，数据自上而下传输时会被每一层协议封装一个报头信息，当数据自下而上传输时，每一层协议会解封装，直到应用层取到数据本身。但是不同的网络可能在某些层的协议有所区别，因此报头的封装和解封装的过程就不像局域网那样对称，因此需要配合 IP 地址在不同的网络中跳转。
+1.3 MAC 地址和 IP 地址的配合 在不同网络中，路由器起着“指路人”的作用，实际上数据在传输过程中可能会经过多个不同网络，那么报头信息中的两个 MAC 地址一直在随着路由器（路由器也是硬件）的变化而变化，但是源 IP 地址和目的 IP 地址不会改变。这就像唐僧每到一个地方都会说“自东土大唐而来，去西天取经”，出发点和目的地是不应该被改变的（在某些特殊情况源 IP 可能会被改变，但是目的 IP 绝对不会被改变），但是遇到的好心人听到这句话以后都会告诉唐僧下一个地方应该怎么走，这就是 MAC 地址和 IP 地址在不同网络中配合数据传输的过程。
+1.4 源端口号和目的端口号 端口号（PORT）的主要作用是表示一台计算机中的特定（特指网络服务）进程所提供的服务，它在传输层发挥作用，标识主机上进程的唯一性。言外之意是一个端口号只能被一个进程使用，而一个进程可以使用多个端口号。">
 
     <link rel="preload" href="/css/compiled/main.min.5a06ca26e024c4f511f45ee6c33a2a1faefaebe6be8a38d36e100f40a4c59c06.css" as="style" integrity="sha256-WgbKJuAkxPUR9F7mwzoqH6766&#43;a&#43;ijjTbhAPQKTFnAY=" />
     <link href="/css/compiled/main.min.5a06ca26e024c4f511f45ee6c33a2a1faefaebe6be8a38d36e100f40a4c59c06.css" rel="stylesheet" integrity="sha256-WgbKJuAkxPUR9F7mwzoqH6766&#43;a&#43;ijjTbhAPQKTFnAY=" />
@@ -457,38 +373,6 @@ UDP（User Datagram Protocol，用户数据报协议）是一个简单的面向�
         <ul class='relative flex flex-col gap-1 before:absolute before:inset-y-1 before:w-px before:bg-gray-200 before:content-[""] ltr:ml-3 ltr:pl-3 ltr:before:left-0 rtl:mr-3 rtl:pr-3 rtl:before:right-0 dark:before:bg-neutral-800'><li class="flex flex-col "><a
     class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
       text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
-    href="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/http-%E5%92%8C-https-%E5%8D%8F%E8%AE%AE%E5%8E%9F%E7%90%86/"
-    
-  >HTTP 和 HTTPS 协议原理
-    </a>
-              
-            </li><li class="flex flex-col "><a
-    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
-      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
-    href="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/http%E5%8D%8F%E8%AE%AE/"
-    
-  >HTTP协议
-    </a>
-              
-            </li><li class="flex flex-col "><a
-    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
-      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
-    href="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/tcp-%E5%8D%8F%E8%AE%AE/"
-    
-  >TCP 协议
-    </a>
-              
-            </li><li class="flex flex-col "><a
-    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
-      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
-    href="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/udp-%E5%8D%8F%E8%AE%AE/"
-    
-  >UDP 协议
-    </a>
-              
-            </li><li class="flex flex-col "><a
-    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
-      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
     href="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8/"
     
   >网络基础入门
@@ -499,26 +383,26 @@ UDP（User Datagram Protocol，用户数据报协议）是一个简单的面向�
       sidebar-active-item bg-primary-100 font-semibold text-primary-800 contrast-more:border contrast-more:border-primary-500 dark:bg-primary-400/10 dark:text-primary-600 contrast-more:dark:border-primary-500"
     href="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80socket%E5%A5%97%E6%8E%A5%E5%AD%97/"
     
-  >网络基础：socket套接字
+  >网络基础：socket 套接字
     </a>
   
     <ul class='flex flex-col gap-1 relative before:absolute before:inset-y-1 before:w-px before:bg-gray-200 before:content-[""] dark:before:bg-neutral-800 ltr:pl-3 ltr:before:left-0 rtl:pr-3 rtl:before:right-0 ltr:ml-3 rtl:mr-3'><li>
               <a
-                href="#11-%e6%ba%90mac%e5%9c%b0%e5%9d%80%e5%92%8c%e7%9b%ae%e7%9a%84mac%e5%9c%b0%e5%9d%80"
+                href="#11-%e6%ba%90-mac-%e5%9c%b0%e5%9d%80%e5%92%8c%e7%9b%ae%e7%9a%84-mac-%e5%9c%b0%e5%9d%80"
                 class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >1.1 源MAC地址和目的MAC地址</a>
+              >1.1 源 MAC 地址和目的 MAC 地址</a>
             </li>
           <li>
               <a
-                href="#12-%e6%ba%90ip%e5%9c%b0%e5%9d%80%e5%92%8c%e7%9b%ae%e7%9a%84ip%e5%9c%b0%e5%9d%80"
+                href="#12-%e6%ba%90-ip-%e5%9c%b0%e5%9d%80%e5%92%8c%e7%9b%ae%e7%9a%84-ip-%e5%9c%b0%e5%9d%80"
                 class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >1.2 源IP地址和目的IP地址</a>
+              >1.2 源 IP 地址和目的 IP 地址</a>
             </li>
           <li>
               <a
-                href="#13-mac%e5%9c%b0%e5%9d%80%e5%92%8cip%e5%9c%b0%e5%9d%80%e7%9a%84%e9%85%8d%e5%90%88"
+                href="#13-mac-%e5%9c%b0%e5%9d%80%e5%92%8c-ip-%e5%9c%b0%e5%9d%80%e7%9a%84%e9%85%8d%e5%90%88"
                 class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >1.3 MAC地址和IP地址的配合</a>
+              >1.3 MAC 地址和 IP 地址的配合</a>
             </li>
           <li>
               <a
@@ -534,9 +418,9 @@ UDP（User Datagram Protocol，用户数据报协议）是一个简单的面向�
             </li>
           <li>
               <a
-                href="#16-ucp%e5%8d%8f%e8%ae%ae%e5%92%8ctcp%e5%8d%8f%e8%ae%ae"
+                href="#16-ucp-%e5%8d%8f%e8%ae%ae%e5%92%8c-tcp-%e5%8d%8f%e8%ae%ae"
                 class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >1.6 UCP协议和TCP协议</a>
+              >1.6 UCP 协议和 TCP 协议</a>
             </li>
           <li>
               <a
@@ -564,15 +448,15 @@ UDP（User Datagram Protocol，用户数据报协议）是一个简单的面向�
             </li>
           <li>
               <a
-                href="#%e5%ae%9e%e7%8e%b0%e7%ae%80%e6%98%93udp%e7%bd%91%e7%bb%9c%e7%a8%8b%e5%ba%8f"
+                href="#%e5%ae%9e%e7%8e%b0%e7%ae%80%e6%98%93-udp-%e7%bd%91%e7%bb%9c%e7%a8%8b%e5%ba%8f"
                 class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >实现简易UDP网络程序</a>
+              >实现简易 UDP 网络程序</a>
             </li>
           <li>
               <a
-                href="#%e5%ae%9e%e7%8e%b0%e7%ae%80%e6%98%93tcp%e7%bd%91%e7%bb%9c%e7%a8%8b%e5%ba%8f"
+                href="#%e5%ae%9e%e7%8e%b0%e7%ae%80%e6%98%93-tcp-%e7%bd%91%e7%bb%9c%e7%a8%8b%e5%ba%8f"
                 class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >实现简易TCP网络程序</a>
+              >实现简易 TCP 网络程序</a>
             </li>
           </ul>
   
@@ -599,6 +483,38 @@ UDP（User Datagram Protocol，用户数据报协议）是一个简单的面向�
     href="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A4%E8%AF%86%E5%8D%8F%E8%AE%AE/"
     
   >认识协议
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/http%E5%8D%8F%E8%AE%AE/"
+    
+  >HTTP 协议
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/http-%E5%92%8C-https-%E5%8D%8F%E8%AE%AE%E5%8E%9F%E7%90%86/"
+    
+  >HTTP 和 HTTPS 协议原理
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/udp-%E5%8D%8F%E8%AE%AE/"
+    
+  >UDP 协议
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/tcp-%E5%8D%8F%E8%AE%AE/"
+    
+  >TCP 协议
     </a>
               
             </li></ul>
@@ -643,15 +559,15 @@ UDP（User Datagram Protocol，用户数据报协议）是一个简单的面向�
 <nav class="hextra-toc order-last hidden w-64 shrink-0 xl:block print:hidden px-4" aria-label="table of contents">
     <div class="hextra-scrollbar sticky top-16 overflow-y-auto pr-4 pt-6 text-sm [hyphens:auto] max-h-[calc(100vh-var(--navbar-height)-env(safe-area-inset-bottom))] ltr:-mr-4 rtl:-ml-4"><p class="mb-4 font-semibold tracking-tight">On this page</p><ul>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#11-%e6%ba%90mac%e5%9c%b0%e5%9d%80%e5%92%8c%e7%9b%ae%e7%9a%84mac%e5%9c%b0%e5%9d%80">1.1 源MAC地址和目的MAC地址
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#11-%e6%ba%90-mac-%e5%9c%b0%e5%9d%80%e5%92%8c%e7%9b%ae%e7%9a%84-mac-%e5%9c%b0%e5%9d%80">1.1 源 MAC 地址和目的 MAC 地址
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#12-%e6%ba%90ip%e5%9c%b0%e5%9d%80%e5%92%8c%e7%9b%ae%e7%9a%84ip%e5%9c%b0%e5%9d%80">1.2 源IP地址和目的IP地址
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#12-%e6%ba%90-ip-%e5%9c%b0%e5%9d%80%e5%92%8c%e7%9b%ae%e7%9a%84-ip-%e5%9c%b0%e5%9d%80">1.2 源 IP 地址和目的 IP 地址
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#13-mac%e5%9c%b0%e5%9d%80%e5%92%8cip%e5%9c%b0%e5%9d%80%e7%9a%84%e9%85%8d%e5%90%88">1.3 MAC地址和IP地址的配合
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#13-mac-%e5%9c%b0%e5%9d%80%e5%92%8c-ip-%e5%9c%b0%e5%9d%80%e7%9a%84%e9%85%8d%e5%90%88">1.3 MAC 地址和 IP 地址的配合
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
@@ -663,7 +579,7 @@ UDP（User Datagram Protocol，用户数据报协议）是一个简单的面向�
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#16-ucp%e5%8d%8f%e8%ae%ae%e5%92%8ctcp%e5%8d%8f%e8%ae%ae">1.6 UCP协议和TCP协议
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#16-ucp-%e5%8d%8f%e8%ae%ae%e5%92%8c-tcp-%e5%8d%8f%e8%ae%ae">1.6 UCP 协议和 TCP 协议
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
@@ -735,11 +651,11 @@ UDP（User Datagram Protocol，用户数据报协议）是一个简单的面向�
         </a>
       </li></ul><ul>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%ae%9e%e7%8e%b0%e7%ae%80%e6%98%93udp%e7%bd%91%e7%bb%9c%e7%a8%8b%e5%ba%8f">实现简易UDP网络程序
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%ae%9e%e7%8e%b0%e7%ae%80%e6%98%93-udp-%e7%bd%91%e7%bb%9c%e7%a8%8b%e5%ba%8f">实现简易 UDP 网络程序
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%ae%9e%e7%8e%b0%e7%ae%80%e6%98%93tcp%e7%bd%91%e7%bb%9c%e7%a8%8b%e5%ba%8f">实现简易TCP网络程序
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%ae%9e%e7%8e%b0%e7%ae%80%e6%98%93-tcp-%e7%bd%91%e7%bb%9c%e7%a8%8b%e5%ba%8f">实现简易 TCP 网络程序
         </a>
       </li></ul>
       <div class="mt-8 border-t bg-white pt-8 shadow-[0_-12px_16px_white] dark:bg-dark dark:shadow-[0_-12px_16px_#111] sticky bottom-0 flex flex-col items-start gap-2 pb-8 dark:border-neutral-800 contrast-more:border-t contrast-more:border-neutral-400 contrast-more:shadow-none contrast-more:dark:border-neutral-400">
@@ -757,68 +673,68 @@ UDP（User Datagram Protocol，用户数据报协议）是一个简单的面向�
     <article class="w-full break-words flex min-h-[calc(100vh-var(--navbar-height))] min-w-0 justify-center pb-8 pr-[calc(env(safe-area-inset-right)-1.5rem)]">
       <main class="w-full min-w-0 max-w-6xl px-6 pt-4 md:px-12">
         <br class="mt-1.5 text-sm" />
-        <h1 class="text-center mt-2 text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100"></h1>
+        <h1 class="text-center mt-2 text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100">网络基础：socket 套接字</h1>
         <div class="mb-16"></div>
         <div class="content">
           <h1>1. 前导知识</h1><p>友情链接：<a href="https://blog.csdn.net/m0_63312733/article/details/130377048?spm=1001.2014.3001.5501" target="_blank" rel="noopener">网络基础入门</a></p>
-<h2>1.1 源MAC地址和目的MAC地址<span class="absolute -mt-20" id="11-源mac地址和目的mac地址"></span>
-    <a href="#11-%e6%ba%90mac%e5%9c%b0%e5%9d%80%e5%92%8c%e7%9b%ae%e7%9a%84mac%e5%9c%b0%e5%9d%80" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>MAC地址（Media Access Control Address， 局域网地址）在OSI模型的第二层数据链路层发挥作用，标识本地网络上的设备物理地址。</p>
-<p>对于处于同一局域网的多台主机，它们直接向局域网发送的数据是被所有主机共享的（包括发送的主机自己），也就相当于广播，但是只有特定的主机才会处理它（虽然所有主机都收到了信息）。这是因为主机发送的数据中包含了指定主机的MAC地址，除此之外，为了校验数据的完整性，还包含了发生数据的主机本身的MAC地址，以供主机在发送信息后再接收校验。</p>
-<p>其中，发送信息的主机的MAC地址叫做源MAC地址，接收信息的主机的MAC地址叫做目的MAC地址。</p>
-<h2>1.2 源IP地址和目的IP地址<span class="absolute -mt-20" id="12-源ip地址和目的ip地址"></span>
-    <a href="#12-%e6%ba%90ip%e5%9c%b0%e5%9d%80%e5%92%8c%e7%9b%ae%e7%9a%84ip%e5%9c%b0%e5%9d%80" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>IP地址（Internet Protocol， 互联网协议）在OSI模型的第三层网络层发挥作用，它是一个逻辑地址，用于唯一标识互联网连接设备。</p>
-<p>MAC地址标识着设备的全球唯一性，但是仅靠MAC地址无法完成不同网络中数据的传输。我们知道，数据传输是通过网络协议栈传输的，数据自上而下传输时会被每一层协议封装一个报头信息，当数据自下而上传输时，每一层协议会解封装，直到应用层取到数据本身。但是不同的网络可能在某些层的协议有所区别，因此报头的封装和解封装的过程就不像局域网那样对称，因此需要配合IP地址在不同的网络中跳转。</p>
-<h2>1.3 MAC地址和IP地址的配合<span class="absolute -mt-20" id="13-mac地址和ip地址的配合"></span>
-    <a href="#13-mac%e5%9c%b0%e5%9d%80%e5%92%8cip%e5%9c%b0%e5%9d%80%e7%9a%84%e9%85%8d%e5%90%88" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>在不同网络中，路由器起着“指路人”的作用，实际上数据在传输过程中可能会经过多个不同网络，那么报头信息中的两个MAC地址一直在随着路由器（路由器也是硬件）的变化而变化，但是源IP地址和目的IP地址不会改变。这就像唐僧每到一个地方都会说“自东土大唐而来，去西天取经”，出发点和目的地是不应该被改变的（在某些特殊情况源IP可能会被改变，但是目的IP绝对不会被改变），但是遇到的好心人听到这句话以后都会告诉唐僧下一个地方应该怎么走，这就是MAC地址和IP地址在不同网络中配合数据传输的过程。</p>
+<h2>1.1 源 MAC 地址和目的 MAC 地址<span class="absolute -mt-20" id="11-源-mac-地址和目的-mac-地址"></span>
+    <a href="#11-%e6%ba%90-mac-%e5%9c%b0%e5%9d%80%e5%92%8c%e7%9b%ae%e7%9a%84-mac-%e5%9c%b0%e5%9d%80" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>MAC 地址（Media Access Control Address， 局域网地址）在 OSI 模型的第二层数据链路层发挥作用，标识本地网络上的设备物理地址。</p>
+<p>对于处于同一局域网的多台主机，它们直接向局域网发送的数据是被所有主机共享的（包括发送的主机自己），也就相当于广播，但是只有特定的主机才会处理它（虽然所有主机都收到了信息）。这是因为主机发送的数据中包含了指定主机的 MAC 地址，除此之外，为了校验数据的完整性，还包含了发生数据的主机本身的 MAC 地址，以供主机在发送信息后再接收校验。</p>
+<p>其中，发送信息的主机的 MAC 地址叫做源 MAC 地址，接收信息的主机的 MAC 地址叫做目的 MAC 地址。</p>
+<h2>1.2 源 IP 地址和目的 IP 地址<span class="absolute -mt-20" id="12-源-ip-地址和目的-ip-地址"></span>
+    <a href="#12-%e6%ba%90-ip-%e5%9c%b0%e5%9d%80%e5%92%8c%e7%9b%ae%e7%9a%84-ip-%e5%9c%b0%e5%9d%80" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>IP 地址（Internet Protocol， 互联网协议）在 OSI 模型的第三层网络层发挥作用，它是一个逻辑地址，用于唯一标识互联网连接设备。</p>
+<p>MAC 地址标识着设备的全球唯一性，但是仅靠 MAC 地址无法完成不同网络中数据的传输。我们知道，数据传输是通过网络协议栈传输的，数据自上而下传输时会被每一层协议封装一个报头信息，当数据自下而上传输时，每一层协议会解封装，直到应用层取到数据本身。但是不同的网络可能在某些层的协议有所区别，因此报头的封装和解封装的过程就不像局域网那样对称，因此需要配合 IP 地址在不同的网络中跳转。</p>
+<h2>1.3 MAC 地址和 IP 地址的配合<span class="absolute -mt-20" id="13-mac-地址和-ip-地址的配合"></span>
+    <a href="#13-mac-%e5%9c%b0%e5%9d%80%e5%92%8c-ip-%e5%9c%b0%e5%9d%80%e7%9a%84%e9%85%8d%e5%90%88" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>在不同网络中，路由器起着“指路人”的作用，实际上数据在传输过程中可能会经过多个不同网络，那么报头信息中的两个 MAC 地址一直在随着路由器（路由器也是硬件）的变化而变化，但是源 IP 地址和目的 IP 地址不会改变。这就像唐僧每到一个地方都会说“自东土大唐而来，去西天取经”，出发点和目的地是不应该被改变的（在某些特殊情况源 IP 可能会被改变，但是目的 IP 绝对不会被改变），但是遇到的好心人听到这句话以后都会告诉唐僧下一个地方应该怎么走，这就是 MAC 地址和 IP 地址在不同网络中配合数据传输的过程。</p>
 <h2>1.4 源端口号和目的端口号<span class="absolute -mt-20" id="14-源端口号和目的端口号"></span>
     <a href="#14-%e6%ba%90%e7%ab%af%e5%8f%a3%e5%8f%b7%e5%92%8c%e7%9b%ae%e7%9a%84%e7%ab%af%e5%8f%a3%e5%8f%b7" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>端口号（PORT）的主要作用是表示一台计算机中的特定（特指网络服务）进程所提供的服务，它在传输层发挥作用，标识主机上进程的唯一性。言外之意是一个端口号只能被一个进程使用，而一个进程可以使用多个端口号。</p>
-<p>端口号是一个16位的无符号整数，范围从0到65535。在Internet上，端口号用于识别不同的网络服务。例如，Web服务器通常使用端口号80，SMTP服务器使用端口号25等 。</p>
+<p>端口号是一个 16 位的无符号整数，范围从 0 到 65535。在 Internet 上，端口号用于识别不同的网络服务。例如，Web 服务器通常使用端口号 80，SMTP 服务器使用端口号 25 等 。</p>
 <p>结合进程相关知识，数据本身是被运行起来的进程处理的，因此数据通过网络传输到不同主机中只是一个搬运的过程。因此可以认为数据是在不同主机中的不同进程之间传输，也就是网络层面上的进程间通信。端口号的名字很形象，现实中的港口（port）也是类似的。主机中各种不同的进程就好像一个个蓄势待发的货船，它们在不同编号的位置等待货物，一旦货物就绪，一个个进程就会对其处理。</p>
-<p>IP地址标识了公网中主机的唯一性，端口号标识主机上进程的唯一性，那么IP地址+端口号就标识了网络上某台主机中的进程的唯一性。和IP地址类似，端口号会在传输层被封装进报头信息中。</p>
+<p>IP 地址标识了公网中主机的唯一性，端口号标识主机上进程的唯一性，那么 IP 地址+端口号就标识了网络上某台主机中的进程的唯一性。和 IP 地址类似，端口号会在传输层被封装进报头信息中。</p>
 <blockquote>
-<p>既然PID和端口号都能表示主机上进程的唯一性，为什么不用PID进行网络传输？</p>
+<p>既然 PID 和端口号都能表示主机上进程的唯一性，为什么不用 PID 进行网络传输？</p>
 </blockquote>
-<p>端口号标识的进程是PID标识的进程的子集，它们标识的范围不同。PID就像每个人的身份证，虽然它能表示我们在这片土地上的唯一性，但是我们很多时候不使用它，而是使用范围合适、便于管理的标识，例如在教室用座位号、在学校用学号、在高考中用准考证和在银行里用身份证等等。使用PID当然可以，但是这样会增加筛选所有进程中的网络服务进程的负担，也会增加其他非网络服务进程的安全风险。这也是一种解耦的做法，单独用一种标识表示特定种类的元素，能省去筛选的成本。</p>
+<p>端口号标识的进程是 PID 标识的进程的子集，它们标识的范围不同。PID 就像每个人的身份证，虽然它能表示我们在这片土地上的唯一性，但是我们很多时候不使用它，而是使用范围合适、便于管理的标识，例如在教室用座位号、在学校用学号、在高考中用准考证和在银行里用身份证等等。使用 PID 当然可以，但是这样会增加筛选所有进程中的网络服务进程的负担，也会增加其他非网络服务进程的安全风险。这也是一种解耦的做法，单独用一种标识表示特定种类的元素，能省去筛选的成本。</p>
 <h2>1.5 Socket<span class="absolute -mt-20" id="15-socket"></span>
-    <a href="#15-socket" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>Socket（套接字）是计算机网络中的一个软件结构，它用于在计算机网络中的节点之间发送和接收数据。套接字的结构和属性由网络架构的应用程序编程接口（API）定义。它允许应用程序将I/O插入到网络中，并与网络中的其他应用程序进行通信。简单来说，Socket是计算机之间进行通信的一种约定或一种方式。</p>
+    <a href="#15-socket" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>Socket（套接字）是计算机网络中的一个软件结构，它用于在计算机网络中的节点之间发送和接收数据。套接字的结构和属性由网络架构的应用程序编程接口（API）定义。它允许应用程序将 I/O 插入到网络中，并与网络中的其他应用程序进行通信。简单来说，Socket 是计算机之间进行通信的一种约定或一种方式。</p>
 <blockquote>
-<p>Socket这个词在计算机网络中的翻译为“套接字”，原意指的是插座或者插槽。在计算机网络中，它被用来描述两个程序之间建立连接的端点。就像电器插头需要插入插座才能通电一样，两个程序之间也需要一个“插座”来建立连接。因此，这个词被引申为“套接字”。</p>
+<p>Socket 这个词在计算机网络中的翻译为“套接字”，原意指的是插座或者插槽。在计算机网络中，它被用来描述两个程序之间建立连接的端点。就像电器插头需要插入插座才能通电一样，两个程序之间也需要一个“插座”来建立连接。因此，这个词被引申为“套接字”。</p>
 </blockquote>
-<p>Socket函数是应用程序与TCP/IP协议族通信的中间软件抽象层，它是一组接口。在设计模式中，Socket其实就是一个门面模式，它把复杂的TCP/IP协议族隐藏在Socket接口后面，对用户来说，一组简单的接口就是全部。它将底层复杂的协议体系、执行流程进行了封装，封装完的结果就是一个SOCKET了，也就是说，SOCKET是我们调用协议进行通信的操作接口。</p>
+<p>Socket 函数是应用程序与 TCP/IP 协议族通信的中间软件抽象层，它是一组接口。在设计模式中，Socket 其实就是一个门面模式，它把复杂的 TCP/IP 协议族隐藏在 Socket 接口后面，对用户来说，一组简单的接口就是全部。它将底层复杂的协议体系、执行流程进行了封装，封装完的结果就是一个 SOCKET 了，也就是说，SOCKET 是我们调用协议进行通信的操作接口。</p>
 <blockquote>
-<p>Socket起源于Unix，而Unix/Linux基本哲学之一就是“一切皆文件”，都可以用“打开open –&gt; 读写write/read –&gt; 关闭close”模式来操作。Socket就是该模式的一个实现，socket即是一种特殊的文件，一些socket函数就是对其进行的操作（读/写IO、打开、关闭）。</p>
+<p>Socket 起源于 Unix，而 Unix/Linux 基本哲学之一就是“一切皆文件”，都可以用“打开 open –&gt; 读写 write/read –&gt; 关闭 close”模式来操作。Socket 就是该模式的一个实现，socket 即是一种特殊的文件，一些 socket 函数就是对其进行的操作（读/写 IO、打开、关闭）。</p>
 </blockquote>
-<p>在实践过程中，其实不必要关心它的各种定义，可以简单地理解为它就是一个数据包，是包含各种通信相关属性的结构体。内置的库中有许多函数，它们会在函数内部对这个数据包中的属性处理。值得注意的是，socket本质是一个按照某种规则（协议）构造出来的一个文件，只要通信两端都按照约定好的规则使用它其中的数据，就能实现通信过程。</p>
+<p>在实践过程中，其实不必要关心它的各种定义，可以简单地理解为它就是一个数据包，是包含各种通信相关属性的结构体。内置的库中有许多函数，它们会在函数内部对这个数据包中的属性处理。值得注意的是，socket 本质是一个按照某种规则（协议）构造出来的一个文件，只要通信两端都按照约定好的规则使用它其中的数据，就能实现通信过程。</p>
 <p>友情链接：</p>
 <ul>
-<li><a href="http://c.biancheng.net/view/2123.html" target="_blank" rel="noopener">socket是什么？套接字是什么？</a></li>
-<li><a href="http://kerneltravel.net/blog/2020/net_struct/" target="_blank" rel="noopener">SOCK、SOCKET和TCP_SOCK之间的关系</a></li>
+<li><a href="http://c.biancheng.net/view/2123.html" target="_blank" rel="noopener">socket 是什么？套接字是什么？</a></li>
+<li><a href="http://kerneltravel.net/blog/2020/net_struct/" target="_blank" rel="noopener">SOCK、SOCKET 和 TCP_SOCK 之间的关系</a></li>
 </ul>
-<h2>1.6 UCP协议和TCP协议<span class="absolute -mt-20" id="16-ucp协议和tcp协议"></span>
-    <a href="#16-ucp%e5%8d%8f%e8%ae%ae%e5%92%8ctcp%e5%8d%8f%e8%ae%ae" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><blockquote>
-<p>下面简单介绍UCP协议和TCP协议。</p>
+<h2>1.6 UCP 协议和 TCP 协议<span class="absolute -mt-20" id="16-ucp-协议和-tcp-协议"></span>
+    <a href="#16-ucp-%e5%8d%8f%e8%ae%ae%e5%92%8c-tcp-%e5%8d%8f%e8%ae%ae" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><blockquote>
+<p>下面简单介绍 UCP 协议和 TCP 协议。</p>
 </blockquote>
-<p>TCP（Transmission Control Protocol，传输控制协议）提供的是面向连接，可靠的字节流服务。即客户和服务器交换数据前，必须现在双方之间建立一个TCP连接，之后才能传输数据。并且提供超时重发，丢弃重复数据，检验数据，流量控制等功能，保证数据能从一端传到另一端。</p>
-<p>UDP（User Datagram Protocol，用户数据报协议）是一个简单的面向数据报的运输层协议。它不提供可靠性，只是把应用程序传给IP层的数据报发送出去，但是不能保证它们能到达目的地。由于UDP在传输数据报前不用再客户和服务器之间建立一个连接，且没有超时重发等机制，所以传输速度很快。</p>
-<p>简单地说，TCP就像打电话，首先要通信信道才能进行通信。</p>
+<p>TCP（Transmission Control Protocol，传输控制协议）提供的是面向连接，可靠的字节流服务。即客户和服务器交换数据前，必须现在双方之间建立一个 TCP 连接，之后才能传输数据。并且提供超时重发，丢弃重复数据，检验数据，流量控制等功能，保证数据能从一端传到另一端。</p>
+<p>UDP（User Datagram Protocol，用户数据报协议）是一个简单的面向数据报的运输层协议。它不提供可靠性，只是把应用程序传给 IP 层的数据报发送出去，但是不能保证它们能到达目的地。由于 UDP 在传输数据报前不用再客户和服务器之间建立一个连接，且没有超时重发等机制，所以传输速度很快。</p>
+<p>简单地说，TCP 就像打电话，首先要通信信道才能进行通信。</p>
 <blockquote>
-<p>为什么UDP不提供可靠性，还要使用它？</p>
+<p>为什么 UDP 不提供可靠性，还要使用它？</p>
 </blockquote>
-<p>尽管UDP不提供可靠性，但它的优点在于传输速度快。由于UDP在传输数据报前不用再客户和服务器之间建立一个连接，且没有超时重发等机制，所以传输速度很快 。这对于一些对实时性要求较高的应用程序来说非常重要，例如在线游戏、实时音视频传输等。在这些情况下，使用UDP协议能够提供更快的响应速度。一般情况下，为了数据安全都使用TCP，在特殊场景下（例如直播和视频）可能会使用UDP。在优秀的通信算法中，常常会同时使用TCP和UDP，根据实际情况调度策略。</p>
-<p>实际上，这里的“可靠”是相对的，是中性词。也就是说，TCP为了达到“可靠”，付出了很多代价，例如协议更复杂、维护难度高，因此它的传输速度没有UDP快。其“可靠”与否是协议本身的特点。如果它们会说话的话，那么UDP可能会对TCP说“何必这么累呢？跟我一样直接把数据甩给对面不就好了？”</p>
+<p>尽管 UDP 不提供可靠性，但它的优点在于传输速度快。由于 UDP 在传输数据报前不用再客户和服务器之间建立一个连接，且没有超时重发等机制，所以传输速度很快 。这对于一些对实时性要求较高的应用程序来说非常重要，例如在线游戏、实时音视频传输等。在这些情况下，使用 UDP 协议能够提供更快的响应速度。一般情况下，为了数据安全都使用 TCP，在特殊场景下（例如直播和视频）可能会使用 UDP。在优秀的通信算法中，常常会同时使用 TCP 和 UDP，根据实际情况调度策略。</p>
+<p>实际上，这里的“可靠”是相对的，是中性词。也就是说，TCP 为了达到“可靠”，付出了很多代价，例如协议更复杂、维护难度高，因此它的传输速度没有 UDP 快。其“可靠”与否是协议本身的特点。如果它们会说话的话，那么 UDP 可能会对 TCP 说“何必这么累呢？跟我一样直接把数据甩给对面不就好了？”</p>
 <h2>1.7 网络字节序<span class="absolute -mt-20" id="17-网络字节序"></span>
     <a href="#17-%e7%bd%91%e7%bb%9c%e5%ad%97%e8%8a%82%e5%ba%8f" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>高低位<span class="absolute -mt-20" id="高低位"></span>
-    <a href="#%e9%ab%98%e4%bd%8e%e4%bd%8d" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>对于任意一个十进制的数值，它可以用多项式$10^n$的和表示，例如$123 = {1×10^2} + {2×10^1} + {3×10^0}$，字节的高低对应着权值的大小。例如，对于整数0x12345678，0x12是最高位字节，它的权值是16的三次方；0x78是最低位字节，它的权值是16的零次方。</p>
+    <a href="#%e9%ab%98%e4%bd%8e%e4%bd%8d" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>对于任意一个十进制的数值，它可以用多项式$10^n$的和表示，例如$123 = {1×10^2} + {2×10^1} + {3×10^0}$，字节的高低对应着权值的大小。例如，对于整数 0x12345678，0x12 是最高位字节，它的权值是 16 的三次方；0x78 是最低位字节，它的权值是 16 的零次方。</p>
 <h3>高低地址<span class="absolute -mt-20" id="高低地址"></span>
-    <a href="#%e9%ab%98%e4%bd%8e%e5%9c%b0%e5%9d%80" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>内存地址的高低是指内存地址的数值大小。比如，0x1000是一个比0x0100更高的地址。</p>
+    <a href="#%e9%ab%98%e4%bd%8e%e5%9c%b0%e5%9d%80" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>内存地址的高低是指内存地址的数值大小。比如，0x1000 是一个比 0x0100 更高的地址。</p>
 <p>简单地说，就是左边低，右边高。</p>
 <h3>大端和小端<span class="absolute -mt-20" id="大端和小端"></span>
     <a href="#%e5%a4%a7%e7%ab%af%e5%92%8c%e5%b0%8f%e7%ab%af" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
 <li>小端：数据的高权值位对应高地址处。</li>
 <li>大端：反之。</li>
 </ul>
-<p>假设我们有一个16位的整数0x1234，它占用两个字节。在大端字节序的计算机中，这个整数将按照0x12 0x34的顺序存储在内存中。也就是说，最高位字节0x12存储在内存的低地址处，最低位字节0x34存储在内存的高地址处。</p>
-<p>而在小端字节序的计算机中，这个整数将按照0x34 0x12的顺序存储在内存中。也就是说，最低位字节0x34存储在内存的低地址处，最高位字节0x12存储在内存的高地址处。</p>
+<p>假设我们有一个 16 位的整数 0x1234，它占用两个字节。在大端字节序的计算机中，这个整数将按照 0x12 0x34 的顺序存储在内存中。也就是说，最高位字节 0x12 存储在内存的低地址处，最低位字节 0x34 存储在内存的高地址处。</p>
+<p>而在小端字节序的计算机中，这个整数将按照 0x34 0x12 的顺序存储在内存中。也就是说，最低位字节 0x34 存储在内存的低地址处，最高位字节 0x12 存储在内存的高地址处。</p>
 <p>只要记住大端更符合我们现代人从左到右的读写习惯即可。</p>
 <h3>网络字节序<span class="absolute -mt-20" id="网络字节序"></span>
     <a href="#%e7%bd%91%e7%bb%9c%e5%ad%97%e8%8a%82%e5%ba%8f" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><blockquote>
@@ -838,7 +754,7 @@ UDP（User Datagram Protocol，用户数据报协议）是一个简单的面向�
 <li>数据在接收后，需要从网络字节序转换为主机字节序。</li>
 </ul>
 <h3>常用转换函数<span class="absolute -mt-20" id="常用转换函数"></span>
-    <a href="#%e5%b8%b8%e7%94%a8%e8%bd%ac%e6%8d%a2%e5%87%bd%e6%95%b0" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>这个转换的工作已经由C标准库完成，实际上，Windows也使用的是相同的一套函数。</p>
+    <a href="#%e5%b8%b8%e7%94%a8%e8%bd%ac%e6%8d%a2%e5%87%bd%e6%95%b0" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>这个转换的工作已经由 C 标准库完成，实际上，Windows 也使用的是相同的一套函数。</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;arpa/inet.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="kt">uint32_t</span> <span class="nf">htonl</span><span class="p">(</span><span class="kt">uint32_t</span> <span class="n">hostlong</span><span class="p">);</span>
@@ -858,30 +774,30 @@ UDP（User Datagram Protocol，用户数据报协议）是一个简单的面向�
 <ul>
 <li>h：host，表示主机字节序；</li>
 <li>n：net，表示网络字节序；</li>
-<li>l：long，表示32位长整数；</li>
-<li>s：short，表示16位短整数。</li>
+<li>l：long，表示 32 位长整数；</li>
+<li>s：short，表示 16 位短整数。</li>
 </ul>
 <p>通常情况下，不论测试机是大端还是小端，为了可移植性都要调用这些函数进行转换，如果机器本身是大端，那么这些函数将直接返回。</p>
 <blockquote>
 <p>编码习惯：虽然有时候某些步骤在理论上是不必要的，但实际应用中可能会出现各种各样的问题，所以为了保险起见都会多执行一步。</p>
 </blockquote>
 <h1>2. socket 网络编程</h1><h2>2.1 socket 常见接口<span class="absolute -mt-20" id="21-socket-常见接口"></span>
-    <a href="#21-socket-%e5%b8%b8%e8%a7%81%e6%8e%a5%e5%8f%a3" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>TCP是面向连接的，通过socket实现通信的步骤是：</p>
+    <a href="#21-socket-%e5%b8%b8%e8%a7%81%e6%8e%a5%e5%8f%a3" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>TCP 是面向连接的，通过 socket 实现通信的步骤是：</p>
 <ol>
 <li>创建套接字（服务端和客户端）</li>
 <li>绑定端口号（服务端）</li>
 <li>监听套接字（服务端）</li>
 <li>建立连接（客户端）</li>
 </ol>
-<p>UDP是面向字节流的，它的步骤比较简单：</p>
+<p>UDP 是面向字节流的，它的步骤比较简单：</p>
 <ol>
 <li>创建套接字（服务端和客户端）</li>
 <li>绑定端口号（服务端）</li>
 </ol>
-<p>其中，TCP和UDP的服务端都要创建套接字并绑定端口号，这些步骤将在实践中介绍，仅通过接口的数量就能看到TCP比UDP多做了不少工作。</p>
-<p>在此，由于知识的局限，某些参数无法作详细的解释，将在TCP/UDP专题中介绍。</p>
+<p>其中，TCP 和 UDP 的服务端都要创建套接字并绑定端口号，这些步骤将在实践中介绍，仅通过接口的数量就能看到 TCP 比 UDP 多做了不少工作。</p>
+<p>在此，由于知识的局限，某些参数无法作详细的解释，将在 TCP/UDP 专题中介绍。</p>
 <p>通过<code>man + [函数名]</code>能很方便地查询函数相关信息。</p>
-<p>它们的头文件都是:</p>
+<p>它们的头文件都是：</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/socket.h&gt;</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
@@ -922,13 +838,13 @@ UDP（User Datagram Protocol，用户数据报协议）是一个简单的面向�
 </li>
 <li>protocol（协议）：指定传输协议，默认为<code>0</code>，常用的有：
 <ul>
-<li><code>IPPROTO_TCP</code>：表示TCP传输协议。</li>
-<li><code>IPPTOTO_UDP</code>：表示UDP传输协议。</li>
+<li><code>IPPROTO_TCP</code>：表示 TCP 传输协议。</li>
+<li><code>IPPTOTO_UDP</code>：表示 UDP 传输协议。</li>
 </ul>
 </li>
 </ul>
 <h3>绑定<span class="absolute -mt-20" id="绑定"></span>
-    <a href="#%e7%bb%91%e5%ae%9a" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p><code>bind()</code>函数用于将套接字与指定的IP地址和端口号绑定。通常在TCP协议或UDP协议的服务端设置。</p>
+    <a href="#%e7%bb%91%e5%ae%9a" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p><code>bind()</code>函数用于将套接字与指定的 IP 地址和端口号绑定。通常在 TCP 协议或 UDP 协议的服务端设置。</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/socket.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;netinet/in.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;arpa/inet.h&gt;</span><span class="cp">
@@ -946,11 +862,11 @@ UDP（User Datagram Protocol，用户数据报协议）是一个简单的面向�
 <p>参数：</p>
 <ul>
 <li>sockfd：要绑定的套接字文件描述符，它的本质是一个数组下标。</li>
-<li>addr：是一个指向<code>struct sockaddr</code>类型结构体的指针，该结构体中包含了要绑定的IP地址和端口号。</li>
+<li>addr：是一个指向<code>struct sockaddr</code>类型结构体的指针，该结构体中包含了要绑定的 IP 地址和端口号。</li>
 <li>addrlen 是<code>addr</code>所指向的地址结构体的大小。</li>
 </ul>
 <h3>监听套接字<span class="absolute -mt-20" id="监听套接字"></span>
-    <a href="#%e7%9b%91%e5%90%ac%e5%a5%97%e6%8e%a5%e5%ad%97" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p><code>listen()</code> 函数用于将套接字转换为被动监听状态。通常在TCP协议的服务端设置。</p>
+    <a href="#%e7%9b%91%e5%90%ac%e5%a5%97%e6%8e%a5%e5%ad%97" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p><code>listen()</code> 函数用于将套接字转换为被动监听状态。通常在 TCP 协议的服务端设置。</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">listen</span><span class="p">(</span><span class="kt">int</span> <span class="n">sockfd</span><span class="p">,</span> <span class="kt">int</span> <span class="n">backlog</span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
@@ -967,7 +883,7 @@ UDP（User Datagram Protocol，用户数据报协议）是一个简单的面向�
 <li>backlog：未完成连接队列的最大长度，即允许等待连接的客户端数量 。</li>
 </ul>
 <h3>接收请求<span class="absolute -mt-20" id="接收请求"></span>
-    <a href="#%e6%8e%a5%e6%94%b6%e8%af%b7%e6%b1%82" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p><code>accept()</code> 函数用于从监听套接字的未完成连接队列中提取第一个连接请求，创建一个新的已连接套接字，并返回一个指向该套接字的文件描述符。通常在TCP协议的服务端设置。</p>
+    <a href="#%e6%8e%a5%e6%94%b6%e8%af%b7%e6%b1%82" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p><code>accept()</code> 函数用于从监听套接字的未完成连接队列中提取第一个连接请求，创建一个新的已连接套接字，并返回一个指向该套接字的文件描述符。通常在 TCP 协议的服务端设置。</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">accept</span><span class="p">(</span><span class="kt">int</span> <span class="n">sockfd</span><span class="p">,</span> <span class="k">struct</span> <span class="n">sockaddr</span> <span class="o">*</span><span class="n">addr</span><span class="p">,</span> <span class="kt">socklen_t</span> <span class="o">*</span><span class="n">addrlen</span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
@@ -985,7 +901,7 @@ UDP（User Datagram Protocol，用户数据报协议）是一个简单的面向�
 <li>addrlen：是一个指向 socklen_t 类型变量的指针，用于存储客户端地址结构体的大小。</li>
 </ul>
 <h3>建立连接<span class="absolute -mt-20" id="建立连接"></span>
-    <a href="#%e5%bb%ba%e7%ab%8b%e8%bf%9e%e6%8e%a5" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p><code>connect()</code> 函数用于建立与指定套接字的连接。通常在TCP协议的服务端设置。</p>
+    <a href="#%e5%bb%ba%e7%ab%8b%e8%bf%9e%e6%8e%a5" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p><code>connect()</code> 函数用于建立与指定套接字的连接。通常在 TCP 协议的服务端设置。</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">connect</span><span class="p">(</span><span class="kt">int</span> <span class="n">sockfd</span><span class="p">,</span> <span class="k">const</span> <span class="k">struct</span> <span class="n">sockaddr</span> <span class="o">*</span><span class="n">addr</span><span class="p">,</span> <span class="kt">socklen_t</span> <span class="n">addrlen</span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
@@ -1006,15 +922,15 @@ UDP（User Datagram Protocol，用户数据报协议）是一个简单的面向�
     <a href="#22-%e5%b8%b8%e8%a7%81%e5%a5%97%e6%8e%a5%e5%ad%97" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>套接字是一种通信机制，用于在不同主机或同一主机上的进程间通信。套接字有多种类型，包括流式套接字（SOCK_STREAM）、数据报套接字（SOCK_DGRAM）和原始套接字（SOCK_RAW）等。在这里，我们讨论的是网络套接字。</p>
 <h3>域间套接字<span class="absolute -mt-20" id="域间套接字"></span>
     <a href="#%e5%9f%9f%e9%97%b4%e5%a5%97%e6%8e%a5%e5%ad%97" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>域间套接字（Domain Socket）是一种特殊类型的套接字（socket）。套接字是一种通信机制，用于在不同主机或同一主机上的进程间通信。套接字有多种类型，包括流式套接字（SOCK_STREAM）、数据报套接字（SOCK_DGRAM）和原始套接字（SOCK_RAW）等。域间套接字是其中的一种类型，用于在同一台主机上的进程间通信。</p>
-<p>简单来说，域间套接字是套接字的一种类型，它与其他类型的套接字共享相似的API和通信机制，但是它专门用于在同一台主机上的进程间通信。</p>
+<p>简单来说，域间套接字是套接字的一种类型，它与其他类型的套接字共享相似的 API 和通信机制，但是它专门用于在同一台主机上的进程间通信。</p>
 <h3>原始套接字<span class="absolute -mt-20" id="原始套接字"></span>
-    <a href="#%e5%8e%9f%e5%a7%8b%e5%a5%97%e6%8e%a5%e5%ad%97" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>原始套接字（Raw Socket）是一种特殊类型的套接字，它允许直接发送和接收IP协议数据包，而不需要任何传输层协议格式。这意味着使用原始套接字时，应用程序需要自己处理传输层协议的相关细节。</p>
-<p>原始套接字通常用于安全相关的应用程序，如nmap，或用于在用户空间实现新的传输层协议。它也常用于网络设备上的路由协议，例如IGMPv4、开放式最短路径优先协议 (OSPF)、互联网控制消息协议 (ICMP)。</p>
+    <a href="#%e5%8e%9f%e5%a7%8b%e5%a5%97%e6%8e%a5%e5%ad%97" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>原始套接字（Raw Socket）是一种特殊类型的套接字，它允许直接发送和接收 IP 协议数据包，而不需要任何传输层协议格式。这意味着使用原始套接字时，应用程序需要自己处理传输层协议的相关细节。</p>
+<p>原始套接字通常用于安全相关的应用程序，如 nmap，或用于在用户空间实现新的传输层协议。它也常用于网络设备上的路由协议，例如 IGMPv4、开放式最短路径优先协议 (OSPF)、互联网控制消息协议 (ICMP)。</p>
 <h3>网络套接字<span class="absolute -mt-20" id="网络套接字"></span>
-    <a href="#%e7%bd%91%e7%bb%9c%e5%a5%97%e6%8e%a5%e5%ad%97" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>网络套接字（Network Socket）是一种用于在不同主机上的进程间通信的套接字。它使用了网络协议栈，如TCP/IP协议栈，来实现跨网络的通信。网络套接字使用IP地址和端口号来标识通信端点。</p>
-<p>网络套接字有两种类型：流式套接字（SOCK_STREAM）和数据报套接字（SOCK_DGRAM）。流式套接字使用TCP协议进行数据传输，提供可靠的、面向连接的通信服务。数据报套接字使用UDP协议进行数据传输，提供无连接的、不可靠的通信服务。</p>
+    <a href="#%e7%bd%91%e7%bb%9c%e5%a5%97%e6%8e%a5%e5%ad%97" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>网络套接字（Network Socket）是一种用于在不同主机上的进程间通信的套接字。它使用了网络协议栈，如 TCP/IP 协议栈，来实现跨网络的通信。网络套接字使用 IP 地址和端口号来标识通信端点。</p>
+<p>网络套接字有两种类型：流式套接字（SOCK_STREAM）和数据报套接字（SOCK_DGRAM）。流式套接字使用 TCP 协议进行数据传输，提供可靠的、面向连接的通信服务。数据报套接字使用 UDP 协议进行数据传输，提供无连接的、不可靠的通信服务。</p>
 <h2>2.3 sockaddr 结构体<span class="absolute -mt-20" id="23-sockaddr-结构体"></span>
-    <a href="#23-sockaddr-%e7%bb%93%e6%9e%84%e4%bd%93" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>在介绍socket网络套接字的接口时，曾多次提到<code>sockaddr</code>结构体，它是一个==通用的==套接字地址结构，用于在套接字编程中传递不同协议族的地址信息。它的定义如下：</p>
+    <a href="#23-sockaddr-%e7%bb%93%e6%9e%84%e4%bd%93" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>在介绍 socket 网络套接字的接口时，曾多次提到<code>sockaddr</code>结构体，它是一个==通用的==套接字地址结构，用于在套接字编程中传递不同协议族的地址信息。它的定义如下：</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">sockaddr</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="kt">sa_family_t</span> <span class="n">sa_family</span><span class="p">;</span> <span class="cm">/* 地址族 */</span>
 </span></span><span class="line"><span class="cl"><span class="kt">char</span> <span class="n">sa_data</span><span class="p">[</span><span class="mi">14</span><span class="p">];</span> <span class="cm">/* 地址数据 */</span>
@@ -1030,18 +946,18 @@ UDP（User Datagram Protocol，用户数据报协议）是一个简单的面向�
 </div>
 <ul>
 <li>
-<p>sa_family字段表示地址族（address family），用于指定地址的类型。常见的地址族有AF_INET（IPv4地址）、AF_INET6（IPv6地址）和AF_UNIX（Unix域地址）等。</p>
+<p>sa_family 字段表示地址族（address family），用于指定地址的类型。常见的地址族有 AF_INET（IPv4 地址）、AF_INET6（IPv6 地址）和 AF_UNIX（Unix 域地址）等。</p>
 </li>
 <li>
-<p>sa_data字段表示协议地址，其长度和内容取决于地址族。例如，对于IPv4地址，它包含了IP地址和端口号；对于Unix域地址，它包含了文件系统中的路径名。</p>
+<p>sa_data 字段表示协议地址，其长度和内容取决于地址族。例如，对于 IPv4 地址，它包含了 IP 地址和端口号；对于 Unix 域地址，它包含了文件系统中的路径名。</p>
 </li>
 </ul>
-<p>由于sockaddr结构并不能很好地表示各种类型的地址，因此通常会使用特定于地址族的结构来表示套接字地址，例如sockaddr_in（用于IPv4地址）和sockaddr_un（用于Unix域地址）。==这些结构与sockaddr结构具有相同的大小和对齐方式，可以相互转换。==</p>
-<p>因此，这个结构体的唯一目的是为了将不同协议族的地址结构体指针转换为一个“通用”类型，以避免编译器警告。例如，对于IPv4协议族的地址结构体sockaddr_in，它的定义如下：</p>
+<p>由于 sockaddr 结构并不能很好地表示各种类型的地址，因此通常会使用特定于地址族的结构来表示套接字地址，例如 sockaddr_in（用于 IPv4 地址）和 sockaddr_un（用于 Unix 域地址）。==这些结构与 sockaddr 结构具有相同的大小和对齐方式，可以相互转换。==</p>
+<p>因此，这个结构体的唯一目的是为了将不同协议族的地址结构体指针转换为一个“通用”类型，以避免编译器警告。例如，对于 IPv4 协议族的地址结构体 sockaddr_in，它的定义如下：</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">sockaddr_in</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="kt">sa_family_t</span> <span class="n">sin_family</span><span class="p">;</span> <span class="cm">/* AF_INET */</span>
 </span></span><span class="line"><span class="cl"><span class="kt">in_port_t</span> <span class="n">sin_port</span><span class="p">;</span> <span class="cm">/* 端口号 */</span>
-</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">in_addr</span> <span class="n">sin_addr</span><span class="p">;</span> <span class="cm">/* IPv4地址 */</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">in_addr</span> <span class="n">sin_addr</span><span class="p">;</span> <span class="cm">/* IPv4 地址 */</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
@@ -1052,9 +968,9 @@ UDP（User Datagram Protocol，用户数据报协议）是一个简单的面向�
     </button>
   </div>
 </div>
-<p>这个结构体比sockaddr结构体更具体，它包含了IPv4协议族所需的地址信息。当我们调用套接字函数时，例如bind(2)，我们需要将sockaddr_in结构体指针强制转换为sockaddr结构体指针，如下所示：</p>
+<p>这个结构体比 sockaddr 结构体更具体，它包含了 IPv4 协议族所需的地址信息。当我们调用套接字函数时，例如 bind(2)，我们需要将 sockaddr_in 结构体指针强制转换为 sockaddr 结构体指针，如下所示：</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">sockaddr_in</span> <span class="n">addr</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="cm">/* 初始化addr */</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* 初始化 addr */</span>
 </span></span><span class="line"><span class="cl"><span class="nf">bind</span><span class="p">(</span><span class="n">sockfd</span><span class="p">,</span> <span class="p">(</span><span class="k">struct</span> <span class="n">sockaddr</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">addr</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">addr</span><span class="p">));</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
@@ -1065,27 +981,27 @@ UDP（User Datagram Protocol，用户数据报协议）是一个简单的面向�
     </button>
   </div>
 </div>
-<p>这样做是为了让套接字函数能够根据sa_family字段来判断实际的地址类型，并进行相应的处理。同样的道理，对于其他协议族，例如IPv6或UNIX域套接字，也有各自的地址结构体，例如sockaddr_in6和sockaddr_un，它们都可以转换为sockaddr结构体指针。</p>
-<p>因此，我们可以认为sockaddr结构体是一个抽象的接口，它隐藏了不同协议族地址结构体之间的差异，让我们可以使用统一的方式来操作套接字。</p>
+<p>这样做是为了让套接字函数能够根据 sa_family 字段来判断实际的地址类型，并进行相应的处理。同样的道理，对于其他协议族，例如 IPv6 或 UNIX 域套接字，也有各自的地址结构体，例如 sockaddr_in6 和 sockaddr_un，它们都可以转换为 sockaddr 结构体指针。</p>
+<p>因此，我们可以认为 sockaddr 结构体是一个抽象的接口，它隐藏了不同协议族地址结构体之间的差异，让我们可以使用统一的方式来操作套接字。</p>
 <hr>
-<img src="./网络基础：socket套接字.IMG/image-20230429161434528.png" alt="image-20230429161434528" style="zoom: 33%;" />
-<p>为了统一使用接口，Linux内核用结构体的前2个字节标定套接字的类型。即即套接字的类型。sa_family字段是一个sa_family_t类型（无符号整型）的变量，通常占用两个字节。</p>
-<p>地址族用于指定地址的类型，它决定了套接字如何解释地址信息。常见的地址族有AF_INET（IPv4地址）、AF_INET6（IPv6地址）和AF_UNIX（Unix域地址）等。不同类型的套接字使用不同的协议来传输数据，因此需要使用不同的地址结构来表示它们的地址信息。</p>
-<p>通过在sockaddr结构体中使用一个通用的字段来表示地址族，Linux内核可以统一处理不同类型的套接字地址，简化了套接字API的使用。在使用上的体现就是，不管是何种通信方式，网络还是本地通信，虽然在初始化套接字中的属性时使用的是<code>struct sockaddr_in</code>或<code>struct sockaddr_un</code>，但是传参都统一类型转换为<code>sockaddr*</code>。这样就不用单独为不同的通信方式实现不同的接口了，从而减少了使用成本。</p>
+<img src="./网络基础：socket 套接字.IMG/image-20230429161434528.png" alt="image-20230429161434528" style="zoom: 33%;" />
+<p>为了统一使用接口，Linux 内核用结构体的前 2 个字节标定套接字的类型。即即套接字的类型。sa_family 字段是一个 sa_family_t 类型（无符号整型）的变量，通常占用两个字节。</p>
+<p>地址族用于指定地址的类型，它决定了套接字如何解释地址信息。常见的地址族有 AF_INET（IPv4 地址）、AF_INET6（IPv6 地址）和 AF_UNIX（Unix 域地址）等。不同类型的套接字使用不同的协议来传输数据，因此需要使用不同的地址结构来表示它们的地址信息。</p>
+<p>通过在 sockaddr 结构体中使用一个通用的字段来表示地址族，Linux 内核可以统一处理不同类型的套接字地址，简化了套接字 API 的使用。在使用上的体现就是，不管是何种通信方式，网络还是本地通信，虽然在初始化套接字中的属性时使用的是<code>struct sockaddr_in</code>或<code>struct sockaddr_un</code>，但是传参都统一类型转换为<code>sockaddr*</code>。这样就不用单独为不同的通信方式实现不同的接口了，从而减少了使用成本。</p>
 <hr>
 <blockquote>
-<p>在多线程编程中，我们经常利用<code>void*</code>（它可以传递任意类型的数据）来给线程函数传递信息，为什么socket不使用<code>void*</code>来保存通信相关属性呢？</p>
+<p>在多线程编程中，我们经常利用<code>void*</code>（它可以传递任意类型的数据）来给线程函数传递信息，为什么 socket 不使用<code>void*</code>来保存通信相关属性呢？</p>
 </blockquote>
-<p>套接字API的设计可以追溯到20世纪70年代末，当时由贝尔实验室的研究人员开发了BSD Unix操作系统。在当时，C语言和Unix操作系统都处于起步阶段，许多现代编程语言和操作系统的特性还没有出现。</p>
-<p>在设计套接字API时，研究人员希望能够提供一种通用的接口，用于支持不同类型的网络协议。为了实现这一目标，他们定义了一组通用的套接字地址结构，用于表示不同类型的网络地址。这些结构体包含了特定的字段，用于存储地址族、协议地址等信息。</p>
+<p>套接字 API 的设计可以追溯到 20 世纪 70 年代末，当时由贝尔实验室的研究人员开发了 BSD Unix 操作系统。在当时，C 语言和 Unix 操作系统都处于起步阶段，许多现代编程语言和操作系统的特性还没有出现。</p>
+<p>在设计套接字 API 时，研究人员希望能够提供一种通用的接口，用于支持不同类型的网络协议。为了实现这一目标，他们定义了一组通用的套接字地址结构，用于表示不同类型的网络地址。这些结构体包含了特定的字段，用于存储地址族、协议地址等信息。</p>
 <p>虽然使用<code>void*</code>指针也可以实现类似的功能，但是这样做会使得代码变得更加复杂和难以维护。程序员需要手动管理内存，并且需要使用类型转换来访问指针指向的数据。相比之下，使用特定的结构体类型来表示套接字地址更加简单、直观和安全。</p>
-<p>因此，套接字API最终采用了特定的结构体类型来表示套接字地址，而不是使用<code>void*</code>指针。这一设计决策为套接字API提供了清晰、简洁和易用的接口，并且在后来被广泛采纳。</p>
+<p>因此，套接字 API 最终采用了特定的结构体类型来表示套接字地址，而不是使用<code>void*</code>指针。这一设计决策为套接字 API 提供了清晰、简洁和易用的接口，并且在后来被广泛采纳。</p>
 <h1>3. 实践</h1><p>实际上，有了这些接口，我们便能按照“套路”实现网络程序，到目前为止，这是我觉得除了进程间通信之外最有趣的实验。</p>
 <blockquote>
 <p>由于文章还没写完，所以给出两个权威的规范样例。</p>
 </blockquote>
-<h2>实现简易UDP网络程序<span class="absolute -mt-20" id="实现简易udp网络程序"></span>
-    <a href="#%e5%ae%9e%e7%8e%b0%e7%ae%80%e6%98%93udp%e7%bd%91%e7%bb%9c%e7%a8%8b%e5%ba%8f" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><ul>
+<h2>实现简易 UDP 网络程序<span class="absolute -mt-20" id="实现简易-udp-网络程序"></span>
+    <a href="#%e5%ae%9e%e7%8e%b0%e7%ae%80%e6%98%93-udp-%e7%bd%91%e7%bb%9c%e7%a8%8b%e5%ba%8f" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><ul>
 <li>
 <p><a href="https://www.ibm.com/docs/en/zos/2.3.0?topic=programs-c-socket-udp-client" target="_blank" rel="noopener">C socket UDP client</a></p>
 </li>
@@ -1093,8 +1009,8 @@ UDP（User Datagram Protocol，用户数据报协议）是一个简单的面向�
 <p><a href="https://www.ibm.com/docs/en/zos/2.3.0?topic=programs-c-socket-udp-server" target="_blank" rel="noopener">C socket UDP server</a></p>
 </li>
 </ul>
-<h2>实现简易TCP网络程序<span class="absolute -mt-20" id="实现简易tcp网络程序"></span>
-    <a href="#%e5%ae%9e%e7%8e%b0%e7%ae%80%e6%98%93tcp%e7%bd%91%e7%bb%9c%e7%a8%8b%e5%ba%8f" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><ul>
+<h2>实现简易 TCP 网络程序<span class="absolute -mt-20" id="实现简易-tcp-网络程序"></span>
+    <a href="#%e5%ae%9e%e7%8e%b0%e7%ae%80%e6%98%93-tcp-%e7%bd%91%e7%bb%9c%e7%a8%8b%e5%ba%8f" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><ul>
 <li><a href="https://www.ibm.com/docs/en/zos/2.1.0?topic=programs-c-socket-tcp-client" target="_blank" rel="noopener">C socket TCP client</a></li>
 <li><a href="https://www.ibm.com/docs/en/zos/2.1.0?topic=programs-c-socket-tcp-server" target="_blank" rel="noopener">C socket TCP server</a></li>
 </ul>

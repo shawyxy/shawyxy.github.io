@@ -11,17 +11,16 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
 <link fetchpriority="low" href="/site.webmanifest" rel="manifest" />
 
-  <title>Shawy&#39;s Blog</title>
-  <meta name="description" content="友情链接：HTTP协议【网络基础/应用层】
+  <title>HTTP 和 HTTPS 协议原理 – Shawy&#39;s Blog</title>
+  <meta name="description" content="友情链接：HTTP 协议【网络基础/应用层】
 1. HTTP 的优点 简单：HTTP 是一种文本协议，易于理解和实现。HTTP 的请求和响应都由起始行、首部字段和可选的消息主体组成，每个部分都有明确的语法规则。HTTP 的方法、状态码和首部字段都有标准化的定义，方便开发者遵循。 灵活：HTTP 是一种无状态协议，即每个请求和响应都是独立的，不依赖于之前或之后的交互。这使得 HTTP 可以支持多种类型的资源，如 HTML、图片、视频、音频等，也可以支持多种类型的客户端，如浏览器、手机、物联网设备等。HTTP 还可以通过扩展首部字段或使用其他协议（如 HTTPS、WebSocket）来增加新的功能或安全性。 通用：HTTP 是一种广泛使用的协议，几乎所有的网站和应用都基于 HTTP 进行通信。HTTP 也是一种开放的协议，任何人都可以参与其发展和改进。HTTP 的标准由 IETF（互联网工程任务组）和 W3C（万维网联盟）制定和维护，经过了多年的演进和更新，目前最新的版本是 HTTP/2。 2. HTTP 的缺点HTTP 协议是无状态的，即每次请求都是独立的，服务器不会保存客户端的任何信息。HTTP 协议也是明文的，即请求和响应的内容都是未加密的，任何人都可以在网络上截获并查看。
 这样就导致了 HTTP 协议的几个缺点：
 通信使用明文（不加密），内容可能会被窃听：由于数据是==明文==传输的，任何人都可以知道用户访问了哪些网站，浏览了哪些内容，甚至分析出用户的喜好、习惯等个人信息，这些信息可能被用于商业利益或其他目的，侵犯了用户的隐私权。 不验证通信方的身份，因此有可能遭遇伪装：由于服务器不会保存客户端的状态，客户端每次请求都需要提供身份信息，如 Cookie 或 Session，这些信息也可能被攻击者截获或伪造，导致身份认证失败或被冒充。 无法证明报文的完整性，所以有可能已遭篡改：由于数据是明文传输的，攻击者可以轻易地获取用户的敏感信息，如账号、密码、银行卡号等，或者篡改数据内容，造成用户或网站的损失。 除此之外， HTTP 还有效率低下这一大问题： HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来了一些效率方面的问题。例如，HTTP 的首部字段往往包含了大量的冗余信息，增加了数据传输的负担；HTTP 的请求和响应往往需要遵循严格的顺序，导致了队头阻塞（head-of-line blocking）问题；HTTP 的消息主体往往没有进行压缩或二进制编码，导致了数据量过大或解析速度过慢等问题。这些问题在 HTTP/2 中使用了首部压缩（header compression）、流优先级（stream priority）和二进制帧（binary frame）等技术得到了解决，提高了数据传输和处理的效率。
 明文可能会被窃听 由于 HTTP 本身不具备加密的功能，所以也无法做到对通信整体（使用 HTTP 协议通信的请求和响应的内容）进行加密。即，HTTP 报文使用明文（指未经过加密的报文）方式发送。
 所谓互联网，是由能连通到全世界的网络组成的。无论世界哪个角落的服务器在和客户端通信时，在此通信线路上的某些网络设备、光缆、计算机等都不可能是个人的私有物，所以不排除某个环节中会遭到恶意窥视行为。 即使已经过加密处理的通信，也会被窥视到通信内容，这点和未加密的通信是相同的。只是说如果通信经过加密，就有可能让人无法破解报文信息的含义，但加密处理后的报文信息本身还是会被看到的。
-例如使用抓包工具就能很方便地获取包含在HTTP请求和响应报文中的用户隐私信息，例如：
+例如使用抓包工具就能很方便地获取包含在 HTTP 请求和响应报文中的用户隐私信息，例如：
 通信方可能被伪装 HTTP 协议中的请求和响应不会对通信方进行确认。HTTP 协议对请求者来之不拒，任何人都可以发起请求，只要服务端接收到请求不论对方是谁都会返回一个响应（前提是对方不在黑名单中）。
-HTTP 协议的实现本身非常简单，因此不确认通信方，会存在以下各种隐患：
-无法确定请求发送至目标的 Web 服务器是否是按真实意图返回响应的那台服务器。有可能是已伪装的 Web 服务器。 无法确定响应返回到的客户端是否是按真实意图接收响应的那个客户端。有可能是已伪装的客户端。 无法确定正在通信的对方是否具备访问权限。因为某些 Web 服务器上保存着重要的信息，只想发给特定用户通信的权限。 无法判定请求是来自何方、出自谁手。 即使是无意义的请求也会照单全收。无法阻止海量请求下的 DoS 攻击（Denial of Service，拒绝服务攻击）。 报文可能被篡改 作为一个通信协议，保证通信报文的完整性是基本要求（总是丢件的邮局会倒闭的很快），所谓“完整性”指的是信息的准确性，也就是接收者接收到报文时，要和发出者发出时完全一致，否则报文可能就是被篡改了（排除其他客观原因）。" />
+HTTP 协议的实现本身非常简单，因此不确认通信方，会存在以下各种隐患：" />
   
   
     <link rel="canonical" href="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/http-%E5%92%8C-https-%E5%8D%8F%E8%AE%AE%E5%8E%9F%E7%90%86/" itemprop="url" />
@@ -29,45 +28,42 @@ HTTP 协议的实现本身非常简单，因此不确认通信方，会存在以
 
   
 
-<meta property="og:title" content="" />
-<meta property="og:description" content="友情链接：HTTP协议【网络基础/应用层】
+<meta property="og:title" content="HTTP 和 HTTPS 协议原理" />
+<meta property="og:description" content="友情链接：HTTP 协议【网络基础/应用层】
 1. HTTP 的优点 简单：HTTP 是一种文本协议，易于理解和实现。HTTP 的请求和响应都由起始行、首部字段和可选的消息主体组成，每个部分都有明确的语法规则。HTTP 的方法、状态码和首部字段都有标准化的定义，方便开发者遵循。 灵活：HTTP 是一种无状态协议，即每个请求和响应都是独立的，不依赖于之前或之后的交互。这使得 HTTP 可以支持多种类型的资源，如 HTML、图片、视频、音频等，也可以支持多种类型的客户端，如浏览器、手机、物联网设备等。HTTP 还可以通过扩展首部字段或使用其他协议（如 HTTPS、WebSocket）来增加新的功能或安全性。 通用：HTTP 是一种广泛使用的协议，几乎所有的网站和应用都基于 HTTP 进行通信。HTTP 也是一种开放的协议，任何人都可以参与其发展和改进。HTTP 的标准由 IETF（互联网工程任务组）和 W3C（万维网联盟）制定和维护，经过了多年的演进和更新，目前最新的版本是 HTTP/2。 2. HTTP 的缺点HTTP 协议是无状态的，即每次请求都是独立的，服务器不会保存客户端的任何信息。HTTP 协议也是明文的，即请求和响应的内容都是未加密的，任何人都可以在网络上截获并查看。
 这样就导致了 HTTP 协议的几个缺点：
 通信使用明文（不加密），内容可能会被窃听：由于数据是==明文==传输的，任何人都可以知道用户访问了哪些网站，浏览了哪些内容，甚至分析出用户的喜好、习惯等个人信息，这些信息可能被用于商业利益或其他目的，侵犯了用户的隐私权。 不验证通信方的身份，因此有可能遭遇伪装：由于服务器不会保存客户端的状态，客户端每次请求都需要提供身份信息，如 Cookie 或 Session，这些信息也可能被攻击者截获或伪造，导致身份认证失败或被冒充。 无法证明报文的完整性，所以有可能已遭篡改：由于数据是明文传输的，攻击者可以轻易地获取用户的敏感信息，如账号、密码、银行卡号等，或者篡改数据内容，造成用户或网站的损失。 除此之外， HTTP 还有效率低下这一大问题： HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来了一些效率方面的问题。例如，HTTP 的首部字段往往包含了大量的冗余信息，增加了数据传输的负担；HTTP 的请求和响应往往需要遵循严格的顺序，导致了队头阻塞（head-of-line blocking）问题；HTTP 的消息主体往往没有进行压缩或二进制编码，导致了数据量过大或解析速度过慢等问题。这些问题在 HTTP/2 中使用了首部压缩（header compression）、流优先级（stream priority）和二进制帧（binary frame）等技术得到了解决，提高了数据传输和处理的效率。
 明文可能会被窃听 由于 HTTP 本身不具备加密的功能，所以也无法做到对通信整体（使用 HTTP 协议通信的请求和响应的内容）进行加密。即，HTTP 报文使用明文（指未经过加密的报文）方式发送。
 所谓互联网，是由能连通到全世界的网络组成的。无论世界哪个角落的服务器在和客户端通信时，在此通信线路上的某些网络设备、光缆、计算机等都不可能是个人的私有物，所以不排除某个环节中会遭到恶意窥视行为。 即使已经过加密处理的通信，也会被窥视到通信内容，这点和未加密的通信是相同的。只是说如果通信经过加密，就有可能让人无法破解报文信息的含义，但加密处理后的报文信息本身还是会被看到的。
-例如使用抓包工具就能很方便地获取包含在HTTP请求和响应报文中的用户隐私信息，例如：
+例如使用抓包工具就能很方便地获取包含在 HTTP 请求和响应报文中的用户隐私信息，例如：
 通信方可能被伪装 HTTP 协议中的请求和响应不会对通信方进行确认。HTTP 协议对请求者来之不拒，任何人都可以发起请求，只要服务端接收到请求不论对方是谁都会返回一个响应（前提是对方不在黑名单中）。
-HTTP 协议的实现本身非常简单，因此不确认通信方，会存在以下各种隐患：
-无法确定请求发送至目标的 Web 服务器是否是按真实意图返回响应的那台服务器。有可能是已伪装的 Web 服务器。 无法确定响应返回到的客户端是否是按真实意图接收响应的那个客户端。有可能是已伪装的客户端。 无法确定正在通信的对方是否具备访问权限。因为某些 Web 服务器上保存着重要的信息，只想发给特定用户通信的权限。 无法判定请求是来自何方、出自谁手。 即使是无意义的请求也会照单全收。无法阻止海量请求下的 DoS 攻击（Denial of Service，拒绝服务攻击）。 报文可能被篡改 作为一个通信协议，保证通信报文的完整性是基本要求（总是丢件的邮局会倒闭的很快），所谓“完整性”指的是信息的准确性，也就是接收者接收到报文时，要和发出者发出时完全一致，否则报文可能就是被篡改了（排除其他客观原因）。" />
+HTTP 协议的实现本身非常简单，因此不确认通信方，会存在以下各种隐患：" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/http-%E5%92%8C-https-%E5%8D%8F%E8%AE%AE%E5%8E%9F%E7%90%86/" /><meta property="article:section" content="blogs" />
 
 
 
   
-  <meta itemprop="name" content="Shawy&#39;s Blog">
-  <meta itemprop="description" content="友情链接：HTTP协议【网络基础/应用层】
+  <meta itemprop="name" content="HTTP 和 HTTPS 协议原理">
+  <meta itemprop="description" content="友情链接：HTTP 协议【网络基础/应用层】
 1. HTTP 的优点 简单：HTTP 是一种文本协议，易于理解和实现。HTTP 的请求和响应都由起始行、首部字段和可选的消息主体组成，每个部分都有明确的语法规则。HTTP 的方法、状态码和首部字段都有标准化的定义，方便开发者遵循。 灵活：HTTP 是一种无状态协议，即每个请求和响应都是独立的，不依赖于之前或之后的交互。这使得 HTTP 可以支持多种类型的资源，如 HTML、图片、视频、音频等，也可以支持多种类型的客户端，如浏览器、手机、物联网设备等。HTTP 还可以通过扩展首部字段或使用其他协议（如 HTTPS、WebSocket）来增加新的功能或安全性。 通用：HTTP 是一种广泛使用的协议，几乎所有的网站和应用都基于 HTTP 进行通信。HTTP 也是一种开放的协议，任何人都可以参与其发展和改进。HTTP 的标准由 IETF（互联网工程任务组）和 W3C（万维网联盟）制定和维护，经过了多年的演进和更新，目前最新的版本是 HTTP/2。 2. HTTP 的缺点HTTP 协议是无状态的，即每次请求都是独立的，服务器不会保存客户端的任何信息。HTTP 协议也是明文的，即请求和响应的内容都是未加密的，任何人都可以在网络上截获并查看。
 这样就导致了 HTTP 协议的几个缺点：
 通信使用明文（不加密），内容可能会被窃听：由于数据是==明文==传输的，任何人都可以知道用户访问了哪些网站，浏览了哪些内容，甚至分析出用户的喜好、习惯等个人信息，这些信息可能被用于商业利益或其他目的，侵犯了用户的隐私权。 不验证通信方的身份，因此有可能遭遇伪装：由于服务器不会保存客户端的状态，客户端每次请求都需要提供身份信息，如 Cookie 或 Session，这些信息也可能被攻击者截获或伪造，导致身份认证失败或被冒充。 无法证明报文的完整性，所以有可能已遭篡改：由于数据是明文传输的，攻击者可以轻易地获取用户的敏感信息，如账号、密码、银行卡号等，或者篡改数据内容，造成用户或网站的损失。 除此之外， HTTP 还有效率低下这一大问题： HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来了一些效率方面的问题。例如，HTTP 的首部字段往往包含了大量的冗余信息，增加了数据传输的负担；HTTP 的请求和响应往往需要遵循严格的顺序，导致了队头阻塞（head-of-line blocking）问题；HTTP 的消息主体往往没有进行压缩或二进制编码，导致了数据量过大或解析速度过慢等问题。这些问题在 HTTP/2 中使用了首部压缩（header compression）、流优先级（stream priority）和二进制帧（binary frame）等技术得到了解决，提高了数据传输和处理的效率。
 明文可能会被窃听 由于 HTTP 本身不具备加密的功能，所以也无法做到对通信整体（使用 HTTP 协议通信的请求和响应的内容）进行加密。即，HTTP 报文使用明文（指未经过加密的报文）方式发送。
 所谓互联网，是由能连通到全世界的网络组成的。无论世界哪个角落的服务器在和客户端通信时，在此通信线路上的某些网络设备、光缆、计算机等都不可能是个人的私有物，所以不排除某个环节中会遭到恶意窥视行为。 即使已经过加密处理的通信，也会被窥视到通信内容，这点和未加密的通信是相同的。只是说如果通信经过加密，就有可能让人无法破解报文信息的含义，但加密处理后的报文信息本身还是会被看到的。
-例如使用抓包工具就能很方便地获取包含在HTTP请求和响应报文中的用户隐私信息，例如：
+例如使用抓包工具就能很方便地获取包含在 HTTP 请求和响应报文中的用户隐私信息，例如：
 通信方可能被伪装 HTTP 协议中的请求和响应不会对通信方进行确认。HTTP 协议对请求者来之不拒，任何人都可以发起请求，只要服务端接收到请求不论对方是谁都会返回一个响应（前提是对方不在黑名单中）。
-HTTP 协议的实现本身非常简单，因此不确认通信方，会存在以下各种隐患：
-无法确定请求发送至目标的 Web 服务器是否是按真实意图返回响应的那台服务器。有可能是已伪装的 Web 服务器。 无法确定响应返回到的客户端是否是按真实意图接收响应的那个客户端。有可能是已伪装的客户端。 无法确定正在通信的对方是否具备访问权限。因为某些 Web 服务器上保存着重要的信息，只想发给特定用户通信的权限。 无法判定请求是来自何方、出自谁手。 即使是无意义的请求也会照单全收。无法阻止海量请求下的 DoS 攻击（Denial of Service，拒绝服务攻击）。 报文可能被篡改 作为一个通信协议，保证通信报文的完整性是基本要求（总是丢件的邮局会倒闭的很快），所谓“完整性”指的是信息的准确性，也就是接收者接收到报文时，要和发出者发出时完全一致，否则报文可能就是被篡改了（排除其他客观原因）。">
-  <meta itemprop="wordCount" content="589"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="">
-<meta name="twitter:description" content="友情链接：HTTP协议【网络基础/应用层】
+HTTP 协议的实现本身非常简单，因此不确认通信方，会存在以下各种隐患：">
+  <meta itemprop="wordCount" content="611"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="HTTP 和 HTTPS 协议原理">
+<meta name="twitter:description" content="友情链接：HTTP 协议【网络基础/应用层】
 1. HTTP 的优点 简单：HTTP 是一种文本协议，易于理解和实现。HTTP 的请求和响应都由起始行、首部字段和可选的消息主体组成，每个部分都有明确的语法规则。HTTP 的方法、状态码和首部字段都有标准化的定义，方便开发者遵循。 灵活：HTTP 是一种无状态协议，即每个请求和响应都是独立的，不依赖于之前或之后的交互。这使得 HTTP 可以支持多种类型的资源，如 HTML、图片、视频、音频等，也可以支持多种类型的客户端，如浏览器、手机、物联网设备等。HTTP 还可以通过扩展首部字段或使用其他协议（如 HTTPS、WebSocket）来增加新的功能或安全性。 通用：HTTP 是一种广泛使用的协议，几乎所有的网站和应用都基于 HTTP 进行通信。HTTP 也是一种开放的协议，任何人都可以参与其发展和改进。HTTP 的标准由 IETF（互联网工程任务组）和 W3C（万维网联盟）制定和维护，经过了多年的演进和更新，目前最新的版本是 HTTP/2。 2. HTTP 的缺点HTTP 协议是无状态的，即每次请求都是独立的，服务器不会保存客户端的任何信息。HTTP 协议也是明文的，即请求和响应的内容都是未加密的，任何人都可以在网络上截获并查看。
 这样就导致了 HTTP 协议的几个缺点：
 通信使用明文（不加密），内容可能会被窃听：由于数据是==明文==传输的，任何人都可以知道用户访问了哪些网站，浏览了哪些内容，甚至分析出用户的喜好、习惯等个人信息，这些信息可能被用于商业利益或其他目的，侵犯了用户的隐私权。 不验证通信方的身份，因此有可能遭遇伪装：由于服务器不会保存客户端的状态，客户端每次请求都需要提供身份信息，如 Cookie 或 Session，这些信息也可能被攻击者截获或伪造，导致身份认证失败或被冒充。 无法证明报文的完整性，所以有可能已遭篡改：由于数据是明文传输的，攻击者可以轻易地获取用户的敏感信息，如账号、密码、银行卡号等，或者篡改数据内容，造成用户或网站的损失。 除此之外， HTTP 还有效率低下这一大问题： HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来了一些效率方面的问题。例如，HTTP 的首部字段往往包含了大量的冗余信息，增加了数据传输的负担；HTTP 的请求和响应往往需要遵循严格的顺序，导致了队头阻塞（head-of-line blocking）问题；HTTP 的消息主体往往没有进行压缩或二进制编码，导致了数据量过大或解析速度过慢等问题。这些问题在 HTTP/2 中使用了首部压缩（header compression）、流优先级（stream priority）和二进制帧（binary frame）等技术得到了解决，提高了数据传输和处理的效率。
 明文可能会被窃听 由于 HTTP 本身不具备加密的功能，所以也无法做到对通信整体（使用 HTTP 协议通信的请求和响应的内容）进行加密。即，HTTP 报文使用明文（指未经过加密的报文）方式发送。
 所谓互联网，是由能连通到全世界的网络组成的。无论世界哪个角落的服务器在和客户端通信时，在此通信线路上的某些网络设备、光缆、计算机等都不可能是个人的私有物，所以不排除某个环节中会遭到恶意窥视行为。 即使已经过加密处理的通信，也会被窥视到通信内容，这点和未加密的通信是相同的。只是说如果通信经过加密，就有可能让人无法破解报文信息的含义，但加密处理后的报文信息本身还是会被看到的。
-例如使用抓包工具就能很方便地获取包含在HTTP请求和响应报文中的用户隐私信息，例如：
+例如使用抓包工具就能很方便地获取包含在 HTTP 请求和响应报文中的用户隐私信息，例如：
 通信方可能被伪装 HTTP 协议中的请求和响应不会对通信方进行确认。HTTP 协议对请求者来之不拒，任何人都可以发起请求，只要服务端接收到请求不论对方是谁都会返回一个响应（前提是对方不在黑名单中）。
-HTTP 协议的实现本身非常简单，因此不确认通信方，会存在以下各种隐患：
-无法确定请求发送至目标的 Web 服务器是否是按真实意图返回响应的那台服务器。有可能是已伪装的 Web 服务器。 无法确定响应返回到的客户端是否是按真实意图接收响应的那个客户端。有可能是已伪装的客户端。 无法确定正在通信的对方是否具备访问权限。因为某些 Web 服务器上保存着重要的信息，只想发给特定用户通信的权限。 无法判定请求是来自何方、出自谁手。 即使是无意义的请求也会照单全收。无法阻止海量请求下的 DoS 攻击（Denial of Service，拒绝服务攻击）。 报文可能被篡改 作为一个通信协议，保证通信报文的完整性是基本要求（总是丢件的邮局会倒闭的很快），所谓“完整性”指的是信息的准确性，也就是接收者接收到报文时，要和发出者发出时完全一致，否则报文可能就是被篡改了（排除其他客观原因）。">
+HTTP 协议的实现本身非常简单，因此不确认通信方，会存在以下各种隐患：">
 
     <link rel="preload" href="/css/compiled/main.min.5a06ca26e024c4f511f45ee6c33a2a1faefaebe6be8a38d36e100f40a4c59c06.css" as="style" integrity="sha256-WgbKJuAkxPUR9F7mwzoqH6766&#43;a&#43;ijjTbhAPQKTFnAY=" />
     <link href="/css/compiled/main.min.5a06ca26e024c4f511f45ee6c33a2a1faefaebe6be8a38d36e100f40a4c59c06.css" rel="stylesheet" integrity="sha256-WgbKJuAkxPUR9F7mwzoqH6766&#43;a&#43;ijjTbhAPQKTFnAY=" />
@@ -378,7 +374,55 @@ HTTP 协议的实现本身非常简单，因此不确认通信方，会存在以
         <span class="hextra-sidebar-collapsible-button"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-[18px] min-w-[18px] rounded-sm p-0.5 hover:bg-gray-800/5 dark:hover:bg-gray-100/5"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" class="origin-center transition-transform rtl:-rotate-180"></path></svg></span>
     </a>
               <div class="ltr:pr-0 overflow-hidden">
-        <ul class='relative flex flex-col gap-1 before:absolute before:inset-y-1 before:w-px before:bg-gray-200 before:content-[""] ltr:ml-3 ltr:pl-3 ltr:before:left-0 rtl:mr-3 rtl:pr-3 rtl:before:right-0 dark:before:bg-neutral-800'><li class="flex flex-col open"><a
+        <ul class='relative flex flex-col gap-1 before:absolute before:inset-y-1 before:w-px before:bg-gray-200 before:content-[""] ltr:ml-3 ltr:pl-3 ltr:before:left-0 rtl:mr-3 rtl:pr-3 rtl:before:right-0 dark:before:bg-neutral-800'><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8/"
+    
+  >网络基础入门
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80socket%E5%A5%97%E6%8E%A5%E5%AD%97/"
+    
+  >网络基础：socket 套接字
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8Btcp-socket/"
+    
+  >网络编程：TCP socket
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8Budp-socket/"
+    
+  >网络编程：UDP socket
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A4%E8%AF%86%E5%8D%8F%E8%AE%AE/"
+    
+  >认识协议
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/http%E5%8D%8F%E8%AE%AE/"
+    
+  >HTTP 协议
+    </a>
+              
+            </li><li class="flex flex-col open"><a
     class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
       sidebar-active-item bg-primary-100 font-semibold text-primary-800 contrast-more:border contrast-more:border-primary-500 dark:bg-primary-400/10 dark:text-primary-600 contrast-more:dark:border-primary-500"
     href="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/http-%E5%92%8C-https-%E5%8D%8F%E8%AE%AE%E5%8E%9F%E7%90%86/"
@@ -434,22 +478,6 @@ HTTP 协议的实现本身非常简单，因此不确认通信方，会存在以
             </li><li class="flex flex-col "><a
     class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
       text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
-    href="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/http%E5%8D%8F%E8%AE%AE/"
-    
-  >HTTP协议
-    </a>
-              
-            </li><li class="flex flex-col "><a
-    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
-      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
-    href="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/tcp-%E5%8D%8F%E8%AE%AE/"
-    
-  >TCP 协议
-    </a>
-              
-            </li><li class="flex flex-col "><a
-    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
-      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
     href="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/udp-%E5%8D%8F%E8%AE%AE/"
     
   >UDP 协议
@@ -458,41 +486,9 @@ HTTP 协议的实现本身非常简单，因此不确认通信方，会存在以
             </li><li class="flex flex-col "><a
     class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
       text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
-    href="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8/"
+    href="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/tcp-%E5%8D%8F%E8%AE%AE/"
     
-  >网络基础入门
-    </a>
-              
-            </li><li class="flex flex-col "><a
-    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
-      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
-    href="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80socket%E5%A5%97%E6%8E%A5%E5%AD%97/"
-    
-  >网络基础：socket套接字
-    </a>
-              
-            </li><li class="flex flex-col "><a
-    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
-      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
-    href="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8Btcp-socket/"
-    
-  >网络编程：TCP socket
-    </a>
-              
-            </li><li class="flex flex-col "><a
-    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
-      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
-    href="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8Budp-socket/"
-    
-  >网络编程：UDP socket
-    </a>
-              
-            </li><li class="flex flex-col "><a
-    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
-      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
-    href="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A4%E8%AF%86%E5%8D%8F%E8%AE%AE/"
-    
-  >认识协议
+  >TCP 协议
     </a>
               
             </li></ul>
@@ -655,10 +651,10 @@ HTTP 协议的实现本身非常简单，因此不确认通信方，会存在以
     <article class="w-full break-words flex min-h-[calc(100vh-var(--navbar-height))] min-w-0 justify-center pb-8 pr-[calc(env(safe-area-inset-right)-1.5rem)]">
       <main class="w-full min-w-0 max-w-6xl px-6 pt-4 md:px-12">
         <br class="mt-1.5 text-sm" />
-        <h1 class="text-center mt-2 text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100"></h1>
+        <h1 class="text-center mt-2 text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100">HTTP 和 HTTPS 协议原理</h1>
         <div class="mb-16"></div>
         <div class="content">
-          <p>友情链接：<a href="https://blog.csdn.net/m0_63312733/article/details/131142468?spm=1001.2014.3001.5501" target="_blank" rel="noopener">HTTP协议【网络基础/应用层】</a></p>
+          <p>友情链接：<a href="https://blog.csdn.net/m0_63312733/article/details/131142468?spm=1001.2014.3001.5501" target="_blank" rel="noopener">HTTP 协议【网络基础/应用层】</a></p>
 <h1>1. HTTP 的优点</h1><ul>
 <li>简单：HTTP 是一种文本协议，易于理解和实现。HTTP 的请求和响应都由起始行、首部字段和可选的消息主体组成，每个部分都有明确的语法规则。HTTP 的方法、状态码和首部字段都有标准化的定义，方便开发者遵循。</li>
 <li>灵活：HTTP 是一种无状态协议，即每个请求和响应都是独立的，不依赖于之前或之后的交互。这使得 HTTP 可以支持多种类型的资源，如 HTML、图片、视频、音频等，也可以支持多种类型的客户端，如浏览器、手机、物联网设备等。HTTP 还可以通过扩展首部字段或使用其他协议（如 HTTPS、WebSocket）来增加新的功能或安全性。</li>
@@ -679,7 +675,7 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
     <a href="#%e6%98%8e%e6%96%87%e5%8f%af%e8%83%bd%e4%bc%9a%e8%a2%ab%e7%aa%83%e5%90%ac" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>由于 HTTP 本身不具备加密的功能，所以也无法做到对通信整体（使用 HTTP 协议通信的请求和响应的内容）进行加密。即，HTTP 报文使用明文（指未经过加密的报文）方式发送。</p>
 <p>所谓互联网，是由能连通到全世界的网络组成的。无论世界哪个角落的服务器在和客户端通信时，在此通信线路上的某些网络设备、光缆、计算机等都不可能是个人的私有物，所以不排除某个环节中会遭到恶意窥视行为。
 即使已经过加密处理的通信，也会被窥视到通信内容，这点和未加密的通信是相同的。<strong>只是说如果通信经过加密，就有可能让人无法破解报文信息的含义，但加密处理后的报文信息本身还是会被看到的</strong>。</p>
-<p>例如使用抓包工具就能很方便地获取包含在HTTP请求和响应报文中的用户隐私信息，例如：</p>
+<p>例如使用抓包工具就能很方便地获取包含在 HTTP 请求和响应报文中的用户隐私信息，例如：</p>
 <img src="./HTTP 和 HTTPS 协议原理.IMG/MD202306102106812.png" alt="image.png" style="zoom:50%;" />
 <img src="./HTTP 和 HTTPS 协议原理.IMG/MD202306102107101.png" alt="image.png" style="zoom:50%;" />
 <h3>通信方可能被伪装<span class="absolute -mt-20" id="通信方可能被伪装"></span>
@@ -718,7 +714,7 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
     <a href="#%e9%aa%8c%e8%af%81%e9%80%9a%e4%bf%a1%e6%96%b9" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>HTTP 协议对请求来之不拒，那么过滤掉不合理的请求就显得十分必要了，这可以通过验证请求者的证书来做到。虽然使用 HTTP 协议无法确定通信方，但如果使用 SSL 则可以。SSL 不仅提供加密处理，而且还使用了一种被称为==证书==的手段，可用于确定方。</p>
 <p>证书由<strong>值得信任的第三方机构</strong>颁发，用以证明服务器和客户端是实际存在的。另外，伪造证书从技术角度来说是异常困难的一件事。所以只要能够确认通信方（服务器或客户端）持有的证书，即可判断通信方的真实意图。</p>
 <img src="./HTTP 和 HTTPS 协议原理.IMG/MD202306102156811.jpg" alt="Image00138.jpg" style="zoom:50%;" />
-<p>通过使用证书，以证明通信方就是意料中的服务器。这对使用者个人来讲，也减少了个人信息泄露的危险性。证书就像政府颁发的说明一样，具有权威性，前提是这个机构是绝对权威的。通俗地说，服务器或客户端想要获取证书，都是要法人“实名制”的。在网络上只要实名制，人们就会听话很多:)。</p>
+<p>通过使用证书，以证明通信方就是意料中的服务器。这对使用者个人来讲，也减少了个人信息泄露的危险性。证书就像政府颁发的说明一样，具有权威性，前提是这个机构是绝对权威的。通俗地说，服务器或客户端想要获取证书，都是要法人“实名制”的。在网络上只要实名制，人们就会听话很多：)。</p>
 <h3>报文完整性校验<span class="absolute -mt-20" id="报文完整性校验"></span>
     <a href="#%e6%8a%a5%e6%96%87%e5%ae%8c%e6%95%b4%e6%80%a7%e6%a0%a1%e9%aa%8c" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>在计算机中，任意一个文件都能通过某种哈希算法得到它的哈希值，HTTPS 使用的就是这种方法，即服务端和客户端都会验证报文发出前和接收后的哈希值，只要保证了哈希算法的正确性，就能校验报文发送前与接收后的哈希值来间接校验报文的完整性。</p>
 <p>不同算法有各自的特点，在网络通信中的适用程度也不同，这部分将在后续介绍。</p>
@@ -729,13 +725,13 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 <ol>
 <li>上文介绍了 HTTP 的三大缺点，以及解决问题的切入点。而 SSL/TLS 协议就是解决这三大问题的而设计的。</li>
 <li>简要介绍 SSL/TLS 协议是什么，然后介绍 SSL/TLS 协议的基本加密思想（暂不涉及具体算法）。注意：HTTPS 因为 SSL/TLS 协议才具有了安全性。</li>
-<li>[重点 (是理解第 4 点的前提)]介绍 SSL/TLS 协议的加密流程。</li>
-<li>[重点]结合第 3 点总结 HTTPS 的通信过程。</li>
+<li>[重点 （是理解第 4 点的前提）] 介绍 SSL/TLS 协议的加密流程。</li>
+<li>[重点] 结合第 3 点总结 HTTPS 的通信过程。</li>
 </ol>
 <h2>3.1 SSL/TLS 协议概述<span class="absolute -mt-20" id="31-ssltls-协议概述"></span>
     <a href="#31-ssltls-%e5%8d%8f%e8%ae%ae%e6%a6%82%e8%bf%b0" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><ul>
-<li>SSL（安全套接层）是一种安全协议，最初由网景公司（Netscape）开发，用于在客户端和服务器端之间建立加密的通信通道。SSL 有1.0，2.0和3.0三个版本，但只有3.0版本被广泛使用。</li>
-<li>TLS（传输层安全）是一种安全协议，基于 SSL 3.0版本设计，由 IETF（互联网工程任务组）标准化，并发布了1.0，1.1，1.2和1.3四个版本。TLS 可以看作是 SSL 的后续版本（但并不意味着 SSL 被完全废除），也是目前最常用的安全协议。</li>
+<li>SSL（安全套接层）是一种安全协议，最初由网景公司（Netscape）开发，用于在客户端和服务器端之间建立加密的通信通道。SSL 有 1.0，2.0 和 3.0 三个版本，但只有 3.0 版本被广泛使用。</li>
+<li>TLS（传输层安全）是一种安全协议，基于 SSL 3.0 版本设计，由 IETF（互联网工程任务组）标准化，并发布了 1.0，1.1，1.2 和 1.3 四个版本。TLS 可以看作是 SSL 的后续版本（但并不意味着 SSL 被完全废除），也是目前最常用的安全协议。</li>
 </ul>
 <p>TLS 协议是 SSL 协议的后续版本，有更高的安全性和更好的兼容性。TLS 支持更多的加密算法和扩展功能，并且可以降级到 SSL 版本来适应不同的场景。因此在不涉及具体细节的情况下（事实上它们通信的过程基本相同），SSL/TLS 协议和 TLS 协议是等价的。</p>
 <p>通常，HTTP 运行在 TCP 之上，它直接和 TCP 通信。当使用 SSL 时，则演变成先和 SSL 通信，再由 SSL 和 TCP 通信了。简言之，所谓 HTTPS，其实就是身披 SSL 协议这层外壳的 HTTP。</p>
@@ -815,7 +811,7 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 <li>多数浏览器开发商发布版本时，会事先在内部植入常用认证机关的公开密钥。
 <img src="./HTTP 和 HTTPS 协议原理.IMG/202306111611287.png" alt="image.png" style="zoom:50%;" /></li>
 </ul>
-<p>例如可以在浏览器查看某个网站的证书（一般通过 HTTPS 通信时，网址框旁边会有一个🔐的标志)：</p>
+<p>例如可以在浏览器查看某个网站的证书（一般通过 HTTPS 通信时，网址框旁边会有一个🔐的标志）：</p>
 <img src="./HTTP 和 HTTPS 协议原理.IMG/MD202306102329795.png" alt="image.png" style="zoom:50%;" />
 <p>证书的一个作用是证明作为通信一方的服务器是否规范（证明公开密钥正确性），除此之外：</p>
 <ul>
@@ -857,9 +853,9 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
     <a href="#%e5%ae%a2%e6%88%b7%e7%ab%af%e5%8f%91%e5%87%ba%e8%af%b7%e6%b1%82clienthello" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><p>首先，客户端（通常是浏览器）先向服务器发出加密通信的请求，称之为 ClientHello 请求。</p>
 <p>客户端请求主要向服务器提供以下信息：</p>
 <ul>
-<li>支持的协议版本，比如TLS 1.0版。</li>
+<li>支持的协议版本，比如 TLS 1.0 版。</li>
 <li>一个客户端生成的==随机数 Client Random==，稍后用于生成&quot;对话密钥&quot;。</li>
-<li>支持的加密方法，比如RSA公钥加密。</li>
+<li>支持的加密方法，比如 RSA 公钥加密。</li>
 <li>支持的压缩方法。</li>
 </ul>
 <blockquote>
@@ -884,7 +880,7 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 <li>客户端握手结束通知，表示客户端的握手阶段已经结束。这一项同时也是前面发送的所有内容的 hash 值，用来供服务器校验（即摘要校验）。</li>
 </ul>
 <blockquote>
-<p>摘要：通信协议中的摘要是一种用于验证数据完整性和身份认证的技术，通常由单向散列函数（如 MD5，SHA-1等）生成。对数据进行摘要，就是用哈希算法对数据求哈希值。</p>
+<p>摘要：通信协议中的摘要是一种用于验证数据完整性和身份认证的技术，通常由单向散列函数（如 MD5，SHA-1 等）生成。对数据进行摘要，就是用哈希算法对数据求哈希值。</p>
 </blockquote>
 <p>需要注意的是，客户端和服务器通过两次单向的会话，使得它们都同时有了三个随机数，接着双方就用事先商定的加密方法，各自生成本次会话所用的&quot;会话密钥&quot;（Master Secret）。</p>
 <p>==从效果上看，这三个随机数通过算法形成了一个很&quot;随机&quot;的随机数==，即&quot;会话密钥&quot;。&ldquo;随机性&quot;是先进的加密算法不可或缺的一部分，更是保证后续通信时数据安全性的保障。</p>
@@ -979,7 +975,7 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 </blockquote>
 <h1>参考资料</h1><ul>
 <li><a href="https://gitee.com/shawyxy/2023-linux/blob/main/HttpDemo/%E5%9B%BE%E8%A7%A3HTTP.epub" target="_blank" rel="noopener">《图解 HTTP》</a> 本文中的许多插图和概念阐述都引用于本书，一图胜千言，十分推荐初学者学习，可以使用工具 calibre 阅读。</li>
-<li><a href="https://xiaolincoding.com/network/2_http/https_rsa.html#%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%AA%8C%E8%AF%81%E8%AF%81%E4%B9%A6" target="_blank" rel="noopener">小林coding：HTTPS RSA 握手解析</a> 在学习过程中发现的宝藏博客，图文并茂，知识维度也很广，十分推荐。在最后一小节中的两图都引用自此博客。</li>
+<li><a href="https://xiaolincoding.com/network/2_http/https_rsa.html#%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%AA%8C%E8%AF%81%E8%AF%81%E4%B9%A6" target="_blank" rel="noopener">小林 coding：HTTPS RSA 握手解析</a> 在学习过程中发现的宝藏博客，图文并茂，知识维度也很广，十分推荐。在最后一小节中的两图都引用自此博客。</li>
 </ul>
 
         </div>

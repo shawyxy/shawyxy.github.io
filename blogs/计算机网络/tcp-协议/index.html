@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
 <link fetchpriority="low" href="/site.webmanifest" rel="manifest" />
 
-  <title>Shawy&#39;s Blog</title>
+  <title>TCP 协议 – Shawy&#39;s Blog</title>
   <meta name="description" content="[重要] 本文默认读者已经体系地学习过操作系统。
 为了读者能更好地学习 TCP 协议，本文首先简单介绍 TCP 协议（是啥），然后再简述 TCP 的主要内容（干嘛的），最后再阐述 TCP 的各个细节（原理）。
 1. 简介1.1 TCP 协议是什么 与 UDP 不同，TCP（Transmission Control Protocol）则“人如其名”，可以说是对“传输、发送、通信”进行“控制”的“协议”。
@@ -31,7 +31,7 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 
   
 
-<meta property="og:title" content="" />
+<meta property="og:title" content="TCP 协议" />
 <meta property="og:description" content="[重要] 本文默认读者已经体系地学习过操作系统。
 为了读者能更好地学习 TCP 协议，本文首先简单介绍 TCP 协议（是啥），然后再简述 TCP 的主要内容（干嘛的），最后再阐述 TCP 的各个细节（原理）。
 1. 简介1.1 TCP 协议是什么 与 UDP 不同，TCP（Transmission Control Protocol）则“人如其名”，可以说是对“传输、发送、通信”进行“控制”的“协议”。
@@ -50,7 +50,7 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 
 
   
-  <meta itemprop="name" content="Shawy&#39;s Blog">
+  <meta itemprop="name" content="TCP 协议">
   <meta itemprop="description" content="[重要] 本文默认读者已经体系地学习过操作系统。
 为了读者能更好地学习 TCP 协议，本文首先简单介绍 TCP 协议（是啥），然后再简述 TCP 的主要内容（干嘛的），最后再阐述 TCP 的各个细节（原理）。
 1. 简介1.1 TCP 协议是什么 与 UDP 不同，TCP（Transmission Control Protocol）则“人如其名”，可以说是对“传输、发送、通信”进行“控制”的“协议”。
@@ -63,7 +63,7 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 注意，“端对端”中的“端”指的是主机上特定 端 口号对应的进程。
 ==面向连接是 TCP 的一种特性，它意味着在数据传输之前，两个通信实体必须建立一个连接==。这个连接是由一系列的握手消息来建立的，它们用于协商连接的参数，如序号、窗口大小和最大报文段长度。面向连接的目的是保证数据的可靠传输，即数据按照正确的顺序、完整性和无差错地到达目的地。面向连接也使得 TCP 能够实现流量控制和拥塞控制，以适应网络的状况。
 2. 简述 TCP2.1 封装和解包 封装：将应用层传来的数据分割成一个个的报文段，每个报文段都有一个序号和一个校验和。TCP 在发送端将报文段封装成 IP 数据报，加上源地址和目的地址，然后通过网络层发送到目的地。 解包：TCP 在接收端将 IP 数据报解封装，提取出报文段，根据序号和校验和来检查报文段的完整性和顺序。如果报文段有损坏或丢失，TCP 会发送重传请求，要求发送端重新发送报文段。如果报文段没有问题，TCP 会将其放入接收缓冲区，并按照序号排序。当接收缓冲区中有一定数量的连续报文段时，TCP 会将它们传递给应用层。根据当前网页内容，这就是 TCP 进行解包和交付的过程。 如何确定缓冲区？">
-  <meta itemprop="wordCount" content="3690"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="">
+  <meta itemprop="wordCount" content="3705"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="TCP 协议">
 <meta name="twitter:description" content="[重要] 本文默认读者已经体系地学习过操作系统。
 为了读者能更好地学习 TCP 协议，本文首先简单介绍 TCP 协议（是啥），然后再简述 TCP 的主要内容（干嘛的），最后再阐述 TCP 的各个细节（原理）。
 1. 简介1.1 TCP 协议是什么 与 UDP 不同，TCP（Transmission Control Protocol）则“人如其名”，可以说是对“传输、发送、通信”进行“控制”的“协议”。
@@ -389,6 +389,54 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
         <ul class='relative flex flex-col gap-1 before:absolute before:inset-y-1 before:w-px before:bg-gray-200 before:content-[""] ltr:ml-3 ltr:pl-3 ltr:before:left-0 rtl:mr-3 rtl:pr-3 rtl:before:right-0 dark:before:bg-neutral-800'><li class="flex flex-col "><a
     class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
       text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8/"
+    
+  >网络基础入门
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80socket%E5%A5%97%E6%8E%A5%E5%AD%97/"
+    
+  >网络基础：socket 套接字
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8Btcp-socket/"
+    
+  >网络编程：TCP socket
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8Budp-socket/"
+    
+  >网络编程：UDP socket
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A4%E8%AF%86%E5%8D%8F%E8%AE%AE/"
+    
+  >认识协议
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/http%E5%8D%8F%E8%AE%AE/"
+    
+  >HTTP 协议
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
     href="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/http-%E5%92%8C-https-%E5%8D%8F%E8%AE%AE%E5%8E%9F%E7%90%86/"
     
   >HTTP 和 HTTPS 协议原理
@@ -397,9 +445,9 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
             </li><li class="flex flex-col "><a
     class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
       text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
-    href="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/http%E5%8D%8F%E8%AE%AE/"
+    href="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/udp-%E5%8D%8F%E8%AE%AE/"
     
-  >HTTP协议
+  >UDP 协议
     </a>
               
             </li><li class="flex flex-col open"><a
@@ -550,54 +598,6 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
             </li>
           </ul>
   
-              
-            </li><li class="flex flex-col "><a
-    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
-      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
-    href="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/udp-%E5%8D%8F%E8%AE%AE/"
-    
-  >UDP 协议
-    </a>
-              
-            </li><li class="flex flex-col "><a
-    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
-      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
-    href="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8/"
-    
-  >网络基础入门
-    </a>
-              
-            </li><li class="flex flex-col "><a
-    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
-      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
-    href="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80socket%E5%A5%97%E6%8E%A5%E5%AD%97/"
-    
-  >网络基础：socket套接字
-    </a>
-              
-            </li><li class="flex flex-col "><a
-    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
-      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
-    href="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8Btcp-socket/"
-    
-  >网络编程：TCP socket
-    </a>
-              
-            </li><li class="flex flex-col "><a
-    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
-      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
-    href="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8Budp-socket/"
-    
-  >网络编程：UDP socket
-    </a>
-              
-            </li><li class="flex flex-col "><a
-    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
-      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
-    href="/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A4%E8%AF%86%E5%8D%8F%E8%AE%AE/"
-    
-  >认识协议
-    </a>
               
             </li></ul>
       </div>
@@ -923,7 +923,7 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
     <article class="w-full break-words flex min-h-[calc(100vh-var(--navbar-height))] min-w-0 justify-center pb-8 pr-[calc(env(safe-area-inset-right)-1.5rem)]">
       <main class="w-full min-w-0 max-w-6xl px-6 pt-4 md:px-12">
         <br class="mt-1.5 text-sm" />
-        <h1 class="text-center mt-2 text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100"></h1>
+        <h1 class="text-center mt-2 text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100">TCP 协议</h1>
         <div class="mb-16"></div>
         <div class="content">
           <blockquote>
@@ -1019,7 +1019,7 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 <blockquote>
 <p>通常，两个人对话时，在谈话的停顿处可以点头或询问以确认谈话内容。如果对方迟迟没有任何反馈，说话的一方还可以再重复一遍以保证对方确实听到。因此，对方是否理解了此次对话内容，对方是否完全听到了对话的内容，都要靠对方的反应来判断。网络中的“确认应答”就是类似这样的一个概念。当对方听懂对话内容时会说：“嗯”，这就相当于返回了一个确认应答（ACK）。而当对方没有理解对话内容或没有听清时会问一句“咦？”这好比一个否定确认应答（NACK（Negative Acknowledgement） ）。</p>
 </blockquote>
-<p>[注]通常情况下，大写的ACK表示首部的确认位是ACK，表示这是一个确认应答报文；小写的ack表示确认字段的值，即接收方期望发送方下一次应该发送数据的序列号，接收方发送ack序号，那么表明它已经接收了到ack为止的所有数据，因此ack也叫做确认号。</p>
+<p>[注] 通常情况下，大写的 ACK 表示首部的确认位是 ACK，表示这是一个确认应答报文；小写的 ack 表示确认字段的值，即接收方期望发送方下一次应该发送数据的序列号，接收方发送 ack 序号，那么表明它已经接收了到 ack 为止的所有数据，因此 ack 也叫做确认号。</p>
 <p>TCP 通过肯定的确认应答（ACK）实现可靠的数据传输。当发送端将数据发出之后会等待对端的确认应答。如果有确认应答，说明数据已经成功到达对端。反之，则数据丢失的可能性很大。</p>
 <img src="./TCP 协议.IMG/Image00228.jpg" alt="Image00228" style="zoom: 33%;" />
 <p>如果发送端在一定时间内没有收到 ACK，它会认为报文段丢失或延迟，然后重新发送报文段。这样，TCP 可以保证数据不会因为网络故障而丢失。</p>
@@ -1433,8 +1433,8 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 <p>另外， 服务端的监听队列有两种：</p>
 <p>TCP 半连接队列和全连接队列是服务端在处理 TCP 连接时维护的两个队列，它们的含义如下：</p>
 <ul>
-<li><strong>半连接队列</strong>，也称<strong>SYN 队列</strong>，是存放已收到客户端的 SYN 报文，但还未收到客户端的 ACK 报文的连接请求的队列（即完成了前两次握手）。服务端会向客户端发送 SYN+ACK 报文，并等待客户端的回复。</li>
-<li><strong>全连接队列</strong>，也称<strong>accept 队列</strong>，是存放已完成三次握手，但还未被应用程序 accept 的连接请求的队列。服务端会从半连接队列中移除连接请求，并创建一个新的 socket，然后将其放入全连接队列。</li>
+<li><strong>半连接队列</strong>，也称** SYN 队列**，是存放已收到客户端的 SYN 报文，但还未收到客户端的 ACK 报文的连接请求的队列（即完成了前两次握手）。服务端会向客户端发送 SYN+ACK 报文，并等待客户端的回复。</li>
+<li><strong>全连接队列</strong>，也称** accept 队列**，是存放已完成三次握手，但还未被应用程序 accept 的连接请求的队列。服务端会从半连接队列中移除连接请求，并创建一个新的 socket，然后将其放入全连接队列。</li>
 </ul>
 <p>半连接队列和全连接队列都有最大长度限制，如果超过限制，服务端会根据 tcp_abort_on_overflow 参数的值来决定是丢弃新的连接请求还是发送 RST 报文给客户端。</p>
 <p>它们和 socket 的关系是：</p>
@@ -2093,7 +2093,7 @@ $$
 </li>
 </ul>
 <h3>慢启动<span class="absolute -mt-20" id="慢启动"></span>
-    <a href="#%e6%85%a2%e5%90%af%e5%8a%a8" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>慢启动即在两端建立 TCP 连接或由超时重传导致的丢包后，将拥塞窗口设为一个较小的值（一般是1），每收到一个 ACK 就增加一个 MSS，使得拥塞窗口呈指数增长。</p>
+    <a href="#%e6%85%a2%e5%90%af%e5%8a%a8" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>慢启动即在两端建立 TCP 连接或由超时重传导致的丢包后，将拥塞窗口设为一个较小的值（一般是 1），每收到一个 ACK 就增加一个 MSS，使得拥塞窗口呈指数增长。</p>
 <blockquote>
 <p>这么做的原因是（引用自 [REC5681]）：</p>
 <p>在传输初始阶段，由于未知网络传输能力，需要缓慢探测可用传输资源，防止短时间内大量数据注入导致拥塞。慢启动算法正是针对这一问题而设计。在数据传输之初或者重传计时器检测到丢包后，需要执行慢启动。</p>
