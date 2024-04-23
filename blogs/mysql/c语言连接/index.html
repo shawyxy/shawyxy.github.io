@@ -773,7 +773,7 @@ MYSQL类是一个非常核心的结构体，它用于表示与 MySQL 服务器�
 <li><code>-L</code>：用于指明库文件的搜索路径。</li>
 <li><code>-l</code>：用于指明需要连接库文件路径下的哪一个库。</li>
 </ul>
-<img src="./C语言连接.IMG/image-20240227182921177.png" alt="image-20240227182921177" style="zoom:50%;" />
+<img src="./.C语言连接.IMG/image-20240227182921177.png" alt="image-20240227182921177" style="zoom:50%;" />
 <p>因为这个库没有在链接的默认目录<code>/usr/lib64</code>下，所以作为第三方导入的库，在编译时需要显式地指定<code>-L/usr/lib64/mysql</code>；同理，头文件不在默认目录<code>/usr/include</code>下，所以要显式地指定<code>-I/usr/include/mysql</code>。在这个目录下，存在名为<code>mysqlclient</code>的第三方库，同样需要用<code>-l</code>显式地声明。</p>
 <p>只要正常运行上面的程序，那就表明库的链接没有问题，剩下的就是简单的 API 使用。</p>
 <h1>连接 MySQL</h1><h2>MYSQL 类<span class="absolute -mt-20" id="mysql-类"></span>
@@ -962,7 +962,7 @@ MYSQL类是一个非常核心的结构体，它用于表示与 MySQL 服务器�
   </div>
 </div>
 <p>编译并运行：</p>
-<img src="./C语言连接.IMG/image-20240227190559910.png" alt="image-20240227190559910" style="zoom:50%;" />
+<img src="./.C语言连接.IMG/image-20240227190559910.png" alt="image-20240227190559910" style="zoom:50%;" />
 <h1>发送命令</h1><div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">mysql_query</span><span class="p">(</span><span class="n">MYSQL</span> <span class="o">*</span><span class="n">mysql</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">stmt_str</span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
@@ -1031,7 +1031,7 @@ MYSQL类是一个非常核心的结构体，它用于表示与 MySQL 服务器�
   </div>
 </div>
 <p>数据被成功插入到表中。</p>
-<img src="./C语言连接.IMG/image-20240227193308014.png" alt="image-20240227193308014" style="zoom:50%;" />
+<img src="./.C语言连接.IMG/image-20240227193308014.png" alt="image-20240227193308014" style="zoom:50%;" />
 <p>类似地，可以删除和修改记录：</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">	<span class="n">string</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">&#34;update account set balance=222 where id=2&#34;</span><span class="p">;</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
@@ -1043,7 +1043,7 @@ MYSQL类是一个非常核心的结构体，它用于表示与 MySQL 服务器�
     </button>
   </div>
 </div>
-<img src="./C语言连接.IMG/image-20240227193749866.png" alt="image-20240227193749866" style="zoom:50%;" />
+<img src="./.C语言连接.IMG/image-20240227193749866.png" alt="image-20240227193749866" style="zoom:50%;" />
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">	<span class="n">string</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">&#34;delete from account where id=4&#34;</span><span class="p">;</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
@@ -1054,7 +1054,7 @@ MYSQL类是一个非常核心的结构体，它用于表示与 MySQL 服务器�
     </button>
   </div>
 </div>
-<img src="./C语言连接.IMG/image-20240227193844242.png" alt="image-20240227193844242" style="zoom:50%;" />
+<img src="./.C语言连接.IMG/image-20240227193844242.png" alt="image-20240227193844242" style="zoom:50%;" />
 <h1>查询记录</h1><p>对于 mysql_query 函数而言，插入、删除和修改操作都很简单，只要将 SQL 字符串作为参数传入即可，不需要返回值。但是 SELECT 查询需要返回结果，这需要使用到 MYSQL_RES 对象。</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">MYSQL_RES</span><span class="o">*</span> <span class="nf">mysql_store_result</span><span class="p">(</span><span class="n">MYSQL</span> <span class="o">*</span><span class="n">mysql</span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
@@ -1233,7 +1233,7 @@ MYSQL类是一个非常核心的结构体，它用于表示与 MySQL 服务器�
     </button>
   </div>
 </div>
-<img src="./C语言连接.IMG/image-20240227195504420.png" alt="image-20240227195504420" style="zoom:33%;" />
+<img src="./.C语言连接.IMG/image-20240227195504420.png" alt="image-20240227195504420" style="zoom:33%;" />
 <h1>参考资料</h1><ul>
 <li><a href="https://developer.aliyun.com/article/641363" target="_blank" rel="noopener">Linux centos 7/ubantu 下： 用 C 语言连接 MySQL 数据库</a></li>
 <li><a href="https://blog.csdn.net/chenlong_cxy/article/details/129039323" target="_blank" rel="noopener">MySQL 使用 C 语言连接</a></li>

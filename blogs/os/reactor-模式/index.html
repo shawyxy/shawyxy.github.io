@@ -760,7 +760,7 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
 -**使用 I/O 多路复用技术：**I/O 多路复用技术可以让一个线程或进程监听多个 I/O 事件，从而提高系统的资源利用率。</li>
 <li>**使用事件驱动模型：**事件驱动模型可以让系统更加灵活和可扩展。</li>
 </ul>
-<img src="./Reactor 模式.IMG/MD202310080037415.png" alt="image-20231005151352480" style="zoom:50%;" />
+<img src="./.Reactor 模式.IMG/MD202310080037415.png" alt="image-20231005151352480" style="zoom:50%;" />
 <p>图片来源：http://www.dre.vanderbilt.edu/~schmidt/PDF/reactor-siemens.pdf</p>
 <blockquote>
 <p>理解这张图，需要你了解 select 服务器的写法。</p>
@@ -793,11 +793,11 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
 </tbody>
 </table>
 <h1>2. Reactor 模型的演化</h1><p>我们知道一个服务器在接收数据后，要对这个数据进行解码，反序列化，处理，有必要的话还要序列化，然后将处理后的数据返回给客户端。这些操作可以抽象为一个个模块，交给线程去做。</p>
-<img src="./Reactor 模式.IMG/MD202310080037417.png" alt="image-20231005154104276" style="zoom:50%;" />
+<img src="./.Reactor 模式.IMG/MD202310080037417.png" alt="image-20231005154104276" style="zoom:50%;" />
 <p>首先是单线程 Reator 模型，Reactor 模型会利用给定的 selectionKeys 进行派发操作，派发到给定的 Handler，之后当有客户端连接上来的时候，Acceptor 会调用接口 accept()，之后将接收到的连接和之前派发的 Handler 进行组合并启动。</p>
-<img src="./Reactor 模式.IMG/MD202310080037418.png" alt="image-20231005154226516" style="zoom:50%;" />
+<img src="./.Reactor 模式.IMG/MD202310080037418.png" alt="image-20231005154226516" style="zoom:50%;" />
 <p>然后是接入线程池的 Reactor 模型，此模型将读操作和写操作解耦了出来，当底层有数据就绪时，将原本 Handler 的操作交给线程队列的头部线程来进行，极大地提到了整体的吞吐量和处理速度。</p>
-<img src="./Reactor 模式.IMG/MD202310080037419.png" alt="image-20231005154526596" style="zoom:50%;" />
+<img src="./.Reactor 模式.IMG/MD202310080037419.png" alt="image-20231005154526596" style="zoom:50%;" />
 <p>图片来源：https://gee.cs.oswego.edu/dl/cpjslides/nio.pdf</p>
 <p>最后是多 Reactor 模型，此模型中，有一个主 Reactor（Main Reactor）和多个从 Reactor（Sub Reactor）。Main Reactor 负责处理客户端的连接请求，而 Sub Reactor 则负责处理已经建立的连接的读写事件。这种模型的好处就是整体职责更加明确，同时对于多核 CPU 的机器，系统资源的利用更加高一些。</p>
 <h1>3. Reactor 模式的工作流程</h1><ol>
@@ -1202,7 +1202,7 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
 </div>
 <p>再次强调 Recver 函数的作用是进行<strong>一次</strong>数据的接收，因为 eopll 被设置为 ET 模式，文件描述符被设置为非阻塞模式，由于缓冲区大小可能没那么大，所以要通过<strong>若干轮</strong>读取来获取客户端发送的数据。跳出循环可能是因为读取完毕了，可能是真的出错了，真正出错的情况下不应该打印，所以用一个 bool 类型的标记来限制打印的条件。</p>
 <p>简单测试一下：</p>
-<img src="./Reactor 模式.IMG/MD202310080037420.gif" alt="屏幕录制 2023-10-06 16.01.23" style="zoom:50%;" />
+<img src="./.Reactor 模式.IMG/MD202310080037420.gif" alt="屏幕录制 2023-10-06 16.01.23" style="zoom:50%;" />
 <p>现在可以保证接收数据的逻辑基本没有问题，但是有个小细节，当客户端断开连接以后，这个文件描述符并没有关闭，这是因为没有在出错时进行差错处理，而是交给 Excepter 函数去做，只不过现在还没有实现它。</p>
 <p>另外，由于是 Telnet 工具，所以缓冲区中拼接的内容每次都会有一个回车符，暂时不用关心这个问题（在代码中已经去除了最后的符号<code>sizeof(buffer) - 1</code>），因为这只是一个测试的工具，实际上客户端可能是其他软件。</p>
 <p>在测试时，只是以字节流测试（也就是直接读取数组中的内容），但实际上客户端发送的数据可能是一个加密的报文，所以要进行协议订制，这也是解决粘包问题的手段。</p>
@@ -1677,7 +1677,7 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
 <p>和上面的系统调用出错时的返回值问题类似，有些错误不能仅仅通过文件描述符的状态来判断，因为一个错误状态可能对应多个问题。而且有些错误并不是立即可知的，而是需要通过 recv 或 send 函数（ read 或 write 函数）来检测到。例如，如果对方正常关闭了连接，那么 read 函数会返回 0；如果对方异常关闭了连接，那么 recv 或 send 函数（ read 或 write 函数）会返回 -1，并设置 errno 为 ECONNRESET 或 EPIPE。这些情况都需要通过 recv 或 send 函数（ read 或 write 函数）来发现，并进行相应的处理。因此，在事件出错时，将它们的状态设置为可读可写，可以让 Recver 或 Sender 函数在尝试读或写时发现错误，并调用 Excepter 函数来处理。</p>
 <p>同样地，有些错误并不是致命的，而是可以通过重试或忽略来解决的（注意代码中的 break 和 continue 对应着不同的错误）。如代码中写的，如果 recv 或 send 函数（ read 或 write 函数）返回 -1，并设置 errno 为 EAGAIN 或 EWOULDBLOCK，那么表示缓冲区已满或者没有数据可读，只需要等待下一次可读或可写时再次尝试即可；如果 recv 或 send 函数（ read 或 write 函数）返回 -1，并设置 errno 为 EINTR，那么表示被信号中断了，只需要继续尝试即可。这些情况都不需要调用 Excepter 函数来处理。因此，在事件出错时，将它们的状态设置为可读可写，可以让 Recver 或 Sender 函数在遇到这些错误时进行重试或忽略。</p>
 <h2>4.3 测试<span class="absolute -mt-20" id="43-测试"></span>
-    <a href="#43-%e6%b5%8b%e8%af%95" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><img src="./Reactor 模式.IMG/MD202310080037421.gif" alt="屏幕录制 2023-10-06 19.58.44" style="zoom:50%;" />
+    <a href="#43-%e6%b5%8b%e8%af%95" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><img src="./.Reactor 模式.IMG/MD202310080037421.gif" alt="屏幕录制 2023-10-06 19.58.44" style="zoom:50%;" />
 <h2>4.4 扩展 1<span class="absolute -mt-20" id="44-扩展-1"></span>
     <a href="#44-%e6%89%a9%e5%b1%95-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>如果有恶意节点和服务端建立大量连接，并且保持长时间不发送数据，这种无意义的连接会占用服务端大量资源，解决办法是设置一个超时时间。记录当前时间和客户端最近一次发送数据的时间，当它们的差值超过设定的超时时间，就断开连接。</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Connection</span>

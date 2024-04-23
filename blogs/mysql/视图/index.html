@@ -748,10 +748,10 @@ DROP VIEW view_name; 视图规则和限制虽然视图在很多方面表现得�
   </div>
 </div>
 <p>测试表：</p>
-<img src="./视图.IMG/image-20240227161226311.png" alt="image-20240227161226311" style="zoom:50%;" />
+<img src="./.视图.IMG/image-20240227161226311.png" alt="image-20240227161226311" style="zoom:50%;" />
 <h2>创建视图<span class="absolute -mt-20" id="创建视图"></span>
     <a href="#%e5%88%9b%e5%bb%ba%e8%a7%86%e5%9b%be" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>创建视图首先会执行 SELECT 语句，用查询返回的结果作为视图的内容。</p>
-<img src="./视图.IMG/image-20240227161844683.png" alt="image-20240227161844683" style="zoom:50%;" />
+<img src="./.视图.IMG/image-20240227161844683.png" alt="image-20240227161844683" style="zoom:50%;" />
 <p>用 SELECT 的返回值作为视图的数据，通过<code>show tables</code>可以查看视图是否被创建。</p>
 <h2>查询视图<span class="absolute -mt-20" id="查询视图"></span>
     <a href="#%e6%9f%a5%e8%af%a2%e8%a7%86%e5%9b%be" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>一旦创建，就可以像查询普通表一样查询视图：</p>
@@ -767,11 +767,11 @@ DROP VIEW view_name; 视图规则和限制虽然视图在很多方面表现得�
 </div>
 <h2>更新视图<span class="absolute -mt-20" id="更新视图"></span>
     <a href="#%e6%9b%b4%e6%96%b0%e8%a7%86%e5%9b%be" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>视图可以被更新（取决于视图的定义和所涉及的表）。如果视图定义允许，可以通过<code>INSERT</code>、<code>UPDATE</code>、<code>DELETE</code>操作来更改视图，这些更改会反映到底层的表中。但是，并非所有视图都是可更新的。</p>
-<img src="./视图.IMG/image-20240227162559507.png" alt="image-20240227162559507" style="zoom:50%;" />
+<img src="./.视图.IMG/image-20240227162559507.png" alt="image-20240227162559507" style="zoom:50%;" />
 <p>修改视图后，原表中的记录也会随之被修改。反之也是如此。</p>
 <p>这是因为视图的内容是随着原表内容动态更新的。</p>
 <p>在<code>/var/lib/mysql/数据库名</code>路径下，视图只有一个<code>.frm</code>文件，它值包含表结构的定义，而数据保存在<code>.ibd</code>文件中。这说明视图和原表共用同一份数据文件。这保证了数据一致性，视图往往用于显示和操作热数据。</p>
-<img src="./视图.IMG/image-20240227163118091.png" alt="image-20240227163118091" style="zoom:50%;" />
+<img src="./.视图.IMG/image-20240227163118091.png" alt="image-20240227163118091" style="zoom:50%;" />
 <h2>删除视图<span class="absolute -mt-20" id="删除视图"></span>
     <a href="#%e5%88%a0%e9%99%a4%e8%a7%86%e5%9b%be" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>删除视图的语法如下：</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">DROP</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="n">view_name</span><span class="p">;</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">

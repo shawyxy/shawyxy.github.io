@@ -1111,7 +1111,7 @@
 </li>
 </ul>
 <p>可以通过<code>man 7 signal</code>指令查看信号相关信息，其中 Action 列就是不同信号的默认处理动作（在 1.8 中会对 Action 列介绍）：</p>
-<img src="./进程信号.IMG/image-20230328145202289.png" alt="image-20230328145202289" style="zoom:37%;" />
+<img src="./.进程信号.IMG/image-20230328145202289.png" alt="image-20230328145202289" style="zoom:37%;" />
 <blockquote>
 <p>可能出现的错误：No manual entry for signal in section 7</p>
 <p>意味着系统中没有安装第 7 章的 <code>signal</code> 手册页，centos 可以通过命令安装：</p>
@@ -1347,7 +1347,7 @@
 <h2>2.1 硬件中断产生信号<span class="absolute -mt-20" id="21-硬件中断产生信号"></span>
     <a href="#21-%e7%a1%ac%e4%bb%b6%e4%b8%ad%e6%96%ad%e4%ba%a7%e7%94%9f%e4%bf%a1%e5%8f%b7" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>终端按键产生信号的本质是硬件中断。当用户在终端按下某些键时，键盘输入产生一个硬件中断，被操作系统获取，解释成信号，发送给目标前台进程。</p>
 <p>除了 Ctrl + C 可以终止进程的运行外，还可以用 Ctrl + \ 组合键终止进程，实际上，它对应着信号编号为 3 的 SIGQUIT 信号。通过查阅 man 手册可以看到：</p>
-<img src="./进程信号.IMG/image-20230328162511749.png" alt="image-20230328162511749" style="zoom:37%;" />
+<img src="./.进程信号.IMG/image-20230328162511749.png" alt="image-20230328162511749" style="zoom:37%;" />
 <p>注意到 SIGQUIT 的 Action 和 SIGINT 的不同，SIGQUIT 和 SIGINT 都是用来终止进程的信号，但它们之间有一些区别：</p>
 <ul>
 <li>SIGQUIT 通常由 QUIT 字符（通常是 Ctrl + \）控制，当进程因收到 SIGQUIT 而退出时，会产生 core 文件，在这个意义上类似于一个程序错误信号。</li>
@@ -1356,15 +1356,15 @@
 <p>Term 和 Core 都表示终止进程。Term 表示正常终止，而 Core 表示异常终止并生成 core 文件。</p>
 <h3>核心转储<span class="absolute -mt-20" id="核心转储"></span>
     <a href="#%e6%a0%b8%e5%bf%83%e8%bd%ac%e5%82%a8" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>当进程出现异常时，重要的内容就会被加载到磁盘中，生成 core.id。例如当以 Ctrl + \ 终止刚才的程序时：</p>
-<img src="./进程信号.IMG/image-20230328165546004.png" alt="image-20230328165546004" style="zoom:37%;" />
+<img src="./.进程信号.IMG/image-20230328165546004.png" alt="image-20230328165546004" style="zoom:37%;" />
 <p>在云服务器中，core.id 是默认不会生成的，原因是云服务器的生产环境的核心转储是关闭的：</p>
-<img src="./进程信号.IMG/image-20230328170100969.png" alt="image-20230328170100969" style="zoom:37%;" />
+<img src="./.进程信号.IMG/image-20230328170100969.png" alt="image-20230328170100969" style="zoom:37%;" />
 <p>通过指令 ulimit -c size 设置 core 文件的大小：
-<img src="./进程信号.IMG/image-20230328170149299.png" alt="image-20230328170149299" style="zoom:37%;" /></p>
+<img src="./.进程信号.IMG/image-20230328170149299.png" alt="image-20230328170149299" style="zoom:37%;" /></p>
 <p>如果再次用 Ctrl + \ 终止进程，可以看到提示语句：</p>
-<img src="./进程信号.IMG/image-20230328170254384.png" alt="image-20230328170254384" style="zoom:37%;" />
+<img src="./.进程信号.IMG/image-20230328170254384.png" alt="image-20230328170254384" style="zoom:37%;" />
 <p>在可执行程序的目录中还能看到 core 文件：
-<img src="./进程信号.IMG/image-20230328170334006.png" alt="image-20230328170334006" style="zoom:37%;" /></p>
+<img src="./.进程信号.IMG/image-20230328170334006.png" alt="image-20230328170334006" style="zoom:37%;" /></p>
 <p>它的后缀和进程的 pid 对应。</p>
 <blockquote>
 <p>ulimit 命令改变的是 Shell 进程的 Resource Limit，但 signalTest 进程的 PCB 是由 Shell 进程复制而来的，所以也具有和 Shell 进程相同的 Resource Limit 值。这种方法是内存级的修改，再次开启终端便会回到默认状态。</p>
@@ -1392,7 +1392,7 @@
     </button>
   </div>
 </div>
-<img src="./进程信号.IMG/image-20230328182253226.png" alt="image-20230328182253226" style="zoom:37%;" />
+<img src="./.进程信号.IMG/image-20230328182253226.png" alt="image-20230328182253226" style="zoom:37%;" />
 <p>g++加上 -g 选项，以开发模式编译：</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="err">g++</span> <span class="err">-o</span> <span class="k">$@</span> <span class="err">$^</span> <span class="nv">-std</span><span class="o">=</span>c++11 -g
 </span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
@@ -1406,7 +1406,7 @@
   </div>
 </div>
 <p>在此之前，我们在 Linux 中对程序调试用 gdb + 可执行程序名，必须要自己打断点定位错误，费时费力，有了 core 文件以后就能直接定位到问题位置：</p>
-<p><code>code-FILE + core.id</code><img src="./进程信号.IMG/image-20230328183219167.png" alt="image-20230328183219167" style="zoom:37%;" /></p>
+<p><code>code-FILE + core.id</code><img src="./.进程信号.IMG/image-20230328183219167.png" alt="image-20230328183219167" style="zoom:37%;" /></p>
 <h3>core dump 标记位<span class="absolute -mt-20" id="core-dump-标记位"></span>
     <a href="#core-dump-%e6%a0%87%e8%ae%b0%e4%bd%8d" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>core dump 即核心转储，进程等待接口 waitpid 的第二个参数 status 是一个输出型参数，它的第 7 个比特位就是标识是否发生核心转储的位置：</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">pid_t</span> <span class="nf">waitpid</span><span class="p">(</span><span class="n">pid_t</span> <span class="n">pid</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">status</span><span class="p">,</span> <span class="kt">int</span> <span class="n">options</span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
@@ -1420,7 +1420,7 @@
   </div>
 </div>
 <p>man signal 手册的 Action 列中的 Core 就是让 OS 判断是否发生核心转储的意思。</p>
-<img src="./进程信号.IMG/image-20230328185321771.png" alt="image-20230328185321771" style="zoom:37%;" />
+<img src="./.进程信号.IMG/image-20230328185321771.png" alt="image-20230328185321771" style="zoom:37%;" />
 <ul>
 <li>如果进程正常终止，core dump 标志位也就没有它存在的意义，因此 status 的次低 8 位表示进程的退出状态；</li>
 <li>如果进程被信号终止，status 的低 7 位表示终止信号，第 8 位比特位就是 core dump 标志位，表示进程终止时是否（1/0）进行了核心转储。</li>
@@ -1459,7 +1459,7 @@
     </button>
   </div>
 </div>
-<img src="./进程信号.IMG/image-20230329145031031.png" alt="image-20230329145031031" style="zoom:37%;" />
+<img src="./.进程信号.IMG/image-20230329145031031.png" alt="image-20230329145031031" style="zoom:37%;" />
 <p>可以得到遇到除零错误时，OS 给进程发送的终止信号是 8 ，发生了核心转储，生成了 core 文件。</p>
 <p>除此之外，我们还可以用 kill [信号编号] [PID] 在终止进程的同时发送信号，例如：</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
@@ -1490,7 +1490,7 @@
     </button>
   </div>
 </div>
-<img src="./进程信号.IMG/image-20230329151052743.png" alt="image-20230329151052743" style="zoom:37%;" />
+<img src="./.进程信号.IMG/image-20230329151052743.png" alt="image-20230329151052743" style="zoom:37%;" />
 <p>可以验证，2 号信号是不会发生核心转储的。</p>
 <h2>2.2 系统调用产生信号<span class="absolute -mt-20" id="22-系统调用产生信号"></span>
     <a href="#22-%e7%b3%bb%e7%bb%9f%e8%b0%83%e7%94%a8%e4%ba%a7%e7%94%9f%e4%bf%a1%e5%8f%b7" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>系统调用可以产生信号。当进程为某个信号注册了信号处理程序后，当接收到该信号时，内核就会调用注册的函数。例如注册信号处理函数可通过系统调用 signal() 或 sigaction() 来实现。</p>
@@ -1551,9 +1551,9 @@
   </div>
 </div>
 <p>运行起来后，即使多次使用组合键 Ctrl + C 也无法杀死进程，而且进程还按照写的处理方式打印了提示语句：</p>
-<img src="./进程信号.IMG/image-20230328153804487.png" alt="image-20230328153804487" style="zoom:37%;" />
+<img src="./.进程信号.IMG/image-20230328153804487.png" alt="image-20230328153804487" style="zoom:37%;" />
 <p>这个现象说明进程 signal 接口成功捕获了 2 号信号，并且验证了键盘组合键 Ctrl + C 就是 2 号信号。要杀死进程，只能使用<code>kill -9 pid</code>终止进程了。</p>
-<img src="./进程信号.IMG/image-20230328154223280.png" alt="image-20230328154223280" style="zoom:37%;" />
+<img src="./.进程信号.IMG/image-20230328154223280.png" alt="image-20230328154223280" style="zoom:37%;" />
 <p>值得注意的是，signal 的第二个参数虽然是函数的地址，但是调用 signal 并不代表它会立刻调用第二个参数对应的函数，它是一种注册行为，只有捕获到它的第一个参数即信号编号时才会调用自定义函数，修改进程对特定信号默认的处理动作。在这里，2 号信号 SIGINT 的默认处理动作就是中断（interrupt）进程的运行。</p>
 <p>在实际情况下，可能捕捉的信号不是 2 号，signal 后的逻辑也不一定是死循环，也可能是长时间执行的代码，总之 signal 的调用表示它之后的逻辑中一旦遇到了指定的 signum 信号的编号，那么就会执行对应的操作（第二个参数）。 在这里为了保证 signal 一定能捕捉到指定的信号，使用了死循环。假如后续没有任何指定信号编号（第一个参数）被进程接收，第二个参数也就不会被调用。</p>
 <blockquote>
@@ -1633,7 +1633,7 @@
   </div>
 </div>
 <p>让 Shell 运行一个 sleep，时间足以让我们观察现象：
-<img src="./进程信号.IMG/image-20230329165340866.png" alt="image-20230329165340866" style="zoom:37%;" /></p>
+<img src="./.进程信号.IMG/image-20230329165340866.png" alt="image-20230329165340866" style="zoom:37%;" /></p>
 <h3>raise 函数<span class="absolute -mt-20" id="raise-函数"></span>
     <a href="#raise-%e5%87%bd%e6%95%b0" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>raise() 用于向程序发送信号。原型：</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">raise</span><span class="p">(</span><span class="kt">int</span> <span class="n">sig</span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
@@ -1677,7 +1677,7 @@
     </button>
   </div>
 </div>
-<img src="./进程信号.IMG/image-20230329170923741.png" alt="image-20230329170923741" style="zoom:37%;" />
+<img src="./.进程信号.IMG/image-20230329170923741.png" alt="image-20230329170923741" style="zoom:37%;" />
 <p>打印的内容就是 8 号信号对应的 Comment。</p>
 <p>在上面的例子中，自己给自己发送 8 号信号也是一种产生信号的方式。向程序发送信号，以便在程序运行过程中触发某些事件或操作。例如，你可以使用 raise(SIGINT) 来模拟用户按下 Ctrl + C 来中断程序的执行。它也可以用于测试程序对特定信号的响应。</p>
 <h3>abort 函数<span class="absolute -mt-20" id="abort-函数"></span>
@@ -1720,7 +1720,7 @@
   </div>
 </div>
 <p>注意它没有参数。</p>
-<img src="./进程信号.IMG/image-20230329173336132.png" alt="image-20230329173336132" style="zoom:37%;" />
+<img src="./.进程信号.IMG/image-20230329173336132.png" alt="image-20230329173336132" style="zoom:37%;" />
 <p>当调用 abort 函数时，会导致程序异常终止，而不会进行一些常规的清除工作。和 exit 函数的区别是：后者会正常终止进程。由于 abort 本质是暴力地通过向当前进程发送 SIGABRT 信号而终止进程的，因此使用 exit 函数终止进程可能会失败，使用 abort 函数终止进程总能成功。</p>
 <h3>小结<span class="absolute -mt-20" id="小结"></span>
     <a href="#%e5%b0%8f%e7%bb%93" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>当这些产生信号的系统接口被调用时，机器执行对应的内核代码，操作系统提取参数或设置为特定的数值，向目标进程发送信号。而发送信号的本质就是修改进程 PCB 中掩码的某个标记位，位置和信号编号对应。当进程发现它的 PCB 中的掩码的某个比特位被修改了以后，就会执行事先规定好的操作。</p>
@@ -1775,7 +1775,7 @@
     </button>
   </div>
 </div>
-<img src="./进程信号.IMG/image-20230330152351149.png" alt="image-20230330152351149" style="zoom:37%;" />
+<img src="./.进程信号.IMG/image-20230330152351149.png" alt="image-20230330152351149" style="zoom:37%;" />
 <p>现在的 CPU 每秒计算数以亿次，这里却只累加了近 2 万次，造成这种情况主要是 IO 太慢了，包括：</p>
 <ol>
 <li>
@@ -1820,7 +1820,7 @@
     </button>
   </div>
 </div>
-<img src="./进程信号.IMG/image-20230330165759036.png" alt="image-20230330165759036" style="zoom:37%;" />
+<img src="./.进程信号.IMG/image-20230330165759036.png" alt="image-20230330165759036" style="zoom:37%;" />
 <p>当 1 秒后触发 alarm 后它就会被自动移除，如果想周期性地每秒打印，可以在函数中再次设置 alarm：</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">long</span> <span class="kt">long</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">Handler</span><span class="p">(</span><span class="kt">int</span> <span class="n">sigNum</span><span class="p">)</span>
@@ -1838,7 +1838,7 @@
   </div>
 </div>
 <p>将 count 定义为 long long 以避免溢出。</p>
-<img src="./进程信号.IMG/image-20230330170939779.png" alt="image-20230330170939779" style="zoom:37%;" />
+<img src="./.进程信号.IMG/image-20230330170939779.png" alt="image-20230330170939779" style="zoom:37%;" />
 <p>这样就用 alarm 实现了一个基本的定时器功能，能够每秒打印 count。</p>
 <blockquote>
 <p>为什么不用 sleep 实现周期性打印？（alarm 和 sleep 的区别）</p>
@@ -1904,7 +1904,7 @@
   </div>
 </div>
 <p>在 <code>main</code> 函数中，首先使用 <code>signal</code> 函数将 <code>SIGSEGV</code> 信号与 <code>Handler</code> 函数关联起来。然后，程序执行了一个访问空指针的操作，这会触发 <code>SIGSEGV</code> 信号。</p>
-<img src="./进程信号.IMG/image-20230330231109451.png" alt="image-20230330231109451" style="zoom:37%;" />
+<img src="./.进程信号.IMG/image-20230330231109451.png" alt="image-20230330231109451" style="zoom:37%;" />
 <p>但是程序进入了一个无限循环，这是不符合预期的，因为访问空指针应该会让进程终止，原因是我们修改了 11 号进程的默认动作，处理信号的方式被改成自定义的 Handler 函数。</p>
 <blockquote>
 <p>这样的话，是不是 1-31 信号都能这样被修改处理信号的默认动作呢？</p>
@@ -1940,7 +1940,7 @@
     </button>
   </div>
 </div>
-<img src="./进程信号.IMG/image-20230330233343954.png" alt="image-20230330233343954" style="zoom:37%;" />
+<img src="./.进程信号.IMG/image-20230330233343954.png" alt="image-20230330233343954" style="zoom:37%;" />
 <p>通过这个例子可以验证，即使用户修改了 9 号进程的默认处理方式，对于操作系统而言是无效的。</p>
 <p>补充：</p>
 <p><code>while(1)</code>是一个无限循环，它会一直执行循环体中的代码。而<code>while(1) {sleep(1)}</code>也是一个无限循环，但是每次执行完循环体中的代码后，程序会暂停 1 秒钟再继续执行下一次循环。这样可以减少程序对 CPU 的占用。</p>
@@ -2063,7 +2063,7 @@
 <li>handler：表示信号被递达时的处理动作，下标和信号编号对应。</li>
 </ul>
 <p>每个信号都有两个标志位分别表示阻塞（block，1）和未决（pending，0），还有一个函数指针用来表示处理动作。信号产生时，内核在 PCB 中设置该信号的未决状态，直到信号递达才清除该标志。</p>
-<img src="./进程信号.IMG/image-20230331161543944.png" alt="image-20230331161543944" style="zoom:37%;" />
+<img src="./.进程信号.IMG/image-20230331161543944.png" alt="image-20230331161543944" style="zoom:37%;" />
 <p>blocked 和 pending 搭配工作，在 blocked 中标志位为 1 的信号是被阻塞的，要让进程处理它，必须让标志位被置为 0，即解除阻塞。</p>
 <p>图中的 SIGUP 信号既未被进程阻塞，也未被接收，因为 blocked 和 pending 掩码的第 1 比特位是 0，因此它在被递达时会执行内核设置的默认动作，而不会调用 handler 数组中的自定义处理方式（如果注册的话），即函数 1。</p>
 <p>图中 SIGINT 信号的两个掩码都被设置为 1，表示 SIGINT 信号被进程接收后被阻塞，保持在未决状态，即使处理这个信号的默认处理方式是忽略，进程也必须在解除阻塞以后再忽略，因为忽略是处理信号的一种方式。</p>
@@ -2211,7 +2211,7 @@
     </button>
   </div>
 </div>
-<img src="./进程信号.IMG/屏幕录制2023-03-31 23.13.00.gif" alt="屏幕录制 2023-03-31 23.13.00" style="zoom:37%;" />
+<img src="./.进程信号.IMG/屏幕录制2023-03-31 23.13.00.gif" alt="屏幕录制 2023-03-31 23.13.00" style="zoom:37%;" />
 <p><code>signal</code>函数用于设置信号处理函数，但并不是所有的信号都可以被阻塞。例如，<code>SIGKILL</code>和<code>SIGSTOP</code>这两个信号是不能被阻塞的。因为它们是用来强制终止或暂停一个进程的。如果这两个信号可以被阻塞，那么就可能出现无法终止或暂停一个进程的情况，这会影响系统的稳定性和安全性。所以，操作系统设计者决定不允许这两个信号被阻塞。</p>
 <blockquote>
 <p>其中 while(1) 的作用是让进程一直运行，能不断读取信号，加上 sleep 的原因是减少对内存资源的占用。</p>
@@ -2368,7 +2368,7 @@
 <p>然后，程序使用<code>sigemptyset</code>函数初始化这三个信号集对象，然后使用<code>sigaddset</code>函数将信号 2（即<code>SIGINT</code>）添加到<code>bset</code>中。</p>
 <p>接下来，程序使用<code>sigprocmask</code>函数将进程的阻塞信号集设置为<code>bset</code>，并将原来的阻塞信号集保存在<code>obset</code>中。这样，信号 2 就被阻塞了。</p>
 <p>接下来，程序进入一个无限循环。在每次循环中，程序首先使用<code>sigpending</code>函数获取当前进程的未决信号集，并将其存储在<code>pending</code>中。然后，程序调用自定义的函数<code>showPending</code>来显示未决信号集中未被递达的信号对应的比特位。</p>
-<img src="./进程信号.IMG/屏幕录制2023-04-01 00.00.48.gif" alt="屏幕录制 2023-04-01 00.00.48" style="zoom:37%;" />
+<img src="./.进程信号.IMG/屏幕录制2023-04-01 00.00.48.gif" alt="屏幕录制 2023-04-01 00.00.48" style="zoom:37%;" />
 <p>这里为了演示时能直接使用 ctrl + C 给进程发送 2 号信号，所以在代码中屏蔽了 2 号信号，打印 PID 是为了能 kill 方便一些。通过演示，可以看到进程接收到 2 号信号以后， pending 中的第二个比特位就被从 0 改写为 1。最后是随便用了 1 号信号终止了进程。</p>
 <blockquote>
 <p>补充：</p>
@@ -2433,7 +2433,7 @@
     </button>
   </div>
 </div>
-<img src="./进程信号.IMG/屏幕录制2023-04-01 00.41.57.gif" alt="屏幕录制 2023-04-01 00.41.57" style="zoom:37%;" />
+<img src="./.进程信号.IMG/屏幕录制2023-04-01 00.41.57.gif" alt="屏幕录制 2023-04-01 00.41.57" style="zoom:37%;" />
 <p>用计数器控制 2 号信号只有 10 秒的阻塞状态，在这 10 秒期间，一旦进程接收到 2 号信号，pending 信号集的第二个比特位就会 0-&gt;1，但是不会调用 handler 处理信号，因为它被阻塞了；10 秒过后解除对 2 号的阻塞，那么这个比特位就会复原为 0，并调用 handler 对信号进行处理。</p>
 <p>注意：</p>
 <ul>
@@ -2529,18 +2529,18 @@
 <p>在 Linux 系统中，无法运行 .sh 脚本的原因可能有很多。一个常见的原因是脚本文件没有执行权限。你可以使用 chmod 命令来给予脚本文件执行权限，例如 chmod u+x script.sh 。</p>
 <p>此外，你也可以通过将脚本文件作为参数传递给 shell 来运行它，例如 bash script.sh。</p>
 </blockquote>
-<img src="./进程信号.IMG/image-20230401011326247.png" alt="image-20230401011326247" style="zoom:37%;" />
+<img src="./.进程信号.IMG/image-20230401011326247.png" alt="image-20230401011326247" style="zoom:37%;" />
 <p>这段代码首先阻塞了所有信号，然后每隔一秒钟检查一次 pending 信号集，并打印出 pending 信号集中的所有信号。如果有未决信号，它会在屏幕上显示为 1，否则显示为 0。本来只有 9 和 19 号不打印 1，即只有 2 列 0，但是这里有 3 列 0。多出来的是 20 号信号。</p>
 <p>20 号信号是 SIGTSTP，它是一个终端上发出的停止信号，通常是由用户键入 SUSP 字符（通常是 Ctrl + Z）发出的 1。这个信号可以被处理和忽略。在这里应该是被忽略了。</p>
 <p>但最主要的是要知道 9 号和 19 号是不能被捕捉、屏蔽的。</p>
-<img src="./进程信号.IMG/image-20230401011538755.png" alt="image-20230401011538755" style="zoom:37%;" />
+<img src="./.进程信号.IMG/image-20230401011538755.png" alt="image-20230401011538755" style="zoom:37%;" />
 <h1>4. 捕捉信号</h1><h2>4.1 内核空间和用户空间<span class="absolute -mt-20" id="41-内核空间和用户空间"></span>
     <a href="#41-%e5%86%85%e6%a0%b8%e7%a9%ba%e9%97%b4%e5%92%8c%e7%94%a8%e6%88%b7%e7%a9%ba%e9%97%b4" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>操作系统会给进程一个大小为 4G 的进程地址空间，在这个虚拟地址空间中划分为两种：</p>
 <ul>
 <li>0-3G：用户地址空间；</li>
 <li>3G-4G：内核地址空间。</li>
 </ul>
-<img src="./进程信号.IMG/image-20230401152200004.png" alt="image-20230401152200004" style="zoom:37%;" />
+<img src="./.进程信号.IMG/image-20230401152200004.png" alt="image-20230401152200004" style="zoom:37%;" />
 <p>内核空间和用户空间是操作系统中虚拟地址空间的两个部分。内核空间是操作系统内核访问的区域，独立于普通的应用程序，是受保护的内存空间。用户空间是普通应用程序可访问的内存区域，以供进程使用。</p>
 <blockquote>
 <p>内核如何使用内核地址空间？</p>
@@ -2665,17 +2665,17 @@
 <li>这样的机制是确保内核代码能够安全地执行完毕，避免出现问题。当进程在内核态执行系统调用时，它正在执行关键的操作，例如读取或写入文件、分配内存等。如果在这个时候立即传递信号并执行信号处理函数，可能会导致内核代码的执行被中断，从而导致系统状态不一致或其他问题。</li>
 </ul>
 <p>对于上面这种未决但未被阻塞的信号，且信号的处理动作是默认，进程的状态切换流程时这样的：</p>
-<img src="./进程信号.IMG/image-20230401194508662.png" alt="image-20230401194508662" style="zoom:37%;" />
+<img src="./.进程信号.IMG/image-20230401194508662.png" alt="image-20230401194508662" style="zoom:37%;" />
 <p>其中，以中间的横线分隔用户态和进程态的进程地址空间。</p>
 <h3>处理信号是自定义动作<span class="absolute -mt-20" id="处理信号是自定义动作"></span>
     <a href="#%e5%a4%84%e7%90%86%e4%bf%a1%e5%8f%b7%e6%98%af%e8%87%aa%e5%ae%9a%e4%b9%89%e5%8a%a8%e4%bd%9c" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>前面都是铺垫和知识上的补充，下面才是内核协助进程捕捉信号的内容。进程接收到信号后，调用为该信号注册的处理程序来处理信号，自定义处理函数属于用户空间，所以为了安全（上面有说明原因），需要切换到用户态执行自定义动作。执行完毕以后再回到系统调用代码内中断的地方，执行完系统调用程序后，再回到 main 函数中的主执行流。</p>
-<img src="./进程信号.IMG/image-20230401201210764.png" alt="image-20230401201210764" style="zoom:37%;" />
+<img src="./.进程信号.IMG/image-20230401201210764.png" alt="image-20230401201210764" style="zoom:37%;" />
 <p>其中的逻辑增加了内核态-&gt;用户态执行自定义处理函数、回到内核态继续执行系统调用和执行完系统调用后回到用户态继续执行主执行流。其中切换状态的函数我们暂时不必关心，这是操作系统完成的。</p>
 <blockquote>
 <p>handler 和 main 函数在不同的堆栈空间，它们之间不存在调用和被调用的关系，是两个独立的控制流程。</p>
 </blockquote>
 <p>上面的流程就像一个$∞$符号，因此可以这样记忆处理信号是自定义动作的进程切换流程：</p>
-<img src="./进程信号.IMG/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAMjAyMWRyYWdvbg==,size_20,color_FFFFFF,t_70,g_se,x_16.png" alt="在这里插入图片描述" style="zoom:37%;" />
+<img src="./.进程信号.IMG/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAMjAyMWRyYWdvbg==,size_20,color_FFFFFF,t_70,g_se,x_16.png" alt="在这里插入图片描述" style="zoom:37%;" />
 <blockquote>
 <p>图片来源于龙哥的博客 <a href="https://blog.csdn.net/chenlong_cxy/article/details/121315266#_94" target="_blank" rel="noopener">Linux 进程信号_2021dragon 的博客-CSDN 博客</a></p>
 </blockquote>
@@ -2798,9 +2798,9 @@
 <blockquote>
 <p>(int)(oact.sa_handler) 是将 oact 结构体中的 sa_handler 成员强制转换为整数类型并输出，以检查默认的信号处理动作是否符合预期。</p>
 </blockquote>
-<img src="./进程信号.IMG/image-20230401225659607.png" alt="image-20230401225659607" style="zoom:37%;" />
+<img src="./.进程信号.IMG/image-20230401225659607.png" alt="image-20230401225659607" style="zoom:37%;" />
 <p>如果将代码中的 signal 去掉注释，捕捉 2 号信号，默认处理动作会发生变化：</p>
-<img src="./进程信号.IMG/image-20230401230124731.png" alt="image-20230401230124731" style="zoom:37%;" />
+<img src="./.进程信号.IMG/image-20230401230124731.png" alt="image-20230401230124731" style="zoom:37%;" />
 <h3>as_mask<span class="absolute -mt-20" id="as_mask"></span>
     <a href="#as_mask" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>处理信号时，执行自定义动作，如果在处理信号期间又接收到可能不止一个相同的信号，OS 如何处理？如果自定义捕捉方法中有系统调用的话，一直有相同信号就会一直不断调用，进入内核。OS 无法阻止传入多少个信号，但是能限制什么时候处理信号。</p>
 <p>这就是 blocked 屏蔽的意义。</p>
@@ -2858,7 +2858,7 @@
     </button>
   </div>
 </div>
-<img src="./进程信号.IMG/屏幕录制2023-04-02 01.25.04.gif" alt="屏幕录制 2023-04-02 01.25.04" style="zoom:37%;" />
+<img src="./.进程信号.IMG/屏幕录制2023-04-02 01.25.04.gif" alt="屏幕录制 2023-04-02 01.25.04" style="zoom:37%;" />
 <p>这就验证了在默认情况下，同时发送多个信号，进程会屏蔽后面的信号，避免信号递归处理。如果想屏蔽 3/5/6 号信号呢？</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">handler</span><span class="p">(</span><span class="kt">int</span> <span class="n">sigNum</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -2913,7 +2913,7 @@
   </div>
 </div>
 <p>注意为了测试，将 count 计数器增大到了 20。</p>
-<img src="./进程信号.IMG/屏幕录制2023-04-02 15.12.01.gif" alt="屏幕录制 2023-04-02 15.12.01" style="zoom:37%;" />
+<img src="./.进程信号.IMG/屏幕录制2023-04-02 15.12.01.gif" alt="屏幕录制 2023-04-02 15.12.01" style="zoom:37%;" />
 <h1>5. 可重入函数</h1><blockquote>
 <p>本小节为学习线程做铺垫。</p>
 </blockquote>
@@ -2927,18 +2927,18 @@
 <p>假设有一个函数用于在有头结点的链表中插入一个新节点。如果这个函数使用了一个全局变量来存储链表的头结点，那么当这个函数在执行过程中被中断，并且中断处理程序也调用了这个函数时，全局变量的值就会被改变，导致原来的插入操作出错。这样的函数就是不可重入的。</p>
 <p>相反，如果这个函数不使用全局变量，而是将链表的头结点作为参数传递给函数，那么即使在执行过程中被中断，也不会影响插入操作。这样的函数就是可重入的。</p>
 <p>为了方便，下面用一个有 head 指针的链表头插操作为例。对于一个有头结点的链表，它定义在全局，两个新结点 node2 和 node3 也是全局的。</p>
-<img src="./进程信号.IMG/image-20230402155358258.png" alt="image-20230402155358258" style="zoom:37%;" />
+<img src="./.进程信号.IMG/image-20230402155358258.png" alt="image-20230402155358258" style="zoom:37%;" />
 <p>在 main 函数中调用了 insert 函数插入新结点 node2，而某个自定义的信号处理函数中也插入了新结点 node3 。插入的步骤分为两步：</p>
-<img src="./进程信号.IMG/image-20230402155531283.png" alt="image-20230402155531283" style="zoom:37%;" />
+<img src="./.进程信号.IMG/image-20230402155531283.png" alt="image-20230402155531283" style="zoom:37%;" />
 <p>这里并未强调插入的步骤是如何的，只是为了说明插入步骤是需要一定时间的，也就是说，插入操作有可能被中断。</p>
 <p>首先要明确的是，当 main 函数在执行插入操作时遇到硬件中断，它会被暂停，CPU 会切换到内核态，开始执行中断处理程序。在中断处理程序执行完毕后，CPU 会切换回用户态，继续执行 main 函数中被暂停的插入操作。如果硬件中断触发的信号有用户自定义的信号捕捉函数，那么在中断处理程序执行完毕后，操作系统会调用用户自定义的信号捕捉函数。</p>
 <blockquote>
 <p>在本文的 2.4 小节中说明了硬件中断的发生。</p>
 </blockquote>
 <p>在中断信号发生之前，main 函数中的 insert 函数优先被调用，用于插入 node2 结点。假如它只进行了插入操作的第一步，中断信号就发生了，此时 CPU 会陷入内核。执行完中断程序后便调用自定义信号捕捉函数 handler，而 handler 中也调用了 insert 用于插入 node 3。注意，此时 main 函数中的 insert 还未执行完。</p>
-<img src="./进程信号.IMG/image-20230402162318457.png" alt="image-20230402162318457" style="zoom:37%;" />
+<img src="./.进程信号.IMG/image-20230402162318457.png" alt="image-20230402162318457" style="zoom:37%;" />
 <p>当 CPU 处于内核态执行完自定义信号捕捉函数 handler 中的 insert 的两个步骤后，整个链表的状态是这样的。CPU 切换回用户态后，继续执行 main 函数的 insert 操作剩下的第二步：头插后更新头结点。</p>
-<img src="./进程信号.IMG/image-20230402162424955.png" alt="image-20230402162424955" style="zoom:37%;" />
+<img src="./.进程信号.IMG/image-20230402162424955.png" alt="image-20230402162424955" style="zoom:37%;" />
 <p>可见，虽然 main 函数的 insert 操作和 handler 的 insert 操作都被完整地执行完毕，但是就是执行的顺序上的错误造成了 node3 结点无法被链接到链表中，造成了内存泄漏。</p>
 <blockquote>
 <p>通过头结点 head 无法找到 node3 ，那么在释放资源时也无法释放 node3 结点的资源，造成内存泄漏。</p>
@@ -3004,7 +3004,7 @@
   </div>
 </div>
 <p>它定义了一个全局变量 flag，并在 changeFlag 函数中将其值从 0 改为 1。当程序接收到 2 号信号时，会调用 changeFlag 函数。程序会一直循环，直到 flag 的值被改变为 1。</p>
-<img src="./进程信号.IMG/image-20230402170316608.png" alt="image-20230402170316608" style="zoom:37%;" />
+<img src="./.进程信号.IMG/image-20230402170316608.png" alt="image-20230402170316608" style="zoom:37%;" />
 <p>这是未被优化的情况，说明 CPU 察觉到了全局变量 flag 从 0-&gt;1，才能结束循环，终止进程。</p>
 <blockquote>
 <p>注意，这里的 while(!flag) 中并未 sleep，稍后会解释它存在与否对结果的影响。</p>
@@ -3022,7 +3022,7 @@
     </button>
   </div>
 </div>
-<img src="./进程信号.IMG/image-20230402173000393.png" alt="image-20230402173000393" style="zoom:37%;" />
+<img src="./.进程信号.IMG/image-20230402173000393.png" alt="image-20230402173000393" style="zoom:37%;" />
 <p>即使捕捉到 2 号信号在自定义处理函数中第一次打印了 0-&gt;1，继续执行 while 时，并不能终止循环。首先要知道，CPU 运算数据，首先要将内存中的数据 load 到 CPU 上，对于全局变量也是一样的，不过编译器优化后，它只会检查在 main 函数中修改它的语句，如果有修改才会重新 load 到 CPU 上，然而这里没有在 main 修改，而是在回调函数中修改的。优化以后，CPU 只在第一次使用全局变量时将它 load 到 CPU 中，并用寄存器保存着，main 中无修改的语句，它就会一直使用寄存器中的值，所以这里在 CPU 眼中的全局变量 flag 一直是初识状态的 1。</p>
 <p>要避免这种情况，就要用 volatile 修饰全局变量 flag，告诉编译器让 CPU 每次使用这个变量时都到内存中 load。</p>
 <p>除此之外，在 while 中使用 sleep 也能达到同样的效果。原因是：sleep 函数会让程序暂停执行一段时间，这样可以让操作系统有机会调度其他进程运行。当使用 g++ 编译器加上 -O3 选项来编译这段代码时，编译器会进行更多的优化，其中之一就是循环展开。如果没有在循环中加入 sleep 函数，那么编译器可能会认为这个循环永远不会终止，因此它会将循环展开成一个无限循环，导致程序无法退出，也就无法抽出空隙更新 flag 的值，虽然 -O3 选项的存在也使得 CPU 无法获取内存中变量的实时值，但单纯的 while 死循环会占用 CPU 大量的算力。</p>
@@ -3078,7 +3078,7 @@
     </button>
   </div>
 </div>
-<img src="./进程信号.IMG/屏幕录制2023-04-02 18.07.30.gif" alt="屏幕录制 2023-04-02 18.07.30" style="zoom:37%;" />
+<img src="./.进程信号.IMG/屏幕录制2023-04-02 18.07.30.gif" alt="屏幕录制 2023-04-02 18.07.30" style="zoom:37%;" />
 <p>在 main 函数中，首先使用 signal 函数将 SIGCHLD 信号与 handler 函数关联起来，然后使用 fork 函数创建一个子进程。</p>
 <p>在子进程中，程序会打印出子进程的 PID，并等待 5 秒后退出。在父进程中，程序会一直循环等待。当子进程退出时，操作系统会向父进程发送一个 SIGCHLD 信号，父进程接收到这个信号后会调用 handler 函数来处理这个信号。在 handler 函数中，程序会打印出信号的编号和父进程的 PID。</p>
 <p>通过演示过程证明了子进程退出会向父进程发送 17 号信号，同时可以知道，即使在进程外部给父进程发送 17 号信号，它也是能够识别的。</p>
@@ -3121,7 +3121,7 @@
     </button>
   </div>
 </div>
-<img src="./进程信号.IMG/屏幕录制2023-04-02 18.53.08.gif" alt="屏幕录制 2023-04-02 18.53.08" style="zoom:37%;" />
+<img src="./.进程信号.IMG/屏幕录制2023-04-02 18.53.08.gif" alt="屏幕录制 2023-04-02 18.53.08" style="zoom:37%;" />
 <blockquote>
 <p>父进程调用 wait 函数来回收子进程的资源。此外，wait 函数还可以让父进程获取子进程的退出状态，以便根据子进程的运行结果来执行相应的操作。</p>
 </blockquote>
@@ -3154,7 +3154,7 @@
     </button>
   </div>
 </div>
-<img src="./进程信号.IMG/image-20230402190623192.png" alt="image-20230402190623192" style="zoom:37%;" />
+<img src="./.进程信号.IMG/image-20230402190623192.png" alt="image-20230402190623192" style="zoom:37%;" />
 <hr>
 <p>如果想不等待子进程，既自动让子进程退出，又想让它自己回收资源。可以用 signal 函数手动设置捕捉到 SIGCHLD 信号后以忽略方式处理：</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">signal</span><span class="p">(</span><span class="n">SIGCHLD</span><span class="p">,</span> <span class="n">SIG_IGN</span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
@@ -3167,7 +3167,7 @@
     </button>
   </div>
 </div>
-<img src="./进程信号.IMG/image-20230402191140157.png" alt="image-20230402191140157" style="zoom:37%;" />
+<img src="./.进程信号.IMG/image-20230402191140157.png" alt="image-20230402191140157" style="zoom:37%;" />
 
         </div>
         <div class="mt-16"></div>

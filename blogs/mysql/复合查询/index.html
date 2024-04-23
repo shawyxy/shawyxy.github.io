@@ -826,14 +826,14 @@ DROP database IF EXISTS `scott`; CREATE database IF NOT EXISTS `scott` DEFAULT C
   </div>
 </div>
 <p>这些 SQL 将保存在一个以<code>.sql</code>结尾的文件中，然后再 MySQL 中使用 source 命令执行它：</p>
-<img src="./复合查询.IMG/image-20231120224457885.png" alt="image-20231120224457885" style="zoom:50%;" />
-<img src="./复合查询.IMG/image-20231120224535610.png" alt="image-20231120224535610" style="zoom:50%;" />
+<img src="./.复合查询.IMG/image-20231120224457885.png" alt="image-20231120224457885" style="zoom:50%;" />
+<img src="./.复合查询.IMG/image-20231120224535610.png" alt="image-20231120224535610" style="zoom:50%;" />
 <p>部门表的结构和内容：</p>
-<img src="./复合查询.IMG/image-20231120224615277.png" alt="image-20231120224615277" style="zoom:50%;" />
+<img src="./.复合查询.IMG/image-20231120224615277.png" alt="image-20231120224615277" style="zoom:50%;" />
 <p>员工表的结构和内容：</p>
-<img src="./复合查询.IMG/image-20231120224654193.png" alt="image-20231120224654193" style="zoom:50%;" />
+<img src="./.复合查询.IMG/image-20231120224654193.png" alt="image-20231120224654193" style="zoom:50%;" />
 <p>工资等级表的结构和内容：</p>
-<img src="./复合查询.IMG/image-20231120224735460.png" alt="image-20231120224735460" style="zoom:50%;" />
+<img src="./.复合查询.IMG/image-20231120224735460.png" alt="image-20231120224735460" style="zoom:50%;" />
 <h1>单表查询</h1><ul>
 <li>查询工资高于 500 或岗位为 MANAGER 的员工，同时要求员工姓名的首字母为大写的 J</li>
 </ul>
@@ -842,54 +842,54 @@ DROP database IF EXISTS `scott`; CREATE database IF NOT EXISTS `scott` DEFAULT C
 <li>其次明确条件有 3 个，通过题意使用 AND 或 OR 连接。</li>
 <li>这些属性都能在表<code>emp</code>中找到。</li>
 </ol>
-<img src="./复合查询.IMG/image-20240223141215636-3788232.png" alt="image-20240223141215636" style="zoom:50%;" />
+<img src="./.复合查询.IMG/image-20240223141215636-3788232.png" alt="image-20240223141215636" style="zoom:50%;" />
 <ul>
 <li>查询员工信息，按部门号升序而员工工资降序显示</li>
 </ul>
-<img src="./复合查询.IMG/image-20240223142015140-3788232.png" alt="image-20240223142015140" style="zoom:50%;" />
+<img src="./.复合查询.IMG/image-20240223142015140-3788232.png" alt="image-20240223142015140" style="zoom:50%;" />
 <ul>
 <li>查询员工信息，按年薪降序显示</li>
 </ul>
 <p>注意年薪应该是 12 倍的月薪+奖金，而奖金可能为 NULL，为了避免年薪为 NULL，此时应该为 0</p>
-<img src="./复合查询.IMG/image-20240223142443930-3788232.png" alt="image-20240223142443930" style="zoom:50%;" />
+<img src="./.复合查询.IMG/image-20240223142443930-3788232.png" alt="image-20240223142443930" style="zoom:50%;" />
 <ul>
 <li>查询工资最高的员工的姓名和岗位</li>
 </ul>
-<img src="./复合查询.IMG/image-20240223142647854-3788232.png" alt="image-20240223142647854" style="zoom:50%;" />
+<img src="./.复合查询.IMG/image-20240223142647854-3788232.png" alt="image-20240223142647854" style="zoom:50%;" />
 <ul>
 <li>查询工资高于平均工资的员工信息</li>
 </ul>
-<img src="./复合查询.IMG/image-20240223142738492-3788232.png" alt="image-20240223142738492" style="zoom:50%;" />
+<img src="./.复合查询.IMG/image-20240223142738492-3788232.png" alt="image-20240223142738492" style="zoom:50%;" />
 <ul>
 <li>查询每个部门的平均工资和最高工资</li>
 </ul>
 <p>group by 子句按照部门号来计算每一组的平均工资和最高工资。</p>
-<img src="./复合查询.IMG/image-20240223142929951-3788232.png" alt="image-20240223142929951" style="zoom:50%;" />
+<img src="./.复合查询.IMG/image-20240223142929951-3788232.png" alt="image-20240223142929951" style="zoom:50%;" />
 <ul>
 <li>查询平均工资低于 2000 的部门号和它的平均工资</li>
 </ul>
-<img src="./复合查询.IMG/image-20240223143202622-3788232.png" alt="image-20240223143202622" style="zoom:50%;" />
+<img src="./.复合查询.IMG/image-20240223143202622-3788232.png" alt="image-20240223143202622" style="zoom:50%;" />
 <p>HAVING 子句通常与 GROUP BY 子句一起使用。当它在 GROUP BY 子句中使用时，我们可以应用它在 GROUP BY 子句之后来指定过滤的条件。如果省略了 GROUP BY 子句，HAVING 子句行为就像 WHERE 子句一样。</p>
 <p>请注意，HAVING 子句应用筛选条件每一个分组的行，而 WHERE 子句的过滤条件是过滤每个单独的行。</p>
 <ul>
 <li>查询每种岗位的雇员总数和平均工资</li>
 </ul>
-<img src="./复合查询.IMG/image-20240223143938698-3788232.png" alt="image-20240223143938698" style="zoom:50%;" />
+<img src="./.复合查询.IMG/image-20240223143938698-3788232.png" alt="image-20240223143938698" style="zoom:50%;" />
 <h1>多表查询</h1><p>由于在查询时可能会用到不止一张表中的属性，所以要用到多表查询，其 SQL 的语法和单表查询是类似的。</p>
 <p>需要注意的是，多表查询实际上是从若干表的笛卡尔积中操作的。多表的笛卡尔积指的是用其中一张表的一条记录去和剩余的整张表组合，以此类推。因此笛卡尔积保存了这些表记录的所有可能的集合，但是集合中的组合并不全是有意义的，而且不同表中也可能有相同的列属性（例如雇员表和工资表都有部门号），所以在合并多表时，需要要筛选符合逻辑的组合，并且合并相同的列属性。</p>
 <p>例如这个查询返回了一个原始的笛卡尔积集合。</p>
-<img src="./复合查询.IMG/image-20240223145352545-3788232.png" alt="image-20240223145352545" style="zoom:50%;" />
+<img src="./.复合查询.IMG/image-20240223145352545-3788232.png" alt="image-20240223145352545" style="zoom:50%;" />
 <p>通过这个结果可以知道 MySQL 是不断地用前一张表的一条记录来和另外一个表组合来求笛卡尔积的：前半部分是雇员表，后半部分是部门表。在这一行中有两个部门号，部门号不同的记录都是没有意义的。</p>
 <p>在用 SQL 操作不同表的相同列属性时，可以用<code>表名。列名</code>来表示。</p>
 <ul>
 <li>显示部门号为 10 的部门名、员工名和员工工资</li>
 </ul>
 <p>后面的 where 子句就是在上面这个原始的笛卡尔积中筛选符合题意的记录。</p>
-<img src="./复合查询.IMG/image-20240223145946421-3788232.png" alt="image-20240223145946421" style="zoom:50%;" />
+<img src="./.复合查询.IMG/image-20240223145946421-3788232.png" alt="image-20240223145946421" style="zoom:50%;" />
 <ul>
 <li>显示各个员工的姓名、工资和工资级别</li>
 </ul>
-<img src="./复合查询.IMG/image-20240223150447843-3788232.png" alt="image-20240223150447843" style="zoom:50%;" />
+<img src="./.复合查询.IMG/image-20240223150447843-3788232.png" alt="image-20240223150447843" style="zoom:50%;" />
 <p>员工的工资决定了工资等级，因此只有这两个属性对应才能是有意义的记录。</p>
 <h1>子查询</h1><h2>单行子查询<span class="absolute -mt-20" id="单行子查询"></span>
     <a href="#%e5%8d%95%e8%a1%8c%e5%ad%90%e6%9f%a5%e8%af%a2" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>返回单行单列数据的子查询。</p>
@@ -900,7 +900,7 @@ DROP database IF EXISTS `scott`; CREATE database IF NOT EXISTS `scott` DEFAULT C
 <li>子查询：首先查询 SMITH 的部门号 x 作为查询的依据</li>
 <li>然后选出部门号为 x 且不是 SMITH 的员工</li>
 </ol>
-<img src="./复合查询.IMG/image-20240223151555326-3788232.png" alt="image-20240223151555326" style="zoom:50%;" />
+<img src="./.复合查询.IMG/image-20240223151555326-3788232.png" alt="image-20240223151555326" style="zoom:50%;" />
 <h2>多行子查询<span class="absolute -mt-20" id="多行子查询"></span>
     <a href="#%e5%a4%9a%e8%a1%8c%e5%ad%90%e6%9f%a5%e8%af%a2" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>返回多行单列数据的子查询。</p>
 <h3>IN 关键字<span class="absolute -mt-20" id="in-关键字"></span>
@@ -911,7 +911,7 @@ DROP database IF EXISTS `scott`; CREATE database IF NOT EXISTS `scott` DEFAULT C
 <li>子查询：首先查询 10 号部门有哪些工作岗位，查询时去重，将结果作为查询的依据</li>
 <li>通过在查询的 where 子句中使用 IN 关键字，判断工作岗位是否在子查询的返回值中</li>
 </ol>
-<img src="./复合查询.IMG/image-20240223152440417-3788232.png" alt="image-20240223152440417" style="zoom:50%;" />
+<img src="./.复合查询.IMG/image-20240223152440417-3788232.png" alt="image-20240223152440417" style="zoom:50%;" />
 <h3>ALL 关键字<span class="absolute -mt-20" id="all-关键字"></span>
     <a href="#all-%e5%85%b3%e9%94%ae%e5%ad%97" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
 <li>显示工资比 30 号部门的所有员工的工资高的员工的姓名、工资和部门号</li>
@@ -920,7 +920,7 @@ DROP database IF EXISTS `scott`; CREATE database IF NOT EXISTS `scott` DEFAULT C
 <li>子查询：首先查询 30 号部门有哪些工资，查询时去重，将结果作为查询的依据</li>
 <li>通过在查询的 where 子句使用 ALL 关键字，判断工资是否<strong>都</strong>大于子查询的返回值。</li>
 </ol>
-<img src="./复合查询.IMG/image-20240223152816856-3788232.png" alt="image-20240223152816856" style="zoom:50%;" />
+<img src="./.复合查询.IMG/image-20240223152816856-3788232.png" alt="image-20240223152816856" style="zoom:50%;" />
 <p>这是一个常见的逻辑问题，要判断某个值是否大于集合中的所有元素，只需要判断这个值是否大于集合中的最大值。这和上面是等价的。</p>
 <h3>ANY 关键字<span class="absolute -mt-20" id="any-关键字"></span>
     <a href="#any-%e5%85%b3%e9%94%ae%e5%ad%97" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
@@ -930,7 +930,7 @@ DROP database IF EXISTS `scott`; CREATE database IF NOT EXISTS `scott` DEFAULT C
 <li>子查询：首先查询 30 号部门有哪些工资，查询时去重，将结果作为查询的依据</li>
 <li>通过在查询的 where 子句使用 ANY 关键字，判断工资是否<strong>都</strong>大于子查询的返回值。</li>
 </ol>
-<img src="./复合查询.IMG/image-20240223153302976-3788232.png" alt="image-20240223153302976" style="zoom:50%;" />
+<img src="./.复合查询.IMG/image-20240223153302976-3788232.png" alt="image-20240223153302976" style="zoom:50%;" />
 <p>同样地，这也可以等价地转换为求最小值的问题。</p>
 <h2>多列子查询<span class="absolute -mt-20" id="多列子查询"></span>
     <a href="#%e5%a4%9a%e5%88%97%e5%ad%90%e6%9f%a5%e8%af%a2" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>返回多列数据的子查询。</p>
@@ -941,7 +941,7 @@ DROP database IF EXISTS `scott`; CREATE database IF NOT EXISTS `scott` DEFAULT C
 <li>子查询：首先查询 SMITH 的部门号和岗位，将结果作为查询的依据</li>
 <li>在子查询的返回值中筛选名字不是 SMITH 的记录</li>
 </ol>
-<img src="./复合查询.IMG/image-20240223154037220-3788232.png" alt="image-20240223154037220" style="zoom:50%;" />
+<img src="./.复合查询.IMG/image-20240223154037220-3788232.png" alt="image-20240223154037220" style="zoom:50%;" />
 <p>注意：</p>
 <ul>
 <li>多列子查询得到的结果是多列数据，在比较多列数据时需要将待比较的多个列用圆括号括起来，并且列属性的位置要对应。</li>
@@ -955,7 +955,7 @@ DROP database IF EXISTS `scott`; CREATE database IF NOT EXISTS `scott` DEFAULT C
 <li>计算每个部门的平均工资，作为一张表</li>
 <li>将平均工资表和雇员表做笛卡尔积，选出部门号和平均工资表相同的记录，并且要求工资大于平均工资。</li>
 </ol>
-<img src="./复合查询.IMG/image-20240223155933165-3788232.png" alt="image-20240223155933165" style="zoom:50%;" />
+<img src="./.复合查询.IMG/image-20240223155933165-3788232.png" alt="image-20240223155933165" style="zoom:50%;" />
 <p>其中子查询的别名是 avg_sal。</p>
 <ul>
 <li>显示每个部门工资最高的员工的姓名、工资、部门和部门的最高工资</li>
@@ -964,7 +964,7 @@ DROP database IF EXISTS `scott`; CREATE database IF NOT EXISTS `scott` DEFAULT C
 <li>查询每个部门的最高工资作为子查询</li>
 <li>将最高工资表和雇员表做笛卡尔积，要求两表中的部门号相同，且员工工资在最高工资中可被查询到。</li>
 </ol>
-<img src="./复合查询.IMG/image-20240223160621799-3788232.png" alt="image-20240223160621799" style="zoom:50%;" />
+<img src="./.复合查询.IMG/image-20240223160621799-3788232.png" alt="image-20240223160621799" style="zoom:50%;" />
 <ul>
 <li>显示每个部门的部门名、部门编号、所在地址和人员数量</li>
 </ul>
@@ -972,7 +972,7 @@ DROP database IF EXISTS `scott`; CREATE database IF NOT EXISTS `scott` DEFAULT C
 <li>查询每个部门的人员数量作为子查询</li>
 <li>将人员数量表和雇员表做笛卡尔积，要求两表的部门编号一致</li>
 </ol>
-<img src="./复合查询.IMG/image-20240223162639732-3788232.png" alt="image-20240223162639732" style="zoom:50%;" />
+<img src="./.复合查询.IMG/image-20240223162639732-3788232.png" alt="image-20240223162639732" style="zoom:50%;" />
 <h1>合并查询</h1><p>将多个查询结果进行合并，可使用的操作符有：</p>
 <ul>
 <li>
@@ -986,11 +986,11 @@ DROP database IF EXISTS `scott`; CREATE database IF NOT EXISTS `scott` DEFAULT C
 </li>
 </ul>
 <p>如果用 or 连接两个筛选条件：</p>
-<img src="./复合查询.IMG/image-20240223163700457-3788232.png" alt="image-20240223163700457" style="zoom:50%;" />
+<img src="./.复合查询.IMG/image-20240223163700457-3788232.png" alt="image-20240223163700457" style="zoom:50%;" />
 <p>如果分别对两个条件做两次查询，并且用 UNION 对两个查询结果做合并：
-<img src="./复合查询.IMG/image-20240223163839625-3788232.png" alt="image-20240223163839625" style="zoom:50%;" /></p>
+<img src="./.复合查询.IMG/image-20240223163839625-3788232.png" alt="image-20240223163839625" style="zoom:50%;" /></p>
 <p>如果分别对两个条件做两次查询，并且用 UNION ALL 对两个查询结果做合并：</p>
-<img src="./复合查询.IMG/image-20240223164010642-3788232.png" alt="image-20240223164010642" style="zoom:50%;" />
+<img src="./.复合查询.IMG/image-20240223164010642-3788232.png" alt="image-20240223164010642" style="zoom:50%;" />
 <p>由此可见，UNION ALL 只是单纯地对两张表进行合并，并不会做去重工作。</p>
 <p>需要注意的是：</p>
 <ul>

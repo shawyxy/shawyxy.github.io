@@ -222,9 +222,9 @@
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;在这个目录下会增加一个同名目录：&lt;/p&gt;
-&lt;img src=&#34;./数据库基础（一）.IMG/image-20231021184729051.png&#34; alt=&#34;image-20231021184729051&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.数据库基础（一）.IMG/image-20231021184729051.png&#34; alt=&#34;image-20231021184729051&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;这个目录下有一个&lt;code&gt;db.log&lt;/code&gt;文件，它记录这个数据库的默认字符集和字符校验规则：&lt;/p&gt;
-&lt;img src=&#34;./数据库基础（一）.IMG/image-20231021184915551.png&#34; alt=&#34;image-20231021184915551&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.数据库基础（一）.IMG/image-20231021184915551.png&#34; alt=&#34;image-20231021184915551&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;如果在这个数据库中创建一个表：&lt;/p&gt;
 &lt;div class=&#34;code-block relative mt-6 first:mt-0 group/code&#34;&gt;&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-mysql&#34; data-lang=&#34;mysql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;mysql&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;use&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;test_db&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# 进入数据库
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
@@ -241,7 +241,7 @@
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;在上面这个目录下会增加两个同名的文件：
-&lt;img src=&#34;./数据库基础（一）.IMG/image-20231021185500839.png&#34; alt=&#34;image-20231021185500839&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;./.数据库基础（一）.IMG/image-20231021185500839.png&#34; alt=&#34;image-20231021185500839&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;.frm 和 .ibd 是两种不同类型的文件：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;.frm 文件：这是表定义文件，用于描述表结构。每当在 MySQL 中创建一个新的数据表时，都会在相应的数据库目录下生成一个与表名相同的 .frm 文件。这个文件包含了数据表的元数据信息，如字段名称、数据类型等。&lt;/li&gt;
@@ -308,7 +308,7 @@
 &lt;li&gt;sys：这个库所有的数据源来自 performance_schema。它的目标是降低 performance_schema 的复杂度，让 DBA 能更好地阅读这个库里的内容，从而让 DBA 更快地了解 DB 的运行情况。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h1&gt;查看连接情况&lt;/h1&gt;&lt;p&gt;show processlist 命令可以显示当前连接到 MySQL 服务器的线程的信息，可以使用这个命令来监控服务器的性能，排查问题，或者终止某些线程。&lt;/p&gt;
-&lt;img src=&#34;./数据库基础（一）.IMG/image-20231022004024786.png&#34; alt=&#34;image-20231022004024786&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.数据库基础（一）.IMG/image-20231022004024786.png&#34; alt=&#34;image-20231022004024786&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;其中：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Id：一个标识，可以在 MySQL 中通过 kill id 杀死指定 id 的线程。&lt;/li&gt;
@@ -362,10 +362,10 @@
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;这个命令会显示所有包含 mysql 字符串的进程的详细信息，如进程号、用户、启动时间、命令行等。&lt;/p&gt;
-&lt;img src=&#34;./数据库基础（二）.IMG/image-20231020171838545.png&#34; alt=&#34;image-20231020171838545&#34; style=&#34;zoom:50%; &#34; /&gt;
+&lt;img src=&#34;./.数据库基础（二）.IMG/image-20231020171838545.png&#34; alt=&#34;image-20231020171838545&#34; style=&#34;zoom:50%; &#34; /&gt;
 &lt;p&gt;第一行的 &lt;code&gt;mysqld&lt;/code&gt; 就是 MySQL 服务器，它是一个守护进程运行在后台。第二行的 &lt;code&gt;mysql&lt;/code&gt; 就是 MySQL 客户端，它是由名为 &lt;code&gt;xy&lt;/code&gt; 的用户执行的。&lt;/p&gt;
 &lt;p&gt;上面这种方式是用本地的客户端连接到本地的服务端，实际上 MySQL 服务器是一款网络服务器，它可以连接到指定主机中正在运行的 mysqld 服务器。&lt;/p&gt;
-&lt;img src=&#34;./数据库基础（二）.IMG/image-20231020192017091.png&#34; alt=&#34;image-20231020192017091&#34; style=&#34;zoom:50%; &#34; /&gt;
+&lt;img src=&#34;./.数据库基础（二）.IMG/image-20231020192017091.png&#34; alt=&#34;image-20231020192017091&#34; style=&#34;zoom:50%; &#34; /&gt;
 &lt;h1&gt;为什么需要数据库&lt;/h1&gt;&lt;p&gt;在 Linux（操作系统）一切皆文件的语义下，运行在操作系统中的所有软件本质上都是文件，那么数据在数据库眼中也是一堆文件。创建一个数据库，一张表，都会在特定目录下创建对应的文件。&lt;/p&gt;
 &lt;p&gt;理论上，我们可以单纯地用文件来存储和管理数据，但是在面对工业级的场景下，手动维护文件无法保证数据的安全性，也无法保证效率。也就是说，数据库代替程序员做管理数据这件事，是一种用于存储和管理数据的电子化系统，它有许多优点，比如：&lt;/p&gt;
 &lt;ul&gt;
@@ -400,7 +400,7 @@
 &lt;li&gt;内存数据库虽然读写速度很快，但并非不使用磁盘，内存数据库的启动信息、初始数据等重要信息都需要存储在磁盘中；当可用内存过少时，会将部分数据写入到磁盘中，以减轻内存压力。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h1&gt;MySQL 的体系架构&lt;/h1&gt;&lt;p&gt;MySQL 的架构主要分为网络连接层、数据库服务层、存储引擎层和系统文件层四大部分。&lt;/p&gt;
-&lt;img src=&#34;./数据库基础（二）.IMG/mysql-arch.png&#34; alt=&#34;mysql-arch&#34; style=&#34;zoom:50%; &#34; /&gt;
+&lt;img src=&#34;./.数据库基础（二）.IMG/mysql-arch.png&#34; alt=&#34;mysql-arch&#34; style=&#34;zoom:50%; &#34; /&gt;
 &lt;p&gt;图片来源：https://acronymor.com/posts/mysql/ch01/&lt;/p&gt;
 &lt;p&gt;MySQL 主要是用 C++ 实现的：&lt;/p&gt;
 &lt;ul&gt;
@@ -420,7 +420,7 @@
     &lt;a href=&#34;#%e7%bd%91%e7%bb%9c%e8%bf%9e%e6%8e%a5%e5%b1%82api-%e5%b1%82&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;由于 MySQL 是一款 C/S 软件，直接管理数据的主体是 mysqld（服务器），在真实的业务场景中，应用程序和实际的数据库一般是部署在不同的服务器中的，MySQL 客户端和服务器之间的连接通常是通过 TCP/IP 协议进行的。&lt;/p&gt;
 &lt;p&gt;所以网络连接层也叫 API 层。它负责提供给外部应用程序访问 MySQL 数据库的接口。API 层由 MySQL 提供的各种客户端库组成，包括 C/C++、Java、Python、PHP 等语言的库。&lt;/p&gt;
 &lt;p&gt;MySQL 客户端是一个命令行程序，也就是说它是一个可执行程序，准确地说，它是采用动态链接生成的可执行程序。&lt;/p&gt;
-&lt;img src=&#34;./数据库基础（二）.IMG/image-20231020210441002.png&#34; alt=&#34;image-20231020210441002&#34; style=&#34;zoom:50%; &#34; /&gt;
+&lt;img src=&#34;./.数据库基础（二）.IMG/image-20231020210441002.png&#34; alt=&#34;image-20231020210441002&#34; style=&#34;zoom:50%; &#34; /&gt;
 &lt;p&gt;通过 file 命令可以知道 mysql 客户端可执行程序是多态链接的，lld 命令可以查看它依赖的库。&lt;/p&gt;
 &lt;h2&gt;数据库服务层&lt;span class=&#34;absolute -mt-20&#34; id=&#34;数据库服务层&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e6%95%b0%e6%8d%ae%e5%ba%93%e6%9c%8d%e5%8a%a1%e5%b1%82&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;table&gt;
@@ -506,7 +506,7 @@
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;img src=&#34;./数据库基础（二）.IMG/image-20231020205952174.png&#34; alt=&#34;image-20231020205952174&#34; style=&#34;zoom:50%; &#34; /&gt;
+&lt;img src=&#34;./.数据库基础（二）.IMG/image-20231020205952174.png&#34; alt=&#34;image-20231020205952174&#34; style=&#34;zoom:50%; &#34; /&gt;
 &lt;p&gt;MySQL 支持多种不同的存储引擎，包括处理事务安全表的引擎和处理非事务安全表的引擎。在 MySQL 中，你可以根据对数据处理的不同需求选择合适的存储引擎，这样不仅可以提高数据存储和检索的效率，还可以降低高并发情况下的数据压力。&lt;/p&gt;
 &lt;h2&gt;系统文件层&lt;span class=&#34;absolute -mt-20&#34; id=&#34;系统文件层&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e7%b3%bb%e7%bb%9f%e6%96%87%e4%bb%b6%e5%b1%82&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;系统文件层主要包括 MySQL 中存储数据的底层文件，与上层的存储引擎进行交互，是文件的物理存储层，是整个系统的核心，负责存储数据库中的数据。存储层由以下几个主要组件组成：&lt;/p&gt;
@@ -660,8 +660,8 @@
 &lt;p&gt;例如，如果用户需要存储多种语言的字符串，或者需要区分大小写和重音等细节，那么可以选择 utf8mb4_unicode_ci 这样的校验规则。如果用户只需要存储中文或者英文，或者不关心大小写和重音等细节，那么可以选择 utf8mb4_general_ci 这样的校验规则。不同的校验规则会有不同的性能和准确性，所以用户需要权衡利弊，选择最适合自己的校验规则。&lt;/p&gt;
 &lt;p&gt;如果用户没有指定校验规则，那么 MySQL 会使用字符集对应的默认校验规则。例如在 MySQL5.7 中，utf8 字符集对应的默认校验规则是 utf8_general_ci。这样可以保证字符集和校验规则之间的一致性，避免出现乱码或者错误的比较结果。&lt;/p&gt;
 &lt;p&gt;查看数据库支持的字符集或校验规则：&lt;/p&gt;
-&lt;img src=&#34;./库的操作.IMG/image-20231021204414068.png&#34; alt=&#34;image-20231021204414068&#34; style=&#34;zoom:50%;&#34; /&gt;
-&lt;img src=&#34;./库的操作.IMG/image-20231021204442691.png&#34; alt=&#34;image-20231021204442691&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.库的操作.IMG/image-20231021204414068.png&#34; alt=&#34;image-20231021204414068&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.库的操作.IMG/image-20231021204442691.png&#34; alt=&#34;image-20231021204442691&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;h2&gt;例子&lt;span class=&#34;absolute -mt-20&#34; id=&#34;例子&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e4%be%8b%e5%ad%90&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;blockquote&gt;
 &lt;p&gt;有字符集（编码格式）我可以理解，毕竟不同语言需要不同的格式，这样才不会显示乱码。但是校验规则存在的意义在哪里呢？&lt;/p&gt;
@@ -852,13 +852,13 @@
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;在前面增加&lt;code&gt;show&lt;/code&gt;关键字，可以查看数据库是如何执行 SQL 来创建数据库的。&lt;/p&gt;
-&lt;img src=&#34;./库的操作.IMG/image-20231021224654599.png&#34; alt=&#34;image-20231021224654599&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.库的操作.IMG/image-20231021224654599.png&#34; alt=&#34;image-20231021224654599&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;虽然我们输入时是用小写的关键字，但是 MySQL 会自动对用户输入的 SQL 做语法优化，将小写的关键字用大写字母代替，而且数据库的名字会用`（反引号，在 esc 下面）来包含，这么做是方式数据库的名称和关键字冲突。&lt;/p&gt;
 &lt;p&gt;另外，如果用户输入的 SQL 由多行组成，MySQL 会将&lt;code&gt;;&lt;/code&gt;之前的所有字段合并为一句。&lt;/p&gt;
 &lt;p&gt;例如上面在创建表时，为了可读性，用了多行输入，但 MySQL 会优化如下：&lt;/p&gt;
-&lt;img src=&#34;./库的操作.IMG/image-20231021225313795.png&#34; alt=&#34;image-20231021225313795&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.库的操作.IMG/image-20231021225313795.png&#34; alt=&#34;image-20231021225313795&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;另外，MySQL 也有记忆指令的功能：&lt;/p&gt;
-&lt;img src=&#34;./库的操作.IMG/image-20231021225242469.png&#34; alt=&#34;image-20231021225242469&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.库的操作.IMG/image-20231021225242469.png&#34; alt=&#34;image-20231021225242469&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;注意，&lt;code&gt;/*!40100 DEFAULT CHARACTER SET utf8 */&lt;/code&gt;不是注释，它表示当前 MySQL 版本如果大于 4.10，则执行后面的 SQL 语句。&lt;/p&gt;
 &lt;p&gt;MySQL 客户端会阻塞当前会话，如果不想新建会话的同时使用系统的命令行，可以在命令行指令前加&lt;code&gt;system&lt;/code&gt;，例如：&lt;/p&gt;
 &lt;div class=&#34;code-block relative mt-6 first:mt-0 group/code&#34;&gt;&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-mysql&#34; data-lang=&#34;mysql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;system&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;clear&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# 清屏
@@ -885,7 +885,7 @@
 &lt;/div&gt;
 &lt;p&gt;对数据库修改的内容主要是字符集和校验规则。&lt;/p&gt;
 &lt;p&gt;例如，将&lt;code&gt;person_test1&lt;/code&gt;数据库的字符集改成 gbk，校验规则改为 gbk_bin：&lt;/p&gt;
-&lt;img src=&#34;./库的操作.IMG/image-20231021231421456.png&#34; alt=&#34;image-20231021231421456&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.库的操作.IMG/image-20231021231421456.png&#34; alt=&#34;image-20231021231421456&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;h1&gt;删除数据库&lt;/h1&gt;&lt;p&gt;SQL：&lt;/p&gt;
 &lt;div class=&#34;code-block relative mt-6 first:mt-0 group/code&#34;&gt;&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-mysql&#34; data-lang=&#34;mysql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;DROP&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;DATABASE&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;IF&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;EXISTS&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;db_name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0&#34;&gt;
     &lt;button
@@ -924,7 +924,7 @@
     &lt;/button&gt;
   &lt;/div&gt;
 &lt;/div&gt;
-&lt;img src=&#34;./库的操作.IMG/image-20231021234835215.png&#34; alt=&#34;image-20231021234835215&#34; style=&#34;zoom:33%;&#34; /&gt;
+&lt;img src=&#34;./.库的操作.IMG/image-20231021234835215.png&#34; alt=&#34;image-20231021234835215&#34; style=&#34;zoom:33%;&#34; /&gt;
 &lt;p&gt;删除它：&lt;/p&gt;
 &lt;div class=&#34;code-block relative mt-6 first:mt-0 group/code&#34;&gt;&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-mysql&#34; data-lang=&#34;mysql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;mysql&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;drop&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;database&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;delete_test&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mysql&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;show&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;databases&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
@@ -1010,7 +1010,7 @@
     &lt;/button&gt;
   &lt;/div&gt;
 &lt;/div&gt;
-&lt;img src=&#34;./库的操作.IMG/image-20231022000031989.png&#34; alt=&#34;image-20231022000031989&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.库的操作.IMG/image-20231022000031989.png&#34; alt=&#34;image-20231022000031989&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;在 Linux 命令行中（MySQL 是我创建的一个目录）：&lt;/p&gt;
 &lt;div class=&#34;code-block relative mt-6 first:mt-0 group/code&#34;&gt;&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;root@xy MySQL&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# mysqldump -P3306 -uroot -p -B backup_test &amp;gt; back.sql&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0&#34;&gt;
     &lt;button
@@ -1023,7 +1023,7 @@
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;这个文件保存了对数据库和表的所有 SQL 操作以及数据本身，并且是做了优化的：
-&lt;img src=&#34;./库的操作.IMG/image-20231022000808169.png&#34; alt=&#34;image-20231022000808169&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;./.库的操作.IMG/image-20231022000808169.png&#34; alt=&#34;image-20231022000808169&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
 &lt;h2&gt;恢复&lt;span class=&#34;absolute -mt-20&#34; id=&#34;恢复&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e6%81%a2%e5%a4%8d&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;SQL：&lt;/p&gt;
 &lt;div class=&#34;code-block relative mt-6 first:mt-0 group/code&#34;&gt;&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;source&lt;/span&gt; 数据库备份存储的文件路径&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0&#34;&gt;
@@ -1047,7 +1047,7 @@
     &lt;/button&gt;
   &lt;/div&gt;
 &lt;/div&gt;
-&lt;img src=&#34;./库的操作.IMG/image-20231022001255857.png&#34; alt=&#34;image-20231022001255857&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.库的操作.IMG/image-20231022001255857.png&#34; alt=&#34;image-20231022001255857&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;这样数据库中的所有内容都恢复了。&lt;/p&gt;
 &lt;p&gt;由此可见，数据库的备份就是将 MySQL 之前优化并记录的 SQL 语句拷贝一份；恢复就是将这些 SQL 语句交给 MySQL 服务器重新执行一遍。&lt;/p&gt;
 &lt;p&gt;注意，备份是服务端做的，而恢复是在客户端做的。&lt;/p&gt;
@@ -1117,7 +1117,7 @@
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;在&lt;code&gt;/var/lib/mysql/table_test_db1&lt;/code&gt;路径下：&lt;/p&gt;
-&lt;img src=&#34;./表结构的操作.IMG/image-20231022185357710.png&#34; alt=&#34;image-20231022185357710&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表结构的操作.IMG/image-20231022185357710.png&#34; alt=&#34;image-20231022185357710&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;从结果上看，MyISAM 和 InnoDB 两个存储引擎在创建表的时候，文件类型和数量是不一样的。为什么呢？（这是一个常见的面试题，你可能需要在学习完「索引」这部分才能理解）&lt;/p&gt;
 &lt;p&gt;根本原因是，它们的索引结构和数据存储方式不同。下面简单介绍一下它们名字的含义：&lt;/p&gt;
 &lt;ul&gt;
@@ -1161,7 +1161,7 @@
     &lt;/button&gt;
   &lt;/div&gt;
 &lt;/div&gt;
-&lt;img src=&#34;./表结构的操作.IMG/image-20231022191513043.png&#34; alt=&#34;image-20231022191513043&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表结构的操作.IMG/image-20231022191513043.png&#34; alt=&#34;image-20231022191513043&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;表结构的各个列属性：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Field 表示该字段的名字。&lt;/li&gt;
@@ -1186,7 +1186,7 @@
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;来查看创建表或数据库格式化后的 SQL：&lt;/p&gt;
-&lt;img src=&#34;./表结构的操作.IMG/image-20231022191947763.png&#34; alt=&#34;image-20231022191947763&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表结构的操作.IMG/image-20231022191947763.png&#34; alt=&#34;image-20231022191947763&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;h1&gt;修改表&lt;/h1&gt;&lt;p&gt;SQL：&lt;/p&gt;
 &lt;div class=&#34;code-block relative mt-6 first:mt-0 group/code&#34;&gt;&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-mysql&#34; data-lang=&#34;mysql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;ALTER&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;TABLE&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;table_name&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;ADD&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;新增列名&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;新增列的属性；&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
@@ -1208,25 +1208,25 @@
 &lt;/div&gt;
 &lt;h2&gt;新增列属性&lt;span class=&#34;absolute -mt-20&#34; id=&#34;新增列属性&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e6%96%b0%e5%a2%9e%e5%88%97%e5%b1%9e%e6%80%a7&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;为刚才创建的&lt;code&gt;table_test1&lt;/code&gt;表中增加&lt;code&gt;name&lt;/code&gt;和&lt;code&gt;adress&lt;/code&gt;列属性：
-&lt;img src=&#34;./表结构的操作.IMG/image-20231022193155544.png&#34; alt=&#34;image-20231022193155544&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;./.表结构的操作.IMG/image-20231022193155544.png&#34; alt=&#34;image-20231022193155544&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;如果你想让新的一列插入到 name 列之后，只需在 SQL 的最后增加&lt;code&gt;after name&lt;/code&gt;；如果要放在第一列，换成&lt;code&gt;not null first&lt;/code&gt;。&lt;/p&gt;
 &lt;p&gt;插入两条数据：&lt;/p&gt;
-&lt;img src=&#34;./表结构的操作.IMG/image-20231022193705174.png&#34; alt=&#34;image-20231022193705174&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表结构的操作.IMG/image-20231022193705174.png&#34; alt=&#34;image-20231022193705174&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;h2&gt;修改列属性&lt;span class=&#34;absolute -mt-20&#34; id=&#34;修改列属性&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e4%bf%ae%e6%94%b9%e5%88%97%e5%b1%9e%e6%80%a7&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;修改列属性，会将这一列的所有数据的属性都修改。&lt;/p&gt;
 &lt;p&gt;例如修改&lt;code&gt;adress&lt;/code&gt;属性为&lt;code&gt;varchar(64)&lt;/code&gt;：&lt;/p&gt;
-&lt;img src=&#34;./表结构的操作.IMG/image-20231022194058081.png&#34; alt=&#34;image-20231022194058081&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表结构的操作.IMG/image-20231022194058081.png&#34; alt=&#34;image-20231022194058081&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;值得注意的是， MySQL 在修改时，会把原来的列定义&lt;strong&gt;替换&lt;/strong&gt;为新的列定义，而不是在原有的基础上修改。所以如果想保留原来的 comment 字段，需要再修改时显式定义。&lt;/p&gt;
 &lt;h2&gt;修改列名&lt;span class=&#34;absolute -mt-20&#34; id=&#34;修改列名&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e4%bf%ae%e6%94%b9%e5%88%97%e5%90%8d&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;将上表的&lt;code&gt;adress&lt;/code&gt;改为&lt;code&gt;home&lt;/code&gt;：&lt;/p&gt;
-&lt;img src=&#34;./表结构的操作.IMG/image-20231022194646689.png&#34; alt=&#34;image-20231022194646689&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表结构的操作.IMG/image-20231022194646689.png&#34; alt=&#34;image-20231022194646689&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;由于 MySQL 在修改列属性是是替换而不是直接修改，所以在修改列名时要指定列属性。&lt;/p&gt;
 &lt;h2&gt;修改表名&lt;span class=&#34;absolute -mt-20&#34; id=&#34;修改表名&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e4%bf%ae%e6%94%b9%e8%a1%a8%e5%90%8d&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;将&lt;code&gt;table_test1&lt;/code&gt;表改为&lt;code&gt;test_table1&lt;/code&gt;：&lt;/p&gt;
-&lt;img src=&#34;./表结构的操作.IMG/image-20231022195008486.png&#34; alt=&#34;image-20231022195008486&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表结构的操作.IMG/image-20231022195008486.png&#34; alt=&#34;image-20231022195008486&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;h2&gt;删除列&lt;span class=&#34;absolute -mt-20&#34; id=&#34;删除列&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e5%88%a0%e9%99%a4%e5%88%97&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;将&lt;code&gt;test_table1&lt;/code&gt;表中的&lt;code&gt;name&lt;/code&gt;列删除：&lt;/p&gt;
-&lt;img src=&#34;./表结构的操作.IMG/image-20231022195328802.png&#34; alt=&#34;image-20231022195328802&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表结构的操作.IMG/image-20231022195328802.png&#34; alt=&#34;image-20231022195328802&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;删除这一列后，一整列的数据都没有了。除了备份外，MySQL 会记忆之前的所有插入的 SQL，其中包含了数据本身。&lt;/p&gt;
 &lt;h1&gt;删除表&lt;/h1&gt;&lt;p&gt;SQL：&lt;/p&gt;
 &lt;div class=&#34;code-block relative mt-6 first:mt-0 group/code&#34;&gt;&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-mysql&#34; data-lang=&#34;mysql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;DROP&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;TEMPORARY&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;TABLE&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;IF&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;EXISTS&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;table_name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0&#34;&gt;
@@ -1246,7 +1246,7 @@
 &lt;li&gt;为了避免重新连接后（TEMPORARY 已经不存在），在未做检测的情况下调用 DROP 误删了对应永久表，因此在使用 DROP 删除临时表时需要带上 TEMPORARY 关键字。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;删除&lt;code&gt;table_test_db1&lt;/code&gt;数据库中的&lt;code&gt;table_test2&lt;/code&gt;表：
-&lt;img src=&#34;./表结构的操作.IMG/image-20231022195709736.png&#34; alt=&#34;image-20231022195709736&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;./.表结构的操作.IMG/image-20231022195709736.png&#34; alt=&#34;image-20231022195709736&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
 
       </description>
     </item>
@@ -1382,8 +1382,8 @@
 &lt;li&gt;用途：小整数值&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;在 t1 表中测试：&lt;/p&gt;
-&lt;img src=&#34;./数据类型.IMG/image-20231022204731751.png&#34; alt=&#34;image-20231022204731751&#34; style=&#34;zoom:50%;&#34; /&gt;
-&lt;img src=&#34;./数据类型.IMG/image-20231022204749031.png&#34; alt=&#34;image-20231022204749031&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.数据类型.IMG/image-20231022204731751.png&#34; alt=&#34;image-20231022204731751&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.数据类型.IMG/image-20231022204749031.png&#34; alt=&#34;image-20231022204749031&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;当用户插入 128 或 -129 时，MySQL 检查到数值不在 1 字节的范围，报错。无符号也是一样的。&lt;/p&gt;
 &lt;h2&gt;INT&lt;span class=&#34;absolute -mt-20&#34; id=&#34;int&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#int&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
@@ -1399,7 +1399,7 @@
 &lt;li&gt;N 的默认值是 11，这是因为 INT 最大值 ±21 亿多或 ±42 亿多，它们需要用 10 位整数表示；另外还要加上显示的正负符号，总共 11 位。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;例如创建一个表，不指定 INT 的显示长度，然后再用&lt;code&gt;show&lt;/code&gt;命令查看：&lt;/p&gt;
-&lt;img src=&#34;./数据类型.IMG/image-20231023201847488.png&#34; alt=&#34;image-20231023201847488&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.数据类型.IMG/image-20231023201847488.png&#34; alt=&#34;image-20231023201847488&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;h2&gt;BIT&lt;span class=&#34;absolute -mt-20&#34; id=&#34;bit&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#bit&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;范围：1~64 比特&lt;/li&gt;
@@ -1463,14 +1463,14 @@
     &lt;/button&gt;
   &lt;/div&gt;
 &lt;/div&gt;
-&lt;img src=&#34;./数据类型.IMG/image-20231022210908555.png&#34; alt=&#34;image-20231022210908555&#34; style=&#34;zoom:33%;&#34; /&gt;
+&lt;img src=&#34;./.数据类型.IMG/image-20231022210908555.png&#34; alt=&#34;image-20231022210908555&#34; style=&#34;zoom:33%;&#34; /&gt;
 &lt;p&gt;如果像第二条这样直接插入一个整数，而不是一个用&lt;code&gt;b&#39;&#39;&lt;/code&gt;包含的二进制序列，那么 MySQL 会将这个十进制整数转为二进制，也就是 10 转成二进制 1010。&lt;/p&gt;
 &lt;p&gt;在显示 bit 类型时，MySQL 会将它的二进制序列转化为十进制对应的 ASCII 值，然后再显示。在这个例子中，第一行的 ASCII 值是 2，它对应的是 STX 控制字符（Start of Text），表示正文或数据的开始，不显示任何内容（通常和 EXT，End of Text，搭配使用）；第二行的 ASCII 值是 10，对应的是 LF 控制字符（Line Feed），它的作用是换行。&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://tool.oschina.net/commons?type=4&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ASCII 码对照表&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;如果插入值为 65，97 的整数：&lt;/p&gt;
-&lt;img src=&#34;./数据类型.IMG/image-20231022215321646.png&#34; alt=&#34;image-20231022215321646&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.数据类型.IMG/image-20231022215321646.png&#34; alt=&#34;image-20231022215321646&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;按十进制的 ASCII 值打印，按二进制存储：
-&lt;img src=&#34;./数据类型.IMG/image-20231022215422607.png&#34; alt=&#34;image-20231022215422607&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;./.数据类型.IMG/image-20231022215422607.png&#34; alt=&#34;image-20231022215422607&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;bit 类型可以用来存储状态值，比如真、假或是、否等。例如，我们可以用 bit 类型来表示一个人是否在工作：&lt;/p&gt;
 &lt;div class=&#34;code-block relative mt-6 first:mt-0 group/code&#34;&gt;&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-mysql&#34; data-lang=&#34;mysql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;mysql&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;create&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;table&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;t3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
@@ -1487,7 +1487,7 @@
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;一个 bit 的范围只有 0 和 1，超出这个范围的值，不被 MySQL 允许插入：&lt;/p&gt;
-&lt;img src=&#34;./数据类型.IMG/image-20231022215821097.png&#34; alt=&#34;image-20231022215821097&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.数据类型.IMG/image-20231022215821097.png&#34; alt=&#34;image-20231022215821097&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;那么 bit 的范围就取决于 m 的大小，即 m 位二进制序列对应的十进制的范围。&lt;/p&gt;
 &lt;p&gt;bit 类型可以用来存储状态值，比如真、假或是、否等。bit 类型可以节省存储空间，提高查询效率，但也有一些注意事项：&lt;/p&gt;
 &lt;ul&gt;
@@ -1530,7 +1530,7 @@
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;值得注意的是，MySQL 检查的是这个数值的绝对值在四舍五入（即向零取整）后的结果：&lt;/p&gt;
-&lt;img src=&#34;./数据类型.IMG/image-20231023000010232.png&#34; alt=&#34;image-20231023000010232&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.数据类型.IMG/image-20231023000010232.png&#34; alt=&#34;image-20231023000010232&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;blockquote&gt;
 &lt;p&gt;向零取整：想象一下有负数和正数的数轴，对数值的绝对值做四舍五入，就是向中间的 0 取整。这里的整数是对于规定的 M 而言的，例如 M 是 2，也就是规定小数保留 2 位，那么取整时就保留 2 位。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -1550,7 +1550,7 @@
     &lt;/button&gt;
   &lt;/div&gt;
 &lt;/div&gt;
-&lt;img src=&#34;./数据类型.IMG/image-20231023185747509.png&#34; alt=&#34;image-20231023185747509&#34; style=&#34;zoom:33%;&#34; /&gt;
+&lt;img src=&#34;./.数据类型.IMG/image-20231023185747509.png&#34; alt=&#34;image-20231023185747509&#34; style=&#34;zoom:33%;&#34; /&gt;
 &lt;p&gt;浮点数存储有精度损失，根本原因是二进制无法精确表示浮点数。&lt;/p&gt;
 &lt;p&gt;[注]&lt;/p&gt;
 &lt;p&gt;DECIMAL 和 FLOAT 的底层实现是不同的。DECIMAL 类型是用十进制来存储每个数字，并且每 9 个数字占用 4 个字节。比如，一个 DECIMAL(18,9) 类型的值，会被分成两部分：整数部分和小数部分，每部分占用 4 个字节，共占用 8 个字节 。FLOAT 类型是用二进制来存储浮点数，并且每个浮点数占用 4 个字节。一个 FLOAT 类型的值，会被分成四部分：符号位、指数位、基数位和尾数位，每部分占用一定的二进制位 。&lt;/p&gt;
@@ -1583,7 +1583,7 @@
     &lt;/button&gt;
   &lt;/div&gt;
 &lt;/div&gt;
-&lt;img src=&#34;./数据类型.IMG/image-20231023191945707.png&#34; alt=&#34;image-20231023191945707&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.数据类型.IMG/image-20231023191945707.png&#34; alt=&#34;image-20231023191945707&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;注意，SQL 的规定是用一对单引号表示字符串，但是用双引号也是被语法允许的。如果单引号和双引号是字符串的一部分，使用&lt;code&gt;\&lt;/code&gt;转义。&lt;/p&gt;
 &lt;h2&gt;VARCHAR&lt;span class=&#34;absolute -mt-20&#34; id=&#34;varchar&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#varchar&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
@@ -1603,7 +1603,7 @@
     &lt;/button&gt;
   &lt;/div&gt;
 &lt;/div&gt;
-&lt;img src=&#34;./数据类型.IMG/image-20231023193446088.png&#34; alt=&#34;image-20231023193446088&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.数据类型.IMG/image-20231023193446088.png&#34; alt=&#34;image-20231023193446088&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;blockquote&gt;
 &lt;p&gt;VARCHAR 和 CHAR 在插入记录时不是都遵守同样的规则吗？VARCHAR 的“变长”体现在哪里？&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -1682,9 +1682,9 @@
 &lt;li&gt;&lt;code&gt;NULL&lt;/code&gt; 需要占用额外的空间来记录其状态，而 &lt;code&gt;&#39;&#39;&lt;/code&gt; 不占用空间。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;实际上，select 这个 MySQL 命令可以求表达式的值，例如：
-&lt;img src=&#34;./数据类型.IMG/image-20231023225336080.png&#34; alt=&#34;image-20231023225336080&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;./.数据类型.IMG/image-20231023225336080.png&#34; alt=&#34;image-20231023225336080&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;下面可以对 NULL 和&amp;rsquo;&amp;lsquo;做测试：
-&lt;img src=&#34;./数据类型.IMG/image-20231023225503087.png&#34; alt=&#34;image-20231023225503087&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;./.数据类型.IMG/image-20231023225503087.png&#34; alt=&#34;image-20231023225503087&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;由此可见，&lt;code&gt;NULL&lt;/code&gt; 表示“什么都没有”，也就是“无”；而&lt;code&gt;&#39;&#39;&lt;/code&gt;表示一个空字符串。注意，==在 MySQL 中，&lt;code&gt;&#39;&#39;&lt;/code&gt;会被转化为转化为一个浮点数&lt;code&gt;0.0&lt;/code&gt;==，所以对它做乘法的结果是 0，假如你用另一个浮点数和它做运算，也是会出现浮点数精度误差的。&lt;/p&gt;
 &lt;h1&gt;日期和时间类型&lt;/h1&gt;&lt;table&gt;
 &lt;thead&gt;
@@ -1750,10 +1750,10 @@
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;查看表结构：&lt;/p&gt;
-&lt;img src=&#34;./数据类型.IMG/image-20231023203527157.png&#34; alt=&#34;image-20231023203527157&#34; style=&#34;zoom:33%;&#34; /&gt;
+&lt;img src=&#34;./.数据类型.IMG/image-20231023203527157.png&#34; alt=&#34;image-20231023203527157&#34; style=&#34;zoom:33%;&#34; /&gt;
 &lt;p&gt;其中，timestamp 列属性不允许为 NULL，并且默认值为 CURRENT_TIMESTAMP，它的含义是：如果你在创建一个时间字段时，使用了 DEFAULT CURRENT_TIMESTAMP 或者 ON UPDATE CURRENT_TIMESTAMP，那么数据库会自动维护这个字段的值，不需要你手动指定。&lt;/p&gt;
 &lt;p&gt;下面是一个例子，着重理解第三个时间戳列属性：&lt;/p&gt;
-&lt;img src=&#34;./数据类型.IMG/image-20231023204347892.png&#34; alt=&#34;image-20231023204347892&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.数据类型.IMG/image-20231023204347892.png&#34; alt=&#34;image-20231023204347892&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;在插入时没有指定时间戳，那么 MySQL 会自动插入当前的时间戳。&lt;/p&gt;
 &lt;p&gt;我们可以利用这个特性，让 MySQL 维护这个列属性。例如在用户发表博客，评论等事件时：&lt;/p&gt;
 &lt;div class=&#34;code-block relative mt-6 first:mt-0 group/code&#34;&gt;&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-mysql&#34; data-lang=&#34;mysql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;mysql&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;create&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;table&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;t9&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; 
@@ -1771,9 +1771,9 @@
     &lt;/button&gt;
   &lt;/div&gt;
 &lt;/div&gt;
-&lt;img src=&#34;./数据类型.IMG/image-20231023205313860.png&#34; alt=&#34;image-20231023205313860&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.数据类型.IMG/image-20231023205313860.png&#34; alt=&#34;image-20231023205313860&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;当用户对评论进行修改，实际上就是 MySQL 对这条记录修改：&lt;/p&gt;
-&lt;img src=&#34;./数据类型.IMG/image-20231023205516313.png&#34; alt=&#34;image-20231023205516313&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.数据类型.IMG/image-20231023205516313.png&#34; alt=&#34;image-20231023205516313&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;h1&gt;ENUM 和 SET&lt;/h1&gt;&lt;p&gt;MySQL 的 ENUM（枚举） 和 SET（集合） 是两种复合数据类型，它们都可以用来存储一组预定义的字符串值。它们的区别是：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;ENUM 类型只能从预定义的值中选择一个，而 SET 类型可以选择零个或多个。&lt;/li&gt;
@@ -1798,11 +1798,11 @@
     &lt;/button&gt;
   &lt;/div&gt;
 &lt;/div&gt;
-&lt;img src=&#34;./数据类型.IMG/image-20231023231225841.png&#34; alt=&#34;image-20231023231225841&#34; style=&#34;zoom:50%;&#34; /&gt;
-&lt;img src=&#34;./数据类型.IMG/image-20231023231836903.png&#34; alt=&#34;image-20231023231836903&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.数据类型.IMG/image-20231023231225841.png&#34; alt=&#34;image-20231023231225841&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.数据类型.IMG/image-20231023231836903.png&#34; alt=&#34;image-20231023231836903&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;请注意在插入 SET 的多个参数时，只需要用英文逗号隔开，被包含在一对单引号中。&lt;/p&gt;
 &lt;p&gt;MySQL 为了存储的效率，它将 SET 中的一组预定义的字符串视为一组二进制位。当用户查询或插入 SET 值时，可以使用字符串（上面的做法）或者（十进制）数字来表示，但是 MySQL 实际上是用二进制位来存储和比较的。&lt;/p&gt;
-&lt;img src=&#34;./数据类型.IMG/image-20231023232134162.png&#34; alt=&#34;image-20231023232134162&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.数据类型.IMG/image-20231023232134162.png&#34; alt=&#34;image-20231023232134162&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;在这个例子中，插入 SET 记录使用的是十进制的整数，整数的合法性取决于 SET 的长度，例如在 SET[&amp;lsquo;音乐&amp;rsquo;, &amp;lsquo;电影&amp;rsquo;, &amp;lsquo;游泳&amp;rsquo;, &amp;lsquo;足球&amp;rsquo;] 中，这 4 个字符串对应的二进制权值位分别是 [1, 2, 4, 8](SET 最多能够存储 64 个字符串)，总共 15，即最大值是 15。所以当插入 123 时，是不合法的。&lt;/p&gt;
 &lt;p&gt;其中 12 的二进制序列是 [0011]，对应着 SET 的后两个字符串。&lt;/p&gt;
 &lt;p&gt;如果你想用二进制序列&lt;code&gt;b&#39;1111&#39;&lt;/code&gt;或者&lt;code&gt;0b1111&lt;/code&gt;插入记录，是不被 SQL 允许的。&lt;/p&gt;
@@ -1811,7 +1811,7 @@
 &lt;h2&gt;FIND_IN_SET&lt;span class=&#34;absolute -mt-20&#34; id=&#34;find_in_set&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#find_in_set&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;find_in_set(str, str_set)&lt;/code&gt;，这个函数是用来验证 str 这个字符串是否在 str_set 这个集合中的，如果找到则返回下标；找不到则返回 0。&lt;/p&gt;
 &lt;p&gt;例如在上面这个表中：&lt;/p&gt;
-&lt;img src=&#34;./数据类型.IMG/image-20231024000015668.png&#34; alt=&#34;image-20231024000015668&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.数据类型.IMG/image-20231024000015668.png&#34; alt=&#34;image-20231024000015668&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;ul&gt;
 &lt;li&gt;find_in_set 函数只能用于字符串类型的列，如果列的类型是 set，那么它会被转换成字符串再进行比较。&lt;/li&gt;
 &lt;li&gt;find_in_set 函数只能用于单个值的查找，如果要查找多个值，需要用多个 find_in_set 函数并用 AND 或 OR 连接。&lt;/li&gt;
@@ -1861,9 +1861,9 @@
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;查看表结构：
-&lt;img src=&#34;./表的约束.IMG/image-20231026175520595.png&#34; alt=&#34;image-20231026175520595&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;./.表的约束.IMG/image-20231026175520595.png&#34; alt=&#34;image-20231026175520595&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;插入一条没有 name 属性的记录：&lt;/p&gt;
-&lt;img src=&#34;./表的约束.IMG/image-20231026174132021.png&#34; alt=&#34;image-20231026174132021&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表的约束.IMG/image-20231026174132021.png&#34; alt=&#34;image-20231026174132021&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;在表已存在时添加DEFAULT约束：&lt;/p&gt;
 &lt;div class=&#34;code-block relative mt-6 first:mt-0 group/code&#34;&gt;&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-mysql&#34; data-lang=&#34;mysql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;alter&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;table&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;default_test&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;modify&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;varchar&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;20&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;default&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;这是一个默认值&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0&#34;&gt;
     &lt;button
@@ -1913,7 +1913,7 @@
 &lt;p&gt;修改表的操作都是类似的，下面就以常用的&lt;code&gt;MODIFY&lt;/code&gt;修改。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1&gt;NULL与 NOT NULL（非空约束）&lt;/h1&gt;&lt;p&gt;SELECT命令可以计算表达式的值：&lt;/p&gt;
-&lt;img src=&#34;./表的约束.IMG/image-20231026180043606.png&#34; alt=&#34;image-20231026180043606&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表的约束.IMG/image-20231026180043606.png&#34; alt=&#34;image-20231026180043606&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;然而NULL 值是无法参与运算的，或者说 NULL 与任何值运算的结果都是 NULL。&lt;/p&gt;
 &lt;p&gt;MySQL 中的 NULL 和 NOT NULL 是两种不同的列属性，用来表示某个列是否可以存储空值。空值表示没有值或未知值，而非空值表示有确定的值。&lt;/p&gt;
 &lt;ul&gt;
@@ -1936,10 +1936,10 @@
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;查看表结构：
-&lt;img src=&#34;./表的约束.IMG/image-20231026181118540.png&#34; alt=&#34;image-20231026181118540&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;./.表的约束.IMG/image-20231026181118540.png&#34; alt=&#34;image-20231026181118540&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;说明在创建表时，属性的约束默认是 NULL。这意味着这个列可以存储空值或非空值。&lt;/p&gt;
 &lt;p&gt;如果在插入时，不指定 tel 的值：&lt;/p&gt;
-&lt;img src=&#34;./表的约束.IMG/image-20231026181256580.png&#34; alt=&#34;image-20231026181256580&#34; style=&#34;zoom: 50%;&#34; /&gt;
+&lt;img src=&#34;./.表的约束.IMG/image-20231026181256580.png&#34; alt=&#34;image-20231026181256580&#34; style=&#34;zoom: 50%;&#34; /&gt;
 &lt;p&gt;在这个表的基础上增加 tel 属性的约束为 NOT NULL：&lt;/p&gt;
 &lt;div class=&#34;code-block relative mt-6 first:mt-0 group/code&#34;&gt;&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-mysql&#34; data-lang=&#34;mysql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;alter&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;table&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;no&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_test&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;modify&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;tel&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;varchar&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;11&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;not&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;no&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0&#34;&gt;
     &lt;button
@@ -1952,9 +1952,9 @@
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;查看表结构：
-&lt;img src=&#34;./表的约束.IMG/image-20231026182341659.png&#34; alt=&#34;image-20231026182341659&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;./.表的约束.IMG/image-20231026182341659.png&#34; alt=&#34;image-20231026182341659&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;插入数据：
-&lt;img src=&#34;./表的约束.IMG/image-20231026182417715.png&#34; alt=&#34;image-20231026182417715&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;./.表的约束.IMG/image-20231026182417715.png&#34; alt=&#34;image-20231026182417715&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;给表中某一列属性同时设置 not null 和 default ，它的意思是，这个列不能存储空值，只能存储非空值，而且如果没有为这个列提供值，那么它会自动赋值为 default 所指定的值。这个做法不是必要的，但是一种规范，因为 DEFAULT 就意味着它一定不是空的。&lt;/p&gt;
 &lt;div class=&#34;code-block relative mt-6 first:mt-0 group/code&#34;&gt;&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-mysql&#34; data-lang=&#34;mysql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;mysql&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;create&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;table&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;deft_null_test&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; 
@@ -1969,7 +1969,7 @@
     &lt;/button&gt;
   &lt;/div&gt;
 &lt;/div&gt;
-&lt;img src=&#34;./表的约束.IMG/image-20231026183203203.png&#34; alt=&#34;image-20231026183203203&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表的约束.IMG/image-20231026183203203.png&#34; alt=&#34;image-20231026183203203&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;h1&gt;COMMENT（注释约束）&lt;/h1&gt;&lt;p&gt;MySQL 的 COMMENT 约束是一种用来给表或字段添加注释的约束。注释可以帮助用户记录表或字段的用途、含义、来源等信息，方便以后查看或维护。&lt;/p&gt;
 &lt;p&gt;在创建表或字段时使用 COMMENT 关键字来添加注释：&lt;/p&gt;
 &lt;div class=&#34;code-block relative mt-6 first:mt-0 group/code&#34;&gt;&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;mysql&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;create&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;table&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;comment_test&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
@@ -1986,7 +1986,7 @@
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;甚至还可以给表注释。这样就能方便维护时查看表的注释信息，可以使用：&lt;/p&gt;
-&lt;img src=&#34;./表的约束.IMG/image-20231026184320467.png&#34; alt=&#34;image-20231026184320467&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表的约束.IMG/image-20231026184320467.png&#34; alt=&#34;image-20231026184320467&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;或者：&lt;/p&gt;
 &lt;div class=&#34;code-block relative mt-6 first:mt-0 group/code&#34;&gt;&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-mysql&#34; data-lang=&#34;mysql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;SHOW&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;FULL&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;COLUMNS&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;FROM&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;users&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0&#34;&gt;
     &lt;button
@@ -2025,9 +2025,9 @@
     &lt;/button&gt;
   &lt;/div&gt;
 &lt;/div&gt;
-&lt;img src=&#34;./表的约束.IMG/image-20231026185533933.png&#34; alt=&#34;image-20231026185533933&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表的约束.IMG/image-20231026185533933.png&#34; alt=&#34;image-20231026185533933&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;当然，zerofill 约束只是在显示时补充前导零，并不影响底层数据的存储方式。可以通过 hex()函数来验证。&lt;/p&gt;
-&lt;img src=&#34;./表的约束.IMG/image-20231026185940726.png&#34; alt=&#34;image-20231026185940726&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表的约束.IMG/image-20231026185940726.png&#34; alt=&#34;image-20231026185940726&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;[注]hex()函数可以将一个数值或字符串转化为一个 16 进制的字符串。&lt;/p&gt;
 &lt;p&gt;使用 zerofill 约束有以下几个注意事项：&lt;/p&gt;
 &lt;ul&gt;
@@ -2057,7 +2057,7 @@
     &lt;/button&gt;
   &lt;/div&gt;
 &lt;/div&gt;
-&lt;img src=&#34;./表的约束.IMG/image-20231026191341737.png&#34; alt=&#34;image-20231026191341737&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表的约束.IMG/image-20231026191341737.png&#34; alt=&#34;image-20231026191341737&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;Key 为 UNI 的列表示它是一个唯一键，唯一键是允许为空的。&lt;/p&gt;
 &lt;p&gt;也可以在表已经存在时使用 alter table 语句来添加或删除唯一约束，例如：&lt;/p&gt;
 &lt;div class=&#34;code-block relative mt-6 first:mt-0 group/code&#34;&gt;&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;ALTER&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;TABLE&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;uni_test&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;ADD&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;UNIQUE&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
@@ -2072,7 +2072,7 @@
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;[注]如果删除的唯一约束列具有自增长约束，则必须先删除自增长约束，再去删除唯一约束。&lt;/p&gt;
-&lt;img src=&#34;./表的约束.IMG/image-20231026191701937.png&#34; alt=&#34;image-20231026191701937&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表的约束.IMG/image-20231026191701937.png&#34; alt=&#34;image-20231026191701937&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;在使用上，被唯一键约束的列，插入记录时不允许重复，除非是 NULL 值。&lt;/p&gt;
 &lt;h1&gt;*PRIMARY KEY（主键约束）&lt;/h1&gt;&lt;p&gt;MySQL 的主键约束（primary key）是一种用来唯一标识表中&lt;strong&gt;每条记录&lt;/strong&gt;的约束。它要求被约束的字段或字段组合不能重复，也不能为null。&lt;/p&gt;
 &lt;p&gt;主键约束相当于唯一键约束（unique）和非空约束（not null）的组合。这意味着，主键约束要求被约束的字段或字段组合不能重复，也不能为null。而且，&lt;strong&gt;每个表只能有一个主键约束&lt;/strong&gt;，但可以有多个唯一键约束。&lt;/p&gt;
@@ -2106,16 +2106,16 @@
     &lt;/button&gt;
   &lt;/div&gt;
 &lt;/div&gt;
-&lt;img src=&#34;./表的约束.IMG/image-20231026193902158.png&#34; alt=&#34;image-20231026193902158&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表的约束.IMG/image-20231026193902158.png&#34; alt=&#34;image-20231026193902158&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;Key 为 PRI 的列为表的主键，而且不允许为空，而唯一键允许为空。&lt;/p&gt;
-&lt;img src=&#34;./表的约束.IMG/image-20231026193832057.png&#34; alt=&#34;image-20231026193832057&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表的约束.IMG/image-20231026193832057.png&#34; alt=&#34;image-20231026193832057&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;这个错误信息和唯一键是一样的，主键不允许重复。&lt;/p&gt;
 &lt;p&gt;也可以在表已经存在时使用 alter table 语句来删除或添加主键约束，例如：&lt;/p&gt;
-&lt;img src=&#34;./表的约束.IMG/image-20231026194525887.png&#34; alt=&#34;image-20231026194525887&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表的约束.IMG/image-20231026194525887.png&#34; alt=&#34;image-20231026194525887&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;值得注意的是，即使删除了这一列的主键约束，它原有的非空约束是不会被删除的。&lt;/p&gt;
-&lt;img src=&#34;./表的约束.IMG/image-20231026194621228.png&#34; alt=&#34;image-20231026194621228&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表的约束.IMG/image-20231026194621228.png&#34; alt=&#34;image-20231026194621228&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;在表删除了唯一键后，让有两个不同 id 的记录的tel 值相同，然后试图将 tel 列作为主键：&lt;/p&gt;
-&lt;img src=&#34;./表的约束.IMG/image-20231026195023725.png&#34; alt=&#34;image-20231026195023725&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表的约束.IMG/image-20231026195023725.png&#34; alt=&#34;image-20231026195023725&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;可见，不论是在插入记录，还是在已有表中设置主键，MySQL 都要检查数据的唯一性。&lt;/p&gt;
 &lt;p&gt;主键对于用户和数据库本身的作用：&lt;/p&gt;
 &lt;ul&gt;
@@ -2144,15 +2144,15 @@
     &lt;/button&gt;
   &lt;/div&gt;
 &lt;/div&gt;
-&lt;img src=&#34;./表的约束.IMG/image-20231026200716005.png&#34; alt=&#34;image-20231026200716005&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表的约束.IMG/image-20231026200716005.png&#34; alt=&#34;image-20231026200716005&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;插入几条数据：&lt;/p&gt;
-&lt;img src=&#34;./表的约束.IMG/image-20231026201019434.png&#34; alt=&#34;image-20231026201019434&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表的约束.IMG/image-20231026201019434.png&#34; alt=&#34;image-20231026201019434&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;只要复合主键这个整体没有重复，那么就可以插入。这个场景很符合学生选课时的场景，例如同一个学生可以选不同课，多个学生可以选同一门课。&lt;/p&gt;
 &lt;p&gt;类似地，删除复合主键：
-&lt;img src=&#34;./表的约束.IMG/image-20231026201439905.png&#34; alt=&#34;image-20231026201439905&#34; style=&#34;zoom:33%;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;./.表的约束.IMG/image-20231026201439905.png&#34; alt=&#34;image-20231026201439905&#34; style=&#34;zoom:33%;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;删除主键约束的列，其非空约束也不会被删除。&lt;/p&gt;
 &lt;p&gt;在已有的表中增加复合主键：&lt;/p&gt;
-&lt;img src=&#34;./表的约束.IMG/image-20231026201631997.png&#34; alt=&#34;image-20231026201631997&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表的约束.IMG/image-20231026201631997.png&#34; alt=&#34;image-20231026201631997&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;同样地，在增加复合主键时，也要保证这些「列组合」的唯一性。&lt;/p&gt;
 &lt;p&gt;在设计主键时，除了要选择这个表中数据唯一的那一列，还要保证它与业务无关，也就是说业务调整以后，不会影响主键的表结构。&lt;/p&gt;
 &lt;h1&gt;FOREIGN KEY（外键约束）&lt;/h1&gt;&lt;p&gt;MySQL 的外键约束是指在两个表之间建立的一种关联关系，建立外键约束的表叫做从表，对于从表而言，“外键”是主表的主键，这样可以保证从表中的外键值必须在主表中存在，从而维护数据的一致性和完整性。&lt;/p&gt;
@@ -2162,7 +2162,7 @@
 &lt;li&gt;防止数据的非法更新或删除。例如，在用户表中，用户角色外键可以防止用户被删除后，其角色信息仍然存在。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;例如在订单表中，引用了用户表的主键 id：&lt;/p&gt;
-&lt;img src=&#34;./表的约束.IMG/image-20231026204404700.png&#34; alt=&#34;image-20231026204404700&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表的约束.IMG/image-20231026204404700.png&#34; alt=&#34;image-20231026204404700&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;创建 customers 表：&lt;/p&gt;
 &lt;div class=&#34;code-block relative mt-6 first:mt-0 group/code&#34;&gt;&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-mysql&#34; data-lang=&#34;mysql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;mysql&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;create&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;table&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;customers&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;customer_id&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;primary&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
@@ -2177,7 +2177,7 @@
     &lt;/button&gt;
   &lt;/div&gt;
 &lt;/div&gt;
-&lt;img src=&#34;./表的约束.IMG/image-20231026205348344.png&#34; alt=&#34;image-20231026205348344&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表的约束.IMG/image-20231026205348344.png&#34; alt=&#34;image-20231026205348344&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;在创建表时使用 FOREIGN KEY 和 REFERENCES 关键字创建外键约束：&lt;/p&gt;
 &lt;div class=&#34;code-block relative mt-6 first:mt-0 group/code&#34;&gt;&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-mysql&#34; data-lang=&#34;mysql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;mysql&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;create&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;table&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;sales&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sale_id&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;primary&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
@@ -2194,14 +2194,14 @@
     &lt;/button&gt;
   &lt;/div&gt;
 &lt;/div&gt;
-&lt;img src=&#34;./表的约束.IMG/image-20231026205704258.png&#34; alt=&#34;image-20231026205704258&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表的约束.IMG/image-20231026205704258.png&#34; alt=&#34;image-20231026205704258&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;Key值为 MUL （multi）的列，表示这个列是一个非唯一索引的第一列，或者是一个唯一索引的部分组成但是可以含有空值。MUL 只表示这个列的值可以重复，并不表示这个列与其他列有关联。&lt;/p&gt;
 &lt;p&gt;如果为 MUL 的列引用了另一个表的主键或唯一键，并且有外键约束，那么它就是本表的外键。&lt;/p&gt;
 &lt;p&gt;通过下面的例子理解外键约束。&lt;/p&gt;
 &lt;p&gt;首先在主表（customers）插入两条记录：&lt;/p&gt;
-&lt;img src=&#34;./表的约束.IMG/image-20231027181132879.png&#34; alt=&#34;image-20231027181132879&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表的约束.IMG/image-20231027181132879.png&#34; alt=&#34;image-20231027181132879&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;再向从表（sales）插入：&lt;/p&gt;
-&lt;img src=&#34;./表的约束.IMG/image-20231027181435081.png&#34; alt=&#34;image-20231027181435081&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表的约束.IMG/image-20231027181435081.png&#34; alt=&#34;image-20231027181435081&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;第二条记录插入的外键的值可以为 NULL，这是因为表没有对它做空值约束。&lt;/p&gt;
 &lt;p&gt;第三条不允许插入的原因是，外键的值在主表中没有对应的记录。这就是外键约束，它将两个表关联起来，从表插入外键的值必须在主表中有对应的记录。&lt;/p&gt;
 &lt;p&gt;MySQL 作为一款数据管理系统，它能做的事情我们人类也能做，只是在这个信息爆炸的时代，人工管理数据的成本很高，相比于人类而言，计算机的正确性和效率是绝对的。我们不设置外键也可以手动实现同样的约束，只不过在数据很多时成本很高就是了。&lt;/p&gt;
@@ -2237,21 +2237,21 @@
     &lt;/button&gt;
   &lt;/div&gt;
 &lt;/div&gt;
-&lt;img src=&#34;./表的约束.IMG/image-20231027183550824.png&#34; alt=&#34;image-20231027183550824&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表的约束.IMG/image-20231027183550824.png&#34; alt=&#34;image-20231027183550824&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;默认情况下，AUTO_INCREMENT 的初始值是 1，每次新增一条记录，该列的值就会自动加 。&lt;/p&gt;
-&lt;img src=&#34;./表的约束.IMG/image-20231027184106022.png&#34; alt=&#34;image-20231027184106022&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表的约束.IMG/image-20231027184106022.png&#34; alt=&#34;image-20231027184106022&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;如果想改变 AUTO_INCREMENT 的初始值或者步长，可以使用 ALTER TABLE 语句或者设置全局或会话级别的变量。例如，以下语句将表的 AUTO_INCREMENT 的初始值改为 10：&lt;/p&gt;
-&lt;img src=&#34;./表的约束.IMG/image-20231027184328465.png&#34; alt=&#34;image-20231027184328465&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表的约束.IMG/image-20231027184328465.png&#34; alt=&#34;image-20231027184328465&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;除此之外，还可以使用 NULL 或者 DEFAULT 占位符插入含有自增属性的列值，效果和上面是一样的。&lt;/p&gt;
-&lt;img src=&#34;./表的约束.IMG/image-20231027184632355.png&#34; alt=&#34;image-20231027184632355&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表的约束.IMG/image-20231027184632355.png&#34; alt=&#34;image-20231027184632355&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;如果在插入时，指定的 AUTO_INCREMENT值比表中记录的值还要大，那么它将会被更新为最大的那个AUTO_INCREMENT值。&lt;/p&gt;
-&lt;img src=&#34;./表的约束.IMG/image-20231027184923890.png&#34; alt=&#34;image-20231027184923890&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表的约束.IMG/image-20231027184923890.png&#34; alt=&#34;image-20231027184923890&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;值得注意的是，即使删除了某一条记录，表中的AUTO_INCREMENT的值是不会被影响的，它只会记录当前的最大值。&lt;/p&gt;
-&lt;img src=&#34;./表的约束.IMG/image-20231027185244191.png&#34; alt=&#34;image-20231027185244191&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表的约束.IMG/image-20231027185244191.png&#34; alt=&#34;image-20231027185244191&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;值得注意的是，一个表只允许欧一个自增长列，并且改列需要定义约束。&lt;/p&gt;
-&lt;img src=&#34;./表的约束.IMG/image-20231027185838996.png&#34; alt=&#34;image-20231027185838996&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表的约束.IMG/image-20231027185838996.png&#34; alt=&#34;image-20231027185838996&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;删除某个列的自增属性：&lt;/p&gt;
-&lt;img src=&#34;./表的约束.IMG/image-20231027190002938.png&#34; alt=&#34;image-20231027190002938&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表的约束.IMG/image-20231027190002938.png&#34; alt=&#34;image-20231027190002938&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;h1&gt;参考资料&lt;/h1&gt;&lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.cnblogs.com/cangqinglang/p/10036680.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;MySQL——约束(constraint)详解&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://segmentfault.com/a/1190000039214953&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;一篇文章带你彻底了解MySQL各种约束&lt;/a&gt;&lt;/li&gt;
@@ -2305,17 +2305,17 @@
     &lt;/button&gt;
   &lt;/div&gt;
 &lt;/div&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231030141126948.png&#34; alt=&#34;image-20231030141126948&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231030141126948.png&#34; alt=&#34;image-20231030141126948&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;指定列插入：&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231030141330864.png&#34; alt=&#34;image-20231030141330864&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231030141330864.png&#34; alt=&#34;image-20231030141330864&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;如果插入的是所有列，那么可以省略列名：&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231030141453258.png&#34; alt=&#34;image-20231030141453258&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231030141453258.png&#34; alt=&#34;image-20231030141453258&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;如果将 id 列的属性设置为自增，那么自增的值将是当前 id 的最大值+1，即 3。这允许插入时不指定 id 的值：
-&lt;img src=&#34;./表内容的操作.IMG/image-20231030142703270.png&#34; alt=&#34;image-20231030142703270&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231030142738265.png&#34; alt=&#34;image-20231030142738265&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231030142703270.png&#34; alt=&#34;image-20231030142703270&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231030142738265.png&#34; alt=&#34;image-20231030142738265&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;也就是说，只要表的约束允许插入列值时可以为空，那么在插入时就可以不指定列名，不过需要注意列名和列值位置和数量上的对应。&lt;/p&gt;
 &lt;p&gt;上面是每次插入一条数据，也可以在指定列名后，插入多条记录的列值：&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231030143253181.png&#34; alt=&#34;image-20231030143253181&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231030143253181.png&#34; alt=&#34;image-20231030143253181&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;h2&gt;插入冲突则更新记录&lt;span class=&#34;absolute -mt-20&#34; id=&#34;插入冲突则更新记录&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e6%8f%92%e5%85%a5%e5%86%b2%e7%aa%81%e5%88%99%e6%9b%b4%e6%96%b0%e8%ae%b0%e5%bd%95&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;div class=&#34;code-block relative mt-6 first:mt-0 group/code&#34;&gt;&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-mysql&#34; data-lang=&#34;mysql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;INSERT&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;INTO&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;table_name&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;column1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;column2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,..)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;VALUES&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,..)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;ON&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;DUPLICATE&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;KEY&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;UPDATE&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;column1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;column2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,..;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0&#34;&gt;
     &lt;button
@@ -2329,17 +2329,17 @@
 &lt;/div&gt;
 &lt;p&gt;如果在插入之前和表中的主键或唯一键产生冲突，那么则「更新」，否则直接插入。更新，即插入这个已存在的记录除了主键或唯一键之外不同的列值。&lt;/p&gt;
 &lt;p&gt;例如将上表中 id=5 的记录修改为：&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231030145410028.png&#34; alt=&#34;image-20231030145410028&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231030145410028.png&#34; alt=&#34;image-20231030145410028&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;如果插入了一条不存在的记录，那么相当于直接插入：&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231030145613304.png&#34; alt=&#34;image-20231030145613304&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231030145613304.png&#34; alt=&#34;image-20231030145613304&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;它们的不同之处在于 MySQL 打印的日志信息，前者是&lt;code&gt;2 rows affected&lt;/code&gt;，表示这条已存在的记录中数据有冲突（先删除后插入）；后者是&lt;code&gt;1 rows affected&lt;/code&gt;，表示没有数据冲突（直接插入）。如果是&lt;code&gt;0 rows affected&lt;/code&gt;，则说明插入的和原来的记录相同。&lt;/p&gt;
 &lt;h2&gt;替换记录&lt;span class=&#34;absolute -mt-20&#34; id=&#34;替换记录&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e6%9b%bf%e6%8d%a2%e8%ae%b0%e5%bd%95&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;替换记录的语法和插入类似，只需要将 INSERT 换成 REPLACE。&lt;/p&gt;
 &lt;p&gt;替换的记录有冲突，实际上是先删除这条记录，然后再插入：&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231030150028381.png&#34; alt=&#34;image-20231030150028381&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231030150028381.png&#34; alt=&#34;image-20231030150028381&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;所以 MySQL 会提示有 2 行被影响。&lt;/p&gt;
 &lt;p&gt;如果不存在这条记录，相当于直接插入：
-&lt;img src=&#34;./表内容的操作.IMG/image-20231030150147812.png&#34; alt=&#34;image-20231030150147812&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231030150147812.png&#34; alt=&#34;image-20231030150147812&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
 &lt;h1&gt;Retrieve（查找）&lt;/h1&gt;&lt;h2&gt;查找记录&lt;span class=&#34;absolute -mt-20&#34; id=&#34;查找记录&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e6%9f%a5%e6%89%be%e8%ae%b0%e5%bd%95&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;div class=&#34;code-block relative mt-6 first:mt-0 group/code&#34;&gt;&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-mysql&#34; data-lang=&#34;mysql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;SELECT&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;DISTINCT&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;column1&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;column2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;}}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;FROM&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;table_name&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;WHERE&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;ORDER&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;BY&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;LIMIT&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...];&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0&#34;&gt;
     &lt;button
@@ -2369,7 +2369,7 @@
     &lt;/button&gt;
   &lt;/div&gt;
 &lt;/div&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231030152116596.png&#34; alt=&#34;image-20231030152116596&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231030152116596.png&#34; alt=&#34;image-20231030152116596&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;插入若干数据以测试：&lt;/p&gt;
 &lt;div class=&#34;code-block relative mt-6 first:mt-0 group/code&#34;&gt;&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-mysql&#34; data-lang=&#34;mysql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;mysql&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;insert&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;into&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;en_exam&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;values&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
@@ -2384,14 +2384,14 @@
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;查询表中指定列名的值：
-&lt;img src=&#34;./表内容的操作.IMG/image-20231030152605413.png&#34; alt=&#34;image-20231030152605413&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231030152605413.png&#34; alt=&#34;image-20231030152605413&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;通过通配符&lt;code&gt;*&lt;/code&gt;来查询全列信息：
-&lt;img src=&#34;./表内容的操作.IMG/image-20231030152703550.png&#34; alt=&#34;image-20231030152703550&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231030152703550.png&#34; alt=&#34;image-20231030152703550&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;在测试时表的结构简单，通常用全列查询。但实际上数据库的一张表中就可能维护着成千上万条记录，这么做不但可读性差，而且如果是通过网络连接到 MySQL 服务器，可能对 MySQL 客户端的性能产生影响。&lt;/p&gt;
 &lt;p&gt;因此在查询时通常会指定查询条件。&lt;/p&gt;
 &lt;p&gt;事实上在 MySQL 中，select 命令可以执行表达式，例如计算一个四则运算，执行一个函数。那么言外之意是，在含有 select 关键字的 SQL 中，select 是最后才执行的。&lt;/p&gt;
 &lt;p&gt;例如计算上面这张表中所有人的总分和平均分：&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231030153556040.png&#34; alt=&#34;image-20231030153556040&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231030153556040.png&#34; alt=&#34;image-20231030153556040&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;关于更多类似的做法，将会在下面介绍。&lt;/p&gt;
 &lt;h2&gt;指定表达式的别名&lt;span class=&#34;absolute -mt-20&#34; id=&#34;指定表达式的别名&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e6%8c%87%e5%ae%9a%e8%a1%a8%e8%be%be%e5%bc%8f%e7%9a%84%e5%88%ab%e5%90%8d&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;div class=&#34;code-block relative mt-6 first:mt-0 group/code&#34;&gt;&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-mysql&#34; data-lang=&#34;mysql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;SELECT&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;column&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;AS&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;alias_name&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[...]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;FROM&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;table_name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0&#34;&gt;
@@ -2405,10 +2405,10 @@
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;在上面这个例子中，计算总分和平均分这个表达式在 select 语句中相当于一个列，相比于其他列而言，直接将表达式作为列名可读性较差，可以为这个表达式的返回值取一个别名。&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231030153920065.png&#34; alt=&#34;image-20231030153920065&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231030153920065.png&#34; alt=&#34;image-20231030153920065&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;h2&gt;为结果去重&lt;span class=&#34;absolute -mt-20&#34; id=&#34;为结果去重&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e4%b8%ba%e7%bb%93%e6%9e%9c%e5%8e%bb%e9%87%8d&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;在 select 关键字后加上 DISTINCT 关键字以对表指定的列值去重：&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231031150016331.png&#34; alt=&#34;image-20231031150016331&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231031150016331.png&#34; alt=&#34;image-20231031150016331&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;h2&gt;WHERE 子句&lt;span class=&#34;absolute -mt-20&#34; id=&#34;where-子句&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#where-%e5%ad%90%e5%8f%a5&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;WHERE 子句用于从表中选择满足指定条件的数据。用户可以使用不同的比较运算符、逻辑运算符、通配符等来构造过滤表达式。WHERE 子句可以用在 SELECT、UPDATE、DELETE 等语句中。&lt;/p&gt;
 &lt;p&gt;那么，SELECT 等语句在查询表时，是根据 WHERE 子句筛选结果的，也就是说 WHERE 子句的执行在 SELECT 等语句之前。&lt;/p&gt;
@@ -2486,31 +2486,31 @@
 &lt;p&gt;其中和编程语言的习惯不同的主要是“等于”（=，&amp;lt;=&amp;gt;）和“不等于”（&amp;lt;&amp;gt;），需要注意区分。&lt;/p&gt;
 &lt;h3&gt;条件查询&lt;span class=&#34;absolute -mt-20&#34; id=&#34;条件查询&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e6%9d%a1%e4%bb%b6%e6%9f%a5%e8%af%a2&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;在 en_exam 表中，做一下条件查询：
-&lt;img src=&#34;./表内容的操作.IMG/image-20231031155349033.png&#34; alt=&#34;image-20231031155349033&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231031155349033.png&#34; alt=&#34;image-20231031155349033&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;查询听力在 6 分以下的人的姓名：&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231031160029065.png&#34; alt=&#34;image-20231031160029065&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231031160029065.png&#34; alt=&#34;image-20231031160029065&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;WHERE 子句中的条件并没有标准来规范格式，所以不需要添加空格。&lt;/p&gt;
 &lt;p&gt;在查询时，可以指定表中存在的任意列名。例如查询听力为 9 分的人的姓名和写作成绩：&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231031160414195.png&#34; alt=&#34;image-20231031160414195&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231031160414195.png&#34; alt=&#34;image-20231031160414195&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;h3&gt;区间查询&lt;span class=&#34;absolute -mt-20&#34; id=&#34;区间查询&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e5%8c%ba%e9%97%b4%e6%9f%a5%e8%af%a2&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;查询口语成绩在 5~8 分之间的人的姓名：&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231031160808261.png&#34; alt=&#34;image-20231031160808261&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231031160808261.png&#34; alt=&#34;image-20231031160808261&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;也可以使用 BETWEEN a AND b 来查询 [a, b] 这个区间的值：&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231031160914606.png&#34; alt=&#34;image-20231031160914606&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231031160914606.png&#34; alt=&#34;image-20231031160914606&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;查询听力成绩在 6~8 分之间&lt;strong&gt;或者&lt;/strong&gt;口语成绩大于 6 分的人的写作成绩：&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231031161215464.png&#34; alt=&#34;image-20231031161215464&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231031161215464.png&#34; alt=&#34;image-20231031161215464&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;在练习时可以以行（回车）来划分不同的关键字。&lt;/p&gt;
 &lt;p&gt;查询听力成绩比口语成绩更好的人的姓名：&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231031161917185.png&#34; alt=&#34;image-20231031161917185&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231031161917185.png&#34; alt=&#34;image-20231031161917185&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;查询听力成绩为 5 分或者 7 分或者 9 分的人的姓名：&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231031161500964.png&#34; alt=&#34;image-20231031161500964&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231031161500964.png&#34; alt=&#34;image-20231031161500964&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;也可以用 xx IN (&amp;hellip;) 来判断 xx 是否存在于后面这个集合中：
-&lt;img src=&#34;./表内容的操作.IMG/image-20231031161640157.png&#34; alt=&#34;image-20231031161640157&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231031161640157.png&#34; alt=&#34;image-20231031161640157&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;由于 WHERE 子句在 SELECT 语句之前执行，所以不能在 WHERE 子句中使用在 SELECT 语句中定义的别名。&lt;/p&gt;
 &lt;p&gt;例如查找总成绩大于 21 分的人的姓名和总分：&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231031163209001.png&#34; alt=&#34;image-20231031163209001&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231031163209001.png&#34; alt=&#34;image-20231031163209001&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;因为 SELECT 语句在 WHERE 子句之后执行，所以在前者中定义的别名对于后者是未知值。&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231031163307803.png&#34; alt=&#34;image-20231031163307803&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231031163307803.png&#34; alt=&#34;image-20231031163307803&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;h3&gt;模糊查询&lt;span class=&#34;absolute -mt-20&#34; id=&#34;模糊查询&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e6%a8%a1%e7%b3%8a%e6%9f%a5%e8%af%a2&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;插入了两条记录：&lt;/p&gt;
 &lt;div class=&#34;code-block relative mt-6 first:mt-0 group/code&#34;&gt;&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-mysql&#34; data-lang=&#34;mysql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;mysql&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;insert&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;into&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;en_exam&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;values&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;孙大勇&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;7&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;9&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;森破&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;6&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;7&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0&#34;&gt;
@@ -2524,20 +2524,20 @@
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;模糊查询：查询孙某某同学和森某同学的记录：&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231115131254099.png&#34; alt=&#34;image-20231115131254099&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231115131254099.png&#34; alt=&#34;image-20231115131254099&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;注意下划线的数量要和字符的个数匹配。&lt;/p&gt;
 &lt;p&gt;如果要查找姓孙和姓森的记录，只需要匹配第一个字符：&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231120142112678.png&#34; alt=&#34;image-20231120142112678&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231120142112678.png&#34; alt=&#34;image-20231120142112678&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;h3&gt;空值查询&lt;span class=&#34;absolute -mt-20&#34; id=&#34;空值查询&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e7%a9%ba%e5%80%bc%e6%9f%a5%e8%af%a2&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;现在表的内容：&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231115131508706.png&#34; alt=&#34;image-20231115131508706&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231115131508706.png&#34; alt=&#34;image-20231115131508706&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;其中只有 8,9 号的 school 非空。&lt;/p&gt;
 &lt;p&gt;查询学校为空的记录：&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231115131735384.png&#34; alt=&#34;image-20231115131735384&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231115131735384.png&#34; alt=&#34;image-20231115131735384&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;查询学校不为空的记录：&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231115131803759.png&#34; alt=&#34;image-20231115131803759&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231115131803759.png&#34; alt=&#34;image-20231115131803759&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;也可以用运算符&lt;code&gt;&amp;lt;=&amp;gt;&lt;/code&gt;查询空值，但是其他运算符&lt;code&gt;&amp;lt;&amp;gt;&lt;/code&gt;、&lt;code&gt;!=&lt;/code&gt;等都不能与 NULL 比较。这是因为在数据库中 NULL 值表示遗漏或位置的数据，它和任何值都不相等，它是一个空的占位符，没有实际值，因此不能用常规方式比较。所以除了&lt;code&gt;&amp;lt;=&amp;gt;&lt;/code&gt;外的常规运算符，都不是“NULL 安全的”。&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231115132319120.png&#34; alt=&#34;image-20231115132319120&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231115132319120.png&#34; alt=&#34;image-20231115132319120&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;h2&gt;对结果排序&lt;span class=&#34;absolute -mt-20&#34; id=&#34;对结果排序&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e5%af%b9%e7%bb%93%e6%9e%9c%e6%8e%92%e5%ba%8f&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;div class=&#34;code-block relative mt-6 first:mt-0 group/code&#34;&gt;&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-mysql&#34; data-lang=&#34;mysql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;SELECT&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;FROM&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;table_name&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;WHERE&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;ORDER&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;BY&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;column&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;ASC&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;DESC&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...];&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0&#34;&gt;
     &lt;button
@@ -2551,19 +2551,19 @@
 &lt;/div&gt;
 &lt;p&gt;其中：ASC 和 DESC 分别代表的是排升序和排降序，默认为 ASC。如果查询 SQL 中没有 order by 子句，那么返回的顺序是未定义的。&lt;/p&gt;
 &lt;p&gt;查询口语成绩，分别按升序和降序排序：&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231120140255098.png&#34; alt=&#34;image-20231120140255098&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231120140255098.png&#34; alt=&#34;image-20231120140255098&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;查询学校编号，分别按升序排序：&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231120140406328.png&#34; alt=&#34;image-20231120140406328&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231120140406328.png&#34; alt=&#34;image-20231120140406328&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;NULL 值表示为空，虽然它参与运算没有意义，但是在排序时视为比任何值都要小。&lt;/p&gt;
 &lt;p&gt;除了对一列属性进行排序之外，还可以对多列进行排序：&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231120141126348.png&#34; alt=&#34;image-20231120141126348&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231120141126348.png&#34; alt=&#34;image-20231120141126348&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;注意只需要一个 order by 关键字，要排序的列属性之间用逗号隔开。&lt;/p&gt;
 &lt;p&gt;order by 子句的执行在 select 语句之后，所以在 order by 子句中也可以使用 select 中指定的别名：&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231120141833754.png&#34; alt=&#34;image-20231120141833754&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231120141833754.png&#34; alt=&#34;image-20231120141833754&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;但是排序的前提是要有数据。&lt;/p&gt;
 &lt;p&gt;查询姓孙或姓森的同学及其口语成绩，按口语成绩降序显示。&lt;/p&gt;
 &lt;p&gt;对于这个查询，首先要找到要查询的记录，然后再对它们排序。&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231120142447279.png&#34; alt=&#34;image-20231120142447279&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231120142447279.png&#34; alt=&#34;image-20231120142447279&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;h2&gt;筛选分页结果&lt;span class=&#34;absolute -mt-20&#34; id=&#34;筛选分页结果&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e7%ad%9b%e9%80%89%e5%88%86%e9%a1%b5%e7%bb%93%e6%9e%9c&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;从第 0 条记录开始，向后筛选出 n 条记录：&lt;/p&gt;
 &lt;div class=&#34;code-block relative mt-6 first:mt-0 group/code&#34;&gt;&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-mysql&#34; data-lang=&#34;mysql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;SELECT&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;FROM&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;table_name&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;WHERE&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;..]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;ORDER&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;BY&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;LIMIT&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0&#34;&gt;
@@ -2605,7 +2605,7 @@
 &lt;/ul&gt;
 &lt;p&gt;通常情况下一张表中的数据可能非常多，所以最好在 对未知表进行查询时最好在查询 SQL 后加上 limit 1。&lt;/p&gt;
 &lt;p&gt;按 id 进行分页，每页 3 条记录，分别显示第 1、2、3 页：&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231120143214156.png&#34; alt=&#34;image-20231120143214156&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231120143214156.png&#34; alt=&#34;image-20231120143214156&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;这些查询记录的子句，每一步都相当于从原表中摘出来的一张新的子表，后执行的语句都是在这张子表的基础上进行的。&lt;/p&gt;
 &lt;h1&gt;Update（修改）&lt;/h1&gt;&lt;div class=&#34;code-block relative mt-6 first:mt-0 group/code&#34;&gt;&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-mysql&#34; data-lang=&#34;mysql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;UPDATE&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;table_name&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;SET&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;column1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;expr1&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;column2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;expr2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;WHERE&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;ORDER&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;BY&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;LIMIT&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...];&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0&#34;&gt;
     &lt;button
@@ -2623,10 +2623,10 @@
 &lt;li&gt;修改记录的前提是这条记录存在，所以 update 语句中的 where、order by 和 limit 子句就是用来找到符合条件的记录。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;将姓孙的同学的写作成绩改为 7：&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231120144000854.png&#34; alt=&#34;image-20231120144000854&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231120144000854.png&#34; alt=&#34;image-20231120144000854&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;修改子句总是最后才执行的，因为前面的子句都是查询。&lt;/p&gt;
 &lt;p&gt;将口语成绩前 3 的同学的口语成绩全部+3 分：
-&lt;img src=&#34;./表内容的操作.IMG/image-20231120144521647.png&#34; alt=&#34;image-20231120144521647&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231120144521647.png&#34; alt=&#34;image-20231120144521647&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;不论是多复杂的查询，总是要先得到查询后的这张子表，在子表中修改属性的值。另外注意 MySQL 不支持诸如+=这样的运算符。前 3 名+3 分后仍然是前三，但是如果是倒数 3 名+3 分后，可能就不是了。&lt;/p&gt;
 &lt;h1&gt;Delete（删除）&lt;/h1&gt;&lt;h2&gt;DELETE&lt;span class=&#34;absolute -mt-20&#34; id=&#34;delete&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#delete&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;div class=&#34;code-block relative mt-6 first:mt-0 group/code&#34;&gt;&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-mysql&#34; data-lang=&#34;mysql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;DELETE&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;FROM&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;table_name&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;WHERE&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;ORDER&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;BY&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;LIMIT&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...];&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0&#34;&gt;
@@ -2641,11 +2641,11 @@
 &lt;/div&gt;
 &lt;p&gt;和修改数记录一样，删除记录的前提是这条记录存在。所以 delete 子句也是在找到最终这张子表之后进行的。&lt;/p&gt;
 &lt;p&gt;删除孙大勇的记录：
-&lt;img src=&#34;./表内容的操作.IMG/image-20231120145205253.png&#34; alt=&#34;image-20231120145205253&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231120145205253.png&#34; alt=&#34;image-20231120145205253&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;删除表：&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231120145825939.png&#34; alt=&#34;image-20231120145825939&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231120145825939.png&#34; alt=&#34;image-20231120145825939&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;对于这张表，id 是一个自增属性，尝试删除它。&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231120145959466.png&#34; alt=&#34;image-20231120145959466&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231120145959466.png&#34; alt=&#34;image-20231120145959466&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;删除后这张表中就没有记录了，再向它插入几条不指定 id 的记录，可见自增变量即使在删除表以后仍然是删除前的最大值。&lt;/p&gt;
 &lt;h2&gt;TRUNCATE&lt;span class=&#34;absolute -mt-20&#34; id=&#34;truncate&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#truncate&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;删除表中所有数据。&lt;/p&gt;
@@ -2666,24 +2666,24 @@
 &lt;li&gt;truncate 会重置&lt;code&gt;AUTO_INCREMENT=n&lt;/code&gt;选项。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;对于同样的一张表：&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231120150519782.png&#34; alt=&#34;image-20231120150519782&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231120150519782.png&#34; alt=&#34;image-20231120150519782&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;执行 truncate 操作，会将表中的数据清空，包括自增长属性。&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231120150635623.png&#34; alt=&#34;image-20231120150635623&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231120150635623.png&#34; alt=&#34;image-20231120150635623&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;由于 truncate 不对数据操作，而是直接 drop 表，所以执行截断操作后影响行数为 0。&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231120150809508.png&#34; alt=&#34;image-20231120150809508&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231120150809508.png&#34; alt=&#34;image-20231120150809508&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;截断表后再插入记录，从 1 开始自增。&lt;/p&gt;
 &lt;h2&gt;记录去重&lt;span class=&#34;absolute -mt-20&#34; id=&#34;记录去重&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e8%ae%b0%e5%bd%95%e5%8e%bb%e9%87%8d&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;只保留重复记录中的一份，通常的做法是使用一个临时表。这种方法可以通过创建一个和原表结构相同的临时表，然后将原表中不重复的数据插入到临时表中，再删除原表并将临时表重命名为原表的名字。&lt;/p&gt;
 &lt;p&gt;下面这张表中有两份重复记录：&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231120152312258.png&#34; alt=&#34;image-20231120152312258&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231120152312258.png&#34; alt=&#34;image-20231120152312258&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;首先创建一个结构和原表一样的临时表：&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231120152436598.png&#34; alt=&#34;image-20231120152436598&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231120152436598.png&#34; alt=&#34;image-20231120152436598&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;可以使用 like 关键字来创建。&lt;/p&gt;
 &lt;p&gt;还记得上面我们说不论多复杂的查询，每一步都是在已有表的基础上，得到一张新的子表吗？这里我们可以在原表中查询出一张没有重复记录的子表，然后将这个子表插入到临时表中。&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231120152736444.png&#34; alt=&#34;image-20231120152736444&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231120152736444.png&#34; alt=&#34;image-20231120152736444&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;这样临时表中的记录就不会重复了。&lt;/p&gt;
 &lt;p&gt;最后可以将旧表删除，将临时表的名字改为旧表的名字。或者改为 xx_backup，表示它是原表的一个备份。&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231120153004759.png&#34; alt=&#34;image-20231120153004759&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231120153004759.png&#34; alt=&#34;image-20231120153004759&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;h1&gt;聚合函数&lt;/h1&gt;&lt;p&gt;聚合函数是一类用于对一组值进行计算并返回单个值的函数。MySQL 提供了多种聚合函数，可以用来计算平均值，总和，计数，最大值，最小值等。聚合函数通常和 GROUP BY 子句一起使用，来对数据进行分组和统计。&lt;/p&gt;
 &lt;p&gt;常用的聚合函数有：&lt;/p&gt;
 &lt;ul&gt;
@@ -2704,23 +2704,23 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;在这张表中测试聚合函数：&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231120215840516.png&#34; alt=&#34;image-20231120215840516&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231120215840516.png&#34; alt=&#34;image-20231120215840516&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;统计这张表中总共有多少条记录：
-&lt;img src=&#34;./表内容的操作.IMG/image-20231120220626042.png&#34; alt=&#34;image-20231120220626042&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231120220626042.png&#34; alt=&#34;image-20231120220626042&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;分别用&lt;code&gt;*&lt;/code&gt;和表达式&lt;code&gt;1&lt;/code&gt;作为参数，得到的结果是一样的。这是因为后者这种写法相当于在查询时在原表中新增了一个值为 1 的列，然后 count 函数就会计算出有多少行值为 1 的列。&lt;/p&gt;
 &lt;p&gt;实际上 count(1) 数的是这一列：&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231120220937996.png&#34; alt=&#34;image-20231120220937996&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231120220937996.png&#34; alt=&#34;image-20231120220937996&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;统计这张表中有学校信息的记录：&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231120221040375.png&#34; alt=&#34;image-20231120221040375&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231120221040375.png&#34; alt=&#34;image-20231120221040375&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;如果 count 函数的参数是一个确定的列名，那么 count 函数将会忽略该列中的 NULL 值。&lt;/p&gt;
 &lt;p&gt;统计这次考试中口语成绩的所有情况的个数，即口语成绩去重后的结果：&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231120221229567.png&#34; alt=&#34;image-20231120221229567&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231120221229567.png&#34; alt=&#34;image-20231120221229567&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;统计口语成绩的总分：&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231120221544826.png&#34; alt=&#34;image-20231120221544826&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231120221544826.png&#34; alt=&#34;image-20231120221544826&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;统计所有成绩的平均分：&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231120221706037.png&#34; alt=&#34;image-20231120221706037&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231120221706037.png&#34; alt=&#34;image-20231120221706037&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;找到写作成绩的最高分和最低分：&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231120221805974.png&#34; alt=&#34;image-20231120221805974&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231120221805974.png&#34; alt=&#34;image-20231120221805974&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;h1&gt;分组查询&lt;/h1&gt;&lt;p&gt;分组查询是一种用于对查询结果按照一个或多个字段进行分组的查询方式。分组查询可以配合聚合函数来对每个分组进行统计或计算。&lt;/p&gt;
 &lt;div class=&#34;code-block relative mt-6 first:mt-0 group/code&#34;&gt;&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-mysql&#34; data-lang=&#34;mysql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;SELECT&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;column1&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;column2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;FROM&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;table_name&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;WHERE&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;GROUP&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;BY&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;column&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;order&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;by&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;LIMIT&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...];&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0&#34;&gt;
     &lt;button
@@ -2856,19 +2856,19 @@
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;这些 SQL 将保存在一个以&lt;code&gt;.sql&lt;/code&gt;结尾的文件中，然后再 MySQL 中使用 source 命令执行它：&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231120224457885.png&#34; alt=&#34;image-20231120224457885&#34; style=&#34;zoom:50%;&#34; /&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231120224535610.png&#34; alt=&#34;image-20231120224535610&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231120224457885.png&#34; alt=&#34;image-20231120224457885&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231120224535610.png&#34; alt=&#34;image-20231120224535610&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;部门表的结构和内容：&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231120224615277.png&#34; alt=&#34;image-20231120224615277&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231120224615277.png&#34; alt=&#34;image-20231120224615277&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;员工表的结构和内容：&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231120224654193.png&#34; alt=&#34;image-20231120224654193&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231120224654193.png&#34; alt=&#34;image-20231120224654193&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;工资等级表的结构和内容：&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231120224735460.png&#34; alt=&#34;image-20231120224735460&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231120224735460.png&#34; alt=&#34;image-20231120224735460&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;显示每个部门的平均工资和最高工资：&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231120224838846.png&#34; alt=&#34;image-20231120224838846&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231120224838846.png&#34; alt=&#34;image-20231120224838846&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;首先按照部门号分组，然后在各自的组内做聚合查询，得到各个组的平均和最高工资。&lt;/p&gt;
 &lt;p&gt;显示每个部门的每种岗位的平均工资和最低工资：&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231120225022199.png&#34; alt=&#34;image-20231120225022199&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231120225022199.png&#34; alt=&#34;image-20231120225022199&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;注意：group by 子句中可以指明按照多个字段进行分组，各个字段之间使用逗号隔开，分组优先级与书写顺序相同。当两条记录的部门号相同时，将会继续按照岗位进行分组。&lt;/p&gt;
 &lt;h2&gt;HAVING&lt;span class=&#34;absolute -mt-20&#34; id=&#34;having&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#having&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;HAVING 子句是用来在 SELECT 语句中指定一组行或聚合的过滤条件的。HAVING 子句通常与 GROUP BY 子句一起使用，以根据指定的条件过滤分组。如果省略 GROUP BY 子句，则 HAVING 子句的行为与 WHERE 子句类似。&lt;/p&gt;
@@ -2903,7 +2903,7 @@
 &lt;li&gt;where 子句中不能使用聚合函数和别名，而 having 子句中可以使用聚合函数和别名。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;显示平均工资低于 2500 的部门和它的平均工资：&lt;/p&gt;
-&lt;img src=&#34;./表内容的操作.IMG/image-20231120230751534.png&#34; alt=&#34;image-20231120230751534&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.表内容的操作.IMG/image-20231120230751534.png&#34; alt=&#34;image-20231120230751534&#34; style=&#34;zoom:50%;&#34; /&gt;
 
       </description>
     </item>
@@ -2970,24 +2970,24 @@
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;current_date 函数、current_time 函数、current_timestamp 函数和 now 函数：获取当前日期、时间、时间戳以及当前日期时间：&lt;/p&gt;
-&lt;img src=&#34;./内置函数.IMG/image-20231126162905547.png&#34; alt=&#34;image-20231126162905547&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.内置函数.IMG/image-20231126162905547.png&#34; alt=&#34;image-20231126162905547&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;date 函数：获取获取 datetime 参数的日期部分：&lt;/p&gt;
-&lt;img src=&#34;./内置函数.IMG/image-20231126163204482.png&#34; alt=&#34;image-20231126163204482&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.内置函数.IMG/image-20231126163204482.png&#34; alt=&#34;image-20231126163204482&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;在已有日期的基础上添加日期或时间：&lt;/p&gt;
-&lt;img src=&#34;./内置函数.IMG/image-20231126163427798.png&#34; alt=&#34;image-20231126163427798&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.内置函数.IMG/image-20231126163427798.png&#34; alt=&#34;image-20231126163427798&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;操作的单位可以是日期或时间，根据原有的日期或时间而可以精确到秒数。&lt;/p&gt;
 &lt;p&gt;date_sub 函数的功能完全相同，只是它对已有日期或时间操作的是减法运算。&lt;/p&gt;
 &lt;p&gt;获取两个日期的差，单位是天：&lt;/p&gt;
-&lt;img src=&#34;./内置函数.IMG/image-20231126163913008.png&#34; alt=&#34;image-20231126163913008&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.内置函数.IMG/image-20231126163913008.png&#34; alt=&#34;image-20231126163913008&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;日期和时间是数据的一种属性，例如在网上发表评论，需要用日期和时间标记。&lt;/p&gt;
 &lt;p&gt;评论测试表：&lt;/p&gt;
-&lt;img src=&#34;./内置函数.IMG/image-20231126165005903.png&#34; alt=&#34;image-20231126165005903&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.内置函数.IMG/image-20231126165005903.png&#34; alt=&#34;image-20231126165005903&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;插入记录并查询：&lt;/p&gt;
-&lt;img src=&#34;./内置函数.IMG/image-20231126165034820.png&#34; alt=&#34;image-20231126165034820&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.内置函数.IMG/image-20231126165034820.png&#34; alt=&#34;image-20231126165034820&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;用户可能不需要这么精确的日期或时间，对于比较久远的评论，可以只精确到天：&lt;/p&gt;
-&lt;img src=&#34;./内置函数.IMG/image-20231126165239802.png&#34; alt=&#34;image-20231126165239802&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.内置函数.IMG/image-20231126165239802.png&#34; alt=&#34;image-20231126165239802&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;如果要查询 2 分钟之前的评论，就可能需要用若干函数组合来查询了：&lt;/p&gt;
-&lt;img src=&#34;./内置函数.IMG/image-20231126165737087.png&#34; alt=&#34;image-20231126165737087&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.内置函数.IMG/image-20231126165737087.png&#34; alt=&#34;image-20231126165737087&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;h1&gt;字符串函数&lt;/h1&gt;&lt;p&gt;常用字符串函数有：&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
@@ -3045,36 +3045,36 @@
 &lt;/table&gt;
 &lt;p&gt;charset 函数用来返回指定字符串的字符集。字符集是一种给定一系列字符并赋予对应的编码的方式。例如，给定字符列表为 {‘A’,’B’}时， {‘A’=&amp;gt;0, ‘B’=&amp;gt;1}就是一个字符集。&lt;/p&gt;
 &lt;p&gt;例如查看这张员工雇佣表中名字这一列的字符集：&lt;/p&gt;
-&lt;img src=&#34;./内置函数.IMG/image-20231128141857258.png&#34; alt=&#34;image-20231128141857258&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.内置函数.IMG/image-20231128141857258.png&#34; alt=&#34;image-20231128141857258&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;concat 函数：按参数顺序连接字符串。例如将上面的雇佣表的列属性按照如下方式连接成一个字符串。&lt;/p&gt;
-&lt;img src=&#34;./内置函数.IMG/image-20231128142250417.png&#34; alt=&#34;image-20231128142250417&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.内置函数.IMG/image-20231128142250417.png&#34; alt=&#34;image-20231128142250417&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;instr 函数：获取一个字符串在另一个字符串中首次出现的位置，如果没有出现则返回 0。&lt;/p&gt;
-&lt;img src=&#34;./内置函数.IMG/image-20231128142353993.png&#34; alt=&#34;image-20231128142353993&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.内置函数.IMG/image-20231128142353993.png&#34; alt=&#34;image-20231128142353993&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;ucase 函数：获取转换成大写后的字符串。&lt;/p&gt;
-&lt;img src=&#34;./内置函数.IMG/image-20231128142434264.png&#34; alt=&#34;image-20231128142434264&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.内置函数.IMG/image-20231128142434264.png&#34; alt=&#34;image-20231128142434264&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;lcase 函数：获取转换成小写后的字符串。&lt;/p&gt;
-&lt;img src=&#34;./内置函数.IMG/image-20231128142516985.png&#34; alt=&#34;image-20231128142516985&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.内置函数.IMG/image-20231128142516985.png&#34; alt=&#34;image-20231128142516985&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;left 函数：从字符串的左边开始，向后截取指定个数的字符。&lt;/p&gt;
-&lt;img src=&#34;./内置函数.IMG/image-20231128142712051.png&#34; alt=&#34;image-20231128142712051&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.内置函数.IMG/image-20231128142712051.png&#34; alt=&#34;image-20231128142712051&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;length 函数：获取字符串占用的字节数。&lt;/p&gt;
-&lt;img src=&#34;./内置函数.IMG/image-20231128142758258.png&#34; alt=&#34;image-20231128142758258&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.内置函数.IMG/image-20231128142758258.png&#34; alt=&#34;image-20231128142758258&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;值得注意的是这个函数返回的是字节数而不是字符数，如果是汉字，utf8 占 3 个字节，gbk 占 2 个字节。&lt;/p&gt;
 &lt;p&gt;replace 函数：将字符串中的指定子字符串替换成另一个字符串。&lt;/p&gt;
-&lt;img src=&#34;./内置函数.IMG/image-20231128143010442.png&#34; alt=&#34;image-20231128143010442&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.内置函数.IMG/image-20231128143010442.png&#34; alt=&#34;image-20231128143010442&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;strcmp 函数：逐字符按照 ASCII 码比较两个字符串的大小，两个字符串大小相等返回 0，前者大返回 1，后者大返回 - 1。且不区分大小写。&lt;/p&gt;
-&lt;img src=&#34;./内置函数.IMG/image-20231128143205001.png&#34; alt=&#34;image-20231128143205001&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.内置函数.IMG/image-20231128143205001.png&#34; alt=&#34;image-20231128143205001&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;substring 函数：从字符串的指定位置开始，向后截取指定个数的字符。&lt;/p&gt;
-&lt;img src=&#34;./内置函数.IMG/image-20231128143253039.png&#34; alt=&#34;image-20231128143253039&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.内置函数.IMG/image-20231128143253039.png&#34; alt=&#34;image-20231128143253039&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;trim 函数：去除字符串的前后空格。&lt;/p&gt;
 &lt;p&gt;ltrim 和 rtrim 函数：去除字符串的前空格和后空格。&lt;/p&gt;
-&lt;img src=&#34;./内置函数.IMG/image-20231128143542322.png&#34; alt=&#34;image-20231128143542322&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.内置函数.IMG/image-20231128143542322.png&#34; alt=&#34;image-20231128143542322&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;以首字母小写的方式显示员工表中所有员工的姓名：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;substring 函数和 lcase 函数将姓名的第一个字母转换成小写。&lt;/li&gt;
 &lt;li&gt;substring 函数截取员工姓名的第二个字符及其后续字符。&lt;/li&gt;
 &lt;li&gt;concat 函数用于连接上面获得的两个字符串。&lt;/li&gt;
 &lt;/ol&gt;
-&lt;img src=&#34;./内置函数.IMG/image-20231128143820702.png&#34; alt=&#34;image-20231128143820702&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.内置函数.IMG/image-20231128143820702.png&#34; alt=&#34;image-20231128143820702&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;h1&gt;数学函数&lt;/h1&gt;&lt;p&gt;常用的数学函数如下：&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
@@ -3123,37 +3123,37 @@
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;abs 函数：获取参数绝对值。&lt;/p&gt;
-&lt;img src=&#34;./内置函数.IMG/image-20231128144934588.png&#34; alt=&#34;image-20231128144934588&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.内置函数.IMG/image-20231128144934588.png&#34; alt=&#34;image-20231128144934588&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;bin 函数和 hex 函数：将参数转换为二进制或十六进制：
-&lt;img src=&#34;./内置函数.IMG/image-20231128145011445.png&#34; alt=&#34;image-20231128145011445&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;./.内置函数.IMG/image-20231128145011445.png&#34; alt=&#34;image-20231128145011445&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;conv 函数：进制转换。&lt;/p&gt;
-&lt;img src=&#34;./内置函数.IMG/image-20231128145049121.png&#34; alt=&#34;image-20231128145049121&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.内置函数.IMG/image-20231128145049121.png&#34; alt=&#34;image-20231128145049121&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;ceiling 函数：对参数向上取整。&lt;/p&gt;
-&lt;img src=&#34;./内置函数.IMG/image-20231128145147136.png&#34; alt=&#34;image-20231128145147136&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.内置函数.IMG/image-20231128145147136.png&#34; alt=&#34;image-20231128145147136&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;floor 函数：对参数向下取整。&lt;/p&gt;
-&lt;img src=&#34;./内置函数.IMG/image-20231128145231947.png&#34; alt=&#34;image-20231128145231947&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.内置函数.IMG/image-20231128145231947.png&#34; alt=&#34;image-20231128145231947&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;format 函数：对参数格式化，以四舍五入的方式保留指定位数的小数。&lt;/p&gt;
-&lt;img src=&#34;./内置函数.IMG/image-20231128145317310.png&#34; alt=&#34;image-20231128145317310&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.内置函数.IMG/image-20231128145317310.png&#34; alt=&#34;image-20231128145317310&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;rand 函数：生成 0.0 到 1.0 的随机浮点数。&lt;/p&gt;
-&lt;img src=&#34;./内置函数.IMG/image-20231128145344356.png&#34; alt=&#34;image-20231128145344356&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.内置函数.IMG/image-20231128145344356.png&#34; alt=&#34;image-20231128145344356&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;如果想要生成 0 到 100 的随机数，可以用生成的随机浮点数乘以 100，然后再取整。&lt;/p&gt;
-&lt;img src=&#34;./内置函数.IMG/image-20231128145421317.png&#34; alt=&#34;image-20231128145421317&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.内置函数.IMG/image-20231128145421317.png&#34; alt=&#34;image-20231128145421317&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;mod 函数：对参数求余。&lt;/p&gt;
-&lt;img src=&#34;./内置函数.IMG/image-20231128145514818.png&#34; alt=&#34;image-20231128145514818&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.内置函数.IMG/image-20231128145514818.png&#34; alt=&#34;image-20231128145514818&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;h1&gt;信息函数&lt;/h1&gt;&lt;p&gt;user 函数：获取 MySQL 连接的当前用户名和主机名。&lt;/p&gt;
-&lt;img src=&#34;./内置函数.IMG/image-20231128145718504.png&#34; alt=&#34;image-20231128145718504&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.内置函数.IMG/image-20231128145718504.png&#34; alt=&#34;image-20231128145718504&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;md5 函数：对一个字符串进行 md5 摘要，摘要后得到一个 32 位字符串。&lt;/p&gt;
-&lt;img src=&#34;./内置函数.IMG/image-20231128145735586.png&#34; alt=&#34;image-20231128145735586&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.内置函数.IMG/image-20231128145735586.png&#34; alt=&#34;image-20231128145735586&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;md5 是一种密码散列函数，它可以将任意长度的信息映射为固定长度（通常为 32bit）的哈希值。它具有不可逆性、唯一性和抗碰撞性。并且由于哈希算法的雪崩效应，即使被加密的信息发生了一个很微小的改动，也会使得最后的哈希值变得完全不同。这是因为密码哈希算法通常采用对轮迭代和复杂的非线性变换，使得输入的每一位都会影响输出的每一位（信息安全专业的同学应该会比较了解）。&lt;/p&gt;
 &lt;p&gt;在工业应用中持久化存储用户的账号和密码这样的私密信息时，为了用户的安全是不会存储明文的，而是存储它的摘要，在验证时也是也是以同样的方式对用户输入的密码进行摘要，通过与数据库中的哈希值比较以验证用户身份。&lt;/p&gt;
 &lt;p&gt;这么做也有一个好处，不论用户的密码多长，加密得到的哈希值总是固定的，这样在设计表时就可以用固定长度的列存储密码摘要。&lt;/p&gt;
 &lt;p&gt;database 函数：显示当前正在使用的数据库。&lt;/p&gt;
-&lt;img src=&#34;./内置函数.IMG/image-20231128150651038.png&#34; alt=&#34;image-20231128150651038&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.内置函数.IMG/image-20231128150651038.png&#34; alt=&#34;image-20231128150651038&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;password 函数：对用户数据进行加密。&lt;/p&gt;
-&lt;img src=&#34;./内置函数.IMG/image-20231128150639319.png&#34; alt=&#34;image-20231128150639319&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.内置函数.IMG/image-20231128150639319.png&#34; alt=&#34;image-20231128150639319&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;另外，像 password 这样涉及用户隐私的函数，它不会被保存在 MySQL 的历史命令中（键盘上下方向键查看）。&lt;/p&gt;
 &lt;p&gt;ifnull 函数接受两个参数，如果第一个参数不为 null 则返回第一个参数值，否则返回第二个参数值。&lt;/p&gt;
-&lt;img src=&#34;./内置函数.IMG/image-20231128150733468.png&#34; alt=&#34;image-20231128150733468&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.内置函数.IMG/image-20231128150733468.png&#34; alt=&#34;image-20231128150733468&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;h1&gt;参考资料&lt;/h1&gt;&lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.runoob.com/mysql/mysql-functions.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;MySQL 函数|菜鸟教程&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://blog.csdn.net/chenlong_cxy/article/details/128538165&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;MySQL 内置函数&lt;/a&gt;&lt;/li&gt;
@@ -3294,14 +3294,14 @@
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;这些 SQL 将保存在一个以&lt;code&gt;.sql&lt;/code&gt;结尾的文件中，然后再 MySQL 中使用 source 命令执行它：&lt;/p&gt;
-&lt;img src=&#34;./复合查询.IMG/image-20231120224457885.png&#34; alt=&#34;image-20231120224457885&#34; style=&#34;zoom:50%;&#34; /&gt;
-&lt;img src=&#34;./复合查询.IMG/image-20231120224535610.png&#34; alt=&#34;image-20231120224535610&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.复合查询.IMG/image-20231120224457885.png&#34; alt=&#34;image-20231120224457885&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.复合查询.IMG/image-20231120224535610.png&#34; alt=&#34;image-20231120224535610&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;部门表的结构和内容：&lt;/p&gt;
-&lt;img src=&#34;./复合查询.IMG/image-20231120224615277.png&#34; alt=&#34;image-20231120224615277&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.复合查询.IMG/image-20231120224615277.png&#34; alt=&#34;image-20231120224615277&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;员工表的结构和内容：&lt;/p&gt;
-&lt;img src=&#34;./复合查询.IMG/image-20231120224654193.png&#34; alt=&#34;image-20231120224654193&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.复合查询.IMG/image-20231120224654193.png&#34; alt=&#34;image-20231120224654193&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;工资等级表的结构和内容：&lt;/p&gt;
-&lt;img src=&#34;./复合查询.IMG/image-20231120224735460.png&#34; alt=&#34;image-20231120224735460&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.复合查询.IMG/image-20231120224735460.png&#34; alt=&#34;image-20231120224735460&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;h1&gt;单表查询&lt;/h1&gt;&lt;ul&gt;
 &lt;li&gt;查询工资高于 500 或岗位为 MANAGER 的员工，同时要求员工姓名的首字母为大写的 J&lt;/li&gt;
 &lt;/ul&gt;
@@ -3310,54 +3310,54 @@
 &lt;li&gt;其次明确条件有 3 个，通过题意使用 AND 或 OR 连接。&lt;/li&gt;
 &lt;li&gt;这些属性都能在表&lt;code&gt;emp&lt;/code&gt;中找到。&lt;/li&gt;
 &lt;/ol&gt;
-&lt;img src=&#34;./复合查询.IMG/image-20240223141215636-3788232.png&#34; alt=&#34;image-20240223141215636&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.复合查询.IMG/image-20240223141215636-3788232.png&#34; alt=&#34;image-20240223141215636&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;ul&gt;
 &lt;li&gt;查询员工信息，按部门号升序而员工工资降序显示&lt;/li&gt;
 &lt;/ul&gt;
-&lt;img src=&#34;./复合查询.IMG/image-20240223142015140-3788232.png&#34; alt=&#34;image-20240223142015140&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.复合查询.IMG/image-20240223142015140-3788232.png&#34; alt=&#34;image-20240223142015140&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;ul&gt;
 &lt;li&gt;查询员工信息，按年薪降序显示&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;注意年薪应该是 12 倍的月薪+奖金，而奖金可能为 NULL，为了避免年薪为 NULL，此时应该为 0&lt;/p&gt;
-&lt;img src=&#34;./复合查询.IMG/image-20240223142443930-3788232.png&#34; alt=&#34;image-20240223142443930&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.复合查询.IMG/image-20240223142443930-3788232.png&#34; alt=&#34;image-20240223142443930&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;ul&gt;
 &lt;li&gt;查询工资最高的员工的姓名和岗位&lt;/li&gt;
 &lt;/ul&gt;
-&lt;img src=&#34;./复合查询.IMG/image-20240223142647854-3788232.png&#34; alt=&#34;image-20240223142647854&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.复合查询.IMG/image-20240223142647854-3788232.png&#34; alt=&#34;image-20240223142647854&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;ul&gt;
 &lt;li&gt;查询工资高于平均工资的员工信息&lt;/li&gt;
 &lt;/ul&gt;
-&lt;img src=&#34;./复合查询.IMG/image-20240223142738492-3788232.png&#34; alt=&#34;image-20240223142738492&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.复合查询.IMG/image-20240223142738492-3788232.png&#34; alt=&#34;image-20240223142738492&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;ul&gt;
 &lt;li&gt;查询每个部门的平均工资和最高工资&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;group by 子句按照部门号来计算每一组的平均工资和最高工资。&lt;/p&gt;
-&lt;img src=&#34;./复合查询.IMG/image-20240223142929951-3788232.png&#34; alt=&#34;image-20240223142929951&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.复合查询.IMG/image-20240223142929951-3788232.png&#34; alt=&#34;image-20240223142929951&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;ul&gt;
 &lt;li&gt;查询平均工资低于 2000 的部门号和它的平均工资&lt;/li&gt;
 &lt;/ul&gt;
-&lt;img src=&#34;./复合查询.IMG/image-20240223143202622-3788232.png&#34; alt=&#34;image-20240223143202622&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.复合查询.IMG/image-20240223143202622-3788232.png&#34; alt=&#34;image-20240223143202622&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;HAVING 子句通常与 GROUP BY 子句一起使用。当它在 GROUP BY 子句中使用时，我们可以应用它在 GROUP BY 子句之后来指定过滤的条件。如果省略了 GROUP BY 子句，HAVING 子句行为就像 WHERE 子句一样。&lt;/p&gt;
 &lt;p&gt;请注意，HAVING 子句应用筛选条件每一个分组的行，而 WHERE 子句的过滤条件是过滤每个单独的行。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;查询每种岗位的雇员总数和平均工资&lt;/li&gt;
 &lt;/ul&gt;
-&lt;img src=&#34;./复合查询.IMG/image-20240223143938698-3788232.png&#34; alt=&#34;image-20240223143938698&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.复合查询.IMG/image-20240223143938698-3788232.png&#34; alt=&#34;image-20240223143938698&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;h1&gt;多表查询&lt;/h1&gt;&lt;p&gt;由于在查询时可能会用到不止一张表中的属性，所以要用到多表查询，其 SQL 的语法和单表查询是类似的。&lt;/p&gt;
 &lt;p&gt;需要注意的是，多表查询实际上是从若干表的笛卡尔积中操作的。多表的笛卡尔积指的是用其中一张表的一条记录去和剩余的整张表组合，以此类推。因此笛卡尔积保存了这些表记录的所有可能的集合，但是集合中的组合并不全是有意义的，而且不同表中也可能有相同的列属性（例如雇员表和工资表都有部门号），所以在合并多表时，需要要筛选符合逻辑的组合，并且合并相同的列属性。&lt;/p&gt;
 &lt;p&gt;例如这个查询返回了一个原始的笛卡尔积集合。&lt;/p&gt;
-&lt;img src=&#34;./复合查询.IMG/image-20240223145352545-3788232.png&#34; alt=&#34;image-20240223145352545&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.复合查询.IMG/image-20240223145352545-3788232.png&#34; alt=&#34;image-20240223145352545&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;通过这个结果可以知道 MySQL 是不断地用前一张表的一条记录来和另外一个表组合来求笛卡尔积的：前半部分是雇员表，后半部分是部门表。在这一行中有两个部门号，部门号不同的记录都是没有意义的。&lt;/p&gt;
 &lt;p&gt;在用 SQL 操作不同表的相同列属性时，可以用&lt;code&gt;表名。列名&lt;/code&gt;来表示。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;显示部门号为 10 的部门名、员工名和员工工资&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;后面的 where 子句就是在上面这个原始的笛卡尔积中筛选符合题意的记录。&lt;/p&gt;
-&lt;img src=&#34;./复合查询.IMG/image-20240223145946421-3788232.png&#34; alt=&#34;image-20240223145946421&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.复合查询.IMG/image-20240223145946421-3788232.png&#34; alt=&#34;image-20240223145946421&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;ul&gt;
 &lt;li&gt;显示各个员工的姓名、工资和工资级别&lt;/li&gt;
 &lt;/ul&gt;
-&lt;img src=&#34;./复合查询.IMG/image-20240223150447843-3788232.png&#34; alt=&#34;image-20240223150447843&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.复合查询.IMG/image-20240223150447843-3788232.png&#34; alt=&#34;image-20240223150447843&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;员工的工资决定了工资等级，因此只有这两个属性对应才能是有意义的记录。&lt;/p&gt;
 &lt;h1&gt;子查询&lt;/h1&gt;&lt;h2&gt;单行子查询&lt;span class=&#34;absolute -mt-20&#34; id=&#34;单行子查询&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e5%8d%95%e8%a1%8c%e5%ad%90%e6%9f%a5%e8%af%a2&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;返回单行单列数据的子查询。&lt;/p&gt;
@@ -3368,7 +3368,7 @@
 &lt;li&gt;子查询：首先查询 SMITH 的部门号 x 作为查询的依据&lt;/li&gt;
 &lt;li&gt;然后选出部门号为 x 且不是 SMITH 的员工&lt;/li&gt;
 &lt;/ol&gt;
-&lt;img src=&#34;./复合查询.IMG/image-20240223151555326-3788232.png&#34; alt=&#34;image-20240223151555326&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.复合查询.IMG/image-20240223151555326-3788232.png&#34; alt=&#34;image-20240223151555326&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;h2&gt;多行子查询&lt;span class=&#34;absolute -mt-20&#34; id=&#34;多行子查询&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e5%a4%9a%e8%a1%8c%e5%ad%90%e6%9f%a5%e8%af%a2&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;返回多行单列数据的子查询。&lt;/p&gt;
 &lt;h3&gt;IN 关键字&lt;span class=&#34;absolute -mt-20&#34; id=&#34;in-关键字&#34;&gt;&lt;/span&gt;
@@ -3379,7 +3379,7 @@
 &lt;li&gt;子查询：首先查询 10 号部门有哪些工作岗位，查询时去重，将结果作为查询的依据&lt;/li&gt;
 &lt;li&gt;通过在查询的 where 子句中使用 IN 关键字，判断工作岗位是否在子查询的返回值中&lt;/li&gt;
 &lt;/ol&gt;
-&lt;img src=&#34;./复合查询.IMG/image-20240223152440417-3788232.png&#34; alt=&#34;image-20240223152440417&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.复合查询.IMG/image-20240223152440417-3788232.png&#34; alt=&#34;image-20240223152440417&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;h3&gt;ALL 关键字&lt;span class=&#34;absolute -mt-20&#34; id=&#34;all-关键字&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#all-%e5%85%b3%e9%94%ae%e5%ad%97&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;显示工资比 30 号部门的所有员工的工资高的员工的姓名、工资和部门号&lt;/li&gt;
@@ -3388,7 +3388,7 @@
 &lt;li&gt;子查询：首先查询 30 号部门有哪些工资，查询时去重，将结果作为查询的依据&lt;/li&gt;
 &lt;li&gt;通过在查询的 where 子句使用 ALL 关键字，判断工资是否&lt;strong&gt;都&lt;/strong&gt;大于子查询的返回值。&lt;/li&gt;
 &lt;/ol&gt;
-&lt;img src=&#34;./复合查询.IMG/image-20240223152816856-3788232.png&#34; alt=&#34;image-20240223152816856&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.复合查询.IMG/image-20240223152816856-3788232.png&#34; alt=&#34;image-20240223152816856&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;这是一个常见的逻辑问题，要判断某个值是否大于集合中的所有元素，只需要判断这个值是否大于集合中的最大值。这和上面是等价的。&lt;/p&gt;
 &lt;h3&gt;ANY 关键字&lt;span class=&#34;absolute -mt-20&#34; id=&#34;any-关键字&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#any-%e5%85%b3%e9%94%ae%e5%ad%97&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;ul&gt;
@@ -3398,7 +3398,7 @@
 &lt;li&gt;子查询：首先查询 30 号部门有哪些工资，查询时去重，将结果作为查询的依据&lt;/li&gt;
 &lt;li&gt;通过在查询的 where 子句使用 ANY 关键字，判断工资是否&lt;strong&gt;都&lt;/strong&gt;大于子查询的返回值。&lt;/li&gt;
 &lt;/ol&gt;
-&lt;img src=&#34;./复合查询.IMG/image-20240223153302976-3788232.png&#34; alt=&#34;image-20240223153302976&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.复合查询.IMG/image-20240223153302976-3788232.png&#34; alt=&#34;image-20240223153302976&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;同样地，这也可以等价地转换为求最小值的问题。&lt;/p&gt;
 &lt;h2&gt;多列子查询&lt;span class=&#34;absolute -mt-20&#34; id=&#34;多列子查询&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e5%a4%9a%e5%88%97%e5%ad%90%e6%9f%a5%e8%af%a2&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;返回多列数据的子查询。&lt;/p&gt;
@@ -3409,7 +3409,7 @@
 &lt;li&gt;子查询：首先查询 SMITH 的部门号和岗位，将结果作为查询的依据&lt;/li&gt;
 &lt;li&gt;在子查询的返回值中筛选名字不是 SMITH 的记录&lt;/li&gt;
 &lt;/ol&gt;
-&lt;img src=&#34;./复合查询.IMG/image-20240223154037220-3788232.png&#34; alt=&#34;image-20240223154037220&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.复合查询.IMG/image-20240223154037220-3788232.png&#34; alt=&#34;image-20240223154037220&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;注意：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;多列子查询得到的结果是多列数据，在比较多列数据时需要将待比较的多个列用圆括号括起来，并且列属性的位置要对应。&lt;/li&gt;
@@ -3423,7 +3423,7 @@
 &lt;li&gt;计算每个部门的平均工资，作为一张表&lt;/li&gt;
 &lt;li&gt;将平均工资表和雇员表做笛卡尔积，选出部门号和平均工资表相同的记录，并且要求工资大于平均工资。&lt;/li&gt;
 &lt;/ol&gt;
-&lt;img src=&#34;./复合查询.IMG/image-20240223155933165-3788232.png&#34; alt=&#34;image-20240223155933165&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.复合查询.IMG/image-20240223155933165-3788232.png&#34; alt=&#34;image-20240223155933165&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;其中子查询的别名是 avg_sal。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;显示每个部门工资最高的员工的姓名、工资、部门和部门的最高工资&lt;/li&gt;
@@ -3432,7 +3432,7 @@
 &lt;li&gt;查询每个部门的最高工资作为子查询&lt;/li&gt;
 &lt;li&gt;将最高工资表和雇员表做笛卡尔积，要求两表中的部门号相同，且员工工资在最高工资中可被查询到。&lt;/li&gt;
 &lt;/ol&gt;
-&lt;img src=&#34;./复合查询.IMG/image-20240223160621799-3788232.png&#34; alt=&#34;image-20240223160621799&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.复合查询.IMG/image-20240223160621799-3788232.png&#34; alt=&#34;image-20240223160621799&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;ul&gt;
 &lt;li&gt;显示每个部门的部门名、部门编号、所在地址和人员数量&lt;/li&gt;
 &lt;/ul&gt;
@@ -3440,7 +3440,7 @@
 &lt;li&gt;查询每个部门的人员数量作为子查询&lt;/li&gt;
 &lt;li&gt;将人员数量表和雇员表做笛卡尔积，要求两表的部门编号一致&lt;/li&gt;
 &lt;/ol&gt;
-&lt;img src=&#34;./复合查询.IMG/image-20240223162639732-3788232.png&#34; alt=&#34;image-20240223162639732&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.复合查询.IMG/image-20240223162639732-3788232.png&#34; alt=&#34;image-20240223162639732&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;h1&gt;合并查询&lt;/h1&gt;&lt;p&gt;将多个查询结果进行合并，可使用的操作符有：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -3454,11 +3454,11 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;如果用 or 连接两个筛选条件：&lt;/p&gt;
-&lt;img src=&#34;./复合查询.IMG/image-20240223163700457-3788232.png&#34; alt=&#34;image-20240223163700457&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.复合查询.IMG/image-20240223163700457-3788232.png&#34; alt=&#34;image-20240223163700457&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;如果分别对两个条件做两次查询，并且用 UNION 对两个查询结果做合并：
-&lt;img src=&#34;./复合查询.IMG/image-20240223163839625-3788232.png&#34; alt=&#34;image-20240223163839625&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;./.复合查询.IMG/image-20240223163839625-3788232.png&#34; alt=&#34;image-20240223163839625&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;如果分别对两个条件做两次查询，并且用 UNION ALL 对两个查询结果做合并：&lt;/p&gt;
-&lt;img src=&#34;./复合查询.IMG/image-20240223164010642-3788232.png&#34; alt=&#34;image-20240223164010642&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.复合查询.IMG/image-20240223164010642-3788232.png&#34; alt=&#34;image-20240223164010642&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;由此可见，UNION ALL 只是单纯地对两张表进行合并，并不会做去重工作。&lt;/p&gt;
 &lt;p&gt;需要注意的是：&lt;/p&gt;
 &lt;ul&gt;
@@ -3627,7 +3627,7 @@
         
         
         &lt;h1&gt;查看用户信息&lt;/h1&gt;&lt;p&gt;在名为&lt;code&gt;mysql&lt;/code&gt;的数据库中有一个表&lt;code&gt;user&lt;/code&gt;维护着 MySQL 的用户信息。&lt;/p&gt;
-&lt;img src=&#34;./用户管理.IMG/image-20240227164127584.png&#34; alt=&#34;image-20240227164127584&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.用户管理.IMG/image-20240227164127584.png&#34; alt=&#34;image-20240227164127584&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;其中：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;user： 表示该用户的用户名。&lt;/li&gt;
@@ -3637,7 +3637,7 @@
 &lt;/ul&gt;
 &lt;p&gt;其中 password 函数可以对参数进行摘要。&lt;/p&gt;
 &lt;p&gt;尝试查看它们的值：&lt;/p&gt;
-&lt;img src=&#34;./用户管理.IMG/image-20240227164314212.png&#34; alt=&#34;image-20240227164314212&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.用户管理.IMG/image-20240227164314212.png&#34; alt=&#34;image-20240227164314212&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;由于 user 表中 Host 和 User 属性共同作为联合主键，所以只要用户名和主机 IP 的组合唯一即可，这是合理的，一台主机可能有多个用户。&lt;/p&gt;
 &lt;p&gt;MySQL 的所有用户管理工作都通过 user 表来进行，实际上，后续所有的用户操作都会被 MySQL 解析为 SQL 来执行，并且允许用户直接通过 SQL 对 user 表修改。例如通过 INSERT 添加用户，UPDATE+password 函数来修改用户密码登操作，都是可行的。但是这只能作为特殊情况的补救措施，因为这么做有风险。&lt;/p&gt;
 &lt;h1&gt;创建用户&lt;/h1&gt;&lt;p&gt;SQL：&lt;/p&gt;
@@ -3663,7 +3663,7 @@
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;通过&lt;code&gt;SHOW VARIABLES LIKE &#39;validate_password%&#39;;&lt;/code&gt;查看密码策略，从而设计符合条件的密码。&lt;/p&gt;
-&lt;img src=&#34;./用户管理.IMG/image-20240227170352013.png&#34; alt=&#34;image-20240227170352013&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.用户管理.IMG/image-20240227170352013.png&#34; alt=&#34;image-20240227170352013&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;或者修改密码策略：&lt;/p&gt;
 &lt;div class=&#34;code-block relative mt-6 first:mt-0 group/code&#34;&gt;&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;set&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;global&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;validate_password_policy&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;set&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;global&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;validate_password_length&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0&#34;&gt;
@@ -3687,7 +3687,7 @@
     &lt;/button&gt;
   &lt;/div&gt;
 &lt;/div&gt;
-&lt;img src=&#34;./用户管理.IMG/image-20240227170511859.png&#34; alt=&#34;image-20240227170511859&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.用户管理.IMG/image-20240227170511859.png&#34; alt=&#34;image-20240227170511859&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;现在可以以新用户的身份登录 MySQL：&lt;/p&gt;
 &lt;div class=&#34;code-block relative mt-6 first:mt-0 group/code&#34;&gt;&lt;pre&gt;&lt;code&gt;mysql -unew_user -p&lt;/code&gt;&lt;/pre&gt;&lt;div class=&#34;opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0&#34;&gt;
     &lt;button
@@ -3700,7 +3700,7 @@
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;登录后可以查看客户端信息：&lt;/p&gt;
-&lt;img src=&#34;./用户管理.IMG/image-20240227170751017.png&#34; alt=&#34;image-20240227170751017&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.用户管理.IMG/image-20240227170751017.png&#34; alt=&#34;image-20240227170751017&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;由于&lt;code&gt;%&lt;/code&gt;表示允许来自任何主机的用户登录，所以在远端登录 MySQL 的方式也是一样的。需要注意的是，可能在连接时会不被允许，这可能是服务端主机没有开放 3306（MySQL 服务器）端口，为了测试可以在&lt;code&gt;/etc/mysql.cnf&lt;/code&gt;修改 MySQL 的端口配置为测试端口如 8080。实际应用中，数据库不对外开放而只在内网中使用。&lt;/p&gt;
 &lt;h1&gt;修改密码&lt;/h1&gt;&lt;p&gt;用户自己修改密码：&lt;/p&gt;
 &lt;div class=&#34;code-block relative mt-6 first:mt-0 group/code&#34;&gt;&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;set&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;password&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;password&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;新密码&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0&#34;&gt;
@@ -3903,9 +3903,9 @@
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;这样新用户就能看到 curd_db 这个数据库了。&lt;/p&gt;
-&lt;img src=&#34;./用户管理.IMG/image-20240227172042611.png&#34; alt=&#34;image-20240227172042611&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.用户管理.IMG/image-20240227172042611.png&#34; alt=&#34;image-20240227172042611&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;查看用户的权限：&lt;/p&gt;
-&lt;img src=&#34;./用户管理.IMG/image-20240227172310098.png&#34; alt=&#34;image-20240227172310098&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.用户管理.IMG/image-20240227172310098.png&#34; alt=&#34;image-20240227172310098&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;其中：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;创建用户后该用户默认会有 USAGE 权限，该权限只能用于数据库登录，不能执行任何操作。&lt;/li&gt;
@@ -3933,7 +3933,7 @@
     &lt;/button&gt;
   &lt;/div&gt;
 &lt;/div&gt;
-&lt;img src=&#34;./用户管理.IMG/image-20240227172947228.png&#34; alt=&#34;image-20240227172947228&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.用户管理.IMG/image-20240227172947228.png&#34; alt=&#34;image-20240227172947228&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;注意：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;回收用户在某一数据库下的权限后，在该用户下一次进入该数据库时才会起作用。&lt;/li&gt;
@@ -4047,16 +4047,16 @@
 &lt;/ol&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;由于它创建了 8000000 万条记录到数据库中，因此需要耗费一定时间（光标闪烁）：&lt;/p&gt;
-&lt;img src=&#34;./索引.IMG/image-20240223194918635.png&#34; alt=&#34;image-20240223194918635&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.索引.IMG/image-20240223194918635.png&#34; alt=&#34;image-20240223194918635&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;进入数据库中：&lt;/p&gt;
-&lt;img src=&#34;./索引.IMG/image-20240223195036598.png&#34; alt=&#34;image-20240223195036598&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.索引.IMG/image-20240223195036598.png&#34; alt=&#34;image-20240223195036598&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;表的内容和结构如下：&lt;/p&gt;
-&lt;img src=&#34;./索引.IMG/image-20240223195139154.png&#34; alt=&#34;image-20240223195139154&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.索引.IMG/image-20240223195139154.png&#34; alt=&#34;image-20240223195139154&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;表结构中表明它没有建立索引。&lt;/p&gt;
 &lt;p&gt;先尝试查询几条记录：
-&lt;img src=&#34;./索引.IMG/image-20240223195412904.png&#34; alt=&#34;image-20240223195412904&#34; style=&#34;zoom:33%;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;./.索引.IMG/image-20240223195412904.png&#34; alt=&#34;image-20240223195412904&#34; style=&#34;zoom:33%;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;为员工编号建立索引后查询相同的记录：&lt;/p&gt;
-&lt;img src=&#34;./索引.IMG/image-20240223195938286.png&#34; alt=&#34;image-20240223195938286&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.索引.IMG/image-20240223195938286.png&#34; alt=&#34;image-20240223195938286&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;结果显而易见。关于索引，这里只是简单地展示了它在使用时的性能，更多篇幅将会讨论它的实现原理，以更好地理解并使用索引。&lt;/p&gt;
 &lt;h1&gt;磁盘和 MySQL 的交互&lt;/h1&gt;&lt;h2&gt;了解磁盘&lt;span class=&#34;absolute -mt-20&#34; id=&#34;了解磁盘&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e4%ba%86%e8%a7%a3%e7%a3%81%e7%9b%98&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;磁盘在操作系统这门课中已经了解过，在此仅讨论和数据库索引有关的部分。以下内容部分引用自：&lt;a href=&#34;https://yey.world/2021/01/02/LearnedIndex-03/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;数据库中的 B 树与 B+ 树&lt;/a&gt;&lt;/p&gt;
@@ -4064,18 +4064,18 @@
 &lt;p&gt;我们来看一下 &lt;strong&gt;磁盘 (disk)&lt;/strong&gt; 的结构：一个典型的磁盘驱动器由一个或多个 &lt;strong&gt;盘片 (platter)&lt;/strong&gt; 组成，它们以一个固定的速度围绕一个共同的 &lt;strong&gt;主轴 (spindle)&lt;/strong&gt; 旋转。每个盘片表面覆盖着一层可磁化的物质。驱动器通过 &lt;strong&gt;磁臂 (arm)&lt;/strong&gt; 末尾的 &lt;strong&gt;磁头 (head)&lt;/strong&gt; 来读/写盘片。&lt;/p&gt;
 &lt;p&gt;盘片在 &lt;strong&gt;逻辑上 （而非物理上）&lt;/strong&gt; 被划分为一系列的同心环状区域，数据就存储在这样的同心圆环上面，这些同心圆环被称为 &lt;strong&gt;磁道 (track)&lt;/strong&gt;。每个盘面可以划分多个磁道，最外圈的磁道是 0 号磁道，向圆心增长依次为 1 号磁道、2 号磁道……磁盘的数据存放就是从最外圈开始的。&lt;/p&gt;
 &lt;p&gt;根据硬盘的规格不同，磁道数可以从几百到成千上万不等。每个磁道可以存储几个 Kb 的数据，但是计算机不必要每次都读写这么多数据。因此，再把每个磁道划分为若干个弧段，每个弧段就是一个 &lt;strong&gt;扇区 (sector)&lt;/strong&gt;。&lt;/p&gt;
-&lt;img src=&#34;./索引.IMG/2021-01-02-WX20210102-131058@2x.png&#34; alt=&#34;img&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.索引.IMG/2021-01-02-WX20210102-131058@2x.png&#34; alt=&#34;img&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;一个盘片被划分为许多磁道和扇区，一个磁道和一个扇区相交的区域称为一个 &lt;strong&gt;块 (block)&lt;/strong&gt;。因此，磁盘上的任意一个块都可以通过其对应的磁道编号和扇区编号来寻址，也就是说，磁盘上的块地址格式由磁道编号和扇区编号组成：
 $$
 块地址 = （磁道编号，扇区编号）
 $$
 块是硬盘上存储的物理单位。出于稳定性考虑，通常一个块存储 512 字节的数据，但是实际上其容量可以是任意大小，具体取决于磁盘制造商和磁盘型号。&lt;/p&gt;
 &lt;p&gt;这里，我们假设每个块的容量为 512 字节。当我们从磁盘上读取或写入数据时，我们总是以块为单位进行读/写。如果现在我们读取一个 512 字节的块，假设其中第一个字节的地址为 0，最后一个字节的地址为 511，那么其中每个字节都有其各自的地址，我们称之为 &lt;strong&gt;偏移量 (offset)&lt;/strong&gt;。&lt;/p&gt;
-&lt;img src=&#34;./索引.IMG/2021-01-02-WX20210102-121031@2x.png&#34; alt=&#34;img&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.索引.IMG/2021-01-02-WX20210102-121031@2x.png&#34; alt=&#34;img&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;假设磁盘上的每个块的第一个和最后一个字节的偏移量都分别为 0 和 511。因此，我们只需要知道 &lt;strong&gt;磁道编号&lt;/strong&gt;、&lt;strong&gt;扇区编号&lt;/strong&gt; 和 &lt;strong&gt;偏移量&lt;/strong&gt; 这三个信息就可以定位到磁盘上的任意一个字节：首先，利用磁道编号和扇区编号定位到该字节所在的块；然后，在块内通过偏移量定位到该字节。&lt;/p&gt;
 &lt;p&gt;正常情况下，我们可以通过盘片的旋转来选择扇区，通过磁头的轴向移动来选择磁道，也就是说，我们可以通过旋转盘片和移动磁头来定位到某个块，而数据总是以块的形式存储在磁盘上的。&lt;/p&gt;
 &lt;p&gt;我们知道，数据处理无法直接在磁盘上进行，数据需要被读入内存中处理后再写回磁盘，才能被程序读取。&lt;/p&gt;
-&lt;img src=&#34;./索引.IMG/2021-01-02-WX20210102-141040@2x.png&#34; alt=&#34;img&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.索引.IMG/2021-01-02-WX20210102-141040@2x.png&#34; alt=&#34;img&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;内存中的数据可以被程序直接访问，我们将其称为 &lt;strong&gt;数据结构 (data structure)&lt;/strong&gt;。而在磁盘上高效组织数据使得其能够以一种简单方式被利用的系统被称为 &lt;strong&gt;数据库管理系统 (DBMS)&lt;/strong&gt;。因此要查找某个数据，本质就是在磁盘上找到这个数据存在的扇区。&lt;/p&gt;
 &lt;h2&gt;MySQL 的工作原理&lt;span class=&#34;absolute -mt-20&#34; id=&#34;mysql-的工作原理&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#mysql-%e7%9a%84%e5%b7%a5%e4%bd%9c%e5%8e%9f%e7%90%86&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;MySQL 服务器（mysqld）在操作系统中是一个进程，在网络中是一个服务器，所以 MySQL 是运行在内存中的，因此对数据的所有操作包括索引都要在内存中进行。&lt;/p&gt;
@@ -4090,7 +4090,7 @@ $$
 &lt;p&gt;无特殊说明，下文都是在存储引擎为 InnoDB 的基础上讨论的。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;通常情况下，MySQL 和磁盘交互的基本单位指的是 InnoDB 的默认页大小，是 16KB。&lt;/p&gt;
-&lt;img src=&#34;./索引.IMG/image-20240223210513998.png&#34; alt=&#34;image-20240223210513998&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.索引.IMG/image-20240223210513998.png&#34; alt=&#34;image-20240223210513998&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;blockquote&gt;
 &lt;p&gt;为什么是 16KB 而不是和操作系统一样是 4KB？&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -4139,9 +4139,9 @@ $$
 &lt;/ol&gt;
 &lt;h1&gt;理解索引&lt;/h1&gt;&lt;h2&gt;引入&lt;span class=&#34;absolute -mt-20&#34; id=&#34;引入&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e5%bc%95%e5%85%a5&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;首先用一个以 ID 作为主键的信息表作为测试表。&lt;/p&gt;
-&lt;img src=&#34;./索引.IMG/image-20240224133951215.png&#34; alt=&#34;image-20240224133951215&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.索引.IMG/image-20240224133951215.png&#34; alt=&#34;image-20240224133951215&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;然后以 ID 乱序插入若干记录。&lt;/p&gt;
-&lt;img src=&#34;./索引.IMG/image-20240224134158879.png&#34; alt=&#34;image-20240224134158879&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.索引.IMG/image-20240224134158879.png&#34; alt=&#34;image-20240224134158879&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;可以看到即使插入的主键是乱序的，MySQL 会按照主键对插入的记录进行排序。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;为什么要这么做？&lt;/p&gt;
@@ -4158,10 +4158,10 @@ $$
 &lt;li&gt;&lt;strong&gt;页目录（Page Directory）&lt;/strong&gt;：页中记录的索引，用于快速定位记录。它通过记录的相对位置（slot）来组织记录，有助于加速页内搜索。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;文件尾部（File Trailer）&lt;/strong&gt;：包含页的校验和信息，用于检查页数据在磁盘上的完整性。&lt;/li&gt;
 &lt;/ol&gt;
-&lt;img src=&#34;./索引.IMG/INDEX_Page_Overview.png&#34; alt=&#34;img&#34; style=&#34;zoom: 67%;&#34; /&gt;
+&lt;img src=&#34;./.索引.IMG/INDEX_Page_Overview.png&#34; alt=&#34;img&#34; style=&#34;zoom: 67%;&#34; /&gt;
 &lt;p&gt;图片来自：https://blog.j 列 e.us/2013/01/07/the-physical-structure-of-innodb-index-pages/&lt;/p&gt;
 &lt;p&gt;InnoDB 通过这样的页结构，实现了其高效的数据存储和访问机制。每个页都通过 B+树结构组织在一起，无论是数据页（B+树的叶子层）还是索引页（B+树的非叶子层），都遵循这种结构。这使得 InnoDB 能够高效地进行数据的读取、插入、更新和删除操作。&lt;/p&gt;
-&lt;img src=&#34;./索引.IMG/image-20240224152401673.png&#34; alt=&#34;image-20240224152401673&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.索引.IMG/image-20240224152401673.png&#34; alt=&#34;image-20240224152401673&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;blockquote&gt;
 &lt;p&gt;其中 User Records 存储的是数据，图示将它作为“数据字段”，其他部分作为“属性字段”。B+树将会在后续介绍。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -4189,11 +4189,11 @@ $$
 &lt;li&gt;适应性：页目录的设计允许页内记录保持物理插入顺序，而不影响查找性能。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;由于页内目录是 Page 内的记录，所以这是一种空间换时间的做法，现实中书本的目录也是如此。&lt;/p&gt;
-&lt;img src=&#34;./索引.IMG/image-20240224152416298.png&#34; alt=&#34;image-20240224152416298&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.索引.IMG/image-20240224152416298.png&#34; alt=&#34;image-20240224152416298&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;现在能解释最初为什么 MySQL 可以对记录排序了。因为 MySQL 默认会对含有主键的表的记录进行排序。页内部的数据记录本质是一个链表，链表的特点是增删快而查改慢，所以只要是有序的，那么二分查找的每一步都是有效的。并且主键的性质能保证排序是一定正确的，反之排序的依据不是主键（例如是性别），那么为之建立的索引也是无意义的。&lt;/p&gt;
 &lt;h2&gt;多页情况&lt;span class=&#34;absolute -mt-20&#34; id=&#34;多页情况&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e5%a4%9a%e9%a1%b5%e6%83%85%e5%86%b5&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;MySQL 的一页大小是 16KB，如果单页不断被插入记录，那么在容量不足时 MySQL 会开辟新页来储存新记录，然后通过指针记录新页的位置。&lt;/p&gt;
-&lt;img src=&#34;./索引.IMG/2c1dc87069364f989542aa14879d70fd.png&#34; alt=&#34;在这里插入图片描述&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.索引.IMG/2c1dc87069364f989542aa14879d70fd.png&#34; alt=&#34;在这里插入图片描述&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;图片来源（包括下文）：https://blog.csdn.net/chenlong_cxy/article/details/128784469&lt;/p&gt;
 &lt;p&gt;值得注意的是，每一个 Page 内部和整体都是保持有序的，这意味着并不是每一条新纪录都会在新的 Page 中。这些关联在一起的 Page 共同维护着同一张表的所有记录，如果 Page 数量过多，那么 MySQL 在查询时仍然需要遍历 Page。虽然事先在 Page 内部使用了页内目录，但是首先得找到正确的 Page 后它才能发挥作用。&lt;/p&gt;
 &lt;p&gt;类似地，为每一个 Page 都建立目录，以供 MySQL 更快地找到正确的 Page。这类似某些检索系统，通过多级索引，最终划分到细支上。&lt;/p&gt;
@@ -4201,7 +4201,7 @@ $$
     &lt;a href=&#34;#b-%e6%a0%91%e5%92%8c-b%e6%a0%91&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;以上讨论的 Page 的目录，叫做 B+树索引。那么什么是 B+树呢？有没有 B 树？&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://yey.world/2021/01/02/LearnedIndex-03/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;参看本文的第六、七、八节&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;总之，B+树是含有索引的查找树，如果不断地为 Page 建立索引，那么最终总会有一个根结点作为索引的入口。&lt;/p&gt;
-&lt;img src=&#34;./索引.IMG/053ad0bdb200421ca2ed8bd400804bd1.png&#34; alt=&#34;img&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.索引.IMG/053ad0bdb200421ca2ed8bd400804bd1.png&#34; alt=&#34;img&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;这是 InnoDB 存储引擎的索引结构，它是一棵 B+树。当一张表的数据量增加到需要多个页来存储时，InnoDB 使用一种结构来组织这些页，这个结构称为** B+树索引**。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;在操作系统中的多级页表和多级索引也是类似的思想。&lt;/p&gt;
@@ -4556,9 +4556,9 @@ id		name		age
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;主键索引的 B+树的叶子节点存储了整条记录：&lt;/p&gt;
-&lt;img src=&#34;./索引.IMG/image-20240226093157620.png&#34; alt=&#34;image-20240226093157620&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.索引.IMG/image-20240226093157620.png&#34; alt=&#34;image-20240226093157620&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;而普通索引的 B+树的叶子节点只存储主键：&lt;/p&gt;
-&lt;img src=&#34;./索引.IMG/image-20240226095129703.png&#34; alt=&#34;image-20240226095129703&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.索引.IMG/image-20240226095129703.png&#34; alt=&#34;image-20240226095129703&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;回表（Bookmark Lookup）&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;定义&lt;/strong&gt;：回表是 InnoDB 执行普通索引查询时的一种操作。当通过普通索引（非聚簇索引）查找数据时，数据库首先找到对应的聚簇索引键值，然后使用这个键值在聚簇索引中再次查找以获取实际的行数据。这个过程称为“回表”操作，因为它需要回到聚簇索引去查找完整的行数据。&lt;/li&gt;
@@ -4666,21 +4666,21 @@ id		name		age
 &lt;/ul&gt;
 &lt;h2&gt;创建&lt;span class=&#34;absolute -mt-20&#34; id=&#34;创建-4&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e5%88%9b%e5%bb%ba-4&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;测试表如下，其中正文主题 body 是 text 类型。&lt;/p&gt;
-&lt;img src=&#34;./索引.IMG/image-20240225142740183.png&#34; alt=&#34;image-20240225142740183&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.索引.IMG/image-20240225142740183.png&#34; alt=&#34;image-20240225142740183&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;由于 InnoDB 只有在版本 5.6 之后的 mysqld 才支持全文索引，所以这里指定存储引擎为 MyISAM。&lt;/p&gt;
 &lt;p&gt;插入几条测试记录。&lt;/p&gt;
-&lt;img src=&#34;./索引.IMG/image-20240225142923398.png&#34; alt=&#34;image-20240225142923398&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.索引.IMG/image-20240225142923398.png&#34; alt=&#34;image-20240225142923398&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;用模糊搜索：&lt;/p&gt;
-&lt;img src=&#34;./索引.IMG/image-20240225143045487.png&#34; alt=&#34;image-20240225143045487&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.索引.IMG/image-20240225143045487.png&#34; alt=&#34;image-20240225143045487&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;虽然这样能搜索到，但是通过&lt;code&gt;explain&lt;/code&gt;命令可以看到，模糊查询并未使用到索引，因此在本文很长时就需要耗费时间。&lt;/p&gt;
 &lt;p&gt;全文索引的使用方式：&lt;/p&gt;
-&lt;img src=&#34;./索引.IMG/image-20240225143749906.png&#34; alt=&#34;image-20240225143749906&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.索引.IMG/image-20240225143749906.png&#34; alt=&#34;image-20240225143749906&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;但是在 MySQL 的默认设置中，最小搜索长度通常是 3 或 4，这意味着全文索引只会为长度大于等于 4 或 3 的词语建立索引。&lt;/p&gt;
 &lt;p&gt;如果搜索的字符串长度小于 3：&lt;/p&gt;
-&lt;img src=&#34;./索引.IMG/image-20240225143925350.png&#34; alt=&#34;image-20240225143925350&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.索引.IMG/image-20240225143925350.png&#34; alt=&#34;image-20240225143925350&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;原因是这些词语没有被建立全文索引，无法用索引定位。&lt;/p&gt;
 &lt;p&gt;查看存储引擎的最小/最大搜索长度：
-&lt;img src=&#34;./索引.IMG/image-20240225144037407.png&#34; alt=&#34;image-20240225144037407&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;./.索引.IMG/image-20240225144037407.png&#34; alt=&#34;image-20240225144037407&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;可以在&lt;code&gt;/etc/my.cnf&lt;/code&gt;中的&lt;code&gt;[mysqld] &lt;/code&gt;选项下追加以下内容：&lt;/p&gt;
 &lt;div class=&#34;code-block relative mt-6 first:mt-0 group/code&#34;&gt;&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;[mysqld]
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;innodb_ft_min_token_size = 1&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0&#34;&gt;
@@ -4735,7 +4735,7 @@ id		name		age
 &lt;/ul&gt;
 &lt;p&gt;例如在使用聚合函数&lt;code&gt;count(*)&lt;/code&gt;检查表的行数时，由于这是一个精确的数字，所以可能需要遍历整个表而耗费时间，但是&lt;code&gt;explain&lt;/code&gt;可以迅速地返回一个估计值。&lt;/p&gt;
 &lt;h1&gt;查询索引&lt;/h1&gt;&lt;p&gt;方法一：通过&lt;code&gt;show keys from 表名&lt;/code&gt;查询。&lt;/p&gt;
-&lt;img src=&#34;./索引.IMG/image-20240224174530448.png&#34; alt=&#34;image-20240224174530448&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.索引.IMG/image-20240224174530448.png&#34; alt=&#34;image-20240224174530448&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;其中：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Table： 表示创建索引的表的名称。&lt;/li&gt;
@@ -4752,17 +4752,17 @@ id		name		age
 &lt;li&gt;Comment： 显示评注。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;方式二：&lt;code&gt;show index from 表名&lt;/code&gt;&lt;/p&gt;
-&lt;img src=&#34;./索引.IMG/image-20240224174733260.png&#34; alt=&#34;image-20240224174733260&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.索引.IMG/image-20240224174733260.png&#34; alt=&#34;image-20240224174733260&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;方式三：&lt;code&gt;desc 表名&lt;/code&gt;&lt;/p&gt;
-&lt;img src=&#34;./索引.IMG/image-20240224174820626.png&#34; alt=&#34;image-20240224174820626&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.索引.IMG/image-20240224174820626.png&#34; alt=&#34;image-20240224174820626&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;h1&gt;删除索引&lt;/h1&gt;&lt;p&gt;假如测试表的结构如下。&lt;/p&gt;
-&lt;img src=&#34;./索引.IMG/image-20240224175342606.png&#34; alt=&#34;image-20240224175342606&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.索引.IMG/image-20240224175342606.png&#34; alt=&#34;image-20240224175342606&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;删除主键索引：&lt;code&gt;alter table 表名 drop primary key&lt;/code&gt;&lt;/p&gt;
-&lt;img src=&#34;./索引.IMG/image-20240224175437050.png&#34; alt=&#34;image-20240224175437050&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.索引.IMG/image-20240224175437050.png&#34; alt=&#34;image-20240224175437050&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;删除非主键索引：&lt;code&gt;alter table 表名 drop index 索引名&lt;/code&gt;&lt;/p&gt;
-&lt;img src=&#34;./索引.IMG/image-20240224175533022.png&#34; alt=&#34;image-20240224175533022&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.索引.IMG/image-20240224175533022.png&#34; alt=&#34;image-20240224175533022&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;也可以使用：&lt;code&gt;drop index 索引名 on 表名&lt;/code&gt;删除非主键索引&lt;/p&gt;
-&lt;img src=&#34;./索引.IMG/image-20240224175644686.png&#34; alt=&#34;image-20240224175644686&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.索引.IMG/image-20240224175644686.png&#34; alt=&#34;image-20240224175644686&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;由于一个表只有一个主键索引，所以在删除主键索引的时候不用指明索引名，而一个表中可能有多个非主键索引，所以在删除非主键索引时需要指明索引名。&lt;/p&gt;
 &lt;h1&gt;索引的特点&lt;/h1&gt;&lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;提高查询速度&lt;/strong&gt;：索引能够大幅度提高数据检索的速度，避免了全表扫描，因为它允许数据库引擎快速定位到表中的数据行。&lt;/li&gt;
@@ -4889,7 +4889,7 @@ id		name		age
 &lt;/ol&gt;
 &lt;p&gt;这个过程确保了转账操作的原子性，一致性，隔离性和持久性，保障了数据库的完整性和准确性。&lt;/p&gt;
 &lt;h1&gt;版本支持&lt;/h1&gt;&lt;p&gt;&lt;code&gt;show engines&lt;/code&gt;查看数据库引擎：
-&lt;img src=&#34;./事务.IMG/image-20240226104351842.png&#34; alt=&#34;image-20240226104351842&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;./.事务.IMG/image-20240226104351842.png&#34; alt=&#34;image-20240226104351842&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;其中：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Engine： 表示存储引擎的名称。&lt;/li&gt;
@@ -4903,7 +4903,7 @@ id		name		age
 &lt;/ul&gt;
 &lt;p&gt;在 MySQL 中只有使用了 InnoDB 存储引擎的数据库或表才支持事务。&lt;/p&gt;
 &lt;h1&gt;事务的提交方式&lt;/h1&gt;&lt;p&gt;通过查看全局变量中的&lt;code&gt;autocommit&lt;/code&gt;判断：&lt;/p&gt;
-&lt;img src=&#34;./事务.IMG/image-20240226104912231.png&#34; alt=&#34;image-20240226104912231&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.事务.IMG/image-20240226104912231.png&#34; alt=&#34;image-20240226104912231&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;通过&lt;code&gt;set autocommit=1 或 0&lt;/code&gt;来设置自动提交或手动提交。&lt;/p&gt;
 &lt;h1&gt;事务的基本操作&lt;/h1&gt;&lt;p&gt;事务的基本操作主要包括以下几个方面：&lt;/p&gt;
 &lt;ol&gt;
@@ -4927,32 +4927,32 @@ id		name		age
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;但是此次修改仅在当前会话有效，重启当前会话，重新连接 MySQL，查看隔离级别：&lt;/p&gt;
-&lt;img src=&#34;./事务.IMG/image-20240226105410622.png&#34; alt=&#34;image-20240226105410622&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.事务.IMG/image-20240226105410622.png&#34; alt=&#34;image-20240226105410622&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;创建账户表：&lt;/p&gt;
-&lt;img src=&#34;./事务.IMG/image-20240226123245027.png&#34; alt=&#34;image-20240226123245027&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.事务.IMG/image-20240226123245027.png&#34; alt=&#34;image-20240226123245027&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;下面的演示将会用两个会话模拟并发情况。&lt;/p&gt;
 &lt;h2&gt;启动事务&lt;span class=&#34;absolute -mt-20&#34; id=&#34;启动事务&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e5%90%af%e5%8a%a8%e4%ba%8b%e5%8a%a1&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;使用&lt;code&gt;start transaction&lt;/code&gt;或&lt;code&gt;begin&lt;/code&gt;启动一个事务。&lt;/p&gt;
-&lt;img src=&#34;./事务.IMG/image-20240226124456358.png&#34; alt=&#34;image-20240226124456358&#34; /&gt;
+&lt;img src=&#34;./.事务.IMG/image-20240226124456358.png&#34; alt=&#34;image-20240226124456358&#34; /&gt;
 &lt;p&gt;在右事务查看表中信息，还未插入记录。&lt;/p&gt;
 &lt;p&gt;左事务插入记录的同时在右事务查看表内容：&lt;/p&gt;
-&lt;img src=&#34;./事务.IMG/image-20240226124800827.png&#34; alt=&#34;image-20240226124800827&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.事务.IMG/image-20240226124800827.png&#34; alt=&#34;image-20240226124800827&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;之所以右事务能够实时看到左事务改变了表的内容，是因为隔离级别事先被设置为“读未提交”，即左事务的事务在 commit 之前，右事务也能看到其修改的内容。&lt;/p&gt;
 &lt;h2&gt;保存点&lt;span class=&#34;absolute -mt-20&#34; id=&#34;保存点&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e4%bf%9d%e5%ad%98%e7%82%b9&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;使用&lt;code&gt;savepoint point_name&lt;/code&gt;创建一个保存点，以用于回滚。&lt;/p&gt;
-&lt;img src=&#34;./事务.IMG/image-20240226125552226.png&#34; alt=&#34;image-20240226125552226&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.事务.IMG/image-20240226125552226.png&#34; alt=&#34;image-20240226125552226&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;创建保存点不影响隔离级别。&lt;/p&gt;
 &lt;h2&gt;回滚&lt;span class=&#34;absolute -mt-20&#34; id=&#34;回滚&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e5%9b%9e%e6%bb%9a&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;使用&lt;code&gt;rollback to 保存点名&lt;/code&gt;回滚到保存点，这样会失去保存点之后的记录。&lt;/p&gt;
-&lt;img src=&#34;./事务.IMG/image-20240226125809193.png&#34; alt=&#34;image-20240226125809193&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.事务.IMG/image-20240226125809193.png&#34; alt=&#34;image-20240226125809193&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;使用&lt;code&gt;rollback&lt;/code&gt;回滚在事务的起点，这样会失去所有记录。&lt;/p&gt;
-&lt;img src=&#34;./事务.IMG/image-20240226125916208.png&#34; alt=&#34;image-20240226125916208&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.事务.IMG/image-20240226125916208.png&#34; alt=&#34;image-20240226125916208&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;h2&gt;提交&lt;span class=&#34;absolute -mt-20&#34; id=&#34;提交&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e6%8f%90%e4%ba%a4&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;重新开始一个事务，然后插入两条数据。&lt;/p&gt;
-&lt;img src=&#34;./事务.IMG/image-20240226130424689.png&#34; alt=&#34;image-20240226130424689&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.事务.IMG/image-20240226130424689.png&#34; alt=&#34;image-20240226130424689&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;当客户端断开连接后（quit），表中内容将被清空。原因是启动了事务却没有提交，在这种情况下 MySQL 会将表回滚到事务启动之前的样子。&lt;/p&gt;
 &lt;p&gt;在插入记录后 commit，并尝试回滚和断开连接：&lt;/p&gt;
-&lt;img src=&#34;./事务.IMG/image-20240226131857469.png&#34; alt=&#34;image-20240226131857469&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.事务.IMG/image-20240226131857469.png&#34; alt=&#34;image-20240226131857469&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;可见，只要 commit 后，数据将被持久化到数据库中，而回滚或断开连接都不会影响。这体现了事务的原子性，要么全都做，要么全不做，这由 commit 控制。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;这和自动提交开启与否无关。只要用户像上面这样手动键入&lt;code&gt;begin&lt;/code&gt;或&lt;code&gt;start transaction&lt;/code&gt;开启事务，所有的更改都不会自动提交，需要手动&lt;code&gt;commit&lt;/code&gt;提交事务。无论&lt;code&gt;autocommit&lt;/code&gt;设置如何。这允许用户执行多个操作作为一个单一的事务单元，确保了数据的一致性和完整性。&lt;/p&gt;
@@ -5025,18 +5025,18 @@ id		name		age
 &lt;/ol&gt;
 &lt;h2&gt;设置隔离级别&lt;span class=&#34;absolute -mt-20&#34; id=&#34;设置隔离级别&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e8%ae%be%e7%bd%ae%e9%9a%94%e7%a6%bb%e7%ba%a7%e5%88%ab&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;通过&lt;code&gt;select @@global.tx_isolation&lt;/code&gt;查看全局隔离级别：&lt;/p&gt;
-&lt;img src=&#34;./事务.IMG/image-20240226133815358.png&#34; alt=&#34;image-20240226133815358&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.事务.IMG/image-20240226133815358.png&#34; alt=&#34;image-20240226133815358&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;通过&lt;code&gt;set global transaction isolation level 隔离级别&lt;/code&gt;设置全局隔离级别。&lt;/p&gt;
-&lt;img src=&#34;./事务.IMG/image-20240226134011027.png&#34; alt=&#34;image-20240226134011027&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.事务.IMG/image-20240226134011027.png&#34; alt=&#34;image-20240226134011027&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;注意当前会话的隔离级别仍然是原来的（见下），需要重启会话才能生效。&lt;/p&gt;
 &lt;p&gt;通过&lt;code&gt;select @@session.tx_isolation&lt;/code&gt;或&lt;code&gt;select @@tx_isolation&lt;/code&gt;查看当前会话隔离级别。&lt;/p&gt;
-&lt;img src=&#34;./事务.IMG/image-20240226134122025.png&#34; alt=&#34;image-20240226134122025&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.事务.IMG/image-20240226134122025.png&#34; alt=&#34;image-20240226134122025&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;通过&lt;code&gt;set session transaction isolation level 隔离级别&lt;/code&gt;设置当前会话隔离级别。&lt;/p&gt;
-&lt;img src=&#34;./事务.IMG/image-20240226134304489.png&#34; alt=&#34;image-20240226134304489&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.事务.IMG/image-20240226134304489.png&#34; alt=&#34;image-20240226134304489&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;注意会话隔离级别的修改只对此次会话有效，其他会话仍使用全局隔离级别的设置。&lt;/p&gt;
 &lt;h2&gt;读未提交&lt;span class=&#34;absolute -mt-20&#34; id=&#34;读未提交&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e8%af%bb%e6%9c%aa%e6%8f%90%e4%ba%a4&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;设置两个会话的隔离级别都为“读未提交”，然后左右会话各自启动一个事务，只要其中一个事务对表内容做修改，其他事务能立即查看修改后的内容。&lt;/p&gt;
-&lt;img src=&#34;./事务.IMG/image-20240226141516789.png&#34; alt=&#34;image-20240226141516789&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.事务.IMG/image-20240226141516789.png&#34; alt=&#34;image-20240226141516789&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;blockquote&gt;
 &lt;p&gt;如果并未达到类似效果，可以重新连接 MySQL 尝试。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -5068,7 +5068,7 @@ id		name		age
 &lt;/ul&gt;
 &lt;h2&gt;读已提交&lt;span class=&#34;absolute -mt-20&#34; id=&#34;读已提交&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e8%af%bb%e5%b7%b2%e6%8f%90%e4%ba%a4&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;设置两个会话的隔离级别都为“读已提交”，然后左右会话各自启动一个事务，只有事务在修改后 commit，其他事务才能查看修改后的内容。&lt;/p&gt;
-&lt;img src=&#34;./事务.IMG/image-20240226143216694.png&#34; alt=&#34;image-20240226143216694&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.事务.IMG/image-20240226143216694.png&#34; alt=&#34;image-20240226143216694&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;读已提交（Read Committed）提供了比读未提交（Read Uncommitted）更严格的数据一致性保证。在读已提交隔离级别下，一个事务只能看到其他事务已经提交的更改。这个级别主要用来避免脏读（Dirty Reads），但仍可能遇到不可重复读（Non-repeatable Reads）和幻读（Phantom Reads）的问题。以下是读已提交隔离级别的关键特点：&lt;/p&gt;
 &lt;h3&gt;避免脏读&lt;span class=&#34;absolute -mt-20&#34; id=&#34;避免脏读&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e9%81%bf%e5%85%8d%e8%84%8f%e8%af%bb&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;ul&gt;
@@ -5098,7 +5098,7 @@ id		name		age
 &lt;p&gt;读已提交隔离级别在很多数据库应用中被广泛使用，因为它为应用提供了合理的平衡点，既保证了一定级别的数据一致性，又保持了良好的系统性能和高并发能力。&lt;/p&gt;
 &lt;h2&gt;可重复读&lt;span class=&#34;absolute -mt-20&#34; id=&#34;可重复读&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e5%8f%af%e9%87%8d%e5%a4%8d%e8%af%bb&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;设置两个会话的隔离级别都为“可重复读”，然后左右会话各自启动一个事务，只有当两个事务都 commit 后，才能查看修改后的内容。&lt;/p&gt;
-&lt;img src=&#34;./事务.IMG/image-20240226144056257.png&#34; alt=&#34;image-20240226144056257&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.事务.IMG/image-20240226144056257.png&#34; alt=&#34;image-20240226144056257&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;可重复读（Repeatable Read）提供比读已提交更强的数据一致性保证。在可重复读隔离级别下，一个事务在其整个执行过程中多次读取同一数据集的结果将保持一致，即使其他事务在这期间提交了更新那些数据的操作。这个级别主要用来解决脏读（Dirty Reads）和不可重复读（Non-repeatable Reads）的问题。以下是可重复读隔离级别的几个关键特点：&lt;/p&gt;
 &lt;h3&gt;解决不可重复读&lt;span class=&#34;absolute -mt-20&#34; id=&#34;解决不可重复读&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e8%a7%a3%e5%86%b3%e4%b8%8d%e5%8f%af%e9%87%8d%e5%a4%8d%e8%af%bb&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;ul&gt;
@@ -5124,11 +5124,11 @@ id		name		age
 &lt;h2&gt;串行化&lt;span class=&#34;absolute -mt-20&#34; id=&#34;串行化&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e4%b8%b2%e8%a1%8c%e5%8c%96&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;设置两个会话的隔离级别都为“串行化”，然后左右会话各自启动一个事务，尝试同时读或写。&lt;/p&gt;
 &lt;p&gt;当两个事务都尝试读取表中内容时，事务不会被阻塞，可以并发执行。&lt;/p&gt;
-&lt;img src=&#34;./事务.IMG/image-20240226145257363.png&#34; alt=&#34;image-20240226145257363&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.事务.IMG/image-20240226145257363.png&#34; alt=&#34;image-20240226145257363&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;当任意一个事务尝试写操作，它会被立即阻塞，直到其他所有事务都 commit 后才会被唤醒。&lt;/p&gt;
-&lt;img src=&#34;./事务.IMG/image-20240226145602058.png&#34; alt=&#34;image-20240226145602058&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.事务.IMG/image-20240226145602058.png&#34; alt=&#34;image-20240226145602058&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;另一个事务 commit。&lt;/p&gt;
-&lt;img src=&#34;./事务.IMG/image-20240226145629332.png&#34; alt=&#34;image-20240226145629332&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.事务.IMG/image-20240226145629332.png&#34; alt=&#34;image-20240226145629332&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;串行化（Serializable）提供了最严格的事务隔离。在串行化隔离级别下，事务将会被顺序执行，以避免事务之间的干扰，从而防止脏读（Dirty Reads）、不可重复读（Non-repeatable Reads）和幻读（Phantom Reads）。这个级别通过完全串行化事务的执行来确保数据的绝对一致性，模拟了一个用户在任意时刻都是独占数据库的情况。以下是串行化隔离级别的几个关键特点：&lt;/p&gt;
 &lt;h3&gt;完全避免并发问题&lt;span class=&#34;absolute -mt-20&#34; id=&#34;完全避免并发问题&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e5%ae%8c%e5%85%a8%e9%81%bf%e5%85%8d%e5%b9%b6%e5%8f%91%e9%97%ae%e9%a2%98&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;ul&gt;
@@ -5265,7 +5265,7 @@ id		name		age
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;例如有一张空的信息表，插入第一条记录后：&lt;/p&gt;
-&lt;img src=&#34;./事务.IMG/916b50e1c04c4f8d935ecabfd9383e56.png&#34; alt=&#34;在这里插入图片描述&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.事务.IMG/916b50e1c04c4f8d935ecabfd9383e56.png&#34; alt=&#34;在这里插入图片描述&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;图片来源（包括后文）：https://blog.csdn.net/chenlong_cxy/article/details/128919989&lt;/p&gt;
 &lt;p&gt;解释：&lt;/p&gt;
 &lt;ul&gt;
@@ -5342,7 +5342,7 @@ id		name		age
 &lt;li&gt;最后当事务 10 提交后释放锁，这时最新的记录就是学生姓名为“李四”的那条记录。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;修改后的示意图如下：&lt;/p&gt;
-&lt;img src=&#34;./事务.IMG/050066b571fe4652ad60a85ef2dab524.png&#34; alt=&#34;在这里插入图片描述&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.事务.IMG/050066b571fe4652ad60a85ef2dab524.png&#34; alt=&#34;在这里插入图片描述&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;现在又有一个事务 ID 为 11 的事务，要将刚才学生表中的那条记录的学生年龄改为 38：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;因为是要进行写操作，所以需要先给该记录（最新的记录）加行锁。&lt;/li&gt;
@@ -5351,7 +5351,7 @@ id		name		age
 &lt;li&gt;最后当事务 11 提交后释放锁，这时最新的记录就是学生年龄为 38 的那条记录。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;修改后的示意图如下：&lt;/p&gt;
-&lt;img src=&#34;./事务.IMG/275efc6dc02d46d8b1f3c49da5d5fb53.png&#34; alt=&#34;在这里插入图片描述&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.事务.IMG/275efc6dc02d46d8b1f3c49da5d5fb53.png&#34; alt=&#34;在这里插入图片描述&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;此时我们就有了一个基于链表记录的历史版本链，而 undo log 中的一个个的历史版本就称为一个个的快照。&lt;/p&gt;
 &lt;p&gt;从 SQL 执行的角度来看，commit 之前的回滚要做的事就是从 undo log 读取数据，然后执行和原先相反的 SQL。比如当 delete 一条记录时，undo log 中会把记录中的内容都记下来，然后执行回滚操作的时候，就读取 undo log 里的数据，然后进行 insert 操作。&lt;/p&gt;
 &lt;blockquote&gt;
@@ -5444,7 +5444,7 @@ id		name		age
 &lt;li&gt;事务 ID 大于等于 m_low_limit_id 的事务，一定是生成 Read View 时还没有启动的事务，因为 m_low_limit_id 是生成 Read View 时刻，系统尚未分配的下一个事务 ID。&lt;/li&gt;
 &lt;li&gt;事务 ID 位于 m_up_limit_id 和 m_low_limit_id 之间的事务，在生成 Read View 时可能正处于活跃状态，也可能已经提交了，这时需要通过判断事务 ID 是否存在于 m_ids 中来判断该事务是否已经提交。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;img src=&#34;./事务.IMG/2ce601ea8fe14f05bae00dd42180c394.png&#34; alt=&#34;在这里插入图片描述&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.事务.IMG/2ce601ea8fe14f05bae00dd42180c394.png&#34; alt=&#34;在这里插入图片描述&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;ul&gt;
 &lt;li&gt;一个事务在进行读操作时，只应该看到自己或已经提交的事务所作的修改，因此我们可以根据 Read View 来判断当前事务能否看到另一个事务所作的修改。&lt;/li&gt;
 &lt;li&gt;版本链中的每个版本的记录都有自己的 DB_TRX_ID，即创建或最近一次修改该记录的事务 ID，因此可以依次遍历版本链中的各个版本，通过 Read View 来判断当前事务能否看到这个版本，如果不能则继续遍历下一个版本。&lt;/li&gt;
@@ -5500,9 +5500,9 @@ id		name		age
 &lt;p&gt;例如在可重复读隔离级别下：&lt;/p&gt;
 &lt;p&gt;实验一：在启动两边的事务后，（注意顺序）首先在右事务中查看表中内容，然后再在左事务中修改并提交。结果我们是能够预想的，只有当两个事务都 commit 后，才能查看修改后的内容。&lt;/p&gt;
 &lt;p&gt;如果此时在右会话中使用&lt;code&gt;select * from table_name lock in share mode&lt;/code&gt;以共享锁的方式，进行当前读，就能查看到修改后的数据。&lt;/p&gt;
-&lt;img src=&#34;./事务.IMG/MD202403110136684.png&#34; alt=&#34;image-20240226164532416&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.事务.IMG/MD202403110136684.png&#34; alt=&#34;image-20240226164532416&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;实验二：在启动两边的事务后，（注意顺序）直接左事务中修改并提交。然后再右事务中查看表的内容，然而修改后的数据直接被呈现出来了。&lt;/p&gt;
-&lt;img src=&#34;./事务.IMG/image-20240226165650309.png&#34; alt=&#34;image-20240226165650309&#34; /&gt;
+&lt;img src=&#34;./.事务.IMG/image-20240226165650309.png&#34; alt=&#34;image-20240226165650309&#34; /&gt;
 &lt;p&gt;造成两种方式不一样的直接原因是 SQL 在不同事务中执行的顺序不同，实验一的右事务在数据修改之前访问了表数据，这相当于进行了一次快照读，创建了 Read View；实验二的右事务没有，也就没有快照。由于是可重复读级别，所以要求读取的内容要一致，因此第一次进行快照读的地方决定了该事务后续快照读结果的能力。&lt;/p&gt;
 &lt;h1&gt;参考资料&lt;/h1&gt;&lt;ul&gt;
 &lt;li&gt;
@@ -5546,10 +5546,10 @@ id		name		age
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;测试表：&lt;/p&gt;
-&lt;img src=&#34;./视图.IMG/image-20240227161226311.png&#34; alt=&#34;image-20240227161226311&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.视图.IMG/image-20240227161226311.png&#34; alt=&#34;image-20240227161226311&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;h2&gt;创建视图&lt;span class=&#34;absolute -mt-20&#34; id=&#34;创建视图&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e5%88%9b%e5%bb%ba%e8%a7%86%e5%9b%be&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;创建视图首先会执行 SELECT 语句，用查询返回的结果作为视图的内容。&lt;/p&gt;
-&lt;img src=&#34;./视图.IMG/image-20240227161844683.png&#34; alt=&#34;image-20240227161844683&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.视图.IMG/image-20240227161844683.png&#34; alt=&#34;image-20240227161844683&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;用 SELECT 的返回值作为视图的数据，通过&lt;code&gt;show tables&lt;/code&gt;可以查看视图是否被创建。&lt;/p&gt;
 &lt;h2&gt;查询视图&lt;span class=&#34;absolute -mt-20&#34; id=&#34;查询视图&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e6%9f%a5%e8%af%a2%e8%a7%86%e5%9b%be&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;一旦创建，就可以像查询普通表一样查询视图：&lt;/p&gt;
@@ -5565,11 +5565,11 @@ id		name		age
 &lt;/div&gt;
 &lt;h2&gt;更新视图&lt;span class=&#34;absolute -mt-20&#34; id=&#34;更新视图&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e6%9b%b4%e6%96%b0%e8%a7%86%e5%9b%be&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;视图可以被更新（取决于视图的定义和所涉及的表）。如果视图定义允许，可以通过&lt;code&gt;INSERT&lt;/code&gt;、&lt;code&gt;UPDATE&lt;/code&gt;、&lt;code&gt;DELETE&lt;/code&gt;操作来更改视图，这些更改会反映到底层的表中。但是，并非所有视图都是可更新的。&lt;/p&gt;
-&lt;img src=&#34;./视图.IMG/image-20240227162559507.png&#34; alt=&#34;image-20240227162559507&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.视图.IMG/image-20240227162559507.png&#34; alt=&#34;image-20240227162559507&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;修改视图后，原表中的记录也会随之被修改。反之也是如此。&lt;/p&gt;
 &lt;p&gt;这是因为视图的内容是随着原表内容动态更新的。&lt;/p&gt;
 &lt;p&gt;在&lt;code&gt;/var/lib/mysql/数据库名&lt;/code&gt;路径下，视图只有一个&lt;code&gt;.frm&lt;/code&gt;文件，它值包含表结构的定义，而数据保存在&lt;code&gt;.ibd&lt;/code&gt;文件中。这说明视图和原表共用同一份数据文件。这保证了数据一致性，视图往往用于显示和操作热数据。&lt;/p&gt;
-&lt;img src=&#34;./视图.IMG/image-20240227163118091.png&#34; alt=&#34;image-20240227163118091&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.视图.IMG/image-20240227163118091.png&#34; alt=&#34;image-20240227163118091&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;h2&gt;删除视图&lt;span class=&#34;absolute -mt-20&#34; id=&#34;删除视图&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e5%88%a0%e9%99%a4%e8%a7%86%e5%9b%be&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;删除视图的语法如下：&lt;/p&gt;
 &lt;div class=&#34;code-block relative mt-6 first:mt-0 group/code&#34;&gt;&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;DROP&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;VIEW&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;view_name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0&#34;&gt;
@@ -5692,7 +5692,7 @@ id		name		age
 &lt;li&gt;&lt;code&gt;-L&lt;/code&gt;：用于指明库文件的搜索路径。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;-l&lt;/code&gt;：用于指明需要连接库文件路径下的哪一个库。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;img src=&#34;./C语言连接.IMG/image-20240227182921177.png&#34; alt=&#34;image-20240227182921177&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.C语言连接.IMG/image-20240227182921177.png&#34; alt=&#34;image-20240227182921177&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;因为这个库没有在链接的默认目录&lt;code&gt;/usr/lib64&lt;/code&gt;下，所以作为第三方导入的库，在编译时需要显式地指定&lt;code&gt;-L/usr/lib64/mysql&lt;/code&gt;；同理，头文件不在默认目录&lt;code&gt;/usr/include&lt;/code&gt;下，所以要显式地指定&lt;code&gt;-I/usr/include/mysql&lt;/code&gt;。在这个目录下，存在名为&lt;code&gt;mysqlclient&lt;/code&gt;的第三方库，同样需要用&lt;code&gt;-l&lt;/code&gt;显式地声明。&lt;/p&gt;
 &lt;p&gt;只要正常运行上面的程序，那就表明库的链接没有问题，剩下的就是简单的 API 使用。&lt;/p&gt;
 &lt;h1&gt;连接 MySQL&lt;/h1&gt;&lt;h2&gt;MYSQL 类&lt;span class=&#34;absolute -mt-20&#34; id=&#34;mysql-类&#34;&gt;&lt;/span&gt;
@@ -5881,7 +5881,7 @@ id		name		age
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;编译并运行：&lt;/p&gt;
-&lt;img src=&#34;./C语言连接.IMG/image-20240227190559910.png&#34; alt=&#34;image-20240227190559910&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.C语言连接.IMG/image-20240227190559910.png&#34; alt=&#34;image-20240227190559910&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;h1&gt;发送命令&lt;/h1&gt;&lt;div class=&#34;code-block relative mt-6 first:mt-0 group/code&#34;&gt;&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;mysql_query&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MYSQL&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mysql&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;char&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;stmt_str&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0&#34;&gt;
     &lt;button
       class=&#34;code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50&#34;
@@ -5950,7 +5950,7 @@ id		name		age
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;数据被成功插入到表中。&lt;/p&gt;
-&lt;img src=&#34;./C语言连接.IMG/image-20240227193308014.png&#34; alt=&#34;image-20240227193308014&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.C语言连接.IMG/image-20240227193308014.png&#34; alt=&#34;image-20240227193308014&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;类似地，可以删除和修改记录：&lt;/p&gt;
 &lt;div class=&#34;code-block relative mt-6 first:mt-0 group/code&#34;&gt;&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;n&#34;&gt;string&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sql&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;update account set balance=222 where id=2&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0&#34;&gt;
     &lt;button
@@ -5962,7 +5962,7 @@ id		name		age
     &lt;/button&gt;
   &lt;/div&gt;
 &lt;/div&gt;
-&lt;img src=&#34;./C语言连接.IMG/image-20240227193749866.png&#34; alt=&#34;image-20240227193749866&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.C语言连接.IMG/image-20240227193749866.png&#34; alt=&#34;image-20240227193749866&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;div class=&#34;code-block relative mt-6 first:mt-0 group/code&#34;&gt;&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;n&#34;&gt;string&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sql&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;delete from account where id=4&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0&#34;&gt;
     &lt;button
       class=&#34;code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50&#34;
@@ -5973,7 +5973,7 @@ id		name		age
     &lt;/button&gt;
   &lt;/div&gt;
 &lt;/div&gt;
-&lt;img src=&#34;./C语言连接.IMG/image-20240227193844242.png&#34; alt=&#34;image-20240227193844242&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;./.C语言连接.IMG/image-20240227193844242.png&#34; alt=&#34;image-20240227193844242&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;h1&gt;查询记录&lt;/h1&gt;&lt;p&gt;对于 mysql_query 函数而言，插入、删除和修改操作都很简单，只要将 SQL 字符串作为参数传入即可，不需要返回值。但是 SELECT 查询需要返回结果，这需要使用到 MYSQL_RES 对象。&lt;/p&gt;
 &lt;div class=&#34;code-block relative mt-6 first:mt-0 group/code&#34;&gt;&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;MYSQL_RES&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;mysql_store_result&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MYSQL&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mysql&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0&#34;&gt;
     &lt;button
@@ -6152,7 +6152,7 @@ id		name		age
     &lt;/button&gt;
   &lt;/div&gt;
 &lt;/div&gt;
-&lt;img src=&#34;./C语言连接.IMG/image-20240227195504420.png&#34; alt=&#34;image-20240227195504420&#34; style=&#34;zoom:33%;&#34; /&gt;
+&lt;img src=&#34;./.C语言连接.IMG/image-20240227195504420.png&#34; alt=&#34;image-20240227195504420&#34; style=&#34;zoom:33%;&#34; /&gt;
 &lt;h1&gt;参考资料&lt;/h1&gt;&lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://developer.aliyun.com/article/641363&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Linux centos 7/ubantu 下： 用 C 语言连接 MySQL 数据库&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://blog.csdn.net/chenlong_cxy/article/details/129039323&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;MySQL 使用 C 语言连接&lt;/a&gt;&lt;/li&gt;

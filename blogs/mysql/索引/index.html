@@ -1154,16 +1154,16 @@ drop database if exists `index_demon`; create database if not exists `index_demo
 </ol>
 </blockquote>
 <p>由于它创建了 8000000 万条记录到数据库中，因此需要耗费一定时间（光标闪烁）：</p>
-<img src="./索引.IMG/image-20240223194918635.png" alt="image-20240223194918635" style="zoom:50%;" />
+<img src="./.索引.IMG/image-20240223194918635.png" alt="image-20240223194918635" style="zoom:50%;" />
 <p>进入数据库中：</p>
-<img src="./索引.IMG/image-20240223195036598.png" alt="image-20240223195036598" style="zoom:50%;" />
+<img src="./.索引.IMG/image-20240223195036598.png" alt="image-20240223195036598" style="zoom:50%;" />
 <p>表的内容和结构如下：</p>
-<img src="./索引.IMG/image-20240223195139154.png" alt="image-20240223195139154" style="zoom:50%;" />
+<img src="./.索引.IMG/image-20240223195139154.png" alt="image-20240223195139154" style="zoom:50%;" />
 <p>表结构中表明它没有建立索引。</p>
 <p>先尝试查询几条记录：
-<img src="./索引.IMG/image-20240223195412904.png" alt="image-20240223195412904" style="zoom:33%;" /></p>
+<img src="./.索引.IMG/image-20240223195412904.png" alt="image-20240223195412904" style="zoom:33%;" /></p>
 <p>为员工编号建立索引后查询相同的记录：</p>
-<img src="./索引.IMG/image-20240223195938286.png" alt="image-20240223195938286" style="zoom:50%;" />
+<img src="./.索引.IMG/image-20240223195938286.png" alt="image-20240223195938286" style="zoom:50%;" />
 <p>结果显而易见。关于索引，这里只是简单地展示了它在使用时的性能，更多篇幅将会讨论它的实现原理，以更好地理解并使用索引。</p>
 <h1>磁盘和 MySQL 的交互</h1><h2>了解磁盘<span class="absolute -mt-20" id="了解磁盘"></span>
     <a href="#%e4%ba%86%e8%a7%a3%e7%a3%81%e7%9b%98" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>磁盘在操作系统这门课中已经了解过，在此仅讨论和数据库索引有关的部分。以下内容部分引用自：<a href="https://yey.world/2021/01/02/LearnedIndex-03/" target="_blank" rel="noopener">数据库中的 B 树与 B+ 树</a></p>
@@ -1171,18 +1171,18 @@ drop database if exists `index_demon`; create database if not exists `index_demo
 <p>我们来看一下 <strong>磁盘 (disk)</strong> 的结构：一个典型的磁盘驱动器由一个或多个 <strong>盘片 (platter)</strong> 组成，它们以一个固定的速度围绕一个共同的 <strong>主轴 (spindle)</strong> 旋转。每个盘片表面覆盖着一层可磁化的物质。驱动器通过 <strong>磁臂 (arm)</strong> 末尾的 <strong>磁头 (head)</strong> 来读/写盘片。</p>
 <p>盘片在 <strong>逻辑上 （而非物理上）</strong> 被划分为一系列的同心环状区域，数据就存储在这样的同心圆环上面，这些同心圆环被称为 <strong>磁道 (track)</strong>。每个盘面可以划分多个磁道，最外圈的磁道是 0 号磁道，向圆心增长依次为 1 号磁道、2 号磁道……磁盘的数据存放就是从最外圈开始的。</p>
 <p>根据硬盘的规格不同，磁道数可以从几百到成千上万不等。每个磁道可以存储几个 Kb 的数据，但是计算机不必要每次都读写这么多数据。因此，再把每个磁道划分为若干个弧段，每个弧段就是一个 <strong>扇区 (sector)</strong>。</p>
-<img src="./索引.IMG/2021-01-02-WX20210102-131058@2x.png" alt="img" style="zoom:50%;" />
+<img src="./.索引.IMG/2021-01-02-WX20210102-131058@2x.png" alt="img" style="zoom:50%;" />
 <p>一个盘片被划分为许多磁道和扇区，一个磁道和一个扇区相交的区域称为一个 <strong>块 (block)</strong>。因此，磁盘上的任意一个块都可以通过其对应的磁道编号和扇区编号来寻址，也就是说，磁盘上的块地址格式由磁道编号和扇区编号组成：
 $$
 块地址 = （磁道编号，扇区编号）
 $$
 块是硬盘上存储的物理单位。出于稳定性考虑，通常一个块存储 512 字节的数据，但是实际上其容量可以是任意大小，具体取决于磁盘制造商和磁盘型号。</p>
 <p>这里，我们假设每个块的容量为 512 字节。当我们从磁盘上读取或写入数据时，我们总是以块为单位进行读/写。如果现在我们读取一个 512 字节的块，假设其中第一个字节的地址为 0，最后一个字节的地址为 511，那么其中每个字节都有其各自的地址，我们称之为 <strong>偏移量 (offset)</strong>。</p>
-<img src="./索引.IMG/2021-01-02-WX20210102-121031@2x.png" alt="img" style="zoom:50%;" />
+<img src="./.索引.IMG/2021-01-02-WX20210102-121031@2x.png" alt="img" style="zoom:50%;" />
 <p>假设磁盘上的每个块的第一个和最后一个字节的偏移量都分别为 0 和 511。因此，我们只需要知道 <strong>磁道编号</strong>、<strong>扇区编号</strong> 和 <strong>偏移量</strong> 这三个信息就可以定位到磁盘上的任意一个字节：首先，利用磁道编号和扇区编号定位到该字节所在的块；然后，在块内通过偏移量定位到该字节。</p>
 <p>正常情况下，我们可以通过盘片的旋转来选择扇区，通过磁头的轴向移动来选择磁道，也就是说，我们可以通过旋转盘片和移动磁头来定位到某个块，而数据总是以块的形式存储在磁盘上的。</p>
 <p>我们知道，数据处理无法直接在磁盘上进行，数据需要被读入内存中处理后再写回磁盘，才能被程序读取。</p>
-<img src="./索引.IMG/2021-01-02-WX20210102-141040@2x.png" alt="img" style="zoom:50%;" />
+<img src="./.索引.IMG/2021-01-02-WX20210102-141040@2x.png" alt="img" style="zoom:50%;" />
 <p>内存中的数据可以被程序直接访问，我们将其称为 <strong>数据结构 (data structure)</strong>。而在磁盘上高效组织数据使得其能够以一种简单方式被利用的系统被称为 <strong>数据库管理系统 (DBMS)</strong>。因此要查找某个数据，本质就是在磁盘上找到这个数据存在的扇区。</p>
 <h2>MySQL 的工作原理<span class="absolute -mt-20" id="mysql-的工作原理"></span>
     <a href="#mysql-%e7%9a%84%e5%b7%a5%e4%bd%9c%e5%8e%9f%e7%90%86" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>MySQL 服务器（mysqld）在操作系统中是一个进程，在网络中是一个服务器，所以 MySQL 是运行在内存中的，因此对数据的所有操作包括索引都要在内存中进行。</p>
@@ -1197,7 +1197,7 @@ $$
 <p>无特殊说明，下文都是在存储引擎为 InnoDB 的基础上讨论的。</p>
 </blockquote>
 <p>通常情况下，MySQL 和磁盘交互的基本单位指的是 InnoDB 的默认页大小，是 16KB。</p>
-<img src="./索引.IMG/image-20240223210513998.png" alt="image-20240223210513998" style="zoom:50%;" />
+<img src="./.索引.IMG/image-20240223210513998.png" alt="image-20240223210513998" style="zoom:50%;" />
 <blockquote>
 <p>为什么是 16KB 而不是和操作系统一样是 4KB？</p>
 </blockquote>
@@ -1246,9 +1246,9 @@ $$
 </ol>
 <h1>理解索引</h1><h2>引入<span class="absolute -mt-20" id="引入"></span>
     <a href="#%e5%bc%95%e5%85%a5" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>首先用一个以 ID 作为主键的信息表作为测试表。</p>
-<img src="./索引.IMG/image-20240224133951215.png" alt="image-20240224133951215" style="zoom:50%;" />
+<img src="./.索引.IMG/image-20240224133951215.png" alt="image-20240224133951215" style="zoom:50%;" />
 <p>然后以 ID 乱序插入若干记录。</p>
-<img src="./索引.IMG/image-20240224134158879.png" alt="image-20240224134158879" style="zoom:50%;" />
+<img src="./.索引.IMG/image-20240224134158879.png" alt="image-20240224134158879" style="zoom:50%;" />
 <p>可以看到即使插入的主键是乱序的，MySQL 会按照主键对插入的记录进行排序。</p>
 <blockquote>
 <p>为什么要这么做？</p>
@@ -1265,10 +1265,10 @@ $$
 <li><strong>页目录（Page Directory）</strong>：页中记录的索引，用于快速定位记录。它通过记录的相对位置（slot）来组织记录，有助于加速页内搜索。</li>
 <li><strong>文件尾部（File Trailer）</strong>：包含页的校验和信息，用于检查页数据在磁盘上的完整性。</li>
 </ol>
-<img src="./索引.IMG/INDEX_Page_Overview.png" alt="img" style="zoom: 67%;" />
+<img src="./.索引.IMG/INDEX_Page_Overview.png" alt="img" style="zoom: 67%;" />
 <p>图片来自：https://blog.j 列 e.us/2013/01/07/the-physical-structure-of-innodb-index-pages/</p>
 <p>InnoDB 通过这样的页结构，实现了其高效的数据存储和访问机制。每个页都通过 B+树结构组织在一起，无论是数据页（B+树的叶子层）还是索引页（B+树的非叶子层），都遵循这种结构。这使得 InnoDB 能够高效地进行数据的读取、插入、更新和删除操作。</p>
-<img src="./索引.IMG/image-20240224152401673.png" alt="image-20240224152401673" style="zoom:50%;" />
+<img src="./.索引.IMG/image-20240224152401673.png" alt="image-20240224152401673" style="zoom:50%;" />
 <blockquote>
 <p>其中 User Records 存储的是数据，图示将它作为“数据字段”，其他部分作为“属性字段”。B+树将会在后续介绍。</p>
 </blockquote>
@@ -1296,11 +1296,11 @@ $$
 <li>适应性：页目录的设计允许页内记录保持物理插入顺序，而不影响查找性能。</li>
 </ul>
 <p>由于页内目录是 Page 内的记录，所以这是一种空间换时间的做法，现实中书本的目录也是如此。</p>
-<img src="./索引.IMG/image-20240224152416298.png" alt="image-20240224152416298" style="zoom:50%;" />
+<img src="./.索引.IMG/image-20240224152416298.png" alt="image-20240224152416298" style="zoom:50%;" />
 <p>现在能解释最初为什么 MySQL 可以对记录排序了。因为 MySQL 默认会对含有主键的表的记录进行排序。页内部的数据记录本质是一个链表，链表的特点是增删快而查改慢，所以只要是有序的，那么二分查找的每一步都是有效的。并且主键的性质能保证排序是一定正确的，反之排序的依据不是主键（例如是性别），那么为之建立的索引也是无意义的。</p>
 <h2>多页情况<span class="absolute -mt-20" id="多页情况"></span>
     <a href="#%e5%a4%9a%e9%a1%b5%e6%83%85%e5%86%b5" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>MySQL 的一页大小是 16KB，如果单页不断被插入记录，那么在容量不足时 MySQL 会开辟新页来储存新记录，然后通过指针记录新页的位置。</p>
-<img src="./索引.IMG/2c1dc87069364f989542aa14879d70fd.png" alt="在这里插入图片描述" style="zoom:50%;" />
+<img src="./.索引.IMG/2c1dc87069364f989542aa14879d70fd.png" alt="在这里插入图片描述" style="zoom:50%;" />
 <p>图片来源（包括下文）：https://blog.csdn.net/chenlong_cxy/article/details/128784469</p>
 <p>值得注意的是，每一个 Page 内部和整体都是保持有序的，这意味着并不是每一条新纪录都会在新的 Page 中。这些关联在一起的 Page 共同维护着同一张表的所有记录，如果 Page 数量过多，那么 MySQL 在查询时仍然需要遍历 Page。虽然事先在 Page 内部使用了页内目录，但是首先得找到正确的 Page 后它才能发挥作用。</p>
 <p>类似地，为每一个 Page 都建立目录，以供 MySQL 更快地找到正确的 Page。这类似某些检索系统，通过多级索引，最终划分到细支上。</p>
@@ -1308,7 +1308,7 @@ $$
     <a href="#b-%e6%a0%91%e5%92%8c-b%e6%a0%91" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>以上讨论的 Page 的目录，叫做 B+树索引。那么什么是 B+树呢？有没有 B 树？</p>
 <p><a href="https://yey.world/2021/01/02/LearnedIndex-03/" target="_blank" rel="noopener">参看本文的第六、七、八节</a></p>
 <p>总之，B+树是含有索引的查找树，如果不断地为 Page 建立索引，那么最终总会有一个根结点作为索引的入口。</p>
-<img src="./索引.IMG/053ad0bdb200421ca2ed8bd400804bd1.png" alt="img" style="zoom:50%;" />
+<img src="./.索引.IMG/053ad0bdb200421ca2ed8bd400804bd1.png" alt="img" style="zoom:50%;" />
 <p>这是 InnoDB 存储引擎的索引结构，它是一棵 B+树。当一张表的数据量增加到需要多个页来存储时，InnoDB 使用一种结构来组织这些页，这个结构称为** B+树索引**。</p>
 <blockquote>
 <p>在操作系统中的多级页表和多级索引也是类似的思想。</p>
@@ -1663,9 +1663,9 @@ id		name		age
   </div>
 </div>
 <p>主键索引的 B+树的叶子节点存储了整条记录：</p>
-<img src="./索引.IMG/image-20240226093157620.png" alt="image-20240226093157620" style="zoom:50%;" />
+<img src="./.索引.IMG/image-20240226093157620.png" alt="image-20240226093157620" style="zoom:50%;" />
 <p>而普通索引的 B+树的叶子节点只存储主键：</p>
-<img src="./索引.IMG/image-20240226095129703.png" alt="image-20240226095129703" style="zoom:50%;" />
+<img src="./.索引.IMG/image-20240226095129703.png" alt="image-20240226095129703" style="zoom:50%;" />
 <p>回表（Bookmark Lookup）</p>
 <ul>
 <li><strong>定义</strong>：回表是 InnoDB 执行普通索引查询时的一种操作。当通过普通索引（非聚簇索引）查找数据时，数据库首先找到对应的聚簇索引键值，然后使用这个键值在聚簇索引中再次查找以获取实际的行数据。这个过程称为“回表”操作，因为它需要回到聚簇索引去查找完整的行数据。</li>
@@ -1773,21 +1773,21 @@ id		name		age
 </ul>
 <h2>创建<span class="absolute -mt-20" id="创建-4"></span>
     <a href="#%e5%88%9b%e5%bb%ba-4" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>测试表如下，其中正文主题 body 是 text 类型。</p>
-<img src="./索引.IMG/image-20240225142740183.png" alt="image-20240225142740183" style="zoom:50%;" />
+<img src="./.索引.IMG/image-20240225142740183.png" alt="image-20240225142740183" style="zoom:50%;" />
 <p>由于 InnoDB 只有在版本 5.6 之后的 mysqld 才支持全文索引，所以这里指定存储引擎为 MyISAM。</p>
 <p>插入几条测试记录。</p>
-<img src="./索引.IMG/image-20240225142923398.png" alt="image-20240225142923398" style="zoom:50%;" />
+<img src="./.索引.IMG/image-20240225142923398.png" alt="image-20240225142923398" style="zoom:50%;" />
 <p>用模糊搜索：</p>
-<img src="./索引.IMG/image-20240225143045487.png" alt="image-20240225143045487" style="zoom:50%;" />
+<img src="./.索引.IMG/image-20240225143045487.png" alt="image-20240225143045487" style="zoom:50%;" />
 <p>虽然这样能搜索到，但是通过<code>explain</code>命令可以看到，模糊查询并未使用到索引，因此在本文很长时就需要耗费时间。</p>
 <p>全文索引的使用方式：</p>
-<img src="./索引.IMG/image-20240225143749906.png" alt="image-20240225143749906" style="zoom:50%;" />
+<img src="./.索引.IMG/image-20240225143749906.png" alt="image-20240225143749906" style="zoom:50%;" />
 <p>但是在 MySQL 的默认设置中，最小搜索长度通常是 3 或 4，这意味着全文索引只会为长度大于等于 4 或 3 的词语建立索引。</p>
 <p>如果搜索的字符串长度小于 3：</p>
-<img src="./索引.IMG/image-20240225143925350.png" alt="image-20240225143925350" style="zoom:50%;" />
+<img src="./.索引.IMG/image-20240225143925350.png" alt="image-20240225143925350" style="zoom:50%;" />
 <p>原因是这些词语没有被建立全文索引，无法用索引定位。</p>
 <p>查看存储引擎的最小/最大搜索长度：
-<img src="./索引.IMG/image-20240225144037407.png" alt="image-20240225144037407" style="zoom:50%;" /></p>
+<img src="./.索引.IMG/image-20240225144037407.png" alt="image-20240225144037407" style="zoom:50%;" /></p>
 <p>可以在<code>/etc/my.cnf</code>中的<code>[mysqld] </code>选项下追加以下内容：</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">[mysqld]
 </span></span><span class="line"><span class="cl">innodb_ft_min_token_size = 1</span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
@@ -1842,7 +1842,7 @@ id		name		age
 </ul>
 <p>例如在使用聚合函数<code>count(*)</code>检查表的行数时，由于这是一个精确的数字，所以可能需要遍历整个表而耗费时间，但是<code>explain</code>可以迅速地返回一个估计值。</p>
 <h1>查询索引</h1><p>方法一：通过<code>show keys from 表名</code>查询。</p>
-<img src="./索引.IMG/image-20240224174530448.png" alt="image-20240224174530448" style="zoom:50%;" />
+<img src="./.索引.IMG/image-20240224174530448.png" alt="image-20240224174530448" style="zoom:50%;" />
 <p>其中：</p>
 <ul>
 <li>Table： 表示创建索引的表的名称。</li>
@@ -1859,17 +1859,17 @@ id		name		age
 <li>Comment： 显示评注。</li>
 </ul>
 <p>方式二：<code>show index from 表名</code></p>
-<img src="./索引.IMG/image-20240224174733260.png" alt="image-20240224174733260" style="zoom:50%;" />
+<img src="./.索引.IMG/image-20240224174733260.png" alt="image-20240224174733260" style="zoom:50%;" />
 <p>方式三：<code>desc 表名</code></p>
-<img src="./索引.IMG/image-20240224174820626.png" alt="image-20240224174820626" style="zoom:50%;" />
+<img src="./.索引.IMG/image-20240224174820626.png" alt="image-20240224174820626" style="zoom:50%;" />
 <h1>删除索引</h1><p>假如测试表的结构如下。</p>
-<img src="./索引.IMG/image-20240224175342606.png" alt="image-20240224175342606" style="zoom:50%;" />
+<img src="./.索引.IMG/image-20240224175342606.png" alt="image-20240224175342606" style="zoom:50%;" />
 <p>删除主键索引：<code>alter table 表名 drop primary key</code></p>
-<img src="./索引.IMG/image-20240224175437050.png" alt="image-20240224175437050" style="zoom:50%;" />
+<img src="./.索引.IMG/image-20240224175437050.png" alt="image-20240224175437050" style="zoom:50%;" />
 <p>删除非主键索引：<code>alter table 表名 drop index 索引名</code></p>
-<img src="./索引.IMG/image-20240224175533022.png" alt="image-20240224175533022" style="zoom:50%;" />
+<img src="./.索引.IMG/image-20240224175533022.png" alt="image-20240224175533022" style="zoom:50%;" />
 <p>也可以使用：<code>drop index 索引名 on 表名</code>删除非主键索引</p>
-<img src="./索引.IMG/image-20240224175644686.png" alt="image-20240224175644686" style="zoom:50%;" />
+<img src="./.索引.IMG/image-20240224175644686.png" alt="image-20240224175644686" style="zoom:50%;" />
 <p>由于一个表只有一个主键索引，所以在删除主键索引的时候不用指明索引名，而一个表中可能有多个非主键索引，所以在删除非主键索引时需要指明索引名。</p>
 <h1>索引的特点</h1><ul>
 <li><strong>提高查询速度</strong>：索引能够大幅度提高数据检索的速度，避免了全表扫描，因为它允许数据库引擎快速定位到表中的数据行。</li>

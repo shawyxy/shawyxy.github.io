@@ -1037,7 +1037,7 @@
 </ol>
 <p>以上是实现一个简单的 UDP 服务器的基本步骤。在实际应用中，还可能需要进行更多的操作，例如错误处理、超时处理等。</p>
 <p>本小节将实现一个简单的回声服务器（echo server），即像<code>echo</code>指令一样回显内容：</p>
-<p><img src="./网络编程：UDP socket.IMG/image-20230430125735059.png" alt="image-20230430125735059" style="zoom: 33%;" /></p>
+<p><img src="./.网络编程：UDP socket.IMG/image-20230430125735059.png" alt="image-20230430125735059" style="zoom: 33%;" /></p>
 <h2>定义<span class="absolute -mt-20" id="定义"></span>
     <a href="#%e5%ae%9a%e4%b9%89" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>服务端的逻辑将被定义在<code>UdpServer.cc</code>中，它包含了头文件<code>UdpServer.hpp</code>。</p>
 <p>而且服务端使用各种 socket 接口的操作将被封装为一个<code>UdpServer</code>类，这个类型的对象就可以被称之为服务端。它将在头文件中被定义，在源文件中被使用。</p>
@@ -1188,7 +1188,7 @@
 <p>后续代码中重复的头文件将会被省略，只显示新增的头文件。</p>
 <blockquote>
 <p>提供使用说明是规范的，大多数程序都会提供，例如：</p>
-<img src="./网络编程：UDP socket.IMG/image-20230429173832545.png" alt="image-20230429173832545" style="zoom:50%;" />
+<img src="./.网络编程：UDP socket.IMG/image-20230429173832545.png" alt="image-20230429173832545" style="zoom:50%;" />
 </blockquote>
 <h2>初始化服务器<span class="absolute -mt-20" id="初始化服务器"></span>
     <a href="#%e5%88%9d%e5%a7%8b%e5%8c%96%e6%9c%8d%e5%8a%a1%e5%99%a8" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>初始化服务器的逻辑将被封装在<code>UdpServer</code>类的<code>initServer()</code>成员函数中。</p>
@@ -1292,9 +1292,9 @@
   </div>
 </div>
 <p>结果：</p>
-<img src="./网络编程：UDP socket.IMG/image-20230429194023669.png" alt="image-20230429194023669" style="zoom:33%;" />
+<img src="./.网络编程：UDP socket.IMG/image-20230429194023669.png" alt="image-20230429194023669" style="zoom:33%;" />
 <p>如果使用了错误的参数，会出现提示内容：</p>
-<img src="./网络编程：UDP socket.IMG/image-20230430000538861.png" alt="image-20230430000538861" style="zoom:33%;" />
+<img src="./.网络编程：UDP socket.IMG/image-20230430000538861.png" alt="image-20230430000538861" style="zoom:33%;" />
 <h3>绑定<span class="absolute -mt-20" id="绑定"></span>
     <a href="#%e7%bb%91%e5%ae%9a" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>上面只完成了初始化服务器的第一步，只是过滤了一些不利条件，但是成员属性的 IP 和 PORT 都还未被使用。如果不用它们的话就没办法传输数据。因此要将用户在命令行传入的 IP 地址和 PORT 在内核中与当前进程强关联起来，也就是绑定（bind）。即通过绑定，在后续的执行逻辑中这个端口号就对只对应着被绑定的服务器进程，因为端口号标定着主机中进程的唯一性，服务器运行起来本身就是一个进程。</p>
 <p><code>bind()</code>函数用于将套接字与指定的 IP 地址和端口号绑定。通常在 TCP 协议或 UDP 协议的服务端设置。</p>
@@ -1393,7 +1393,7 @@
 </li>
 </ul>
 <p>自此服务器初始化的操作已经完成一半，测试一下：</p>
-<img src="./网络编程：UDP socket.IMG/image-20230430000153690.png" alt="image-20230430000153690" style="zoom:33%;" />
+<img src="./.网络编程：UDP socket.IMG/image-20230430000153690.png" alt="image-20230430000153690" style="zoom:33%;" />
 <h2>运行服务端<span class="absolute -mt-20" id="运行服务端"></span>
     <a href="#%e8%bf%90%e8%a1%8c%e6%9c%8d%e5%8a%a1%e7%ab%af" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>UDP 的服务端的初始化非常简单，只要创建套接字并绑定用户提供的 IP 地址和端口号到内核即可，剩下的操作将由操作系统协助完成。只要启动服务端进程，就能直接接收客户端发送的数据。</p>
 <p>所谓网络服务器，在正常情况下它的进程应该是永不退出的，也就是服务器的逻辑应该在一个死循环中执行，我们把这样的进程叫做常驻进程，即一直存在于内存中（除非它挂了或者宕机）。因此使用 C/C++实现服务器的逻辑应该尽量杜绝内存泄漏问题。</p>
@@ -1532,7 +1532,7 @@
     </button>
   </div>
 </div>
-<img src="./网络编程：UDP socket.IMG/image-20230430135925106.png" alt="image-20230430135925106" style="zoom:33%;" />
+<img src="./.网络编程：UDP socket.IMG/image-20230430135925106.png" alt="image-20230430135925106" style="zoom:33%;" />
 <p>注意，只有客户端对服务端进程发送数据，<code>recvfrom()</code>函数才会读取成功，返回值才会大于零，处理数据的逻辑才会执行。</p>
 <h3>关闭文件描述符<span class="absolute -mt-20" id="关闭文件描述符"></span>
     <a href="#%e5%85%b3%e9%97%ad%e6%96%87%e4%bb%b6%e6%8f%8f%e8%bf%b0%e7%ac%a6" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>在定义<code>UdpServer</code>类的时，在析构函数中调用<code>close()</code>函数关闭。</p>
@@ -1748,7 +1748,7 @@
 <h2>本地测试<span class="absolute -mt-20" id="本地测试"></span>
     <a href="#%e6%9c%ac%e5%9c%b0%e6%b5%8b%e8%af%95" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>在下面的测试中，可以使用<code>127.0.0.1</code>本地环回地址测试一下上面写好的服务端和客户端程序。端口号随便设置，在这里设置为<code>8080</code>。</p>
 <p>注意，上面的代码中使用了日志，有的日志级别是<code>DEBUG</code>，在测试中可以在编译选项中加上<code>DDUBUG_SHOW</code>以更好地观察现象，这是一个自定义预处理命令。</p>
-<img src="./网络编程：UDP socket.IMG/屏幕录制 2023-04-30 17.49.17.gif" alt="屏幕录制 2023-04-30 17.49.17" style="zoom:50%;" />
+<img src="./.网络编程：UDP socket.IMG/屏幕录制 2023-04-30 17.49.17.gif" alt="屏幕录制 2023-04-30 17.49.17" style="zoom:50%;" />
 <p>注意：首先要将服务端运行起来。通过实验结果来看，简易的回声服务端就被实现了，服务端将会在自己的进程中打印客户端发送的数据，并将数据原封不动地返回给客户端，<code>server echo#</code>后面的内容就是客户端返回的数据。</p>
 <h2>netstat 指令<span class="absolute -mt-20" id="netstat-指令"></span>
     <a href="#netstat-%e6%8c%87%e4%bb%a4" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p><code>netstat</code>是一个用于显示网络状态信息的命令行工具。它可以显示各种网络相关的信息，包括活动的网络连接、路由表、接口统计信息等。</p>
@@ -1765,9 +1765,9 @@
 <p>以上是对<code>netstat</code>命令的简要介绍。更多详细信息可以参考相关文档或使用<code>man netstat</code>命令查看手册页。</p>
 <h3>使用<span class="absolute -mt-20" id="使用"></span>
     <a href="#%e4%bd%bf%e7%94%a8" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>可以用这个工具查看刚才的程序对应的网络信息：</p>
-<img src="./网络编程：UDP socket.IMG/image-20230430175930009.png" alt="image-20230430175930009" style="zoom:33%;" />
+<img src="./.网络编程：UDP socket.IMG/image-20230430175930009.png" alt="image-20230430175930009" style="zoom:33%;" />
 <p>再测试一次：</p>
-<img src="./网络编程：UDP socket.IMG/image-20230430180151102.png" alt="image-20230430180151102" style="zoom:33%;" />
+<img src="./.网络编程：UDP socket.IMG/image-20230430180151102.png" alt="image-20230430180151102" style="zoom:33%;" />
 <p>可以看见，两次客户端的端口号都是不一样的，这说明操作系统自动绑定的端口号是不确定的。</p>
 <h2>公网 IP 问题<span class="absolute -mt-20" id="公网-ip-问题"></span>
     <a href="#%e5%85%ac%e7%bd%91-ip-%e9%97%ae%e9%a2%98" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>对于一台云服务器，它的公网 IP 通常是由云服务提供商提供的虚拟公网 IP。这个虚拟公网 IP 并不是服务器真正的物理 IP 地址，而是通过网络地址转换（NAT）技术映射到服务器的私有 IP 地址上。</p>
@@ -1776,7 +1776,7 @@
 <h3>测试<span class="absolute -mt-20" id="测试"></span>
     <a href="#%e6%b5%8b%e8%af%95" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>如果将服务器的构造函数中 IP 的默认值保持<code>&quot;&quot;</code>或不设置缺省值，然后在绑定之前的 IP 地址填充操作改为<code>local.sin_addr.s_addr = inet_addr(_ip.c_str())</code>，表示以用户设置的 IP 地址填充。</p>
 <p>我的服务器厂商提供的虚拟公网 IP 地址是<code>8.130.106.177</code>，那么直接使用刚才的程序：</p>
-<img src="./网络编程：UDP socket.IMG/image-20230430185800258.png" alt="image-20230430185800258" style="zoom:50%;" />
+<img src="./.网络编程：UDP socket.IMG/image-20230430185800258.png" alt="image-20230430185800258" style="zoom:50%;" />
 <p>服务端无法绑定，这是因为提供的 IP 地址不是物理上真正的 IP 地址。客户端一直处于阻塞状态，原因是陷入了<code>recvfrom()</code>无法退出（这可以通过在这个函数前后打印语句判断）。</p>
 <p>原因是在云服务器中，<code>bind()</code>函数无法绑定一个具体的（公网）IP 地址，也不建议。如果没有这样的限制，那么在服务器的初始化中，<code>bind()</code>函数只会被调用一次，那么第一次绑定时应该会成功将用户提供的 IP 地址和 PORT 成功绑定到内核中，那么就意味着这个客户端只能接受来自特定的 IP 地址和特定端口号对应的进程发送的数据，在绝大多数情况下都不会有这样的需求，因为服务器面向的是多个客户端。</p>
 <p>所以在服务端（尤其）和客户端的构造函数中赋予 IP 地址以缺省值<code>&quot;&quot;</code>，然后在绑定之前的 IP 地址填充操作设置用这样的逻辑控制：<code>local.sin_addr.s_addr = _ip.empty() ? INADDR_ANY : inet_addr(_ip.c_str())</code>，这样就能兼容上述两种情况了。</p>
@@ -1812,7 +1812,7 @@
 </li>
 </ol>
 <p>以上是将服务器端的 IP 地址绑定到<code>INADDR_ANY</code>的一些好处。当然，这种做法也有一些局限性，例如无法限制客户端只能使用特定的 IP 地址来连接服务器。因此，在实际应用中需要根据具体需求来决定是否使用<code>INADDR_ANY</code>。</p>
-<p>在上面的测试中，被绑定的 IP 地址设置为<code>0</code>，查看进程网络信息时就能看到它的 IP 地址的值为 0。<img src="./网络编程：UDP socket.IMG/image-20230430191914226.png" alt="image-20230430191914226" style="zoom:50%;" /></p>
+<p>在上面的测试中，被绑定的 IP 地址设置为<code>0</code>，查看进程网络信息时就能看到它的 IP 地址的值为 0。<img src="./.网络编程：UDP socket.IMG/image-20230430191914226.png" alt="image-20230430191914226" style="zoom:50%;" /></p>
 <p>因此服务端的逻辑中 IP 地址就不用填充到结构体中了。</p>
 <h2>网络测试<span class="absolute -mt-20" id="网络测试"></span>
     <a href="#%e7%bd%91%e7%bb%9c%e6%b5%8b%e8%af%95" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p><a href="https://gitee.com/shawyxy/2023-linux/tree/main/UdpSocket/SingleProcess" target="_blank" rel="noopener">源代码</a></p>
@@ -1825,7 +1825,7 @@
 <p>如果需要从外部网络访问云服务器，需要使用公网 IP 地址。公网 IP 地址是指在 Internet 上可以访问的 IP 地址，可以通过网络地址转换（NAT）技术将公网 IP 地址映射到云服务器的私有地址上，从而实现外部网络对云服务器的访问。</p>
 </blockquote>
 <p>例如运营商提供给我的私有 IP 是<code>172.17.177.235</code>：</p>
-<img src="./网络编程：UDP socket.IMG/屏幕录制 2023-04-30 21.43.41.gif" alt="屏幕录制 2023-04-30 21.43.41" style="zoom:50%;" />
+<img src="./.网络编程：UDP socket.IMG/屏幕录制 2023-04-30 21.43.41.gif" alt="屏幕录制 2023-04-30 21.43.41" style="zoom:50%;" />
 <h1>解析命令版</h1><p>上面实现了一个简单的回声服务器，是将数据看作字符串的。有时候客户端发送的数据中可能包含让对端主机执行任务的语句（例如<code>ls -a -l</code>），那么就要对字符串进行分割，然后在服务器中调用字符串对应的指令。这里的字符串分割当然可以自己实现，但本节的终点是实现功能，实际上也是直接把成熟的工具或框架拿来用，这样能保证安全性。</p>
 <h2>popen 函数<span class="absolute -mt-20" id="popen-函数"></span>
     <a href="#popen-%e5%87%bd%e6%95%b0" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p><code>popen</code>是一个 Linux 函数，用于通过创建管道、分叉和调用 shell 来打开进程。由于管道本质上是单向的，因此<code>type</code>参数只能指定读取或写入，不能同时指定两者；因此，所得到的流分别是只读或只写的。</p>
@@ -1920,7 +1920,7 @@
 <blockquote>
 <p>这个程序在缓冲区中还是有一些问题，如果频繁输入不存在的命令将会使<code>popen()</code>函数处于阻塞状态。</p>
 <p>如果客户端发送了<code>rm</code>或<code>rmdir</code>等非法指令，那么客户端将会记录错误信息，并直接返回错误信息。</p>
-<img src="./网络编程：UDP socket.IMG/image-20230430231042147.png" alt="image-20230430231042147" style="zoom:50%;" />
+<img src="./.网络编程：UDP socket.IMG/image-20230430231042147.png" alt="image-20230430231042147" style="zoom:50%;" />
 </blockquote>
 <p><a href="https://gitee.com/shawyxy/2023-linux/tree/main/UdpSocket/SingleProcess_command" target="_blank" rel="noopener">源代码</a>&ndash;实际上只修改了<code>UdpServer.hpp</code>中成员函数<code>Start()</code>的逻辑，为了方便编译依然将所有文件打包。（实际上也能打包成一个库以供别人使用，不过这样的话就没办法看到代码中的细节了）</p>
 <h1>群聊版（单进程）</h1><p>上面的例子是一个服务端进程对应一个客户端进程，要实现群聊版的服务端程序，（想象我们在群里的情景）其实就是将每个用户发送的数据在客户端中收集起来，然后统一发送给每一个客户端。这样就实现了全员广播通信，从效果上看，每个客户端能看见自己和别人发送的信息。</p>
@@ -2028,9 +2028,9 @@
 </div>
 <h2>测试<span class="absolute -mt-20" id="测试-3"></span>
     <a href="#%e6%b5%8b%e8%af%95-3" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>下面将用 2 个客户端和 1 个服务端进行测试。</p>
-<img src="./网络编程：UDP socket.IMG/屏幕录制 2023-05-01 15.14.35.gif" alt="屏幕录制 2023-05-01 15.14.35" style="zoom:50%;" />
+<img src="./.网络编程：UDP socket.IMG/屏幕录制 2023-05-01 15.14.35.gif" alt="屏幕录制 2023-05-01 15.14.35" style="zoom:50%;" />
 <p>但是这并不是我们想象中的群聊，这里只有发送信息的客户端才能收到自己发送的消息，而不会立刻显示另一个客户端发送的消息，而是在回显自己发送的几条信息之后才显示。而且我们通过服务端的日志可以看到，实际上客户端是有将每条接收到的数据发送给两个客户端的：</p>
-<img src="./网络编程：UDP socket.IMG/image-20230501151941073.png" alt="image-20230501151941073" style="zoom:50%;" />
+<img src="./.网络编程：UDP socket.IMG/image-20230501151941073.png" alt="image-20230501151941073" style="zoom:50%;" />
 <p>出现这样的情况的原因并非客户端拒绝了服务端进程发送的消息，而是 IO 被阻塞了。在上面的客户端程序中，使用的是<code>getline()</code>函数获取用户输入的数据，也就是从标准输入读取数据，那么如果数据没有流向标准输入，<code>getline()</code>后面的逻辑都不会被执行，程序将会在<code>getline()</code>一直等待标准输入的数据。对于群聊中的每一个客户端，它们接收消息和发送消息应该是互不干扰的，就像我们在群里聊天一样。</p>
 <blockquote>
 <p>最主要的原因是，单进程执行任务，只要在任意地方发生阻塞，而恰好客户端读取用户输入信息的逻辑必须要在死循环内部（表示不断读取），因此<code>getline()</code>阻塞会造成整个客户端的 IO 发生阻塞。</p>
@@ -2228,7 +2228,7 @@
     </button>
   </div>
 </div>
-<img src="./网络编程：UDP socket.IMG/屏幕录制 2023-05-01 19.36.33.gif" alt="屏幕录制 2023-05-01 19.36.33" style="zoom:50%;" />
+<img src="./.网络编程：UDP socket.IMG/屏幕录制 2023-05-01 19.36.33.gif" alt="屏幕录制 2023-05-01 19.36.33" style="zoom:50%;" />
 <p>注意：由于使用了<code>pthread</code>库，因此要增加编译选项：<code>-pthread</code>。</p>
 <p>不论是读还是写的两个线程，它们使用的 socket 都是同一个，那么 sockfd 对应的就是同一个文件。常规情况下，同时对一个文件进行读写会出现问题。但是 UDP/TCP 中的 socket 是全双工的，这意味着它可以同时进行读写操作而不干扰对方线程。</p>
 <h3>管道测试<span class="absolute -mt-20" id="管道测试"></span>
@@ -2240,11 +2240,11 @@
 <li>输出时：通过工具<code>cat</code>显示服务端返回的数据。</li>
 </ul>
 <p>首先创建两个缓冲区：</p>
-<img src="./网络编程：UDP socket.IMG/image-20230501201002778.png" alt="image-20230501201002778" style="zoom:33%;" />
-<img src="./网络编程：UDP socket.IMG/屏幕录制 2023-05-01 20.15.32.gif" alt="屏幕录制 2023-05-01 20.15.32" style="zoom:33%;" />
+<img src="./.网络编程：UDP socket.IMG/image-20230501201002778.png" alt="image-20230501201002778" style="zoom:33%;" />
+<img src="./.网络编程：UDP socket.IMG/屏幕录制 2023-05-01 20.15.32.gif" alt="屏幕录制 2023-05-01 20.15.32" style="zoom:33%;" />
 <p>通过管道作为客户端和服务端之间的缓冲区，就可以实现在专门的模块中输入（右边）和输出（中间），这样就不会像上面一样输入和输出乱成一锅粥了。</p>
 <p>这里有一个 bug，就是缓冲区 B 不能收到客户端 A 发送的第一条数据，在测试中也就是“你好，我是客户端 A”这条消息。出现这种情况的原因是没有设计注册的逻辑，这里服务端中添加用户的逻辑是用户端发送第一条消息时判断它是不是新用户，是则添加到哈希表中。因为客户端 A 在发送这条消息时，客户端 B 还没有被添加到表中，因此服务端在群发消息时也就不回将消息发送给客户端 B 了。</p>
-<img src="./网络编程：UDP socket.IMG/image-20230501202604922.png" alt="image-20230501202604922" style="zoom:50%;" />
+<img src="./.网络编程：UDP socket.IMG/image-20230501202604922.png" alt="image-20230501202604922" style="zoom:50%;" />
 <p>因此如果实现了一个注册功能，在发送信息之前就已经把用户的标识信息保存起来，在实现群聊时，即使用户没有发送过消息也能收到其他成员的消息。</p>
 <p><a href="https://gitee.com/shawyxy/2023-linux/tree/main/UdpSocket/Threads_GroupChat" target="_blank" rel="noopener">源代码</a>&ndash;修改了客户端的逻辑、Makefile 以及线程封装时格式化写入的部分逻辑。</p>
 <h2>优化<span class="absolute -mt-20" id="优化"></span>

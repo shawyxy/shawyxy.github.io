@@ -1105,10 +1105,10 @@
   </div>
 </div>
 <p>输出：
-<img src="./线程同步与互斥.IMG/202304130127778.png" alt="image-20230412234934509" style="zoom:37%;" /></p>
+<img src="./.线程同步与互斥.IMG/202304130127778.png" alt="image-20230412234934509" style="zoom:37%;" /></p>
 <p>但是结果却出现了负数。这是因为代码中存在竞态条件。在多线程环境中，当多个线程同时访问共享数据（即全局的 tickets 变量）时，可能会出现竞态条件。在当一个线程检查 tickets &gt; 0 时，另一个线程可能会修改 tickets 的值。这可能导致多个线程同时进入临界区域并执行 tickets&ndash;操作，从而导致 tickets 的值变为负数。</p>
 <p>实际上，<code>--</code>操作虽然从 C/C++代码来看只有 1 行，但是它对于 CPU（及其寄存器）而言，是 3 条指令，这可以通过汇编代码验证，截图源自 <a href="https://godbolt.org/" target="_blank" rel="noopener">https://godbolt.org/</a></p>
-<img src="./线程同步与互斥.IMG/202304130127205.png" alt="image-20230413000923694" style="zoom:37%;" />
+<img src="./.线程同步与互斥.IMG/202304130127205.png" alt="image-20230413000923694" style="zoom:37%;" />
 <p>因此，tickets&ndash;（自增和自减）操作并不是原子的，它实际上包括三个步骤：从内存中读取 tickets 的值到 CPU 的寄存器中，CPU 将其减 1，然后将结果写回内存&ndash;这些步骤通常是通过寄存器来完成的。</p>
 <p>由于这些步骤并不是原子的，在多线程环境中可能会出现竞态条件。为什么呢？（通过下面这段话就能理解原子操作的重要性）。</p>
 <p>首先要明确线程的调度是不确定的，线程随时有可能被切换。也就是说，线程在执行<code>--</code>操作的任意 3 个步骤的任意可能的时机，都可能被切换。</p>
@@ -1335,7 +1335,7 @@
   </div>
 </div>
 <p>输出</p>
-<img src="./线程同步与互斥.IMG/202304131554722.png" alt="image-20230413155442629" style="zoom:37%;" />
+<img src="./.线程同步与互斥.IMG/202304131554722.png" alt="image-20230413155442629" style="zoom:37%;" />
 <p>可以看见，最后全局变量 tickets 的值不会是 0 或 1，而且同样是 3 个线程，10000 张票，使用互斥锁以后时间就变长了。虽然截图中都是同一个线程，在运行过程中也可以看到其他线程在运行。经常出现某个线程的可能原因是这个线程的优先级比较高，会优先被调度器调度。&ndash;这是属于调度器的行为，而不取决于用户写的代码。</p>
 <p>在加锁之前，由于线程的调度是不确定的，各个线程对临界资源的访问是互不影响的，但是加锁之后只允许一个线程访问临界资源，保证了全局变量最终一定是合法的，与此同时会带来一定程度上的性能损耗。</p>
 <h3>局部锁<span class="absolute -mt-20" id="局部锁"></span>
@@ -1460,10 +1460,10 @@
 <li>为了稍后用时间代替性能上的分析，所以在 main 函数的始末增加了计时逻辑，使用了 <code>&lt;chrono&gt;</code> 头文件中的 <code>high_resolution_clock</code> 类（属于 std) 来实现高精度计时（毫秒），在此不需要关心它的使用。</li>
 </ol>
 <p>输出：</p>
-<img src="./线程同步与互斥.IMG/202304131743977.png" alt="image-20230413174300895" style="zoom:37%;" />
+<img src="./.线程同步与互斥.IMG/202304131743977.png" alt="image-20230413174300895" style="zoom:37%;" />
 <h2>3.4 性能损耗<span class="absolute -mt-20" id="34-性能损耗"></span>
     <a href="#34-%e6%80%a7%e8%83%bd%e6%8d%9f%e8%80%97" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>在上面的例子中，如果将 THREAD_NUM 改成 100，运行时间会不会缩短呢（注释了线程函数中的 usleep，增加了打印语句）？</p>
-<img src="./线程同步与互斥.IMG/202304131916176.png" alt="image-20230413191624103" style="zoom:37%;" />
+<img src="./.线程同步与互斥.IMG/202304131916176.png" alt="image-20230413191624103" style="zoom:37%;" />
 <p>从结果上看，即使没有让线程休眠，也快不了多少，是毫秒级的。</p>
 <p>增加线程数量可能会缩短程序的执行时间，但这并不是绝对的。程序的执行时间取决于许多因素，包括硬件性能、操作系统调度策略、程序结构和算法复杂度等。在多核处理器系统中，增加线程数量可以充分利用多核处理器的并行计算能力，从而缩短程序的执行时间。但是，如果线程数量过多，线程之间的调度和同步开销也会增加，从而影响程序的执行效率（也就是说线程调度也是需要耗费时间的）。</p>
 <blockquote>
@@ -1797,7 +1797,7 @@ jnz busy  # 如果不为 0，说明锁已经被占用，跳转到 busy 标签，
 <h1>6. 死锁</h1><h2>6.1 概念<span class="absolute -mt-20" id="61-概念"></span>
     <a href="#61-%e6%a6%82%e5%bf%b5" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>死锁是指两个或多个线程在执行过程中，由于竞争资源而造成的一种互相等待的现象，若无外力作用，它们都将无法继续执行。死锁通常发生在多个线程同时请求多个资源时，由于资源分配的不当，导致线程之间相互等待，无法继续执行。</p>
 <p>例如线程 A 和线程 B 各自拥有锁 a 和锁 b，但是它们有了锁还要申请对方的锁，因为它们申请的锁已经被占用，最后会导致代码无法推进。</p>
-<img src="./线程同步与互斥.IMG/202304141133074.png" alt="image-20230414113350007" style="zoom:37%;" />
+<img src="./.线程同步与互斥.IMG/202304141133074.png" alt="image-20230414113350007" style="zoom:37%;" />
 <p>注意：线程个数包括但不仅限于 2 个，实际情况可能会有很多个锁，最后构成环路。在计算机中，可能会因为 1 个锁产生死锁，即自己申请自己的锁，这种情况很少见，一般是代码写错了，了解即可。</p>
 <blockquote>
 <p>[自信] 这可是我写的代码，这种情况可能出现吗？</p>
@@ -1828,7 +1828,7 @@ jnz busy  # 如果不为 0，说明锁已经被占用，跳转到 busy 标签，
     </button>
   </div>
 </div>
-<img src="./线程同步与互斥.IMG/202304141311895.png" alt="image-20230414131108843" style="zoom:37%;" />
+<img src="./.线程同步与互斥.IMG/202304141311895.png" alt="image-20230414131108843" style="zoom:37%;" />
 <p>通过 ps 命令查看进程的状态：</p>
 <img src="../../../Application Support/typora-user-images/image-20230414131715204.png" alt="image-20230414131715204" style="zoom:37%;" />
 <p><code>Sl+</code>中的<code>l</code>是 lock，表示这个进程处于死锁状态。</p>
@@ -1908,7 +1908,7 @@ jnz busy  # 如果不为 0，说明锁已经被占用，跳转到 busy 标签，
     <a href="#%e4%bd%bf%e7%94%a8-trylock-%e5%87%bd%e6%95%b0" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>在 Linux 中，trylock 是一个非阻塞的函数（Immediately），它用于尝试锁定互斥锁。如果互斥锁当前未被任何线程锁定，则调用线程将其锁定。如果互斥锁当前被另一个线程锁定，则该函数将失败并立即返回，而不会阻塞。也就是说，在一个线程申请锁之前，它会尝试将自己的锁释放掉，相当于自己放弃了之前申请的锁，别的线程拿到这个锁后运行完毕以后，我就又能申请到这个锁了。因此这样就破坏了形成死锁的第二个必要条件，就是让 trylock 函数赋予指定线程以“谦让”的态度，先让对方使用锁。</p>
 <p>例如，在 pthread 库中，可以使用<code>pthread_mutex_trylock</code>函数来尝试锁定互斥锁。如果成功锁定，则返回 0；否则返回错误代码。</p>
 <p>通过 man pthread_mutex_trylock 可以查看它的描述：</p>
-<img src="./线程同步与互斥.IMG/202304141351679.png" alt="image-20230414135154624" style="zoom:37%;" />
+<img src="./.线程同步与互斥.IMG/202304141351679.png" alt="image-20230414135154624" style="zoom:37%;" />
 <blockquote>
 <p>这段话描述了<code>pthread_mutex_trylock</code>函数的行为。它与<code>pthread_mutex_lock</code>函数类似，但有一个重要的区别：如果互斥锁当前被任何线程（包括当前线程）锁定，则该函数将立即返回，而不会阻塞。</p>
 <p>此外，如果互斥锁的类型为<code>PTHREAD_MUTEX_RECURSIVE</code>并且当前由调用线程拥有，则互斥锁的锁定计数将增加 1，并且<code>pthread_mutex_trylock</code>函数将立即返回成功。</p>
@@ -2182,7 +2182,7 @@ jnz busy  # 如果不为 0，说明锁已经被占用，跳转到 busy 标签，
 </li>
 </ol>
 <p>需要注意的是，在使用 pthread_create 函数时，需要将参数强制转换为 void *类型，并在跳转函数中再转换回原来的类型。这在之前有强调过。</p>
-<img src="./线程同步与互斥.IMG/202304141739318.png" alt="image-20230414173955214" style="zoom:37%;" />
+<img src="./.线程同步与互斥.IMG/202304141739318.png" alt="image-20230414173955214" style="zoom:37%;" />
 <p>然而，这个程序并不完善，因为没有指定线程函数要执行的任务，只能手动终止，这只是一个框架。</p>
 <h4>互斥锁、条件变量<span class="absolute -mt-20" id="互斥锁条件变量"></span>
     <a href="#%e4%ba%92%e6%96%a5%e9%94%81%e6%9d%a1%e4%bb%b6%e5%8f%98%e9%87%8f" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>在释放互斥锁和条件变量时，释放的顺序应该与申请的顺序相反。也就是说，如果你先申请了互斥锁，然后再申请条件变量，那么在释放时，应该先释放条件变量，然后再释放互斥锁。也就是说，先申请的资源应该后释放。</p>
@@ -2319,7 +2319,7 @@ jnz busy  # 如果不为 0，说明锁已经被占用，跳转到 busy 标签，
 <p>sleep(5) 的作用是确保在创建线程以后，线程有足够的时间执行到 pthread_cond_signal 函数，保证所有线程都处于等待状态。</p>
 <p>sleep(1) 的所用是有节奏地唤醒线程，以更好地观察现象。</p>
 <p>输出：</p>
-<img src="./线程同步与互斥.IMG/202304141931744.png" alt="image-20230414193107668" style="zoom:37%;" />
+<img src="./.线程同步与互斥.IMG/202304141931744.png" alt="image-20230414193107668" style="zoom:37%;" />
 <p>输出的结果和上一次没有加锁比起来整齐了许多，打印内容也不会混在一起。而且，线程被调度是有一定顺序的。</p>
 <blockquote>
 <p>为什么前三轮是 ABC，后面是 CBA？</p>
@@ -2357,7 +2357,7 @@ jnz busy  # 如果不为 0，说明锁已经被占用，跳转到 busy 标签，
     </button>
   </div>
 </div>
-<img src="./线程同步与互斥.IMG/202304142008701.png" alt="image-20230414200819582" style="zoom:37%;" />
+<img src="./.线程同步与互斥.IMG/202304142008701.png" alt="image-20230414200819582" style="zoom:37%;" />
 <p>在这个示例中，每个线程都会在执行打印操作之前检查 turn 的值。如果 turn 的值不等于预定值，那么线程将会等待条件变量。当一个线程执行完打印操作后，它会更新 turn 的值并唤醒所有等待条件变量的线程。这样，其他线程就能够继续执行。</p>
 <p>这里是一个控制线程调度的一个方法，除此之外，想要按照固定的顺序调度线程，也可以使用一个信号量来控制线程的执行顺序。信号量是一种用于同步多个线程或进程的工具，它可以用来保证多个线程按照预定的顺序执行。</p>
 <blockquote>
@@ -2449,13 +2449,13 @@ jnz busy  # 如果不为 0，说明锁已经被占用，跳转到 busy 标签，
   </div>
 </div>
 <p>在这个示例中，在每个线程函数中，在调用 pthread_cond_wait 之前，都会将 ready 递增 1。在 main 函数中，使用了一个 while 循环来等待所有的线程都进入等待队列。当 ready 的值等于线程数量时，就会调用 pthread_cond_broadcast 来一次性唤醒所有的线程。</p>
-<img src="./线程同步与互斥.IMG/202304142107772.png" alt="image-20230414210727667" style="zoom:37%;" />
+<img src="./.线程同步与互斥.IMG/202304142107772.png" alt="image-20230414210727667" style="zoom:37%;" />
 <p>但是执行了一会就卡住了，而且每轮线程被调度的顺序也是不一样的。如果多运行几次，甚至还会有不一样的结果 [取决于调度器]：</p>
-<img src="./线程同步与互斥.IMG/202304142111703.png" alt="image-20230414211118603" style="zoom:37%;" />
+<img src="./.线程同步与互斥.IMG/202304142111703.png" alt="image-20230414211118603" style="zoom:37%;" />
 <p>如果把线程函数中的 sleep 删掉：</p>
-<img src="./线程同步与互斥.IMG/202304142112424.png" alt="image-20230414211229331" style="zoom:37%;" />
+<img src="./.线程同步与互斥.IMG/202304142112424.png" alt="image-20230414211229331" style="zoom:37%;" />
 <p>看起来有序了。如果把 pthread_cond_broadcast 换成 pthread_cond_signal：</p>
-<img src="./线程同步与互斥.IMG/202304142114901.png" alt="image-20230414211423795" style="zoom:37%;" />
+<img src="./.线程同步与互斥.IMG/202304142114901.png" alt="image-20230414211423795" style="zoom:37%;" />
 <ol>
 <li>换成 pthread_cond_signal 后，每次只会打印一条语句，这验证了 pthread_cond_broadcast 会同时唤醒等待队列中的所有线程。</li>
 <li>当调用 pthread_cond_broadcast 时，所有等待条件变量的线程都会被唤醒。然而，它们并不一定会按照预定顺序执行。这是因为，当一个线程被唤醒时，它仍然需要获得互斥锁才能继续执行。如果在这个时候有另一个线程已经持有了互斥锁，那么被唤醒的线程仍然需要等待。</li>
@@ -2510,7 +2510,7 @@ jnz busy  # 如果不为 0，说明锁已经被占用，跳转到 busy 标签，
 <p>值得注意的是，在线程函数中使用 pthread_cond_wait 时，应该使用 while 循环来检查条件。这是因为当线程被唤醒并重新获得互斥锁时，条件可能已经不再满足。使用 while 循环可以确保在继续执行之前条件仍然满足。如果使用 if 语句，那么当线程被唤醒时，它将不再检查条件，可能会导致错误。</p>
 </blockquote>
 <p>在 main 函数中，计数器 count 的起始值是 3，当 count==1 时，便让 ready 的值为 false，同时利用 count 在循环中使用 pthread_cond_wait 函数一次性唤醒所有线程，查看现象：</p>
-<img src="./线程同步与互斥.IMG/202304142338899.gif" alt="" style="zoom:37%;" />
+<img src="./.线程同步与互斥.IMG/202304142338899.gif" alt="" style="zoom:37%;" />
 <h4>代码<span class="absolute -mt-20" id="代码"></span>
     <a href="#%e4%bb%a3%e7%a0%81" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
@@ -2654,7 +2654,7 @@ jnz busy  # 如果不为 0，说明锁已经被占用，跳转到 busy 标签，
 <p>在多线程编程中，全局变量通常用于在线程之间共享数据和状态。例如在上面的程序中，ready 变量用于在线程之间共享临界资源的状态，也就是说，ready 变量本身就是一个临界资源，而检测临界资源这个操作本身也在临界区中，因此这是自洽的。当 ready 变量为 false 时，线程函数会进入等待队列，等待临界资源就绪。当主线程将 ready 变量设置为 true 时，线程函数会检测到这个状态改变，并继续执行它们的任务。</p>
 <blockquote>
 <p>上面的示例中，如果把 main 函数 while 中的 sleep 注释掉，那么不管是 signal 还是 broadcast，最后的结果都是这样的：</p>
-<img src="./线程同步与互斥.IMG/202304151107323.png" alt="image-20230415110750259" style="zoom:37%;" />
+<img src="./.线程同步与互斥.IMG/202304151107323.png" alt="image-20230415110750259" style="zoom:37%;" />
 </blockquote>
 <p>当去掉 sleep 函数后，主线程在 while 循环中快速地唤醒了所有等待条件变量的线程。但是，由于主线程没有等待，所以它很快就进入了下一次迭代，并在循环结束后将全局变量 quit 设置为 true。这样一来，所有的线程都会在检查到 quit 变量为 true 后退出它们的循环，并结束运行。</p>
 <p>因此去掉 sleep 函数后，主线程运行得太快了，以至于其他线程只有一次机会执行它们的任务。这就是为什么只执行了一次线程任务，然后就退出了。</p>
