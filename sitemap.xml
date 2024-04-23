@@ -4,35 +4,35 @@
   <url>
     <loc>/blogs/mysql/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E7%A1%80%E4%B8%80/</loc>
   </url><url>
-    <loc>/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8/</loc>
+    <loc>/blogs/network/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8/</loc>
   </url><url>
     <loc>/blogs/mysql/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E7%A1%80%E4%BA%8C/</loc>
   </url><url>
-    <loc>/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80socket%E5%A5%97%E6%8E%A5%E5%AD%97/</loc>
+    <loc>/blogs/network/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80socket%E5%A5%97%E6%8E%A5%E5%AD%97/</loc>
   </url><url>
     <loc>/blogs/mysql/%E5%BA%93%E7%9A%84%E6%93%8D%E4%BD%9C/</loc>
   </url><url>
-    <loc>/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8Btcp-socket/</loc>
+    <loc>/blogs/network/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8Btcp-socket/</loc>
   </url><url>
-    <loc>/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8Budp-socket/</loc>
+    <loc>/blogs/network/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8Budp-socket/</loc>
   </url><url>
     <loc>/blogs/mysql/%E8%A1%A8%E7%BB%93%E6%9E%84%E7%9A%84%E6%93%8D%E4%BD%9C/</loc>
   </url><url>
-    <loc>/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A4%E8%AF%86%E5%8D%8F%E8%AE%AE/</loc>
+    <loc>/blogs/network/%E8%AE%A4%E8%AF%86%E5%8D%8F%E8%AE%AE/</loc>
   </url><url>
-    <loc>/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/http%E5%8D%8F%E8%AE%AE/</loc>
+    <loc>/blogs/network/http%E5%8D%8F%E8%AE%AE/</loc>
   </url><url>
     <loc>/blogs/mysql/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</loc>
   </url><url>
-    <loc>/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/http-%E5%92%8C-https-%E5%8D%8F%E8%AE%AE%E5%8E%9F%E7%90%86/</loc>
+    <loc>/blogs/network/http-%E5%92%8C-https-%E5%8D%8F%E8%AE%AE%E5%8E%9F%E7%90%86/</loc>
   </url><url>
     <loc>/blogs/mysql/%E8%A1%A8%E7%9A%84%E7%BA%A6%E6%9D%9F/</loc>
   </url><url>
-    <loc>/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/udp-%E5%8D%8F%E8%AE%AE/</loc>
+    <loc>/blogs/network/udp-%E5%8D%8F%E8%AE%AE/</loc>
   </url><url>
     <loc>/blogs/mysql/%E8%A1%A8%E5%86%85%E5%AE%B9%E7%9A%84%E6%93%8D%E4%BD%9C/</loc>
   </url><url>
-    <loc>/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/tcp-%E5%8D%8F%E8%AE%AE/</loc>
+    <loc>/blogs/network/tcp-%E5%8D%8F%E8%AE%AE/</loc>
   </url><url>
     <loc>/blogs/mysql/%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0/</loc>
   </url><url>
@@ -52,7 +52,7 @@
   </url><url>
     <loc>/about/</loc>
   </url><url>
-    <loc>/blogs/c&#43;&#43;/</loc>
+    <loc>/blogs/cpp/</loc>
   </url><url>
     <loc>/categories/</loc>
   </url><url>
@@ -78,18 +78,18 @@
   </url><url>
     <loc>/tags/%E5%9F%BA%E6%95%B0%E6%A0%91/</loc>
   </url><url>
-    <loc>/blogs/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</loc>
+    <loc>/blogs/os/</loc>
   </url><url>
-    <loc>/blogs/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/</loc>
+    <loc>/blogs/data-structure-and-algorithm/</loc>
   </url><url>
     <loc>/tags/%E6%B1%A0%E5%8C%96%E6%8A%80%E6%9C%AF/</loc>
   </url><url>
-    <loc>/blogs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</loc>
+    <loc>/blogs/network/</loc>
   </url><url>
     <loc>/categories/%E9%A1%B9%E7%9B%AE/</loc>
   </url><url>
-    <loc>/blogs/%E9%A1%B9%E7%9B%AE/</loc>
+    <loc>/blogs/projects/</loc>
   </url><url>
-    <loc>/blogs/%E9%A1%B9%E7%9B%AE/%E9%AB%98%E5%B9%B6%E5%8F%91%E5%86%85%E5%AD%98%E6%B1%A0/</loc>
+    <loc>/blogs/projects/%E9%AB%98%E5%B9%B6%E5%8F%91%E5%86%85%E5%AD%98%E6%B1%A0/</loc>
   </url>
 </urlset>
