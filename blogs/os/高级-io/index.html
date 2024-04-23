@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <link rel="icon shortcut" href="/favicon.ico" sizes="32x32" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="/favicon-dark.svg" type="image/svg+xml" media="(prefers-color-scheme: dark)" />
+<link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16" />
+<link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+<link fetchpriority="low" href="/site.webmanifest" rel="manifest" />
+
+  <title>高级 I/O – Shawy&#39;s Blog</title>
+  <meta name="description" content="阅读前导：
+“高级 I/O”处于知识树中网络和操作系统的最后，因此本文默认读者有计算机网络和操作系统的基础。
+1. 什么是 I/O下面以“流”（stream）和冯诺依曼体系架构的视角来简单回顾一下什么是 I/O：
+I/O 可以理解为数据在计算机内部和外部之间的流动。
+在冯诺依曼体系架构中，程序和数据都是以二进制编码的形式存储在存储器中，CPU 可以直接访问存储器中的任何位置，也可以通过输入设备和输出设备与外部世界进行数据交换。因此，I/O 就是数据在存储器和输入输出设备之间的传输，或者说是数据在 CPU 和外部世界（即外设）之间的交换。
+I/O 的速度和效率受到多种因素的影响，例如存储器的容量和速度、输入输出设备的性能和类型、总线或接口的带宽和协议、CPU 的运算能力和指令集、操作系统的调度和管理、程序的设计和优化等。
+2. I/O 的本质==I/O = 等待 &#43; 数据拷贝==
+例子：假设要对磁盘中的文件修改，包括两个步骤：
+将磁盘中的文件加载到内存的缓冲区中 将内存中的文件修改，然后再写回磁盘 什么是高效的 I/O ?
+其中，如果缓冲区中没有数据，CPU 会阻塞地等待，直到缓冲区中有数据之后才会拷贝数据。如果等待的时间占比过大，就会造成 I/O 低效。也就是说，降低单位时间内，等待的比例，就相当于提高 I/O 的效率。
+上面只是一个单机中的例子，实际上可能很难体会到效率上的差距，因为 I/O 的距离太短了。那么对于像网络这样的长距离的 I/O，效率就显得十分重要了。
+如何理解这个“等”呢？
+像我们在使用 C 或 C&#43;&#43;的 scanf 或 cin 时，程序运行起来光标会一直闪烁，这就是程序在等待标准输入中的数据，这个数据就是从外设键盘而来。文件和网络相关接口诸如 read()、write() 和 send()、 recv() 也是类似的。事实上也是如此，例如 read() 就是将内核缓冲区的数据拷贝到用户缓冲区，write() 就是将用户缓冲区的数据拷贝到内核缓冲区。
+从 OS 的视角：调用这些 I/O 接口的进程或线程会被阻塞，更底层地说，操作系统将该进程或线程的状态设置为某种非 R 状态，然后将其放入等待队列中，直到缓冲区中的数据就绪后再唤醒它； 从 I/O 的视角：阻塞就是让这些调用 I/O 的进程在“等”。 网络通信的本质可以从不同的角度来理解：" />
+  
+  
+    <link rel="canonical" href="/blogs/os/%E9%AB%98%E7%BA%A7-io/" itemprop="url" />
+  
+
+  
+
+<meta property="og:title" content="高级 I/O" />
+<meta property="og:description" content="阅读前导：
+“高级 I/O”处于知识树中网络和操作系统的最后，因此本文默认读者有计算机网络和操作系统的基础。
+1. 什么是 I/O下面以“流”（stream）和冯诺依曼体系架构的视角来简单回顾一下什么是 I/O：
+I/O 可以理解为数据在计算机内部和外部之间的流动。
+在冯诺依曼体系架构中，程序和数据都是以二进制编码的形式存储在存储器中，CPU 可以直接访问存储器中的任何位置，也可以通过输入设备和输出设备与外部世界进行数据交换。因此，I/O 就是数据在存储器和输入输出设备之间的传输，或者说是数据在 CPU 和外部世界（即外设）之间的交换。
+I/O 的速度和效率受到多种因素的影响，例如存储器的容量和速度、输入输出设备的性能和类型、总线或接口的带宽和协议、CPU 的运算能力和指令集、操作系统的调度和管理、程序的设计和优化等。
+2. I/O 的本质==I/O = 等待 &#43; 数据拷贝==
+例子：假设要对磁盘中的文件修改，包括两个步骤：
+将磁盘中的文件加载到内存的缓冲区中 将内存中的文件修改，然后再写回磁盘 什么是高效的 I/O ?
+其中，如果缓冲区中没有数据，CPU 会阻塞地等待，直到缓冲区中有数据之后才会拷贝数据。如果等待的时间占比过大，就会造成 I/O 低效。也就是说，降低单位时间内，等待的比例，就相当于提高 I/O 的效率。
+上面只是一个单机中的例子，实际上可能很难体会到效率上的差距，因为 I/O 的距离太短了。那么对于像网络这样的长距离的 I/O，效率就显得十分重要了。
+如何理解这个“等”呢？
+像我们在使用 C 或 C&#43;&#43;的 scanf 或 cin 时，程序运行起来光标会一直闪烁，这就是程序在等待标准输入中的数据，这个数据就是从外设键盘而来。文件和网络相关接口诸如 read()、write() 和 send()、 recv() 也是类似的。事实上也是如此，例如 read() 就是将内核缓冲区的数据拷贝到用户缓冲区，write() 就是将用户缓冲区的数据拷贝到内核缓冲区。
+从 OS 的视角：调用这些 I/O 接口的进程或线程会被阻塞，更底层地说，操作系统将该进程或线程的状态设置为某种非 R 状态，然后将其放入等待队列中，直到缓冲区中的数据就绪后再唤醒它； 从 I/O 的视角：阻塞就是让这些调用 I/O 的进程在“等”。 网络通信的本质可以从不同的角度来理解：" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/blogs/os/%E9%AB%98%E7%BA%A7-io/" /><meta property="article:section" content="blogs" />
+
+
+
+  
+  <meta itemprop="name" content="高级 I/O">
+  <meta itemprop="description" content="阅读前导：
+“高级 I/O”处于知识树中网络和操作系统的最后，因此本文默认读者有计算机网络和操作系统的基础。
+1. 什么是 I/O下面以“流”（stream）和冯诺依曼体系架构的视角来简单回顾一下什么是 I/O：
+I/O 可以理解为数据在计算机内部和外部之间的流动。
+在冯诺依曼体系架构中，程序和数据都是以二进制编码的形式存储在存储器中，CPU 可以直接访问存储器中的任何位置，也可以通过输入设备和输出设备与外部世界进行数据交换。因此，I/O 就是数据在存储器和输入输出设备之间的传输，或者说是数据在 CPU 和外部世界（即外设）之间的交换。
+I/O 的速度和效率受到多种因素的影响，例如存储器的容量和速度、输入输出设备的性能和类型、总线或接口的带宽和协议、CPU 的运算能力和指令集、操作系统的调度和管理、程序的设计和优化等。
+2. I/O 的本质==I/O = 等待 &#43; 数据拷贝==
+例子：假设要对磁盘中的文件修改，包括两个步骤：
+将磁盘中的文件加载到内存的缓冲区中 将内存中的文件修改，然后再写回磁盘 什么是高效的 I/O ?
+其中，如果缓冲区中没有数据，CPU 会阻塞地等待，直到缓冲区中有数据之后才会拷贝数据。如果等待的时间占比过大，就会造成 I/O 低效。也就是说，降低单位时间内，等待的比例，就相当于提高 I/O 的效率。
+上面只是一个单机中的例子，实际上可能很难体会到效率上的差距，因为 I/O 的距离太短了。那么对于像网络这样的长距离的 I/O，效率就显得十分重要了。
+如何理解这个“等”呢？
+像我们在使用 C 或 C&#43;&#43;的 scanf 或 cin 时，程序运行起来光标会一直闪烁，这就是程序在等待标准输入中的数据，这个数据就是从外设键盘而来。文件和网络相关接口诸如 read()、write() 和 send()、 recv() 也是类似的。事实上也是如此，例如 read() 就是将内核缓冲区的数据拷贝到用户缓冲区，write() 就是将用户缓冲区的数据拷贝到内核缓冲区。
+从 OS 的视角：调用这些 I/O 接口的进程或线程会被阻塞，更底层地说，操作系统将该进程或线程的状态设置为某种非 R 状态，然后将其放入等待队列中，直到缓冲区中的数据就绪后再唤醒它； 从 I/O 的视角：阻塞就是让这些调用 I/O 的进程在“等”。 网络通信的本质可以从不同的角度来理解：">
+  <meta itemprop="wordCount" content="774"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="高级 I/O">
+<meta name="twitter:description" content="阅读前导：
+“高级 I/O”处于知识树中网络和操作系统的最后，因此本文默认读者有计算机网络和操作系统的基础。
+1. 什么是 I/O下面以“流”（stream）和冯诺依曼体系架构的视角来简单回顾一下什么是 I/O：
+I/O 可以理解为数据在计算机内部和外部之间的流动。
+在冯诺依曼体系架构中，程序和数据都是以二进制编码的形式存储在存储器中，CPU 可以直接访问存储器中的任何位置，也可以通过输入设备和输出设备与外部世界进行数据交换。因此，I/O 就是数据在存储器和输入输出设备之间的传输，或者说是数据在 CPU 和外部世界（即外设）之间的交换。
+I/O 的速度和效率受到多种因素的影响，例如存储器的容量和速度、输入输出设备的性能和类型、总线或接口的带宽和协议、CPU 的运算能力和指令集、操作系统的调度和管理、程序的设计和优化等。
+2. I/O 的本质==I/O = 等待 &#43; 数据拷贝==
+例子：假设要对磁盘中的文件修改，包括两个步骤：
+将磁盘中的文件加载到内存的缓冲区中 将内存中的文件修改，然后再写回磁盘 什么是高效的 I/O ?
+其中，如果缓冲区中没有数据，CPU 会阻塞地等待，直到缓冲区中有数据之后才会拷贝数据。如果等待的时间占比过大，就会造成 I/O 低效。也就是说，降低单位时间内，等待的比例，就相当于提高 I/O 的效率。
+上面只是一个单机中的例子，实际上可能很难体会到效率上的差距，因为 I/O 的距离太短了。那么对于像网络这样的长距离的 I/O，效率就显得十分重要了。
+如何理解这个“等”呢？
+像我们在使用 C 或 C&#43;&#43;的 scanf 或 cin 时，程序运行起来光标会一直闪烁，这就是程序在等待标准输入中的数据，这个数据就是从外设键盘而来。文件和网络相关接口诸如 read()、write() 和 send()、 recv() 也是类似的。事实上也是如此，例如 read() 就是将内核缓冲区的数据拷贝到用户缓冲区，write() 就是将用户缓冲区的数据拷贝到内核缓冲区。
+从 OS 的视角：调用这些 I/O 接口的进程或线程会被阻塞，更底层地说，操作系统将该进程或线程的状态设置为某种非 R 状态，然后将其放入等待队列中，直到缓冲区中的数据就绪后再唤醒它； 从 I/O 的视角：阻塞就是让这些调用 I/O 的进程在“等”。 网络通信的本质可以从不同的角度来理解：">
+
+    <link rel="preload" href="/css/compiled/main.min.5a06ca26e024c4f511f45ee6c33a2a1faefaebe6be8a38d36e100f40a4c59c06.css" as="style" integrity="sha256-WgbKJuAkxPUR9F7mwzoqH6766&#43;a&#43;ijjTbhAPQKTFnAY=" />
+    <link href="/css/compiled/main.min.5a06ca26e024c4f511f45ee6c33a2a1faefaebe6be8a38d36e100f40a4c59c06.css" rel="stylesheet" integrity="sha256-WgbKJuAkxPUR9F7mwzoqH6766&#43;a&#43;ijjTbhAPQKTFnAY=" />
+
+
+
+  <link href="/css/custom.min.e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css" rel="stylesheet" integrity="sha256-47DEQpj8HBSa&#43;/TImW&#43;5JCeuQeRkm5NMpJWZG3hSuFU=" />
+
+
+
+  
+
+
+  <script>
+     
+    const defaultTheme = 'system';
+
+    const setDarkTheme = () => {
+      document.documentElement.classList.add("dark");
+      document.documentElement.style.colorScheme = "dark";
+    }
+    const setLightTheme = () => {
+      document.documentElement.classList.remove("dark");
+      document.documentElement.style.colorScheme = "light";
+    }
+
+    if ("color-theme" in localStorage) {
+      localStorage.getItem("color-theme") === "dark" ? setDarkTheme() : setLightTheme();
+    } else {
+      defaultTheme === "dark" ? setDarkTheme() : setLightTheme();
+      if (defaultTheme === "system") {
+        window.matchMedia("(prefers-color-scheme: dark)").matches ? setDarkTheme() : setLightTheme();
+      }
+    }
+  </script>
+
+  
+</head>
+<body dir="ltr"><div class="nav-container sticky top-0 z-20 w-full bg-transparent print:hidden">
+  <div class="nav-container-blur pointer-events-none absolute z-[-1] h-full w-full bg-white dark:bg-dark shadow-[0_2px_4px_rgba(0,0,0,.02),0_1px_0_rgba(0,0,0,.06)] contrast-more:shadow-[0_0_0_1px_#000] dark:shadow-[0_-1px_0_rgba(255,255,255,.1)_inset] contrast-more:dark:shadow-[0_0_0_1px_#fff]"></div>
+
+  <nav class="mx-auto flex items-center justify-end gap-2 h-16 px-6 max-w-[90rem]">
+    <a class="flex items-center hover:opacity-75 ltr:mr-auto rtl:ml-auto" href="/">
+        <span class="mx-2 font-extrabold inline select-none" title="Shawy&#39;s Blog">Shawy&#39;s Blog</span>
+    </a><a
+            title="Blogs"
+            href="/blogs"
+            
+            class="text-sm contrast-more:text-gray-700 contrast-more:dark:text-gray-100 relative -ml-2 hidden whitespace-nowrap p-2 md:inline-block font-medium"
+          >
+            <span class="text-center">Blogs</span>
+          </a><a
+            title="About"
+            href="/about"
+            
+            class="text-sm contrast-more:text-gray-700 contrast-more:dark:text-gray-100 relative -ml-2 hidden whitespace-nowrap p-2 md:inline-block text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
+          >
+            <span class="text-center">About</span>
+          </a><a
+            title="Contact ↗"
+            href="https://blog.csdn.net/m0_63312733?type=blog"
+            target="_blank" rel="noreferer"
+            class="text-sm contrast-more:text-gray-700 contrast-more:dark:text-gray-100 relative -ml-2 hidden whitespace-nowrap p-2 md:inline-block text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
+          >
+            <span class="text-center">Contact ↗</span>
+          </a><div class="search-wrapper relative md:w-64">
+  <div class="relative flex items-center text-gray-900 contrast-more:text-gray-800 dark:text-gray-300 contrast-more:dark:text-gray-300">
+    <input
+      placeholder="Search..."
+      class="search-input block w-full appearance-none rounded-lg px-3 py-2 transition-colors text-base leading-tight md:text-sm bg-black/[.05] dark:bg-gray-50/10 focus:bg-white dark:focus:bg-dark placeholder:text-gray-500 dark:placeholder:text-gray-400 contrast-more:border contrast-more:border-current"
+      type="search"
+      value=""
+      spellcheck="false"
+    />
+    <kbd
+      class="absolute my-1.5 select-none ltr:right-1.5 rtl:left-1.5 h-5 rounded bg-white px-1.5 font-mono text-[10px] font-medium text-gray-500 border dark:border-gray-100/20 dark:bg-dark/50 contrast-more:border-current contrast-more:text-current contrast-more:dark:border-current items-center gap-1 transition-opacity pointer-events-none hidden sm:flex"
+    >
+      CTRL K
+    </kbd>
+  </div>
+
+  <div>
+    <ul
+      class="search-results hextra-scrollbar hidden border border-gray-200 bg-white text-gray-100 dark:border-neutral-800 dark:bg-neutral-900 absolute top-full z-20 mt-2 overflow-auto overscroll-contain rounded-xl py-2.5 shadow-xl max-h-[min(calc(50vh-11rem-env(safe-area-inset-bottom)),400px)] md:max-h-[min(calc(100vh-5rem-env(safe-area-inset-bottom)),400px)] inset-x-0 ltr:md:left-auto rtl:md:right-auto contrast-more:border contrast-more:border-gray-900 contrast-more:dark:border-gray-50 w-screen min-h-[100px] max-w-[min(calc(100vw-2rem),calc(100%+20rem))]"
+      style="transition: max-height 0.2s ease 0s;"
+    ></ul>
+  </div>
+</div>
+
+          <a class="p-2 text-current" target="_blank" rel="noreferer" href="https://github.com/shawyxy" title="GitHub"><svg height=24 fill="currentColor" viewBox="3 3 18 18">
+  <path d="M12 3C7.0275 3 3 7.12937 3 12.2276C3 16.3109 5.57625 19.7597 9.15374 20.9824C9.60374 21.0631 9.77249 20.7863 9.77249 20.5441C9.77249 20.3249 9.76125 19.5982 9.76125 18.8254C7.5 19.2522 6.915 18.2602 6.735 17.7412C6.63375 17.4759 6.19499 16.6569 5.8125 16.4378C5.4975 16.2647 5.0475 15.838 5.80124 15.8264C6.51 15.8149 7.01625 16.4954 7.18499 16.7723C7.99499 18.1679 9.28875 17.7758 9.80625 17.5335C9.885 16.9337 10.1212 16.53 10.38 16.2993C8.3775 16.0687 6.285 15.2728 6.285 11.7432C6.285 10.7397 6.63375 9.9092 7.20749 9.26326C7.1175 9.03257 6.8025 8.08674 7.2975 6.81794C7.2975 6.81794 8.05125 6.57571 9.77249 7.76377C10.4925 7.55615 11.2575 7.45234 12.0225 7.45234C12.7875 7.45234 13.5525 7.55615 14.2725 7.76377C15.9937 6.56418 16.7475 6.81794 16.7475 6.81794C17.2424 8.08674 16.9275 9.03257 16.8375 9.26326C17.4113 9.9092 17.76 10.7281 17.76 11.7432C17.76 15.2843 15.6563 16.0687 13.6537 16.2993C13.98 16.5877 14.2613 17.1414 14.2613 18.0065C14.2613 19.2407 14.25 20.2326 14.25 20.5441C14.25 20.7863 14.4188 21.0746 14.8688 20.9824C16.6554 20.364 18.2079 19.1866 19.3078 17.6162C20.4077 16.0457 20.9995 14.1611 21 12.2276C21 7.12937 16.9725 3 12 3Z"></path>
+</svg>
+<span class="sr-only">GitHub</span>
+          </a><button type="button" aria-label="Menu" class="hamburger-menu -mr-2 rounded p-2 active:bg-gray-400/20 md:hidden"><svg height=24 fill="none" viewBox="0 0 24 24" stroke="currentColor"><g><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8H20"></path></g><g><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16H20"></path></g></svg></button>
+  </nav>
+</div>
+
+  <div class='mx-auto flex max-w-screen-xl'>
+    <div class="mobile-menu-overlay [transition:background-color_1.5s_ease] fixed inset-0 z-10 bg-black/80 dark:bg-black/60 hidden"></div>
+<aside class="sidebar-container flex flex-col print:hidden md:top-16 md:shrink-0 md:w-64 md:self-start max-md:[transform:translate3d(0,-100%,0)] md:hidden xl:block">
+  
+  <div class="px-4 pt-4 md:hidden">
+    <div class="search-wrapper relative md:w-64">
+  <div class="relative flex items-center text-gray-900 contrast-more:text-gray-800 dark:text-gray-300 contrast-more:dark:text-gray-300">
+    <input
+      placeholder="Search..."
+      class="search-input block w-full appearance-none rounded-lg px-3 py-2 transition-colors text-base leading-tight md:text-sm bg-black/[.05] dark:bg-gray-50/10 focus:bg-white dark:focus:bg-dark placeholder:text-gray-500 dark:placeholder:text-gray-400 contrast-more:border contrast-more:border-current"
+      type="search"
+      value=""
+      spellcheck="false"
+    />
+    <kbd
+      class="absolute my-1.5 select-none ltr:right-1.5 rtl:left-1.5 h-5 rounded bg-white px-1.5 font-mono text-[10px] font-medium text-gray-500 border dark:border-gray-100/20 dark:bg-dark/50 contrast-more:border-current contrast-more:text-current contrast-more:dark:border-current items-center gap-1 transition-opacity pointer-events-none hidden sm:flex"
+    >
+      CTRL K
+    </kbd>
+  </div>
+
+  <div>
+    <ul
+      class="search-results hextra-scrollbar hidden border border-gray-200 bg-white text-gray-100 dark:border-neutral-800 dark:bg-neutral-900 absolute top-full z-20 mt-2 overflow-auto overscroll-contain rounded-xl py-2.5 shadow-xl max-h-[min(calc(50vh-11rem-env(safe-area-inset-bottom)),400px)] md:max-h-[min(calc(100vh-5rem-env(safe-area-inset-bottom)),400px)] inset-x-0 ltr:md:left-auto rtl:md:right-auto contrast-more:border contrast-more:border-gray-900 contrast-more:dark:border-gray-50 w-screen min-h-[100px] max-w-[min(calc(100vw-2rem),calc(100%+20rem))]"
+      style="transition: max-height 0.2s ease 0s;"
+    ></ul>
+  </div>
+</div>
+
+  </div>
+  <div class="hextra-scrollbar overflow-y-auto overflow-x-hidden p-4 grow md:h-[calc(100vh-var(--navbar-height)-var(--menu-height))]">
+    <ul class="flex flex-col gap-1 md:hidden">
+      
+      
+          <li class=""><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/about/"
+    
+  >About
+    </a></li>
+          <li class="open"><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/"
+    
+  >Notes
+        <span class="hextra-sidebar-collapsible-button"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-[18px] min-w-[18px] rounded-sm p-0.5 hover:bg-gray-800/5 dark:hover:bg-gray-100/5"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" class="origin-center transition-transform rtl:-rotate-180"></path></svg></span>
+    </a><div class="ltr:pr-0 overflow-hidden">
+        <ul class='relative flex flex-col gap-1 before:absolute before:inset-y-1 before:w-px before:bg-gray-200 before:content-[""] ltr:ml-3 ltr:pl-3 ltr:before:left-0 rtl:mr-3 rtl:pr-3 rtl:before:right-0 dark:before:bg-neutral-800'><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/cpp/"
+    
+  >C/C&#43;&#43;
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/mysql/"
+    
+  >MySQL
+        <span class="hextra-sidebar-collapsible-button"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-[18px] min-w-[18px] rounded-sm p-0.5 hover:bg-gray-800/5 dark:hover:bg-gray-100/5"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" class="origin-center transition-transform rtl:-rotate-180"></path></svg></span>
+    </a>
+              <div class="ltr:pr-0 overflow-hidden">
+        <ul class='relative flex flex-col gap-1 before:absolute before:inset-y-1 before:w-px before:bg-gray-200 before:content-[""] ltr:ml-3 ltr:pl-3 ltr:before:left-0 rtl:mr-3 rtl:pr-3 rtl:before:right-0 dark:before:bg-neutral-800'><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/mysql/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E7%A1%80%E4%B8%80/"
+    
+  >数据库基础（一）
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/mysql/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E7%A1%80%E4%BA%8C/"
+    
+  >数据库基础（二）
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/mysql/%E5%BA%93%E7%9A%84%E6%93%8D%E4%BD%9C/"
+    
+  >库的操作
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/mysql/%E8%A1%A8%E7%BB%93%E6%9E%84%E7%9A%84%E6%93%8D%E4%BD%9C/"
+    
+  >表结构的操作
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/mysql/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/"
+    
+  >数据类型
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/mysql/%E8%A1%A8%E7%9A%84%E7%BA%A6%E6%9D%9F/"
+    
+  >表的约束
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/mysql/%E8%A1%A8%E5%86%85%E5%AE%B9%E7%9A%84%E6%93%8D%E4%BD%9C/"
+    
+  >表内容的操作
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/mysql/%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0/"
+    
+  >内置函数
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/mysql/%E5%A4%8D%E5%90%88%E6%9F%A5%E8%AF%A2/"
+    
+  >复合查询
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/mysql/%E8%A1%A8%E7%9A%84%E8%BF%9E%E6%8E%A5/"
+    
+  >表的连接
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/mysql/%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/"
+    
+  >用户管理
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/mysql/%E7%B4%A2%E5%BC%95/"
+    
+  >索引
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/mysql/%E4%BA%8B%E5%8A%A1/"
+    
+  >事务
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/mysql/%E8%A7%86%E5%9B%BE/"
+    
+  >视图
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/mysql/c%E8%AF%AD%E8%A8%80%E8%BF%9E%E6%8E%A5/"
+    
+  >C语言连接
+    </a>
+              
+            </li></ul>
+      </div>
+            </li><li class="flex flex-col open"><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/os/"
+    
+  >操作系统
+        <span class="hextra-sidebar-collapsible-button"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-[18px] min-w-[18px] rounded-sm p-0.5 hover:bg-gray-800/5 dark:hover:bg-gray-100/5"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" class="origin-center transition-transform rtl:-rotate-180"></path></svg></span>
+    </a>
+              <div class="ltr:pr-0 overflow-hidden">
+        <ul class='relative flex flex-col gap-1 before:absolute before:inset-y-1 before:w-px before:bg-gray-200 before:content-[""] ltr:ml-3 ltr:pl-3 ltr:before:left-0 rtl:mr-3 rtl:pr-3 rtl:before:right-0 dark:before:bg-neutral-800'><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/os/linux%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E4%B8%8A/"
+    
+  >Linux基本操作【上】
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/os/linux%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E4%B8%8B/"
+    
+  >Linux基本操作【下】
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/os/yumgitgdb/"
+    
+  >yum, git, gdb
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/os/linux%E8%AE%A4%E8%AF%86%E7%B3%BB%E7%BB%9F/"
+    
+  >认识系统
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/os/linux%E8%BF%9B%E7%A8%8B%E6%A6%82%E5%BF%B5/"
+    
+  >进程概念
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/os/%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6/"
+    
+  >进程控制
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/os/%E5%9F%BA%E7%A1%80-io/"
+    
+  >基础 I/O
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/os/%E5%8A%A8%E9%9D%99%E6%80%81%E5%BA%93/"
+    
+  >动静态库
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/os/%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/"
+    
+  >进程间通信
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/os/%E8%BF%9B%E7%A8%8B%E4%BF%A1%E5%8F%B7/"
+    
+  >进程信号
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/os/%E7%BA%BF%E7%A8%8B%E6%A6%82%E5%BF%B5%E4%B8%8E%E6%8E%A7%E5%88%B6/"
+    
+  >线程概念与控制
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/os/%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5%E4%B8%8E%E4%BA%92%E6%96%A5/"
+    
+  >线程同步与互斥
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/os/%E4%BF%A1%E5%8F%B7%E9%87%8F/"
+    
+  >信号量
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/os/%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E8%80%85%E6%A8%A1%E5%BC%8F/"
+    
+  >生产者消费者模式
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/os/%E7%BA%BF%E7%A8%8B%E6%B1%A0/"
+    
+  >线程池
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/os/%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B/"
+    
+  >守护进程
+    </a>
+              
+            </li><li class="flex flex-col open"><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      sidebar-active-item bg-primary-100 font-semibold text-primary-800 contrast-more:border contrast-more:border-primary-500 dark:bg-primary-400/10 dark:text-primary-600 contrast-more:dark:border-primary-500"
+    href="/blogs/os/%E9%AB%98%E7%BA%A7-io/"
+    
+  >高级 I/O
+    </a>
+  
+    <ul class='flex flex-col gap-1 relative before:absolute before:inset-y-1 before:w-px before:bg-gray-200 before:content-[""] dark:before:bg-neutral-800 ltr:pl-3 ltr:before:left-0 rtl:pr-3 rtl:before:right-0 ltr:ml-3 rtl:mr-3'><li>
+              <a
+                href="#31-%e5%bc%95%e5%85%a5"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >3.1 引入</a>
+            </li>
+          <li>
+              <a
+                href="#32-%e9%98%bb%e5%a1%9e-io"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >3.2 阻塞 I/O</a>
+            </li>
+          <li>
+              <a
+                href="#33-%e9%9d%9e%e9%98%bb%e5%a1%9e-io"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >3.3 非阻塞 I/O</a>
+            </li>
+          <li>
+              <a
+                href="#34-%e5%a4%9a%e8%b7%af%e5%a4%8d%e7%94%a8-io"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >3.4 多路复用 I/O</a>
+            </li>
+          <li>
+              <a
+                href="#35-%e4%bf%a1%e5%8f%b7%e9%a9%b1%e5%8a%a8-io"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >3.5 信号驱动 I/O</a>
+            </li>
+          <li>
+              <a
+                href="#36-%e5%bc%82%e6%ad%a5-io"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >3.6 异步 I/O</a>
+            </li>
+          <li>
+              <a
+                href="#37-%e5%b0%8f%e7%bb%93"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >3.7 小结</a>
+            </li>
+          <li>
+              <a
+                href="#51-%e9%98%bb%e5%a1%9e-io"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >5.1 阻塞 I/O</a>
+            </li>
+          <li>
+              <a
+                href="#52-%e9%9d%9e%e9%98%bb%e5%a1%9e"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >5.2 非阻塞</a>
+            </li>
+          </ul>
+  
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/os/io%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/"
+    
+  >I/O 多路复用
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/os/reactor-%E6%A8%A1%E5%BC%8F/"
+    
+  >Reactor 模式
+    </a>
+              
+            </li></ul>
+      </div>
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/data-structure-and-algorithm/"
+    
+  >数据结构与算法
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/network/"
+    
+  >计算机网络
+        <span class="hextra-sidebar-collapsible-button"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-[18px] min-w-[18px] rounded-sm p-0.5 hover:bg-gray-800/5 dark:hover:bg-gray-100/5"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" class="origin-center transition-transform rtl:-rotate-180"></path></svg></span>
+    </a>
+              <div class="ltr:pr-0 overflow-hidden">
+        <ul class='relative flex flex-col gap-1 before:absolute before:inset-y-1 before:w-px before:bg-gray-200 before:content-[""] ltr:ml-3 ltr:pl-3 ltr:before:left-0 rtl:mr-3 rtl:pr-3 rtl:before:right-0 dark:before:bg-neutral-800'><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/network/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8/"
+    
+  >网络基础入门
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/network/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80socket%E5%A5%97%E6%8E%A5%E5%AD%97/"
+    
+  >网络基础：socket 套接字
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/network/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8Btcp-socket/"
+    
+  >网络编程：TCP socket
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/network/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8Budp-socket/"
+    
+  >网络编程：UDP socket
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/network/%E8%AE%A4%E8%AF%86%E5%8D%8F%E8%AE%AE/"
+    
+  >认识协议
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/network/http%E5%8D%8F%E8%AE%AE/"
+    
+  >HTTP 协议
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/network/http-%E5%92%8C-https-%E5%8D%8F%E8%AE%AE%E5%8E%9F%E7%90%86/"
+    
+  >HTTP 和 HTTPS 协议原理
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/network/udp-%E5%8D%8F%E8%AE%AE/"
+    
+  >UDP 协议
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/network/tcp-%E5%8D%8F%E8%AE%AE/"
+    
+  >TCP 协议
+    </a>
+              
+            </li></ul>
+      </div>
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/projects/"
+    
+  >项目
+        <span class="hextra-sidebar-collapsible-button"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-[18px] min-w-[18px] rounded-sm p-0.5 hover:bg-gray-800/5 dark:hover:bg-gray-100/5"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" class="origin-center transition-transform rtl:-rotate-180"></path></svg></span>
+    </a>
+              <div class="ltr:pr-0 overflow-hidden">
+        <ul class='relative flex flex-col gap-1 before:absolute before:inset-y-1 before:w-px before:bg-gray-200 before:content-[""] ltr:ml-3 ltr:pl-3 ltr:before:left-0 rtl:mr-3 rtl:pr-3 rtl:before:right-0 dark:before:bg-neutral-800'><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/projects/%E9%AB%98%E5%B9%B6%E5%8F%91%E5%86%85%E5%AD%98%E6%B1%A0/"
+    
+  >高并发内存池
+    </a>
+              
+            </li></ul>
+      </div>
+            </li></ul>
+      </div></li>
+    </ul>
+
+    <div class="max-xl:hidden h-0 w-64 shrink-0"></div></div>
+  
+  
+    <div class="md:hidden  sticky bottom-0 bg-white dark:bg-dark mx-4 py-4 shadow-[0_-12px_16px_#fff] flex items-center gap-2 dark:border-neutral-800 dark:shadow-[0_-12px_16px_#111] contrast-more:border-neutral-400 contrast-more:shadow-none contrast-more:dark:shadow-none border-t" data-toggle-animation="show"><div class="flex grow flex-col"><button
+  title="Change theme"
+  data-theme="light"
+  class="theme-toggle group h-7 rounded-md px-2 text-left text-xs font-medium text-gray-600 transition-colors dark:text-gray-400 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-primary-100/5 dark:hover:text-gray-50"
+  type="button"
+  aria-label="Change theme"
+>
+  <div class="flex items-center gap-2 capitalize"><svg height=12 class="group-data-[theme=light]:hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg><span class="group-data-[theme=light]:hidden">Light</span><svg height=12 class="group-data-[theme=dark]:hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg><span class="group-data-[theme=dark]:hidden">Dark</span></div>
+</button>
+</div></div></aside>
+    
+<nav class="hextra-toc order-last hidden w-64 shrink-0 xl:block print:hidden px-4" aria-label="table of contents">
+    <div class="hextra-scrollbar sticky top-16 overflow-y-auto pr-4 pt-6 text-sm [hyphens:auto] max-h-[calc(100vh-var(--navbar-height)-env(safe-area-inset-bottom))] ltr:-mr-4 rtl:-ml-4"><p class="mb-4 font-semibold tracking-tight">On this page</p><ul></ul><ul></ul><ul>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#31-%e5%bc%95%e5%85%a5">3.1 引入
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#32-%e9%98%bb%e5%a1%9e-io">3.2 阻塞 I/O
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#33-%e9%9d%9e%e9%98%bb%e5%a1%9e-io">3.3 非阻塞 I/O
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#34-%e5%a4%9a%e8%b7%af%e5%a4%8d%e7%94%a8-io">3.4 多路复用 I/O
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#35-%e4%bf%a1%e5%8f%b7%e9%a9%b1%e5%8a%a8-io">3.5 信号驱动 I/O
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#36-%e5%bc%82%e6%ad%a5-io">3.6 异步 I/O
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#37-%e5%b0%8f%e7%bb%93">3.7 小结
+        </a>
+      </li></ul><ul></ul><ul>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#51-%e9%98%bb%e5%a1%9e-io">5.1 阻塞 I/O
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#52-%e9%9d%9e%e9%98%bb%e5%a1%9e">5.2 非阻塞
+        </a>
+      </li></ul>
+      <div class="mt-8 border-t bg-white pt-8 shadow-[0_-12px_16px_white] dark:bg-dark dark:shadow-[0_-12px_16px_#111] sticky bottom-0 flex flex-col items-start gap-2 pb-8 dark:border-neutral-800 contrast-more:border-t contrast-more:border-neutral-400 contrast-more:shadow-none contrast-more:dark:border-neutral-400">
+        <button aria-hidden="true" id="backToTop" onClick="scrollUp();" class="transition-all transition duration-75 opacity-0 text-xs font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 contrast-more:text-gray-800 contrast-more:dark:text-gray-50">
+          <span>Scroll to top</span>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="inline ml-1 h-3.5 w-3.5 border rounded-full border-gray-500 hover:border-gray-900 dark:border-gray-400 dark:hover:border-gray-100 contrast-more:border-gray-800 contrast-more:dark:border-gray-50">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+
+    <article class="w-full break-words flex min-h-[calc(100vh-var(--navbar-height))] min-w-0 justify-center pb-8 pr-[calc(env(safe-area-inset-right)-1.5rem)]">
+      <main class="w-full min-w-0 max-w-6xl px-6 pt-4 md:px-12">
+        <br class="mt-1.5 text-sm" />
+        <h1 class="text-center mt-2 text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100">高级 I/O</h1>
+        <div class="mb-16"></div>
+        <div class="content">
+          <p>阅读前导：</p>
+<p>“高级 I/O”处于知识树中网络和操作系统的最后，因此本文默认读者有计算机网络和操作系统的基础。</p>
+<h1>1. 什么是 I/O</h1><p>下面以“流”（stream）和冯诺依曼体系架构的视角来简单回顾一下什么是 I/O：</p>
+<p>I/O 可以理解为数据在计算机内部和外部之间的流动。</p>
+<p>在冯诺依曼体系架构中，程序和数据都是以二进制编码的形式存储在存储器中，CPU 可以直接访问存储器中的任何位置，也可以通过输入设备和输出设备与外部世界进行数据交换。因此，I/O 就是数据在存储器和输入输出设备之间的传输，或者说是数据在 CPU 和外部世界（即外设）之间的交换。</p>
+<img src="./高级 IO.IMG/MD202209262106093.png" alt="image-20220926132952292" style="zoom:50%;" />
+<p>I/O 的速度和效率受到多种因素的影响，例如存储器的容量和速度、输入输出设备的性能和类型、总线或接口的带宽和协议、CPU 的运算能力和指令集、操作系统的调度和管理、程序的设计和优化等。</p>
+<h1>2. I/O 的本质</h1><p>==I/O = 等待 + 数据拷贝==</p>
+<p>例子：假设要对磁盘中的文件修改，包括两个步骤：</p>
+<ol>
+<li>将磁盘中的文件加载到内存的缓冲区中</li>
+<li>将内存中的文件修改，然后再写回磁盘</li>
+</ol>
+<blockquote>
+<p>什么是高效的 I/O ?</p>
+</blockquote>
+<p>其中，如果缓冲区中没有数据，CPU 会阻塞地等待，直到缓冲区中有数据之后才会拷贝数据。如果等待的时间占比过大，就会造成 I/O 低效。也就是说，降低单位时间内，等待的比例，就相当于提高 I/O 的效率。</p>
+<p>上面只是一个单机中的例子，实际上可能很难体会到效率上的差距，因为 I/O 的距离太短了。那么对于像网络这样的长距离的 I/O，效率就显得十分重要了。</p>
+<blockquote>
+<p>如何理解这个“等”呢？</p>
+</blockquote>
+<p>像我们在使用 C 或 C++的 scanf 或 cin 时，程序运行起来光标会一直闪烁，这就是程序在等待标准输入中的数据，这个数据就是从外设键盘而来。文件和网络相关接口诸如 read()、write() 和 send()、 recv() 也是类似的。事实上也是如此，例如 read() 就是将内核缓冲区的数据拷贝到用户缓冲区，write() 就是将用户缓冲区的数据拷贝到内核缓冲区。</p>
+<ul>
+<li>从 OS 的视角：调用这些 I/O 接口的进程或线程会被阻塞，更底层地说，操作系统将该进程或线程的状态设置为某种非 R 状态，然后将其放入等待队列中，直到缓冲区中的数据就绪后再唤醒它；</li>
+<li>从 I/O 的视角：阻塞就是让这些调用 I/O 的进程在“等”。</li>
+</ul>
+<p>网络通信的本质可以从不同的角度来理解：</p>
+<ul>
+<li>从数据流的角度，网络通信就是数据在计算机内部和外部之间的流动；</li>
+<li>从协议的角度，网络通信就是一系列的规则和约定，保证通信的顺利进行；</li>
+<li>从进程的角度，网络通信就是不同计算机上的进程之间的通信。</li>
+</ul>
+<p>其中进程是最具象的角度，因为数据的交换和共享的主体是进程，它们通过文件描述符来访问网络资源，例如套接字、管道、FIFO 等。在 Linux 下，一切皆文件，这意味着所有的设备、资源和对象都可以用统一的方式来操作，即打开、读写、关闭等。进程的 TCB 控制块存储进程的各种信息，例如进程 ID、状态、优先级、寄存器、信号、文件描述符等。每个进程都有一个文件描述符表，用来记录文件描述符和文件之间的映射关系，文件描述符是一个非负整数，是文件描述符表的下标，用来标识进程打开的文件。</p>
+<h1>3. 五种 I/O 模型</h1><h2>3.1 引入<span class="absolute -mt-20" id="31-引入"></span>
+    <a href="#31-%e5%bc%95%e5%85%a5" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>下面用打电话的例子作为引入：</p>
+<ol>
+<li>阻塞 I/O：你在打电话给一个朋友，你一直等待他接听，直到你们开始通话，期间你不能做其他事情。</li>
+<li>非阻塞 I/O：你在打电话给一个朋友，如果他没有接听，你就挂断，然后做其他事情，或者过一会再打一次，直到你们开始通话。</li>
+<li>I/O 多路复用：你在打电话给多个朋友，你用一个电话机同时拨打他们的号码，然后等待电话机响铃，告诉你哪些朋友接听了，你就可以和他们通话，而不需要每次只打一个电话。</li>
+<li>信号驱动 I/O：你在打电话给一个朋友，你让电话机在他接听时给你发一个短信，你就可以和他通话，期间你可以做其他事情，或者等待短信的通知。</li>
+<li>异步 I/O：你在打电话给一个朋友，你让电话机在你们通话结束时给你发一个短信，你就可以和他通话，期间你可以做其他事情，或者等待短信的通知。</li>
+</ol>
+<blockquote>
+<p>什么是阻塞和非阻塞？</p>
+<p>什么是同步和异步？</p>
+</blockquote>
+<p>阻塞和非阻塞是一种调用机制，主要指的是调用者（程序）在等待返回结果（或输入）时的状态。==阻塞==时，在调用结果返回前，当前线程会被挂起，并在得到结果之后返回。==非阻塞==时，如果不能立刻得到结果，则该调用不会阻塞当前线程，而是直接返回一个错误信息或空值，因此调用者需要多次调用或轮询来检查结果是否就绪。</p>
+<p>阻塞和非阻塞的概念通常和 I/O 操作（如文件读写，网络通信等）联系在一起，因为 I/O 操作涉及到系统调用，即用户空间的程序通过调用操作系统内核提供的接口来完成一些特权操作。系统调用可能会因为 I/O 设备的速度或者网络延迟等原因不能立即完成，这时操作系统内核会将调用者的进程挂起为等待状态，直到 I/O 操作完成后再唤醒该进程。这就是==阻塞式==的 I/O 操作。</p>
+<p>==非阻塞式==的 I/O 操作则是指调用者在发起系统调用后，不会等待 I/O 操作的完成，而是立即返回。这样调用者可以继续执行其他的任务，而不会被阻塞。但是这也带来了一个问题，就是调用者如何知道 I/O 操作的结果呢？一种方法是调用者定期检查 I/O 操作的状态，这叫做轮询（polling）。另一种方法是调用者注册一个回调函数（callback），当 I/O 操作完成时，操作系统内核会调用该函数来通知调用者。这叫做异步（asynchronous）I/O 操作。</p>
+<p>阻塞和非阻塞是描述调用者在等待结果时的状态，而同步和异步是描述调用者如何获取结果的方式。阻塞和非阻塞的区别在于是否让出 CPU 的控制权，而同步和异步的区别在于是否需要主动轮询或被动通知。</p>
+<h2>3.2 阻塞 I/O<span class="absolute -mt-20" id="32-阻塞-io"></span>
+    <a href="#32-%e9%98%bb%e5%a1%9e-io" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>阻塞 I/O 是一种在输入输出操作期间让进程或线程==等待==的 IO 模型，进程或线程在调用 I/O 操作时，会一直等待数据就绪，直到数据从内核缓冲区拷贝到进程缓冲区，然后才返回。言外之意，阻塞 I/O 在“等”和“拷贝”阶段都不会返回。</p>
+<p>在 Linux 中，有很多系统调用是阻塞 I/O 的，例如 read, write, accept, connect, recv, send 等，即所有的套接字默认都以阻塞方式工作，这是因为：</p>
+<ul>
+<li>阻塞方式是最简单易用和最直观的 I/O 模型，它可以保证数据的完整性和一致性，不需要额外的处理逻辑。</li>
+<li>阻塞方式可以避免 CPU 的空转和资源的浪费，因为当 I/O 操作不能立即完成时，进程或线程会被挂起，让出 CPU 给其他任务。</li>
+<li>阻塞方式可以适应各种网络环境和数据量，因为它会根据缓冲区的大小和状态来调整数据的发送和接收，不会造成数据的丢失或拥塞。</li>
+</ul>
+<p>缺点是效率低，因为在等待数据就绪和拷贝数据的过程中，进程或线程无法做其他事情，浪费时间和资源。所以阻塞 I/O 适合于数据量不大，实时性要求不高的场景。</p>
+<h2>3.3 非阻塞 I/O<span class="absolute -mt-20" id="33-非阻塞-io"></span>
+    <a href="#33-%e9%9d%9e%e9%98%bb%e5%a1%9e-io" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>非阻塞 I/O 是一种在输入输出操作期间让进程或线程==不需要等待==的 I/O 模型。</p>
+<ul>
+<li>当进程或线程调用一个 I/O 操作时，如果数据还没有准备好，内核会立即返回一个错误码，表示不能执行该操作，而不会阻塞进程或线程。</li>
+<li>进程或线程可以根据返回的错误码（EWOULDBLOCK，error would block）来判断是否需要重试该操作（在这里通常会轮询），或者执行其他的任务，这样就可以避免浪费时间在等待数据上。</li>
+<li>当数据准备好了，应用程序再次调用该 I/O 操作时，内核会将数据从内核缓冲区拷贝到用户空间，这个过程可能会阻塞进程或线程，直到数据拷贝完成。</li>
+</ul>
+<p>它的优点是可以提高程序的并发性和响应性，缺点是需要额外的处理逻辑和轮询机制。轮询机制是指：</p>
+<ul>
+<li>非阻塞 IO 往往需要程序员以循环的方式反复尝试读写文件描述符，这个过程称为轮询，这对 CPU 来说是较大的浪费，一般只有特定场景下才使用 。</li>
+<li>轮询的方式有多种，例如忙等待（busy-waiting），信号驱动（signal-driven），select，poll，epoll 等，它们的效率和适用性各有不同 。</li>
+<li>轮询的目的是及时地检测到数据的就绪状态，从而进行数据的读写操作，但是这也会导致程序的复杂度增加，以及对 CPU 的占用率和功耗的影响 。</li>
+</ul>
+<blockquote>
+<p>阻塞 I/O 和非阻塞 I/O 的区别？</p>
+</blockquote>
+<p>除了上述阻塞 I/O 和非阻塞 I/O 的检测数据就绪方式有区别以外，检测数据就绪的主体也有不同：</p>
+<ul>
+<li>
+<p>阻塞 I/O 当数据没有就绪时，后续检测数据是否就绪的工作是由操作系统发起的</p>
+</li>
+<li>
+<p>非阻塞 I/O 当数据没有就绪时，后续检测数据是否就绪的工作是由用户发起的。这也是阻塞 I/O 和非阻塞 I/O 的一个重要的区别。</p>
+</li>
+</ul>
+<h2>3.4 多路复用 I/O<span class="absolute -mt-20" id="34-多路复用-io"></span>
+    <a href="#34-%e5%a4%9a%e8%b7%af%e5%a4%8d%e7%94%a8-io" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>多路复用 I/O 是一种<strong>同步 I/O 模型</strong>，实现一个线程或进程可以同时监视多个文件描述符是否可以执行 I/O 操作。多路复用 I/O 的原理是：</p>
+<ul>
+<li>当应用程序调用一个多路复用 I/O 的函数（如 select, poll, epoll 等）时，它会将想要监视的==一组文件描述符==传递给内核（让它监视），然后阻塞等待某些事件的发生或超时。（注意，==这些函数只负责 I/O 中“等”的操作==）</li>
+<li>当内核检测到某些（至少一个）文件描述符就绪（可以进行读或写操作）或者超时，它会将就绪的文件描述符集合返回给应用程序，然后应用程序可以对这些文件描述符进行相应的 I/O 操作（如果多路复用 I/O 的函数完成了“等待”，那么用户进程只需要进行“拷贝操作”）。</li>
+<li>应用程序可以根据不同的多路复用 I/O 的函数，设置不同的参数和选项，来控制文件描述符的监视方式，如超时时间，事件类型，触发模式等。</li>
+</ul>
+<p>I/O 多路复用的效率更高，因为进程可以一次处理多个 I/O 事件，而不需要轮询，而且可以减少 I/O 等待的时间，但是数据拷贝的开销仍然存在，并且也需要额外的处理逻辑和系统调用。</p>
+<blockquote>
+<p>什么是“多路复用”？（多路复用将会在后续继续学习）</p>
+</blockquote>
+<p>I/O 操作包括等待和拷贝两个步骤，而像 read、recvfrom 等 I/O 系统调用，一个进程或线程一次只能对一个文件描述符操作（注意数量上的对应），如果需要同时处理多个 I/O 事件，自然而然地想创建多个进程或线程，我们知道这么做是很难的，因为维护进程和线程的成本不低。</p>
+<p>所以 Linux 的 select、poll、epoll 接口的参数都是文件描述符数组，而不是一个文件描述符。这样，用户进程可以一次性地监测多个文件描述符的 I/O 状态，而不需要逐个地检查。这种方式可以提高 I/O 的效率，避免不必要的阻塞和轮询。</p>
+<p>这就好像上学时老师总会定几个组长，这样每次收作业时老师只需要等这几个组长，但实际上等待不同组的同学上交作业的时间是有重叠的，这样便节省了时间。另外一个例子：百米赛跑都是几个人一起跑，而不是一个一个地测。</p>
+<h2>3.5 信号驱动 I/O<span class="absolute -mt-20" id="35-信号驱动-io"></span>
+    <a href="#35-%e4%bf%a1%e5%8f%b7%e9%a9%b1%e5%8a%a8-io" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>信号驱动 I/O 是一种在输入输出操作期间让进程或线程不需要等待，而是==通过信号通知==的 I/O 模型。信号驱动 I/O 的原理是：</p>
+<ul>
+<li>当进程或线程调用一个 I/O 操作时，如果数据还没有准备好，内核会立即返回一个错误码，表示不能执行该操作，而不会阻塞进程或线程。</li>
+<li>进程或线程可以为该文件描述符设置一个信号处理函数，当数据准备好了，内核会发送一个 SIGIO 信号给进程或线程，然后调用信号处理函数。而不需要轮询或阻塞。</li>
+<li>信号处理函数可以对文件描述符执行 I/O 操作，直到数据读写完毕或者出现错误。</li>
+</ul>
+<p>信号驱动 I/O 的效率和 I/O 多路复用相当，因为进程可以避免无效的轮询，而且可以在信号处理函数中执行 I/O 操作，但是数据拷贝的开销仍然存在，而且需要额外的处理逻辑和信号处理函数。</p>
+<p>值得注意的是，虽然信号的产生是异步的，但信号驱动 IO 是同步 IO 的一种。</p>
+<blockquote>
+<p>为什么说信号的产生是异步的？</p>
+</blockquote>
+<p>信号的产生是异步的，是指信号的发生时间和进程的执行状态没有固定的关系，也就是说，信号可以在任何时刻发生，不管进程正在做什么。</p>
+<p>[注]：信号的产生通常是由外部事件触发的，例如用户按下 Ctrl+C，或者系统发生异常，或者其他进程发送了信号等。信号的产生是一个中断的过程，它会打断进程的正常执行流程，让进程去处理信号。</p>
+<blockquote>
+<p>什么是同步 I/O？</p>
+</blockquote>
+<p>同步 I/O 的特点是在 I/O 操作进行时，用户线程会被阻塞，直到 I/O 操作完成后才返回。同步 I/O 通常需要用户线程主动发起 I/O 请求，并等待或轮询 I/O 操作的结果。同步 I/O 的优点是简单易用，缺点是效率低下，因为用户线程在等待 I/O 操作时无法做其他事情。</p>
+<p>信号驱动 I/O 是同步 I/O 的一种，是因为在信号产生后，用户进程还需要调用 IO 系统调用来完成数据的读写操作，这个过程是阻塞的，因为信号的处理是在进程的控制下进行的，进程可以选择是否接收信号，以及何时处理信号，而不是被动地等待信号的到来。所以用户进程需要等待 I/O 操作的完成。</p>
+<p>异步 I/O 则不同，用户进程只需要发起 I/O 请求，然后就可以继续做其他事情，当 I/O 操作完成后，内核会通知用户进程，而不需要用户进程再次调用 I/O 系统调用。</p>
+<h2>3.6 异步 I/O<span class="absolute -mt-20" id="36-异步-io"></span>
+    <a href="#36-%e5%bc%82%e6%ad%a5-io" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>异步 I/O 是在 I/O 操作进行时，用户进程不需要等待或轮询 I/O 操作的结果，而是继续执行其他任务。当 I/O 操作完成后，内核会发送信号通知用户进程，用户进程再根据 I/O 事件执行相应的回调函数。这样用户进程就不需要等待或轮询 I/O 状态，而是在收到信号后，直接获取 I/O 结果。</p>
+<p>异步 I/O 的原理是利用操作系统的内核支持，==让内核负责数据的传输和通知==。不同的操作系统有不同的异步 I/O 实现方式，比如 Linux 的 epoll，Mac 的 kqueue，Windows 的 IOCP 等。这些方式都是基于事件驱动的，即当 I/O 事件发生时，内核会将事件放入一个队列，用户进程可以从队列中获取事件，并执行相应的回调函数。这样，用户进程就不需要主动查询 I/O 状态，而是==被动==地响应 I/O 事件。</p>
+<p>异步 I/O 的效率最高，因为进程可以完全避免阻塞和轮询，而且不需要数据拷贝，因为内核会直接将数据放到进程指定的位置，也就是说“等”和“拷贝”两个 I/O 操作都由操作系统完成，==用户进程只需要发起 IO 请求==，然后就可以去做其他事情，不需要关心 IO 的具体细节，比如数据的传输、缓冲、通知等。这些细节都由内核来处理，用户进程或线程只需要在 IO 完成后，根据内核的通知，执行相应的回调函数。</p>
+<p>这样，它可以充分利用 CPU 资源，提高系统的吞吐量和效率，缺点是编程复杂度较高，需要处理好异步通知和回调函数。</p>
+<h2>3.7 小结<span class="absolute -mt-20" id="37-小结"></span>
+    <a href="#37-%e5%b0%8f%e7%bb%93" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>由于 I/O=等待资源就绪+拷贝资源，那么异步 I/O 就是最理想的模式，因为它可以将“等”和“拷贝”的开销都降到最低。阻塞 I/O、非阻塞 I/O 和信号驱动 I/O 本质上不能提高 I/O 的效率，但非阻塞 I/O 和信号驱动 I/O 能提高整体的效率。</p>
+<h1>4. 同步通信和异步通信</h1><p>同步和异步是两种不同的消息通信机制，它们主要区别在于调用者和被调用者之间的交互方式：</p>
+<ul>
+<li>
+<p>同步通信是指调用者在发出一个调用后，必须等待被调用者返回结果，才能继续执行后续的操作。这种方式的好处是调用者可以马上得到结果，不会错过任何信息，但是也会造成调用者的阻塞和等待，降低效率。</p>
+</li>
+<li>
+<p>异步通信是指调用者在发出一个调用后，就可以继续执行后续的操作，不需要等待被调用者返回结果。这种方式的好处是调用者可以充分利用时间，提高效率，但是也会导致调用者无法马上得到结果，需要通过其他的方式来获取信息，比如状态、通知或回调函数。</p>
+</li>
+</ul>
+<blockquote>
+<p>“调用”是指对一个函数或者一个系统服务的请求，也就是让一个已经定义好的代码段执行一定的功能。通信是一种手段，目的是达成进程间的资源交换或共享，数据不一定对通信双方都有用，例如在 C/S 模式下，server 处理后的数据通常是 client 需要的。</p>
+</blockquote>
+<p>同步通信是需要等待的，而异步通信是不需要等待的。同步通信是直接获取结果的，而异步通信是通过其他方式获取结果的。</p>
+<p>因此，我们可以以“==进程或线程是否参与 I/O==”为标准，判断以上五种 I/O 模型是否为同步 I/O（除了异步 I/O，其他都是同步 I/O）。</p>
+<blockquote>
+<p>照这么说，非阻塞 I/O 也算是同步 I/O 吗？它在数据未就绪，也就是未得到结果时就直接返回一个错误码了。</p>
+</blockquote>
+<p>虽然在数据未就绪时返回错误码，但是这不是一次完整的 I/O，即它没有完成“等”+“拷贝”两个步骤，所以用户进程才会需要用循环不断轮询它，如果返回值不是错误码，那就说明数据就绪了，这样用户进程才会进行一次完整的 I/O。</p>
+<p>从这个例子中，还可以将 I/O 中的“等待”分为“阻塞式地等待”和“非阻塞式地等待”，其中非阻塞 I/O 就是后者。</p>
+<blockquote>
+<p>“同步”在通信和多进程或多进程中有不一样的意义。</p>
+</blockquote>
+<p>通信同步和多进程或多线程间的同步的关系：</p>
+<ul>
+<li>
+<p>通信同步是指通信双方在发送和接收数据时需要协调它们的行为，比如等待对方的响应或信号，或者按照一定的顺序或时间间隔进行通信。</p>
+</li>
+<li>
+<p>进程或线程间的同步是指两个或多个进程或线程基于某个条件来协调它们的活动，比如一个进程或线程的执行依赖于另一个进程或线程的消息或信号，或者多个进程或线程需要同时开始或结束某个任务。</p>
+</li>
+</ul>
+<p>通信同步和进程或线程间的同步的区别：</p>
+<ul>
+<li>通信同步是一种通信方式；而进程或线程间的同步是一种协作方式，例如通过何种手段，使得进程或线程按照某种规则安全地访问临界资源，从而有效避免饥饿问题。</li>
+<li>通信同步的目的是实现数据的传输和交换，相反的概念是异步；而进程或线程间的同步是为了实现任务的分工和协作，相反的概念是互斥。</li>
+</ul>
+<h1>5. 测试</h1><p>下面会用几个简单的例子，加深对阻塞 I/O 和非阻塞 I/O 的理解，关于多路复用 I/O，将会在下一节中着重学习。</p>
+<h2>5.1 阻塞 I/O<span class="absolute -mt-20" id="51-阻塞-io"></span>
+    <a href="#51-%e9%98%bb%e5%a1%9e-io" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>在 Linux 一切皆文件的意义下，一个文件的 I/O 阻塞与否，也是一种属性，一个文件的 I/O 阻塞属性是由文件描述符中的一个文件状态标志来表示的。文件描述符是一个整数，用来标识一个打开的文件。文件状态标志是一个位图，用来记录文件的一些属性，比如读写模式、是否追加、是否同步等。其中，<code>O_NONBLOCK</code>标志位用来表示文件是否为非阻塞模式。如果该位为 1，表示文件为非阻塞模式，否则为阻塞模式。</p>
+<p>下面以一个简单的例子作为引入：</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">buffer</span><span class="p">[</span><span class="mi">1024</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="nb">true</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ssize_t</span> <span class="n">s</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">buffer</span><span class="p">,</span> <span class="k">sizeof</span> <span class="p">(</span><span class="n">buffer</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">s</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">buffer</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;\0&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;echo&gt;&gt;&gt; &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">buffer</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;read error&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<p>在这段代码中，用字符数组 buffer 来存储从标准输入（键盘）读取的数据，然后在死循环中调用 read()，成功则回显，失败则打印错误信息。</p>
+<p>测试：
+<img src="./IMG/屏幕录制 2023-09-29 23.09.19.gif" alt="屏幕录制 2023-09-29 23.09.19" style="zoom:50%;" /></p>
+<p>当光标在闪烁时，说明用户设定的缓冲区 buffer 中没有数据就绪，那么 read 会一直等待，使得这个进程处于阻塞状态。</p>
+<h2>5.2 非阻塞<span class="absolute -mt-20" id="52-非阻塞"></span>
+    <a href="#52-%e9%9d%9e%e9%98%bb%e5%a1%9e" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>在上面代码的基础上，如果要以非阻塞的方式打开某个文件或套接字，就需要使用 fcntl （file control）系统调用：</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">fcntl</span><span class="p">(</span><span class="kt">int</span> <span class="n">fd</span><span class="p">,</span> <span class="kt">int</span> <span class="n">cmd</span><span class="p">,</span> <span class="p">...</span> <span class="cm">/* arg */</span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<p>其中：</p>
+<ul>
+<li>fd：要操作的文件描述符；</li>
+<li>cmd：要执行的命令；</li>
+<li>&hellip;：可选参数，因命令 cmd 而不同。</li>
+</ul>
+<p>常用命令 cmd 的取值：</p>
+<ul>
+<li>复制一个现有的描述符（cmd=F_DUPFD）。</li>
+<li>获得 / 设置文件描述符标记（cmd=F_GETFD ）。</li>
+<li>获得 / 设置文件状态标记（cmd=F_GETFL）。</li>
+<li>获得 / 设置异步 I/O 所有权（cmd=F_GETOWN）。</li>
+<li>获得 / 设置记录锁（cmd=F_GETLK, F_SETLK）。</li>
+</ul>
+<p>另外，fcntl 系统调用除了用于修改已经打开的文件描述符的属性的函数，它还可以实现多种功能，例如：复制一个文件描述符，类似于 dup 或 dup2 函数。</p>
+<p>返回值：</p>
+<ul>
+<li>成功：根据不同的命令有不同的含义。一般返回 0 或正数。</li>
+<li>失败：返回-1 并设置错误码 errno。</li>
+</ul>
+<p>下面在一个函数 SetNonBlock() 中设置非阻塞选项：</p>
+<ol>
+<li>传入文件描述符</li>
+<li>使用 fcntl 函数以命令 F_GETFL 获取获取当前文件描述符 fd 对应的文件读写标志位（返回值是一个位图，以不同权位的二进制位标识不同属性的状态）；</li>
+<li>使用 fcntl 函数以命令 F_SETFL 设置非阻塞选项。</li>
+</ol>
+<p>我们知道 Linux 内核中为每个进程都默认打开了三个文件描述符，0 便是标准输入，只要进程设置一次，后续的 I/O 操作就都是非阻塞式的了。</p>
+<p>值得注意的是，当 read 函数以非阻塞方式读取标准输入的数据时，如果数据没有就绪（也就是没有键入）或者说缓冲区空，read 函数会立即返回-1，错误码 errno 被设置为<code>EAGAIN</code>或<code>EWOULDBLOCK</code>（这两个错误码含义是相同的，因平台而异）。另外，当错误码被设置为 <code>EINTR</code>时，说明 read 函数在读取数据时被信号中断。</p>
+<p>所以还要为 read 函数的返回值进一步做差错处理，出现上述错误码则说明本次调用的 read 函数没有成功地读取缓冲区中的数据，所以应该等待下一次调用。</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;cstring&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;cerrno&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">bool</span> <span class="nf">SetNonBlock</span><span class="p">(</span><span class="kt">int</span> <span class="n">fd</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 在底层获取当前文件描述符 fd 对应的文件读写标志位
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">int</span> <span class="n">fl</span> <span class="o">=</span> <span class="n">fcntl</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">F_GETFL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">fl</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;fcntl error&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 设置非阻塞选项
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">fcntl</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">F_SETFL</span><span class="p">,</span> <span class="n">fl</span> <span class="o">|</span> <span class="n">O_NONBLOCK</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">SetNonBlock</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">buffer</span><span class="p">[</span><span class="mi">1024</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="nb">true</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">errno</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ssize_t</span> <span class="n">s</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">buffer</span><span class="p">,</span> <span class="k">sizeof</span> <span class="p">(</span><span class="n">buffer</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">s</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">buffer</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;\0&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;echo&gt;&gt;&gt; &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">buffer</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">errno</span> <span class="o">==</span> <span class="n">EWOULDBLOCK</span> <span class="o">||</span> <span class="n">errno</span> <span class="o">==</span> <span class="n">EAGAIN</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;当前 0 号文件描述符对应的数据没有就绪，请稍后重试 &#34;</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;错误：&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">strerror</span><span class="p">(</span><span class="n">errno</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="k">continue</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">errno</span> <span class="o">==</span> <span class="n">EINTR</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;当前 I/O 可能被中断，请稍后重试 &#34;</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;错误：&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">strerror</span><span class="p">(</span><span class="n">errno</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="k">continue</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span> 
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="c1">// 差错处理
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+    <button
+      class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
+      title="Copy code"
+    >
+      <div class="group-[.copied]/copybtn:hidden copy-icon pointer-events-none h-4 w-4"></div>
+      <div class="hidden group-[.copied]/copybtn:block success-icon pointer-events-none h-4 w-4"></div>
+    </button>
+  </div>
+</div>
+<p>测试：
+<img src="./IMG/屏幕录制 2023-09-30 00.07.00.gif" alt="屏幕录制 2023-09-30 00.07.00" style="zoom:37%;" /></p>
+<p>其中，为了方便观察，每次循环一开始都 sleep 1 秒，以上代码就是进行非阻塞 I/O 的基本处理方式，这样只要有数据就读，没数据就绪就会进入后面两个分支，在这里面可以放一些想让它执行的任务。</p>
+
+        </div>
+        <div class="mt-16"></div>
+        
+      </main>
+    </article>
+  </div>
+
+      <footer class="hextra-footer bg-gray-100 pb-[env(safe-area-inset-bottom)] dark:bg-neutral-900 print:bg-transparent"><div class="mx-auto flex gap-2 py-2 px-4 max-w-screen-xl"><button
+  title="Change theme"
+  data-theme="light"
+  class="theme-toggle group h-7 rounded-md px-2 text-left text-xs font-medium text-gray-600 transition-colors dark:text-gray-400 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-primary-100/5 dark:hover:text-gray-50"
+  type="button"
+  aria-label="Change theme"
+>
+  <div class="flex items-center gap-2 capitalize"><svg height=12 class="group-data-[theme=light]:hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg><span class="group-data-[theme=light]:hidden">Light</span><svg height=12 class="group-data-[theme=dark]:hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg><span class="group-data-[theme=dark]:hidden">Dark</span></div>
+</button>
+</div><hr class="dark:border-neutral-800" /><div
+    class="max-w-screen-xl mx-auto flex justify-center py-12 pl-[max(env(safe-area-inset-left),1.5rem)] pr-[max(env(safe-area-inset-right),1.5rem)] text-gray-600 dark:text-gray-400 md:justify-start"
+  >
+    <div class="flex w-full flex-col items-center sm:items-start"><div class="font-semibold"><a class="flex text-sm items-center gap-1 text-current" target="_blank" rel="noopener noreferrer" title="Hextra GitHub Homepage" href="https://github.com/imfing/hextra">
+    <span>Powered by Hextra<svg height=1em class="inline-block ml-1 align-[-2.5px]" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="m 105.50024,22.224647 c -9.59169,-5.537563 -21.40871,-5.537563 -31.000093,0 L 39.054693,42.689119 C 29.463353,48.226675 23.55484,58.460531 23.55484,69.535642 v 40.928918 c 0,11.07542 5.908513,21.3092 15.499853,26.84652 l 35.445453,20.46446 c 9.591313,5.53732 21.408404,5.53732 31.000094,0 l 35.44507,-20.46446 c 9.59131,-5.53732 15.49985,-15.7711 15.49985,-26.84652 V 69.535642 c 0,-11.075111 -5.90854,-21.308967 -15.49985,-26.846523 z M 34.112797,85.737639 c -1.384445,2.397827 -1.384445,5.352099 0,7.749927 l 24.781554,42.922974 c 1.38437,2.39783 3.942853,3.87496 6.711592,3.87496 h 49.563107 c 2.76905,0 5.3273,-1.47713 6.71144,-3.87496 l 24.78194,-42.922974 c 1.38414,-2.397828 1.38414,-5.3521 0,-7.749927 L 121.88049,42.814746 c -1.38414,-2.397828 -3.94239,-3.874964 -6.71144,-3.874964 H 65.605944 c -2.768739,0 -5.327223,1.477059 -6.711592,3.874964 z" style="stroke-width:0.774993" /></svg></span>
+  </a></div>
+    </div>
+  </div>
+</footer>
+    
+  </body>
+  <script defer src="/js/main.min.5250a01f9a9cabefdb65e77efc7c04221397882cded9c5c058a5504e730b11b3.js" integrity="sha256-UlCgH5qcq&#43;/bZed&#43;/HwEIhOXiCze2cXAWKVQTnMLEbM="></script>
+
+
+<script defer src="/lib/flexsearch/flexsearch.bundle.min.0425860527cc9968f9f049421c7a56b39327d475e2e3a8f550416be3a9134327.js" integrity="sha256-BCWGBSfMmWj58ElCHHpWs5Mn1HXi46j1UEFr46kTQyc="></script>
+    <script defer src="/en.search.min.9afdc7c586c6f971dd94df10b989f10faaf38e5702571fd8cfc9ff9135c2d495.js" integrity="sha256-mv3HxYbG&#43;XHdlN8QuYnxD6rzjlcCVx/Yz8n/kTXC1JU="></script>
+
+
+</html>
