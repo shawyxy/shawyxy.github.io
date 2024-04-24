@@ -1017,7 +1017,7 @@
 </div>
 <p>在这里只是测试之前的代码有没有问题，只是实现了主线程框架。其中被注释的<code>while</code>代码块中，就是分配任务的逻辑。</p>
 <p>测试结果：
-<img src="./.线程池.IMG/image-20230425193603921.png" alt="image-20230425193603921" style="zoom:37%;" /></p>
+<img src="./.线程池.IMG/image-20230425193603921.png" alt="image-20230425193603921" style="zoom:40%;" /></p>
 <p>这个结果基本说明前面的代码在逻辑上没什么问题，最可能出现问题的地方就是刚才提到的<code>static</code>routine() 函数。</p>
 <h2>互斥锁<span class="absolute -mt-20" id="互斥锁"></span>
     <a href="#%e4%ba%92%e6%96%a5%e9%94%81" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>上面只是实现了简单的线程池，但是多个执行流并发操作并不是安全的，因此要限制在同一时间段内只有一个执行流能访问临界资源。</p>
@@ -1358,7 +1358,7 @@
 <h2>测试 1<span class="absolute -mt-20" id="测试-1"></span>
     <a href="#%e6%b5%8b%e8%af%95-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p><a href="https://gitee.com/shawyxy/2023-linux/tree/main/ThreadPool2/test1" target="_blank" rel="noopener">源代码</a></p>
 <p>测试结果：</p>
-<img src="./.线程池.IMG/image-20230426151705939.png" alt="image-20230426151705939" style="zoom:50%;" />
+<img src="./.线程池.IMG/image-20230426151705939.png" alt="image-20230426151705939" style="zoom:40%;" />
 <p>这里的任务函数如果只是为了测试，也可以不用在一个新文件中定义任务函数，直接在主线程内使用 lambda 表达式也可以：</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">Task</span> <span class="nf">task</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="p">[](</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span><span class="o">-&gt;</span><span class="kt">int</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -1487,7 +1487,7 @@ Average of 5, 10, 15 = 10.000000</code></pre><div class="opacity-0 transition gr
 </div>
 <p>实际上，它们是一个 char *类型的指针，指向的是参数在栈帧中的位置，本质上是宏。例如<code>va_start</code>将第一个参数指向第二个参数。</p>
 <p>这些宏可以配合<code>stdio</code>中的<code>vprintf</code>函数族使用。</p>
-<img src="./.线程池.IMG/image-20230426172250722.png" alt="image-20230426172250722" style="zoom:37%;" />
+<img src="./.线程池.IMG/image-20230426172250722.png" alt="image-20230426172250722" style="zoom:40%;" />
 <p>例如<code>vsnprintf</code> 是一个标准库函数，它在 <code>stdio.h</code> 头文件中定义。它与 <code>snprintf</code> 函数类似，但接受一个 <code>va_list</code> 类型的参数，而不是可变数量的参数。</p>
 <p><code>vsnprintf</code> 函数用于将格式化输出写入字符串。它接受一个目标缓冲区、缓冲区大小、格式字符串和一个 <code>va_list</code> 类型的参数。它会根据格式字符串和 <code>va_list</code> 中的参数将格式化输出写入目标缓冲区，最多写入 <code>size - 1</code> 个字符，然后在末尾添加一个空字符。</p>
 <p>下面是一个简单的例子，演示了如何使用 <code>vsnprintf</code> 函数：</p>

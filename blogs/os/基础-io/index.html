@@ -1183,7 +1183,7 @@ FILE * fopen ( const char * filename, const char * mode ); filename 是要打开
 <p>重要的是前 6 个，最重要的是前三个</p>
 </blockquote>
 <p>我们知道，如果使用 fopen 函数以&quot;w&quot;的方式打开一个文件，如果文件不存在会在==当前路径==下创建文件。那么==当前路径==是哪个路径呢？</p>
-<img src="./.基础IO.IMG/MD202211051402368.png" alt="image-20221101114400408" style="zoom:50%;" />
+<img src="./.基础IO.IMG/MD202211051402368.png" alt="image-20221101114400408" style="zoom:40%;" />
 <p>所以当前路径不是可执行程序所在的路径，而是执行可执行程序时，进程所处的路径。文末的「软硬链接」会解释它。</p>
 <p>由于 C 语言的文件 I/O 接口众多，下面仅用最常使用的两个接口示例。</p>
 <h2>1.2 fwrite 写入<span class="absolute -mt-20" id="12-fwrite-写入"></span>
@@ -1217,7 +1217,7 @@ FILE * fopen ( const char * filename, const char * mode ); filename 是要打开
   </div>
 </div>
 <p>运行程序，默认在当前目录下创建文件 log.txt，并通过 fwirte 函数写入字符串。</p>
-<img src="./.基础IO.IMG/MD202211051402369.png" alt="image-20221101110343186" style="zoom:50%;" />
+<img src="./.基础IO.IMG/MD202211051402369.png" alt="image-20221101110343186" style="zoom:40%;" />
 <blockquote>
 <p>写入上面这个字符串，要把、0 也写到 log.txt 中吗？</p>
 <ul>
@@ -1254,7 +1254,7 @@ FILE * fopen ( const char * filename, const char * mode ); filename 是要打开
     </button>
   </div>
 </div>
-<img src="./.基础IO.IMG/MD202211051402370.png" alt="image-20221101111803755" style="zoom:50%;" />
+<img src="./.基础IO.IMG/MD202211051402370.png" alt="image-20221101111803755" style="zoom:40%;" />
 <h2>1.4 C 默认打开的三个流<span class="absolute -mt-20" id="14-c-默认打开的三个流"></span>
     <a href="#14-c-%e9%bb%98%e8%ae%a4%e6%89%93%e5%bc%80%e7%9a%84%e4%b8%89%e4%b8%aa%e6%b5%81" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>在「前言」中，重新认识了文件。计算机能获取我们从键盘敲下的字符，是因为键盘对“键盘文件”进行了数据写入，计算机从“键盘文件”中读取了写入的数据；显示器同理。</p>
 <blockquote>
@@ -1273,7 +1273,7 @@ FILE * fopen ( const char * filename, const char * mode ); filename 是要打开
     </button>
   </div>
 </div>
-<img src="./.基础IO.IMG/MD202211051402371.png" alt="image-20221101140942584" style="zoom:50%;" />
+<img src="./.基础IO.IMG/MD202211051402371.png" alt="image-20221101140942584" style="zoom:40%;" />
 <p>需要注意的是：</p>
 <ul>
 <li>这三个东西都是<code>FILE*</code>类型的。在上面 fgets 的示例中，由一个参数就是 stdout，它 q 是一个指针，指向了标准输出，也就是显示器文件。</li>
@@ -1285,7 +1285,7 @@ FILE * fopen ( const char * filename, const char * mode ); filename 是要打开
 <h1>2. 系统文件 I/O</h1><p>实际上，C 语言的标准库文件 I/O 接口是封装系统文件的 I/O 接口的，这我们很容易理解。不仅是为了使用方法符合语言的特性（系统接口往往是偏复杂的），保证系统的安全，也要保证语言本身具有跨平台性（C 语言根据系统，封装了不同版本的接口，Linux、Windows&hellip;）。</p>
 <h2>2.1 open<span class="absolute -mt-20" id="21-open"></span>
     <a href="#21-open" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>通过 man 手册查看，<code>man 2 open</code>：</p>
-<img src="./.基础IO.IMG/MD202211051402372.png" alt="image-20221101141045998" style="zoom:33%;" />
+<img src="./.基础IO.IMG/MD202211051402372.png" alt="image-20221101141045998" style="zoom:40%;" />
 <p>在本文只看 open，忽略 create()。下面主要针对 open() 的三个参数和返回值进行阐述。</p>
 <blockquote>
 <p>请注意系统接口 open 的头文件，等下可能会用到。</p>
@@ -1352,7 +1352,7 @@ FILE * fopen ( const char * filename, const char * mode ); filename 是要打开
 <p>我们知道，int 类型有 32 个比特位，理论上就是 32 个状态位（标志位）！用<code>|</code>或操作就能将不同位的二进制数字组合。和这样类似的操作我们在用 status 变量获取子进程状态时也接触过，IP 地址也由不同区间的二进制位组合而成的。&hellip;..</p>
 </blockquote>
 <p>在/usr/include/bits 路径下，可以找到<code>fcntl-linux.h</code>头文件，这里面有表中定义的宏：</p>
-<img src="./.基础IO.IMG/MD202211051402373.png" alt="image-20221101145251653" style="zoom:33%;" />
+<img src="./.基础IO.IMG/MD202211051402373.png" alt="image-20221101145251653" style="zoom:40%;" />
 <p>如果你往下翻，可以发现，这些宏的二进制位都在 32 位比特位中的不同位置，所以才能通过或运算将这些标志位组合。</p>
 <p>动手试试：用 open 以只读的方式打开一个文件（暂时忽略 fd，后面会解释）：</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
@@ -1384,7 +1384,7 @@ FILE * fopen ( const char * filename, const char * mode ); filename 是要打开
     </button>
   </div>
 </div>
-<img src="./.基础IO.IMG/MD202211051402374.png" alt="image-20221101154903549" style="zoom:50%;" />
+<img src="./.基础IO.IMG/MD202211051402374.png" alt="image-20221101154903549" style="zoom:40%;" />
 <p>在 C 语言中，我们只需要给 fopen 传一个“r”, 底层封装的 open 其实是这样：</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="s">&#34;log.txt&#34;</span><span class="p">,</span> <span class="n">O_WRONLY</span> <span class="o">|</span> <span class="n">O_CREAT</span><span class="p">);</span> <span class="c1">// 以只读形式打开文件
 </span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
@@ -1397,16 +1397,16 @@ FILE * fopen ( const char * filename, const char * mode ); filename 是要打开
     </button>
   </div>
 </div>
-<img src="./.基础IO.IMG/MD202211051402375.png" alt="image-20221101163729749" style="zoom:50%;" />
+<img src="./.基础IO.IMG/MD202211051402375.png" alt="image-20221101163729749" style="zoom:40%;" />
 <p>这样就成功创建了。</p>
 <h3>mode 参数<span class="absolute -mt-20" id="mode-参数"></span>
     <a href="#mode-%e5%8f%82%e6%95%b0" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
 <li>创建文件的默认权限。</li>
 </ul>
 <p>如果不传入第三个参数，那么默认文件访问权限就是只读的，就如上面创建的 log.txt 一样：</p>
-<img src="./.基础IO.IMG/MD202211051402376.png" alt="image-20221101170348777" style="zoom: 50%;" />
+<img src="./.基础IO.IMG/MD202211051402376.png" alt="image-20221101170348777" style="zoom:40%;" />
 <p>文件权限：</p>
-<img src="./.基础IO.IMG/MD202211051402378.png" alt="image-20221101170404209" style="zoom:50%;" />
+<img src="./.基础IO.IMG/MD202211051402378.png" alt="image-20221101170404209" style="zoom:40%;" />
 <p>如果不传入 mode 参数，创建出来的文件对其他用户是不可读写的。</p>
 <p>mode 参数就是文件默认权限，以 8 进制位的形式传入，例如：</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="s">&#34;log.txt&#34;</span><span class="p">,</span> <span class="n">O_WRONLY</span> <span class="o">|</span> <span class="n">O_CREAT</span><span class="p">,</span> <span class="mo">0666</span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
@@ -1421,7 +1421,7 @@ FILE * fopen ( const char * filename, const char * mode ); filename 是要打开
 </div>
 <p>这也是 C 语言的 fopen 时，传入&quot;w&quot;选项的原理。</p>
 <p>删掉刚才创建的文件，然后运行：</p>
-<img src="./.基础IO.IMG/MD202211051402379.png" alt="image-20221101171027877" style="zoom:50%;" />
+<img src="./.基础IO.IMG/MD202211051402379.png" alt="image-20221101171027877" style="zoom:40%;" />
 <p>然而，权限并不是我们想象的那样（rw-rw-rw-），原因是创建出来的文件会受到 umask（默认文件掩码，默认值是 0002）的影响，最后文件的权限为：mode&amp;(~umask)，那么就是 0666&amp;(~0002)=0664。</p>
 <blockquote>
 <p>关于文件权限和 umask，可以移步：<a href="https://blog.csdn.net/m0_63312733/article/details/126283392?spm=1001.2014.3001.5501#t71" target="_blank" rel="noopener">文件权限</a>，<a href="https://blog.csdn.net/m0_63312733/article/details/126283392?spm=1001.2014.3001.5501#t84" target="_blank" rel="noopener">umask</a></p>
@@ -1440,7 +1440,7 @@ FILE * fopen ( const char * filename, const char * mode ); filename 是要打开
   </div>
 </div>
 <p>同样，要看到测试的情况，要删掉刚才创建的 log.txt：</p>
-<img src="./.基础IO.IMG/MD202211051402380.png" alt="image-20221101171809303" style="zoom:50%;" />
+<img src="./.基础IO.IMG/MD202211051402380.png" alt="image-20221101171809303" style="zoom:40%;" />
 <p>注意：</p>
 <p>open 的第三个参数只有需要创建文件的情况下才会使用，也就是有<code>O_CREAT</code>选项的时候。</p>
 <h3>返回值<span class="absolute -mt-20" id="返回值"></span>
@@ -1478,7 +1478,7 @@ FILE * fopen ( const char * filename, const char * mode ); filename 是要打开
     </button>
   </div>
 </div>
-<img src="./.基础IO.IMG/MD202211051402381.png" alt="image-20221101182115770" style="zoom:50%;" />
+<img src="./.基础IO.IMG/MD202211051402381.png" alt="image-20221101182115770" style="zoom:40%;" />
 <p>可以看到，当前目录下不仅多了几个新增的文件，而且 fd 是从 3 开始递增的，0/1/2 去哪了？</p>
 <h2>2.2 read<span class="absolute -mt-20" id="22-read"></span>
     <a href="#22-read" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
@@ -1515,7 +1515,7 @@ FILE * fopen ( const char * filename, const char * mode ); filename 是要打开
     </button>
   </div>
 </div>
-<img src="./.基础IO.IMG/MD202211051402382.png" alt="image-20221102161325037" style="zoom:50%;" />
+<img src="./.基础IO.IMG/MD202211051402382.png" alt="image-20221102161325037" style="zoom:40%;" />
 <h1>3. 文件描述符</h1><p>open（成功）的返回值是文件描述符，通过示例可以知道，文件描述符是一个整数，而且总是从 3 开始的，为什么呢？</p>
 <h2>3.1 概念<span class="absolute -mt-20" id="31-概念"></span>
     <a href="#31-%e6%a6%82%e5%bf%b5" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>文件描述符（File descriptor，以下简称 fd）在形式上是一个非负整数。实际上，它是一个索引值，指向 [内核](<a href="https://zh.wikipedia.org/wiki/" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/</a>内核）为每一个 <a href="https://zh.wikipedia.org/wiki/%e8%bf%9b%e7%a8%8b" target="_blank" rel="noopener">进程</a>所维护的该进程打开文件的记录表。当程序打开一个现有文件或者创建一个新文件时，内核向进程返回一个文件描述符。</p>
@@ -1568,7 +1568,7 @@ FILE * fopen ( const char * filename, const char * mode ); filename 是要打开
     </button>
   </div>
 </div>
-<img src="./.基础IO.IMG/MD202211051402383.png" alt="image-20221102182949199" style="zoom: 50%;" />
+<img src="./.基础IO.IMG/MD202211051402383.png" alt="image-20221102182949199" style="zoom:40%;" />
 <p>因为 stdin、stdout 和 stderr 都是 C 语言的结构体指针，所以可以访问结构体成员。其中_fileno 就是封装了文件描述符的成员。</p>
 <h2>3.3 分配规则<span class="absolute -mt-20" id="33-分配规则"></span>
     <a href="#33-%e5%88%86%e9%85%8d%e8%a7%84%e5%88%99" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>在看了 2.1 中的示例和上面的阐述后，不难知道为什么用 open 打开文件后的返回值是从 3 递增的整数。</p>
@@ -1611,11 +1611,11 @@ FILE * fopen ( const char * filename, const char * mode ); filename 是要打开
     </button>
   </div>
 </div>
-<img src="./.基础IO.IMG/MD202211051402384.png" alt="image-20221102171137953" style="zoom:50%;" />
+<img src="./.基础IO.IMG/MD202211051402384.png" alt="image-20221102171137953" style="zoom:40%;" />
 <p>从结果来看，在最开始关闭了下标为 0 和 2，后来打开的文件的信息把这几个位置都填上了。</p>
 <p>规则：文件描述符将空的位置填完以后，才会往后递增。</p>
 <p>以图示理解进程时如何管理文件的：</p>
-<img src="./.基础IO.IMG/MD202211051402385.png" alt="image-20221103135052296" style="zoom:50%;" />
+<img src="./.基础IO.IMG/MD202211051402385.png" alt="image-20221103135052296" style="zoom:40%;" />
 <h1>4. 重定向</h1><h2>4.1 概念<span class="absolute -mt-20" id="41-概念"></span>
     <a href="#41-%e6%a6%82%e5%bf%b5" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>总之就是一句话：数据本来要写入到 A 文件中，却被写到了 B 文件中。例如，在学习 Linux 基本操作时，就有这样的重定向操作：</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">echo</span> 重定向测试 &gt; test.txt</span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
@@ -1628,7 +1628,7 @@ FILE * fopen ( const char * filename, const char * mode ); filename 是要打开
     </button>
   </div>
 </div>
-<img src="./.基础IO.IMG/MD202211051402386.png" alt="image-20221102172320361" style="zoom:50%;" />
+<img src="./.基础IO.IMG/MD202211051402386.png" alt="image-20221102172320361" style="zoom:40%;" />
 <h2>4.2 重定向的原理<span class="absolute -mt-20" id="42-重定向的原理"></span>
     <a href="#42-%e9%87%8d%e5%ae%9a%e5%90%91%e7%9a%84%e5%8e%9f%e7%90%86" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>输出重定向示例<span class="absolute -mt-20" id="输出重定向示例"></span>
     <a href="#%e8%be%93%e5%87%ba%e9%87%8d%e5%ae%9a%e5%90%91%e7%a4%ba%e4%be%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>在理解了文件操作符的作用和分配规则以后，理解重定向的原理也就不难了。</p>
@@ -1663,7 +1663,7 @@ FILE * fopen ( const char * filename, const char * mode ); filename 是要打开
     </button>
   </div>
 </div>
-<img src="./.基础IO.IMG/MD202211051402387.png" alt="image-20221103111251072" style="zoom:50%;" />
+<img src="./.基础IO.IMG/MD202211051402387.png" alt="image-20221103111251072" style="zoom:40%;" />
 <h3>原理<span class="absolute -mt-20" id="原理"></span>
     <a href="#%e5%8e%9f%e7%90%86" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>对代码的解读：</p>
 <blockquote>
@@ -1684,7 +1684,7 @@ FILE * fopen ( const char * filename, const char * mode ); filename 是要打开
     </button>
   </div>
 </div>
-<img src="./.基础IO.IMG/MD202211051402388.png" alt="image-20221103111539705" style="zoom:50%;" />
+<img src="./.基础IO.IMG/MD202211051402388.png" alt="image-20221103111539705" style="zoom:40%;" />
 <p>这样就完成了重定向，不过有点“歪门邪道”，下面用一种“正统”的方法实现重定向，同样是上面的代码，close 取消注释，然后再它之前添加：</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">fflush</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
@@ -1697,14 +1697,14 @@ FILE * fopen ( const char * filename, const char * mode ); filename 是要打开
     </button>
   </div>
 </div>
-<img src="./.基础IO.IMG/MD202211051402389.png" alt="image-20221103112621934" style="zoom:50%;" />
+<img src="./.基础IO.IMG/MD202211051402389.png" alt="image-20221103112621934" style="zoom:40%;" />
 <p>结果同样可以实现数据的重定向。</p>
 <blockquote>
 <p>fflush 是 C 语言的函数，它的作用是将缓冲区的内容强制刷新到指定的三个文件中，在这里是 stdout。C 标准库维护的缓冲区，稍后也会着重介绍。</p>
 </blockquote>
 <p>在本小节中，最重要的是理解重定向的原理。在语言层面，fd 和 stdout、stdin、stderr 是绑定的，而且对于 OS 而言，它只认 fd，不认名字。所以如果在某个进程中使用系统调用 close 掉 fd=1，新打开的文件 log.txt 的 fd 必定是 1。那么从语言的映射关系来看，log.txt 就是 stdout。</p>
 <p>用图示理解重定向的过程：</p>
-<img src="./.基础IO.IMG/MD202211051402390-9397372.png" alt="image-20221103135728943" style="zoom:50%;" />
+<img src="./.基础IO.IMG/MD202211051402390-9397372.png" alt="image-20221103135728943" style="zoom:40%;" />
 <p>从图示可以知道，输出重定向就是打开一个文件的同时，OS 在内核中创建一个 file 对象，让进程的 fd_array[1] 重新指向打开文件的 file 对象。</p>
 <h3>追加重定向<span class="absolute -mt-20" id="追加重定向"></span>
     <a href="#%e8%bf%bd%e5%8a%a0%e9%87%8d%e5%ae%9a%e5%90%91" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>上面的输出重定向如果测试几次，会发现它和 C 语言以&quot;w&quot;形式使用 fopen 打开文件一样，每次都是先清空然后再输入，如何实现追加重定向呢？</p>
@@ -1752,7 +1752,7 @@ FILE * fopen ( const char * filename, const char * mode ); filename 是要打开
     </button>
   </div>
 </div>
-<img src="./.基础IO.IMG/MD202211051402391.png" alt="image-20221103142120562" style="zoom:50%;" />
+<img src="./.基础IO.IMG/MD202211051402391.png" alt="image-20221103142120562" style="zoom:40%;" />
 <p>使用系统调用 close(0)，关闭 stdin 标准输入文件，对这个程序而言，就是把键盘文件关闭了。运行程序，C 语言函数 scanf 把 log.txt 中的数据都读取出来了。</p>
 <blockquote>
 <p>C 语言中，scanf 函数默认从 stdin 读取文件，所以使用它传参时不需要加上 stdin，printf 也是一样的：</p>
@@ -1773,7 +1773,7 @@ FILE * fopen ( const char * filename, const char * mode ); filename 是要打开
     </button>
   </div>
 </div>
-<img src="./.基础IO.IMG/MD202211051402392.png" alt="image-20221103142737300" style="zoom:50%;" />
+<img src="./.基础IO.IMG/MD202211051402392.png" alt="image-20221103142737300" style="zoom:40%;" />
 </blockquote>
 <h3>补充<span class="absolute -mt-20" id="补充"></span>
     <a href="#%e8%a1%a5%e5%85%85" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>对于 stdout 和 stderr，都是对应的显示器，它们的区别在于：</p>
@@ -1806,7 +1806,7 @@ FILE * fopen ( const char * filename, const char * mode ); filename 是要打开
     </button>
   </div>
 </div>
-<img src="./.基础IO.IMG/MD202211051402393.png" alt="image-20221103144943508" style="zoom:50%;" />
+<img src="./.基础IO.IMG/MD202211051402393.png" alt="image-20221103144943508" style="zoom:40%;" />
 <blockquote>
 <p>fprintf 是 C 语言文件操作的函数，是专门用于在文件中输出字符串内容的，但是也可以指定它输出的文件。（stdout 和 stderr 也是文件）。</p>
 <p>perror 是 C 语言函数，如果打印成功，会提示<code>:Success</code>。</p>
@@ -1822,7 +1822,7 @@ FILE * fopen ( const char * filename, const char * mode ); filename 是要打开
     </button>
   </div>
 </div>
-<img src="./.基础IO.IMG/MD202211051402394.png" alt="image-20221103145210568" style="zoom:50%;" />
+<img src="./.基础IO.IMG/MD202211051402394.png" alt="image-20221103145210568" style="zoom:40%;" />
 <p>结果表明，重定向操作不会把本来要输出到 stderr 文件中的数据输出到 log.txt，只会对 stdout 文件操作。</p>
 <h1>5. dup2</h1><p>在系统调用中，dup2 封装了类似上面示例中的操作，仅需要传入两个新旧文件描述符，就能完成重定向操作。</p>
 <h2>5.1 介绍<span class="absolute -mt-20" id="51-介绍"></span>
@@ -1848,7 +1848,7 @@ FILE * fopen ( const char * filename, const char * mode ); filename 是要打开
     </button>
   </div>
 </div>
-<img src="./.基础IO.IMG/MD202211051402395.png" alt="image-20221103225936774" style="zoom:50%;" />
+<img src="./.基础IO.IMG/MD202211051402395.png" alt="image-20221103225936774" style="zoom:40%;" />
 <h3>原型<span class="absolute -mt-20" id="原型"></span>
     <a href="#%e5%8e%9f%e5%9e%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">dup2</span><span class="p">(</span><span class="kt">int</span> <span class="n">oldfd</span><span class="p">,</span> <span class="kt">int</span> <span class="n">newfd</span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
@@ -1903,7 +1903,7 @@ FILE * fopen ( const char * filename, const char * mode ); filename 是要打开
     </button>
   </div>
 </div>
-<img src="./.基础IO.IMG/MD202211051402396.png" alt="image-20221103231202242" style="zoom:50%;" />
+<img src="./.基础IO.IMG/MD202211051402396.png" alt="image-20221103231202242" style="zoom:40%;" />
 <p>printf 默认向 stdout 输出，在使用 dup2 重定向后，本应该在显示器上输出的数据被写到了文件 log.txt 中。</p>
 <p>当然，使用 fprintf 指定输出文件是 stdout 结果也是一样的，在 printf 语句后再加上：</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">fprintf</span><span class="p">(</span><span class="n">stdout</span><span class="p">,</span> <span class="s">&#34;hello, world &lt;- fprintf</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
@@ -1916,7 +1916,7 @@ FILE * fopen ( const char * filename, const char * mode ); filename 是要打开
     </button>
   </div>
 </div>
-<img src="./.基础IO.IMG/MD202211051402397.png" alt="image-20221103231626369" style="zoom:50%;" />
+<img src="./.基础IO.IMG/MD202211051402397.png" alt="image-20221103231626369" style="zoom:40%;" />
 <h1>6. C 标准库中的 FILE 结构体</h1><p>从重定向的原理和示例可以知道，尽管 C 标准库中定义 stdin、stdout 和 stderr 是 FILE 结构体指针，但因为语言层是封装系统调用的，所以 stdin、stdout 和 stderr 这些，只是语言中给文件描述符起的名字。实际上系统只认识文件描述符 fd，即 fd_array[] 的下标。</p>
 <p>正因如此，C 语言标准库定义的 FILE 结构体内部一定封装了等价于文件描述符的成员。</p>
 <h2>6.1 FILE 中的_fileno<span class="absolute -mt-20" id="61-file-中的_fileno"></span>
@@ -2047,9 +2047,9 @@ FILE * fopen ( const char * filename, const char * mode ); filename 是要打开
     </button>
   </div>
 </div>
-<img src="./.基础IO.IMG/MD202211051402398.png" alt="image-20221104002202190" style="zoom:50%;" />
+<img src="./.基础IO.IMG/MD202211051402398.png" alt="image-20221104002202190" style="zoom:40%;" />
 <p>显然，都所有输出语句都正常执行了。但是如果要将打印到显示器的内容重定向到一个文件 log.txt 中呢？</p>
-<img src="./.基础IO.IMG/MD202211051402399.png" alt="image-20221104002404502" style="zoom:50%;" />
+<img src="./.基础IO.IMG/MD202211051402399.png" alt="image-20221104002404502" style="zoom:40%;" />
 <ol>
 <li>不重定向，直接打印：输出到显示器无异常；</li>
 <li>重定向：C 库函数会被执行两次，系统调用只会被执行一次。</li>
@@ -2110,7 +2110,7 @@ FILE * fopen ( const char * filename, const char * mode ); filename 是要打开
 <p>为什么系统调用只被执行一次？</p>
 </blockquote>
 <p>因为 C 语言内部是封装了系统调用的，例如 printf 函数，它会调用系统接口 write，将数据写入到 printf 指定的文件中。对于 fork 以后的父子进程，它们都执行了一次 C 语言打印函数，所以每个 C 语言打印函数都调用了两次系统接口 write。</p>
-<img src="./.基础IO.IMG/MD202211051402400.png" alt="image-20221104145519214" style="zoom:50%;" />
+<img src="./.基础IO.IMG/MD202211051402400.png" alt="image-20221104145519214" style="zoom:40%;" />
 <p>其实，在 fork 之后，数据也只是被保存在 C 标准库维护的缓冲区里，fork 做的事就是创建子进程，父进程的数据会发生写时拷贝，只有当进程退出时（执行 return 语句），父进程准备把数据从缓冲区刷新出来了，子进程也要进行同样的操作。请注意，数据不是从 C 标准库维护的缓冲区被直接刷新到文件中，还要经过系统调用将数据暂存到内核的缓冲区，最后数据才会被写入到文件中。（此部分暂且不需要对内核缓冲区作深入研究，只要知道它的存在即可。）</p>
 <p>C 标准库维护的缓冲区，是“用户层”的缓冲区，实际上 FILE 结构体中也保存着用户缓冲区的信息：</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cm">/* The following pointers correspond to the C++ streambuf protocol. */</span>
@@ -2182,15 +2182,15 @@ FILE * fopen ( const char * filename, const char * mode ); filename 是要打开
 <li>在哪个磁道 (H)</li>
 <li>在哪个扇区 (S)</li>
 </ol>
-<img src="./.基础IO.IMG/MD202211051402401.png" alt="image-20221104202216213" style="zoom:50%;" />
+<img src="./.基础IO.IMG/MD202211051402401.png" alt="image-20221104202216213" style="zoom:40%;" />
 <blockquote>
 <p>一般传统的磁盘规定每个扇区的大小是 512 字节。</p>
 </blockquote>
 <p>通过 CHS 寻址，就能找到数据在磁盘中的位置。</p>
 <p>抽象磁盘结构：把这一摞磁盘想象成线性结构。就像磁带卷成一盘一样。</p>
-<img src="./.基础IO.IMG/MD202211051402402.jpg" alt="盒式磁带" style="zoom:50%;" />
+<img src="./.基础IO.IMG/MD202211051402402.jpg" alt="盒式磁带" style="zoom:40%;" />
 <p>把磁盘当成磁带，将它拉成线性结构，符合我们对数组的抽象理解：</p>
-<img src="./.基础IO.IMG/MD202211051402403.png" alt="image-20221104212520778" style="zoom:50%;" />
+<img src="./.基础IO.IMG/MD202211051402403.png" alt="image-20221104212520778" style="zoom:40%;" />
 <p>在 OS 眼中，这每一个扇区就是一个数组，那么对磁盘的管理也就转变为对数组的管理。比如数组的前 10000 个位置是某个盘的位置，前几百个位置是某个扇区的位置，根据下标的范围，OS 便能管理磁盘不同盘面、不同磁道和不同扇区的数据。</p>
 <ul>
 <li>
@@ -2205,7 +2205,7 @@ FILE * fopen ( const char * filename, const char * mode ); filename 是要打开
 </ul>
 <p>对于一块很大的磁盘，直接管理是非常有难度的，例如 512GB：处理方法是将大的磁盘拆分为容易管理的小磁盘的集合，这就是分治。所以对磁盘的管理，实际上就是对一个小分区的管理，因为每个小分区的管理方式都是一套的。对于这个 100GB 的小分区，它依然很大，就像把国家拆分为若干省、进而拆分为市、区、街道。.. 这个操作很像我们对磁盘进行分区。</p>
 <p>对于磁盘中的每个分区，它由块组组成。</p>
-<img src="./.基础IO.IMG/MD202211051402404.png" alt="image-20221104230005411" style="zoom:50%;" />
+<img src="./.基础IO.IMG/MD202211051402404.png" alt="image-20221104230005411" style="zoom:40%;" />
 <h2>7.3  EXT2 文件系统<span class="absolute -mt-20" id="73--ext2-文件系统"></span>
     <a href="#73--ext2-%e6%96%87%e4%bb%b6%e7%b3%bb%e7%bb%9f" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>文件系统<span class="absolute -mt-20" id="文件系统"></span>
     <a href="#%e6%96%87%e4%bb%b6%e7%b3%bb%e7%bb%9f" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>文件系统和操作系统类似，都是存储和组织计算机数据的方法。它使得对其访问和查找变得容易，文件系统使用<strong>文件</strong>和<strong>树形目录</strong>的抽象逻辑概念代替了硬盘和光盘等物理设备使用数据块的概念，用户使用文件系统来保存数据不必关心数据实际保存在硬盘（或者光盘）的地址为多少的数据块上，只需要记住这个文件的所属目录和文件名。在写入新数据之前，用户不必关心硬盘上的那个块地址没有被使用，硬盘上的存储空间管理（分配和释放）功能由文件系统自动完成，用户只需要记住数据被写入到了哪个文件中。</p>
@@ -2218,7 +2218,7 @@ FILE * fopen ( const char * filename, const char * mode ); filename 是要打开
 <p>超级块包含对操作系统启动至关重要的重要信息。因此，备份副本在文件系统中的多个块组中制作。但是，通常仅在文件系统的第一个块中找到它的第一个副本用于引导。</p>
 <p>组描述符存储块位图的位置、inode 位图以及每个块组的 inode 表的开始。这些又存储在组描述符表中。</p>
 <p>在本节中，我们着重了解 inode，在此之前，需要把握整体结构。</p>
-<img src="./.基础IO.IMG/MD202211051402405.png" alt="image-20221104223839858" style="zoom:50%;" />
+<img src="./.基础IO.IMG/MD202211051402405.png" alt="image-20221104223839858" style="zoom:40%;" />
 <p>由图示可见，每个块组（block group）都由以下几个部分组成：</p>
 <ul>
 <li>super block： 存放文件系统本身的结构信息。记录的信息主要有：data block 和 inode 的总量、未使用的 data block 和 inode 的数量、一个 data block 和 inode 的大小、最近一次挂载的时间、最近一次写入数据的时间、最近一次检验磁盘的时间等其他文件系统的相关信息。super block 的信息被破坏，可以说整个文件系统结构就被破坏了；</li>
@@ -2255,7 +2255,7 @@ FILE * fopen ( const char * filename, const char * mode ); filename 是要打开
 <p>可以，当文件很大的时候。不是所有的 data block 都只能存数据，也可以存其他块的块号。例如 15 容量，前 12 个存数据，后 3 个存其他块，一个块 4 个字节，能指向上千个其他块。而且其他块还能指向其他块，类似树状结构，这就能储存大体积文件了。</p>
 <blockquote>
 <p>在 inode 结构体中，有一个数组 block[]，它维护着每个文件使用的数据块和 inode 结构体之间的映射关系。它的长度为 15，其中前 12 个元素分别对应该文件使用的 12 个数据块，剩余的 3 个元素分别是一级索引、二级索引和三级索引，当该文件使用数据块的个数超过 12 个时，可以用这三个索引进行数据块扩充。&ndash;图片来源于 <a href="https://en.wikipedia.org/wiki/Ext2#ext2_data_structures" target="_blank" rel="noopener">维基百科</a></p>
-<img src="./.基础IO.IMG/MD202211051402406.png" alt="Estructure" style="zoom:50%;" />
+<img src="./.基础IO.IMG/MD202211051402406.png" alt="Estructure" style="zoom:40%;" />
 </blockquote>
 <h4>格式化<span class="absolute -mt-20" id="格式化"></span>
     <a href="#%e6%a0%bc%e5%bc%8f%e5%8c%96" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>如果每个块组中的组成部分都进行上面的操作，那么每个分区都会被写入管理数据，整个分区（块组组成分区）也就被写入了系统文件信息，我们将它称为“格式化”。其实格式化磁盘，就是格式化区块的属性，data block 那些储存信息的分区。</p>
@@ -2317,7 +2317,7 @@ FILE * fopen ( const char * filename, const char * mode ); filename 是要打开
     </button>
   </div>
 </div>
-<img src="./.基础IO.IMG/MD202211051402407.png" alt="image-20221105105612240" style="zoom:50%;" />
+<img src="./.基础IO.IMG/MD202211051402407.png" alt="image-20221105105612240" style="zoom:40%;" />
 <blockquote>
 <p>OS 如何找到文件？</p>
 </blockquote>
@@ -2372,7 +2372,7 @@ FILE * fopen ( const char * filename, const char * mode ); filename 是要打开
     </button>
   </div>
 </div>
-<img src="./.基础IO.IMG/MD202211051402408.png" alt="image-20221105110605719" style="zoom:50%;" />
+<img src="./.基础IO.IMG/MD202211051402408.png" alt="image-20221105110605719" style="zoom:40%;" />
 <p>其中，第一列是 inode 编号，第三列是引用计数。</p>
 <h2>8.2 软链接<span class="absolute -mt-20" id="82-软链接"></span>
     <a href="#82-%e8%bd%af%e9%93%be%e6%8e%a5" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>通过指令实现两个文件之间的硬链接：</p>
@@ -2386,7 +2386,7 @@ FILE * fopen ( const char * filename, const char * mode ); filename 是要打开
     </button>
   </div>
 </div>
-<img src="./.基础IO.IMG/MD202211051402409.png" alt="image-20221105111745332" style="zoom:50%;" />
+<img src="./.基础IO.IMG/MD202211051402409.png" alt="image-20221105111745332" style="zoom:40%;" />
 <blockquote>
 <p>ln 指令要求创建的文件在当前目录下没有同名文件。</p>
 </blockquote>
@@ -2401,10 +2401,10 @@ FILE * fopen ( const char * filename, const char * mode ); filename 是要打开
     </button>
   </div>
 </div>
-<img src="./.基础IO.IMG/MD202211051402410.png" alt="image-20221105112544587" style="zoom:50%;" />
+<img src="./.基础IO.IMG/MD202211051402410.png" alt="image-20221105112544587" style="zoom:40%;" />
 <p>可以发现，新创建出来的文件 main.txt 相比于 main 可执行程序这个文件，它要小得多。其实，软链接文件中保存的是一个文本字符串，存储的是目标文件（即：链接到的文件）的路径名。类似 Windows 操作系统中的快捷方式。</p>
 <p>软链接文件和快捷方式一样，如果删除了被链接的文件，链接文件虽然保留着它的文件名，但是不再能够查看它的内容。</p>
-<img src="./.基础IO.IMG/MD202211051402411.png" alt="image-20221105113011647" style="zoom:50%;" />
+<img src="./.基础IO.IMG/MD202211051402411.png" alt="image-20221105113011647" style="zoom:40%;" />
 <h2>8.3 硬链接<span class="absolute -mt-20" id="83-硬链接"></span>
     <a href="#83-%e7%a1%ac%e9%93%be%e6%8e%a5" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>通过指令创建文件并建立硬链接关系：</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">ln main mainH</span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
@@ -2417,7 +2417,7 @@ FILE * fopen ( const char * filename, const char * mode ); filename 是要打开
     </button>
   </div>
 </div>
-<img src="./.基础IO.IMG/MD202211051402412.png" alt="image-20221105114104327" style="zoom:50%;" />
+<img src="./.基础IO.IMG/MD202211051402412.png" alt="image-20221105114104327" style="zoom:40%;" />
 <p>由此可见，硬链接和软链接的区别就在于硬链接创建出来的文件的 inode 编号和被链接文件的是相同的。而且，它们的大小都相同。</p>
 <blockquote>
 <p>但是，通过<code>ls -li</code>命令查看信息时，软链接的引用计数都是 1，而硬链接的引用计数都变成了 2，这是为什么呢？</p>
@@ -2437,9 +2437,9 @@ FILE * fopen ( const char * filename, const char * mode ); filename 是要打开
     </button>
   </div>
 </div>
-<img src="./.基础IO.IMG/MD202211051402413.png" alt="image-20221105114200859" style="zoom:50%;" />
+<img src="./.基础IO.IMG/MD202211051402413.png" alt="image-20221105114200859" style="zoom:40%;" />
 <p>硬链接文件依然存在，没有报错，而且可以正常执行：</p>
-<img src="./.基础IO.IMG/MD202211051402414.png" alt="image-20221105114455193" style="zoom:50%;" />
+<img src="./.基础IO.IMG/MD202211051402414.png" alt="image-20221105114455193" style="zoom:40%;" />
 <p>可以看到，文件的引用计数-1。</p>
 <h2>8.4 目录的引用计数<span class="absolute -mt-20" id="84-目录的引用计数"></span>
     <a href="#84-%e7%9b%ae%e5%bd%95%e7%9a%84%e5%bc%95%e7%94%a8%e8%ae%a1%e6%95%b0" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>创建一个目录，用<code>ls -li</code>命令查看它的引用计数（硬链接数）：</p>
@@ -2453,7 +2453,7 @@ FILE * fopen ( const char * filename, const char * mode ); filename 是要打开
     </button>
   </div>
 </div>
-<img src="./.基础IO.IMG/MD202211051402415.png" alt="image-20221105115006556" style="zoom:50%;" />
+<img src="./.基础IO.IMG/MD202211051402415.png" alt="image-20221105115006556" style="zoom:40%;" />
 <blockquote>
 <p>为什么一个目录的引用计数是 2？</p>
 </blockquote>
@@ -2470,11 +2470,11 @@ FILE * fopen ( const char * filename, const char * mode ); filename 是要打开
     </button>
   </div>
 </div>
-<img src="./.基础IO.IMG/MD202211051402416.png" alt="image-20221105115419022" style="zoom:50%;" />
+<img src="./.基础IO.IMG/MD202211051402416.png" alt="image-20221105115419022" style="zoom:40%;" />
 <p>每个目录中，都有两个隐藏文件：<code>.</code>和<code>..</code>，我们都很熟悉它，经常用 cd 指令在上下级目录中跳转。它们分别表示当前目录和上级目录。那么，当前目录就有了两个名字，一个是<code>dir</code>，一个是<code>.</code>，所以引用计数是 2，同时，它们的 inode 编号也是一样的。</p>
 <h2>8.5 文件时间<span class="absolute -mt-20" id="85-文件时间"></span>
     <a href="#85-%e6%96%87%e4%bb%b6%e6%97%b6%e9%97%b4" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>通过<code>stat</code>命令可以查看文件的三个时间（ACM）：</p>
-<img src="./.基础IO.IMG/MD202211051402417.png" alt="image-20221105135458056" style="zoom:50%;" />
+<img src="./.基础IO.IMG/MD202211051402417.png" alt="image-20221105135458056" style="zoom:40%;" />
 <ul>
 <li>A（Access）：文件最后被访问的时间；</li>
 <li>C（Change）：文件内容最后的修改时间；</li>

@@ -745,10 +745,10 @@ ps -ef | grep mysql 这个命令会显示所有包含 mysql 字符串的进程�
   </div>
 </div>
 <p>这个命令会显示所有包含 mysql 字符串的进程的详细信息，如进程号、用户、启动时间、命令行等。</p>
-<img src="./.数据库基础（二）.IMG/image-20231020171838545.png" alt="image-20231020171838545" style="zoom:50%; " />
+<img src="./.数据库基础（二）.IMG/image-20231020171838545.png" alt="image-20231020171838545" style="zoom:40%;" />
 <p>第一行的 <code>mysqld</code> 就是 MySQL 服务器，它是一个守护进程运行在后台。第二行的 <code>mysql</code> 就是 MySQL 客户端，它是由名为 <code>xy</code> 的用户执行的。</p>
 <p>上面这种方式是用本地的客户端连接到本地的服务端，实际上 MySQL 服务器是一款网络服务器，它可以连接到指定主机中正在运行的 mysqld 服务器。</p>
-<img src="./.数据库基础（二）.IMG/image-20231020192017091.png" alt="image-20231020192017091" style="zoom:50%; " />
+<img src="./.数据库基础（二）.IMG/image-20231020192017091.png" alt="image-20231020192017091" style="zoom:40%;" />
 <h1>为什么需要数据库</h1><p>在 Linux（操作系统）一切皆文件的语义下，运行在操作系统中的所有软件本质上都是文件，那么数据在数据库眼中也是一堆文件。创建一个数据库，一张表，都会在特定目录下创建对应的文件。</p>
 <p>理论上，我们可以单纯地用文件来存储和管理数据，但是在面对工业级的场景下，手动维护文件无法保证数据的安全性，也无法保证效率。也就是说，数据库代替程序员做管理数据这件事，是一种用于存储和管理数据的电子化系统，它有许多优点，比如：</p>
 <ul>
@@ -783,7 +783,7 @@ ps -ef | grep mysql 这个命令会显示所有包含 mysql 字符串的进程�
 <li>内存数据库虽然读写速度很快，但并非不使用磁盘，内存数据库的启动信息、初始数据等重要信息都需要存储在磁盘中；当可用内存过少时，会将部分数据写入到磁盘中，以减轻内存压力。</li>
 </ol>
 <h1>MySQL 的体系架构</h1><p>MySQL 的架构主要分为网络连接层、数据库服务层、存储引擎层和系统文件层四大部分。</p>
-<img src="./.数据库基础（二）.IMG/mysql-arch.png" alt="mysql-arch" style="zoom:50%; " />
+<img src="./.数据库基础（二）.IMG/mysql-arch.png" alt="mysql-arch" style="zoom:40%;" />
 <p>图片来源：https://acronymor.com/posts/mysql/ch01/</p>
 <p>MySQL 主要是用 C++ 实现的：</p>
 <ul>
@@ -803,7 +803,7 @@ ps -ef | grep mysql 这个命令会显示所有包含 mysql 字符串的进程�
     <a href="#%e7%bd%91%e7%bb%9c%e8%bf%9e%e6%8e%a5%e5%b1%82api-%e5%b1%82" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>由于 MySQL 是一款 C/S 软件，直接管理数据的主体是 mysqld（服务器），在真实的业务场景中，应用程序和实际的数据库一般是部署在不同的服务器中的，MySQL 客户端和服务器之间的连接通常是通过 TCP/IP 协议进行的。</p>
 <p>所以网络连接层也叫 API 层。它负责提供给外部应用程序访问 MySQL 数据库的接口。API 层由 MySQL 提供的各种客户端库组成，包括 C/C++、Java、Python、PHP 等语言的库。</p>
 <p>MySQL 客户端是一个命令行程序，也就是说它是一个可执行程序，准确地说，它是采用动态链接生成的可执行程序。</p>
-<img src="./.数据库基础（二）.IMG/image-20231020210441002.png" alt="image-20231020210441002" style="zoom:50%; " />
+<img src="./.数据库基础（二）.IMG/image-20231020210441002.png" alt="image-20231020210441002" style="zoom:40%;" />
 <p>通过 file 命令可以知道 mysql 客户端可执行程序是多态链接的，lld 命令可以查看它依赖的库。</p>
 <h2>数据库服务层<span class="absolute -mt-20" id="数据库服务层"></span>
     <a href="#%e6%95%b0%e6%8d%ae%e5%ba%93%e6%9c%8d%e5%8a%a1%e5%b1%82" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><table>
@@ -889,7 +889,7 @@ ps -ef | grep mysql 这个命令会显示所有包含 mysql 字符串的进程�
 </tr>
 </tbody>
 </table>
-<img src="./.数据库基础（二）.IMG/image-20231020205952174.png" alt="image-20231020205952174" style="zoom:50%; " />
+<img src="./.数据库基础（二）.IMG/image-20231020205952174.png" alt="image-20231020205952174" style="zoom:40%;" />
 <p>MySQL 支持多种不同的存储引擎，包括处理事务安全表的引擎和处理非事务安全表的引擎。在 MySQL 中，你可以根据对数据处理的不同需求选择合适的存储引擎，这样不仅可以提高数据存储和检索的效率，还可以降低高并发情况下的数据压力。</p>
 <h2>系统文件层<span class="absolute -mt-20" id="系统文件层"></span>
     <a href="#%e7%b3%bb%e7%bb%9f%e6%96%87%e4%bb%b6%e5%b1%82" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>系统文件层主要包括 MySQL 中存储数据的底层文件，与上层的存储引擎进行交互，是文件的物理存储层，是整个系统的核心，负责存储数据库中的数据。存储层由以下几个主要组件组成：</p>
