@@ -18,7 +18,10 @@
 I/O 多路复用【Linux/网络】（C&#43;&#43;实现 epoll、select 和 epoll 服务器）
 1. 什么是 Reactor 模式既然你开始了解 Reactor（反应器） 模式，说明你知道在实现服务端时，多线程只能处理少量的客户端请求，一旦数量增多，维护线程的成本会急剧上升，导致服务端性能下降。而 Reactor 模型就是为解决这个问题而诞生的。
 Reactor 模式是一种基于事件驱动的设计模式，它是 I/O 多路复用在设计模式层面上的体现。Reactor 设计模式的“设计”体现在：
-**将 I/O 事件的处理分为两个阶段：**事件分发阶段（Dispatcher）和事件处理阶段（Handler）。这种分离可以将 I/O 事件的处理从阻塞 I/O 中解耦出来，从而提高系统的并发能力和吞吐量。 -**使用 I/O 多路复用技术：**I/O 多路复用技术可以让一个线程或进程监听多个 I/O 事件，从而提高系统的资源利用率。 **使用事件驱动模型：**事件驱动模型可以让系统更加灵活和可扩展。 图片来源：http://www.dre.vanderbilt.edu/~schmidt/PDF/reactor-siemens.pdf
+将 I/O 事件的处理分为两个阶段：事件分发阶段（Dispatcher）和事件处理阶段（Handler）。这种分离可以将 I/O 事件的处理从阻塞 I/O 中解耦出来，从而提高系统的并发能力和吞吐量。
+使用 I/O 多路复用技术：I/O 多路复用技术可以让一个线程或进程监听多个 I/O 事件，从而提高系统的资源利用率。
+使用事件驱动模型：事件驱动模型可以让系统更加灵活和可扩展。
+图片来源：http://www.dre.vanderbilt.edu/~schmidt/PDF/reactor-siemens.pdf
 理解这张图，需要你了解 select 服务器的写法。
 这就是一个 Reactor 模型（以 select 为例），它主要包含五个组件：
 Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Sychronous Event Demultiplexer（同步事件分离器） 本质是系统调用，用于等待事件的发生。对于 Linux 来说，同步事件分离器指的就是 I/O 多路复用的接口，比如 select、poll、epoll 等。 Event Handler（事件处理器） 由多个回调方法构成，这些回调方法构成了与应用相关的对于某个事件的处理反馈，由用户实现。 Concrete Event Handler（具体事件处理器） 事件处理器中各个回调方法的具体实现（可以认为是 Event Handler 的函数体）。 Initiation Dispatcher（初始分发器） 初始分发器就是 Reactor 模型，它会通过同步事件分离器来等待事件的发生，当对应事件就绪时就调用事件处理器，最后调用对应的回调方法来处理这个事件。 2." />
@@ -36,7 +39,10 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
 I/O 多路复用【Linux/网络】（C&#43;&#43;实现 epoll、select 和 epoll 服务器）
 1. 什么是 Reactor 模式既然你开始了解 Reactor（反应器） 模式，说明你知道在实现服务端时，多线程只能处理少量的客户端请求，一旦数量增多，维护线程的成本会急剧上升，导致服务端性能下降。而 Reactor 模型就是为解决这个问题而诞生的。
 Reactor 模式是一种基于事件驱动的设计模式，它是 I/O 多路复用在设计模式层面上的体现。Reactor 设计模式的“设计”体现在：
-**将 I/O 事件的处理分为两个阶段：**事件分发阶段（Dispatcher）和事件处理阶段（Handler）。这种分离可以将 I/O 事件的处理从阻塞 I/O 中解耦出来，从而提高系统的并发能力和吞吐量。 -**使用 I/O 多路复用技术：**I/O 多路复用技术可以让一个线程或进程监听多个 I/O 事件，从而提高系统的资源利用率。 **使用事件驱动模型：**事件驱动模型可以让系统更加灵活和可扩展。 图片来源：http://www.dre.vanderbilt.edu/~schmidt/PDF/reactor-siemens.pdf
+将 I/O 事件的处理分为两个阶段：事件分发阶段（Dispatcher）和事件处理阶段（Handler）。这种分离可以将 I/O 事件的处理从阻塞 I/O 中解耦出来，从而提高系统的并发能力和吞吐量。
+使用 I/O 多路复用技术：I/O 多路复用技术可以让一个线程或进程监听多个 I/O 事件，从而提高系统的资源利用率。
+使用事件驱动模型：事件驱动模型可以让系统更加灵活和可扩展。
+图片来源：http://www.dre.vanderbilt.edu/~schmidt/PDF/reactor-siemens.pdf
 理解这张图，需要你了解 select 服务器的写法。
 这就是一个 Reactor 模型（以 select 为例），它主要包含五个组件：
 Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Sychronous Event Demultiplexer（同步事件分离器） 本质是系统调用，用于等待事件的发生。对于 Linux 来说，同步事件分离器指的就是 I/O 多路复用的接口，比如 select、poll、epoll 等。 Event Handler（事件处理器） 由多个回调方法构成，这些回调方法构成了与应用相关的对于某个事件的处理反馈，由用户实现。 Concrete Event Handler（具体事件处理器） 事件处理器中各个回调方法的具体实现（可以认为是 Event Handler 的函数体）。 Initiation Dispatcher（初始分发器） 初始分发器就是 Reactor 模型，它会通过同步事件分离器来等待事件的发生，当对应事件就绪时就调用事件处理器，最后调用对应的回调方法来处理这个事件。 2." />
@@ -53,7 +59,10 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
 I/O 多路复用【Linux/网络】（C&#43;&#43;实现 epoll、select 和 epoll 服务器）
 1. 什么是 Reactor 模式既然你开始了解 Reactor（反应器） 模式，说明你知道在实现服务端时，多线程只能处理少量的客户端请求，一旦数量增多，维护线程的成本会急剧上升，导致服务端性能下降。而 Reactor 模型就是为解决这个问题而诞生的。
 Reactor 模式是一种基于事件驱动的设计模式，它是 I/O 多路复用在设计模式层面上的体现。Reactor 设计模式的“设计”体现在：
-**将 I/O 事件的处理分为两个阶段：**事件分发阶段（Dispatcher）和事件处理阶段（Handler）。这种分离可以将 I/O 事件的处理从阻塞 I/O 中解耦出来，从而提高系统的并发能力和吞吐量。 -**使用 I/O 多路复用技术：**I/O 多路复用技术可以让一个线程或进程监听多个 I/O 事件，从而提高系统的资源利用率。 **使用事件驱动模型：**事件驱动模型可以让系统更加灵活和可扩展。 图片来源：http://www.dre.vanderbilt.edu/~schmidt/PDF/reactor-siemens.pdf
+将 I/O 事件的处理分为两个阶段：事件分发阶段（Dispatcher）和事件处理阶段（Handler）。这种分离可以将 I/O 事件的处理从阻塞 I/O 中解耦出来，从而提高系统的并发能力和吞吐量。
+使用 I/O 多路复用技术：I/O 多路复用技术可以让一个线程或进程监听多个 I/O 事件，从而提高系统的资源利用率。
+使用事件驱动模型：事件驱动模型可以让系统更加灵活和可扩展。
+图片来源：http://www.dre.vanderbilt.edu/~schmidt/PDF/reactor-siemens.pdf
 理解这张图，需要你了解 select 服务器的写法。
 这就是一个 Reactor 模型（以 select 为例），它主要包含五个组件：
 Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Sychronous Event Demultiplexer（同步事件分离器） 本质是系统调用，用于等待事件的发生。对于 Linux 来说，同步事件分离器指的就是 I/O 多路复用的接口，比如 select、poll、epoll 等。 Event Handler（事件处理器） 由多个回调方法构成，这些回调方法构成了与应用相关的对于某个事件的处理反馈，由用户实现。 Concrete Event Handler（具体事件处理器） 事件处理器中各个回调方法的具体实现（可以认为是 Event Handler 的函数体）。 Initiation Dispatcher（初始分发器） 初始分发器就是 Reactor 模型，它会通过同步事件分离器来等待事件的发生，当对应事件就绪时就调用事件处理器，最后调用对应的回调方法来处理这个事件。 2.">
@@ -64,7 +73,10 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
 I/O 多路复用【Linux/网络】（C&#43;&#43;实现 epoll、select 和 epoll 服务器）
 1. 什么是 Reactor 模式既然你开始了解 Reactor（反应器） 模式，说明你知道在实现服务端时，多线程只能处理少量的客户端请求，一旦数量增多，维护线程的成本会急剧上升，导致服务端性能下降。而 Reactor 模型就是为解决这个问题而诞生的。
 Reactor 模式是一种基于事件驱动的设计模式，它是 I/O 多路复用在设计模式层面上的体现。Reactor 设计模式的“设计”体现在：
-**将 I/O 事件的处理分为两个阶段：**事件分发阶段（Dispatcher）和事件处理阶段（Handler）。这种分离可以将 I/O 事件的处理从阻塞 I/O 中解耦出来，从而提高系统的并发能力和吞吐量。 -**使用 I/O 多路复用技术：**I/O 多路复用技术可以让一个线程或进程监听多个 I/O 事件，从而提高系统的资源利用率。 **使用事件驱动模型：**事件驱动模型可以让系统更加灵活和可扩展。 图片来源：http://www.dre.vanderbilt.edu/~schmidt/PDF/reactor-siemens.pdf
+将 I/O 事件的处理分为两个阶段：事件分发阶段（Dispatcher）和事件处理阶段（Handler）。这种分离可以将 I/O 事件的处理从阻塞 I/O 中解耦出来，从而提高系统的并发能力和吞吐量。
+使用 I/O 多路复用技术：I/O 多路复用技术可以让一个线程或进程监听多个 I/O 事件，从而提高系统的资源利用率。
+使用事件驱动模型：事件驱动模型可以让系统更加灵活和可扩展。
+图片来源：http://www.dre.vanderbilt.edu/~schmidt/PDF/reactor-siemens.pdf
 理解这张图，需要你了解 select 服务器的写法。
 这就是一个 Reactor 模型（以 select 为例），它主要包含五个组件：
 Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Sychronous Event Demultiplexer（同步事件分离器） 本质是系统调用，用于等待事件的发生。对于 Linux 来说，同步事件分离器指的就是 I/O 多路复用的接口，比如 select、poll、epoll 等。 Event Handler（事件处理器） 由多个回调方法构成，这些回调方法构成了与应用相关的对于某个事件的处理反馈，由用户实现。 Concrete Event Handler（具体事件处理器） 事件处理器中各个回调方法的具体实现（可以认为是 Event Handler 的函数体）。 Initiation Dispatcher（初始分发器） 初始分发器就是 Reactor 模型，它会通过同步事件分离器来等待事件的发生，当对应事件就绪时就调用事件处理器，最后调用对应的回调方法来处理这个事件。 2.">
@@ -756,11 +768,17 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
 <h1>1. 什么是 Reactor 模式</h1><p>既然你开始了解 Reactor（反应器） 模式，说明你知道在实现服务端时，多线程只能处理少量的客户端请求，一旦数量增多，维护线程的成本会急剧上升，导致服务端性能下降。而 Reactor 模型就是为解决这个问题而诞生的。</p>
 <p>Reactor 模式是一种基于事件驱动的设计模式，它是 I/O 多路复用在设计模式层面上的体现。Reactor 设计模式的“设计”体现在：</p>
 <ul>
-<li>**将 I/O 事件的处理分为两个阶段：**事件分发阶段（Dispatcher）和事件处理阶段（Handler）。这种分离可以将 I/O 事件的处理从阻塞 I/O 中解耦出来，从而提高系统的并发能力和吞吐量。
--**使用 I/O 多路复用技术：**I/O 多路复用技术可以让一个线程或进程监听多个 I/O 事件，从而提高系统的资源利用率。</li>
-<li>**使用事件驱动模型：**事件驱动模型可以让系统更加灵活和可扩展。</li>
+<li>
+<p><strong>将 I/O 事件的处理分为两个阶段</strong>：事件分发阶段（Dispatcher）和事件处理阶段（Handler）。这种分离可以将 I/O 事件的处理从阻塞 I/O 中解耦出来，从而提高系统的并发能力和吞吐量。</p>
+</li>
+<li>
+<p><strong>使用 I/O 多路复用技术</strong>：I/O 多路复用技术可以让一个线程或进程监听多个 I/O 事件，从而提高系统的资源利用率。</p>
+</li>
+<li>
+<p><strong>使用事件驱动模型</strong>：事件驱动模型可以让系统更加灵活和可扩展。</p>
+</li>
 </ul>
-<img src="./.Reactor 模式.IMG/MD202310080037415.png" alt="image-20231005151352480" style="zoom:40%;" />
+<img src="./.Reactor 模式.IMG/MD202310080037415.png" alt="image-20231005151352480" style="zoom:40%;"/>
 <p>图片来源：http://www.dre.vanderbilt.edu/~schmidt/PDF/reactor-siemens.pdf</p>
 <blockquote>
 <p>理解这张图，需要你了解 select 服务器的写法。</p>

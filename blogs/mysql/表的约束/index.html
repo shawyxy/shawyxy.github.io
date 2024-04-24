@@ -17,7 +17,8 @@
 提高数据的安全性 提高数据的可读性 提高查询数据的效率 因此约束不仅是对程序员的限制，也是对数据的保护和优化。通常在创建表时，会对列属性添加约束；在表已经存在的情况下，可以使用ALTER TABLE语句来修改或删除约束。
 DEFAULT（默认约束）DEFAULT 是用来指定某列的默认值的约束。例如当插入一条记录时没有为这个列赋值，那么 MySQL 会为这个列赋值为 DEFAULT 约束所指定的值。
 在创建表时添加 DEFAULT 约束：
-mysql&gt; create table default_test( -&gt; name varchar(20) default &#39;这是一个默认值&#39; -&gt; ); 查看表结构： 插入一条没有 name 属性的记录：
+mysql&gt; create table default_test( -&gt; name varchar(20) default &#39;这是一个默认值&#39; -&gt; ); 查看表结构：
+插入一条没有 name 属性的记录：
 在表已存在时添加DEFAULT约束：
 alter table default_test modify name varchar(20) default &#39;这是一个默认值&#39;; 或者：
 alter table default_test change name name varchar(20) default &#39;这是一个默认值&#39;; 删除DEFAULT约束：
@@ -36,7 +37,8 @@ alter table default_test change name name varchar(20); 因为 MySQL 在执行这
 提高数据的安全性 提高数据的可读性 提高查询数据的效率 因此约束不仅是对程序员的限制，也是对数据的保护和优化。通常在创建表时，会对列属性添加约束；在表已经存在的情况下，可以使用ALTER TABLE语句来修改或删除约束。
 DEFAULT（默认约束）DEFAULT 是用来指定某列的默认值的约束。例如当插入一条记录时没有为这个列赋值，那么 MySQL 会为这个列赋值为 DEFAULT 约束所指定的值。
 在创建表时添加 DEFAULT 约束：
-mysql&gt; create table default_test( -&gt; name varchar(20) default &#39;这是一个默认值&#39; -&gt; ); 查看表结构： 插入一条没有 name 属性的记录：
+mysql&gt; create table default_test( -&gt; name varchar(20) default &#39;这是一个默认值&#39; -&gt; ); 查看表结构：
+插入一条没有 name 属性的记录：
 在表已存在时添加DEFAULT约束：
 alter table default_test modify name varchar(20) default &#39;这是一个默认值&#39;; 或者：
 alter table default_test change name name varchar(20) default &#39;这是一个默认值&#39;; 删除DEFAULT约束：
@@ -54,7 +56,8 @@ alter table default_test change name name varchar(20); 因为 MySQL 在执行这
 提高数据的安全性 提高数据的可读性 提高查询数据的效率 因此约束不仅是对程序员的限制，也是对数据的保护和优化。通常在创建表时，会对列属性添加约束；在表已经存在的情况下，可以使用ALTER TABLE语句来修改或删除约束。
 DEFAULT（默认约束）DEFAULT 是用来指定某列的默认值的约束。例如当插入一条记录时没有为这个列赋值，那么 MySQL 会为这个列赋值为 DEFAULT 约束所指定的值。
 在创建表时添加 DEFAULT 约束：
-mysql&gt; create table default_test( -&gt; name varchar(20) default &#39;这是一个默认值&#39; -&gt; ); 查看表结构： 插入一条没有 name 属性的记录：
+mysql&gt; create table default_test( -&gt; name varchar(20) default &#39;这是一个默认值&#39; -&gt; ); 查看表结构：
+插入一条没有 name 属性的记录：
 在表已存在时添加DEFAULT约束：
 alter table default_test modify name varchar(20) default &#39;这是一个默认值&#39;; 或者：
 alter table default_test change name name varchar(20) default &#39;这是一个默认值&#39;; 删除DEFAULT约束：
@@ -66,7 +69,8 @@ alter table default_test change name name varchar(20); 因为 MySQL 在执行这
 提高数据的安全性 提高数据的可读性 提高查询数据的效率 因此约束不仅是对程序员的限制，也是对数据的保护和优化。通常在创建表时，会对列属性添加约束；在表已经存在的情况下，可以使用ALTER TABLE语句来修改或删除约束。
 DEFAULT（默认约束）DEFAULT 是用来指定某列的默认值的约束。例如当插入一条记录时没有为这个列赋值，那么 MySQL 会为这个列赋值为 DEFAULT 约束所指定的值。
 在创建表时添加 DEFAULT 约束：
-mysql&gt; create table default_test( -&gt; name varchar(20) default &#39;这是一个默认值&#39; -&gt; ); 查看表结构： 插入一条没有 name 属性的记录：
+mysql&gt; create table default_test( -&gt; name varchar(20) default &#39;这是一个默认值&#39; -&gt; ); 查看表结构：
+插入一条没有 name 属性的记录：
 在表已存在时添加DEFAULT约束：
 alter table default_test modify name varchar(20) default &#39;这是一个默认值&#39;; 或者：
 alter table default_test change name name varchar(20) default &#39;这是一个默认值&#39;; 删除DEFAULT约束：
@@ -693,8 +697,8 @@ alter table default_test change name name varchar(20); 因为 MySQL 在执行这
     </button>
   </div>
 </div>
-<p>查看表结构：
-<img src="./.表的约束.IMG/image-20231026175520595.png" alt="image-20231026175520595" style="zoom:40%;" /></p>
+<p>查看表结构：</p>
+<img src="./.表的约束.IMG/image-20231026175520595.png" alt="image-20231026175520595" style="zoom:40%;" />
 <p>插入一条没有 name 属性的记录：</p>
 <img src="./.表的约束.IMG/image-20231026174132021.png" alt="image-20231026174132021" style="zoom:40%;" />
 <p>在表已存在时添加DEFAULT约束：</p>

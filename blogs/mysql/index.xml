@@ -1860,8 +1860,8 @@
     &lt;/button&gt;
   &lt;/div&gt;
 &lt;/div&gt;
-&lt;p&gt;查看表结构：
-&lt;img src=&#34;./.表的约束.IMG/image-20231026175520595.png&#34; alt=&#34;image-20231026175520595&#34; style=&#34;zoom:40%;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;查看表结构：&lt;/p&gt;
+&lt;img src=&#34;./.表的约束.IMG/image-20231026175520595.png&#34; alt=&#34;image-20231026175520595&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;插入一条没有 name 属性的记录：&lt;/p&gt;
 &lt;img src=&#34;./.表的约束.IMG/image-20231026174132021.png&#34; alt=&#34;image-20231026174132021&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;在表已存在时添加DEFAULT约束：&lt;/p&gt;
@@ -3500,12 +3500,12 @@
 &lt;li&gt;返回匹配的记录，以及表 A 和表 B 各自的多余记录，这叫全连接（full join）。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/blockquote&gt;
-&lt;img src=&#34;./表的连接。IMG/bg2019011506.jpg&#34; alt=&#34;img&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;./.表的连接.IMG/bg2019011506.jpg&#34; alt=&#34;img&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;上图中，表 A 的记录是 123，表 B 的记录是 ABC，颜色表示匹配关系。返回结果中，如果另一张表没有匹配的记录，则用 null 填充。&lt;/p&gt;
 &lt;p&gt;这四种连接，又可以分成两大类：内连接（inner join）表示只包含匹配的记录，外连接（outer join）表示还包含不匹配的记录。所以，左连接、右连接、全连接都属于外连接。&lt;/p&gt;
 &lt;p&gt;此外，还存在一种特殊的连接，叫做&amp;quot;交叉连接&amp;quot;（cross join），指的是表 A 和表 B 不存在关联字段，这时表 A（共有 n 条记录）与表 B （共有 m 条记录）连接后，会产生一张包含 n x m 条记录的新表（见下图）。&lt;/p&gt;
-&lt;img src=&#34;./表的连接。IMG/bg2019011507.png&#34; alt=&#34;img&#34; style=&#34;zoom:40%;&#34; /&gt;
-&lt;h1&gt;测试表&lt;/h1&gt;&lt;img src=&#34;./表的连接。IMG/image-20240223173257335.png&#34; alt=&#34;image-20240223173257335&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;./.表的连接.IMG/bg2019011507.png&#34; alt=&#34;img&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;h1&gt;测试表&lt;/h1&gt;&lt;img src=&#34;./.表的连接.IMG/image-20240223173257335.png&#34; alt=&#34;image-20240223173257335&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;h1&gt;内连接&lt;/h1&gt;&lt;p&gt;内连接（Inner Join）：内连接返回两个数据表中满足连接条件的交集部分。只有当连接条件在两个表中&lt;strong&gt;都&lt;/strong&gt;存在匹配时，才会返回结果。&lt;/p&gt;
 &lt;div class=&#34;code-block relative mt-6 first:mt-0 group/code&#34;&gt;&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-SQL&#34; data-lang=&#34;SQL&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;SELECT&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;FROM&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;t1&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;INNER&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;JOIN&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;t2&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;ON&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;连接条件&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;INNER&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;JOIN&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;t3&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;ON&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;连接条件&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;AND&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;其他条件；&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0&#34;&gt;
     &lt;button
@@ -3521,7 +3521,7 @@
 &lt;ul&gt;
 &lt;li&gt;对上表做内连接。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;img src=&#34;./表的连接。IMG/image-20240223173643272.png&#34; alt=&#34;image-20240223173643272&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;./.表的连接.IMG/image-20240223173643272.png&#34; alt=&#34;image-20240223173643272&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;SQL 的构造顺序是：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;确定要连接的表：A INNER JOIN B&lt;/li&gt;
@@ -3545,7 +3545,7 @@
 &lt;ul&gt;
 &lt;li&gt;对上表做左外连接。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;img src=&#34;./表的连接。IMG/image-20240223174317091.png&#34; alt=&#34;image-20240223174317091&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;./.表的连接.IMG/image-20240223174317091.png&#34; alt=&#34;image-20240223174317091&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;这意味着即使香蕉没有价格，也会将它的所有信息显示，因为香蕉存在于左表中的记录。其中左表不存在的属性，将会以 NULL 值填充。&lt;/p&gt;
 &lt;h2&gt;右外连接&lt;span class=&#34;absolute -mt-20&#34; id=&#34;右外连接&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e5%8f%b3%e5%a4%96%e8%bf%9e%e6%8e%a5&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;div class=&#34;code-block relative mt-6 first:mt-0 group/code&#34;&gt;&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-SQL&#34; data-lang=&#34;SQL&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;SELECT&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;FROM&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;t1&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;RIGHT&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;JOIN&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;t2&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;ON&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;连接条件&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;RIGHT&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;JOIN&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;t3&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;ON&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;连接条件&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;AND&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;其他条件；&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0&#34;&gt;
@@ -3559,11 +3559,11 @@
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;在右表中插入一条 ID 不存在于左表的记录：&lt;/p&gt;
-&lt;img src=&#34;./表的连接。IMG/image-20240223174950933.png&#34; alt=&#34;image-20240223174950933&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;./.表的连接.IMG/image-20240223174950933.png&#34; alt=&#34;image-20240223174950933&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;ul&gt;
 &lt;li&gt;对上表进行右外连接。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;img src=&#34;./表的连接。IMG/image-20240223175255978.png&#34; alt=&#34;image-20240223175255978&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;./.表的连接.IMG/image-20240223175255978.png&#34; alt=&#34;image-20240223175255978&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;和左外连接类似地，右外连接会将右表存在而左表不存在的记录添加到返回值中，不存在的字段依然用 NULL 值填充。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;注意一个细节，在左外连接和右外连接查询 ID 时，指定的表是和连接方向对应的，这也说明了 SELECT 关键字在查找时是按照连接方向进行的。&lt;/p&gt;
@@ -3581,7 +3581,7 @@
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;全外连接相当于对两个集合做加法，得到的是所有情况。&lt;/p&gt;
-&lt;img src=&#34;./表的连接。IMG/image-20240223180041495.png&#34; alt=&#34;image-20240223180041495&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;./.表的连接.IMG/image-20240223180041495.png&#34; alt=&#34;image-20240223180041495&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;h1&gt;自然连接&lt;/h1&gt;&lt;p&gt;自然连接是一种特殊的连接，它省略了连接条件，直接使用两个表中相同列名进行连接。&lt;/p&gt;
 &lt;div class=&#34;code-block relative mt-6 first:mt-0 group/code&#34;&gt;&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-SQL&#34; data-lang=&#34;SQL&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;SELECT&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;FROM&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;t1&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;NATURAL&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;JOIN&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;t2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0&#34;&gt;
     &lt;button
@@ -3593,7 +3593,7 @@
     &lt;/button&gt;
   &lt;/div&gt;
 &lt;/div&gt;
-&lt;img src=&#34;./表的连接。IMG/image-20240223180340075.png&#34; alt=&#34;image-20240223180340075&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;./.表的连接.IMG/image-20240223180340075.png&#34; alt=&#34;image-20240223180340075&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;这条 SQL 语句将会自动根据两个表中相同列名进行连接，返回结果中将包含这些相同列名的数据，并且自动过滤掉重复的列。&lt;/p&gt;
 &lt;p&gt;注意：笛卡尔积是两个表所有可能的行对组合，不考虑任何连接条件。例如，如果表 A 有 M 行，表 B 有 N 行，它们的笛卡尔积将会有 M * N 行。&lt;/p&gt;
 &lt;p&gt;自然连接避免了笛卡尔积中的大量无关组合，只返回在连接列上值匹配的行，因此结果集通常比笛卡尔积小得多。如果两个表没有列名相同的列，自然连接的结果将是一个空集，而不是笛卡尔积。&lt;/p&gt;
@@ -3608,7 +3608,7 @@
     &lt;/button&gt;
   &lt;/div&gt;
 &lt;/div&gt;
-&lt;img src=&#34;./表的连接。IMG/image-20240223180535693.png&#34; alt=&#34;image-20240223180535693&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;./.表的连接.IMG/image-20240223180535693.png&#34; alt=&#34;image-20240223180535693&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;返回 table1 和 table2 的所有可能组合，即 table1 中每一行与 table2 中每一行的组合。&lt;/p&gt;
 &lt;h1&gt;参考资料&lt;/h1&gt;&lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.ruanyifeng.com/blog/2019/01/table-join.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;数据库表连接的简单解释&lt;/a&gt;&lt;/li&gt;

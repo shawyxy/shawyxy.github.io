@@ -19382,11 +19382,17 @@ Average of 5, 10, 15 = 10.000000&lt;/code&gt;&lt;/pre&gt;&lt;div class=&#34;opac
 &lt;h1&gt;1. 什么是 Reactor 模式&lt;/h1&gt;&lt;p&gt;既然你开始了解 Reactor（反应器） 模式，说明你知道在实现服务端时，多线程只能处理少量的客户端请求，一旦数量增多，维护线程的成本会急剧上升，导致服务端性能下降。而 Reactor 模型就是为解决这个问题而诞生的。&lt;/p&gt;
 &lt;p&gt;Reactor 模式是一种基于事件驱动的设计模式，它是 I/O 多路复用在设计模式层面上的体现。Reactor 设计模式的“设计”体现在：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;**将 I/O 事件的处理分为两个阶段：**事件分发阶段（Dispatcher）和事件处理阶段（Handler）。这种分离可以将 I/O 事件的处理从阻塞 I/O 中解耦出来，从而提高系统的并发能力和吞吐量。
--**使用 I/O 多路复用技术：**I/O 多路复用技术可以让一个线程或进程监听多个 I/O 事件，从而提高系统的资源利用率。&lt;/li&gt;
-&lt;li&gt;**使用事件驱动模型：**事件驱动模型可以让系统更加灵活和可扩展。&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;将 I/O 事件的处理分为两个阶段&lt;/strong&gt;：事件分发阶段（Dispatcher）和事件处理阶段（Handler）。这种分离可以将 I/O 事件的处理从阻塞 I/O 中解耦出来，从而提高系统的并发能力和吞吐量。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;使用 I/O 多路复用技术&lt;/strong&gt;：I/O 多路复用技术可以让一个线程或进程监听多个 I/O 事件，从而提高系统的资源利用率。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;使用事件驱动模型&lt;/strong&gt;：事件驱动模型可以让系统更加灵活和可扩展。&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
-&lt;img src=&#34;./.Reactor 模式.IMG/MD202310080037415.png&#34; alt=&#34;image-20231005151352480&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;./.Reactor 模式.IMG/MD202310080037415.png&#34; alt=&#34;image-20231005151352480&#34; style=&#34;zoom:40%;&#34;/&gt;
 &lt;p&gt;图片来源：http://www.dre.vanderbilt.edu/~schmidt/PDF/reactor-siemens.pdf&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;理解这张图，需要你了解 select 服务器的写法。&lt;/p&gt;
