@@ -672,7 +672,7 @@ set global validate_password_policy=0; set global validate_password_length=1; �
         <div class="mb-16"></div>
         <div class="content">
           <h1>查看用户信息</h1><p>在名为<code>mysql</code>的数据库中有一个表<code>user</code>维护着 MySQL 的用户信息。</p>
-<img src="./.用户管理.IMG/image-20240227164127584.png" alt="image-20240227164127584" style="zoom:40%;" />
+<img src="用户管理.IMG/image-20240227164127584.png" alt="image-20240227164127584" style="zoom:40%;" />
 <p>其中：</p>
 <ul>
 <li>user： 表示该用户的用户名。</li>
@@ -682,7 +682,7 @@ set global validate_password_policy=0; set global validate_password_length=1; �
 </ul>
 <p>其中 password 函数可以对参数进行摘要。</p>
 <p>尝试查看它们的值：</p>
-<img src="./.用户管理.IMG/image-20240227164314212.png" alt="image-20240227164314212" style="zoom:40%;" />
+<img src="用户管理.IMG/image-20240227164314212.png" alt="image-20240227164314212" style="zoom:40%;" />
 <p>由于 user 表中 Host 和 User 属性共同作为联合主键，所以只要用户名和主机 IP 的组合唯一即可，这是合理的，一台主机可能有多个用户。</p>
 <p>MySQL 的所有用户管理工作都通过 user 表来进行，实际上，后续所有的用户操作都会被 MySQL 解析为 SQL 来执行，并且允许用户直接通过 SQL 对 user 表修改。例如通过 INSERT 添加用户，UPDATE+password 函数来修改用户密码登操作，都是可行的。但是这只能作为特殊情况的补救措施，因为这么做有风险。</p>
 <h1>创建用户</h1><p>SQL：</p>
@@ -708,7 +708,7 @@ set global validate_password_policy=0; set global validate_password_length=1; �
   </div>
 </div>
 <p>通过<code>SHOW VARIABLES LIKE 'validate_password%';</code>查看密码策略，从而设计符合条件的密码。</p>
-<img src="./.用户管理.IMG/image-20240227170352013.png" alt="image-20240227170352013" style="zoom:40%;" />
+<img src="用户管理.IMG/image-20240227170352013.png" alt="image-20240227170352013" style="zoom:40%;" />
 <p>或者修改密码策略：</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">set</span><span class="w"> </span><span class="k">global</span><span class="w"> </span><span class="n">validate_password_policy</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">set</span><span class="w"> </span><span class="k">global</span><span class="w"> </span><span class="n">validate_password_length</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
@@ -732,7 +732,7 @@ set global validate_password_policy=0; set global validate_password_length=1; �
     </button>
   </div>
 </div>
-<img src="./.用户管理.IMG/image-20240227170511859.png" alt="image-20240227170511859" style="zoom:40%;" />
+<img src="用户管理.IMG/image-20240227170511859.png" alt="image-20240227170511859" style="zoom:40%;" />
 <p>现在可以以新用户的身份登录 MySQL：</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><pre><code>mysql -unew_user -p</code></pre><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
@@ -745,7 +745,7 @@ set global validate_password_policy=0; set global validate_password_length=1; �
   </div>
 </div>
 <p>登录后可以查看客户端信息：</p>
-<img src="./.用户管理.IMG/image-20240227170751017.png" alt="image-20240227170751017" style="zoom:40%;" />
+<img src="用户管理.IMG/image-20240227170751017.png" alt="image-20240227170751017" style="zoom:40%;" />
 <p>由于<code>%</code>表示允许来自任何主机的用户登录，所以在远端登录 MySQL 的方式也是一样的。需要注意的是，可能在连接时会不被允许，这可能是服务端主机没有开放 3306（MySQL 服务器）端口，为了测试可以在<code>/etc/mysql.cnf</code>修改 MySQL 的端口配置为测试端口如 8080。实际应用中，数据库不对外开放而只在内网中使用。</p>
 <h1>修改密码</h1><p>用户自己修改密码：</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">set</span><span class="w"> </span><span class="n">password</span><span class="o">=</span><span class="n">password</span><span class="p">(</span><span class="s1">&#39;新密码&#39;</span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
@@ -948,9 +948,9 @@ set global validate_password_policy=0; set global validate_password_length=1; �
   </div>
 </div>
 <p>这样新用户就能看到 curd_db 这个数据库了。</p>
-<img src="./.用户管理.IMG/image-20240227172042611.png" alt="image-20240227172042611" style="zoom:40%;" />
+<img src="用户管理.IMG/image-20240227172042611.png" alt="image-20240227172042611" style="zoom:40%;" />
 <p>查看用户的权限：</p>
-<img src="./.用户管理.IMG/image-20240227172310098.png" alt="image-20240227172310098" style="zoom:40%;" />
+<img src="用户管理.IMG/image-20240227172310098.png" alt="image-20240227172310098" style="zoom:40%;" />
 <p>其中：</p>
 <ul>
 <li>创建用户后该用户默认会有 USAGE 权限，该权限只能用于数据库登录，不能执行任何操作。</li>
@@ -978,7 +978,7 @@ set global validate_password_policy=0; set global validate_password_length=1; �
     </button>
   </div>
 </div>
-<img src="./.用户管理.IMG/image-20240227172947228.png" alt="image-20240227172947228" style="zoom:40%;" />
+<img src="用户管理.IMG/image-20240227172947228.png" alt="image-20240227172947228" style="zoom:40%;" />
 <p>注意：</p>
 <ul>
 <li>回收用户在某一数据库下的权限后，在该用户下一次进入该数据库时才会起作用。</li>

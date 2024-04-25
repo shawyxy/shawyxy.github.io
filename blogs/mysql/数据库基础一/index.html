@@ -858,9 +858,9 @@ mysqladmin: unable to change password; error: &#39;Your password does not satisf
   </div>
 </div>
 <p>在这个目录下会增加一个同名目录：</p>
-<img src="./.数据库基础（一）.IMG/image-20231021184729051.png" alt="image-20231021184729051" style="zoom:40%;" />
+<img src="数据库基础（一）.IMG/image-20231021184729051.png" alt="image-20231021184729051" style="zoom:40%;" />
 <p>这个目录下有一个<code>db.log</code>文件，它记录这个数据库的默认字符集和字符校验规则：</p>
-<img src="./.数据库基础（一）.IMG/image-20231021184915551.png" alt="image-20231021184915551" style="zoom:40%;" />
+<img src="数据库基础（一）.IMG/image-20231021184915551.png" alt="image-20231021184915551" style="zoom:40%;" />
 <p>如果在这个数据库中创建一个表：</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">use</span><span class="w"> </span><span class="n">test_db</span><span class="p">;</span><span class="w"> </span><span class="c1"># 进入数据库
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">
@@ -877,7 +877,7 @@ mysqladmin: unable to change password; error: &#39;Your password does not satisf
   </div>
 </div>
 <p>在上面这个目录下会增加两个同名的文件：
-<img src="./.数据库基础（一）.IMG/image-20231021185500839.png" alt="image-20231021185500839" style="zoom:40%;" /></p>
+<img src="数据库基础（一）.IMG/image-20231021185500839.png" alt="image-20231021185500839" style="zoom:40%;" /></p>
 <p>.frm 和 .ibd 是两种不同类型的文件：</p>
 <ul>
 <li>.frm 文件：这是表定义文件，用于描述表结构。每当在 MySQL 中创建一个新的数据表时，都会在相应的数据库目录下生成一个与表名相同的 .frm 文件。这个文件包含了数据表的元数据信息，如字段名称、数据类型等。</li>
@@ -944,7 +944,7 @@ mysqladmin: unable to change password; error: &#39;Your password does not satisf
 <li>sys：这个库所有的数据源来自 performance_schema。它的目标是降低 performance_schema 的复杂度，让 DBA 能更好地阅读这个库里的内容，从而让 DBA 更快地了解 DB 的运行情况。</li>
 </ol>
 <h1>查看连接情况</h1><p>show processlist 命令可以显示当前连接到 MySQL 服务器的线程的信息，可以使用这个命令来监控服务器的性能，排查问题，或者终止某些线程。</p>
-<img src="./.数据库基础（一）.IMG/image-20231022004024786.png" alt="image-20231022004024786" style="zoom:40%;" />
+<img src="数据库基础（一）.IMG/image-20231022004024786.png" alt="image-20231022004024786" style="zoom:40%;" />
 <p>其中：</p>
 <ul>
 <li>Id：一个标识，可以在 MySQL 中通过 kill id 杀死指定 id 的线程。</li>

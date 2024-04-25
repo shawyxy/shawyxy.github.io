@@ -1062,12 +1062,12 @@
     </button>
   </div>
 </div>
-<img src="./.yumgitgdb.IMG/MD202209151400320.png" alt="image-20220915140058214" style="zoom:40%;" />
+<img src="yumgitgdb.IMG/MD202209151400320.png" alt="image-20220915140058214" style="zoom:40%;" />
 <p>最下侧显示 NORMAL，说明现在处于命令模式，键入<code>i</code>：</p>
-<img src="./.yumgitgdb.IMG/MD202209151401679.png" alt="image-20220915140127603" style="zoom:40%;" />
+<img src="yumgitgdb.IMG/MD202209151401679.png" alt="image-20220915140127603" style="zoom:40%;" />
 <p>最下侧的标识变成 INSERT，说明现在正处于插入模式。</p>
 <p>修改文本内容，按下<code>esc</code>，并键入：<code>wq</code></p>
-<img src="./.yumgitgdb.IMG/MD202209151409887.png" alt="image-20220915140950810" style="zoom:40%;" />
+<img src="yumgitgdb.IMG/MD202209151409887.png" alt="image-20220915140950810" style="zoom:40%;" />
 <p>按下回车自动退出 vim，回到当前工作目录。</p>
 <h1>3. Vim 正常模式命令集</h1><h2>插入模式<span class="absolute -mt-20" id="插入模式"></span>
     <a href="#%e6%8f%92%e5%85%a5%e6%a8%a1%e5%bc%8f" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><ul>
@@ -1235,7 +1235,7 @@
 </div>
 <p>保存并退出。键入以下指令：</p>
 <p><code>gcc test1.c -o _test1</code></p>
-<img src="./.yumgitgdb.IMG/MDMDMDimage-20220914202734283.png" alt="MDMDimage-20220914202734283" style="zoom:40%;" />
+<img src="yumgitgdb.IMG/MDMDMDimage-20220914202734283.png" alt="MDMDimage-20220914202734283" style="zoom:40%;" />
 <p>可以看到当前工作目录下多了一个_test1 文件，那么我们可以知道，上面指令中的<code>-o</code>选项后面跟的内容就是指定生成的可执行程序的文件名，否则 Linux 下编译后生成的可执行程序名字默认是 a.out。</p>
 <p>这里其实已经执行完整个编译链接过程了（因为已经生成了可执行程序），如果想要看到只进行预处理后的代码，只需在指令中加入<code>-E</code>选项。</p>
 <blockquote>
@@ -1403,7 +1403,7 @@
 <p>gcc 编译器默认是 Release 模式。</p>
 </blockquote>
 <p>【补充】首先要对 gdb 进行配置，有的机器默认情况下 gdb 是缺少配置的，会出现这样的问题（即使加了-g 选项）：</p>
-<img src="./.yumgitgdb.IMG/MDimage-20220915102137119.png" alt="image-20220915102137119" style="zoom:40%;" />
+<img src="yumgitgdb.IMG/MDimage-20220915102137119.png" alt="image-20220915102137119" style="zoom:40%;" />
 <p>【原因】缺少配置</p>
 <p>【解决办法】</p>
 <ol>
@@ -1452,7 +1452,7 @@
     </button>
   </div>
 </div>
-<img src="./.yumgitgdb.IMG/MDimage-20220915102952228.png" alt="image-20220915102952228" style="zoom:40%;" />
+<img src="yumgitgdb.IMG/MDimage-20220915102952228.png" alt="image-20220915102952228" style="zoom:40%;" />
 <p>由于没有以调试模式编译 test1.c，那么得到的二进制文件中就不会有调试信息，gdb 也就无法对其调试，这也是 Debug 版本的程序体积更大的原因。</p>
 <p>蓝色部分依然打印出了程序的结果，原因是命令 r 是运行程序，且程序没有断点（也不会有）。</p>
 <p>键入<code>q</code>退出 gdb。</p>
@@ -1474,12 +1474,12 @@
     </button>
   </div>
 </div>
-<img src="./.yumgitgdb.IMG/MDimage-20220915103120578.png" alt="image-20220915103120578" style="zoom:40%;" />
+<img src="yumgitgdb.IMG/MDimage-20220915103120578.png" alt="image-20220915103120578" style="zoom:40%;" />
 <p>最下面的提示表明调试信息已经加载成功。</p>
 <ul>
 <li><code>r</code>运行程序，<code>l</code>显示源码：</li>
 </ul>
-<p><img src="./.yumgitgdb.IMG/MDMDimage-20220915104119320.png" alt="" style="zoom:40%;" /></p>
+<p><img src="yumgitgdb.IMG/MDMDimage-20220915104119320.png" alt="" style="zoom:40%;" /></p>
 <p><code>l</code>可以指定行号范围打印，也可以<code>l -</code>、<code>l +</code>向下或向上打印。</p>
 <p><code>r</code>是运行完整个程序。</p>
 <ul>
@@ -1487,7 +1487,7 @@
 <li><code>b + 行号</code>，给指定行打断点；</li>
 <li><code>i breakpoints、i b</code>，查看断点信息。</li>
 </ul>
-<p><img src="./.yumgitgdb.IMG/MDimage-20220915105505396.png" alt="image-20220915105505396" style="zoom:40%;" /></p>
+<p><img src="yumgitgdb.IMG/MDimage-20220915105505396.png" alt="image-20220915105505396" style="zoom:40%;" /></p>
 <ul>
 <li><code>r</code>运行至最近的断点处，无断点则运行整个程序；</li>
 <li><code>n</code>单句执行，<code>s</code>遇到函数则进入函数；</li>
@@ -1495,11 +1495,11 @@
 <li><code>display + 变量</code>每次执行语句都打印变量的值；<code>undisplay</code>取消；</li>
 <li><code>c</code>从当前位置从单步-&gt;连续执行，直到断点或执行完毕；</li>
 </ul>
-<p><img src="./.yumgitgdb.IMG/MDimage-20220915111626434.png" alt="" style="zoom:40%;" /></p>
+<p><img src="yumgitgdb.IMG/MDimage-20220915111626434.png" alt="" style="zoom:40%;" /></p>
 <ul>
 <li>
 <p><code>s</code>进入函数，<code>finish</code>结束函数，得到返回值：
-<img src="./.yumgitgdb.IMG/MDimage-20220915111233041.png" alt="image-20220915111233041" style="zoom:40%;" /></p>
+<img src="yumgitgdb.IMG/MDimage-20220915111233041.png" alt="image-20220915111233041" style="zoom:40%;" /></p>
 </li>
 <li>
 <p><code>disable breakpoints</code>禁用断点；</p>
@@ -1508,11 +1508,11 @@
 <p><code>enable breakpoints</code>启用断点。</p>
 </li>
 </ul>
-<img src="./.yumgitgdb.IMG/MD202209151409892.png" alt="image-20220915140914826" style="zoom:40%;" />
+<img src="yumgitgdb.IMG/MD202209151409892.png" alt="image-20220915140914826" style="zoom:40%;" />
 <ul>
 <li><code>delete + 断点序号</code>删除断点；<code>delete breakpoints</code>删除所有断点；</li>
 </ul>
-<img src="./.yumgitgdb.IMG/MD202209151413534.png" alt="image-20220915141352460" style="zoom:40%;" />
+<img src="yumgitgdb.IMG/MD202209151413534.png" alt="image-20220915141352460" style="zoom:40%;" />
 <p>gdb 是一个非常强大的调试器，不仅限于 C/C++，熟练使用指令后，效率甚至比 IDE 还高，动手练才是王道。</p>
 <h1>7. make 和 Makefile</h1><p>首先要说明，make 是工具（软件），Makefile 是一个统称的文件，它的内容可以由用户按照格式自己编写，它的名字也可以是 makefile、GNUMakefile，习惯上约定俗成地使用 Makefile。</p>
 <p>下面分别介绍 Makefile 和 make。</p>
@@ -1556,16 +1556,16 @@
 </blockquote>
 <h2>7.3 构建项目<span class="absolute -mt-20" id="73-构建项目"></span>
     <a href="#73-%e6%9e%84%e5%bb%ba%e9%a1%b9%e7%9b%ae" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>下面用一个简单的例子演示 make 使用 Makefile：</p>
-<img src="./.yumgitgdb.IMG/MD202209152013122.png" alt="image-20220915201339986" style="zoom:40%;" />
+<img src="yumgitgdb.IMG/MD202209152013122.png" alt="image-20220915201339986" style="zoom:40%;" />
 <p>其中 Makefile 的内容是：</p>
-<img src="./.yumgitgdb.IMG/MD202209152014066.png" alt="image-20220915201448022" style="zoom:40%;" />
+<img src="yumgitgdb.IMG/MD202209152014066.png" alt="image-20220915201448022" style="zoom:40%;" />
 <p>这就是它们最基本的用法，有没有很简单。下面补充更多基础用法。</p>
 <h2>7.4 清理项目<span class="absolute -mt-20" id="74-清理项目"></span>
     <a href="#74-%e6%b8%85%e7%90%86%e9%a1%b9%e7%9b%ae" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>实际上，清理项目并不是真正意义上的“清理”，因为 make 和 Makefile 本身就是为了构建项目（看它们的英文名字），清理项目实际上就是让 make 执行了清理的指令。</p>
 <p>直接给出清理项目需要的 Makefile 代码：</p>
-<img src="./.yumgitgdb.IMG/MD202209152039684.png" alt="image-20220915203908536" style="zoom:40%;" />
+<img src="yumgitgdb.IMG/MD202209152039684.png" alt="image-20220915203908536" style="zoom:40%;" />
 <p>举个例子：</p>
-<img src="./.yumgitgdb.IMG/MD202209152041210.png" alt="image-20220915204146136" style="zoom:40%;" />
+<img src="yumgitgdb.IMG/MD202209152041210.png" alt="image-20220915204146136" style="zoom:40%;" />
 <p>在下面将说明这里的蹊跷之处。</p>
 <h2>7.5 make 项目构建原理<span class="absolute -mt-20" id="75-make-项目构建原理"></span>
     <a href="#75-make-%e9%a1%b9%e7%9b%ae%e6%9e%84%e5%bb%ba%e5%8e%9f%e7%90%86" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>对于 Makefile：</p>
@@ -1610,7 +1610,7 @@
     </button>
   </div>
 </div>
-<img src="./.yumgitgdb.IMG/MD202209152105287.png" alt="image-20220915210522127" style="zoom:40%;" />
+<img src="yumgitgdb.IMG/MD202209152105287.png" alt="image-20220915210522127" style="zoom:40%;" />
 <p>因为默认是从上到下查找文件（注意刚刚已经更改了两个语句块的顺序），所以 make 执行的是 rm 指令。上文提到，Makefile 是由依赖关系和依赖方法组成，它们通过目标文件绑定在一起，这样我才能用<code>make+目标文件名</code>的形式使用特定的指令。</p>
 <p>这也是上文中项目清理不是纯粹的“清理”的原因，因为我指定了目标文件名<code>clean</code>，但这里有个问题，为什么<code>clean</code>是一个动作，这里却把它叫做目标文件呢？</p>
 <h2>7.6 伪目标<span class="absolute -mt-20" id="76-伪目标"></span>
@@ -1621,7 +1621,7 @@
 <p>这句话对理解伪目标和它的作用非常重要，但是许多地方都把这句话说成“总是被执行的”，让人费解。我猜可能是直译过来的，突然好想吐槽= =，算了不说了，懂得都懂。</p>
 </blockquote>
 <p>下面解释这个“总是被执行的”到底是什么意思（这里 Makefile 已经恢复原样）：</p>
-<img src="./.yumgitgdb.IMG/MD202209152323208.png" alt="image-20220915232321103" style="zoom:40%;" />
+<img src="yumgitgdb.IMG/MD202209152323208.png" alt="image-20220915232321103" style="zoom:40%;" />
 <p>我在这里多次 make，它提示目标文件已存在是最新的了，但是我多次 clean，即使当前目录没有目标文件，它依然执行<code>rm</code>命令，这就是“总是被执行的”。</p>
 <p>Makefile 文件写到这种程度对初学者而言已经足够，在后续的学习和工作中会有更多不同的需求。</p>
 

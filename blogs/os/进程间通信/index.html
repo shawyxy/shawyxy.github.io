@@ -1285,12 +1285,12 @@ System V 信号量">
     <a href="#21-%e5%8c%bf%e5%90%8d%e7%ae%a1%e9%81%93%e7%9a%84%e6%a6%82%e5%bf%b5" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>生活中的管道有入口和出口，而且多是单向的。在计算机中，管道被用来传输数据，早先的计算机科学大佬设计了一种单向通信方式，叫做管道。</p>
 <p>实际上，我们使用的<code>|</code>命令也是一种管道。它是匿名管道最常见的形态，我们在 shell 操作中最常用的就是<code>|</code>。当在两个命令之间设置管道时，管道符号<code>|</code>左边命令的输出就变成了右边命令的输入。只要第一个命令向标准输出写入，而第二个命令是从标准输入读取，那么这两个命令就可以形成一个管道。</p>
 <p>例如，我们可以使用 <code>ls -al /home | wc -l</code> 命令来统计 /home 目录下有多少个文件。这里 <code>ls -al /home</code> 命令的输出结果被当做数据传递给了 <code>wc -l</code> 命令作为输入 。</p>
-<img src="./.进程间通信.IMG/image-20230318000915770.png" alt="image-20230318000915770" style="zoom:40%;" />
-<img src="./.进程间通信.IMG/image-20230318114147662.png" alt="image-20230318114147662" style="zoom:40%;" />
+<img src="进程间通信.IMG/image-20230318000915770.png" alt="image-20230318000915770" style="zoom:40%;" />
+<img src="进程间通信.IMG/image-20230318114147662.png" alt="image-20230318114147662" style="zoom:40%;" />
 <p>可以用 sleep 命令让<code>|</code>运行时间长一点，足以让我们用脚本观察现象：</p>
-<img src="./.进程间通信.IMG/image-20230320200342774.png" alt="image-20230320200342774" style="zoom:40%;" />
+<img src="进程间通信.IMG/image-20230320200342774.png" alt="image-20230320200342774" style="zoom:40%;" />
 <p>可见，这两个进程的 ppid 是同一个，而它们的父进程就是 bash。</p>
-<img src="./.进程间通信.IMG/image-20230320200531068.png" alt="image-20230320200531068" style="zoom:40%;" />
+<img src="进程间通信.IMG/image-20230320200531068.png" alt="image-20230320200531068" style="zoom:40%;" />
 <h2>2.2 匿名管道的原理<span class="absolute -mt-20" id="22-匿名管道的原理"></span>
     <a href="#22-%e5%8c%bf%e5%90%8d%e7%ae%a1%e9%81%93%e7%9a%84%e5%8e%9f%e7%90%86" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>结合进程间通信的本质和匿名管道的特点，总的来说匿名管道就是让父子进程看到同一份资源，然后一个进程对它写入，另一个进程对它读取，这样就完成了进程间通信。</p>
 <p>在这里需要介绍当时的技术背景，以便更好地理解管道和之后的共享内存。它的发明人是道格拉斯·麦克罗伊，这位也是 UNIX 上早期 shell 的发明人。他在发明了 shell 之后，发现系统操作执行命令的时候，经常有需求要将一个程序的输出交给另一个程序作为输入。那时候的 OS 内核并没有对外单独提供进程间通信的接口，只有早期的文件操作接口，而文件操作接口也是符合需求的：它有写入数据和读取数据的接口。</p>
@@ -1327,7 +1327,7 @@ System V 信号量">
 <ul>
 <li>进程之间要具有独立性。即拷贝文件描述符表可以让子进程独立地修改它自己的文件描述符表，而不会影响到父进程。如果子进程直接指向父进程的文件描述符表，那么任何对文件描述符表的修改都会影响到父进程。</li>
 </ul>
-<img src="./.进程间通信.IMG/image-20230318132605908.png" alt="image-20230318132605908" style="zoom:40%;" />
+<img src="进程间通信.IMG/image-20230318132605908.png" alt="image-20230318132605908" style="zoom:40%;" />
 <h3>注意<span class="absolute -mt-20" id="注意"></span>
     <a href="#%e6%b3%a8%e6%84%8f" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
 <li>
@@ -1379,7 +1379,7 @@ System V 信号量">
 <h3>步骤<span class="absolute -mt-20" id="步骤"></span>
     <a href="#%e6%ad%a5%e9%aa%a4" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><h4>1. 创建管道<span class="absolute -mt-20" id="1-创建管道"></span>
     <a href="#1-%e5%88%9b%e5%bb%ba%e7%ae%a1%e9%81%93" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>父进程调用 pipe() 创建匿名管道：</p>
-<img src="./.进程间通信.IMG/image-20230318150816927.png" alt="image-20230318150816927" style="zoom:40%;" />
+<img src="进程间通信.IMG/image-20230318150816927.png" alt="image-20230318150816927" style="zoom:40%;" />
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;assert.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
@@ -1429,7 +1429,7 @@ System V 信号量">
 </blockquote>
 <h4>2. 创建子进程<span class="absolute -mt-20" id="2-创建子进程"></span>
     <a href="#2-%e5%88%9b%e5%bb%ba%e5%ad%90%e8%bf%9b%e7%a8%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>fork() 的子进程默认继承父进程打开的管道。通过子进程继承父进程资源的特性，双方进程看到了同一份资源。</p>
-<img src="./.进程间通信.IMG/image-20230318150929392.png" alt="image-20230318150929392" style="zoom:40%;" />
+<img src="进程间通信.IMG/image-20230318150929392.png" alt="image-20230318150929392" style="zoom:40%;" />
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// 2. 创建子进程
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">pid_t</span> <span class="n">id</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl"><span class="n">assert</span><span class="p">(</span><span class="n">id</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
@@ -1455,7 +1455,7 @@ System V 信号量">
 <p>谁写谁读不是绝对的，取决于通信的方向。</p>
 </blockquote>
 <p>原则上父进程需要关闭读端，子进程要关闭写端，但实际上不关也不会影响读写的成功性，这么做是为了保证通信的安全和减少资源占用（一切皆文件）。</p>
-<img src="./.进程间通信.IMG/image-20230318151023759.png" alt="image-20230318151023759" style="zoom:40%;" />
+<img src="进程间通信.IMG/image-20230318151023759.png" alt="image-20230318151023759" style="zoom:40%;" />
 <p>注意：写入管道写端的数据会被内核缓存，直到被读取。在这里，我们可以调用系统接口读取和写入数据。由于像 read 和 write 等接口需要使用一个缓冲区作为参数，所以父子进程==分别使用==一个数组作为缓冲区。例如，read 函数和 write 函数的原型为：</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">ssize_t</span> <span class="nf">read</span><span class="p">(</span><span class="kt">int</span> <span class="n">fd</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">buf</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">count</span><span class="p">);</span>
@@ -1736,8 +1736,8 @@ System V 信号量">
 <h3>测试 1<span class="absolute -mt-20" id="测试-1"></span>
     <a href="#%e6%b5%8b%e8%af%95-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>在测试时，保留了<code>-DDEBUG</code>选项。</p>
 <p>将父进程的缓冲区<code>send_buffer</code>的大小增大为原来的 4 倍，而且不用计数器<code>count</code>控制写入数据量也不用 sleep 控制写入的速度，控制子进程在读取数据之前先 sleep(10)，查看现象。</p>
-<img src="./.进程间通信.IMG/image-20230318174545855.png" alt="image-20230318174545855" style="zoom:40%;" />
-<img src="./.进程间通信.IMG/image-20230318174409922.png" alt="image-20230318174409922" style="zoom:40%;" />
+<img src="进程间通信.IMG/image-20230318174545855.png" alt="image-20230318174545855" style="zoom:40%;" />
+<img src="进程间通信.IMG/image-20230318174409922.png" alt="image-20230318174409922" style="zoom:40%;" />
 <p>最开始打印 count，说明了父进程已经成功将数据写入到自己的缓冲区<code>send_buffer</code>中，而且是瞬间写满的。但是，在子进程读取数据之前，一直闪烁的光标说明父进程一直在等待，也就是阻塞状态。</p>
 <p>让父进程瞬间写满缓冲区，让子进程等待 5 秒之后再读取，形成了写快读慢的局面，通过结果可以知道，写快读慢会让写的进程处于阻塞状态。那么也可以反推出写慢读快会让读的进程阻塞。其中，写快读慢的方式可以适用于流式服务。</p>
 <p>除了读写两端的速度不同会造成读写进程阻塞之外，读写两端任意一端关闭之后会有不一样的结果。</p>
@@ -1753,7 +1753,7 @@ System V 信号量">
     <a href="#%e6%b5%8b%e8%af%95-2" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>在测试时，注释掉了<code>-DDEBUG</code>选项。</p>
 <p>限制父进程：每次写入数据以后都 sleep(1)，并且用计数器<code>count</code>限制写入的次数为 10 次，缓冲区的大小只要够用，就不会影响此次测试结果。</p>
 <p>限制子进程：不 sleep，直接读取。</p>
-<img src="./.进程间通信.IMG/image-20230318223222728.png" alt="image-20230318223222728" style="zoom:40%;" />
+<img src="进程间通信.IMG/image-20230318223222728.png" alt="image-20230318223222728" style="zoom:40%;" />
 <p>可以看到，限制写端的速度，读端无限制。读端进程能够完整地获取写端输出的数据，完成父子进程间协同通信。</p>
 <p>限制写入速度的目的是控制写入数据的速率，使得子进程能够以更稳定的速度读取数据。如果不限制写入速度，父进程可能会快速地向管道中写入大量数据，导致子进程无法及时处理这些数据。</p>
 <blockquote>
@@ -1773,7 +1773,7 @@ System V 信号量">
 <li>半双工通信 (Half Duplex)：允许数据在两个方向上传输，但某一时刻只允许数据在一个方向上传输，实际上是一种切换方向的单工通信，不需要独立的接收端和发送端，两者可合并为一个端口。例如，对讲机就是一种半双工通信。</li>
 <li>全双工通信 (Full Duplex)：通信允许数据在两个方向上同时传输，它在能力上相当于两个单工通信方式的结合。例如，电话通话就是一种双工通信。</li>
 </ul>
-<img src="./.进程间通信.IMG/image-20230318231552399.png" alt="image-20230318231552399" style="zoom:40%;" />
+<img src="进程间通信.IMG/image-20230318231552399.png" alt="image-20230318231552399" style="zoom:40%;" />
 <p>这三种传输方式的区别在于数据传输的方向和时间。单工只能进行单向传输，而双工和半双工都能进行双向传输。不同之处在于，双工可以同时进行双向传输，而半双工只能交替进行。</p>
 <h4>提供流式服务<span class="absolute -mt-20" id="提供流式服务"></span>
     <a href="#%e6%8f%90%e4%be%9b%e6%b5%81%e5%bc%8f%e6%9c%8d%e5%8a%a1" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>匿名管道提供的是一种流式服务，是一种面向字节的、无结构的、流式的通信方式。</p>
@@ -1845,12 +1845,12 @@ System V 信号量">
     <a href="#%e7%ae%a1%e9%81%93%e7%9a%84%e5%a4%a7%e5%b0%8f" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ol>
 <li>使用<code>ulimit -a</code>命令查看当前系统资源限制：</li>
 </ol>
-<img src="./.进程间通信.IMG/image-20230319003205932.png" alt="image-20230319003205932" style="zoom:40%;" />
+<img src="进程间通信.IMG/image-20230319003205932.png" alt="image-20230319003205932" style="zoom:40%;" />
 <p>由此得出，管道的最大容量是 4kb。</p>
 <p>除此之外，还可以使用程序测试，例如使用读端不读取数据，写端不关闭（管道满）这一情况，每次只写一个字节的内容，写满以后计数器的值就是管道的最大容量。</p>
 <h2>2.5 进程池 [实践]<span class="absolute -mt-20" id="25-进程池-实践"></span>
     <a href="#25-%e8%bf%9b%e7%a8%8b%e6%b1%a0-%e5%ae%9e%e8%b7%b5" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>进程池是一个概念，有一个池子，里面有一定数量正在等待指派任务的进程。当有需求来了，就拿一个池中的进程来处理任务。等到处理完毕，进程并不关闭，而是将进程再放回进程池中继续等待任务。这样可以避免频繁地创建和销毁进程，提高程序的效率。</p>
-<img src="./.进程间通信.IMG/image-20230319171038414.png" alt="image-20230319171038414" style="zoom:40%;" />
+<img src="进程间通信.IMG/image-20230319171038414.png" alt="image-20230319171038414" style="zoom:40%;" />
 <p>进程池中的进程通常是由一个父进程创建的，这样做有一些优点。首先，子进程是父进程复制 （fork） 而来，所以两者有很大的相似性。这意味着子进程可以继承父进程的所有资源。</p>
 <p>此外，使用同一个父进程创建的子进程可以更容易地进行管理和协调。例如，在网络请求的处理中，主进程可以使用特定算法将客户连接套接字通过管道发送给进程池中的某个子进程进行监听和处理。</p>
 <p>如果使用没有关系的独立进程作为进程池中的成员，则可能会增加管理和协调难度。</p>
@@ -2304,7 +2304,7 @@ System V 信号量">
   </div>
 </div>
 <h4>测试<span class="absolute -mt-20" id="测试"></span>
-    <a href="#%e6%b5%8b%e8%af%95" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><img src="./.进程间通信.IMG/image-20230320000850195.png" alt="image-20230320000850195" style="zoom:40%;" />
+    <a href="#%e6%b5%8b%e8%af%95" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><img src="进程间通信.IMG/image-20230320000850195.png" alt="image-20230320000850195" style="zoom:40%;" />
 <p>可见，父进程随机指派的要求还是达到了的。</p>
 <p>值得注意的是，子进程读取管道中的内容后，对其进行长度上的检查（4 字节），这是一种简单的通信协议。</p>
 <h1>3. 命名管道</h1><h2>3.1 命名管道的概念<span class="absolute -mt-20" id="31-命名管道的概念"></span>
@@ -2337,7 +2337,7 @@ System V 信号量">
   </div>
 </div>
 <p>不加路径时默认在当前目录下创建管道文件：</p>
-<img src="./.进程间通信.IMG/image-20230320132244336.png" alt="image-20230320132244336" style="zoom:40%;" />
+<img src="进程间通信.IMG/image-20230320132244336.png" alt="image-20230320132244336" style="zoom:40%;" />
 <p>文件属性<code>prw-rw-r-- 1</code>中的<code>p</code>代表这个文件是管道文件。</p>
 <blockquote>
 <p><code>-</code>是普通文件，<code>d</code>是目录文件。</p>
@@ -2353,16 +2353,16 @@ System V 信号量">
     </button>
   </div>
 </div>
-<img src="./.进程间通信.IMG/image-20230320132611629.png" alt="image-20230320132611629" style="zoom:40%;" />
+<img src="进程间通信.IMG/image-20230320132611629.png" alt="image-20230320132611629" style="zoom:40%;" />
 <p>但是光标一直在等待，此时进程处于阻塞状态。原因是这个文件没有被打开，在上面阻塞的同时再开一个 shell，将管道文件中的内容通过<code>cat</code>重定向到屏幕上：</p>
-<img src="./.进程间通信.IMG/image-20230320133606999.png" alt="image-20230320133606999" style="zoom:40%;" />
+<img src="进程间通信.IMG/image-20230320133606999.png" alt="image-20230320133606999" style="zoom:40%;" />
 <p><code>cat</code>进程读取数据后，<code>echo</code>便不再阻塞。</p>
 <p>这就是一个进程从文件读取另一个进程写入的数据的过程，是通过命名管道文件实现的。</p>
 <p>也可以用一个脚本每隔一秒往管道文件中写入数据，另一个进程（例如<code>cat</code>）读取数据输出到屏幕上：</p>
-<img src="./.进程间通信.IMG/FIFOtest.gif" alt="FIFOtest" style="zoom:40%;" />
+<img src="进程间通信.IMG/FIFOtest.gif" alt="FIFOtest" style="zoom:40%;" />
 <p>注意，这两个进程是独立的，而我们通过 mkfifo 创建的命名管道文件实现了任意进程间的通信。</p>
 <p>结合匿名管道中的协同通信机制，我们知道当读端的进程终止，也就是不再有进程从管道中读取数据后，操作系统会杀掉写端进程，因为此时再向管道中写入数据是没有意义的。</p>
-<img src="./.进程间通信.IMG/image-20230320144728055.png" alt="image-20230320144728055" style="zoom:40%;" />
+<img src="进程间通信.IMG/image-20230320144728055.png" alt="image-20230320144728055" style="zoom:40%;" />
 <p>而当读端进程被终止后，本地和服务器的连接也会中断。原因是我们是通过 shell 程序连接到服务器的，而我们写的脚本就是 shell 进程帮我们执行的，所以在这里 shell 进程就是写端进程。</p>
 <blockquote>
 <p>shell 是一个命令行解释器。它在操作系统的最外层，负责直接与用户进行对话，把用户的输入解释给操作系统，并处理各种各样的操作系统的输出结果，输出到屏幕反馈给用户。</p>
@@ -2425,7 +2425,7 @@ System V 信号量">
     </button>
   </div>
 </div>
-<img src="./.进程间通信.IMG/image-20230320153637586.png" alt="image-20230320153637586" style="zoom:40%;" />
+<img src="进程间通信.IMG/image-20230320153637586.png" alt="image-20230320153637586" style="zoom:40%;" />
 <p>这和我们预想的有所差别，原因是 umask 的默认值 为 0002 ，所以创建的文件的权限其实是 0664。</p>
 <p>若想让文件不受到默认 umask 的影响，可在创建文件之前将 umask 设置为 0。</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">umask</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
@@ -2618,7 +2618,7 @@ System V 信号量">
 </div>
 <h3>测试<span class="absolute -mt-20" id="测试-3"></span>
     <a href="#%e6%b5%8b%e8%af%95-3" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>在运行客户端之前，要先运行服务端。因为如果写端（客户端）先运行并向管道中写入数据，而此时没有进程读取这些数据，那么写端将会被阻塞。所以为了避免这种情况，通常让读端先运行。</p>
-<img src="./.进程间通信.IMG/1.gif" alt="屏幕录制2023-03-20 19.16.06" style="zoom:40%;" />
+<img src="进程间通信.IMG/1.gif" alt="屏幕录制2023-03-20 19.16.06" style="zoom:40%;" />
 <p>如图，服务端在被运行起来后，在客户端输入的信息就会通过命名管道文件传输到服务端一方，从而实现不同进程间通信。在这里，两个进程并没有任何亲缘关系，因为它们的源文件都有各自的 main 函数。</p>
 <p>在测试的最后，注意到如果<code>Ctrl+C</code>终止写端进程，那么此时读端无法再从管道文件中读取数据，继续读也就没有意义了。所以读端（服务端）会直接终止。服务端有除了读取管道数据之外的任务，那么它会去执行其他代码。</p>
 <blockquote>
@@ -2626,7 +2626,7 @@ System V 信号量">
 </blockquote>
 <p>可以再服务端创建多个子进程来获取客户端数据可以提高读取数据的效率。每个子进程都可以独立地从命名管道中读取数据，这样就可以并行地处理多个客户端的请求。</p>
 <p>由于子进程的存在，子进程会继承父进程打开的文件，因此这就是匿名管道了。增加子进程后的代码存放在<code>MutiServer.cc</code>中，其中并未限制子进程的调度策略。</p>
-<img src="./.进程间通信.IMG/2.gif" alt="屏幕录制2023-03-20 18.11.11" style="zoom:40%;" />
+<img src="进程间通信.IMG/2.gif" alt="屏幕录制2023-03-20 18.11.11" style="zoom:40%;" />
 <p>可见，多个这种方式比单个进程顺序读取数据要快得多，但也要注意回收多个子进程的资源。</p>
 <p>值得注意的是，具体指派哪一个进程做什么事是需要根据实际情况用调度规则限制的（默认取决于 OS）。虽然一个管道可能有多个读端，但是由于匿名管道是单向通信的，所以父进程可以指派子进程执行任务（这与写入数据的原子性有关）。</p>
 <p>如果要按照某种规则调度子进程，父进程可以再指派子进程执行任务之前传入 pid，子进程根据 pid 验证父进程指派的是否是自己，进而决定是否要开始任务。</p>
@@ -2647,9 +2647,9 @@ System V 信号量">
 </ul>
 <p>下面将对第点作出解释：</p>
 <p>在介绍命名管道是提到，命名管道是一种特殊的文件，它不会将内存中的数据刷新到磁盘中，我们可以只让客户端写入，服务端不读取，验证文件的大小是否不变证明。</p>
-<img src="./.进程间通信.IMG/image-20230320194702909.png" alt="image-20230320194702909" style="zoom:40%;" />
+<img src="进程间通信.IMG/image-20230320194702909.png" alt="image-20230320194702909" style="zoom:40%;" />
 <p>终止程序后：</p>
-<img src="./.进程间通信.IMG/image-20230320194751950.png" alt="image-20230320194751950" style="zoom:40%;" />
+<img src="进程间通信.IMG/image-20230320194751950.png" alt="image-20230320194751950" style="zoom:40%;" />
 <p>命名管道文件<code>myfifo</code>的大小并为变化，说明系统并未将数据从内存刷新到磁盘中。</p>
 <p>注意，“看到同一份命名管道文件”只是看到文件名，但是在磁盘中的数据并不会改变。这个文件只是在内存中创建的一个“符号”，它不能存储数据，功能只是让不同进程看到同一份资源。命名管道只是用于不同进程间通信的工具，它并不会对磁盘中的文件产生影响。</p>
 <h1>4. 共享内存</h1><h2>4.1 共享内存的概念<span class="absolute -mt-20" id="41-共享内存的概念"></span>
@@ -2670,7 +2670,7 @@ System V 信号量">
 <p>其中，建立页表和物理内存地址的映射关系在进程被加载到内存时已经被操作系统完成了。</p>
 </blockquote>
 <p>堆栈相向而生，在它们之间有一个区域，是共享内存所属的位置，叫做共享区。首先在共享区中申请一块物理内存空间，然后将它与各个进程的页表建立映射关系。再在进程地址空间中开辟一块叫做进行共享内存的空间，将它与进程的页表建立映射关系。通过内存空间和物理空间分别于进程的同一个页表建立映射关系，不同的进程就能够通过各自的页表索引到同一块物理内存空间，也就看到了同一份资源。</p>
-<img src="./.进程间通信.IMG/image-20230321003110785.png" alt="image-20230321003110785" style="zoom:40%;" />
+<img src="进程间通信.IMG/image-20230321003110785.png" alt="image-20230321003110785" style="zoom:40%;" />
 <p>释放共享内存的步骤反之：先去除映射关系，然后再释放物理内存。</p>
 <blockquote>
 <p>共享内存的提供者是谁？它属于某个进程吗？</p>
@@ -2865,24 +2865,24 @@ System V 信号量">
   </div>
 </div>
 <p>其中，tmp.cc 是新建的文件，里面什么都没有，因为 ftok 的第一个参数可以是任意可读写的文件，它只是通过特定算法得到 key 值的工具，这样能减少出现 key 值冲突的情况。</p>
-<img src="./.进程间通信.IMG/image-20230321170823265.png" alt="image-20230321170823265" style="zoom:40%;" />
+<img src="进程间通信.IMG/image-20230321170823265.png" alt="image-20230321170823265" style="zoom:40%;" />
 <p>其中，共享内存的大小最好设为页表大小的倍数，因为在 Linux 中，内存是以页为<strong>单位</strong>来管理的，它可以将内存划分成更小的单元，从而更有效地使用内存，页的大小为 4KB。</p>
 <blockquote>
 <p>例如设置共享内存的大小为 4097 字节，操作系统就会向上取整，开辟 8KB 的空间，然后只让你使用后 4KB 中的第一个字节。</p>
 </blockquote>
 <p>当然，这个文件可以是不存在的，前提是 shmget 函数的第三个参数要用第二种组合的标识符。</p>
 <p>如果再运行一次，就会出现这样的错误：</p>
-<img src="./.进程间通信.IMG/image-20230321193915294.png" alt="image-20230321193915294" style="zoom:40%;" />
+<img src="进程间通信.IMG/image-20230321193915294.png" alt="image-20230321193915294" style="zoom:40%;" />
 <p>提示没有这个文件，而且退出码是 1。说明创建失败了，原因是进程终止以后，申请的共享内存依然存在。这是可以理解的，因为共享内存的作用是让不同的进程看到同一份资源，进程的数量不一定是固定的。</p>
 <p>使用<code>ipcs</code>命令查看进程间通信有关信息：
-<img src="./.进程间通信.IMG/image-20230321194245358.png" alt="image-20230321194245358" style="zoom:40%;" /></p>
+<img src="进程间通信.IMG/image-20230321194245358.png" alt="image-20230321194245358" style="zoom:40%;" /></p>
 <p>默认列出消息队列、共享内存以及信号量相关的信息，可以根据需要通过添加以下选项单独列出：</p>
 <ul>
 <li>-q：列出消息队列相关信息。</li>
 <li>-m：列出共享内存相关信息。</li>
 <li>-s：列出信号量相关信息。</li>
 </ul>
-<p>其中：<img src="./.进程间通信.IMG/image-20230321194514437.png" alt="image-20230321194514437" style="zoom:40%;" /></p>
+<p>其中：<img src="进程间通信.IMG/image-20230321194514437.png" alt="image-20230321194514437" style="zoom:40%;" /></p>
 <p>正是我们刚才创建的共享内存。</p>
 <p>其中每列信息的含义如下：</p>
 <table>
@@ -2940,7 +2940,7 @@ System V 信号量">
 <li>-s：信号量</li>
 </ul>
 <p>这里使用<code>ipcrm -m shmid</code>命令释放指定 id 的共享内存：</p>
-<img src="./.进程间通信.IMG/image-20230321195921706.png" alt="image-20230321195921706" style="zoom:40%;" />
+<img src="进程间通信.IMG/image-20230321195921706.png" alt="image-20230321195921706" style="zoom:40%;" />
 <p>可见，刚才创建的 id 为 4 的共享内存已经被释放了。</p>
 <h4>shmctl 函数释放<span class="absolute -mt-20" id="shmctl-函数释放"></span>
     <a href="#shmctl-%e5%87%bd%e6%95%b0%e9%87%8a%e6%94%be" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>即 Shared Memory Control，用于控制共享内存段。它可以用来执行诸如更改共享内存段的权限、删除共享内存段或获取共享内存段信息等操作。</p>
@@ -3051,7 +3051,7 @@ System V 信号量">
     </button>
   </div>
 </div>
-<img src="./.进程间通信.IMG/image-20230321202344500.png" alt="image-20230321202344500" style="zoom:40%;" />
+<img src="进程间通信.IMG/image-20230321202344500.png" alt="image-20230321202344500" style="zoom:40%;" />
 <h3>小结<span class="absolute -mt-20" id="小结"></span>
     <a href="#%e5%b0%8f%e7%bb%93" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>创建共享内存的进程在通信完成以后也应该完成对共享内存的释放，创建者就好像一个开会的组织者，在会议结束以后最后也应该由他来关门。Linux 中通过函数 <code>shmget</code> 创建的共享内存一般都是在程序中使用 <code>shmctl</code> 来释放的。</p>
 <p>但是有时为了调试程序，开发人员可能通过 <code>Ctrl + C</code> 等方式发送中断信号来结束程序，此时程序申请的共享内存就不能得到释放。如果总是通过 <code>Crtl+C</code> 来结束的话，可以做一个信号处理器，当接收到这个信号的时候，先释放共享内存，然后退出程序（类似 C++中的异常机制）。如果 共享内存还是得不到释放，那么可以通过命令 <code>ipcrm -m shmid</code> 来释放。</p>
@@ -3145,7 +3145,7 @@ System V 信号量">
   </div>
 </div>
 <p>但是却挂接失败：</p>
-<img src="./.进程间通信.IMG/image-20230321211755973.png" alt="image-20230321211755973" style="zoom:40%;" />
+<img src="进程间通信.IMG/image-20230321211755973.png" alt="image-20230321211755973" style="zoom:40%;" />
 <p>原因在于使用 shmget 函数创建共享内存时，并没有对创建的共享内存设置权限，所以创建出来的共享内存的默认权限为 0，即无权限，因此进程没有权限关联该共享内存。</p>
 <p>所以在使用 shmget 函数时，在第三个参数中添加文件权限，在这里设置为 0666：</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">shmid</span> <span class="o">=</span> <span class="n">shmget</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">SHM_SIZE</span><span class="p">,</span> <span class="n">IPC_CREAT</span> <span class="o">|</span> <span class="n">IPC_EXCL</span> <span class="o">|</span> <span class="mo">0666</span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
@@ -3159,7 +3159,7 @@ System V 信号量">
   </div>
 </div>
 <p>在执行挂接逻辑之前，sleep(3)，同样运行之前的脚本，观察 nattch 这一列的变化：
-<img src="./.进程间通信.IMG/image-20230321221421221.png" alt="image-20230321221421221" style="zoom:40%;" /></p>
+<img src="进程间通信.IMG/image-20230321221421221.png" alt="image-20230321221421221" style="zoom:40%;" /></p>
 <p>可见，这块共享内存挂接的进程数目从 0 到 1，进程释放后又减到 0。</p>
 <h3>实现多个进程挂接<span class="absolute -mt-20" id="实现多个进程挂接"></span>
     <a href="#%e5%ae%9e%e7%8e%b0%e5%a4%9a%e4%b8%aa%e8%bf%9b%e7%a8%8b%e6%8c%82%e6%8e%a5" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>在这里，我们用另一个文件 <code>shmClient.cc</code> 保存代码。它的头文件和宏被包含在<code>comm.hpp</code>中。</p>
@@ -3268,7 +3268,7 @@ System V 信号量">
   </div>
 </div>
 <p>为了能观察现象，客户端和服务端调用了 shmat 函数后让程序死循环，依然使用脚本查看共享内存被挂接数量的变化。</p>
-<img src="./.进程间通信.IMG/image-20230321230716036-9411419.png" alt="image-20230321230716036" style="zoom:40%;" />
+<img src="进程间通信.IMG/image-20230321230716036-9411419.png" alt="image-20230321230716036" style="zoom:40%;" />
 <p>共享内存由服务端创建，理应由服务端释放。</p>
 <h2>4.6 实现客户端和服务端通信 [实践]<span class="absolute -mt-20" id="46-实现客户端和服务端通信-实践"></span>
     <a href="#46-%e5%ae%9e%e7%8e%b0%e5%ae%a2%e6%88%b7%e7%ab%af%e5%92%8c%e6%9c%8d%e5%8a%a1%e7%ab%af%e9%80%9a%e4%bf%a1-%e5%ae%9e%e8%b7%b5" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>在上面的基础上，我们已经完成了进程间通信的前提：不同进程看到同一份资源。接下来要做的事可以想象：一个客户端进程往共享内存中写入数据，服务端进程从共享内存中读取数据。</p>
@@ -3317,13 +3317,13 @@ System V 信号量">
 <p>实际上，每一次输入都是向共享内存的起始地址写入内容的，也就是 shmaddr 指向的地址。</p>
 <h3>测试 1<span class="absolute -mt-20" id="测试-1-1"></span>
     <a href="#%e6%b5%8b%e8%af%95-1-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>在这里，通过打印字符模拟一下用户端写入的操作，验证是否可行。</p>
-<img src="./.进程间通信.IMG/3.gif" alt="屏幕录制2023-03-22 00.12.23" style="zoom:40%;" />
+<img src="进程间通信.IMG/3.gif" alt="屏幕录制2023-03-22 00.12.23" style="zoom:40%;" />
 <p>首先运行服务端，然后再运行客户端。通过结果表明，这个通信方式是可行的。不用自己手动去挂接，方便许多。</p>
 <h3>测试 2<span class="absolute -mt-20" id="测试-2-1"></span>
     <a href="#%e6%b5%8b%e8%af%95-2-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>[结论]</p>
 <p>实际上，只要不同进程通过共享内存通信，一方向共享内存中写入数据后，另一方能够立刻看到其内容。因为拷贝数据的过程只存在内存和硬件之间的数据拷贝</p>
 <p>结合管道的知识：管道传输数据实际上是通过数次拷贝实现的。例如：</p>
-<img src="./.进程间通信.IMG/image-20230322003153712.png" alt="image-20230322003153712" style="zoom:40%;" />
+<img src="进程间通信.IMG/image-20230322003153712.png" alt="image-20230322003153712" style="zoom:40%;" />
 <p>在这个例子中数据被拷贝了 4 次，这将极大影响传输效率。对于共享内存，拷贝数据的过程只存在内存和硬件之间的数据拷贝。</p>
 <p>此次测试在之前的基础上做出改进：为了减少拷贝，我们可以让客户端不用缓冲区，直接写入到共享内存中。我们就可以在客户端进程中用键盘输入数据，服务端也能直接从共享内存中读取数据。因此这里只需要修改客户端的通信逻辑。</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
@@ -3346,7 +3346,7 @@ System V 信号量">
     </button>
   </div>
 </div>
-<img src="./.进程间通信.IMG/4.gif" alt="" style="zoom:40%;" />
+<img src="进程间通信.IMG/4.gif" alt="" style="zoom:40%;" />
 <p>注意读取的内容不能包括最后一个字符，当最后输入 quit 的时候 server 端无法终止进程，因为输入了<code>'\n'</code>。</p>
 <p>现在初步实现了能够用键盘输入信息，但问题是服务端会一直读取内容，而且两个进程互相不知道对方的存在，只知道做自己的事。这说明共享内存没有访问控制。它可能会造成并发问题，导致进程间的数据不一致。</p>
 <h3>测试 3<span class="absolute -mt-20" id="测试-3-1"></span>
@@ -3402,7 +3402,7 @@ System V 信号量">
   </div>
 </div>
 <p>其中，<code>sizeof(uint32_t)</code>和之前类似，是一种通信协议。</p>
-<img src="./.进程间通信.IMG/5.gif" alt="屏幕录制2023-03-22 15.58.24" style="zoom:40%;" />
+<img src="进程间通信.IMG/5.gif" alt="屏幕录制2023-03-22 15.58.24" style="zoom:40%;" />
 <p>本文所有源码：<a href="https://github.com/shawyxy/source_code/tree/main/IPC" target="_blank" rel="noopener">点这里</a>。</p>
 <h2>4.7 总结<span class="absolute -mt-20" id="47-总结"></span>
     <a href="#47-%e6%80%bb%e7%bb%93" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>虽然共享内存是最快的进程间通信的方式，但是它也是有缺点的。</p>

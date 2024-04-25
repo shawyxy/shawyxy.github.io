@@ -805,8 +805,8 @@ mysql&gt; create database test_db1; Query OK, 1 row affected (0.00 sec) 创建�
 <p>例如，如果用户需要存储多种语言的字符串，或者需要区分大小写和重音等细节，那么可以选择 utf8mb4_unicode_ci 这样的校验规则。如果用户只需要存储中文或者英文，或者不关心大小写和重音等细节，那么可以选择 utf8mb4_general_ci 这样的校验规则。不同的校验规则会有不同的性能和准确性，所以用户需要权衡利弊，选择最适合自己的校验规则。</p>
 <p>如果用户没有指定校验规则，那么 MySQL 会使用字符集对应的默认校验规则。例如在 MySQL5.7 中，utf8 字符集对应的默认校验规则是 utf8_general_ci。这样可以保证字符集和校验规则之间的一致性，避免出现乱码或者错误的比较结果。</p>
 <p>查看数据库支持的字符集或校验规则：</p>
-<img src="./.库的操作.IMG/image-20231021204414068.png" alt="image-20231021204414068" style="zoom:40%;" />
-<img src="./.库的操作.IMG/image-20231021204442691.png" alt="image-20231021204442691" style="zoom:40%;" />
+<img src="库的操作.IMG/image-20231021204414068.png" alt="image-20231021204414068" style="zoom:40%;" />
+<img src="库的操作.IMG/image-20231021204442691.png" alt="image-20231021204442691" style="zoom:40%;" />
 <h2>例子<span class="absolute -mt-20" id="例子"></span>
     <a href="#%e4%be%8b%e5%ad%90" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><blockquote>
 <p>有字符集（编码格式）我可以理解，毕竟不同语言需要不同的格式，这样才不会显示乱码。但是校验规则存在的意义在哪里呢？</p>
@@ -997,13 +997,13 @@ mysql&gt; create database test_db1; Query OK, 1 row affected (0.00 sec) 创建�
   </div>
 </div>
 <p>在前面增加<code>show</code>关键字，可以查看数据库是如何执行 SQL 来创建数据库的。</p>
-<img src="./.库的操作.IMG/image-20231021224654599.png" alt="image-20231021224654599" style="zoom:40%;" />
+<img src="库的操作.IMG/image-20231021224654599.png" alt="image-20231021224654599" style="zoom:40%;" />
 <p>虽然我们输入时是用小写的关键字，但是 MySQL 会自动对用户输入的 SQL 做语法优化，将小写的关键字用大写字母代替，而且数据库的名字会用`（反引号，在 esc 下面）来包含，这么做是方式数据库的名称和关键字冲突。</p>
 <p>另外，如果用户输入的 SQL 由多行组成，MySQL 会将<code>;</code>之前的所有字段合并为一句。</p>
 <p>例如上面在创建表时，为了可读性，用了多行输入，但 MySQL 会优化如下：</p>
-<img src="./.库的操作.IMG/image-20231021225313795.png" alt="image-20231021225313795" style="zoom:40%;" />
+<img src="库的操作.IMG/image-20231021225313795.png" alt="image-20231021225313795" style="zoom:40%;" />
 <p>另外，MySQL 也有记忆指令的功能：</p>
-<img src="./.库的操作.IMG/image-20231021225242469.png" alt="image-20231021225242469" style="zoom:40%;" />
+<img src="库的操作.IMG/image-20231021225242469.png" alt="image-20231021225242469" style="zoom:40%;" />
 <p>注意，<code>/*!40100 DEFAULT CHARACTER SET utf8 */</code>不是注释，它表示当前 MySQL 版本如果大于 4.10，则执行后面的 SQL 语句。</p>
 <p>MySQL 客户端会阻塞当前会话，如果不想新建会话的同时使用系统的命令行，可以在命令行指令前加<code>system</code>，例如：</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="n">system</span><span class="w"> </span><span class="n">clear</span><span class="w"> </span><span class="c1"># 清屏
@@ -1030,7 +1030,7 @@ mysql&gt; create database test_db1; Query OK, 1 row affected (0.00 sec) 创建�
 </div>
 <p>对数据库修改的内容主要是字符集和校验规则。</p>
 <p>例如，将<code>person_test1</code>数据库的字符集改成 gbk，校验规则改为 gbk_bin：</p>
-<img src="./.库的操作.IMG/image-20231021231421456.png" alt="image-20231021231421456" style="zoom:40%;" />
+<img src="库的操作.IMG/image-20231021231421456.png" alt="image-20231021231421456" style="zoom:40%;" />
 <h1>删除数据库</h1><p>SQL：</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="k">DROP</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="p">[</span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="p">]</span><span class="w"> </span><span class="n">db_name</span><span class="p">;</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
@@ -1069,7 +1069,7 @@ mysql&gt; create database test_db1; Query OK, 1 row affected (0.00 sec) 创建�
     </button>
   </div>
 </div>
-<img src="./.库的操作.IMG/image-20231021234835215.png" alt="image-20231021234835215" style="zoom:40%;" />
+<img src="库的操作.IMG/image-20231021234835215.png" alt="image-20231021234835215" style="zoom:40%;" />
 <p>删除它：</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">drop</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="n">delete_test</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">show</span><span class="w"> </span><span class="k">databases</span><span class="p">;</span><span class="w">
@@ -1155,7 +1155,7 @@ mysql&gt; create database test_db1; Query OK, 1 row affected (0.00 sec) 创建�
     </button>
   </div>
 </div>
-<img src="./.库的操作.IMG/image-20231022000031989.png" alt="image-20231022000031989" style="zoom:40%;" />
+<img src="库的操作.IMG/image-20231022000031989.png" alt="image-20231022000031989" style="zoom:40%;" />
 <p>在 Linux 命令行中（MySQL 是我创建的一个目录）：</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@xy MySQL<span class="o">]</span><span class="c1"># mysqldump -P3306 -uroot -p -B backup_test &gt; back.sql</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
@@ -1168,7 +1168,7 @@ mysql&gt; create database test_db1; Query OK, 1 row affected (0.00 sec) 创建�
   </div>
 </div>
 <p>这个文件保存了对数据库和表的所有 SQL 操作以及数据本身，并且是做了优化的：
-<img src="./.库的操作.IMG/image-20231022000808169.png" alt="image-20231022000808169" style="zoom:40%;" /></p>
+<img src="库的操作.IMG/image-20231022000808169.png" alt="image-20231022000808169" style="zoom:40%;" /></p>
 <h2>恢复<span class="absolute -mt-20" id="恢复"></span>
     <a href="#%e6%81%a2%e5%a4%8d" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>SQL：</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">source</span> 数据库备份存储的文件路径</span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
@@ -1192,7 +1192,7 @@ mysql&gt; create database test_db1; Query OK, 1 row affected (0.00 sec) 创建�
     </button>
   </div>
 </div>
-<img src="./.库的操作.IMG/image-20231022001255857.png" alt="image-20231022001255857" style="zoom:40%;" />
+<img src="库的操作.IMG/image-20231022001255857.png" alt="image-20231022001255857" style="zoom:40%;" />
 <p>这样数据库中的所有内容都恢复了。</p>
 <p>由此可见，数据库的备份就是将 MySQL 之前优化并记录的 SQL 语句拷贝一份；恢复就是将这些 SQL 语句交给 MySQL 服务器重新执行一遍。</p>
 <p>注意，备份是服务端做的，而恢复是在客户端做的。</p>

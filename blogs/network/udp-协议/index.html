@@ -863,7 +863,7 @@ TCP 用于在传输层有必要实现可靠传输的情况。由于它是面向�
 <p>传输层在 ISO 模型中的存在有着重要的意义。它既是负责数据通信的最高层，又是连接网络通信的低三层和信息处理的高三层之间的中间层。</p>
 <p>传输层的主要功能是为会话层和网络层提供端到端可靠的和透明的数据传输服务，确保数据能完整地传输到网络层。 传输层还可以根据不同的应用需求，提供面向连接或无连接的服务类型，以及不同的服务质量。</p>
 <p>传输层在 OSI 模型中起着<strong>桥梁</strong>的作用，它使得上层应用不必关心网络通信的细节，而只需调用传输层提供的服务接口。同时，它也使得下层网络可以根据实际情况选择合适的协议和技术，而不影响上层应用的正常运行。</p>
-<img src="./.UDP 协议.IMG/Image00216.jpg" alt="Image00216" style="zoom:40%;" />
+<img src="UDP 协议.IMG/Image00216.jpg" alt="Image00216" style="zoom:40%;" />
 <p>传输层有两个具有代表性的协议，它们分别是 TCP 和 UDP。</p>
 <ul>
 <li>TCP (Transmission Control Protocol)：提供可靠的通信传输，是面向连接的。</li>
@@ -899,13 +899,13 @@ TCP 用于在传输层有必要实现可靠传输的情况。由于它是面向�
 <p>客户端具有客户的意思。在计算机网络中是提供服务和使用服务的一方，是请求的发起端。而服务端在计算机网络中则意味着提供服务的程序或计算机，表示提供服务的意思，是请求的处理端。</p>
 </blockquote>
 <p>端口号标识了进程服务：</p>
-<img src="./.UDP 协议.IMG/Image00220.jpg" alt="Image00220" style="zoom:40%;" />
+<img src="UDP 协议.IMG/Image00220.jpg" alt="Image00220" style="zoom:40%;" />
 <p>总的来说，数据链路和 IP 中的地址，分别指的是 MAC 地址和 IP 地址。前者用来识别同一链路中不同的计算机，后者用来识别 TCP/IP 网络中互连的主机和路由器。在传输层中也有这种类似于地址的概念，那就是端口号。端口号用来识别同一台计算机中进行通信的不同应用程序。因此，它也被称为程序地址。</p>
 <h2>2.2 通过 IP 地址、端口号、协议号进行通信识别<span class="absolute -mt-20" id="22-通过-ip-地址端口号协议号进行通信识别"></span>
     <a href="#22-%e9%80%9a%e8%bf%87-ip-%e5%9c%b0%e5%9d%80%e7%ab%af%e5%8f%a3%e5%8f%b7%e5%8d%8f%e8%ae%ae%e5%8f%b7%e8%bf%9b%e8%a1%8c%e9%80%9a%e4%bf%a1%e8%af%86%e5%88%ab" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>然而，仅通过 源/目的 IP 和端口号还不能标识主机之间的通信。这是因为如果一个客户端同时向同一个服务端发起多次请求，即使源 IP 和目的 IP 能够正确让两台主机建立通信，但是通信的主体依然是进程，而每一次请求信息包含的端口号都是相同的，必须增加能够标识请求的信息，否则这个端口号上的进程会混淆同一个客户端发起的多个请求。这个要增加的信息就是<strong>协议号</strong>。</p>
 <p>如图所示，①和②的通信是在两台计算机上进行的。它们的目标端口号相同，都是 80。例如打开两个 Web 浏览器，同时访问两个服务器上不同的页面，就会在这个浏览器跟服务器之间产生类似前面的两个通信。在这种情况下也必须严格区分这两个通信。因此可以根据源端口号加以区分。</p>
 <p>下图中③跟①的目标端口号和源端口号完全相同，但是它们各自的源 IP 地址不同。此外，还有一种情况上图中并未列出，那就是 IP 地址和端口全都一样，只是协议号（表示上层是 TCP 或 UDP 的一种编号）不同。这种情况下，也会认为是两个不同的通信。</p>
-<img src="./.UDP 协议.IMG/Image00221.jpg" alt="Image00221" style="zoom:40%;" />
+<img src="UDP 协议.IMG/Image00221.jpg" alt="Image00221" style="zoom:40%;" />
 <p>因此，TCP/IP 或 UDP/IP 通信中通常采用 5 个信息（五元组）来识别 一个通信。它们是**“源 IP 地址”、“目标 IP 地址”、“协议号”、“源端口号”、“目标端口号”**。只要其中某一项不同，则被认为是其他通信。服务器区分请求是通过五元组中的源 IP 地址判断数据的来源，以及通过端口号区分当前主机的服务。</p>
 <h2>2.3 协议号<span class="absolute -mt-20" id="23-协议号"></span>
     <a href="#23-%e5%8d%8f%e8%ae%ae%e5%8f%b7" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>协议号是一个 8 位的字段，它存在于 IP 数据报的首部，<strong>用来指示 IP 数据报中承载的数据使用了何种协议</strong>，以便目的主机的 IP 层知道将数据部分上交给哪个处理过程。例如，协议号为 6 表示传输层使用的是 TCP 协议，协议号为 17 表示传输层使用的是 UDP 协议，协议号为 1 表示网络层使用的是 ICMP 协议等等。</p>
@@ -953,13 +953,13 @@ TCP 用于在传输层有必要实现可靠传输的情况。由于它是面向�
 </ul>
 <p>总的来说，除了 0~1023 之外的端口号都能分配给客户端程序。</p>
 <p>可以在<code>/etc/services</code>中查看常见知名端口号：
-<img src="./.UDP 协议.IMG/image-20230626192346436.png" alt="image-20230626192346436" style="zoom:40%;" /></p>
+<img src="UDP 协议.IMG/image-20230626192346436.png" alt="image-20230626192346436" style="zoom:40%;" /></p>
 <p>其中，可以看到我们常用的 ssh 协议、telnet 协议等都是知名协议。其中每一行对应着一种服务，每一列分别是“服务名称”，“使用端口”，“协议名称”和“别名”。</p>
 <h2>2.5 常用命令<span class="absolute -mt-20" id="25-常用命令"></span>
     <a href="#25-%e5%b8%b8%e7%94%a8%e5%91%bd%e4%bb%a4" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>netstat<span class="absolute -mt-20" id="netstat"></span>
     <a href="#netstat" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>netstat 用于查看 Linux 中网络系统状态信息。</p>
 <p>例如，通过 netstat -nltp 命令显示五元组信息：</p>
-<img src="./.UDP 协议.IMG/image-20230626185542615.png" alt="image-20230626185542615" style="zoom:40%;" />
+<img src="UDP 协议.IMG/image-20230626185542615.png" alt="image-20230626185542615" style="zoom:40%;" />
 <p>其中：</p>
 <ul>
 <li>Local Address：源 IP 地址和源端口号。</li>
@@ -976,7 +976,7 @@ TCP 用于在传输层有必要实现可靠传输的情况。由于它是面向�
 <li>a(ALL)：显示所有的选项，默认不显示 LISTEN 相关。</li>
 </ul>
 <p>因此，想查看 TCP 相关的网络信息，可以使用 <code>nltp</code> 选项，查看 UCP 相关的网络信息，使用 <code>nlup</code> 选项：
-<img src="./.UDP 协议.IMG/image-20230626193013302.png" alt="image-20230626193013302" style="zoom:40%;" /></p>
+<img src="UDP 协议.IMG/image-20230626193013302.png" alt="image-20230626193013302" style="zoom:40%;" /></p>
 <p>去掉 <code>l</code> 选项，表示查看除 LISTEN 状态之外的网络服务。</p>
 <h3>iostat<span class="absolute -mt-20" id="iostat"></span>
     <a href="#iostat" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>iostat 用于监视系统输入输出设备和 CPU 的使用情况。</p>
@@ -996,7 +996,7 @@ TCP 用于在传输层有必要实现可靠传输的情况。由于它是面向�
 <li>x：显示详细信息。</li>
 <li>p：显示磁盘分区的情况。</li>
 </ul>
-<img src="./.UDP 协议.IMG/image-20230626194247382.png" alt="image-20230626194247382" style="zoom:40%;" />
+<img src="UDP 协议.IMG/image-20230626194247382.png" alt="image-20230626194247382" style="zoom:40%;" />
 <p>CPU 属性值：</p>
 <ul>
 <li>%user：CPU 处在用户模式下的时间百分比。</li>
@@ -1008,7 +1008,7 @@ TCP 用于在传输层有必要实现可靠传输的情况。由于它是面向�
 </ul>
 <h3>pidof<span class="absolute -mt-20" id="pidof"></span>
     <a href="#pidof" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>pidof 用于查找指定名称的进程的进程号 ID 号。</p>
-<img src="./.UDP 协议.IMG/image-20230626221810831.png" alt="image-20230626221810831" style="zoom:40%;" />
+<img src="UDP 协议.IMG/image-20230626221810831.png" alt="image-20230626221810831" style="zoom:40%;" />
 <p>这样就能直接通过一个指令查找指定进程名称的 PID 了，这比<code>ps</code>和<code>grep</code>命令更简单。</p>
 <p>这个命令通常通过 <strong>xargs 工具和管道</strong>，结合 <strong>kill 命令</strong>使用，例如：</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">pidof <span class="o">[</span>NAME<span class="o">]</span> <span class="p">|</span> xargs <span class="nb">kill</span> -9</span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
@@ -1037,7 +1037,7 @@ TCP 用于在传输层有必要实现可靠传输的情况。由于它是面向�
 <h1>3. UDP 协议</h1><h2>3.1 地位<span class="absolute -mt-20" id="31-地位"></span>
     <a href="#31-%e5%9c%b0%e4%bd%8d" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>在 OSI 七层模型中，HTTP 协议属于应用层，而它运行在 TCP/IP 之上，也就是传输层。UDP 和 TCP 是传输层中典型的协议，从它们在模型中的相对位置来看，HTTP 离用户最近，它只负责提供网络服务，UDP 和 TCP 相当于一个“工具人”，它的作用就是将数据传输到目标主机中的目标进程中。</p>
 <p>实际上，数据如何传输，是由操作系统维护的，也就是说，传输层属于操作系统内核。</p>
-<img src="./.UDP 协议.IMG/image-20230626230633101.png" alt="image-20230626230633101" style="zoom:40%;" />
+<img src="UDP 协议.IMG/image-20230626230633101.png" alt="image-20230626230633101" style="zoom:40%;" />
 <p>上图是三种常见模型中各个层次的地位。</p>
 <blockquote>
 <p>使用 Socket 进行网络编程时，实际上它就是介于应用层和传输层之间的软件层，即介于操作系统和用户之间的系统调用。而我们在使用它时，并不关心 Socket 本身的实现，因为它是由操作系统维护的，所以网络编程也就是系统编程。（所以学好 OS 重中之重）</p>
@@ -1049,7 +1049,7 @@ TCP 用于在传输层有必要实现可靠传输的情况。由于它是面向�
 <li>标识该层协议的类型，例如 IP 报头中有协议字段，用来指示上层协议是 TCP 还是 UDP；TCP 报头中有端口号字段，用来指示应用层协议是 HTTP 还是 FTP 等。这些信息可以帮助不同层之间进行交互和分用。</li>
 </ul>
 <p>自顶向下通过协议栈封装数据的过程中，每一层协议都会添加对应的报头信息；自底向上通过协议栈完成数据包的解包与分用的过程中，每一层协议都会将对应的报头信息提取出来。</p>
-<img src="./.UDP 协议.IMG/image-20230626234449778.png" alt="image-20230626234449778" style="zoom:40%;" />
+<img src="UDP 协议.IMG/image-20230626234449778.png" alt="image-20230626234449778" style="zoom:40%;" />
 <p>从模型来看，数据由应用层的应用程序（进程）产生，然后从应用层向下交付给传输层发送到对端主机。这个过程主要包含两个步骤：</p>
 <ul>
 <li>数据分离（封装）是指每一层协议在处理上层传递的数据时，附上当前层协议所必须的首部信息，以便在下一层进行传输。</li>
@@ -1072,7 +1072,7 @@ TCP 用于在传输层有必要实现可靠传输的情况。由于它是面向�
 </blockquote>
 <h2>3.3 UDP 报文的格式<span class="absolute -mt-20" id="33-udp-报文的格式"></span>
     <a href="#33-udp-%e6%8a%a5%e6%96%87%e7%9a%84%e6%a0%bc%e5%bc%8f" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>UDP 报头（首部）由源端口号，目标端口号，包长和校验和组成。下图中，除了数据部分，剩下的就是报头。</p>
-<img src="./.UDP 协议.IMG/image-20230627085112803.png" alt="image-20230627085112803" style="zoom:40%;" />
+<img src="UDP 协议.IMG/image-20230627085112803.png" alt="image-20230627085112803" style="zoom:40%;" />
 <ul>
 <li>
 <p>16 位源端⼜号（Source Port）：表⽰数据的来源端口号，字段长 16 位。该字段是可选项，有时可能不会设置源端⼜号。没有源端⼜号的时候该字段的值设置为 0。</p>
@@ -1091,7 +1091,7 @@ TCP 用于在传输层有必要实现可靠传输的情况。由于它是面向�
 <p>值得注意的是，有时候发送的报文中不含数据部分，只含有报头。</p>
 </blockquote>
 <p>在计算校验和时，如下图，附加在 UDP 伪⾸部与 UDP 数据报之前。通过在最后⼀位增加⼀个“0”将全长增加 16 倍。此时将 UDP⾸部的校验和字段设置 为“0”。然后以 16⽐特为单位进⾏1 的补码和（通常在计算机的整数计算中常用 2 的补码形式。而在校验和计算中之所以使用 1 的补码形式，是因为即使有一位溢出会回到第 1 位，也不会造成信息丢失。而且在这种形式下 0 可以有两种表示方式，因此有用 0 表示两种不同意思的优点），并将所得到的 1 的补码和写⼊校验和字段。</p>
-<img src="./.UDP 协议.IMG/image-20230627091447716.png" alt="image-20230627091447716" style="zoom:40%;" />
+<img src="UDP 协议.IMG/image-20230627091447716.png" alt="image-20230627091447716" style="zoom:40%;" />
 <blockquote>
 <p>源 IP 地址与目标 IP 地址为 IPv4 地址的情况下都是 32 位字段，为 IPv6 地址时都是 128 位字段。本文讨论的都是 IPv4 地址。</p>
 <p>填充是为了补充位数，一般填入 0。</p>

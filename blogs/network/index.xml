@@ -76,7 +76,7 @@
 &lt;h2&gt;3.3 分层对用户的影响&lt;span class=&#34;absolute -mt-20&#34; id=&#34;33-分层对用户的影响&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#33-%e5%88%86%e5%b1%82%e5%af%b9%e7%94%a8%e6%88%b7%e7%9a%84%e5%bd%b1%e5%93%8d&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;以电话为例，虽然我们通过中介设备电话与对方进行通信，但是对于通信的双方而言，打电话的过程就是直接进行沟通的，因为我们从体验上就是你问我答。而事实上双方通过电话进行通信，数据需要经过多方转发。&lt;/p&gt;
 &lt;p&gt;对于网络协议栈中的每个模块也是一样的，协议本身是一种软件，对于通信双方的同层协议，它们可以认为自己通信的对象是和对方同层的协议进行通信。以图示理解：&lt;/p&gt;
-&lt;img src=&#34;./.网络基础入门.IMG/image-20230420235110445.png&#34; alt=&#34;&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;网络基础入门.IMG/image-20230420235110445.png&#34; alt=&#34;&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;在网络中，对于通信的双方，它们都有各自的协议栈，数据的处理、传输路径也很复杂，但是在双方的同一层协议的眼中，数据交流就像打电话一样，是直接通信的。&lt;/p&gt;
 &lt;h2&gt;3.4 常见的分层模型&lt;span class=&#34;absolute -mt-20&#34; id=&#34;34-常见的分层模型&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#34-%e5%b8%b8%e8%a7%81%e7%9a%84%e5%88%86%e5%b1%82%e6%a8%a1%e5%9e%8b&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;计算机网络中有几个著名的概念（参考）模型，包括 OSI（(Open Systems Interconnection，开放系统互连）模型和 TCP/IP （Transmission Control Protocol/Internet Protocol，传输控制协议/互联网协议）模型。&lt;/p&gt;
@@ -86,7 +86,7 @@
 &lt;/ul&gt;
 &lt;p&gt;但是，在某些网络环境中，TCP/IP 模型使用了五层模型，用于描述网络中设备之间的数据流。五层模型与 OSI 模型的区别在于 OSI 有两个附加层：会话层和表示层。&lt;/p&gt;
 &lt;p&gt;在计算机网络中，概念模型是标准化框架，它提供网络的各种元素和功能的通用术语和抽象表示，帮助设计人员和管理员理解和管理复杂的网络系统。&lt;/p&gt;
-&lt;img src=&#34;./.网络基础入门.IMG/image-20230421234507672.png&#34; alt=&#34;image-20230421234507672&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;网络基础入门.IMG/image-20230421234507672.png&#34; alt=&#34;image-20230421234507672&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;值得注意的是，传输层和网络层是在从操作系统内部实现的。&lt;/p&gt;
 &lt;h1&gt;4. OSI 七层模型&lt;/h1&gt;&lt;p&gt;OSI （Open System Interconnection，开放系统互联）是一个用于描述计算机网络中不同功能层次的标准框架，它由国际标准化组织（ISO）在 1984 年提出，目的是促进不同厂商和设备之间的互操作性。&lt;/p&gt;
 &lt;h2&gt;4.1 功能概述&lt;span class=&#34;absolute -mt-20&#34; id=&#34;41-功能概述&#34;&gt;&lt;/span&gt;
@@ -178,7 +178,7 @@
 &lt;/blockquote&gt;
 &lt;h2&gt;6.2 通信的通路&lt;span class=&#34;absolute -mt-20&#34; id=&#34;62-通信的通路&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#62-%e9%80%9a%e4%bf%a1%e7%9a%84%e9%80%9a%e8%b7%af&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;下面是两台主机通过局域网（图中是以太网）通信的通路，可见，每一层的协议都是不同的。&lt;/p&gt;
-&lt;img src=&#34;./.网络基础入门.IMG/image-20230422224528309.png&#34; alt=&#34;image-20230422224528309&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;网络基础入门.IMG/image-20230422224528309.png&#34; alt=&#34;image-20230422224528309&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;每一层都有各自的协议定制的方案，每一层协议都有对应的报头。&lt;/p&gt;
 &lt;h2&gt;6.3 报头与有效载荷&lt;span class=&#34;absolute -mt-20&#34; id=&#34;63-报头与有效载荷&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#63-%e6%8a%a5%e5%a4%b4%e4%b8%8e%e6%9c%89%e6%95%88%e8%bd%bd%e8%8d%b7&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;在计算机网络中，被传输的数据本身相对于报头而言通常被称为“有效载荷”或“数据负载”。报头包含了关于如何处理数据的信息，而有效载荷则是实际传输的数据。&lt;/p&gt;
@@ -195,7 +195,7 @@
 &lt;p&gt;严格地说，&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;假设用户主机 1 的一个应用程序想发送数据给服务器主机 2，那么数据会在主机 1 中从上到下依次封装，当主机 2 的最底层接收到被封装很多次的数据包以后，从下到上依次解封，最终主机 2 的应用层的接收到的数据就是主机 1 应用层发送的数据。&lt;/p&gt;
-&lt;img src=&#34;./.网络基础入门.IMG/image-20230422233824428.png&#34; alt=&#34;image-20230422233824428&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;网络基础入门.IMG/image-20230422233824428.png&#34; alt=&#34;image-20230422233824428&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;当用户要将数据（例如一个文件）从一个主机传输到另一个主机之前，数据需要被网络协议栈封装，也就是图中左边添加报头信息的步骤；相对地，当对端主机接收到数据以后，需要通过对应的网络协议栈对数据将报头提取出来，即进行解包与分用。&lt;/p&gt;
 &lt;p&gt;自顶向下通过协议栈封装数据的过程中，每一层协议都会添加对应的报头信息；自底向上通过协议栈完成数据包的解包与分用的过程中，每一层协议都会将对应的报头信息提取出来。&lt;/p&gt;
 &lt;h3&gt;协议栈&lt;span class=&#34;absolute -mt-20&#34; id=&#34;协议栈-1&#34;&gt;&lt;/span&gt;
@@ -227,7 +227,7 @@
 &lt;/ul&gt;
 &lt;p&gt;友情链接：https://zhuanlan.zhihu.com/p/471644419&lt;/p&gt;
 &lt;p&gt;数据封装的过程就是上面每层协议不断添加报头信息的过程，下面将&lt;code&gt;✡☆□△&lt;/code&gt;用每层对应的协议替代，并且补充“帧”和“段”的区别：&lt;/p&gt;
-&lt;img src=&#34;./.网络基础入门.IMG/image-20230424134209985.png&#34; alt=&#34;image-20230424134209985&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;网络基础入门.IMG/image-20230424134209985.png&#34; alt=&#34;image-20230424134209985&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;h3&gt;数据包的分用&lt;span class=&#34;absolute -mt-20&#34; id=&#34;数据包的分用&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e6%95%b0%e6%8d%ae%e5%8c%85%e7%9a%84%e5%88%86%e7%94%a8&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;数据包的分用即解包，是封装的逆过程。自底向上，每一层协议都会去掉自己的报头信息， 向上传递有效载荷。每一层的解包操作，就是一个出栈的过程。&lt;/p&gt;
 &lt;p&gt;解封装是指在接收数据包时，每一层都会去掉自己的报头信息，从而得到上一层的数据包。这样，每一层都可以根据自己的报头信息来处理数据包，而不用关心其他层的细节。例如，在链路层，接收方会去掉链路层报头，然后将数据包传递给网络层；在网络层，接收方会去掉网络层报头，然后将数据包传递给传输层；在传输层，接收方会去掉传输层报头，然后将数据包传递给应用层；在应用层，接收方会去掉应用层报头，然后得到有效载荷。&lt;/p&gt;
@@ -241,9 +241,9 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;补充：&lt;a href=&#34;https://zhuanlan.zhihu.com/p/139537936&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;MTU TCP-MSS 详解&lt;/a&gt;&lt;/p&gt;
-&lt;img src=&#34;./.网络基础入门.IMG/image-20230425095627356.png&#34; alt=&#34;image-20230425095627356&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;网络基础入门.IMG/image-20230425095627356.png&#34; alt=&#34;image-20230425095627356&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;下面是数据分用（解包）的过程：
-&lt;img src=&#34;./.网络基础入门.IMG/image-20230425100911957.png&#34; alt=&#34;image-20230425100911957&#34; style=&#34;zoom:40%;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;网络基础入门.IMG/image-20230425100911957.png&#34; alt=&#34;image-20230425100911957&#34; style=&#34;zoom:40%;&#34; /&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;这个过程是可以理解的，但是（在 TCP/IP 协议中）如何实现将每一层协议的报头完整地提取出来而不影响其他协议层的报头信息？&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -286,7 +286,7 @@
 &lt;p&gt;MAC 地址（Media Access Control Address），直译为媒体存取控制位址，也称为局域网地址（LAN Address），MAC 位址，以太网地址（Ethernet Address）或物理地址（Physical Address），它是一个用来确认网络设备位置的位址。在 OSI 模型中，第三层网络层负责 IP 地址，第二层数据链路层则负责 MAC 位址。&lt;/p&gt;
 &lt;p&gt;在上面的例子中，主机的名字就是用 MAC 地址来标定的。&lt;/p&gt;
 &lt;p&gt;例如在终端中输入&lt;code&gt;ifconfig&lt;/code&gt;：&lt;/p&gt;
-&lt;img src=&#34;./.网络基础入门.IMG/image-20230425233403383.png&#34; alt=&#34;image-20230425233403383&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;网络基础入门.IMG/image-20230425233403383.png&#34; alt=&#34;image-20230425233403383&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;其中，&lt;code&gt;ether&lt;/code&gt;（以太）就是 MAC 地址的表示，它是由 6 个 16 进制的整数组成的被&lt;code&gt;:&lt;/code&gt;分隔，因此 MAC 地址有 6 字节。&lt;/p&gt;
 &lt;p&gt;在局域网中主机发送的数据是 MAC 数据帧，它的报头中有两个字段，叫做源 MAC 地址和目的 MAC 地址，分别表示数据的起点和终点，就像寄快递一样。在上面的例子中，收到广播的主机会根据源 MAC 地址和自己的 MAC 地址进行比对，如果不匹配则直接丢弃该 MAC 数据帧。&lt;/p&gt;
 &lt;blockquote&gt;
@@ -297,11 +297,11 @@
 &lt;/ul&gt;
 &lt;p&gt;上图中的 MAC 地址可能是操作系统模拟的。&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h1&gt;7. 跨网络的主机通信&lt;/h1&gt;&lt;img src=&#34;./.网络基础入门.IMG/image-20230425234917967.png&#34; alt=&#34;image-20230425234917967&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;h1&gt;7. 跨网络的主机通信&lt;/h1&gt;&lt;img src=&#34;网络基础入门.IMG/image-20230425234917967.png&#34; alt=&#34;image-20230425234917967&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;在不同局域网中的两台主机不能直接通信，数据必须经过路由器转发。这是 MAC 地址就不是很管用了，因为 MAC 地址虽然能用来唯一地标识一个网络接口（硬件），但它没有寻址功能。不同的网络使用不同的硬件地址，要使这些网络能够互相通信，就必须进行非常复杂的硬件地址转化工作，由用户或用户主机来完成这项工作几乎是不可能的事。IP 编址就是来解决这个问题的，连接到互联网的主机只需要各自拥有一个 IP 地址，它们之间的通信就像连接在同一个网络那么简单方便。&lt;/p&gt;
 &lt;h2&gt;7.1 IP 地址&lt;span class=&#34;absolute -mt-20&#34; id=&#34;71-ip-地址&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#71-ip-%e5%9c%b0%e5%9d%80&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;在上面的例子中，即使两台主机各自都拿到了对方的 MAC 地址，也无法进行通信，这是因为单单从一个自上到下，然后自下到上的过程中，协议栈是不同的，就像下楼和上楼的楼梯不一样，用一个简单的曲线理解这句话：
-&lt;img src=&#34;./.网络基础入门.IMG/image-20230426000253239.png&#34; alt=&#34;image-20230426000253239&#34; style=&#34;zoom:40%;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;网络基础入门.IMG/image-20230426000253239.png&#34; alt=&#34;image-20230426000253239&#34; style=&#34;zoom:40%;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;在数据传输过程中，可能会“上下楼”很多次，而且可能都不相同（上图用高度代替类型），这是上和下的通信协议不同造成的。&lt;/p&gt;
 &lt;p&gt;路由器是不同通信协议间数据传输的桥梁，它各属于两端不同的协议栈的一部分。&lt;/p&gt;
 &lt;blockquote&gt;
@@ -653,7 +653,7 @@
 &lt;p&gt;这样做是为了让套接字函数能够根据 sa_family 字段来判断实际的地址类型，并进行相应的处理。同样的道理，对于其他协议族，例如 IPv6 或 UNIX 域套接字，也有各自的地址结构体，例如 sockaddr_in6 和 sockaddr_un，它们都可以转换为 sockaddr 结构体指针。&lt;/p&gt;
 &lt;p&gt;因此，我们可以认为 sockaddr 结构体是一个抽象的接口，它隐藏了不同协议族地址结构体之间的差异，让我们可以使用统一的方式来操作套接字。&lt;/p&gt;
 &lt;hr&gt;
-&lt;img src=&#34;./.网络基础：socket 套接字.IMG/image-20230429161434528.png&#34; alt=&#34;image-20230429161434528&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;网络基础：socket 套接字.IMG/image-20230429161434528.png&#34; alt=&#34;image-20230429161434528&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;为了统一使用接口，Linux 内核用结构体的前 2 个字节标定套接字的类型。即即套接字的类型。sa_family 字段是一个 sa_family_t 类型（无符号整型）的变量，通常占用两个字节。&lt;/p&gt;
 &lt;p&gt;地址族用于指定地址的类型，它决定了套接字如何解释地址信息。常见的地址族有 AF_INET（IPv4 地址）、AF_INET6（IPv6 地址）和 AF_UNIX（Unix 域地址）等。不同类型的套接字使用不同的协议来传输数据，因此需要使用不同的地址结构来表示它们的地址信息。&lt;/p&gt;
 &lt;p&gt;通过在 sockaddr 结构体中使用一个通用的字段来表示地址族，Linux 内核可以统一处理不同类型的套接字地址，简化了套接字 API 的使用。在使用上的体现就是，不管是何种通信方式，网络还是本地通信，虽然在初始化套接字中的属性时使用的是&lt;code&gt;struct sockaddr_in&lt;/code&gt;或&lt;code&gt;struct sockaddr_un&lt;/code&gt;，但是传参都统一类型转换为&lt;code&gt;sockaddr*&lt;/code&gt;。这样就不用单独为不同的通信方式实现不同的接口了，从而减少了使用成本。&lt;/p&gt;
@@ -860,7 +860,7 @@
 &lt;p&gt;控制命令行参数：在运行程序的同时将 IP 和 PORT 作为参数传递给进程，例如&lt;code&gt;./[name] [PORT]&lt;/code&gt;这就需要提取出命令行参数和&lt;code&gt;PORT&lt;/code&gt;。除此之外，通常的做法是通过打印一个语句来显示它的使用方法，一般使用一个函数&lt;code&gt;usage()&lt;/code&gt;封装。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;这样做是合理的，例如在命令行随意输入一个命令的名字，但没有参数，就会有以下提示：&lt;/p&gt;
-&lt;img src=&#34;./.网络编程：TCP socket.IMG/image-20230507221335105.png&#34; alt=&#34;image-20230507221335105&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;网络编程：TCP socket.IMG/image-20230507221335105.png&#34; alt=&#34;image-20230507221335105&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;/blockquote&gt;
 &lt;/li&gt;
 &lt;li&gt;
@@ -977,7 +977,7 @@
 &lt;li&gt;日志：当创建文件描述符成功以后，记录刚才的操作。为了验证打开的文件描述符的值，可以将&lt;code&gt;_sockfd&lt;/code&gt;作为日志信息的一部。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;简单测试一下：&lt;/p&gt;
-&lt;img src=&#34;./.网络编程：TCP socket.IMG/image-20230507231023100.png&#34; alt=&#34;image-20230507231023100&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;网络编程：TCP socket.IMG/image-20230507231023100.png&#34; alt=&#34;image-20230507231023100&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;这一步和实现 UDP socket 编程的唯一区别就是使用&lt;code&gt;socket()&lt;/code&gt;函数的第二个参数不同。&lt;/p&gt;
 &lt;h3&gt;绑定&lt;span class=&#34;absolute -mt-20&#34; id=&#34;绑定&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e7%bb%91%e5%ae%9a&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;上面只完成了初始化服务器的第一步，下一步要将用户在命令行传入的 PORT 在内核中与当前进程强关联起来，也就是绑定（bind）。即通过绑定，在后续的执行逻辑中这个端口号就对只对应着被绑定的服务器进程，因为端口号标定着主机中进程的唯一性，服务器运行起来本身就是一个进程。&lt;/p&gt;
@@ -1077,7 +1077,7 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;测试一下：&lt;/p&gt;
-&lt;img src=&#34;./.网络编程：TCP socket.IMG/image-20230507230939233.png&#34; alt=&#34;image-20230507230939233&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;网络编程：TCP socket.IMG/image-20230507230939233.png&#34; alt=&#34;image-20230507230939233&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;UDP 服务器的实现就到此为止了，所以 UDP 通信的效率很高，但通过实现它的步骤可以知道，这是要付出代价的。&lt;/p&gt;
 &lt;h3&gt;开启监听&lt;span class=&#34;absolute -mt-20&#34; id=&#34;开启监听&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e5%bc%80%e5%90%af%e7%9b%91%e5%90%ac&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;TCP 服务器是面向连接的，客户端在向服务器发送数据之前，首先要建立连接才能进行通信。但是建立连接的前提是服务端能及时对客户端发送的连接请求产生回应，因此在建立连接之前，需要让服务端不断接收客户端发送的连接请求。&lt;/p&gt;
@@ -1146,7 +1146,7 @@
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;测试一下：
-&lt;img src=&#34;./.网络编程：TCP socket.IMG/image-20230507230930768.png&#34; alt=&#34;image-20230507230930768&#34; style=&#34;zoom:40%;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;网络编程：TCP socket.IMG/image-20230507230930768.png&#34; alt=&#34;image-20230507230930768&#34; style=&#34;zoom:40%;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;可以验证，打开的文件描述符是 3 号，说明 0、1 和 2 号文件描述符都是默认被打开的状态。&lt;/p&gt;
 &lt;h2&gt;运行服务器&lt;span class=&#34;absolute -mt-20&#34; id=&#34;运行服务器&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e8%bf%90%e8%a1%8c%e6%9c%8d%e5%8a%a1%e5%99%a8&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;netstat 工具&lt;span class=&#34;absolute -mt-20&#34; id=&#34;netstat-工具&#34;&gt;&lt;/span&gt;
@@ -1195,7 +1195,7 @@
     &lt;/button&gt;
   &lt;/div&gt;
 &lt;/div&gt;
-&lt;img src=&#34;./.网络编程：TCP socket.IMG/image-20230507232320538.png&#34; alt=&#34;image-20230507232320538&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;网络编程：TCP socket.IMG/image-20230507232320538.png&#34; alt=&#34;image-20230507232320538&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;h3&gt;获取连接和通信准备&lt;span class=&#34;absolute -mt-20&#34; id=&#34;获取连接和通信准备&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e8%8e%b7%e5%8f%96%e8%bf%9e%e6%8e%a5%e5%92%8c%e9%80%9a%e4%bf%a1%e5%87%86%e5%a4%87&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;和 UDP 服务器不一样，TCP 服务器的实现要手动连接。&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;accept()&lt;/code&gt; 函数用于基于连接的套接字类型（&lt;code&gt;SOCK_STREAM&lt;/code&gt;，&lt;code&gt;SOCK_SEQPACKET&lt;/code&gt;）。它从监听套接字 &lt;code&gt;sockfd&lt;/code&gt; 的挂起连接队列中提取第一个连接请求，创建一个新的已连接套接字，并返回指向该套接字的新文件描述符。新创建的套接字不处于监听状态。原始套接字 &lt;code&gt;sockfd&lt;/code&gt; 不受此调用影响。参数 &lt;code&gt;sockfd&lt;/code&gt; 是一个已使用 &lt;code&gt;socket(2)&lt;/code&gt; 创建、使用 &lt;code&gt;bind(2)&lt;/code&gt; 绑定到本地地址且正在监听的套接字。&lt;/p&gt;
@@ -1396,12 +1396,12 @@
 &lt;p&gt;使用方法：输入&lt;code&gt;telnet&lt;/code&gt;命令，后面跟上远程计算机的 IP 地址或主机名，以及要连接的端口号（如果不指定端口号，则默认为 23）。例如，要连接到 IP 地址为&lt;code&gt;192.168.1.1&lt;/code&gt;的远程计算机，可以使用以下命令：&lt;code&gt;telnet 192.168.1.1&lt;/code&gt;。在成功连接到远程计算机后，输入用户名和密码进行登录。&lt;/p&gt;
 &lt;p&gt;当不需要远程登录时，首先键入转义字符&lt;code&gt;Ctrl - ]&lt;/code&gt;，然后输入 exit 或 logout 命令退出 telnet 会话。&lt;/p&gt;
 &lt;h3&gt;测试&lt;span class=&#34;absolute -mt-20&#34; id=&#34;测试&#34;&gt;&lt;/span&gt;
-    &lt;a href=&#34;#%e6%b5%8b%e8%af%95&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;img src=&#34;./.网络编程：TCP socket.IMG/telnet1.gif&#34; alt=&#34;telnet1&#34; style=&#34;zoom:40%;&#34; /&gt;
+    &lt;a href=&#34;#%e6%b5%8b%e8%af%95&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;img src=&#34;网络编程：TCP socket.IMG/telnet1.gif&#34; alt=&#34;telnet1&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;也可以用本地环回地址进行测试。&lt;/p&gt;
 &lt;p&gt;细节：
 当&lt;code&gt;telnet&lt;/code&gt;连接到服务器时，打印的日志信息说明文件描述符是 4 号。&lt;/p&gt;
 &lt;p&gt;下面再增加一个客户端测试：&lt;/p&gt;
-&lt;img src=&#34;./.网络编程：TCP socket.IMG/telnet2.gif&#34; alt=&#34;telnet2&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;网络编程：TCP socket.IMG/telnet2.gif&#34; alt=&#34;telnet2&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;这里的现象不是我们预想的那样，中间的客户端 1 连接成功以后，服务端打印了对应的日志信息，客户端 1 发送信息服务端也能正常回显。但是上面的客户端 2 执行&lt;code&gt;telnet&lt;/code&gt;命令以后，服务端既没有打印日志信息也没有进行正常的回显操作，但是一旦客户端 1 退出，服务端就会一次性将刚刚没有输出的信息打印出来。&lt;/p&gt;
 &lt;p&gt;原因是这个服务端中的&lt;code&gt;start()&lt;/code&gt;处理数据的函数中的逻辑是在&lt;code&gt;while(1)&lt;/code&gt;死循环中进行的，而且是单进程执行这个操作。如果某次死循环中的任务没有执行完毕，那么整个服务端进程将会陷入死循环中，一直等待任务被执行完。这个单进程服务端一次只能处理一个客户端的任务，处理完了才能处理下一个。虽然单进程版本没什么用，但是它作为学习还是很有价值的，是一切改进的基础。&lt;/p&gt;
 &lt;h2&gt;多进程服务端（version2）&lt;span class=&#34;absolute -mt-20&#34; id=&#34;多进程服务端version2&#34;&gt;&lt;/span&gt;
@@ -1430,7 +1430,7 @@
 &lt;p&gt;关闭文件描述符是很重要的，因为每个进程都有一个文件描述符的限制。如果进程打开了太多的文件描述符而没有关闭它们，那么它将无法再打开新的文件描述符。此外，关闭文件描述符还可以释放系统资源，例如内存和文件锁。&lt;/p&gt;
 &lt;p&gt;在某些情况下，如果不关闭文件描述符，可能会导致数据丢失或损坏。例如，如果进程使用 write() 函数将数据写入文件，但在退出之前没有关闭文件描述符，则可能会丢失未写入磁盘的数据。&lt;/p&gt;
 &lt;p&gt;文件描述符是表征资源空间的一个下标，它被一个表储存着，它是有限的。如果子进程继承了父进程创建的服务套接字被使用完了，父进程也不关闭它，那么这个文件描述符对应的文件描述符就被浪费了，所以父子进程都要关闭自己不需要的文件描述符。这是文件描述符泄漏，类似内存泄漏。在云服务器中，单进程打开的文件描述符上限是 50000~100000 个。&lt;/p&gt;
-&lt;img src=&#34;./.网络编程：TCP socket.IMG/image-20230509231635852.png&#34; alt=&#34;image-20230509231635852&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;网络编程：TCP socket.IMG/image-20230509231635852.png&#34; alt=&#34;image-20230509231635852&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;blockquote&gt;
 &lt;p&gt;如果没有及时关闭文件描述符，那么在测试时会发现文件描述符的编号一直在增加，并且重启机器就会回复原样。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -1480,10 +1480,10 @@
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;依然使用两个&lt;code&gt;telnet&lt;/code&gt;模拟客户端：
-&lt;img src=&#34;./.网络编程：TCP socket.IMG/telnet_fork.gif&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;网络编程：TCP socket.IMG/telnet_fork.gif&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;两个客户端连接成功以后，可以看到服务端中依次多了两个子进程，它们是被父进程创建用来执行线程函数的，所以可以同时响应多个客户端发送的信息，图中也不会出现单进程服务端一次只能处理一个客户端的情况了。&lt;/p&gt;
 &lt;p&gt;值得注意的是，当两个子进程都调用&lt;code&gt;exit(0)&lt;/code&gt;退出以后，它们会变成僵尸进程，这在打印的信息中是可以观察到的：&lt;/p&gt;
-&lt;img src=&#34;./.网络编程：TCP socket.IMG/image-20230509235421602.png&#34; alt=&#34;image-20230509235421602&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;网络编程：TCP socket.IMG/image-20230509235421602.png&#34; alt=&#34;image-20230509235421602&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;blockquote&gt;
 &lt;p&gt;在进程列表中，&lt;code&gt;&amp;lt;defunct&amp;gt;&lt;/code&gt;表示僵尸进程。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -1548,10 +1548,10 @@
 &lt;p&gt;上面的代码只呈现了必要的部分，不需要的部分会说明。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;用同样的方式测试一下：&lt;/p&gt;
-&lt;img src=&#34;./.网络编程：TCP socket.IMG/telnet_fork_signal.gif&#34; alt=&#34;telnet_fork_signal&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;网络编程：TCP socket.IMG/telnet_fork_signal.gif&#34; alt=&#34;telnet_fork_signal&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;可以看到，由于父进程忽略了子进程退出的信号，所以两个客户端进程退出以后不会变成僵尸进程：&lt;/p&gt;
-&lt;img src=&#34;./.网络编程：TCP socket.IMG/image-20230510225741376.png&#34; alt=&#34;image-20230510225741376&#34; style=&#34;zoom:40%;&#34; /&gt;
-&lt;img src=&#34;./.网络编程：TCP socket.IMG/image-20230510225849302.png&#34; alt=&#34;image-20230510225849302&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;网络编程：TCP socket.IMG/image-20230510225741376.png&#34; alt=&#34;image-20230510225741376&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;网络编程：TCP socket.IMG/image-20230510225849302.png&#34; alt=&#34;image-20230510225849302&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;h4&gt;孙子进程&lt;span class=&#34;absolute -mt-20&#34; id=&#34;孙子进程&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e5%ad%99%e5%ad%90%e8%bf%9b%e7%a8%8b&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;让子进程再次创建子进程，就是孙子进程。那么原本子进程要执行的逻辑将会被孙子进程执行，子进程创建孙子进程后立即调用&lt;code&gt;exit(0)&lt;/code&gt;退出，原本的父进程调用&lt;code&gt;wait()&lt;/code&gt;或&lt;code&gt;waitpid()&lt;/code&gt;函数等待子进程能立刻成功地回收子进程的资源，而不需要等待回收孙子进程的资源，这样原本的父进程就能避免因等待回收子进程资源而占用时间，降低效率了。&lt;/p&gt;
 &lt;blockquote&gt;
@@ -1603,9 +1603,9 @@
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;用同样的方式和脚本测试一下：&lt;/p&gt;
-&lt;img src=&#34;./.网络编程：TCP socket.IMG/telnet_fork_son.gif&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;网络编程：TCP socket.IMG/telnet_fork_son.gif&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;p&gt;由于子进程创建孙子进程以后就立即退出了，那么孙子进程就是孤儿进程，它将被 1 号进程领养，不会出现僵尸进程的问题：&lt;/p&gt;
-&lt;img src=&#34;./.网络编程：TCP socket.IMG/image-20230510235305723.png&#34; alt=&#34;image-20230510235305723&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;网络编程：TCP socket.IMG/image-20230510235305723.png&#34; alt=&#34;image-20230510235305723&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;h1&gt;客户端&lt;/h1&gt;&lt;h2&gt;框架&lt;span class=&#34;absolute -mt-20&#34; id=&#34;框架-1&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e6%a1%86%e6%9e%b6-1&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;成员属性&lt;span class=&#34;absolute -mt-20&#34; id=&#34;成员属性-1&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e6%88%90%e5%91%98%e5%b1%9e%e6%80%a7-1&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;TCP 是面向连接的，客户端不同于服务端，它需要明确数据接收者的 IP 地址和 PORT。除此之外，还要有网络数据的载体&amp;ndash;套接字，因此还要保存文件描述符。&lt;/p&gt;
@@ -1862,8 +1862,8 @@
 &lt;/blockquote&gt;
 &lt;h3&gt;测试&lt;span class=&#34;absolute -mt-20&#34; id=&#34;测试-2&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e6%b5%8b%e8%af%95-2&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;用两个实现的客户端替代之前的&lt;code&gt;telnet&lt;/code&gt;，进行同样的测试：
-&lt;img src=&#34;./.网络编程：TCP socket.IMG/tcp_client_1.gif&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
-&lt;img src=&#34;./.网络编程：TCP socket.IMG/image-20230513151907837.png&#34; alt=&#34;image-20230513151907837&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;网络编程：TCP socket.IMG/tcp_client_1.gif&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;网络编程：TCP socket.IMG/image-20230513151907837.png&#34; alt=&#34;image-20230513151907837&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;通过多次发送信息的测试，效果还是符合预想的。&lt;/p&gt;
 &lt;p&gt;可能遇到的问题：&lt;/p&gt;
 &lt;ol&gt;
@@ -2019,9 +2019,9 @@
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;同样地，用两个客户端测试：&lt;/p&gt;
-&lt;img src=&#34;./.网络编程：TCP socket.IMG/tcp_server_threads1.gif&#34; alt=&#34;tcp_server_threads1&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;网络编程：TCP socket.IMG/tcp_server_threads1.gif&#34; alt=&#34;tcp_server_threads1&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;可以看到，当客户端输入“quit”以后，服务端对应的线程也会退出：
-&lt;img src=&#34;./.网络编程：TCP socket.IMG/image-20230514191019974.png&#34; alt=&#34;image-20230514191019974&#34; style=&#34;zoom:40%;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;网络编程：TCP socket.IMG/image-20230514191019974.png&#34; alt=&#34;image-20230514191019974&#34; style=&#34;zoom:40%;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://gitee.com/shawyxy/2023-linux/tree/main/TcpSocket/Threads&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;源代码&lt;/a&gt;&lt;/p&gt;
 &lt;h1&gt;线程池版服务端&lt;/h1&gt;&lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://blog.csdn.net/m0_63312733/article/details/130396163?spm=1001.2014.3001.5502&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;线程池&lt;/a&gt;（本小节还需了解&lt;code&gt;Thread&lt;/code&gt;类和&lt;code&gt;ThreadPool&lt;/code&gt;类的封装）&lt;/li&gt;
@@ -2169,10 +2169,10 @@
 &lt;/div&gt;
 &lt;h2&gt;测试&lt;span class=&#34;absolute -mt-20&#34; id=&#34;测试-4&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e6%b5%8b%e8%af%95-4&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;用同样的方式测试：
-&lt;img src=&#34;./.网络编程：TCP socket.IMG/tcp_server_threadpool1.gif&#34; alt=&#34;tcp_server_threadpool1&#34; style=&#34;zoom:40%;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;网络编程：TCP socket.IMG/tcp_server_threadpool1.gif&#34; alt=&#34;tcp_server_threadpool1&#34; style=&#34;zoom:40%;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;可以看到，只要客户端一运行起来，就会立即创建出 5 个线程（这是程序员自定义的），然后等待主线程派发任务。注意到服务端为客户端服务的线程的 PORT 是不一样的，也就说明是不同的线程（也可以在日志中增加线程信息）。&lt;/p&gt;
 &lt;p&gt;例如：&lt;/p&gt;
-&lt;img src=&#34;./.网络编程：TCP socket.IMG/tcp_server_threadpool2.gif&#34; alt=&#34;tcp_server_threadpool2&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;网络编程：TCP socket.IMG/tcp_server_threadpool2.gif&#34; alt=&#34;tcp_server_threadpool2&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;&lt;a href=&#34;https://gitee.com/shawyxy/2023-linux/tree/main/TcpSocket/ThreadPool&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;源代码&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;问题&lt;span class=&#34;absolute -mt-20&#34; id=&#34;问题&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e9%97%ae%e9%a2%98&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;长连接业务&lt;span class=&#34;absolute -mt-20&#34; id=&#34;长连接业务&#34;&gt;&lt;/span&gt;
@@ -2393,7 +2393,7 @@
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;h2&gt;测试&lt;span class=&#34;absolute -mt-20&#34; id=&#34;测试-5&#34;&gt;&lt;/span&gt;
-    &lt;a href=&#34;#%e6%b5%8b%e8%af%95-5&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;img src=&#34;./.网络编程：TCP socket.IMG/image-20230515143556472.png&#34; alt=&#34;image-20230515143556472&#34; style=&#34;zoom:40%;&#34; /&gt;
+    &lt;a href=&#34;#%e6%b5%8b%e8%af%95-5&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;img src=&#34;网络编程：TCP socket.IMG/image-20230515143556472.png&#34; alt=&#34;image-20230515143556472&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;通过简单的测试可以实现多线程执行来自客户端的请求。&lt;/p&gt;
 &lt;p&gt;需要注意的是，&lt;code&gt;enToZh()&lt;/code&gt;函数需要不断读取来自客户端的内容，否则只会在第一次执行任务，然后直接退出。&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://gitee.com/shawyxy/2023-linux/tree/main/TcpSocket/ThreadPoolChange&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;源代码&lt;/a&gt;&lt;/p&gt;
@@ -2678,7 +2678,7 @@
 &lt;/ol&gt;
 &lt;p&gt;以上是实现一个简单的 UDP 服务器的基本步骤。在实际应用中，还可能需要进行更多的操作，例如错误处理、超时处理等。&lt;/p&gt;
 &lt;p&gt;本小节将实现一个简单的回声服务器（echo server），即像&lt;code&gt;echo&lt;/code&gt;指令一样回显内容：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;./.网络编程：UDP socket.IMG/image-20230430125735059.png&#34; alt=&#34;image-20230430125735059&#34; style=&#34;zoom:40%;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;网络编程：UDP socket.IMG/image-20230430125735059.png&#34; alt=&#34;image-20230430125735059&#34; style=&#34;zoom:40%;&#34; /&gt;&lt;/p&gt;
 &lt;h2&gt;定义&lt;span class=&#34;absolute -mt-20&#34; id=&#34;定义&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e5%ae%9a%e4%b9%89&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;服务端的逻辑将被定义在&lt;code&gt;UdpServer.cc&lt;/code&gt;中，它包含了头文件&lt;code&gt;UdpServer.hpp&lt;/code&gt;。&lt;/p&gt;
 &lt;p&gt;而且服务端使用各种 socket 接口的操作将被封装为一个&lt;code&gt;UdpServer&lt;/code&gt;类，这个类型的对象就可以被称之为服务端。它将在头文件中被定义，在源文件中被使用。&lt;/p&gt;
@@ -2829,7 +2829,7 @@
 &lt;p&gt;后续代码中重复的头文件将会被省略，只显示新增的头文件。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;提供使用说明是规范的，大多数程序都会提供，例如：&lt;/p&gt;
-&lt;img src=&#34;./.网络编程：UDP socket.IMG/image-20230429173832545.png&#34; alt=&#34;image-20230429173832545&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;网络编程：UDP socket.IMG/image-20230429173832545.png&#34; alt=&#34;image-20230429173832545&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;/blockquote&gt;
 &lt;h2&gt;初始化服务器&lt;span class=&#34;absolute -mt-20&#34; id=&#34;初始化服务器&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e5%88%9d%e5%a7%8b%e5%8c%96%e6%9c%8d%e5%8a%a1%e5%99%a8&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;初始化服务器的逻辑将被封装在&lt;code&gt;UdpServer&lt;/code&gt;类的&lt;code&gt;initServer()&lt;/code&gt;成员函数中。&lt;/p&gt;
@@ -2933,9 +2933,9 @@
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;结果：&lt;/p&gt;
-&lt;img src=&#34;./.网络编程：UDP socket.IMG/image-20230429194023669.png&#34; alt=&#34;image-20230429194023669&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;网络编程：UDP socket.IMG/image-20230429194023669.png&#34; alt=&#34;image-20230429194023669&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;如果使用了错误的参数，会出现提示内容：&lt;/p&gt;
-&lt;img src=&#34;./.网络编程：UDP socket.IMG/image-20230430000538861.png&#34; alt=&#34;image-20230430000538861&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;网络编程：UDP socket.IMG/image-20230430000538861.png&#34; alt=&#34;image-20230430000538861&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;h3&gt;绑定&lt;span class=&#34;absolute -mt-20&#34; id=&#34;绑定&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e7%bb%91%e5%ae%9a&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;上面只完成了初始化服务器的第一步，只是过滤了一些不利条件，但是成员属性的 IP 和 PORT 都还未被使用。如果不用它们的话就没办法传输数据。因此要将用户在命令行传入的 IP 地址和 PORT 在内核中与当前进程强关联起来，也就是绑定（bind）。即通过绑定，在后续的执行逻辑中这个端口号就对只对应着被绑定的服务器进程，因为端口号标定着主机中进程的唯一性，服务器运行起来本身就是一个进程。&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;bind()&lt;/code&gt;函数用于将套接字与指定的 IP 地址和端口号绑定。通常在 TCP 协议或 UDP 协议的服务端设置。&lt;/p&gt;
@@ -3034,7 +3034,7 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;自此服务器初始化的操作已经完成一半，测试一下：&lt;/p&gt;
-&lt;img src=&#34;./.网络编程：UDP socket.IMG/image-20230430000153690.png&#34; alt=&#34;image-20230430000153690&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;网络编程：UDP socket.IMG/image-20230430000153690.png&#34; alt=&#34;image-20230430000153690&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;h2&gt;运行服务端&lt;span class=&#34;absolute -mt-20&#34; id=&#34;运行服务端&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e8%bf%90%e8%a1%8c%e6%9c%8d%e5%8a%a1%e7%ab%af&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;UDP 的服务端的初始化非常简单，只要创建套接字并绑定用户提供的 IP 地址和端口号到内核即可，剩下的操作将由操作系统协助完成。只要启动服务端进程，就能直接接收客户端发送的数据。&lt;/p&gt;
 &lt;p&gt;所谓网络服务器，在正常情况下它的进程应该是永不退出的，也就是服务器的逻辑应该在一个死循环中执行，我们把这样的进程叫做常驻进程，即一直存在于内存中（除非它挂了或者宕机）。因此使用 C/C++实现服务器的逻辑应该尽量杜绝内存泄漏问题。&lt;/p&gt;
@@ -3173,7 +3173,7 @@
     &lt;/button&gt;
   &lt;/div&gt;
 &lt;/div&gt;
-&lt;img src=&#34;./.网络编程：UDP socket.IMG/image-20230430135925106.png&#34; alt=&#34;image-20230430135925106&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;网络编程：UDP socket.IMG/image-20230430135925106.png&#34; alt=&#34;image-20230430135925106&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;注意，只有客户端对服务端进程发送数据，&lt;code&gt;recvfrom()&lt;/code&gt;函数才会读取成功，返回值才会大于零，处理数据的逻辑才会执行。&lt;/p&gt;
 &lt;h3&gt;关闭文件描述符&lt;span class=&#34;absolute -mt-20&#34; id=&#34;关闭文件描述符&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e5%85%b3%e9%97%ad%e6%96%87%e4%bb%b6%e6%8f%8f%e8%bf%b0%e7%ac%a6&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;在定义&lt;code&gt;UdpServer&lt;/code&gt;类的时，在析构函数中调用&lt;code&gt;close()&lt;/code&gt;函数关闭。&lt;/p&gt;
@@ -3389,7 +3389,7 @@
 &lt;h2&gt;本地测试&lt;span class=&#34;absolute -mt-20&#34; id=&#34;本地测试&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e6%9c%ac%e5%9c%b0%e6%b5%8b%e8%af%95&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;在下面的测试中，可以使用&lt;code&gt;127.0.0.1&lt;/code&gt;本地环回地址测试一下上面写好的服务端和客户端程序。端口号随便设置，在这里设置为&lt;code&gt;8080&lt;/code&gt;。&lt;/p&gt;
 &lt;p&gt;注意，上面的代码中使用了日志，有的日志级别是&lt;code&gt;DEBUG&lt;/code&gt;，在测试中可以在编译选项中加上&lt;code&gt;DDUBUG_SHOW&lt;/code&gt;以更好地观察现象，这是一个自定义预处理命令。&lt;/p&gt;
-&lt;img src=&#34;./.网络编程：UDP socket.IMG/屏幕录制 2023-04-30 17.49.17.gif&#34; alt=&#34;屏幕录制 2023-04-30 17.49.17&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;网络编程：UDP socket.IMG/屏幕录制 2023-04-30 17.49.17.gif&#34; alt=&#34;屏幕录制 2023-04-30 17.49.17&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;注意：首先要将服务端运行起来。通过实验结果来看，简易的回声服务端就被实现了，服务端将会在自己的进程中打印客户端发送的数据，并将数据原封不动地返回给客户端，&lt;code&gt;server echo#&lt;/code&gt;后面的内容就是客户端返回的数据。&lt;/p&gt;
 &lt;h2&gt;netstat 指令&lt;span class=&#34;absolute -mt-20&#34; id=&#34;netstat-指令&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#netstat-%e6%8c%87%e4%bb%a4&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;netstat&lt;/code&gt;是一个用于显示网络状态信息的命令行工具。它可以显示各种网络相关的信息，包括活动的网络连接、路由表、接口统计信息等。&lt;/p&gt;
@@ -3406,9 +3406,9 @@
 &lt;p&gt;以上是对&lt;code&gt;netstat&lt;/code&gt;命令的简要介绍。更多详细信息可以参考相关文档或使用&lt;code&gt;man netstat&lt;/code&gt;命令查看手册页。&lt;/p&gt;
 &lt;h3&gt;使用&lt;span class=&#34;absolute -mt-20&#34; id=&#34;使用&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e4%bd%bf%e7%94%a8&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;可以用这个工具查看刚才的程序对应的网络信息：&lt;/p&gt;
-&lt;img src=&#34;./.网络编程：UDP socket.IMG/image-20230430175930009.png&#34; alt=&#34;image-20230430175930009&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;网络编程：UDP socket.IMG/image-20230430175930009.png&#34; alt=&#34;image-20230430175930009&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;再测试一次：&lt;/p&gt;
-&lt;img src=&#34;./.网络编程：UDP socket.IMG/image-20230430180151102.png&#34; alt=&#34;image-20230430180151102&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;网络编程：UDP socket.IMG/image-20230430180151102.png&#34; alt=&#34;image-20230430180151102&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;可以看见，两次客户端的端口号都是不一样的，这说明操作系统自动绑定的端口号是不确定的。&lt;/p&gt;
 &lt;h2&gt;公网 IP 问题&lt;span class=&#34;absolute -mt-20&#34; id=&#34;公网-ip-问题&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e5%85%ac%e7%bd%91-ip-%e9%97%ae%e9%a2%98&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;对于一台云服务器，它的公网 IP 通常是由云服务提供商提供的虚拟公网 IP。这个虚拟公网 IP 并不是服务器真正的物理 IP 地址，而是通过网络地址转换（NAT）技术映射到服务器的私有 IP 地址上。&lt;/p&gt;
@@ -3417,7 +3417,7 @@
 &lt;h3&gt;测试&lt;span class=&#34;absolute -mt-20&#34; id=&#34;测试&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e6%b5%8b%e8%af%95&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;如果将服务器的构造函数中 IP 的默认值保持&lt;code&gt;&amp;quot;&amp;quot;&lt;/code&gt;或不设置缺省值，然后在绑定之前的 IP 地址填充操作改为&lt;code&gt;local.sin_addr.s_addr = inet_addr(_ip.c_str())&lt;/code&gt;，表示以用户设置的 IP 地址填充。&lt;/p&gt;
 &lt;p&gt;我的服务器厂商提供的虚拟公网 IP 地址是&lt;code&gt;8.130.106.177&lt;/code&gt;，那么直接使用刚才的程序：&lt;/p&gt;
-&lt;img src=&#34;./.网络编程：UDP socket.IMG/image-20230430185800258.png&#34; alt=&#34;image-20230430185800258&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;网络编程：UDP socket.IMG/image-20230430185800258.png&#34; alt=&#34;image-20230430185800258&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;服务端无法绑定，这是因为提供的 IP 地址不是物理上真正的 IP 地址。客户端一直处于阻塞状态，原因是陷入了&lt;code&gt;recvfrom()&lt;/code&gt;无法退出（这可以通过在这个函数前后打印语句判断）。&lt;/p&gt;
 &lt;p&gt;原因是在云服务器中，&lt;code&gt;bind()&lt;/code&gt;函数无法绑定一个具体的（公网）IP 地址，也不建议。如果没有这样的限制，那么在服务器的初始化中，&lt;code&gt;bind()&lt;/code&gt;函数只会被调用一次，那么第一次绑定时应该会成功将用户提供的 IP 地址和 PORT 成功绑定到内核中，那么就意味着这个客户端只能接受来自特定的 IP 地址和特定端口号对应的进程发送的数据，在绝大多数情况下都不会有这样的需求，因为服务器面向的是多个客户端。&lt;/p&gt;
 &lt;p&gt;所以在服务端（尤其）和客户端的构造函数中赋予 IP 地址以缺省值&lt;code&gt;&amp;quot;&amp;quot;&lt;/code&gt;，然后在绑定之前的 IP 地址填充操作设置用这样的逻辑控制：&lt;code&gt;local.sin_addr.s_addr = _ip.empty() ? INADDR_ANY : inet_addr(_ip.c_str())&lt;/code&gt;，这样就能兼容上述两种情况了。&lt;/p&gt;
@@ -3453,7 +3453,7 @@
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;以上是将服务器端的 IP 地址绑定到&lt;code&gt;INADDR_ANY&lt;/code&gt;的一些好处。当然，这种做法也有一些局限性，例如无法限制客户端只能使用特定的 IP 地址来连接服务器。因此，在实际应用中需要根据具体需求来决定是否使用&lt;code&gt;INADDR_ANY&lt;/code&gt;。&lt;/p&gt;
-&lt;p&gt;在上面的测试中，被绑定的 IP 地址设置为&lt;code&gt;0&lt;/code&gt;，查看进程网络信息时就能看到它的 IP 地址的值为 0。&lt;img src=&#34;./.网络编程：UDP socket.IMG/image-20230430191914226.png&#34; alt=&#34;image-20230430191914226&#34; style=&#34;zoom:40%;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;在上面的测试中，被绑定的 IP 地址设置为&lt;code&gt;0&lt;/code&gt;，查看进程网络信息时就能看到它的 IP 地址的值为 0。&lt;img src=&#34;网络编程：UDP socket.IMG/image-20230430191914226.png&#34; alt=&#34;image-20230430191914226&#34; style=&#34;zoom:40%;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;因此服务端的逻辑中 IP 地址就不用填充到结构体中了。&lt;/p&gt;
 &lt;h2&gt;网络测试&lt;span class=&#34;absolute -mt-20&#34; id=&#34;网络测试&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e7%bd%91%e7%bb%9c%e6%b5%8b%e8%af%95&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;a href=&#34;https://gitee.com/shawyxy/2023-linux/tree/main/UdpSocket/SingleProcess&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;源代码&lt;/a&gt;&lt;/p&gt;
@@ -3466,7 +3466,7 @@
 &lt;p&gt;如果需要从外部网络访问云服务器，需要使用公网 IP 地址。公网 IP 地址是指在 Internet 上可以访问的 IP 地址，可以通过网络地址转换（NAT）技术将公网 IP 地址映射到云服务器的私有地址上，从而实现外部网络对云服务器的访问。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;例如运营商提供给我的私有 IP 是&lt;code&gt;172.17.177.235&lt;/code&gt;：&lt;/p&gt;
-&lt;img src=&#34;./.网络编程：UDP socket.IMG/屏幕录制 2023-04-30 21.43.41.gif&#34; alt=&#34;屏幕录制 2023-04-30 21.43.41&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;网络编程：UDP socket.IMG/屏幕录制 2023-04-30 21.43.41.gif&#34; alt=&#34;屏幕录制 2023-04-30 21.43.41&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;h1&gt;解析命令版&lt;/h1&gt;&lt;p&gt;上面实现了一个简单的回声服务器，是将数据看作字符串的。有时候客户端发送的数据中可能包含让对端主机执行任务的语句（例如&lt;code&gt;ls -a -l&lt;/code&gt;），那么就要对字符串进行分割，然后在服务器中调用字符串对应的指令。这里的字符串分割当然可以自己实现，但本节的终点是实现功能，实际上也是直接把成熟的工具或框架拿来用，这样能保证安全性。&lt;/p&gt;
 &lt;h2&gt;popen 函数&lt;span class=&#34;absolute -mt-20&#34; id=&#34;popen-函数&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#popen-%e5%87%bd%e6%95%b0&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;popen&lt;/code&gt;是一个 Linux 函数，用于通过创建管道、分叉和调用 shell 来打开进程。由于管道本质上是单向的，因此&lt;code&gt;type&lt;/code&gt;参数只能指定读取或写入，不能同时指定两者；因此，所得到的流分别是只读或只写的。&lt;/p&gt;
@@ -3561,7 +3561,7 @@
 &lt;blockquote&gt;
 &lt;p&gt;这个程序在缓冲区中还是有一些问题，如果频繁输入不存在的命令将会使&lt;code&gt;popen()&lt;/code&gt;函数处于阻塞状态。&lt;/p&gt;
 &lt;p&gt;如果客户端发送了&lt;code&gt;rm&lt;/code&gt;或&lt;code&gt;rmdir&lt;/code&gt;等非法指令，那么客户端将会记录错误信息，并直接返回错误信息。&lt;/p&gt;
-&lt;img src=&#34;./.网络编程：UDP socket.IMG/image-20230430231042147.png&#34; alt=&#34;image-20230430231042147&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;网络编程：UDP socket.IMG/image-20230430231042147.png&#34; alt=&#34;image-20230430231042147&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;&lt;a href=&#34;https://gitee.com/shawyxy/2023-linux/tree/main/UdpSocket/SingleProcess_command&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;源代码&lt;/a&gt;&amp;ndash;实际上只修改了&lt;code&gt;UdpServer.hpp&lt;/code&gt;中成员函数&lt;code&gt;Start()&lt;/code&gt;的逻辑，为了方便编译依然将所有文件打包。（实际上也能打包成一个库以供别人使用，不过这样的话就没办法看到代码中的细节了）&lt;/p&gt;
 &lt;h1&gt;群聊版（单进程）&lt;/h1&gt;&lt;p&gt;上面的例子是一个服务端进程对应一个客户端进程，要实现群聊版的服务端程序，（想象我们在群里的情景）其实就是将每个用户发送的数据在客户端中收集起来，然后统一发送给每一个客户端。这样就实现了全员广播通信，从效果上看，每个客户端能看见自己和别人发送的信息。&lt;/p&gt;
@@ -3669,9 +3669,9 @@
 &lt;/div&gt;
 &lt;h2&gt;测试&lt;span class=&#34;absolute -mt-20&#34; id=&#34;测试-3&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e6%b5%8b%e8%af%95-3&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;下面将用 2 个客户端和 1 个服务端进行测试。&lt;/p&gt;
-&lt;img src=&#34;./.网络编程：UDP socket.IMG/屏幕录制 2023-05-01 15.14.35.gif&#34; alt=&#34;屏幕录制 2023-05-01 15.14.35&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;网络编程：UDP socket.IMG/屏幕录制 2023-05-01 15.14.35.gif&#34; alt=&#34;屏幕录制 2023-05-01 15.14.35&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;但是这并不是我们想象中的群聊，这里只有发送信息的客户端才能收到自己发送的消息，而不会立刻显示另一个客户端发送的消息，而是在回显自己发送的几条信息之后才显示。而且我们通过服务端的日志可以看到，实际上客户端是有将每条接收到的数据发送给两个客户端的：&lt;/p&gt;
-&lt;img src=&#34;./.网络编程：UDP socket.IMG/image-20230501151941073.png&#34; alt=&#34;image-20230501151941073&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;网络编程：UDP socket.IMG/image-20230501151941073.png&#34; alt=&#34;image-20230501151941073&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;出现这样的情况的原因并非客户端拒绝了服务端进程发送的消息，而是 IO 被阻塞了。在上面的客户端程序中，使用的是&lt;code&gt;getline()&lt;/code&gt;函数获取用户输入的数据，也就是从标准输入读取数据，那么如果数据没有流向标准输入，&lt;code&gt;getline()&lt;/code&gt;后面的逻辑都不会被执行，程序将会在&lt;code&gt;getline()&lt;/code&gt;一直等待标准输入的数据。对于群聊中的每一个客户端，它们接收消息和发送消息应该是互不干扰的，就像我们在群里聊天一样。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;最主要的原因是，单进程执行任务，只要在任意地方发生阻塞，而恰好客户端读取用户输入信息的逻辑必须要在死循环内部（表示不断读取），因此&lt;code&gt;getline()&lt;/code&gt;阻塞会造成整个客户端的 IO 发生阻塞。&lt;/p&gt;
@@ -3869,7 +3869,7 @@
     &lt;/button&gt;
   &lt;/div&gt;
 &lt;/div&gt;
-&lt;img src=&#34;./.网络编程：UDP socket.IMG/屏幕录制 2023-05-01 19.36.33.gif&#34; alt=&#34;屏幕录制 2023-05-01 19.36.33&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;网络编程：UDP socket.IMG/屏幕录制 2023-05-01 19.36.33.gif&#34; alt=&#34;屏幕录制 2023-05-01 19.36.33&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;注意：由于使用了&lt;code&gt;pthread&lt;/code&gt;库，因此要增加编译选项：&lt;code&gt;-pthread&lt;/code&gt;。&lt;/p&gt;
 &lt;p&gt;不论是读还是写的两个线程，它们使用的 socket 都是同一个，那么 sockfd 对应的就是同一个文件。常规情况下，同时对一个文件进行读写会出现问题。但是 UDP/TCP 中的 socket 是全双工的，这意味着它可以同时进行读写操作而不干扰对方线程。&lt;/p&gt;
 &lt;h3&gt;管道测试&lt;span class=&#34;absolute -mt-20&#34; id=&#34;管道测试&#34;&gt;&lt;/span&gt;
@@ -3881,11 +3881,11 @@
 &lt;li&gt;输出时：通过工具&lt;code&gt;cat&lt;/code&gt;显示服务端返回的数据。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;首先创建两个缓冲区：&lt;/p&gt;
-&lt;img src=&#34;./.网络编程：UDP socket.IMG/image-20230501201002778.png&#34; alt=&#34;image-20230501201002778&#34; style=&#34;zoom:40%;&#34; /&gt;
-&lt;img src=&#34;./.网络编程：UDP socket.IMG/屏幕录制 2023-05-01 20.15.32.gif&#34; alt=&#34;屏幕录制 2023-05-01 20.15.32&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;网络编程：UDP socket.IMG/image-20230501201002778.png&#34; alt=&#34;image-20230501201002778&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;网络编程：UDP socket.IMG/屏幕录制 2023-05-01 20.15.32.gif&#34; alt=&#34;屏幕录制 2023-05-01 20.15.32&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;通过管道作为客户端和服务端之间的缓冲区，就可以实现在专门的模块中输入（右边）和输出（中间），这样就不会像上面一样输入和输出乱成一锅粥了。&lt;/p&gt;
 &lt;p&gt;这里有一个 bug，就是缓冲区 B 不能收到客户端 A 发送的第一条数据，在测试中也就是“你好，我是客户端 A”这条消息。出现这种情况的原因是没有设计注册的逻辑，这里服务端中添加用户的逻辑是用户端发送第一条消息时判断它是不是新用户，是则添加到哈希表中。因为客户端 A 在发送这条消息时，客户端 B 还没有被添加到表中，因此服务端在群发消息时也就不回将消息发送给客户端 B 了。&lt;/p&gt;
-&lt;img src=&#34;./.网络编程：UDP socket.IMG/image-20230501202604922.png&#34; alt=&#34;image-20230501202604922&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;网络编程：UDP socket.IMG/image-20230501202604922.png&#34; alt=&#34;image-20230501202604922&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;因此如果实现了一个注册功能，在发送信息之前就已经把用户的标识信息保存起来，在实现群聊时，即使用户没有发送过消息也能收到其他成员的消息。&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://gitee.com/shawyxy/2023-linux/tree/main/UdpSocket/Threads_GroupChat&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;源代码&lt;/a&gt;&amp;ndash;修改了客户端的逻辑、Makefile 以及线程封装时格式化写入的部分逻辑。&lt;/p&gt;
 &lt;h2&gt;优化&lt;span class=&#34;absolute -mt-20&#34; id=&#34;优化&#34;&gt;&lt;/span&gt;
@@ -4675,7 +4675,7 @@
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;在这里，&lt;code&gt;calculator&lt;/code&gt;就是被 push_back 的函数。&lt;/p&gt;
-&lt;img src=&#34;./.认识协议.IMG/MD202306041735381.png&#34; alt=&#34;image-20230601153011021&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;认识协议.IMG/MD202306041735381.png&#34; alt=&#34;image-20230601153011021&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;简单测试几个功能，注意到当除数为 0 时，错误码是刚刚设置的 1。&lt;/p&gt;
 &lt;h2&gt;存在的问题&lt;span class=&#34;absolute -mt-20&#34; id=&#34;存在的问题&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e5%ad%98%e5%9c%a8%e7%9a%84%e9%97%ae%e9%a2%98&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ol&gt;
@@ -5015,7 +5015,7 @@
 &lt;/div&gt;
 &lt;h2&gt;测试&lt;span class=&#34;absolute -mt-20&#34; id=&#34;测试-1&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e6%b5%8b%e8%af%95-1&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;简单测试一下：&lt;/p&gt;
-&lt;img src=&#34;./.认识协议.IMG/MD202306041735382.png&#34; alt=&#34;image-20230601234931790&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;认识协议.IMG/MD202306041735382.png&#34; alt=&#34;image-20230601234931790&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;h1&gt;守护进程版本&lt;/h1&gt;&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/m0_63312733/article/details/131025735?spm=1001.2014.3001.5501&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;守护进程&lt;/a&gt;（Daemon）是一种在后台运行的特殊进程，它不属于任何终端，也不受用户的交互控制，通常用来执行一些系统服务或应用程序。&lt;/p&gt;
 &lt;p&gt;像上面包括之前博文实现的 UDP 和 TCP 服务器，都是在前台运行的进程（即运行起来以后光标一直在闪动，因为需要用无限循环使逻辑不断运行）。关于守护进程：&lt;/p&gt;
 &lt;ol&gt;
@@ -5051,7 +5051,7 @@
 &lt;li&gt;调用进程不能是一个进程组的组长进程。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;如果调用进程是一个进程组的组长进程，setsid() 会返回-1，并设置 errno 为 EPERM（表示操作不被允许）。这是为了防止一个进程组的组长进程将自己放到一个新的会话中，而其他进程仍然留在原来的会话中，这样会破坏会话和进程组的两级层次结构。为了确保 setsid() 能够成功，可以先调用 fork(2) 并让父进程退出，而子进程（一定不是一个进程组的组长进程）调用 setsid()。&lt;/p&gt;
-&lt;img src=&#34;./.认识协议.IMG/MD202306041735383.png&#34; alt=&#34;image-20230604152951381&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;认识协议.IMG/MD202306041735383.png&#34; alt=&#34;image-20230604152951381&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;h2&gt;实现&lt;span class=&#34;absolute -mt-20&#34; id=&#34;实现&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e5%ae%9e%e7%8e%b0&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;下面将在进程中调用该函数，让它自己成为一个守护进程：&lt;/p&gt;
 &lt;div class=&#34;code-block relative mt-6 first:mt-0 group/code&#34;&gt;&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#pragma once
@@ -5123,10 +5123,10 @@
 &lt;/ul&gt;
 &lt;p&gt;总的来说，不能向显示器打印消息的原因是它已经是独立的进程（组），和当前的会话（终端）已经没有关系了。一旦打印消息，就会被暂停或者被终止。&lt;/p&gt;
 &lt;p&gt;简单测试一下：&lt;/p&gt;
-&lt;img src=&#34;./.认识协议.IMG/MD202306041735384.png&#34; alt=&#34;image-20230604154849227&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;认识协议.IMG/MD202306041735384.png&#34; alt=&#34;image-20230604154849227&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;可以看到，这个进程自成会话，表现是 PPID=1，PID 和 PGID 相同，TTY=？。守护进程是孤儿进程的一种，守护进程自成会话。这样就能让服务端在后台运行，关闭终端窗口也不影响服务，这样就能无时无刻的为客户端提供服务了。而且后台进程不会影响当前终端窗口的其他任务的执行，因为含有无限循环的前台进程会阻塞 I/O，它会一直占用 CPU 资源，导致其他进程无法得到调度。&lt;/p&gt;
 &lt;p&gt;在同一 shell 会话中也能启动客户端进程测试：&lt;/p&gt;
-&lt;img src=&#34;./.认识协议.IMG/MD202306041735385.png&#34; alt=&#34;image-20230604160302083&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;认识协议.IMG/MD202306041735385.png&#34; alt=&#34;image-20230604160302083&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;h1&gt;json 版本&lt;/h1&gt;&lt;h2&gt;json 介绍&lt;span class=&#34;absolute -mt-20&#34; id=&#34;json-介绍&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#json-%e4%bb%8b%e7%bb%8d&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;JavaScript Object Notation，是一种轻量级的数据交换格式，使用人类可读的文本来存储和传输由属性值对和数组（或其他可序列化的值）组成的数据对象。JSON 是一种语言无关的数据格式，它源自于 JavaScript，但是许多现代编程语言都包含了生成和解析 JSON 格式数据的代码。JSON 文件使用。json 作为扩展名，但不是强制的。&lt;/p&gt;
 &lt;p&gt;JSON 有以下特点：&lt;/p&gt;
@@ -5182,7 +5182,7 @@
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;验证安装是否成功：&lt;/p&gt;
-&lt;img src=&#34;./.认识协议.IMG/MD202306041735387.png&#34; alt=&#34;image-20230604162212168&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;认识协议.IMG/MD202306041735387.png&#34; alt=&#34;image-20230604162212168&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;在编译选项中要增加&lt;code&gt;-ljsoncpp&lt;/code&gt;链接该第三方库。&lt;/p&gt;
 &lt;h3&gt;用法&lt;span class=&#34;absolute -mt-20&#34; id=&#34;用法&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e7%94%a8%e6%b3%95&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;注意头文件的包含。&lt;/p&gt;
@@ -5244,7 +5244,7 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;例如：
-&lt;img src=&#34;./.认识协议.IMG/MD202306041735388.png&#34; alt=&#34;image-20230604164259561&#34; style=&#34;zoom:40%;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;认识协议.IMG/MD202306041735388.png&#34; alt=&#34;image-20230604164259561&#34; style=&#34;zoom:40%;&#34; /&gt;&lt;/p&gt;
 &lt;h3&gt;实现&lt;span class=&#34;absolute -mt-20&#34; id=&#34;实现-2&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e5%ae%9e%e7%8e%b0-2&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;下面修改&lt;code&gt;Request&lt;/code&gt;和&lt;code&gt;Response&lt;/code&gt;中序列化和反序列化的逻辑（Protocol.hpp）：&lt;/p&gt;
 &lt;div class=&#34;code-block relative mt-6 first:mt-0 group/code&#34;&gt;&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// Request::Serialize
@@ -5304,7 +5304,7 @@
 &lt;/div&gt;
 &lt;p&gt;这样就能保证每次获取的数据是一个完整的 Json 字节流。&lt;/p&gt;
 &lt;p&gt;简单测试一下（为了方便测试，暂时不作为守护进程）：&lt;/p&gt;
-&lt;img src=&#34;./.认识协议.IMG/MD202306041735389.png&#34; alt=&#34;image-20230604172529970&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;认识协议.IMG/MD202306041735389.png&#34; alt=&#34;image-20230604172529970&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;使用成熟的协议，能很方便地扩充或修改协议，可以在数据中包含 x、y 和 op，那么就不用在函数内部使用临时字符串保存数据了，而 Json 数据本身就携带了这些信息。&lt;/p&gt;
 &lt;p&gt;例如日志记录的 Json 字符串：&lt;/p&gt;
 &lt;div class=&#34;code-block relative mt-6 first:mt-0 group/code&#34;&gt;&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;[NORMAL] [1685870721] inbuffer: {&amp;#34;op&amp;#34;:42,&amp;#34;x&amp;#34;:55,&amp;#34;y&amp;#34;:2}&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0&#34;&gt;
@@ -5335,7 +5335,7 @@
 &lt;p&gt;通常使用的网络（包括互联网）是在 TCP/IP 协议族的基础上运作的。而 HTTP 属于它内部的一个子集。&lt;/p&gt;
 &lt;p&gt;也就是说，HTTP 通常运行在 TCP 之上。&lt;/p&gt;
 &lt;p&gt;协议（Protocol）是一种实现约定好的规则。对于进行网络通信的双方，想要保证通信方式的一致性，就要基于相同的方法。不论是网络通信还是硬件、操作系统之间的通信，都需要一个通信参与方都知晓的规则约束通信方式。&lt;/p&gt;
-&lt;img src=&#34;./.HTTP 协议.IMG/MD202306101515661.png&#34; alt=&#34;image-20230607231242091&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 协议.IMG/MD202306101515661.png&#34; alt=&#34;image-20230607231242091&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;&lt;strong&gt;TCP/IP 是互联网相关的各类协议族的总称&lt;/strong&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;协议中存在各式各样的内容。从电缆的规格到 IP 地址的选定方法、寻找异地用户的方法、双方建立通信的顺序，以及 Web 页面显示需要处理的步骤，等等。&lt;/p&gt;
@@ -5375,7 +5375,7 @@
 &lt;p&gt;至此，TCP 连接建立完成，客户端和服务器可以开始进行数据传输。&lt;/p&gt;
 &lt;p&gt;三次握手的目的是确保客户端和服务器均已准备好进行数据传输，同时也确保了双方的初始序列号、确认号等信息正确无误。通过三次握手，TCP 可以保证连接的可靠性和正确性，从而避免数据传输过程中的错误和丢失。&lt;/p&gt;
 &lt;p&gt;若在握手过程中某个阶段莫名中断，TCP 协议会再次以相同的顺序发送相同的数据包。&lt;/p&gt;
-&lt;img src=&#34;./.HTTP 协议.IMG/MD202306101515663.png&#34; alt=&#34;image-20230607233416943&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 协议.IMG/MD202306101515663.png&#34; alt=&#34;image-20230607233416943&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;h2&gt;2.3 负责域名解析的 DNS 服务&lt;span class=&#34;absolute -mt-20&#34; id=&#34;23-负责域名解析的-dns-服务&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#23-%e8%b4%9f%e8%b4%a3%e5%9f%9f%e5%90%8d%e8%a7%a3%e6%9e%90%e7%9a%84-dns-%e6%9c%8d%e5%8a%a1&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;DNS（Domain Name System）服务是和 HTTP 协议一样位于应用层的协议。它提供域名到 IP 地址之间的解析服务。&lt;/p&gt;
 &lt;p&gt;IP 地址是计算机在网络中的标识，但不符合人类的使用习惯，也不方便记忆。因此 DNS 服务就相当于一张表，它保存了由字母数字组合的域名和 IP 地址之间的映射关系。当用户键入诸如&lt;code&gt;www.baidu.com&lt;/code&gt;这样的域名，浏览器首先会通过 DNS 服务获取这个网址对应的 IP 地址，然后再通过 IP 地址访问服务端。&lt;/p&gt;
@@ -5384,7 +5384,7 @@
 &lt;/blockquote&gt;
 &lt;h2&gt;2.4 各种协议和 HTTP 协议的关系&lt;span class=&#34;absolute -mt-20&#34; id=&#34;24-各种协议和-http-协议的关系&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#24-%e5%90%84%e7%a7%8d%e5%8d%8f%e8%ae%ae%e5%92%8c-http-%e5%8d%8f%e8%ae%ae%e7%9a%84%e5%85%b3%e7%b3%bb&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;通过以上对于 HTTP 协议密切相关的协议的简要介绍，HTTP 协议和它们之间的关系大致如下：&lt;/p&gt;
-&lt;img src=&#34;./.HTTP 协议.IMG/MD202306101515664.png&#34; alt=&#34;image-20230607234709948&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 协议.IMG/MD202306101515664.png&#34; alt=&#34;image-20230607234709948&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;h1&gt;3. URL 和编码问题&lt;/h1&gt;&lt;h2&gt;3.1 介绍&lt;span class=&#34;absolute -mt-20&#34; id=&#34;31-介绍&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#31-%e4%bb%8b%e7%bb%8d&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;URL/URL 出现于 DNS 之后，当时 Web 还处于发展初期，Web 页面通常只是简单的 HTML 文本文件。随着 Web 页面变得越来越复杂和丰富，需要一种更灵活和通用的标识方法来标识和访问各种资源。&lt;/p&gt;
 &lt;p&gt;URL（Uniform Resource Locator，统一资源定位符）和 URI（Uniform Resource Identifier，统一资源标识符）都是用于标识互联网上资源位置和访问方式的标识符，它们之间有很紧密的关系，但是又有所区别。URL 是 URI 的一种特定实现方式，它是用于标识==Web 页面==等资源位置和访问方式的一种标准格式。URI 则是一个更通用的概念，用于标识任何类型的资源位置和访问方式，包括 URL 在内。&lt;/p&gt;
@@ -5448,7 +5448,7 @@
 &lt;li&gt;使用 http: 或 https: 等协议方案名获取访问资源时要指定协议类型。不区分字母大小写，最后附一个冒号（:）。&lt;/li&gt;
 &lt;li&gt;URL 中的 path 部分沿用了 Unix 风格的路径表示法，这可能是因为当时大部分网络服务器都运行在 Unix 或类 Unix 系统上（现在大部分网络服务器运行在 Linux 系统上），同时也是因为 Unix 风格的路径表示法比较简洁和通用。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;img src=&#34;./.HTTP 协议.IMG/MD202306101515665.png&#34; alt=&#34;image-20230608133538814&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 协议.IMG/MD202306101515665.png&#34; alt=&#34;image-20230608133538814&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;上图是一个 URL 中各个部分的解释，需要注意的是：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -5465,7 +5465,7 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;客户端获取请求实际上是通过 URL 访问服务端中的资源，而服务端响应请求就是将这些资源通过网络传输给客户端。例如用户访问网页是通过浏览器向服务端发出请求，然后获取到服务端返回的 html 网页文件，浏览器再对这个 html 文件渲染，这样用户就能获取到网页中的内容。例如：
-&lt;img src=&#34;./.HTTP 协议.IMG/MD202306101515666.png&#34; alt=&#34;image-20230608135746843&#34; style=&#34;zoom:40%;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;HTTP 协议.IMG/MD202306101515666.png&#34; alt=&#34;image-20230608135746843&#34; style=&#34;zoom:40%;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;除了传输网页资源之外，服务端还能返回视频、音频、图片等等资源，这就是 HTTP（Hyper Text Transfer Protocol，超文本传输协议）名称的由来。&lt;/p&gt;
 &lt;h2&gt;3.2 编码问题&lt;span class=&#34;absolute -mt-20&#34; id=&#34;32-编码问题&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#32-%e7%bc%96%e7%a0%81%e9%97%ae%e9%a2%98&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;诸如&lt;code&gt;?&lt;/code&gt;、&lt;code&gt;/&lt;/code&gt;、&lt;code&gt;:&lt;/code&gt;等字符，用户也有可能会使用，因为它们本身有固定的含义，但是对于计算机而言，它们是协议的组成部分，是划分不同模块的标识符，为了避免用户使用上和机器识别发生冲突，我们需要对用户输入的这些字符进行转义。&lt;/p&gt;
@@ -5477,9 +5477,9 @@
 &lt;p&gt;rawurlencode(&amp;ldquo;Hello World!&amp;rdquo;) 会返回 &amp;ldquo;Hello%20World%21&amp;rdquo;&lt;/p&gt;
 &lt;p&gt;rawurldecode(&amp;ldquo;Hello%20World%21&amp;rdquo;) 会返回 &amp;ldquo;Hello World!&amp;rdquo;&lt;/p&gt;
 &lt;p&gt;在线编码/解码工具：https://www.urlencoder.org/&lt;/p&gt;
-&lt;img src=&#34;./.HTTP 协议.IMG/MD202306101515667.png&#34; alt=&#34;image-20230608140839584&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 协议.IMG/MD202306101515667.png&#34; alt=&#34;image-20230608140839584&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;h1&gt;4. 初识 HTTP 协议&lt;/h1&gt;&lt;p&gt;HTTP 作为应用层协议，它决定了向用户提供应用服务时通信的活动。前文提到，HTTP（应用层）通常运行在 TCP（传输层）之上。在网络通信中，其他层次结构的实现细节是对任意一层透明的，应用层也不例外，在每一层协议眼中，它们都会认为数据是对方同层协议直接传输而来的。就像这样：&lt;/p&gt;
-&lt;img src=&#34;./.HTTP 协议.IMG/MD202306101515668.png&#34; alt=&#34;image-20230608142342998&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 协议.IMG/MD202306101515668.png&#34; alt=&#34;image-20230608142342998&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;对于同层协议，不管是交付还是接收数据包，有效载荷和报头组合的整体都是同一个。这张图主要想表达的是红色的箭头，它不是真实存在的，但是右边主机的每一层协议在接收到数据时，就相当于直接从对端主机的同层协议接收&lt;/p&gt;
 &lt;p&gt;除了应用层之外的三层协议，它们实现了具体的通信细节，这是由操作系统完成的，在此并不做讨论，会在后续的专题中详细介绍它们。&lt;/p&gt;
 &lt;h2&gt;4.1 C-S 模式&lt;span class=&#34;absolute -mt-20&#34; id=&#34;41-c-s-模式&#34;&gt;&lt;/span&gt;
@@ -5741,21 +5741,21 @@ Content-Length: 88
 &lt;p&gt;&lt;a href=&#34;https://gitee.com/shawyxy/2023-linux/tree/main/HttpDemo/version1&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;源代码：HttpServer Version 1&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;测试&lt;span class=&#34;absolute -mt-20&#34; id=&#34;测试&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e6%b5%8b%e8%af%95&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;通常在测试时，将端口设置为 8080 或 8081，浏览器本身就是一个客户端，键入服务器的公网 IP 和端口号，中间以&lt;code&gt;:&lt;/code&gt;分隔：&lt;/p&gt;
-&lt;img src=&#34;./.HTTP 协议.IMG/MD202306101515669.png&#34; alt=&#34;image-20230608230756103&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 协议.IMG/MD202306101515669.png&#34; alt=&#34;image-20230608230756103&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;如果当你按下回车，服务端像这样什么都没显示，那么大概率是云服务器没有开放端口。可以搜索对应运营商的和系统的开放端口的方法。如果这样还不能解决，那么可能是系统的防火墙未开放端口。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;以阿里云的 CentOS 7 系统为例（2023/6/8）:&lt;/p&gt;
-&lt;img src=&#34;./.HTTP 协议.IMG/MD202306101515670.png&#34; alt=&#34;image-20230608231258821&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 协议.IMG/MD202306101515670.png&#34; alt=&#34;image-20230608231258821&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;如果添加不了很多个的话，可以先添加，然后在最右侧的“编辑”按钮中修改。&lt;/p&gt;
 &lt;p&gt;他喵的这个问题让我调半天。&lt;/p&gt;
 &lt;p&gt;切入点是我调试发现被封装的 Accept() 函数阻塞在了 accept() 函数中，其中只可能是第一个参数，即监听套接字文件描述符出现了问题（因为另外两个是输出型参数），说明这个函数陷入了阻塞，一直在等待连接。结合&lt;code&gt;telnet&lt;/code&gt;工具的测试结果，发现每次用内网 IP 或 127.0.0.1 连接都能成功，用公网 IP 就一直连接不上（端口都是服务端启动时指定的 8080 或 8081），怀疑是端口问题，各种搜索就解决了。&lt;/p&gt;
 &lt;p&gt;收获：虽然用 SSH 能通过这个公网 IP 连接到机器，但是它和 HTTP 不是一个协议。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;正常情况下键入 IP 地址和端口号，按下回车后，服务端应该会立即显示以下内容；&lt;/p&gt;
-&lt;img src=&#34;./.HTTP 协议.IMG/MD202306101515671.png&#34; alt=&#34;image-20230608231418545&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 协议.IMG/MD202306101515671.png&#34; alt=&#34;image-20230608231418545&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;这就是上面介绍的响应报文。&lt;/p&gt;
 &lt;p&gt;由于这个客户端的逻辑只是打印，而未返回任何内容给客户端，因此浏览器显示的是错误信息：&lt;/p&gt;
-&lt;img src=&#34;./.HTTP 协议.IMG/MD202306101515672.png&#34; alt=&#34;image-20230608231703440&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 协议.IMG/MD202306101515672.png&#34; alt=&#34;image-20230608231703440&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;值得注意的是，很多时候键入 URL 不用指明协议名称，因为浏览器默认使用的协议是 HTTP。&lt;/p&gt;
 &lt;h2&gt;4.6 构建响应&lt;span class=&#34;absolute -mt-20&#34; id=&#34;46-构建响应&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#46-%e6%9e%84%e5%bb%ba%e5%93%8d%e5%ba%94&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;如上文所说，服务端处理请求后会返回一些信息给客户端，这可以是一个 HTML 文件，虽然目前无法真正处理服务器的请求，但可以返回一个固定的 HTML 文件作为演示。&lt;/p&gt;
@@ -5801,7 +5801,7 @@ Content-Length: 88
     &lt;/button&gt;
   &lt;/div&gt;
 &lt;/div&gt;
-&lt;img src=&#34;./.HTTP 协议.IMG/MD202306101515673.png&#34; alt=&#34;image-20230609100115123&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 协议.IMG/MD202306101515673.png&#34; alt=&#34;image-20230609100115123&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;结果表明这是可行的。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;显示客户端的 IP 和 PORT 是为了调试写的打印语句。&lt;/p&gt;
@@ -5917,15 +5917,15 @@ Content-Length: 88
 &lt;p&gt;最后，函数根据读取到的文件内容构建 HTTP 响应。这样，客户端的请求默认访问的就是网根目录，也就是&lt;code&gt;/&lt;/code&gt;下的&lt;code&gt;index.html&lt;/code&gt;文件。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;不过，在浏览器中可能会隐藏一些细节：&lt;/p&gt;
-&lt;img src=&#34;./.HTTP 协议.IMG/MD202306101515674.png&#34; alt=&#34;image-20230609113153495&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 协议.IMG/MD202306101515674.png&#34; alt=&#34;image-20230609113153495&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;但事实上客户端的 HTTP 请求是：&lt;code&gt;http://8.130.106.177:8081/&lt;/code&gt;（复制网址框的内容，然后粘贴），后面自动追加了一个&lt;code&gt;/&lt;/code&gt;，表示默认在网根目录下请求。我们设置的&lt;code&gt;index.html&lt;/code&gt;文件也就是首页要显示的内容。&lt;/p&gt;
 &lt;p&gt;同样地，例如在网址框中输入&lt;code&gt;baidu.com&lt;/code&gt;回车，实际上请求是&lt;code&gt;https://www.baidu.com/&lt;/code&gt;，百度会返回客户端它的首页。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;文件流操作：由于提取的参数是一个路径，它应该是 web 的根目录而不是系统的根目录，所以在执行文件操作之前，要通过字符串拼接完善路径。&lt;/p&gt;
 &lt;p&gt;测试结果：&lt;/p&gt;
-&lt;img src=&#34;./.HTTP 协议.IMG/MD202306101515675.png&#34; alt=&#34;image-20230609114640531&#34; style=&#34;zoom:40%;&#34; /&gt;
-&lt;img src=&#34;./.HTTP 协议.IMG/MD202306101515676.png&#34; alt=&#34;image-20230609115610782&#34; style=&#34;zoom:40%;&#34; /&gt;
-&lt;img src=&#34;./.HTTP 协议.IMG/MD202306101515677.png&#34; alt=&#34;image-20230609115816658&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 协议.IMG/MD202306101515675.png&#34; alt=&#34;image-20230609114640531&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 协议.IMG/MD202306101515676.png&#34; alt=&#34;image-20230609115610782&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 协议.IMG/MD202306101515677.png&#34; alt=&#34;image-20230609115816658&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;&lt;a href=&#34;https://gitee.com/shawyxy/2023-linux/tree/main/HttpDemo/version2&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;源代码：HttpServer Version 2&lt;/a&gt;&lt;/p&gt;
 &lt;h1&gt;5. HTTP 方法&lt;/h1&gt;&lt;p&gt;==HTTP 方法是用来告知服务器意图的方式==。&lt;/p&gt;
 &lt;p&gt;根据 HTTP 标准，HTTP 请求可以使用多种请求方法。&lt;/p&gt;
@@ -6028,11 +6028,11 @@ Content-Length: 88
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;GET 方法用来请求访问已被 URI/URL 识别的资源。指定的资源经服务器端解析后返回响应内容。&lt;/p&gt;
-&lt;img src=&#34;./.HTTP 协议.IMG/MD202306101515678.png&#34; alt=&#34;image-20230609141210068&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 协议.IMG/MD202306101515678.png&#34; alt=&#34;image-20230609141210068&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;POST 方法用来传输实体的主体。&lt;/p&gt;
-&lt;img src=&#34;./.HTTP 协议.IMG/MD202306101515679.png&#34; alt=&#34;image-20230609141223882&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 协议.IMG/MD202306101515679.png&#34; alt=&#34;image-20230609141223882&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;虽然用 GET 方法也可以传输实体的主体，但一般不用 GET 方法进行传输，而是用 POST 方法。虽说 POST 的功能与 GET 很相似，但 POST 的主要目的并不是获取响应的主体内容。它们都可以将数据上传到服务器，但是 URL 的长度是有限制的，所以 GET 方法有局限性；POST 方法以正文作为参数，可以传输更多信息。&lt;/p&gt;
@@ -6095,10 +6095,10 @@ Content-Length: 88
 &lt;h3&gt;测试&lt;span class=&#34;absolute -mt-20&#34; id=&#34;测试-1&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e6%b5%8b%e8%af%95-1&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;使用 &lt;a href=&#34;https://www.postman.com/downloads/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;postman&lt;/a&gt; 工具，测试 GET 和 POST 方法，观察结果。&lt;/p&gt;
 &lt;p&gt;GET 方法：URL 作为参数，在 URL 中再增加 a 和 b 两个参数（为了显示具体信息，在 HttpRequestHandler() 函数中打印了获取到的客户端请求）：&lt;/p&gt;
-&lt;img src=&#34;./.HTTP 协议.IMG/MD202306101515680.png&#34; alt=&#34;image-20230609145053790&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 协议.IMG/MD202306101515680.png&#34; alt=&#34;image-20230609145053790&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;可以看到，请求行中也增加了传递的参数，这和第一栏&amp;quot;Params&amp;quot;（参数）是对应的。&lt;/p&gt;
 &lt;p&gt;POST 方法：正文作为参数，应该在第 4 栏&amp;quot;Body&amp;quot;设置：
-&lt;img src=&#34;./.HTTP 协议.IMG/MD202306101515681.png&#34; alt=&#34;image-20230609145604665&#34; style=&#34;zoom:40%;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;HTTP 协议.IMG/MD202306101515681.png&#34; alt=&#34;image-20230609145604665&#34; style=&#34;zoom:40%;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;这样 HTTP 请求的正文就被这个字符串填充，而不再是空字符串。正因如此，服务端的响应报头中出现了 Content-Length 字段，表示响应正文的长度。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;打印&amp;quot;./wwwroot/index.html&amp;quot;的原因是没有注释掉另一个打印客户端请求资源路径的语句。&lt;/p&gt;
@@ -6151,10 +6151,10 @@ Content-Length: 88
 &lt;blockquote&gt;
 &lt;p&gt;注意，本文的重点不是 html 的语法，只要简单了解即可。&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;img src=&#34;./.HTTP 协议.IMG/MD202306101515682.png&#34; alt=&#34;image-20230609153205842&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 协议.IMG/MD202306101515682.png&#34; alt=&#34;image-20230609153205842&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;当用户访问服务端时，就会出现图中的表单，提交以后它们就会被作为参数插入到 URL 中。&lt;/p&gt;
 &lt;p&gt;如果将方法改为 POST：&lt;/p&gt;
-&lt;img src=&#34;./.HTTP 协议.IMG/MD202306101515683.png&#34; alt=&#34;image-20230609155122181&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 协议.IMG/MD202306101515683.png&#34; alt=&#34;image-20230609155122181&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;如果方法是 PORT，那么用户提交的两个属性不会在 URL 中体现，而是被放在了正文中传输给服务端。&lt;/p&gt;
 &lt;p&gt;值得注意的是，私密性≠安全，PORT 方法只是将 URL 中的参数放在了正文，但实际上它们都是通过明文在网络中传输的，这是不安全的，只有加密和解密之后才是安全的。&lt;/p&gt;
 &lt;h1&gt;6. HTTP 状态码&lt;/h1&gt;&lt;p&gt;HTTP 状态码（HTTP Status Code）的职责是当客户端向服务器端发送请求时，描述返回的请求结果。借助状态码，用户可以知道服务器端是正常处理了请求，还是出现了错误。&lt;/p&gt;
@@ -6239,7 +6239,7 @@ Content-Length: 88
 &lt;/div&gt;
 &lt;p&gt;浏览器会从 Location 头部获取新的地址，并再次发起请求。&lt;/p&gt;
 &lt;p&gt;事实上，从现实例子也很好理解：当用户第一次访问网站时，是不知道这个网站是否是被重定向的。可能原先的域名更加好记，更具有代表性，而重定向的 IP 地址可能由于某种需要而被设置。&lt;/p&gt;
-&lt;img src=&#34;./.HTTP 协议.IMG/MD202306101515684.png&#34; alt=&#34;image-20230609162939535&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 协议.IMG/MD202306101515684.png&#34; alt=&#34;image-20230609162939535&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;Location 头部默认情况下会被浏览器缓存，没有任何过期日期。也就是说，它会一直保留在浏览器的缓存中，直到用户手动清除缓存，或者缓存条目被清理以腾出空间。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;缓存行为只是浏览器在没有指定其他缓存控制指令的情况下的默认行为。用户可以使用一些 HTTP 头部来改变这种行为，例如 Cache-Control 和 Expires。&lt;/p&gt;
@@ -6248,7 +6248,7 @@ Content-Length: 88
     &lt;a href=&#34;#%e4%b8%b4%e6%97%b6%e6%80%a7%e9%87%8d%e5%ae%9a%e5%90%91&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;临时性重定向（Moved Temporarily 302、307）。这两个状态码表示请求的资源已被分配了新的 URL，希望用户（本次）能使用新的 URL 访问。&lt;/p&gt;
 &lt;h4&gt;302(Found)&lt;span class=&#34;absolute -mt-20&#34; id=&#34;302found&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#302found&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;和 301 Moved Permanently 状态码相似，但 302 状态码代表的资源不是被永久移动，只是临时性质的。换句话说，已移动的资源对应的 URL 将来还有可能发生改变。比如，用户把 URL 保存成书签，但不会像 301 状态码出现时那样去更新书签，而是仍旧保留返回 302 状态码的页面对应的 URL。&lt;/p&gt;
-&lt;img src=&#34;./.HTTP 协议.IMG/MD202306101515685.png&#34; alt=&#34;image-20230609163115665&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 协议.IMG/MD202306101515685.png&#34; alt=&#34;image-20230609163115665&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;h4&gt;307(Temporary Redirect)&lt;span class=&#34;absolute -mt-20&#34; id=&#34;307temporary-redirect&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#307temporary-redirect&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;临时重定向。该状态码与 302 Found 有着相同的含义。尽管 302 标准禁止 POST 变换成 GET，但实际使用时大家并不遵守。&lt;/p&gt;
 &lt;p&gt;307 会遵照浏览器标准，不会从 POST 变成 GET。但是，对于处理响应时的行为，每种浏览器有可能出现不同的情况。&lt;/p&gt;
@@ -6285,7 +6285,7 @@ Content-Length: 88
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;只要 HTTP 协议识别到了 302/307 状态码，就会去找 Location 字段，然后就会跳转到指定的域名：&lt;/p&gt;
-&lt;img src=&#34;./.HTTP 协议.IMG/MD202306101515686.gif&#34; alt=&#34;重定向 1&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 协议.IMG/MD202306101515686.gif&#34; alt=&#34;重定向 1&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;&lt;a href=&#34;&#34; &gt;源代码：HttpServer Version 3&lt;/a&gt;&lt;/p&gt;
 &lt;h1&gt;7. HTTP Header&lt;/h1&gt;&lt;h2&gt;7.1 介绍&lt;span class=&#34;absolute -mt-20&#34; id=&#34;71-介绍&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#71-%e4%bb%8b%e7%bb%8d&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;HTTP 头字段&lt;/strong&gt;（HTTP header fields）是指在 &lt;a href=&#34;https://zh.wikipedia.org/wiki/%e8%b6%85%e6%96%87%e6%9c%ac%e4%bc%a0%e8%be%93%e5%8d%8f%e8%ae%ae%ef%bc%89%ef%bc%88HTTP&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;超文本传输协议&lt;/a&gt; 的请求和响应消息中的消息头部分。它们定义了一个 HTTP 协议事务中的操作参数。&lt;/p&gt;
@@ -6387,9 +6387,9 @@ Content-Length: 88
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;这样浏览器就不会对这些 HTML 做渲染，显示出来的就是纯文本了。&lt;/p&gt;
-&lt;img src=&#34;./.HTTP 协议.IMG/MD202306101515687.png&#34; alt=&#34;image-20230609195924449&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 协议.IMG/MD202306101515687.png&#34; alt=&#34;image-20230609195924449&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;如果要访问服务器上的图片，可以将响应报头改成这样：&lt;code&gt;Content-Type: image/png\r\n&lt;/code&gt;
-&lt;img src=&#34;./.HTTP 协议.IMG/MD202306101515688.png&#34; alt=&#34;image-20230609213402093&#34; style=&#34;zoom:40%;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;HTTP 协议.IMG/MD202306101515688.png&#34; alt=&#34;image-20230609213402093&#34; style=&#34;zoom:40%;&#34; /&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;如果要传输图片，就要保证不能破坏图片的二进制格式，那么就不应该对它进行字符串分割，所以要用适合图片的方式，将图片的二进制序列放到 content 字符串中。&lt;/p&gt;
 &lt;p&gt;在测试的过程中，图片最好不要太大，因为服务器的网速可能不会太快。&lt;/p&gt;
@@ -6413,7 +6413,7 @@ Content-Length: 88
 &lt;/ul&gt;
 &lt;h3&gt;User-Agent&lt;span class=&#34;absolute -mt-20&#34; id=&#34;user-agent&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#user-agent&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;客户端对应的操作系统和浏览器的版本信息。例如我用手机查看刚才的图片：&lt;/p&gt;
-&lt;img src=&#34;./.HTTP 协议.IMG/MD202306101515690.png&#34; alt=&#34;image-20230609221154021&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 协议.IMG/MD202306101515690.png&#34; alt=&#34;image-20230609221154021&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;服务端接收到的请求内容就包含了客户端的设备和软件信息。&lt;/p&gt;
 &lt;h3&gt;Referer&lt;span class=&#34;absolute -mt-20&#34; id=&#34;referer&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#referer&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;HTTP Referer Header 是一个请求类型的 Header，用于标识请求的前一个网页的地址，即用户是从哪个网页链接到当前请求的网页或资源的。这个 Header 可以让服务器和网站识别流量的来源，用于分析、日志、优化缓存等目的。但是，这个 Header 也会增加用户隐私和安全的风险，因为它可能会泄露用户的浏览历史或敏感信息。&lt;/p&gt;
@@ -6452,14 +6452,14 @@ max: 一个整数，表示在连接关闭之前，可以在此连接上发送的
 &lt;blockquote&gt;
 &lt;p&gt;简单地说，HTTP 的每次请求与响应之间是没有任何关系的，但是我们实际体验中却并不是这样，例如你第一次使用了（请求）某个网站的登录服务（响应），即使重启了浏览器或机器以后，在很长一段时间内都可以保持登录状态。&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;img src=&#34;./.HTTP 协议.IMG/MD202306101515691.png&#34; alt=&#34;image-20230609231312432&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 协议.IMG/MD202306101515691.png&#34; alt=&#34;image-20230609231312432&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;使用 HTTP 协议，每当有新的请求发送时，就会有对应的新响应产生。协议本身并不保留之前一切的请求或响应报文的信息。这是为了更快地处理大量事务，确保协议的可伸缩性，而特意把 HTTP 协议设计成如此简单的。&lt;/p&gt;
 &lt;p&gt;可是，随着 Web 的不断发展，因无状态而导致业务处理变得棘手的情况增多了。比如，用户登录到一家购物网站，即使他跳转到该站的其他页面后，也需要能继续保持登录状态。针对这个实例，网站为了能够掌握是谁送出的请求，需要保存用户的状态。&lt;/p&gt;
 &lt;p&gt;HTTP/1.1 虽然是无状态协议，但为了实现期望的保持状态功能，于是引入了 Cookie 技术。有了 Cookie 再用 HTTP 协议通信，就可以管理状态了。&lt;/p&gt;
 &lt;h2&gt;8.2 使用 Cookie 的状态管理&lt;span class=&#34;absolute -mt-20&#34; id=&#34;82-使用-cookie-的状态管理&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#82-%e4%bd%bf%e7%94%a8-cookie-%e7%9a%84%e7%8a%b6%e6%80%81%e7%ae%a1%e7%90%86&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;HTTP 是无状态协议，它不对之前发生过的请求和响应的状态进行管理。也就是说，无法根据之前的状态进行本次的请求处理。假设要求登录认证的 Web 页面本身无法进行状态的管理（不记录已登录的状态），那么每次跳转新页面不是要再次登录，就是要在每次请求报文中附加参数来管理登录状态。&lt;/p&gt;
 &lt;p&gt;不可否认，无状态协议当然也有它的优点。由于不必保存状态，自然可减少服务器的 CPU 及内存资源的消耗，&lt;strong&gt;如果让服务器管理全部客户端状态则会成为负担&lt;/strong&gt;。从另一侧面来说，也正是因为 HTTP 协议本身是非常简单的，所以才会被应用在各种场景里。&lt;/p&gt;
-&lt;img src=&#34;./.HTTP 协议.IMG/MD202306101515692.png&#34; alt=&#34;image-20230609231722996&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 协议.IMG/MD202306101515692.png&#34; alt=&#34;image-20230609231722996&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;保留无状态协议这个特征的同时又要解决类似的矛盾问题，于是引入了 Cookie 技术。Cookie 技术通过在请求和响应报文中写入 Cookie 信息来控制客户端的状态。&lt;/p&gt;
 &lt;p&gt;Cookie 会根据从服务器端发送的响应报文内的一个叫做 Set-Cookie 的首部字段信息，通知客户端保存 Cookie。当下次客户端再往该服务器发送请求时，客户端会自动在请求报文中加入 Cookie 值后发送出去。&lt;/p&gt;
 &lt;p&gt;服务器端发现客户端发送过来的 Cookie 后，会去检查究竟是从哪一个客户端发来的连接请求，然后对比服务器上的记录，最后得到之前的状态信息。&lt;/p&gt;
@@ -6502,9 +6502,9 @@ max: 一个整数，表示在连接关闭之前，可以在此连接上发送的
 &lt;/table&gt;
 &lt;h3&gt;Cookie 标记状态&lt;span class=&#34;absolute -mt-20&#34; id=&#34;cookie-标记状态&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#cookie-%e6%a0%87%e8%ae%b0%e7%8a%b6%e6%80%81&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;没有 Cookie 信息状态下的请求&lt;/strong&gt;：&lt;/p&gt;
-&lt;img src=&#34;./.HTTP 协议.IMG/MD202306101515693.png&#34; alt=&#34;image-20230609231750140&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 协议.IMG/MD202306101515693.png&#34; alt=&#34;image-20230609231750140&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;&lt;strong&gt;第 2 次以后（存有 Cookie 信息状态）的请求&lt;/strong&gt;：&lt;/p&gt;
-&lt;img src=&#34;./.HTTP 协议.IMG/MD202306101515694.png&#34; alt=&#34;image-20230609231813937&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 协议.IMG/MD202306101515694.png&#34; alt=&#34;image-20230609231813937&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;上图展示了发生 Cookie 交互的情景，我们可以体会到， ==Cookie 实际上就是一个保存着用户私密信息（如 ID 和 PASSWORD）的数据包，它随着通信的方向一起传输==。&lt;/p&gt;
 &lt;p&gt;对应的 HTTP 请求报文和响应报文的内容如下。&lt;/p&gt;
 &lt;ol&gt;
@@ -6565,7 +6565,7 @@ max: 一个整数，表示在连接关闭之前，可以在此连接上发送的
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;例如在 Chrome 浏览器中，可以管理 Cookie 数据，只要删除了保存着用户登录信息的 cookie 文件，就意味着这个用户的登录状态被抹掉，需要重新登录。&lt;/p&gt;
-&lt;img src=&#34;./.HTTP 协议.IMG/MD202306101515695.png&#34; alt=&#34;image-20230609233311482&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 协议.IMG/MD202306101515695.png&#34; alt=&#34;image-20230609233311482&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;h3&gt;安全问题&lt;span class=&#34;absolute -mt-20&#34; id=&#34;安全问题&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e5%ae%89%e5%85%a8%e9%97%ae%e9%a2%98&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;由于 Cookie 数据保存着用户的私密信息，如果机器被植入木马或其他安全问题而造成 Cookie 文件被盗取，那么对方就能使用 cookie 文件以用户的身份登录网站。&lt;/p&gt;
 &lt;p&gt;解决办法是改变使用 cookie 的方式，即使用 Session ID 标定 Cookie 文件属于哪个会话。&lt;/p&gt;
@@ -6588,7 +6588,7 @@ max: 一个整数，表示在连接关闭之前，可以在此连接上发送的
 &lt;p&gt;Cookie 的安全性和 Session ID 的持久化是两个不同的问题，Cookie 的安全性主要涉及到 Cookie 的加密，签名，域名，路径等属性，以及客户端和服务器端的验证机制。 Session ID 的持久化主要涉及到服务器端的存储和加载机制，以及客户端是否保留 Cookie 文件。&lt;/p&gt;
 &lt;p&gt;xx 持久化，一般指的就是将内存中的数据保存到磁盘中。&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;img src=&#34;./.HTTP 协议.IMG/MD202306101515696.png&#34; alt=&#34;image-20230610131429884&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 协议.IMG/MD202306101515696.png&#34; alt=&#34;image-20230610131429884&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;Session ID 的存在，使得 Cookie 文件不再存储私密信息，而是存储私密信息通过算法得到的唯一 ID 值，只要用户第一次登录，服务器就会为这个会话生成一个唯一的 ID，然后通过网络传输到客户端，后续再访问时浏览器会自动携带 Session ID 作为报文的一部分递交给服务端，这样就相当于拿到了一个长期门禁，服务端只要验证客户端发来的 Session ID 和本地的 Session ID 的一致性就能实现保存用户（登录）状态的效果。&lt;/p&gt;
 &lt;h2&gt;8.3 只有相对的安全&lt;span class=&#34;absolute -mt-20&#34; id=&#34;83-只有相对的安全&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#83-%e5%8f%aa%e6%9c%89%e7%9b%b8%e5%af%b9%e7%9a%84%e5%ae%89%e5%85%a8&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Session ID 不是绝对安全的，它可能会被劫持，伪造，破解等。例如保存着 Session ID 的 Cookie 文件被盗取，那么中间人也能通过它来登录网站，和之前保存着用户的隐私信息的 Cookie 文件不同的是，中间人无法得知用户的隐私信息，因为隐私信息在服务端通过算法被映射为了一个唯一的字符串 ID。&lt;/p&gt;
@@ -6620,11 +6620,11 @@ max: 一个整数，表示在连接关闭之前，可以在此连接上发送的
 &lt;p&gt;Cookie 的类型对于用户和网站的体验和安全性都有影响。一般来说，会话 Cookie 比持久 Cookie 更安全，因为它不会被长期保存在用户的设备上，也不容易被劫持或伪造。但是，会话 Cookie 也有一些缺点，比如它不能跨浏览器使用，也不能保留用户的个性化设置。持久 Cookie 则相反，它可以提高用户的体验和便利性，但也增加了安全风险。所以，在使用 Cookie 时，应该根据不同的场景和需求，选择合适的类型，并且注意设置合理的过期时间和其他属性。&lt;/p&gt;
 &lt;h2&gt;8.4 测试&lt;span class=&#34;absolute -mt-20&#34; id=&#34;84-测试&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#84-%e6%b5%8b%e8%af%95&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;在服务端响应信息中增加 set-cookie 字段，这样客户端就会创建 Cookie 文件，并将信息填充。&lt;/p&gt;
-&lt;img src=&#34;./.HTTP 协议.IMG/MD202306101515697.png&#34; alt=&#34;image-20230610140633053&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 协议.IMG/MD202306101515697.png&#34; alt=&#34;image-20230610140633053&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;由于当前版本的 Chrome 浏览器 (114.0.5735.110) 无法像旧版本一样直接从网址框旁边的按钮查看 Cookie 信息。所以首先要按 F12 进入调试模式，然后在 Console（控制台）键入 document.cookie，就能看到服务端填充的 Cookie 数据。&lt;/p&gt;
 &lt;p&gt;这只是一个简单的代码，演示了服务端是如何填充信息到客户端生成的 Cookie 文件中的，并不能做到会话管理，因为还缺少身份验证和时效性等细节。事实上，这些用户信息一般都是从表单中获取的。&lt;/p&gt;
 &lt;p&gt;另外，还能用一个抓包工具 fiddler 来测试：&lt;/p&gt;
-&lt;img src=&#34;./.HTTP 协议.IMG/MD202306101515698.png&#34; alt=&#34;image-20230610142129895&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 协议.IMG/MD202306101515698.png&#34; alt=&#34;image-20230610142129895&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;fiddler 是一个针对 HTTP 的抓包工具，可以抓取到本机的所有 HTTP 请求。&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://gitee.com/shawyxy/2023-linux/tree/main/HttpDemo&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;源代码：HttpServer Version 4&lt;/a&gt;&lt;/p&gt;
 &lt;h1&gt;参考资料&lt;/h1&gt;&lt;ul&gt;
@@ -6667,8 +6667,8 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 &lt;p&gt;所谓互联网，是由能连通到全世界的网络组成的。无论世界哪个角落的服务器在和客户端通信时，在此通信线路上的某些网络设备、光缆、计算机等都不可能是个人的私有物，所以不排除某个环节中会遭到恶意窥视行为。
 即使已经过加密处理的通信，也会被窥视到通信内容，这点和未加密的通信是相同的。&lt;strong&gt;只是说如果通信经过加密，就有可能让人无法破解报文信息的含义，但加密处理后的报文信息本身还是会被看到的&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;例如使用抓包工具就能很方便地获取包含在 HTTP 请求和响应报文中的用户隐私信息，例如：&lt;/p&gt;
-&lt;img src=&#34;./.HTTP 和 HTTPS 协议原理.IMG/MD202306102106812.png&#34; alt=&#34;image.png&#34; style=&#34;zoom:40%;&#34; /&gt;
-&lt;img src=&#34;./.HTTP 和 HTTPS 协议原理.IMG/MD202306102107101.png&#34; alt=&#34;image.png&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 和 HTTPS 协议原理.IMG/MD202306102106812.png&#34; alt=&#34;image.png&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 和 HTTPS 协议原理.IMG/MD202306102107101.png&#34; alt=&#34;image.png&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;h3&gt;通信方可能被伪装&lt;span class=&#34;absolute -mt-20&#34; id=&#34;通信方可能被伪装&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e9%80%9a%e4%bf%a1%e6%96%b9%e5%8f%af%e8%83%bd%e8%a2%ab%e4%bc%aa%e8%a3%85&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;HTTP 协议中的请求和响应不会对通信方进行确认。HTTP 协议对请求者来之不拒，任何人都可以发起请求，只要服务端接收到请求不论对方是谁都会返回一个响应（前提是对方不在黑名单中）。&lt;/p&gt;
 &lt;p&gt;HTTP 协议的实现本身非常简单，因此不确认通信方，会存在以下各种隐患：&lt;/p&gt;
@@ -6682,10 +6682,10 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 &lt;h3&gt;报文可能被篡改&lt;span class=&#34;absolute -mt-20&#34; id=&#34;报文可能被篡改&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e6%8a%a5%e6%96%87%e5%8f%af%e8%83%bd%e8%a2%ab%e7%af%a1%e6%94%b9&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;作为一个通信协议，保证通信报文的完整性是基本要求（总是丢件的邮局会倒闭的很快），所谓“完整性”指的是信息的准确性，也就是接收者接收到报文时，要和发出者发出时完全一致，否则报文可能就是被篡改了（排除其他客观原因）。&lt;/p&gt;
 &lt;p&gt;HTTP 协议无法证明通信报文的完整性，因此，在请求或响应送出之后直到对方接收之前的这段时间内，即使请求或响应的内容遭到篡改，也没有办法获悉。所谓“无法证明”，是因为报文的发出者只管发出报文，而接收方只管接收报文，因此不论是报文的接收方还是发出方，都无法知晓报文最终或最初是什么样的。&lt;/p&gt;
-&lt;img src=&#34;./.HTTP 和 HTTPS 协议原理.IMG/MD202306102143009.jpg&#34; alt=&#34;Image00139.jpg&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 和 HTTPS 协议原理.IMG/MD202306102143009.jpg&#34; alt=&#34;Image00139.jpg&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;比如，从某个 Web 网站上下载内容，是无法确定客户端下载的文件和服务器上存放的文件是否前后一致的。文件内容在传输途中可能已经被篡改为其他的内容。即使内容真的已改变，作为接收方的客户端和作为发出方的服务端都是觉察不到的。&lt;/p&gt;
 &lt;p&gt;像这样，请求或响应在传输途中，遭攻击者拦截并篡改内容的攻击称为中间人攻击（Man-in-the-Middle attack，MITM）。&lt;/p&gt;
-&lt;img src=&#34;./.HTTP 和 HTTPS 协议原理.IMG/MD202306102143924.jpg&#34; alt=&#34;Image00140.jpg&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 和 HTTPS 协议原理.IMG/MD202306102143924.jpg&#34; alt=&#34;Image00140.jpg&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;h2&gt;2.1 弥补 HTTP 的缺点（概述）&lt;span class=&#34;absolute -mt-20&#34; id=&#34;21-弥补-http-的缺点概述&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#21-%e5%bc%a5%e8%a1%a5-http-%e7%9a%84%e7%bc%ba%e7%82%b9%e6%a6%82%e8%bf%b0&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;加密明文&lt;span class=&#34;absolute -mt-20&#34; id=&#34;加密明文&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e5%8a%a0%e5%af%86%e6%98%8e%e6%96%87&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;要防止数据被窃听，就要进行加密处理。加密的对象可以是：&lt;/p&gt;
@@ -6699,19 +6699,19 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 &lt;h4&gt;内容加密&lt;span class=&#34;absolute -mt-20&#34; id=&#34;内容加密&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e5%86%85%e5%ae%b9%e5%8a%a0%e5%af%86&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;由于 HTTP 协议中没有加密机制，那么就对 HTTP 协议传输的内容本身加密。即把 HTTP 报文里所含的内容进行加密处理。&lt;/p&gt;
 &lt;p&gt;在这种情况下，客户端需要对 HTTP 报文进行加密处理后再发送请求。&lt;/p&gt;
-&lt;img src=&#34;./.HTTP 和 HTTPS 协议原理.IMG/202306111614384.jpg&#34; alt=&#34;Image00136.jpg&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 和 HTTPS 协议原理.IMG/202306111614384.jpg&#34; alt=&#34;Image00136.jpg&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;诚然，&lt;strong&gt;为了做到有效的内容加密，前提是要求客户端和服务器同时具备加密和解密机制&lt;/strong&gt;。主要应用在 Web 服务中。有一点必须引起注意，由于该方式不同于 SSL 或 TLS 将整个通信线路加密处理，所以内容仍有被篡改的风险。&lt;/p&gt;
 &lt;h3&gt;验证通信方&lt;span class=&#34;absolute -mt-20&#34; id=&#34;验证通信方&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e9%aa%8c%e8%af%81%e9%80%9a%e4%bf%a1%e6%96%b9&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;HTTP 协议对请求来之不拒，那么过滤掉不合理的请求就显得十分必要了，这可以通过验证请求者的证书来做到。虽然使用 HTTP 协议无法确定通信方，但如果使用 SSL 则可以。SSL 不仅提供加密处理，而且还使用了一种被称为==证书==的手段，可用于确定方。&lt;/p&gt;
 &lt;p&gt;证书由&lt;strong&gt;值得信任的第三方机构&lt;/strong&gt;颁发，用以证明服务器和客户端是实际存在的。另外，伪造证书从技术角度来说是异常困难的一件事。所以只要能够确认通信方（服务器或客户端）持有的证书，即可判断通信方的真实意图。&lt;/p&gt;
-&lt;img src=&#34;./.HTTP 和 HTTPS 协议原理.IMG/MD202306102156811.jpg&#34; alt=&#34;Image00138.jpg&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 和 HTTPS 协议原理.IMG/MD202306102156811.jpg&#34; alt=&#34;Image00138.jpg&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;通过使用证书，以证明通信方就是意料中的服务器。这对使用者个人来讲，也减少了个人信息泄露的危险性。证书就像政府颁发的说明一样，具有权威性，前提是这个机构是绝对权威的。通俗地说，服务器或客户端想要获取证书，都是要法人“实名制”的。在网络上只要实名制，人们就会听话很多：)。&lt;/p&gt;
 &lt;h3&gt;报文完整性校验&lt;span class=&#34;absolute -mt-20&#34; id=&#34;报文完整性校验&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e6%8a%a5%e6%96%87%e5%ae%8c%e6%95%b4%e6%80%a7%e6%a0%a1%e9%aa%8c&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;在计算机中，任意一个文件都能通过某种哈希算法得到它的哈希值，HTTPS 使用的就是这种方法，即服务端和客户端都会验证报文发出前和接收后的哈希值，只要保证了哈希算法的正确性，就能校验报文发送前与接收后的哈希值来间接校验报文的完整性。&lt;/p&gt;
 &lt;p&gt;不同算法有各自的特点，在网络通信中的适用程度也不同，这部分将在后续介绍。&lt;/p&gt;
 &lt;h1&gt;3. HTTPS 协议&lt;/h1&gt;&lt;p&gt;HTTPS 并不是一种全新的应用层协议，而是 HTTP 的安全版本（HTTP Secure），上文已经介绍了 HTTPS 是从哪几方面弥补 HTTP 的缺点，下面将对这三个手段展开叙述。&lt;/p&gt;
 &lt;p&gt;HTTP + 加密 + 认证 + 完整性校验 = HTTPS：&lt;/p&gt;
-&lt;img src=&#34;./.HTTP 和 HTTPS 协议原理.IMG/MD202306102241319.jpg&#34; alt=&#34;Image00142.jpg&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 和 HTTPS 协议原理.IMG/MD202306102241319.jpg&#34; alt=&#34;Image00142.jpg&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;为了体系地认识 HTTPS 协议，首先介绍以下内容的框架：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;上文介绍了 HTTP 的三大缺点，以及解决问题的切入点。而 SSL/TLS 协议就是解决这三大问题的而设计的。&lt;/li&gt;
@@ -6726,16 +6726,16 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 &lt;/ul&gt;
 &lt;p&gt;TLS 协议是 SSL 协议的后续版本，有更高的安全性和更好的兼容性。TLS 支持更多的加密算法和扩展功能，并且可以降级到 SSL 版本来适应不同的场景。因此在不涉及具体细节的情况下（事实上它们通信的过程基本相同），SSL/TLS 协议和 TLS 协议是等价的。&lt;/p&gt;
 &lt;p&gt;通常，HTTP 运行在 TCP 之上，它直接和 TCP 通信。当使用 SSL 时，则演变成先和 SSL 通信，再由 SSL 和 TCP 通信了。简言之，所谓 HTTPS，其实就是身披 SSL 协议这层外壳的 HTTP。&lt;/p&gt;
-&lt;img src=&#34;./.HTTP 和 HTTPS 协议原理.IMG/MD202306102257829.jpg&#34; alt=&#34;Image00144.jpg&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 和 HTTPS 协议原理.IMG/MD202306102257829.jpg&#34; alt=&#34;Image00144.jpg&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;在采用 SSL/TLS 后，HTTP 就拥有了 HTTPS 的加密、证书和完整性保护这些功能。&lt;/p&gt;
 &lt;h2&gt;3.2 加密机制&lt;span class=&#34;absolute -mt-20&#34; id=&#34;32-加密机制&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#32-%e5%8a%a0%e5%af%86%e6%9c%ba%e5%88%b6&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;SSL 采用一种叫做公开密钥（yuè）加密（Public-key cryptography）的加密处理方式。近代的加密方法中加密算法是公开的，而密钥却是保密的。通过这种方式得以保持加密方法的安全性。&lt;/p&gt;
 &lt;p&gt;加密和解密都会用到密钥。没有密钥就无法对密码解密，反过来说，任何人只要持有密钥就能解密了。如果密钥被攻击者获得，那加密也就失去了意义。&lt;/p&gt;
 &lt;h3&gt;对称加密&lt;span class=&#34;absolute -mt-20&#34; id=&#34;对称加密&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e5%af%b9%e7%a7%b0%e5%8a%a0%e5%af%86&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;加密和解密同用一个密钥的方式称为共享密钥加密（Common key crypto system），也被叫做对称密钥加密。&lt;/p&gt;
-&lt;img src=&#34;./.HTTP 和 HTTPS 协议原理.IMG/MD202306102301870.jpg&#34; alt=&#34;Image00145.jpg&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 和 HTTPS 协议原理.IMG/MD202306102301870.jpg&#34; alt=&#34;Image00145.jpg&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;以共享密钥方式加密时必须将密钥也发给对方。可==问题是==究竟怎样才能安全地转交？在互联网上转发密钥时，密钥本身也是报文的一部分，如果通信被监听那么密钥就可会落入攻击者之手，同时也就失去了加密的意义。另外还得设法安全地保管接收到的密钥。&lt;/p&gt;
-&lt;img src=&#34;./.HTTP 和 HTTPS 协议原理.IMG/MD202306102301311.jpg&#34; alt=&#34;Image00146.jpg&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 和 HTTPS 协议原理.IMG/MD202306102301311.jpg&#34; alt=&#34;Image00146.jpg&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;ul&gt;
 &lt;li&gt;优点：
 &lt;ul&gt;
@@ -6756,7 +6756,7 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 &lt;blockquote&gt;
 &lt;p&gt;另外，要想根据密文和公开密钥，恢复到信息原文是异常困难的，因为解密过程就是在对离散对数进行求值，这并非轻而易举就能办到。因此以现在的技术从成本上可以认为这些哈希算法都是不可逆的。&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;img src=&#34;./.HTTP 和 HTTPS 协议原理.IMG/MD202306102310694.jpg&#34; alt=&#34;Image00147.jpg&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 和 HTTPS 协议原理.IMG/MD202306102310694.jpg&#34; alt=&#34;Image00147.jpg&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;ul&gt;
 &lt;li&gt;优点：
 &lt;ul&gt;
@@ -6776,7 +6776,7 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 &lt;li&gt;加密过程：==客户端和服务器之间首先使用非对称加密来交换一个随机生成的对称密钥，然后使用这个对称密钥来进行后续的数据传输==。这样既保证了数据传输的效率，又保证了数据传输的安全性。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;HTTPS 充分利用两者各自的优势，将多种方法组合起来用于通信。在交换密钥环节使用公开密钥加密方式，之后的建立通信交换报文阶段则使用共享密钥加密方式。&lt;/p&gt;
-&lt;img src=&#34;./.HTTP 和 HTTPS 协议原理.IMG/MD202306102315629.jpg&#34; alt=&#34;Image00148.jpg&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 和 HTTPS 协议原理.IMG/MD202306102315629.jpg&#34; alt=&#34;Image00148.jpg&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;总结：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;SSL/TLS 协议的基本思路是采用公钥加密法，也就是说，客户端先向服务器端索要公钥，然后用公钥加密信息，服务器收到密文后，用自己的私钥解密。&lt;/li&gt;
@@ -6800,10 +6800,10 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 &lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;多数浏览器开发商发布版本时，会事先在内部植入常用认证机关的公开密钥。
-&lt;img src=&#34;./.HTTP 和 HTTPS 协议原理.IMG/202306111611287.png&#34; alt=&#34;image.png&#34; style=&#34;zoom:40%;&#34; /&gt;&lt;/li&gt;
+&lt;img src=&#34;HTTP 和 HTTPS 协议原理.IMG/202306111611287.png&#34; alt=&#34;image.png&#34; style=&#34;zoom:40%;&#34; /&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;例如可以在浏览器查看某个网站的证书（一般通过 HTTPS 通信时，网址框旁边会有一个🔐的标志）：&lt;/p&gt;
-&lt;img src=&#34;./.HTTP 和 HTTPS 协议原理.IMG/MD202306102329795.png&#34; alt=&#34;image.png&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 和 HTTPS 协议原理.IMG/MD202306102329795.png&#34; alt=&#34;image.png&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;证书的一个作用是证明作为通信一方的服务器是否规范（证明公开密钥正确性），除此之外：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;证书可以确认对方服务器背后运营的企业是否真实存在。&lt;/li&gt;
@@ -6835,7 +6835,7 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 &lt;/blockquote&gt;
 &lt;h4&gt;握手阶段&lt;span class=&#34;absolute -mt-20&#34; id=&#34;握手阶段&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e6%8f%a1%e6%89%8b%e9%98%b6%e6%ae%b5&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;下面介绍&amp;quot;握手阶段&amp;quot;的具体过程：&lt;/p&gt;
-&lt;img src=&#34;./.HTTP 和 HTTPS 协议原理.IMG/202306111340181.png&#34; alt=&#34;image.png&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 和 HTTPS 协议原理.IMG/202306111340181.png&#34; alt=&#34;image.png&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;blockquote&gt;
 &lt;p&gt;RSA 加密算法是一种非对称加密算法，在公开密钥加密和电子商业中被广泛使用。RSA 是由 &lt;strong&gt;R&lt;/strong&gt;on Rivest、Adi &lt;strong&gt;S&lt;/strong&gt;hamir 和 Leonard &lt;strong&gt;A&lt;/strong&gt;dleman 一起提出的。&lt;/p&gt;
 &lt;p&gt;在 HTTPS 协议中，包括 4 次 TLS 握手。&lt;/p&gt;
@@ -6899,7 +6899,7 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 &lt;li&gt;客户端和服务器之后就可以通过这个对称加密的通道来传输数据，数据在发送前会用对称加密的密钥进行加密，接收后再进行解密，保证了数据的安全性。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;下面是一个 HTTPS 通信的例子：&lt;/p&gt;
-&lt;img src=&#34;./.HTTP 和 HTTPS 协议原理.IMG/202306111527511.png&#34; alt=&#34;image.png&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;HTTP 和 HTTPS 协议原理.IMG/202306111527511.png&#34; alt=&#34;image.png&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;ol&gt;
 &lt;li&gt;客户端向服务端==发起请求==：
 &lt;ul&gt;
@@ -6991,7 +6991,7 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 &lt;p&gt;传输层在 ISO 模型中的存在有着重要的意义。它既是负责数据通信的最高层，又是连接网络通信的低三层和信息处理的高三层之间的中间层。&lt;/p&gt;
 &lt;p&gt;传输层的主要功能是为会话层和网络层提供端到端可靠的和透明的数据传输服务，确保数据能完整地传输到网络层。 传输层还可以根据不同的应用需求，提供面向连接或无连接的服务类型，以及不同的服务质量。&lt;/p&gt;
 &lt;p&gt;传输层在 OSI 模型中起着&lt;strong&gt;桥梁&lt;/strong&gt;的作用，它使得上层应用不必关心网络通信的细节，而只需调用传输层提供的服务接口。同时，它也使得下层网络可以根据实际情况选择合适的协议和技术，而不影响上层应用的正常运行。&lt;/p&gt;
-&lt;img src=&#34;./.UDP 协议.IMG/Image00216.jpg&#34; alt=&#34;Image00216&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;UDP 协议.IMG/Image00216.jpg&#34; alt=&#34;Image00216&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;传输层有两个具有代表性的协议，它们分别是 TCP 和 UDP。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;TCP (Transmission Control Protocol)：提供可靠的通信传输，是面向连接的。&lt;/li&gt;
@@ -7027,13 +7027,13 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 &lt;p&gt;客户端具有客户的意思。在计算机网络中是提供服务和使用服务的一方，是请求的发起端。而服务端在计算机网络中则意味着提供服务的程序或计算机，表示提供服务的意思，是请求的处理端。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;端口号标识了进程服务：&lt;/p&gt;
-&lt;img src=&#34;./.UDP 协议.IMG/Image00220.jpg&#34; alt=&#34;Image00220&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;UDP 协议.IMG/Image00220.jpg&#34; alt=&#34;Image00220&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;总的来说，数据链路和 IP 中的地址，分别指的是 MAC 地址和 IP 地址。前者用来识别同一链路中不同的计算机，后者用来识别 TCP/IP 网络中互连的主机和路由器。在传输层中也有这种类似于地址的概念，那就是端口号。端口号用来识别同一台计算机中进行通信的不同应用程序。因此，它也被称为程序地址。&lt;/p&gt;
 &lt;h2&gt;2.2 通过 IP 地址、端口号、协议号进行通信识别&lt;span class=&#34;absolute -mt-20&#34; id=&#34;22-通过-ip-地址端口号协议号进行通信识别&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#22-%e9%80%9a%e8%bf%87-ip-%e5%9c%b0%e5%9d%80%e7%ab%af%e5%8f%a3%e5%8f%b7%e5%8d%8f%e8%ae%ae%e5%8f%b7%e8%bf%9b%e8%a1%8c%e9%80%9a%e4%bf%a1%e8%af%86%e5%88%ab&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;然而，仅通过 源/目的 IP 和端口号还不能标识主机之间的通信。这是因为如果一个客户端同时向同一个服务端发起多次请求，即使源 IP 和目的 IP 能够正确让两台主机建立通信，但是通信的主体依然是进程，而每一次请求信息包含的端口号都是相同的，必须增加能够标识请求的信息，否则这个端口号上的进程会混淆同一个客户端发起的多个请求。这个要增加的信息就是&lt;strong&gt;协议号&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;如图所示，①和②的通信是在两台计算机上进行的。它们的目标端口号相同，都是 80。例如打开两个 Web 浏览器，同时访问两个服务器上不同的页面，就会在这个浏览器跟服务器之间产生类似前面的两个通信。在这种情况下也必须严格区分这两个通信。因此可以根据源端口号加以区分。&lt;/p&gt;
 &lt;p&gt;下图中③跟①的目标端口号和源端口号完全相同，但是它们各自的源 IP 地址不同。此外，还有一种情况上图中并未列出，那就是 IP 地址和端口全都一样，只是协议号（表示上层是 TCP 或 UDP 的一种编号）不同。这种情况下，也会认为是两个不同的通信。&lt;/p&gt;
-&lt;img src=&#34;./.UDP 协议.IMG/Image00221.jpg&#34; alt=&#34;Image00221&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;UDP 协议.IMG/Image00221.jpg&#34; alt=&#34;Image00221&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;因此，TCP/IP 或 UDP/IP 通信中通常采用 5 个信息（五元组）来识别 一个通信。它们是**“源 IP 地址”、“目标 IP 地址”、“协议号”、“源端口号”、“目标端口号”**。只要其中某一项不同，则被认为是其他通信。服务器区分请求是通过五元组中的源 IP 地址判断数据的来源，以及通过端口号区分当前主机的服务。&lt;/p&gt;
 &lt;h2&gt;2.3 协议号&lt;span class=&#34;absolute -mt-20&#34; id=&#34;23-协议号&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#23-%e5%8d%8f%e8%ae%ae%e5%8f%b7&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;协议号是一个 8 位的字段，它存在于 IP 数据报的首部，&lt;strong&gt;用来指示 IP 数据报中承载的数据使用了何种协议&lt;/strong&gt;，以便目的主机的 IP 层知道将数据部分上交给哪个处理过程。例如，协议号为 6 表示传输层使用的是 TCP 协议，协议号为 17 表示传输层使用的是 UDP 协议，协议号为 1 表示网络层使用的是 ICMP 协议等等。&lt;/p&gt;
@@ -7081,13 +7081,13 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 &lt;/ul&gt;
 &lt;p&gt;总的来说，除了 0~1023 之外的端口号都能分配给客户端程序。&lt;/p&gt;
 &lt;p&gt;可以在&lt;code&gt;/etc/services&lt;/code&gt;中查看常见知名端口号：
-&lt;img src=&#34;./.UDP 协议.IMG/image-20230626192346436.png&#34; alt=&#34;image-20230626192346436&#34; style=&#34;zoom:40%;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;UDP 协议.IMG/image-20230626192346436.png&#34; alt=&#34;image-20230626192346436&#34; style=&#34;zoom:40%;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;其中，可以看到我们常用的 ssh 协议、telnet 协议等都是知名协议。其中每一行对应着一种服务，每一列分别是“服务名称”，“使用端口”，“协议名称”和“别名”。&lt;/p&gt;
 &lt;h2&gt;2.5 常用命令&lt;span class=&#34;absolute -mt-20&#34; id=&#34;25-常用命令&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#25-%e5%b8%b8%e7%94%a8%e5%91%bd%e4%bb%a4&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;netstat&lt;span class=&#34;absolute -mt-20&#34; id=&#34;netstat&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#netstat&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;netstat 用于查看 Linux 中网络系统状态信息。&lt;/p&gt;
 &lt;p&gt;例如，通过 netstat -nltp 命令显示五元组信息：&lt;/p&gt;
-&lt;img src=&#34;./.UDP 协议.IMG/image-20230626185542615.png&#34; alt=&#34;image-20230626185542615&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;UDP 协议.IMG/image-20230626185542615.png&#34; alt=&#34;image-20230626185542615&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;其中：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Local Address：源 IP 地址和源端口号。&lt;/li&gt;
@@ -7104,7 +7104,7 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 &lt;li&gt;a(ALL)：显示所有的选项，默认不显示 LISTEN 相关。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;因此，想查看 TCP 相关的网络信息，可以使用 &lt;code&gt;nltp&lt;/code&gt; 选项，查看 UCP 相关的网络信息，使用 &lt;code&gt;nlup&lt;/code&gt; 选项：
-&lt;img src=&#34;./.UDP 协议.IMG/image-20230626193013302.png&#34; alt=&#34;image-20230626193013302&#34; style=&#34;zoom:40%;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;UDP 协议.IMG/image-20230626193013302.png&#34; alt=&#34;image-20230626193013302&#34; style=&#34;zoom:40%;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;去掉 &lt;code&gt;l&lt;/code&gt; 选项，表示查看除 LISTEN 状态之外的网络服务。&lt;/p&gt;
 &lt;h3&gt;iostat&lt;span class=&#34;absolute -mt-20&#34; id=&#34;iostat&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#iostat&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;iostat 用于监视系统输入输出设备和 CPU 的使用情况。&lt;/p&gt;
@@ -7124,7 +7124,7 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 &lt;li&gt;x：显示详细信息。&lt;/li&gt;
 &lt;li&gt;p：显示磁盘分区的情况。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;img src=&#34;./.UDP 协议.IMG/image-20230626194247382.png&#34; alt=&#34;image-20230626194247382&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;UDP 协议.IMG/image-20230626194247382.png&#34; alt=&#34;image-20230626194247382&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;CPU 属性值：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;%user：CPU 处在用户模式下的时间百分比。&lt;/li&gt;
@@ -7136,7 +7136,7 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 &lt;/ul&gt;
 &lt;h3&gt;pidof&lt;span class=&#34;absolute -mt-20&#34; id=&#34;pidof&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#pidof&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;pidof 用于查找指定名称的进程的进程号 ID 号。&lt;/p&gt;
-&lt;img src=&#34;./.UDP 协议.IMG/image-20230626221810831.png&#34; alt=&#34;image-20230626221810831&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;UDP 协议.IMG/image-20230626221810831.png&#34; alt=&#34;image-20230626221810831&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;这样就能直接通过一个指令查找指定进程名称的 PID 了，这比&lt;code&gt;ps&lt;/code&gt;和&lt;code&gt;grep&lt;/code&gt;命令更简单。&lt;/p&gt;
 &lt;p&gt;这个命令通常通过 &lt;strong&gt;xargs 工具和管道&lt;/strong&gt;，结合 &lt;strong&gt;kill 命令&lt;/strong&gt;使用，例如：&lt;/p&gt;
 &lt;div class=&#34;code-block relative mt-6 first:mt-0 group/code&#34;&gt;&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;pidof &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;NAME&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; xargs &lt;span class=&#34;nb&#34;&gt;kill&lt;/span&gt; -9&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0&#34;&gt;
@@ -7165,7 +7165,7 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 &lt;h1&gt;3. UDP 协议&lt;/h1&gt;&lt;h2&gt;3.1 地位&lt;span class=&#34;absolute -mt-20&#34; id=&#34;31-地位&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#31-%e5%9c%b0%e4%bd%8d&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;在 OSI 七层模型中，HTTP 协议属于应用层，而它运行在 TCP/IP 之上，也就是传输层。UDP 和 TCP 是传输层中典型的协议，从它们在模型中的相对位置来看，HTTP 离用户最近，它只负责提供网络服务，UDP 和 TCP 相当于一个“工具人”，它的作用就是将数据传输到目标主机中的目标进程中。&lt;/p&gt;
 &lt;p&gt;实际上，数据如何传输，是由操作系统维护的，也就是说，传输层属于操作系统内核。&lt;/p&gt;
-&lt;img src=&#34;./.UDP 协议.IMG/image-20230626230633101.png&#34; alt=&#34;image-20230626230633101&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;UDP 协议.IMG/image-20230626230633101.png&#34; alt=&#34;image-20230626230633101&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;上图是三种常见模型中各个层次的地位。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;使用 Socket 进行网络编程时，实际上它就是介于应用层和传输层之间的软件层，即介于操作系统和用户之间的系统调用。而我们在使用它时，并不关心 Socket 本身的实现，因为它是由操作系统维护的，所以网络编程也就是系统编程。（所以学好 OS 重中之重）&lt;/p&gt;
@@ -7177,7 +7177,7 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 &lt;li&gt;标识该层协议的类型，例如 IP 报头中有协议字段，用来指示上层协议是 TCP 还是 UDP；TCP 报头中有端口号字段，用来指示应用层协议是 HTTP 还是 FTP 等。这些信息可以帮助不同层之间进行交互和分用。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;自顶向下通过协议栈封装数据的过程中，每一层协议都会添加对应的报头信息；自底向上通过协议栈完成数据包的解包与分用的过程中，每一层协议都会将对应的报头信息提取出来。&lt;/p&gt;
-&lt;img src=&#34;./.UDP 协议.IMG/image-20230626234449778.png&#34; alt=&#34;image-20230626234449778&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;UDP 协议.IMG/image-20230626234449778.png&#34; alt=&#34;image-20230626234449778&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;从模型来看，数据由应用层的应用程序（进程）产生，然后从应用层向下交付给传输层发送到对端主机。这个过程主要包含两个步骤：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;数据分离（封装）是指每一层协议在处理上层传递的数据时，附上当前层协议所必须的首部信息，以便在下一层进行传输。&lt;/li&gt;
@@ -7200,7 +7200,7 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 &lt;/blockquote&gt;
 &lt;h2&gt;3.3 UDP 报文的格式&lt;span class=&#34;absolute -mt-20&#34; id=&#34;33-udp-报文的格式&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#33-udp-%e6%8a%a5%e6%96%87%e7%9a%84%e6%a0%bc%e5%bc%8f&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;UDP 报头（首部）由源端口号，目标端口号，包长和校验和组成。下图中，除了数据部分，剩下的就是报头。&lt;/p&gt;
-&lt;img src=&#34;./.UDP 协议.IMG/image-20230627085112803.png&#34; alt=&#34;image-20230627085112803&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;UDP 协议.IMG/image-20230627085112803.png&#34; alt=&#34;image-20230627085112803&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;16 位源端⼜号（Source Port）：表⽰数据的来源端口号，字段长 16 位。该字段是可选项，有时可能不会设置源端⼜号。没有源端⼜号的时候该字段的值设置为 0。&lt;/p&gt;
@@ -7219,7 +7219,7 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 &lt;p&gt;值得注意的是，有时候发送的报文中不含数据部分，只含有报头。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;在计算校验和时，如下图，附加在 UDP 伪⾸部与 UDP 数据报之前。通过在最后⼀位增加⼀个“0”将全长增加 16 倍。此时将 UDP⾸部的校验和字段设置 为“0”。然后以 16⽐特为单位进⾏1 的补码和（通常在计算机的整数计算中常用 2 的补码形式。而在校验和计算中之所以使用 1 的补码形式，是因为即使有一位溢出会回到第 1 位，也不会造成信息丢失。而且在这种形式下 0 可以有两种表示方式，因此有用 0 表示两种不同意思的优点），并将所得到的 1 的补码和写⼊校验和字段。&lt;/p&gt;
-&lt;img src=&#34;./.UDP 协议.IMG/image-20230627091447716.png&#34; alt=&#34;image-20230627091447716&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;UDP 协议.IMG/image-20230627091447716.png&#34; alt=&#34;image-20230627091447716&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;blockquote&gt;
 &lt;p&gt;源 IP 地址与目标 IP 地址为 IPv4 地址的情况下都是 32 位字段，为 IPv6 地址时都是 128 位字段。本文讨论的都是 IPv4 地址。&lt;/p&gt;
 &lt;p&gt;填充是为了补充位数，一般填入 0。&lt;/p&gt;
@@ -7382,7 +7382,7 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 &lt;h2&gt;1.3 什么是“面向连接”&lt;span class=&#34;absolute -mt-20&#34; id=&#34;13-什么是面向连接&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#13-%e4%bb%80%e4%b9%88%e6%98%af%e9%9d%a2%e5%90%91%e8%bf%9e%e6%8e%a5&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;连接是指各种设备、线路，或网络中进行通信的两个应用程序为了相互传递消息而专有的、虚拟的通信线路，也叫做虚拟电路。&lt;/p&gt;
 &lt;p&gt;一旦建立了连接，进行通信的应用程序只使用这个虚拟的通信线路发送和接收数据，就可以保障信息的传输。应用程序可以不用顾虑提供尽职服务的 IP 网络上可能发生的各种问题，依然可以转发数据。TCP 则负责控制连接的建立、断开、保持等管理工作。&lt;/p&gt;
-&lt;img src=&#34;./.TCP 协议.IMG/Image00226.jpg&#34; alt=&#34;Image00226&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;TCP 协议.IMG/Image00226.jpg&#34; alt=&#34;Image00226&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;blockquote&gt;
 &lt;p&gt;注意，“端对端”中的“端”指的是主机上特定 &lt;strong&gt;端&lt;/strong&gt; 口号对应的进程。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -7405,7 +7405,7 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 &lt;p&gt;TCP 在传递数据给应用层时，会根据应用层请求的套接字来从相应的接收缓冲区中取出数据。&lt;strong&gt;因此，缓冲区是由套接字来确定的，而不是由文件描述符来确定的。文件描述符和套接字之间有一种映射关系，即每个文件描述符都可以对应一个套接字&lt;/strong&gt;，但不是每个套接字都可以对应一个文件描述符。&lt;/p&gt;
 &lt;h2&gt;2.2 TCP 报文格式&lt;span class=&#34;absolute -mt-20&#34; id=&#34;22-tcp-报文格式&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#22-tcp-%e6%8a%a5%e6%96%87%e6%a0%bc%e5%bc%8f&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;就报文格式而言，TCP 比 UDP 复杂得多，下文结合 TCP 报文格式，阐述 TCP 是如何「解包」的，其他组成部分的功能将在第三节「详述」部分阐述。&lt;/p&gt;
-&lt;img src=&#34;./.TCP 协议.IMG/Image00247-8374717.jpg&#34; alt=&#34;Image00247&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;TCP 协议.IMG/Image00247-8374717.jpg&#34; alt=&#34;Image00247&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;TCP 的报头是变长的，包括固定的 20 字节和变长的选项。其中，“数据偏移”也叫做“首部长度”，它占固定 4 位，作用是保存报头整体的长度，以便接收端能够正确解析报文中的字段。值得注意的是，虽然首部长度占 4 位，但是它的单位是 1 个字节，那么 4 个比特位能表示的范围 0~15，就能表示 0~60 字节。&lt;/p&gt;
 &lt;p&gt;图中，每一行有 4 个字节，解包步骤如下：&lt;/p&gt;
 &lt;ol&gt;
@@ -7448,13 +7448,13 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 &lt;li&gt;TCP 在接收端收到报文段后，会发送一个确认报文段（ACK）给发送端，表示已经收到了某个序号的报文段。&lt;/li&gt;
 &lt;li&gt;发送端收到 ACK 后，会更新自己的发送窗口，表示可以继续发送更多的报文段。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;img src=&#34;./.TCP 协议.IMG/Image00227.jpg&#34; alt=&#34;Image00227&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;TCP 协议.IMG/Image00227.jpg&#34; alt=&#34;Image00227&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;blockquote&gt;
 &lt;p&gt;通常，两个人对话时，在谈话的停顿处可以点头或询问以确认谈话内容。如果对方迟迟没有任何反馈，说话的一方还可以再重复一遍以保证对方确实听到。因此，对方是否理解了此次对话内容，对方是否完全听到了对话的内容，都要靠对方的反应来判断。网络中的“确认应答”就是类似这样的一个概念。当对方听懂对话内容时会说：“嗯”，这就相当于返回了一个确认应答（ACK）。而当对方没有理解对话内容或没有听清时会问一句“咦？”这好比一个否定确认应答（NACK（Negative Acknowledgement） ）。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;[注] 通常情况下，大写的 ACK 表示首部的确认位是 ACK，表示这是一个确认应答报文；小写的 ack 表示确认字段的值，即接收方期望发送方下一次应该发送数据的序列号，接收方发送 ack 序号，那么表明它已经接收了到 ack 为止的所有数据，因此 ack 也叫做确认号。&lt;/p&gt;
 &lt;p&gt;TCP 通过肯定的确认应答（ACK）实现可靠的数据传输。当发送端将数据发出之后会等待对端的确认应答。如果有确认应答，说明数据已经成功到达对端。反之，则数据丢失的可能性很大。&lt;/p&gt;
-&lt;img src=&#34;./.TCP 协议.IMG/Image00228.jpg&#34; alt=&#34;Image00228&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;TCP 协议.IMG/Image00228.jpg&#34; alt=&#34;Image00228&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;如果发送端在一定时间内没有收到 ACK，它会认为报文段丢失或延迟，然后重新发送报文段。这样，TCP 可以保证数据不会因为网络故障而丢失。&lt;/p&gt;
 &lt;p&gt;需要强调的是，ACK 机制并不能保证数据的顺序和完整性，也就是说，TCP 仅靠 ACK 机制是无法完全保证可靠性的。如果报文段到达的顺序和发送的顺序不一致，或者报文段被篡改或损坏，ACK 机制就无法检测出来。&lt;/p&gt;
 &lt;p&gt;因此，TCP 还需要其他的机制来保证可靠性，如序号机制、校验和机制、重传超时机制、累积确认机制、选择性确认机制等。&lt;/p&gt;
@@ -7482,7 +7482,7 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 &lt;blockquote&gt;
 &lt;p&gt;[注] 标*的为重点&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;img src=&#34;./.TCP 协议.IMG/image-20230708171209400.png&#34; alt=&#34;image-20230708171209400&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;TCP 协议.IMG/image-20230708171209400.png&#34; alt=&#34;image-20230708171209400&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;了解即可：&lt;/p&gt;
 &lt;p&gt;TCP 的报头在 Linux 内核中属于 &lt;strong&gt;struct tcphdr&lt;/strong&gt; 数据类型，该类型定义在 &lt;strong&gt;linux/tcp.h&lt;/strong&gt; 文件中。TCP 的报头包含了一些字段，其中 6 个标志位（URG、ACK、PSH、RST、SYN、FIN）是用来表示 TCP 的控制信息的，它们本质上是 &lt;strong&gt;位域/位段&lt;/strong&gt;，即用一个字节或者一个字中的某些位来表示一个变量。&lt;/p&gt;
 &lt;p&gt;TCP 的报头的结构如下：&lt;/p&gt;
@@ -7549,7 +7549,7 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
     &lt;a href=&#34;#32-%e4%bd%8d%e7%a1%ae%e8%ae%a4%e5%ba%94%e7%ad%94%e5%8f%b7&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;指下一次 &lt;strong&gt;应该收到&lt;/strong&gt; 的数据的序列号。即在 2.4 节中简述的 ACK 机制。&lt;/p&gt;
 &lt;p&gt;实际上，它是指已收到确认应答号减一为止的数据。发送端收到这个确认应答以后可以认为在这个序号以前的数据都已经被正常接收。&lt;/p&gt;
 &lt;p&gt;作用：解决丢包问题。例如 2.4 中的第一个例子，对端主机发送了 1~1000 的数据，那么收到数据的一端就要发送 1001 的确认应答号，&lt;strong&gt;表示 1001 之前的数据已经被成功接收&lt;/strong&gt;。&lt;/p&gt;
-&lt;img src=&#34;./.TCP 协议.IMG/image-20230708173847157.png&#34; alt=&#34;image-20230708173847157&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;TCP 协议.IMG/image-20230708173847157.png&#34; alt=&#34;image-20230708173847157&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;确认应答号非常重要，如果它的值是 x，那么发送 x 的一端要传达的信息就是：==我已经收到了 x 之前（注意是之前）的数据==。如果发送数据的一端收不到 x 或者收到的 x 和预期的不一样（可能是上次的），那么它会认为接收数据的一端没有成功接收到数据，即发生了丢包，此时发送数据的一端就会重新发送数据。这样发送数据的一端就能按照确认应答传达的信息继续发送下一段数据，以保证数据不被丢失。&lt;/p&gt;
 &lt;h4&gt;4 位首部长度&lt;span class=&#34;absolute -mt-20&#34; id=&#34;4-位首部长度&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#4-%e4%bd%8d%e9%a6%96%e9%83%a8%e9%95%bf%e5%ba%a6&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;首部长度表示 TCP 所传输的数据部分应该从 TCP 包的哪个位开始计算，看作 TCP 首部的长度。该字段长 4 位，单位为 4 字节（即 32 位）。&lt;/p&gt;
@@ -7561,7 +7561,7 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 &lt;p&gt;该字段主要是为了以后扩展时使用，其长度一般为 4 位。一般设置为 0，但即使收到的包在该字段不为 0，此包也不会被丢弃（保留字段的第 4 位（如下图中的第 7 位）用于实验目的，相当于 NS（Nonce Sum）标志位。） 。&lt;/p&gt;
 &lt;h4&gt;*8/6 位控制位&lt;span class=&#34;absolute -mt-20&#34; id=&#34;86-位控制位&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#86-%e4%bd%8d%e6%8e%a7%e5%88%b6%e4%bd%8d&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;字段长为 8 位，每一位从左至右分别为 CWR、ECE、URG、ACK、PSH、RST、SYN、FIN。这些控制标志也叫做控制位。当它们对应位上的值为 1 时，具体含义如图所示。&lt;/p&gt;
-&lt;img src=&#34;./.TCP 协议.IMG/image-20230708170846789.png&#34; alt=&#34;image-20230708170846789&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;TCP 协议.IMG/image-20230708170846789.png&#34; alt=&#34;image-20230708170846789&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;blockquote&gt;
 &lt;p&gt;[注] 如上所述：&lt;/p&gt;
 &lt;ul&gt;
@@ -7638,7 +7638,7 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 &lt;/blockquote&gt;
 &lt;h5&gt;校验和&lt;span class=&#34;absolute -mt-20&#34; id=&#34;校验和&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e6%a0%a1%e9%aa%8c%e5%92%8c&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;p&gt;校验和（checksum）是用来 &lt;strong&gt;检测 TCP 报头和数据是否有错误的&lt;/strong&gt;，它占 16 位，是对报头和数据的所有字节求和后取反得到的。发送端在发送报文段时，会计算校验和并填充在报头中；接收端在收到报文段时，会重新计算校验和并与报头中的值比较，如果不相等，说明报文段有错误，需要丢弃或者重传。&lt;/p&gt;
-&lt;img src=&#34;./.TCP 协议.IMG/image-20230709190634816.png&#34; alt=&#34;image-20230709190634816&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;TCP 协议.IMG/image-20230709190634816.png&#34; alt=&#34;image-20230709190634816&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;blockquote&gt;
 &lt;p&gt;源 IP 地址与目标 IP 地址在 IPv4 的情况下都是 32 位字段，在 IPv6 地址时都为 128 位字段。填充是为了补充位数时用，一般填入 0。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -7666,11 +7666,11 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 &lt;p&gt;在 2.4 中，说明了 ACK 机制能够提高可靠性，但仅靠 ACK 机制是无法完全实现可靠性的。言外之意是，TCP 为了实现它的可靠性，采取了若干措施，付出了很多代价。&lt;/p&gt;
 &lt;p&gt;其中之一就是序列号配合 ACK 机制，在 2.4 中的例子中，我只说明了『确认延迟到达』的一种情况，即主机 A 发送的数据发生了丢包，导致主机 B 无法接收数据，也就无法发送确认应答。&lt;/p&gt;
 &lt;p&gt;还有一种情况是主机 B 收到了主机 A 发送的数据，但是主机 B 发送的确认应答发生了丢包。两种情况对于主机 A 都是一样的：发送了数据却收不到确认应答。&lt;/p&gt;
-&lt;img src=&#34;./.TCP 协议.IMG/image-20230709192411441.png&#34; alt=&#34;image-20230709192411441&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;TCP 协议.IMG/image-20230709192411441.png&#34; alt=&#34;image-20230709192411441&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;此外，也有可能因为一些其他原因导致确认应答延迟到达，在源主机重发数据以后才到达的情况也履见不鲜。不论如何，发送了数据却收不到确认应答，源发送主机只要按照机制重发数据即可。&lt;/p&gt;
 &lt;p&gt;对于但是对于目标主机来说，这简直是一种“灾难”。&lt;strong&gt;它会反复收到相同的数据&lt;/strong&gt;。而为了对上层应用提供可靠的传输，必须得放弃重复的数据包。为此，就必须引入一种机制，&lt;strong&gt;它能够识别是否已经接收数据，又能够判断是否需要接收&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;上述这些确认应答处理、重发控制以及重复控制等功能都可以通过==序列号==实现。序列号是按顺序给发送数据的每一个字节（8 位字节）都标上号码的编号。接收端查询接收数据 TCP 首部中的序列号和数据的长度，将自己下一步应该接收的序号作为确认应答返送回去。就这样，通过序列号和确认应答号，TCP 可以实现可靠传输。&lt;/p&gt;
-&lt;img src=&#34;./.TCP 协议.IMG/image-20230709192950975.png&#34; alt=&#34;image-20230709192950975&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;TCP 协议.IMG/image-20230709192950975.png&#34; alt=&#34;image-20230709192950975&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;其中：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -7678,13 +7678,13 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;TCP 的数据长度并未写入 TCP 首部。实际通信中求得 TCP 包的长度的计算公式是：&lt;/p&gt;
-&lt;img src=&#34;./.TCP 协议.IMG/image-20231107173628682.png&#34; alt=&#34;image-20231107173628682&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;TCP 协议.IMG/image-20231107173628682.png&#34; alt=&#34;image-20231107173628682&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;MSS（Maximum Segment Size，报文最大长度）：在建立 TCP 连接的同时，也可以确定发送数据包的单位，我们也可以称其为“==最大消息长度==”（MSS）。最理想的情况是，最大消息长度正好是 IP 中不会被分片处理的最大数据长度（这样就省去了分片和重组的成本）。&lt;/p&gt;
 &lt;p&gt;TCP 在传送大量数据时，是 &lt;strong&gt;以 MSS 的大小将数据进行分割&lt;/strong&gt; 发送。进行 &lt;strong&gt;重发&lt;/strong&gt; 时也是以 MSS 为单位。&lt;/p&gt;
 &lt;p&gt;MSS 是在三次握手的时候，在两端主机之间被计算得出。两端的主机在发出建立连接的请求时，会在 TCP 首部中写入 MSS 选项，告诉对方自己的接口能够适应的 MSS 的大小（为附加 MSS 选项，TCP 首部将不再是 20 字节，而是 4 字节的整数倍。如下图所示的+4。） 。然后会在两者之间选择一个较小的值投入使用（在建立连接时，如果某一方的 MSS 选项被省略，可以选为 IP 包的长度不超过 576 字节的值（IP 首部 20 字节，TCP 首部 20 字节，MSS 536 字节）。） 。&lt;/p&gt;
-&lt;img src=&#34;./.TCP 协议.IMG/image-20230709193250404.png&#34; alt=&#34;image-20230709193250404&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;TCP 协议.IMG/image-20230709193250404.png&#34; alt=&#34;image-20230709193250404&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;因此，TCP 是以『段』（Segment）为单位发送数据的，和 MSS 对应。&lt;/p&gt;
@@ -7693,7 +7693,7 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 &lt;p&gt;序列号的作用是标记数据的顺序，那么确认号有什么作用？&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;序列号由发送数据的一方发出，而确认号由接收数据的一方发出，&lt;strong&gt;确认号告诉发送数据的一方：我已经接收到了你这次发送的数据，请你从这个序号的位置继续发送&lt;/strong&gt;。&lt;/p&gt;
-&lt;img src=&#34;./.TCP 协议.IMG/Image00227.jpg&#34; alt=&#34;Image00227&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;TCP 协议.IMG/Image00227.jpg&#34; alt=&#34;Image00227&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;其中，1001 和 2001 都是确认号。它们表示的意义是==确认号之前==的数据都已收到，这样便能保证数据的完整性（如果网络条件良好的话）。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;注意，它们的单位是字节，这恰好和字符数组的单位大小相同。&lt;/p&gt;
@@ -7701,7 +7701,7 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 &lt;p&gt;序列号和确认号存在的原因是，要保证 TCP 是==全双工==的，即主机 A 在接收主机 B 的数据的同时，也要给主机 B 发送它自己要发送的数据（往往是主机 A 的应答）。就像生活中吵架一样，边吵边听，互不影响，==既可以收，也可以发==。&lt;/p&gt;
 &lt;p&gt;因此，TCP 是一个 &lt;strong&gt;双向&lt;/strong&gt; 的字节流协议，也就是说，每个方向上都有一个独立的字节流和序列号空间。因此，对于任意一方来说，它既有自己的序列号，也有对方的确认序号；它既有自己发送的报文段，也有对方发送的报文段。&lt;/p&gt;
 &lt;p&gt;不论是请求还是应答，本质上对于任意一方都是报文，报文在“字节流”的意义下是一个字符数组，那么序列号就相当于数组的下标，确认序号就是数组未被使用的最新的位置。&lt;/p&gt;
-&lt;img src=&#34;./.TCP 协议.IMG/image-20230709201405566.png&#34; alt=&#34;image-20230709201405566&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;TCP 协议.IMG/image-20230709201405566.png&#34; alt=&#34;image-20230709201405566&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;h4&gt;小结&lt;span class=&#34;absolute -mt-20&#34; id=&#34;小结&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e5%b0%8f%e7%bb%93&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;序列号和确认序号的作用：&lt;/p&gt;
 &lt;ul&gt;
@@ -7743,7 +7743,7 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 &lt;li&gt;[响应 B] 客户端再发送一个 ACK 包，确认连接成功。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;这样，双方就建立了一个可靠的、双向的、基于字节流的连接。三次握手的图示如下。&lt;/p&gt;
-&lt;img src=&#34;./.TCP 协议.IMG/image-20230710231316082.png&#34; alt=&#34;image-20230710231316082&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;TCP 协议.IMG/image-20230710231316082.png&#34; alt=&#34;image-20230710231316082&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;这些包使用 TCP 首部用于控制的字段来管理 TCP 连接，建立一个 TCP 连接需要发送 3 个包，形象的称为“三次握手”。&lt;/p&gt;
 &lt;p&gt;注意：&lt;/p&gt;
 &lt;ul&gt;
@@ -7827,7 +7827,7 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 &lt;/ul&gt;
 &lt;h4&gt;三次握手&lt;span class=&#34;absolute -mt-20&#34; id=&#34;三次握手-1&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e4%b8%89%e6%ac%a1%e6%8f%a1%e6%89%8b-1&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;TCP 的状态在三次握手中的变化是这样的：&lt;/p&gt;
-&lt;img src=&#34;./.TCP 协议.IMG/image-20230711173812497.png&#34; alt=&#34;image-20230711173812497&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;TCP 协议.IMG/image-20230711173812497.png&#34; alt=&#34;image-20230711173812497&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;blockquote&gt;
 &lt;p&gt;图片和描述来自：&lt;a href=&#34;https://xiaolincoding.com/network/3_tcp/tcp_interview.html#tcp-%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B%E6%98%AF%E6%80%8E%E6%A0%B7%E7%9A%84&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;小林 coding：TCP 三次握手过程是怎样的？&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -7907,7 +7907,7 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 &lt;li&gt;第二次握手：如果&lt;strong&gt;服务端&lt;/strong&gt;回复的 SYN+ACK 报文是旧的重复报文，那么它携带的初始序列号 Seq=y 可能已经被客户端使用过或者超出了客户端期待的范围。这样，&lt;strong&gt;客户端收到这个 SYN+ACK 报文后，会认为它是无效的或者已经过期的，不会回复 ACK 报文，也不会建立连接&lt;/strong&gt;。&lt;/li&gt;
 &lt;li&gt;第三次握手：如果&lt;strong&gt;客户端&lt;/strong&gt;回复的 ACK 报文是旧的重复报文，那么它携带的确认号 ack 可能已经被服务端使用过或者超出了服务端期待的范围。这样，&lt;strong&gt;服务端收到这个 ACK 报文后，会认为它是无效的或者已经过期的，不会分配资源给这个连接，也不会进行数据传输&lt;/strong&gt;。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;img src=&#34;./.TCP 协议.IMG/format,png-20230309230525514.png&#34; alt=&#34;三次握手避免历史连接&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;TCP 协议.IMG/format,png-20230309230525514.png&#34; alt=&#34;三次握手避免历史连接&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;代入上面假设的场景，如果在 SYN（Seq=100）正在发送的途中，原先 SYN（Seq=90）刚好被服务端接收，那么服务端会返回 ACK（Seq=91），客户端应该收到的是 ACK（Seq=101）而不是 ACK（Seq=91），此时客户端就会发起 RST 报文以终止连接。服务端收到后，释放连接。&lt;/p&gt;
 &lt;p&gt;经过一段之间后，新的 SYN（Seq=100）被服务端接收，服务端返回 ACK（Seq=101），客户端检查确认应答号是正确的，就会发送自己的 ACK 报文，连接成功，且避免了旧的重复连接初始化造成混乱。&lt;/p&gt;
 &lt;p&gt;因此，通过序列号和确认号的机制，TCP 可以在三次握手中验证双方是否是当前有效的连接请求，并且&lt;strong&gt;同步双方的初始序列号&lt;/strong&gt;。这样可以防止旧的重复连接初始化造成混乱。&lt;/p&gt;
@@ -7924,7 +7924,7 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 &lt;p&gt;如果只有两次握手，那么客户端发送的 SYN 报文可能会在网络中延迟，导致服务端收到一个过期的连接请求，从而建立一个无效的连接，浪费资源。&lt;/p&gt;
 &lt;p&gt;这是因为在『两次握手』的情况下，服务端只要收到了客户端发送的第一个报文，就认为它已经建立好了这个方向的连接，立即处于 ESTABLISHED 状态。然而客户端只有当收到服务端发送的 ACK+SYN 报文后，才会认为它处于 ESTABLISHED 状态。&lt;/p&gt;
 &lt;p&gt;问题就在于，客户端和服务端切换到 ESTABLISHED 状态的时机不论多少次握手，都会有时差，这是由机制本身决定的。如果在『服务端处于 ESTABLISHED 状态，客户端处于 SYN_SENT 状态并将要切换到 ESTABLISHED 状态之前』这个时间段内，报文的传输出现了问题，那么整个连接就会失败。&lt;/p&gt;
-&lt;img src=&#34;./.TCP 协议.IMG/fe898053d2e93abac950b1637645943f.png&#34; alt=&#34;两次握手无法阻止历史连接&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;TCP 协议.IMG/fe898053d2e93abac950b1637645943f.png&#34; alt=&#34;两次握手无法阻止历史连接&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;在这个时间段内，如果客户端发送的旧 SYN（Seq=100）较新 SYN（Seq=200）更先被服务端收到，服务端进入 ESTABLISHED 状态，像客户端发送 SYN+ACK（Seq=101）报文。客户端通过校验发现，ACK（Seq=101）不是自己期望的 ACK（Seq=201），于是向服务端发送 RST 报文以终止连接。&lt;/p&gt;
 &lt;p&gt;直到新 SYN（Seq=200）被服务端接收到以后，才能正常建立连接。&lt;/p&gt;
 &lt;p&gt;但是这个过程中（注意在两次握手的情况下），服务端已经和客户端的建立了一个旧连接，这个旧连接因为双方的确认应答序号不一致而被迫终止，造成的后果不仅是终止了这个连接，更在于白白浪费了建立连接和发送数据的资源（图中 RST 之前），我们知道建立连接是有成本的。&lt;/p&gt;
@@ -7947,7 +7947,7 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 &lt;p&gt;通过三次握手，双方可以互相确认对方的初始序列号，并在此基础上递增序列号来发送后续的数据包。这样一来一回，才能确保双方的初始序列号能被可靠的同步。&lt;/p&gt;
 &lt;h4&gt;避免资源浪费&lt;span class=&#34;absolute -mt-20&#34; id=&#34;避免资源浪费&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e9%81%bf%e5%85%8d%e8%b5%84%e6%ba%90%e6%b5%aa%e8%b4%b9&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;刚才在介绍两次握手时，说明了两次握手只能确保建立单方向的通信信道（客户端-&amp;gt;服务端），这个过程对客户端是无感知的，只要它没有收到第二次握手服务端发送的 SYN+ACK 报文，就会根据超时重传机制发送若干 SYN 报文以请求连接。&lt;/p&gt;
-&lt;img src=&#34;./.TCP 协议.IMG/format,png-20230309230636571.png&#34; alt=&#34;两次握手会造成资源浪费&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;TCP 协议.IMG/format,png-20230309230636571.png&#34; alt=&#34;两次握手会造成资源浪费&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;例如，如果客户端发送的 SYN 报文在网络中阻塞了，重复发送多次 SYN 报文，那么服务端在收到请求后就会建立多个冗余的无效链接，造成不必要的资源浪费。即两次握手会造成消息滞留情况下，服务端重复接受无用的连接请求 SYN 报文，而造成重复分配资源。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;两次握手不能根据上下文 SYN 的序列号来丢弃历史请求报文吗&lt;/p&gt;
@@ -7969,7 +7969,7 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 &lt;li&gt;报文被对方丢弃了&lt;/li&gt;
 &lt;li&gt;报文被对方收到了，但是对方发出的确认应答丢包了&lt;/li&gt;
 &lt;/ol&gt;
-&lt;img src=&#34;./.TCP 协议.IMG/image-20230712175117584.png&#34; alt=&#34;image-20230712175117584&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;TCP 协议.IMG/image-20230712175117584.png&#34; alt=&#34;image-20230712175117584&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;这是无法被发送方确定的，即使确定了也没有意义。但是也不能让发送方傻乎乎地一直等这个应答，所以设置了一个有效时间，一旦报文发出，没有在规定时间内收到对方发送的确认应答，那么发送方会重新发送一份&lt;strong&gt;完全相同&lt;/strong&gt;的报文。这就是 TCP 的超时重传机制。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;重发超时的具体时间长度又是如何确定的呢？&lt;/p&gt;
@@ -7981,7 +7981,7 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 &lt;p&gt;RTT 的偏差（也叫绝对误差）是指 RTT 的真实值和平滑估计值之间的差值，它反映了 RTT 的波动程度。将 RTT 的平滑估计值和偏差相加再乘以一个系数，就可以得到 RTO 的值。一般来说，这个系数是 4，也就是说 RTO = (SRTT + RTTVAR) * 4，其中 SRTT 是 RTT 的平滑估计值，RTTVAR 是 RTT 的偏差。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;那么 RTT 具体指的是什么呢？&lt;/p&gt;
-&lt;img src=&#34;./.TCP 协议.IMG/6.jpg&#34; alt=&#34;RTT&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;TCP 协议.IMG/6.jpg&#34; alt=&#34;RTT&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;ul&gt;
 &lt;li&gt;RTT 指的是&lt;strong&gt;数据发送时刻&lt;/strong&gt;到&lt;strong&gt;接收到确认的时刻&lt;/strong&gt;的差值，也就是包的往返时间。&lt;/li&gt;
 &lt;/ul&gt;
@@ -7994,14 +7994,14 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 &lt;/ul&gt;
 &lt;p&gt;关于这个经验公式的推导，可以参看 &lt;a href=&#34;https://www.bilibili.com/video/BV1JV411t7ow?t=1133.8&amp;amp;p=27&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;郑烇老师讲的课&lt;/a&gt; 和《TCP/IP 详解 卷 1 协议》第 464 页。&lt;/p&gt;
 &lt;p&gt;举两个极端的例子（注意看箭头和括号）：&lt;/p&gt;
-&lt;img src=&#34;./.TCP 协议.IMG/7.jpg&#34; alt=&#34;超时时间较长与较短&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;TCP 协议.IMG/7.jpg&#34; alt=&#34;超时时间较长与较短&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;ul&gt;
 &lt;li&gt;超时时间 RTO 太大：重发报文的间隔太长，导致效率低下。&lt;/li&gt;
 &lt;li&gt;超时时间 RTO 太小：重发报文的间隔太小，可能报文并未丢包就向网络中重发了报文（因为网络传输有距离），会增加网络拥塞的程度。最终出现雪崩效应，让网络状况雪上加霜。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;由此可见，RTO 的大小取决于网络环境，它会随时间而改变，TCP 必须跟踪这些变化并实时做出调整以维持较好的性能。&lt;/p&gt;
 &lt;p&gt;略大于 RTT 的 RTO，是上述两种情况的折中：&lt;/p&gt;
-&lt;img src=&#34;./.TCP 协议.IMG/8.jpg&#34; alt=&#34;RTO 应略大于 RTT&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;TCP 协议.IMG/8.jpg&#34; alt=&#34;RTO 应略大于 RTT&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;注意，&lt;/p&gt;
 &lt;p&gt;尽管经过了一系列实践和测试，但事实上总会存在某些超时重传解决不了的情况，即超时重传的 RTO 宁愿长也不能短，缺点的严重性取决于具体场景。例如像多人网游这样对延迟要求十分高的场景，使用超时重传就会很低效，这就需要使用『快速重传』机制解决。&lt;/p&gt;
 &lt;h3&gt;快速重传&lt;span class=&#34;absolute -mt-20&#34; id=&#34;快速重传&#34;&gt;&lt;/span&gt;
@@ -8011,7 +8011,7 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 &lt;li&gt;基于 SACK 的快速重传是指当接收方收到失序的数据包时，会在 TCP 头部增加一个 SACK 字段，告诉发送方已经收到的数据包序号范围，这样发送方可以准确地知道哪些数据包丢失了，并且只重传丢失的数据包。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;假设有这样的场景：在超时重传的计时器还未触发这个时间段内，客户端已经接收到服务端发送的若干相同 ACK 报文，那么此时也就没有必要再等下去了，毕竟服务端都已经收到了上次发送的报文，直接重发丢失的报文就好了。这就叫快速重传。&lt;/p&gt;
-&lt;img src=&#34;./.TCP 协议.IMG/10.jpg&#34; alt=&#34;快速重传机制&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;TCP 协议.IMG/10.jpg&#34; alt=&#34;快速重传机制&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;在上例中，客户端发送的 2 号报文丢包，服务端发送多个 ACK（Seq=2）报文，其中，第一个报文表示服务端接收到了 1 号报文。后续 3/4/5 号报文被服务端接收到后校验错误，总共向客户端发送了 3 个 ACK（Seq=2）报文。&lt;/p&gt;
 &lt;p&gt;一旦客户端满足了这两个条件，就能触发基于重复 ACK 快速重传机制：&lt;/p&gt;
 &lt;ol&gt;
@@ -8028,7 +8028,7 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 &lt;li&gt;此外，D-SACK（Duplicate SACK）是一种扩展的 SACK，用于告诉&lt;strong&gt;发送方&lt;/strong&gt;有哪些数据段被&lt;strong&gt;重复&lt;/strong&gt;接收了。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;从缓冲区的角度理解重发机制：&lt;/p&gt;
-&lt;img src=&#34;./.TCP 协议.IMG/11.jpg&#34; alt=&#34;选择性确认&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;TCP 协议.IMG/11.jpg&#34; alt=&#34;选择性确认&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;我们知道，TCP 的发送端和接收端都有各自的收发缓冲区，而 TCP 的接收端可以提供 SACK 功能，以 TCP 头部基类的 ACK 号字段来描述其接收到的数据。这些 ACK 号是有实际意义的，在上文提到过，它可以视为一个字符数组的下标。那么某几段数据丢失，实际上就是这个字符数组中产生了『空缺』。&lt;/p&gt;
 &lt;p&gt;空缺指的是 ACK 号与接收端接收缓冲区中的其他数据之间的间隔，即图中右边白色的空缺。而 TCP 发送端的任务就是通过重传丢失的数据来填补接收端缓冲区的空缺。要求是保证不能重复地发送接收端已经收到的数据。那么此时 SACK 就能很好地发挥作用，减少不必要的重传。&lt;/p&gt;
 &lt;blockquote&gt;
@@ -8036,7 +8036,7 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 &lt;/blockquote&gt;
 &lt;h2&gt;3.4 连接的断开&lt;span class=&#34;absolute -mt-20&#34; id=&#34;34-连接的断开&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#34-%e8%bf%9e%e6%8e%a5%e7%9a%84%e6%96%ad%e5%bc%80&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;四次挥手&lt;span class=&#34;absolute -mt-20&#34; id=&#34;四次挥手&#34;&gt;&lt;/span&gt;
-    &lt;a href=&#34;#%e5%9b%9b%e6%ac%a1%e6%8c%a5%e6%89%8b&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;img src=&#34;./.TCP 协议.IMG/format,png-20230309230614791.png&#34; alt=&#34;客户端主动关闭连接 —— TCP 四次挥手&#34; style=&#34;zoom:40%;&#34; /&gt;
+    &lt;a href=&#34;#%e5%9b%9b%e6%ac%a1%e6%8c%a5%e6%89%8b&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;img src=&#34;TCP 协议.IMG/format,png-20230309230614791.png&#34; alt=&#34;客户端主动关闭连接 —— TCP 四次挥手&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;TCP 的四次挥手的过程是这样的：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;第一次挥手：主动关闭方（客户端或服务器，上例是客户端）发送一个 &lt;strong&gt;FIN&lt;/strong&gt; 标志位为 1 的数据包，表示要结束数据传输，进入 &lt;strong&gt;FIN_WAIT_1&lt;/strong&gt; 状态，等待对方的确认。&lt;/li&gt;
@@ -8107,7 +8107,7 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 &lt;li&gt;为了允许老的重复分节在网络中消逝，防止新的连接被旧的分节干扰，需要在发送 ACK 后等待一个 MSL 的时间，以便新的连接不会使用相同的套接字对。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;在 CentOS 7 中，MSL 为 60s：&lt;/p&gt;
-&lt;img src=&#34;./.TCP 协议.IMG/image-20230717230118794.png&#34; alt=&#34;image-20230717230118794&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;TCP 协议.IMG/image-20230717230118794.png&#34; alt=&#34;image-20230717230118794&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;blockquote&gt;
 &lt;p&gt;服务器出现大量 CLOSE_WAIT 状态连接的原因有哪些？&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -8278,17 +8278,17 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;运行：&lt;/p&gt;
-&lt;img src=&#34;./.TCP 协议.IMG/image-20230725222639503.png&#34; alt=&#34;image-20230725222639503&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;TCP 协议.IMG/image-20230725222639503.png&#34; alt=&#34;image-20230725222639503&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;通过指令 netstat 查看，这个进程确实已经被运行起来了，并且正处于监听状态。现在用另一个会话用 telnet 工具在本地进行测试：
-&lt;img src=&#34;./.TCP 协议.IMG/image.png&#34; alt=&#34;image&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;TCP 协议.IMG/image.png&#34; alt=&#34;image&#34; style=&#34;zoom:40%;&#34; /&gt;
 注意到，此时这个连接处于 ESTABLISHED 状态，表示连接创建成功。&lt;/p&gt;
 &lt;p&gt;telnet 相当于客户端，那么下面这个客户端主动关闭连接会发生什么呢？&lt;/p&gt;
-&lt;img src=&#34;./.TCP 协议.IMG/image-20230725225214226.png&#34; alt=&#34;image-20230725225214226&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;TCP 协议.IMG/image-20230725225214226.png&#34; alt=&#34;image-20230725225214226&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;blockquote&gt;
 &lt;p&gt;注意，由于我只有一台主机可以用来测试，实际上如果用其他主机作为客户端连接到这个 8080 的监听端口的话，再用这个命令查看相关信息，IP 地址可能和服务器运营商提供的公网 IP 不同，这是因为后者提供的是虚拟 IP。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;注意到在服务器上，这个连接的状态变化为了 CLOSE_WAIT。这是因为我们的代码中没有在关闭连接时关闭文件描述符，造成了在这段时间内占用了这个文件描述符。如果你在短时间内重复连接的话，会发现文件描述符会一直递增，同时也会出现 CLOSE_WAIT 状态的连接：&lt;/p&gt;
-&lt;img src=&#34;./.TCP 协议.IMG/image-20230725230325537.png&#34; alt=&#34;image-20230725230325537&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;TCP 协议.IMG/image-20230725230325537.png&#34; alt=&#34;image-20230725230325537&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;我们知道文件描述符是有上限的，而且连接本身也会占用资源，如果客户端主动关闭连接后，服务端却没有关闭文件描述符，最终会导致进程崩溃。&lt;/p&gt;
 &lt;p&gt;在服务端中增加关闭连接操作：&lt;/p&gt;
 &lt;div class=&#34;code-block relative mt-6 first:mt-0 group/code&#34;&gt;&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt; &lt;span class=&#34;cpf&#34;&gt;&amp;#34;Sock.hpp&amp;#34;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;
@@ -8315,9 +8315,9 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;在 sleep 的 10s 内，服务端连接处于正常连接状态：&lt;/p&gt;
-&lt;img src=&#34;./.TCP 协议.IMG/image-20230725232856474.png&#34; alt=&#34;image-20230725232856474&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;TCP 协议.IMG/image-20230725232856474.png&#34; alt=&#34;image-20230725232856474&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;当服务端主动调用 close，关闭连接时，虽然四次挥手已经完成，但是作为主动断开连接的一方，要维持一段时间的 TIME_WAIT 状态。在这个状态下，连接已经关闭，但其地址信息 IP 和 PORT 依旧是被占用的。&lt;/p&gt;
-&lt;img src=&#34;./.TCP 协议.IMG/image-20230725233141284.png&#34; alt=&#34;image-20230725233141284&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;TCP 协议.IMG/image-20230725233141284.png&#34; alt=&#34;image-20230725233141284&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;值得注意的是，作为服务器，一旦启动后无特殊需求（如维护）是不会主动关闭连接的，上面代码模拟的通常是服务端进程因为异常而终止的情况。&lt;/p&gt;
 &lt;p&gt;文件描述符的生命周期随进程，不论服务端进程是正常退出还是异常退出，只要服务端进程退出，此时就应该立即重启服务器。但问题在于，由于是服务端主动关闭请求，此时服务器必然存在大量处于 TIME_WAIT 状态的连接，而它们在一段时间内占用了 IP 和端口。如果是双 11 这样的场景，发生这种是被称之为事故，是要被定级的。&lt;/p&gt;
 &lt;p&gt;操作系统提供了 Listen 套接字的属性，以供地址复用。这样服务器一旦挂掉重启后，虽然存在大量处于 TIME_WAIT 状态的连接，但是这个选项可以绕过 TIME_WAIT 限制，直接复用原先使用的地址。&lt;/p&gt;
@@ -8341,9 +8341,9 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 &lt;/div&gt;
 &lt;p&gt;并且将刚才在 main.cc 中增加的代码删除，方面手动终止和重启服务端进程。&lt;/p&gt;
 &lt;p&gt;建立一个连接并主动关闭服务端：&lt;/p&gt;
-&lt;img src=&#34;./.TCP 协议.IMG/image-20230725234739980.png&#34; alt=&#34;image-20230725234739980&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;TCP 协议.IMG/image-20230725234739980.png&#34; alt=&#34;image-20230725234739980&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;重启服务端进程，并尝试重新建立连接：&lt;/p&gt;
-&lt;img src=&#34;./.TCP 协议.IMG/image-20230725234953769.png&#34; alt=&#34;image-20230725234953769&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;TCP 协议.IMG/image-20230725234953769.png&#34; alt=&#34;image-20230725234953769&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;即使此时这个 PORT 对应的连接处于 TIME_WAIT 状态，由于设置了地址复用选项，可以无视它的存在，跳过这段占用时间。&lt;/p&gt;
 &lt;h2&gt;3.5 流量控制&lt;span class=&#34;absolute -mt-20&#34; id=&#34;35-流量控制&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#35-%e6%b5%81%e9%87%8f%e6%8e%a7%e5%88%b6&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;TCP 除了要保证连接的可靠性，还要保证数据传输的效率。这是因为，TCP 在每次发送数据时，网络和机器本身的承载能力是动态的。提升效率的主要手段在于减少“发送-回应”的次数，即增大回应的粒度，以多条数据为一组作为一次回应的内容，这一组数据在缓冲区中就叫做『滑动窗口』。&lt;/p&gt;
@@ -8368,7 +8368,7 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;img src=&#34;./.TCP 协议.IMG/image-20230723085634284.png&#34; alt=&#34;image-20230723085634284&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;TCP 协议.IMG/image-20230723085634284.png&#34; alt=&#34;image-20230723085634284&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -8402,7 +8402,7 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 &lt;/ul&gt;
 &lt;p&gt;从数据结构和缓冲区的角度理解：滑动窗口是一个变化的数值，表示当前可以发送或接收的数据量。滑动窗口的大小取决于操作系统缓冲区的大小和网络状况。滑动窗口可以用两个指针来表示，一个指向缓冲区中『已发送或已接收的数据』的第一个字节，另一个指向缓冲区中『未发送或未接收的数据』的第一个字节。『这两个指针之间的距离就是滑动窗口的大小』。当数据发送或接收时，这两个指针会相应地移动，从而实现窗口的滑动。&lt;/p&gt;
 &lt;p&gt;以 TCP 的『发送窗口』为例：&lt;/p&gt;
-&lt;img src=&#34;./.TCP 协议.IMG/image-20230723173851992.png&#34; alt=&#34;image-20230723173851992&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;TCP 协议.IMG/image-20230723173851992.png&#34; alt=&#34;image-20230723173851992&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;其中，在这个状态下：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;绿色：已发送并收到 ACK 确认的数据。&lt;/li&gt;
@@ -8455,7 +8455,7 @@ $$
 &lt;li&gt;当收到第一个 ACK 报文时，滑动窗口向后移动，继续发送第下一个数据包，以此类推。绿色区域逐渐变大，红色区域逐渐减小。&lt;/li&gt;
 &lt;li&gt;操作系统会根据缓冲区中的数据是否有对应的 ACK 应答决定它是否被移出缓冲区。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;img src=&#34;./.TCP 协议.IMG/image-20230724005741261.png&#34; alt=&#34;image-20230724005741261&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;TCP 协议.IMG/image-20230724005741261.png&#34; alt=&#34;image-20230724005741261&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;当然，这只是窗口变化的其中一种情况，因为滑动窗口的动态变化的。但引起窗口移动的条件是『已经发送但未接收到 ACK 应答』的数据收到了 ACK 应答。&lt;/p&gt;
 &lt;p&gt;实际上，当发送方发送了一个数据段后，就会启动一个定时器，如果在定时器超时之前收到了接收方的 ACK 应答，就表示该数据段已经成功传输，那么发送方就会把窗口向右移动一个数据段的大小，从而可以继续发送下一个数据段。如果在定时器超时之前没有收到 ACK 应答，就表示该数据段可能丢失或者延迟了，那么发送方就会重传该数据段，并把窗口缩小一半，从而减少网络拥塞。&lt;/p&gt;
 &lt;p&gt;可用窗口大小是指接收方通知发送方的当前可接收的数据量，它反映了接收方的缓冲区空间和网络拥塞程度。可用窗口大小的意义在于，它可以使 TCP 协议适应不同的网络环境和传输需求，提高网络的吞吐率和效率。可用窗口大小可以通过 TCP 头部中的窗口字段来表示，但是由于该字段只有 16 位，最大只能表示 65535 字节，所以当网络带宽较大时，可能会限制 TCP 的性能。为了解决这个问题，TCP 引入了窗口缩放选项 (RFC 1323) ，它可以通过一个缩放因子来扩展窗口字段的表示范围，最大可以达到 1 GB。&lt;/p&gt;
@@ -8487,7 +8487,7 @@ $$
     &lt;a href=&#34;#36-%e6%8b%a5%e5%a1%9e%e6%8e%a7%e5%88%b6&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;网络是一种共享资源，在网络中每时每刻都有无数台机器在使用 TCP 协议进行通信，对于通信的参与方，它们对网络是无感知的。因为通信双方只会交换对方的接收能力，只关心对方的状态。极端地说，如果网络上大部分发送方都在重传数据，那么网络将会越来越拥堵，就像滚雪球一样，更何况网络本身就可能处于阻塞状态。&lt;/p&gt;
 &lt;p&gt;『拥塞控制』就是控制发送方发送的数据的数量，以避免它们造成或加剧网络拥堵。拥塞控制通过『拥塞窗口』来维护。&lt;/p&gt;
 &lt;p&gt;拥塞控制与流量控制的区别：&lt;/p&gt;
-&lt;img src=&#34;./.TCP 协议.IMG/image-20231114160740018.png&#34; alt=&#34;image-20231114160740018&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;TCP 协议.IMG/image-20231114160740018.png&#34; alt=&#34;image-20231114160740018&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;h3&gt;拥塞窗口&lt;span class=&#34;absolute -mt-20&#34; id=&#34;拥塞窗口&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e6%8b%a5%e5%a1%9e%e7%aa%97%e5%8f%a3&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;拥塞窗口和发送窗口的关系：&lt;/p&gt;
 &lt;ul&gt;
@@ -8539,7 +8539,7 @@ $$
 &lt;p&gt;因此，在接收到一个数据段的 ACK 后，通常 cwnd 值会增加到 2，接着会发送两个数据段。如果成功收到相应的新的 ACK，cwnd 会由 2 变 4，由 4 变 8，以此类推。一般情况下假设没有丢包且每个数据包都有相应 ACK，在轮后 W 的值为$ W=2^k$即$k=log_2W$，需要 k 个 RTT 时间操作窗口才能达到 W 大小。这种增长看似很快（以==指数函数增长==)，但若与一开始就允许以最大可用速率（即接收方通知窗口大小）发送相比，仍显缓慢。( W 不会超过 awnd)&lt;/p&gt;
 &lt;p&gt;如果假设某个 TCP 连接中接收方的通知窗口非常大（比如说，无穷大），这时 cwnd 就是影响发送速率的主要因素（设发送方有较大发送需求）。如前所述，cwnd 会随着 RTT 呈指数增长。因此，最终 cwnd(W 也如此）会增至很大，大量数据包的发送将导致网络瘫痪 (TCP 吞吐量与 W/RTT 成正比）。当发生上述情况时，cwnd 将大幅度减小（减至原值一半）。这是 TCP 由慢启动阶段至拥塞避免阶段的转折点，与 cwnd 和『==慢启动阈值==』(slow start threshold，$ssthresh$) 相关。&lt;/p&gt;
 &lt;p&gt;下图（左）描述了慢启动操作。数值部分以 RTT 为单位。假设该连接首先发送一个包（图上部），返回一个 ACK，接着在第二个 RTT 时间里发送两个包，会接收到两个 ACK。TCP 发送方每接收一个 ACK 就会执行一次 cwnd 的增长操作，以此类推。&lt;/p&gt;
-&lt;img src=&#34;./.TCP 协议.IMG/image-20230724171901886.png&#34; alt=&#34;image-20230724171901886&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;TCP 协议.IMG/image-20230724171901886.png&#34; alt=&#34;image-20230724171901886&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;右图描述了 cwnd 随时间增长的指数函数。图中另一条曲线显示了每两个数据包收到一个 ACK 时 cwnd 的增长情况。通常在 ACK 延时情况下会采用这种方式，这时的 cwnd 仍以指数增长，只是增幅不是很大。正因 ACK 可能会延时到达，所以一些 TCP 操作只在慢启动阶段完成后才返回 ACK。Linux 系统中，这被称为快速确认（快速 ACK 模式）。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;慢启动算法中的发包个数按指数增长，那么它应该什么时候停下？&lt;/p&gt;
@@ -8553,8 +8553,8 @@ $$
     &lt;a href=&#34;#%e6%8b%a5%e5%a1%9e%e9%81%bf%e5%85%8d&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;如上所述，在连接建立之初以及由超时判定丢包发生的情况下，需要执行慢启动操作。在慢启动阶段，cwnd 会快速增长，帮助确立一个慢启动值。一旦达到阈值，就意味着可能有更多可用的传输资源。如果立即全部占用这些资源，将会使共享路由器队列的其他连接出现严重的丢包和重传情况，从而导致整个网络性能不稳定。&lt;/p&gt;
 &lt;p&gt;为了得到更多的传输资源而不致影响其他连接传输，TCP 实现了拥塞避免算法。一旦确立慢启动闻值，TCP 会进入『拥塞避免』阶段，cwnd 每次的增长值近似于成功传输的数据段大小这种随时间线性增长方式与慢启动的指数增长相比缓慢许多。更准确地说，&lt;strong&gt;每当收到一个 ACK 时，cwnd 增加 1/cwnd。&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;例如，假定 ssthresh 为 8：当 8 个 ACK 应答确认到来时，每个确认增加 1/8，8 个 ACK 确认 cwnd 一共增加 1，于是这一次能够发送 9 个 MSS 大小的数据，变成了==线性增长==。&lt;/p&gt;
-&lt;img src=&#34;./.TCP 协议.IMG/image-20230724173955104.png&#34; alt=&#34;image-20230724173955104&#34; style=&#34;zoom:40%;&#34; /&gt;
-&lt;img src=&#34;./.TCP 协议.IMG/image-20230724173546712.png&#34; alt=&#34;image-20230724173546712&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;TCP 协议.IMG/image-20230724173955104.png&#34; alt=&#34;image-20230724173955104&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;TCP 协议.IMG/image-20230724173546712.png&#34; alt=&#34;image-20230724173546712&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;实际上，拥塞避免算法就是将原本慢启动算法的『指数增长』变成了近似『线性增长』，仍然处于增长阶段，但是增长速度缓慢了一些。&lt;/p&gt;
 &lt;p&gt;如果一直这样随它增长下去，网络中会出现大量数据，造成一定拥堵，然后出现丢包，这时就需要对丢失的数据包进行重传。&lt;/p&gt;
 &lt;p&gt;此时，触发了重传机制后，需要使用『拥塞发生』算法解决。&lt;/p&gt;
@@ -8571,7 +8571,7 @@ $$
 &lt;li&gt;cwnd 重置为初始值，一般为 10（Linux）。即 10 个 MSS。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;在 Linux 下通过&lt;code&gt;ss&lt;/code&gt;（Socket Statistics）命令查看：&lt;/p&gt;
-&lt;img src=&#34;./.TCP 协议.IMG/image-20230724223036592.png&#34; alt=&#34;image-20230724223036592&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;TCP 协议.IMG/image-20230724223036592.png&#34; alt=&#34;image-20230724223036592&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;blockquote&gt;
 &lt;p&gt;在 80s 末期的 4.2UNIX 版本的 TCP 版本中，这个初始值是 1MSS（许多教科书中也是以此为例的），直至 cwnd 增长为 ssthresh。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -8603,10 +8603,10 @@ $$
 &lt;/blockquote&gt;
 &lt;p&gt;这是为了避免拥塞窗口过大导致网络再次出现拥塞。因为在快速恢复阶段，发送方的拥塞窗口是根据冗余 ACK 来增加的，而不是根据网络的实际情况来调整的。所以，当收到新的数据后，发送方认为网络已经恢复正常，就将拥塞窗口重新设置为原先的 ssthresh，也就是丢包前的一半，然后再按照拥塞避免算法来逐渐增加拥塞窗口。这样做可以保证发送方不会过分占用网络资源，也可以适应网络的变化。&lt;/p&gt;
 &lt;p&gt;TCP 拥塞控制的变化过程如下：&lt;/p&gt;
-&lt;img src=&#34;./.TCP 协议.IMG/image-20230724234059457.png&#34; alt=&#34;image-20230724234059457&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;TCP 协议.IMG/image-20230724234059457.png&#34; alt=&#34;image-20230724234059457&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;图片来源：&lt;a href=&#34;https://slidetodoc.com/transport-layer-tcp-congestion-control-buffer-management-v/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;SlideToDoc&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;另一张图也可以总结：&lt;/p&gt;
-&lt;img src=&#34;./.TCP 协议.IMG/image-20230724235122873.png&#34; alt=&#34;image-20230724235122873&#34; style=&#34;zoom:40%;&#34; /&gt;
+&lt;img src=&#34;TCP 协议.IMG/image-20230724235122873.png&#34; alt=&#34;image-20230724235122873&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;图片来源：&lt;a href=&#34;https://blog.csdn.net/qq_46642326/article/details/127214176&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;TCP 协议的拥塞控制&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;其中：&lt;/p&gt;
 &lt;ul&gt;

@@ -1035,7 +1035,7 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
 <li>vm_area_struct 结构描述了一个给定地址空间中连续区间上的单个内存区域。内核将每个内存区域视为一个独特的内存对象。每个内存区域都具有某些共同属性，例如权限和一组相关操作。它表示的是一块连续的虚拟地址空间区域，供进程使用，地址空间范围是 0 ~ 3G，对应的物理页面都可以是不连续的。</li>
 <li>mm_struct 表示一个进程的内存描述符，其中包含了该进程的虚拟内存空间信息。在 mm_struct 中有一个指向 vm_area_struct 的指针，用于表示该进程的虚拟内存区域列表，即整个进程地址空间的信息。这些 vm_area_struct 结构通过双向链表连接起来，表示进程的整个虚拟地址空间。</li>
 </ul>
-<img src="./.线程概念与控制.IMG/image-20230405181108449.png" alt="image-20230405181108449" style="zoom:40%;" />
+<img src="线程概念与控制.IMG/image-20230405181108449.png" alt="image-20230405181108449" style="zoom:40%;" />
 <blockquote>
 <p>注意：vm_area_struct 可以用来描述这些不同的内存区域。例如，代码区用于存储程序的机器指令，数据区用于存储全局变量和静态变量，堆区用于动态分配内存，栈区用于存储局部变量和函数调用信息，内存映射区则用于映射文件或设备到内存中。而图中为了简洁只画了一部分。</p>
 <p>值得注意的是，Linux 多线程的实现需要链接动态库。</p>
@@ -1069,7 +1069,7 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
 </ul>
 <p>页的大小为 4KB 的原因（32 位）：</p>
 <p>因为后 12 位用作页内偏移量，而$2^{12}$等于 4096，即 4KB，这意味着每个物理内存页可以容纳 4096 个字节。</p>
-<img src="./.线程概念与控制.IMG/image-20230405215752994.png" alt="image-20230405215752994" style="zoom:40%;" />
+<img src="线程概念与控制.IMG/image-20230405215752994.png" alt="image-20230405215752994" style="zoom:40%;" />
 <p>机器 IO 的基本单位是块（块：4kb)，在程序编译成可执行程序时也划分好了以 4KB 为单位加载到内存中。32 位机器下物理内存 4GB，4GB 以 4KB 为单位划分，一共$2^{20}$（1048576）个。大约 100 万个页目录条目（一级页表），那么大小也就不到 10MB。</p>
 <p>一级页表必须存在，但是二级页表不一定。原因是操作系统不会全负荷地给每一个进程完整地提供所有空间大小的页表。当进程使用的虚拟空间比较少时，就会少分配一些页表管理内存。但是对于进程而言这是无感知的，因为操作系统会根据情况分配内存，在进程眼中它能使用的空间依然是 4GB，这就好像操作系统给进程画的 4GB 大小的饼，吃完了再申请。实际上并不会真的分配这么多给进程，否则机器内存就不够用了。</p>
 <p>这是结构决定的。一级页表是虚拟内存到物理内存映射的基础，它包含指向二级页表的指针。如果没有一级页表，就无法进行虚拟地址到物理地址的转换。二级页表是可选的，它用于进一步细分虚拟地址空间。在某些情况下，一级页表可能已经足够满足需求，因此不需要使用二级页表。例如，在小型系统中，虚拟地址空间可能不够大，无需使用二级页表进行进一步细分。</p>
@@ -1228,12 +1228,12 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
     </button>
   </div>
 </div>
-<img src="./.线程概念与控制.IMG/image-20230405234757359.png" alt="image-20230405234757359" style="zoom:40%;" />
+<img src="线程概念与控制.IMG/image-20230405234757359.png" alt="image-20230405234757359" style="zoom:40%;" />
 <p>六个线程打印的进程 PID 都是相同的，说明所有线程都在进程内部执行。</p>
 <blockquote>
 <p>可能遇到的问题：</p>
 </blockquote>
-<img src="./.线程概念与控制.IMG/image-20230405234616852.png" alt="image-20230405234616852" style="zoom:40%;" />
+<img src="线程概念与控制.IMG/image-20230405234616852.png" alt="image-20230405234616852" style="zoom:40%;" />
 <p>分别用 g++的 -fpermissive 和 -lpthread 两个选项，以表示忽略转换风险和链接动态版本的线程库。</p>
 <p>可以用 ps 指令查看当前系统内的线程信息：</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">ps -aL <span class="p">|</span> head -1 <span class="o">&amp;&amp;</span> ps -aL <span class="p">|</span> grep threadTest
@@ -1247,7 +1247,7 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
     </button>
   </div>
 </div>
-<img src="./.线程概念与控制.IMG/image-20230406000841551.png" alt="image-20230406000841551" style="zoom:40%;" />
+<img src="线程概念与控制.IMG/image-20230406000841551.png" alt="image-20230406000841551" style="zoom:40%;" />
 <p>可以看到，当所有线程被调度执行打印任务时，它们的 PID 虽然相同（实际上它们的 PPID 也相同），但是它们的 LWP 不同。</p>
 <p>LWP（Light Weight Process）是轻量级进程的 ID。在 Linux 中，用户层的线程与内核的 LWP 是一一对应的，实际上操作系统调度时采用的是 LWP，而非 PID，只不过我们之前接触到的进程只有它自己一个主线程，所以 PID 和 LWP 相等，因此使用 PID 和 LWP 调度单线程进程是等价的。</p>
 <p>而且当终止进程时，所有线程也会随之退出。验证了线程的直接管理者是进程。</p>
@@ -1309,7 +1309,7 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
     </button>
   </div>
 </div>
-<img src="./.线程概念与控制.IMG/image-20230406003515332.png" alt="image-20230406003515332" style="zoom:40%;" />
+<img src="线程概念与控制.IMG/image-20230406003515332.png" alt="image-20230406003515332" style="zoom:40%;" />
 <p>可以看到，两种方式打印的线程 ID 的值都是相同的。</p>
 <p>值得注意的是，通过调用 pthread_self 获取到的线程 TID 是不同于通过 ps 指令查看到的线程 LWP，虽然它们都是线程 ID，但是 pthread_self 返回的线程 ID 是 POSIX 描述的线程 ID，而不是内核真正的线程 ID。它相对于进程中各个线程之间的标识号，对于这个进程内是唯一的，而不同进程中，每个线程的 pthread_self 可能返回是一样的。</p>
 <p>也就是说，pthread_self 函数获得的是线程库提供的线程 ID，而 LWP 是内核中轻量级进程 ID，它们是一对一的关系。</p>
@@ -1384,7 +1384,7 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
     </button>
   </div>
 </div>
-<img src="./.线程概念与控制.IMG/image-20230406104435461.png" alt="image-20230406104435461" style="zoom:40%;" />
+<img src="线程概念与控制.IMG/image-20230406104435461.png" alt="image-20230406104435461" style="zoom:40%;" />
 <p>主线程在等待目标线程退出时，主线程会等待目标线程执行完毕，否则会一直阻塞式地等待，就像进程使用 wait 阻塞式等待目标进程一样。</p>
 <h3>测试 2<span class="absolute -mt-20" id="测试-2"></span>
     <a href="#%e6%b5%8b%e8%af%95-2" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><blockquote>
@@ -1425,7 +1425,7 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
 </blockquote>
 <p>通过上面的代码可以验证，线程函数的返回值一般会返回给主线程，主线程通过 pthread_join 的第二个参数获取。</p>
 <p>另外，void* 的返回值甚至能支持返回一个数组：</p>
-<img src="./.线程概念与控制.IMG/image-20230406112425836.png" alt="image-20230406112425836" style="zoom:40%;" />
+<img src="线程概念与控制.IMG/image-20230406112425836.png" alt="image-20230406112425836" style="zoom:40%;" />
 <h2>4.4 终止线程<span class="absolute -mt-20" id="44-终止线程"></span>
     <a href="#44-%e7%bb%88%e6%ad%a2%e7%ba%bf%e7%a8%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>在 Linux 中，有几种方法可以终止线程：</p>
 <ul>
@@ -1471,7 +1471,7 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
     </button>
   </div>
 </div>
-<img src="./.线程概念与控制.IMG/image-20230406125307488.png" alt="image-20230406125307488" style="zoom:40%;" />
+<img src="线程概念与控制.IMG/image-20230406125307488.png" alt="image-20230406125307488" style="zoom:40%;" />
 <p>每隔五秒创建线程，线程 3 秒后退出，是为了让结果更清晰，还能用含有 ps 指令的脚本循环打印线程信息：</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="k">while</span> :<span class="p">;</span> <span class="k">do</span> ps -aL <span class="p">|</span> head -1 <span class="o">&amp;&amp;</span> ps -aL <span class="p">|</span> grep threadTest <span class="p">|</span> grep -v grep<span class="p">;</span><span class="nb">echo</span> <span class="s2">&#34;#&#34;</span><span class="p">;</span>sleep 3<span class="p">;</span><span class="k">done</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
@@ -1483,7 +1483,7 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
     </button>
   </div>
 </div>
-<img src="./.线程概念与控制.IMG/屏幕录制 2023-04-06 13.37.30.gif" alt="屏幕录制 2023-04-06 13.37.30" style="zoom:40%;" />
+<img src="线程概念与控制.IMG/屏幕录制 2023-04-06 13.37.30.gif" alt="屏幕录制 2023-04-06 13.37.30" style="zoom:40%;" />
 <p>可见，LWP 为 3163 的线程始终存在，说明它就是主线程，其 LWP 和 进程的 PID 是相同的，并且当所有线程退出以后，主线程也会随之退出。</p>
 <h3>pthread_exit 函数终止线程<span class="absolute -mt-20" id="pthread_exit-函数终止线程"></span>
     <a href="#pthread_exit-%e5%87%bd%e6%95%b0%e7%bb%88%e6%ad%a2%e7%ba%bf%e7%a8%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>pthread_exit 函数的功能是终止指定线程。原型：</p>
@@ -1549,7 +1549,7 @@ pthread_exit 或者 return 返回的指针所指向的内存单元必须是全�
     </button>
   </div>
 </div>
-<img src="./.线程概念与控制.IMG/屏幕录制 2023-04-06 13.56.41.gif" alt="屏幕录制 2023-04-06 13.56.41" style="zoom:40%;" />
+<img src="线程概念与控制.IMG/屏幕录制 2023-04-06 13.56.41.gif" alt="屏幕录制 2023-04-06 13.56.41" style="zoom:40%;" />
 <p>可以通过 pthread_join 线程等待，获取线程的退出信息。</p>
 <blockquote>
 <p>在这段代码中，临时值 1234 是一个字面量，它是一个右值，它不能被赋值，也没有持久的存储地址。</p>
@@ -1573,7 +1573,7 @@ pthread_exit 或者 return 返回的指针所指向的内存单元必须是全�
     </button>
   </div>
 </div>
-<img src="./.线程概念与控制.IMG/image-20230406140157143.png" alt="image-20230406140157143" style="zoom:40%;" />
+<img src="线程概念与控制.IMG/image-20230406140157143.png" alt="image-20230406140157143" style="zoom:40%;" />
 <p>可以看到只要一个线程使用了 exit 退出，整个进程都会退出，而且主线程后面的执行流也未被执行。因为 exit 的作用是终止进程而不是终止线程，如果在任何线程中使用了它，就等价于在进程中使用了 exit 终止进程。</p>
 <h3>pthread_cancel 函数终止线程<span class="absolute -mt-20" id="pthread_cancel-函数终止线程"></span>
     <a href="#pthread_cancel-%e5%87%bd%e6%95%b0%e7%bb%88%e6%ad%a2%e7%ba%bf%e7%a8%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>pthread_cancel 函数用于取消一个线程的执行。原型：</p>
@@ -1633,12 +1633,12 @@ pthread_exit 或者 return 返回的指针所指向的内存单元必须是全�
     </button>
   </div>
 </div>
-<img src="./.线程概念与控制.IMG/image-20230406145440637.png" alt="image-20230406145440637" style="zoom:40%;" />
+<img src="线程概念与控制.IMG/image-20230406145440637.png" alt="image-20230406145440637" style="zoom:40%;" />
 <p>值得注意的是，如果在使用 pthread_create 创建线程后马上用 pthread_cancel 取消线程，线程可能还没有机会开始执行线程函数 threadMission 就已经收到了取消请求。因此，它们可能根本没有机会执行 threadMission 函数中的打印语句。由于 pthread_cancel 函数只是向线程发送一个取消请求，而不保证线程会立即终止，所以线程可能会在收到取消请求之前执行一些操作。事实上也是如此，如果将 sleep 语句注释：</p>
-<img src="./.线程概念与控制.IMG/image-20230406145719049.png" alt="image-20230406145719049" style="zoom:40%;" />
+<img src="线程概念与控制.IMG/image-20230406145719049.png" alt="image-20230406145719049" style="zoom:40%;" />
 <p>并且线程的退出码是-1，这说明 pthread_cancel 函数紧跟在 pthread_create 函数之后，会让线程没有时间执行线程函数中的语句（因为我自定义了返回值是 5678）。所以在 pthread_cancel 函数和 pthread_create 函数之间的 sleep 的作用是延迟取消进程。</p>
 <p>还可以通过之前使用的脚本查看线程信息，为了能不留空隙地打印，在注释掉  pthread_cancel 函数和 pthread_create 函数中间的 sleep 之后，在每次循环的最后 sleep 2 秒，每 1 秒打印线程信息：</p>
-<img src="./.线程概念与控制.IMG/屏幕录制 2023-04-06 15.04.40.gif" alt="屏幕录制 2023-04-06 15.04.40" style="zoom:40%;" />
+<img src="线程概念与控制.IMG/屏幕录制 2023-04-06 15.04.40.gif" alt="屏幕录制 2023-04-06 15.04.40" style="zoom:40%;" />
 <p>可以发现，每次只会打印 1 个线程的信息，它是主线程，即使使用 pthread_create 创建了线程，只要立刻 pthread_cancel 取消线程，那么它就不会被创建。</p>
 <blockquote>
 <p>按常理来说，代码应该是由上至下从左至右依次执行的，这是操作系统的策略吗？</p>
@@ -1756,7 +1756,7 @@ pthread_exit 或者 return 返回的指针所指向的内存单元必须是全�
     </button>
   </div>
 </div>
-<img src="./.线程概念与控制.IMG/image-20230406173638210.png" alt="image-20230406173638210" style="zoom:40%;" />
+<img src="线程概念与控制.IMG/image-20230406173638210.png" alt="image-20230406173638210" style="zoom:40%;" />
 <p>当线程分离后，主线程就不能再使用 pthread_join 等待线程了，如果在目标线程内部对这个全局变量自增：</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span><span class="o">*</span> <span class="nf">threadMission</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">agrs</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -1782,9 +1782,9 @@ pthread_exit 或者 return 返回的指针所指向的内存单元必须是全�
     </button>
   </div>
 </div>
-<img src="./.线程概念与控制.IMG/image-20230406175223942.png" alt="image-20230406175223942" style="zoom:40%;" />
+<img src="线程概念与控制.IMG/image-20230406175223942.png" alt="image-20230406175223942" style="zoom:40%;" />
 <p>当线程被分离以后，它就不能获取进程内的资源了，换句话说，目标线程的直接管理者就是操作系统而不是它所在的进程了。所以主线程就不能等待它。如果把 pthread_join 相关语句注释掉，那么就不会出现段错误，而且能够正常打印全局变量被修改后的值。</p>
-<img src="./.线程概念与控制.IMG/image-20230406175829425.png" alt="image-20230406175829425" style="zoom:40%;" />
+<img src="线程概念与控制.IMG/image-20230406175829425.png" alt="image-20230406175829425" style="zoom:40%;" />
 <p>类似的，如果主线程先退出了，那么其他线程再分离就没有意义了。因为当主函数返回或调用 exit 时，系统将终止进程和该进程中运行的所有线程。如果希望分离线程并想让它们继续运行，你必须只结束主线程，而不是进程，这也是 pthread_exit 存在的原因，它允许只终止任意一个线程。</p>
 <h4>__thread<span class="absolute -mt-20" id="__thread"></span>
     <a href="#__thread" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>__thread 是 GCC 提供的一种线程局部存储（Thread Local Storage，TLS）技术。它允许声明一些变量，这些变量在线程之间是独立的，每个线程都有自己的一份拷贝（编译时）。</p>
@@ -1823,7 +1823,7 @@ pthread_exit 或者 return 返回的指针所指向的内存单元必须是全�
     </button>
   </div>
 </div>
-<img src="./.线程概念与控制.IMG/image-20230406222456148.png" alt="image-20230406222456148" style="zoom:40%;" />
+<img src="线程概念与控制.IMG/image-20230406222456148.png" alt="image-20230406222456148" style="zoom:40%;" />
 <p>另外，在主进程永不退出或超长时间不退出时（后台服务），分离其他线程是有很有意义的，可以避免内存泄漏。线程分离和进程不 wait 或不 waitpid 是类似的。</p>
 <p>线程分离和进程不调用 wait 或 waitpid 函数有一些相似之处。当一个线程被分离后，它结束运行时会自动释放所有资源，无需其他线程调用 pthread_join 函数来等待它结束。类似地，当一个进程不调用 wait 或 waitpid 函数来等待子进程结束时，子进程结束运行后会变成僵尸进程，直到父进程退出或显式等待它结束。</p>
 <p>但是，这两者之间也有一些区别。当一个线程被分离后，它结束运行时会自动释放所有资源，而不会变成僵尸线程。但是，当一个进程不调用 wait 或 waitpid 函数来等待子进程结束时，子进程结束运行后会变成僵尸进程，占用系统资源，直到父进程退出或显式等待它结束。</p>

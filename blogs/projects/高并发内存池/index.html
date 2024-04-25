@@ -1242,7 +1242,7 @@
 <p>内存对齐能提升硬件处理数据的效率，但是会造成（内部）内存碎片问题。内部碎片问题与硬件相关，难以直接解决。内存池和 TCMalloc 主要解决的是外部碎片问题。</p>
 <p>关于内存对齐：<a href="https://zhuanlan.zhihu.com/p/30007037" target="_blank" rel="noopener">C/C++内存对齐详解</a></p>
 <h1>TCMalloc 的基本结构</h1><p>下面是 TCMalloc 的内部设计，主要由三部分组成：</p>
-<img src="./.高并发内存池.IMG/image-20240229142232027.png" alt="image-20240229142232027" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240229142232027.png" alt="image-20240229142232027" style="zoom:40%;" />
 <h2>基本概念<span class="absolute -mt-20" id="基本概念"></span>
     <a href="#%e5%9f%ba%e6%9c%ac%e6%a6%82%e5%bf%b5" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><ul>
 <li>Object：内存粒度。小于 256KB 的内存块，称之为（小）对象。</li>
@@ -1290,7 +1290,7 @@
 </div>
 <p>本着解决内存碎片问题的想法，比较好的办法是对方要多少我就给多少，而且每个小内存块的大小都是固定的，所以可以用<code>sizeof()</code>来得到对象的大小。</p>
 <p>为了提高小内存块分配的速度，我们将被归还的内存块将用一个自由链表 FreeList 组织起来，以供后续直接取出，而不是重新切分。自由链表指的是不使用结构体对象保存结点的首尾地址，而是用每一个内存块的前 4/8 个字节的内容存放下一个内存块的地址，形成逻辑上的链表。注意链表上的结点起始地址不一定像图示一样是连续的，这是因为分配的内存块随时可能被归还。</p>
-<img src="./.高并发内存池.IMG/image-20240229205316169.png" alt="image-20240229205316169" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240229205316169.png" alt="image-20240229205316169" style="zoom:40%;" />
 <p>现在内存池已经有了 2 个成员变量：<code>_memory_ptr</code>指向内存池起始地址，<code>_freeList_ptr</code>指向被归还的小内存块的起始地址。值得注意的是，前者是<code>char *</code>，原因是<code>char *</code>访问内存的单位是 1 个字节，只要通过<code>sizeof()</code>就可以精确地控制小内存块的大小；而后者是<code>void *</code>，这是因为内存会被存放各种类型的数据（变量是带有名称的内存空间）。</p>
 <p>通过<code>_memory_ptr</code>和一个偏移量运算，可以分配小内存块；通过将被释放的小内存块头插到自由链表上，可以回收小内存块。但是当请求分配的内存大于实际剩余的内存时会出现越界访问。因此增加一个变量<code>_remainBytes</code>来记录剩余内存字节数。</p>
 <p>这是基于以上讨论对内存池的实现：</p>
@@ -1518,7 +1518,7 @@
     </button>
   </div>
 </div>
-<img src="./.高并发内存池.IMG/image-20240301104841296.png" alt="image-20240301104841296" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240301104841296.png" alt="image-20240301104841296" style="zoom:40%;" />
 <p>可见，将大块内存托管给内存池，在不断申请和释放小块内存的情况下，效率比 malloc/free 更高。</p>
 <p>注意：</p>
 <ul>
@@ -1537,7 +1537,7 @@
 </ul>
 <h1>ThreadCache</h1><h2>框架<span class="absolute -mt-20" id="框架"></span>
     <a href="#%e6%a1%86%e6%9e%b6" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>ThreadCache 向线程直接提供小于 256KB 的小块内存，每个相同大小的小块内存以自由链表的形式被组织起来，所有不同大小的自由链表的首地址由一个数组保存，下标和自由链表对应。链表+数组下标=哈希桶。</p>
-<img src="./.高并发内存池.IMG/image-20240301213140836.png" alt="image-20240301213140836" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240301213140836.png" alt="image-20240301213140836" style="zoom:40%;" />
 <h2>设计自由链表<span class="absolute -mt-20" id="设计自由链表"></span>
     <a href="#%e8%ae%be%e8%ae%a1%e8%87%aa%e7%94%b1%e9%93%be%e8%a1%a8" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>由于哈希桶的每个位置都是一个自由链表，所以实现一个类以供使用。设计的思路和规范的链表没有什么区别。目前需要用到接口主要有：Push，Pop，Empty 和 Size，后续有新需求后再增加。</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// 自由链表：管理相同大小的小内存块（不大于 256KB)
@@ -1622,7 +1622,7 @@
     </button>
   </div>
 </div>
-<img src="./.高并发内存池.IMG/image-20240301141749492.png" alt="image-20240301141749492" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240301141749492.png" alt="image-20240301141749492" style="zoom:40%;" />
 <p>可见，链表确实是头插和头删的。值得注意的是结点内的值会随着插入的进行而发生改变。</p>
 <h2>字节范围与哈希桶下标的映射规则<span class="absolute -mt-20" id="字节范围与哈希桶下标的映射规则"></span>
     <a href="#%e5%ad%97%e8%8a%82%e8%8c%83%e5%9b%b4%e4%b8%8e%e5%93%88%e5%b8%8c%e6%a1%b6%e4%b8%8b%e6%a0%87%e7%9a%84%e6%98%a0%e5%b0%84%e8%a7%84%e5%88%99" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>如果以一个字节为单位，为每个大小的内存块都分配自由链表，那么将会有 256K=2^18 种情况，哈希表（数组）开这么大显然不可取，低频使用的小内存块也是一种内存碎片，降低内存有效利用率。所以运用二八法则，考虑一个折中的做法：用一个类型的内存块代表某一个小范围内的所有类型的内存块，限制总类型数尽可能小，而应对的申请内存请求尽可能广。</p>
@@ -2068,11 +2068,11 @@ alignNum - 1=16-1=15		  =01111
   </div>
 </div>
 <p>测试结果：</p>
-<img src="./.高并发内存池.IMG/image-20240301204840284.png" alt="image-20240301204840284" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240301204840284.png" alt="image-20240301204840284" style="zoom:40%;" />
 <p>由此可见，两个线程的 ThreadCache 是相互独立的。</p>
 <h1>CentralCache</h1><h2>框架<span class="absolute -mt-20" id="框架-1"></span>
     <a href="#%e6%a1%86%e6%9e%b6-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>当 ThreadCache 中某个 SizeClass 对应的自由链表为空时，这意味着它上面的 Object 都被分配出去了。为了方便 ThreadCache 直接通过 SizeClass（下标）从 CentralCache 中获取自由链表，CentralCache 采取了相同的 SizeClass 映射。</p>
-<img src="./.高并发内存池.IMG/image-20240302203508663.png" alt="image-20240302203508663" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240302203508663.png" alt="image-20240302203508663" style="zoom:40%;" />
 <p>值得强调的是，CentralCache 和 ThreadCache 不同，它被所有线程共享，是共享资源，因此每个线程在向 CentralCache 申请内存时，都需要持有互斥锁才能访问。得益于哈希桶的结构，只要对某一下标对应的哈希桶加锁即可用最低代价解决并发安全问题。如果对整个 CentralCache 加锁，那么效率将会很低，ThreadCache 的工作也前功尽弃了。</p>
 <p>其次，CentralCache 中每个 SizeClass 位置上的链表不是像 ThreadCache 那样的由 Object 组成的自由链表，而是一个双向链表，每一个结点都挂着一个 SizeClass 规格的自由链表，结点叫做 Span（中文：跨度）。</p>
 <p>更具体地说，Span 也挂着自由链表，<strong>但这些链表管理的内存块是按页（4KB）分配的，因此在物理内存中是连续的</strong>，这意味着若干空闲的 Span 只要是相邻的，就可以合并（而在 ThreadCache 中，自由链表的 Object 内存块在物理内存中不一定是连续的）。</p>
@@ -2192,7 +2192,7 @@ alignNum - 1=16-1=15		  =01111
 </div>
 <p>注意访问 SpanList 时需要申请锁。CentralCache 作为一个缓冲层，它只是一个内存的“搬运工”，所以删除 SpanList 的 Span（自由链表），只是将它从 SpanList 摘出来，而不是将内存释放掉。在将 SpanList 中的所有 Span 都被回收后，需要将哨兵位头结点 Span 的内存也释放掉。</p>
 <p>如果你发现了诸如下面的警告，不要担心，因为你调用 unlock 的地方编译器不知道你什么时候上锁了（在同一个作用域中成对出现，编译器认为这是安全的）。参阅：<a href="https://cloud.tencent.com/developer/ask/sof/108816722" target="_blank" rel="noopener">调用函数 std::_Mutex_base::unlock 之前未能保持锁的调用方</a>。只要你能保证加锁和解锁在流程中是成对出现的就可以通过编译。这是一个示例：</p>
-<img src="./.高并发内存池.IMG/image-20240307203908977.png" alt="image-20240307203908977" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240307203908977.png" alt="image-20240307203908977" style="zoom:40%;" />
 <h2>设计 CentralCache 类<span class="absolute -mt-20" id="设计-centralcache-类"></span>
     <a href="#%e8%ae%be%e8%ae%a1-centralcache-%e7%b1%bb" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>首先为了方便用字节转换的索引值在 ThreadCache 和 CentralCache 中申请内存，CentralCache 采用了相同的 SizeClass 映射。</p>
 <p>其次 CentralCache 作为一个被全局共享的资源，它的对象实例只会被创建一次。所以可以将其设置为单例模式，这里为了方便，使用饿汉模式：</p>
@@ -2453,7 +2453,7 @@ alignNum - 1=16-1=15		  =01111
 </div>
 <p>值得强调的是，<code>ThreadCache::FetchFromCentralCache()</code>返回的是一个 Object 的地址，它最终会通过线程调用<code>ThreadCache::Allocate()</code>得到。新申请的 Object 除了这一个分配出去的之外，添加到 ThreadCache 的 SizeClass 规格的自由链表中。</p>
 <h1>PageHeap</h1><h2>框架<span class="absolute -mt-20" id="框架-2"></span>
-    <a href="#%e6%a1%86%e6%9e%b6-2" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><img src="./.高并发内存池.IMG/image-20240303182529707.png" alt="image-20240303182529707" style="zoom:40%;" />
+    <a href="#%e6%a1%86%e6%9e%b6-2" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><img src="高并发内存池.IMG/image-20240303182529707.png" alt="image-20240303182529707" style="zoom:40%;" />
 <p>PageHeap 的结构和 CentralCache 类似，同样用双链表组织 Span。不同的是 PageHeap 哈希桶的下标按 Span 的页号映射。第 x 号桶挂的都是 x 页 Span。在 TCmalloc 中，对于不大于 256KB 内存申请的情况，页号到 Span 的映射有 128 个，128 个 Page 可以被切成 128*8KB/256KB=4 个 256KB 的对象，这个经验值可以满足大多数情况。为了方便映射，弃用下标为 0 的位置。</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// PageHeap 中哈希桶的个数
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static</span> <span class="k">const</span> <span class="n">size_t</span> <span class="n">PH_MAX_PAGES</span> <span class="o">=</span> <span class="mi">129</span><span class="p">;</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
@@ -2467,7 +2467,7 @@ alignNum - 1=16-1=15		  =01111
   </div>
 </div>
 <p>需要强调的是，在 TCMalloc 中一个 Page 等于两个系统分配的 page（4KB）。虽然 PageHeap 以页（page）为单位向操作系统申请内存，但是它管理内存的基本单位为 Span（跨度），Span 中的 Page 是连续的。</p>
-<img src="./.高并发内存池.IMG/image-20240303182831369.png" alt="image-20240303182831369" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240303182831369.png" alt="image-20240303182831369" style="zoom:40%;" />
 <h2>设计 PageHeap 类<span class="absolute -mt-20" id="设计-pageheap-类"></span>
     <a href="#%e8%ae%be%e8%ae%a1-pageheap-%e7%b1%bb" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>PageHeap 类的设计和 PageHeap 类似。PageHeap 作为 CentralCache 的内存“供应商”，可能会出现 CentralCache 的多个桶都没有 Span，向 PageHeap 申请多个 SizeClass 的 Span 的情况。</p>
 <p>需要说明的是，当 PageHeap 发现自己没有 CentralCache 需要规格的 Span 时，会向后查找，将更大的 Span 切分成符合要求的给它，然后将剩下的 Span 挂到对应的 SpanList 上。如果正在做切分、挂接操作时 CentralCache 正好来取内存，那么会引发线程安全问题。</p>
@@ -2542,7 +2542,7 @@ alignNum - 1=16-1=15		  =01111
 </div>
 <p>现在已经求出了 CentralCache 一次向 PageHeap 申请的页数。下面就是根据页数找到可以取内存的哈希桶。如何切割 Span 呢？</p>
 <p>Span 是由若干 Page 组成的双向链表，它们在物理上是连续的。那么页号的逆运算就是物理地址：用 Span 的起始页号乘以页大小得到起始地址；用 Span 的页数乘以页大小得到内存的跨度；用起始地址+跨度得到终止地址。</p>
-<img src="./.高并发内存池.IMG/image-20240304103734540.png" alt="image-20240304103734540" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240304103734540.png" alt="image-20240304103734540" style="zoom:40%;" />
 <p>现在得到的是一块大内存 Span，它需要被切分成一个个由自由链表组织的 Object，这是一个构建链表的过程。构建链表的过程就是将 Span 中以 SizeClass 为单位划分，然后将每个单位的 next 指针指向下一个单位。具体做法是：</p>
 <ol>
 <li>用 start 和 end 指针划定 Span 的地址范围（上面已经求出了）。让 start 向后走 1 步，以供 tail 迭代。</li>
@@ -2555,7 +2555,7 @@ alignNum - 1=16-1=15		  =01111
 <blockquote>
 <p>一个内存块中的 FreeList 能够让一个 Span 中的 Object 在物理上是连续的。线程在使用连续内存时，可以提高 CPU 的高速缓存命中率。</p>
 </blockquote>
-<img src="./.高并发内存池.IMG/image-20240304110319296.png" alt="image-20240304110319296" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240304110319296.png" alt="image-20240304110319296" style="zoom:40%;" />
 <p>当把 Span 切割好以后，将 CentralCache 需要的那一块挂到对应 SizeClass 的 SpanList 上，选择头插到双向链表中的原因是方便 CentralCache 在寻找非空的 Span 时能够直接取出，避免遍历。在 SpanList 中增加头插（对应地增加头删）的逻辑。</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">SpanList</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -2720,12 +2720,12 @@ alignNum - 1=16-1=15		  =01111
 <h2>PageHeap 的锁问题<span class="absolute -mt-20" id="pageheap-的锁问题"></span>
     <a href="#pageheap-%e7%9a%84%e9%94%81%e9%97%ae%e9%a2%98" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>CentralCache 向 PageHeap 申请 Span 加 Page 锁<span class="absolute -mt-20" id="centralcache-向-pageheap-申请-span-加-page-锁"></span>
     <a href="#centralcache-%e5%90%91-pageheap-%e7%94%b3%e8%af%b7-span-%e5%8a%a0-page-%e9%94%81" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>在设计 PageHeap 类的最后讨论了：由于分割和合并 Span 的需要，只用桶锁对代码实现的要求很高，而通过 CentralCache 在向 PageHeap 申请内存时对一整个 PageHeap 加锁，保证并发安全问题。TCMalloc 在 CentralCache 向 PageHeap 申请内存的前后加锁。</p>
-<img src="./.高并发内存池.IMG/image-20240304163838937.png" alt="image-20240304163838937" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240304163838937.png" alt="image-20240304163838937" style="zoom:40%;" />
 <h3>CentralCache 向 PageHeap 申请 Span 解桶锁<span class="absolute -mt-20" id="centralcache-向-pageheap-申请-span-解桶锁"></span>
     <a href="#centralcache-%e5%90%91-pageheap-%e7%94%b3%e8%af%b7-span-%e8%a7%a3%e6%a1%b6%e9%94%81" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>当 CentralCache 已经到了要向 PageHeap 申请 Span 的地步时，桶内已经没有 Span 了。而 CentralCache 是持有锁才能访问这个桶的，这可以保证在并发情况下多个线程取出 Object 不出现错误。</p>
 <p>然而 ThreadCache 也需要释放一部分 Object 到 CentralCache 中，因此在 CentralCache 向 PageHeap 申请 Span 之前（这意味着代码跳到其他地方），把桶锁解开，这样当其他 ThreadCache 想归还 Object 给 CentralCache 的这个桶时就不会被阻塞了。</p>
 <p>当 CentralCache 访问完 PageHeap（申请 Span）后，不应该立即加上桶锁，因为 CentralCache 拿到新申请的 Span 后，还要对它进行切分。这个划分过程只涉及该线程本地的操作，不需要加锁。所以加桶锁的逻辑应该放在“挂到桶上”之前。</p>
-<img src="./.高并发内存池.IMG/image-20240304171858517.png" alt="image-20240304171858517" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240304171858517.png" alt="image-20240304171858517" style="zoom:40%;" />
 <p>注意将 Span 挂到桶上是访问桶的操作，所以要加锁，保证原子性。</p>
 <blockquote>
 <p>加解锁的位置不要想当然，要从资源竞争的角度理解（想象一个线程在访问临界资源的时候其他线程有没有可能访问，是读还是写，会不会影响线程的行为）。</p>
@@ -2753,10 +2753,10 @@ alignNum - 1=16-1=15		  =01111
   </div>
 </div>
 <p>在这个函数的位置打一个断点，然后 F5 运行。F11 可以执行每一句，当运行到函数时，按它可以进入函数；F10 不进入函数；在函数内部如果想跳出它，可以按 Shift+F11。这几个快捷键也有按钮对应，多十试几次就会了：</p>
-<img src="./.高并发内存池.IMG/image-20240305094339692.png" alt="image-20240305094339692" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240305094339692.png" alt="image-20240305094339692" style="zoom:40%;" />
 <p>监视窗口不只可以添加变量名，还可以添加表达式，例如调用一个函数，对指针解引用，查看变量的地址等。</p>
 <p>断点之间也可以跳跃，如果了解了函数间的调用关系，可以在想要停下来的函数前打断点，Shift+F11 可以跳转或返回。如果在循环里出不来，也可以手动执行到某一位置停下来，我觉得这个也很好用。</p>
-<img src="./.高并发内存池.IMG/image-20240305113314038.png" alt="image-20240305113314038" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240305113314038.png" alt="image-20240305113314038" style="zoom:40%;" />
 <p>通过监视窗口（调试-&gt;窗口-&gt;监视）看到变量值的变化（也可鼠标悬停）。这是第一条语句（申请 6 字节）的执行流程（希望大家看到名称就能想像它在哪一层，其实就是供应商供货到超市，还是比较好懂的）：</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">1. 由于申请的 bytes=6 小于 256KB，所以由 ThreadCache::Allocate(bytes) 分配
 </span></span><span class="line"><span class="cl">  2. 通过 bytes 算出对齐数 alignSize=8 和桶索引 index=0，但是 index 位置的桶是空的，进入 FetchFromCentralCache(index, alignSize) 从 CentralCache 获取
@@ -2779,10 +2779,10 @@ alignNum - 1=16-1=15		  =01111
   </div>
 </div>
 <p>通过这个流程，可以体会到将 CentralCache 和 PageHeap 设置为单例模式的作用。例如 ThreadCache 通过 CentralCache 开放的接口（FetchRangeObj）来申请一些 Object；CentralCache 通过 PageHeap 开放的接口（NewSpan）来向系统申请一个新 Span。这就好像银行虽然在那里，但是有的事不用银行主动帮你干，而是它已经设计好处理事件的逻辑，你去自助机器上操作。</p>
-<img src="./.高并发内存池.IMG/image-20240304210154630.png" alt="image-20240304210154630" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240304210154630.png" alt="image-20240304210154630" style="zoom:40%;" />
 <p>可以看到，申请 6 字节的对齐数是 8 字节，对应的哈希桶下标是 0，来自系统新的 Span 和 ThreadCache 获得的内存的地址是相同的。</p>
 <p>也可以看到自由链表构建的情况：每前 4 个字节的存的是下一个 Object 的地址：</p>
-<img src="./.高并发内存池.IMG/image-20240305110540030.png" alt="image-20240305110540030" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240305110540030.png" alt="image-20240305110540030" style="zoom:40%;" />
 <p>在这个 SizeClass 为 8 的自由链表中，它们的地址都是连续的。这是使用页号和地址相互转换的保障。</p>
 <p>剩下两条语句的执行流程类似，只是由于前面的申请，CentralCache 和 PageHeap 里都有内存了。</p>
 <h2>测试二<span class="absolute -mt-20" id="测试二"></span>
@@ -2807,11 +2807,11 @@ alignNum - 1=16-1=15		  =01111
   </div>
 </div>
 <p>当在 CentralCache::FetchRangeObj() 中分配空间后，可以看到 PageHeap 确实向系统申请了内存，然后分给了 CentralCache，因为是头插，所以新 Span 的 next 是老 Span。</p>
-<img src="./.高并发内存池.IMG/image-20240305124539628.png" alt="image-20240305124539628" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240305124539628.png" alt="image-20240305124539628" style="zoom:40%;" />
 <p>老 Span 就是第一次申请的 8KB，全部被循环申请了，其中 46 是慢开始反馈调节得到的 batchNum（一次从 CentralCache 中获取多少个 Object）。这可以通过打印 batchNum 得知。</p>
 <blockquote>
 <p>注意慢开始反馈调节使用了<code>min()</code>，如果使用<code>std::min()</code>，将会调用<code>&lt;algorithm&gt;</code>的函数模板；但是<code>&lt;Windows.h</code>中也有一个<code>min</code>，如果右键-&gt;转到定义，你会知道它是一个宏：</p>
-<img src="./.高并发内存池.IMG/image-20240305131105769.png" alt="image-20240305131105769" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240305131105769.png" alt="image-20240305131105769" style="zoom:40%;" />
 <p>由于二者冲突而函数模板需要推演，所以编译器会优先选择更快的宏。所以不要用<code>std::min()</code>。</p>
 </blockquote>
 <h1>内存回收</h1><h2>ThreadCache::Deallocate<span class="absolute -mt-20" id="threadcachedeallocate"></span>
@@ -2901,7 +2901,7 @@ alignNum - 1=16-1=15		  =01111
 <p>如果一个 Span 的<code>_usedCount==0</code>，则说明 Span 中没有 Object 被使用，即所有都被归还，那么在可以将这个 Span 还给 PageHeap。</p>
 <p>非常重要的一点：归还的 Objects 通过 bytes 可以得到它属于 CentralCache 中 index 对应的桶，还需要通过 Object 的地址除以 2^13，得到块号，找到对应的 Span 才能插入。这是因为 ThreadCache 在调用<code>ThreadCache::Deallocate()</code>的归还 Object 的个数和时机都是不确定的。</p>
 <p>如果 ThreadCache 还了 n 个 Object，CentralCache 对应的 SpanList 上有 m 个 Span，那么插入之前需要一个个比对页号，时间复杂度是$O(nm)$。为此，可以尝试用哈希表在 CentralCache 调用 PageHeap::NewSpan() 分配 Span 时，建立 Span 中的<strong>每个</strong> Page 的页号和 Span 首地址之间的映射关系。</p>
-<img src="./.高并发内存池.IMG/image-20240305160359743.png" alt="image-20240305160359743" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240305160359743.png" alt="image-20240305160359743" style="zoom:40%;" />
 <p>注意：这里不建立每个 Page 的地址和 Span 地址之间的映射关系，因为 PageHeap 按页管理 Span，页号对应哈希表，我们可以认为地址就相当于页号，这在之前是讨论过了的。</p>
 <p>这样以后再要插入 Object 到 CentralCache 对应的 SpanList 上，只需要用 Object 的地址除以 2^13 得到的页号查询哈希表，就能直接找到 Span 的首地址，进行头插。</p>
 <p>为 PageHeap 增加哈希表：</p>
@@ -2942,10 +2942,10 @@ alignNum - 1=16-1=15		  =01111
 </div>
 <p>assert() 的参数为 false，它将生效，用于定位错误。</p>
 <p>需要在 PageHeap::NewSpan() 的不同分支中增加映射的逻辑：</p>
-<img src="./.高并发内存池.IMG/image-20240306193002365.png" alt="image-20240306193002365" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240306193002365.png" alt="image-20240306193002365" style="zoom:40%;" />
 <p>CentralCache 要将一段 FreeList 归还，那么首先要加桶锁。然后从 FreeList 的起始地址开始遍历，通过 PageHeap::MapObjectToSpan() 获得每一个 Object 的页号，通过页号查哈希表，得到 Span 的地址，然后将它头插到 Span 中。</p>
 <p>这是遍历链表和加解桶锁的框架。start 指针和 bytes 两个参数能够划定内存的范围，使用 end 也可。</p>
-<img src="./.高并发内存池.IMG/image-20240305170009392.png" alt="image-20240305170009392" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240305170009392.png" alt="image-20240305170009392" style="zoom:40%;" />
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// ThreadCache 释放若干 Object 到 CentralCache 的某个 Span 中
 </span></span></span><span class="line"><span class="cl"><span class="c1">// start: ThreadCache 返回的一段内存的地址 bytes: 返回内存的字节数
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="n">CentralCache</span><span class="o">::</span><span class="n">ReleaseListToSpans</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">start</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">bytes</span><span class="p">)</span>
@@ -3006,7 +3006,7 @@ alignNum - 1=16-1=15		  =01111
     <a href="#pageheapreleasespantopageheap" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>随着 CentralCache 的不断申请，它的大多数桶都可以挂上 Span。但是有一种极端情况是 CentralCache 不断申请同一页数的 Span，或者剩下的 Span 总是被挂到同一个桶，这样就会导致有的桶很长，有的桶很短。而且由于切分的操作，大页面的 Span 注定不会太多，而小页面的 Span 会很多，因为切分的是离 k 页最近的 n 页，那么 n-k 就会比较小。我们知道 CentralCache 是从头遍历 SpanList 获取新 Span 的，这样会造成后面很多个小页面的 Span 不能被使用，是一个外部碎片问题。</p>
 <p>为了保持 CentralCache 各个桶中 Span 的数量差距不要太大，PageHeap::ReleaseSpanToPageHeap() 专门由于回收 CentralCache 归还的 Span，并尝试将 Span 合并。因此我们可以将重点放在 Span 的合并上，只要合并后的 Span 超过了 128 页，那么就返回给操作系统。</p>
 <p>还记得 PageHeap 在申请 Span 的时候吗？PageHeap 首先申请 128 页的 Span，然后做切割，那么合并后也要保证每个 Page 在地址上是连续的，所以 Span 的页号和页数在此发挥作用。从地址的分布上，一个 n 页的 Span 可以向前，也可以向后合并。</p>
-<img src="./.高并发内存池.IMG/image-20240306183045504.png" alt="image-20240306183045504" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240306183045504.png" alt="image-20240306183045504" style="zoom:40%;" />
 <p>向前合并，就是将后面的 Span 加到前面，然后更新前面的页数。需要注意的是要保证地址是连续的，就是要判断<strong>后面的页号是否等于前面的页号+页数</strong>。例如图中前面的页号+页数是 4，刚好等于后面的页号 4，说明它们在被 PageHeap 切割时是连续的。向后合并也是一样的。可以在一个循环中不断合并，只要不符合相邻的条件就可以停止合并。</p>
 <p>现在问题来了，<code>span-&gt;_usedCount == 0</code>的另一种情况是调用 PageHeap::NewSpan() 时新分配 Span 时，此时 Span 也是一个 Span 都没有被分配出去。为了让合并和切分的操作不冲突，用一个 bool 类型的变量<code>_isUsed</code>来标记 Span 是否已经被 CentralCache 使用，作为 Span 的成员。</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Span</span>
@@ -3024,11 +3024,11 @@ alignNum - 1=16-1=15		  =01111
   </div>
 </div>
 <p>在 CentralCache::GetOneSpan() 获取新 Span 后，立即将它改为 true，注意要在桶锁中进行。</p>
-<img src="./.高并发内存池.IMG/image-20240306185952551.png" alt="image-20240306185952551" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240306185952551.png" alt="image-20240306185952551" style="zoom:40%;" />
 <p>还有一个问题，CentralCache 在调用 PageHeap::ReleaseSpanToPageHeap() 向两边合并 Span 时，PageHeap 可能会访问 CentralCache 这个桶的任何一个 Span，包括 CentralCache 还回来的，和 PageHeap 刚分配给 CentralCache 的。</p>
 <p>因此，<strong>为了方便合并</strong>，在 PageHeap::NewSpan() 切分 n 页的 Span 时，不需要像分配出去的 k 页 Span 那样建立 Span 地址和其<strong>所有</strong> Page 页号之间的映射关系，<strong>只需要建立<code>未被分配的 n-k 页 Span</code>的地址和其首尾 Page 页号之间的映射关系</strong>。原因如下：</p>
 <p>对于已经分配出去的页面，我们通常不需要再跟踪它们的具体位置，因为这部分内存已经在使用中。如果只记录未分配部分的首尾地址，合并操作会更简单和直接。</p>
-<img src="./.高并发内存池.IMG/image-20240307161512524.png" alt="image-20240307161512524" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240307161512524.png" alt="image-20240307161512524" style="zoom:40%;" />
 <p>这个过程是可能的，因为它们在被 PageHeap 分配之前属于一个 Span，内存是连续的，那么只要 Span 之间是相邻的，那么 SpanA2 的头和 SpanA1 的尾是可以合并的。当原先被使用的 Page 被还回来时仍然会这么合并。</p>
 <blockquote>
 <p>举个例子，现在有两个<strong>相邻</strong>的两个 Span：</p>
@@ -3044,7 +3044,7 @@ alignNum - 1=16-1=15		  =01111
 <p>现在，如果有一个需要 20 页的内存请求，PageHeap 可以快速检查这些空闲 Span 并认识到 Span A1 的后半部分和 Span A2 的前半部分可以合并来满足这个请求。PageHeap 不需要检查每个单独的页面是否被分配；它只需要查看这些 Span 的空闲部分的记录。因此，它可以迅速定位到页面 [31, 40] 和页面 [51, 60] 可以合并成一个新的 Span，满足<strong>连续</strong> 20 页的需求。</p>
 <p>如果我们必须跟踪每个 Span 的每一页，那么合并操作就需要检查每一页，确认哪些是空闲的，然后才能执行合并。这明显比只关注空闲部分的首尾地址更复杂，也更耗时。</p>
 </blockquote>
-<img src="./.高并发内存池.IMG/image-20240307155013253.png" alt="image-20240307155013253" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240307155013253.png" alt="image-20240307155013253" style="zoom:40%;" />
 <p>了解了 PageHeap 分割分配和合并回收 Span 的流程后，可以理解哈希表在两者中发挥着不同的作用（见上图注释）。</p>
 <p>说说页面合并的逻辑。首先是<strong>边界问题</strong>，PageHeap 只能合并那些相邻且被还回来的 Page（这通过<code>_isused</code>保证），如果某个 Page（地址除以 2^13）不在哈希表中有记录，那么说明从它开始往后的内存都没有被 PageHeap 分配。</p>
 <p>只要判断页面是相邻的，那么可以一直合并下去（循环），注意合并后要及时更新页号和页数信息，<strong>并且要将被合并的 Span 从它所在的桶中删除，并且释放 Span 的空间</strong>（在上面是通过 new 来创建 Span 对象来管理 Object 的，这是一个稍后要解决的问题）。</p>
@@ -3096,7 +3096,7 @@ alignNum - 1=16-1=15		  =01111
 </div>
 <p>注意向前或向后合并是以当前 Span 为基准的，所以向后合并不需要更新 Span 的页号，只需要更新它的页数。</p>
 <p>在 PageHeap::NewSpan() 中增加哈希映射：</p>
-<img src="./.高并发内存池.IMG/image-20240308011651150.png" alt="image-20240308011651150" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240308011651150.png" alt="image-20240308011651150" style="zoom:40%;" />
 <p>下面是 PageHeap::ReleaseSpanToPageHeap() 的实现，逻辑还是比较清晰的：</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// PageHeap 回收空闲的 Span，合并相邻的 Span
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="n">PageHeap</span><span class="o">::</span><span class="n">ReleaseSpanToPageHeap</span><span class="p">(</span><span class="n">Span</span><span class="o">*</span> <span class="n">span</span><span class="p">)</span>
@@ -3239,17 +3239,17 @@ alignNum - 1=16-1=15		  =01111
   </div>
 </div>
 <p>如果你的测试用例不能走到 PageHeap 合并的逻辑，这是因为慢增长申请的内存大小不足以通过这个条件，可以多申请几次：</p>
-<img src="./.高并发内存池.IMG/image-20240307173717970.png" alt="image-20240307173717970" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240307173717970.png" alt="image-20240307173717970" style="zoom:40%;" />
 <p>断点打在最后一个 free 函数，然后 F5 运行，可以用鼠标直接执行到这里：</p>
-<img src="./.高并发内存池.IMG/image-20240307195128654.png" alt="image-20240307195128654" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240307195128654.png" alt="image-20240307195128654" style="zoom:40%;" />
 <p>未合并的 Span：</p>
-<img src="./.高并发内存池.IMG/image-20240307195540015.png" alt="image-20240307195540015" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240307195540015.png" alt="image-20240307195540015" style="zoom:40%;" />
 <p>Span 和 leftSpan：</p>
-<img src="./.高并发内存池.IMG/image-20240307200703073.png" alt="image-20240307200703073" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240307200703073.png" alt="image-20240307200703073" style="zoom:40%;" />
 <p>可以看到 Span 和 leftSpan 都有一个 Page，但是因为 leftSpan 的<code>_isUsed==true</code>，所以没有被合并。未被合并的 rightSpan：</p>
-<img src="./.高并发内存池.IMG/image-20240307200944913.png" alt="image-20240307200944913" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240307200944913.png" alt="image-20240307200944913" style="zoom:40%;" />
 <p>合并后：</p>
-<img src="./.高并发内存池.IMG/image-20240307201038692.png" alt="image-20240307201038692" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240307201038692.png" alt="image-20240307201038692" style="zoom:40%;" />
 <p>可以看到 rightSpan 确实被合并到了 Span 上，页数也是对上了的。</p>
 <h2>测试二<span class="absolute -mt-20" id="测试二-1"></span>
     <a href="#%e6%b5%8b%e8%af%95%e4%ba%8c-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>下面来进行多线程测试：让两个线程分别执行各自的线程函数，在函数内批量申请和释放内存。</p>
@@ -3301,7 +3301,7 @@ alignNum - 1=16-1=15		  =01111
   </div>
 </div>
 <p>可以在刚才 PageHeap.cpp 的 110 行打断点，看到相同的流程：</p>
-<img src="./.高并发内存池.IMG/image-20240307202700411.png" alt="image-20240307202700411" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240307202700411.png" alt="image-20240307202700411" style="zoom:40%;" />
 <h1>项目完善</h1><h2>大内存的申请和释放<span class="absolute -mt-20" id="大内存的申请和释放"></span>
     <a href="#%e5%a4%a7%e5%86%85%e5%ad%98%e7%9a%84%e7%94%b3%e8%af%b7%e5%92%8c%e9%87%8a%e6%94%be" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>申请<span class="absolute -mt-20" id="申请"></span>
     <a href="#%e7%94%b3%e8%af%b7" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>在这个项目中我们只处理了小于 256KB 的内存申请逻辑，下面对其进行补充。</p>
@@ -3414,16 +3414,16 @@ alignNum - 1=16-1=15		  =01111
   </div>
 </div>
 <p>申请调用 PageHeap::NewSpan()，走的是大于 128 页的逻辑：</p>
-<img src="./.高并发内存池.IMG/image-20240308011948672.png" alt="image-20240308011948672" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240308011948672.png" alt="image-20240308011948672" style="zoom:40%;" />
 <p>释放调用 PageHeap::ReleaseSpanToPageHeap()，走的也是大于 128 页的逻辑：</p>
-<img src="./.高并发内存池.IMG/image-20240308012302142.png" alt="image-20240308012302142" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240308012302142.png" alt="image-20240308012302142" style="zoom:40%;" />
 <p>注：这里本来申请的 KSpan 的地址和释放的 Span 地址是相同的，因为 Visual Studio 调试老是崩（烦，可能是我没装某个组件），不得不重新加断点，如果多尝试几次，会看到现象的。</p>
 <p>再测试申请 257KB 的：</p>
-<img src="./.高并发内存池.IMG/image-20240308015035829.png" alt="image-20240308015035829" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240308015035829.png" alt="image-20240308015035829" style="zoom:40%;" />
 <p>和之前一样，PageHeap::NewSpan() 首先会申请 128 页的内存，然后递归调用自身，将它切分。</p>
-<img src="./.高并发内存池.IMG/image-20240308015139367.png" alt="image-20240308015139367" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240308015139367.png" alt="image-20240308015139367" style="zoom:40%;" />
 <p>最终申请了 33 个 Page，这符合预期：257/8=32Page 余 1KB，多一个 KB 的向一页对齐，总共 33 个 Page。</p>
-<img src="./.高并发内存池.IMG/image-20240308015523149.png" alt="image-20240308015523149" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240308015523149.png" alt="image-20240308015523149" style="zoom:40%;" />
 <p>可以看到，释放 33 个页的 Span 时，会将之前被切割剩下的 Span 合并，总页数和初始情况是一样的，都是 128 页。</p>
 <h2>用内存池代替 new 和 delete 管理对象<span class="absolute -mt-20" id="用内存池代替-new-和-delete-管理对象"></span>
     <a href="#%e7%94%a8%e5%86%85%e5%ad%98%e6%b1%a0%e4%bb%a3%e6%9b%bf-new-%e5%92%8c-delete-%e7%ae%a1%e7%90%86%e5%af%b9%e8%b1%a1" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>在目前的实现中，Span 哨兵位头结点以及 ThreadCache 实例都是用 new 和 delete 申请和释放的，为了彻底脱离使用 malloc/free 函数，分别为它们增加一个内存池，用于分配 Span 和线程创建 ThreadCache 实例。</p>
@@ -3453,7 +3453,7 @@ alignNum - 1=16-1=15		  =01111
   </div>
 </div>
 <p>由于每一个 SpanList 只需要一个哨兵位头结点 Span，因此将 Span 池设置为静态的，所有 SpanList 都从它申请 Span，静态成员要在类外创建实例（CentralCache.cpp）。</p>
-<img src="./.高并发内存池.IMG/image-20240310043943897.png" alt="image-20240310043943897" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240310043943897.png" alt="image-20240310043943897" style="zoom:40%;" />
 <p>项目中所有使用 new 和 delete 创建和释放 Span 的地方都要替换成（前提是增加<code>ObjectPool&lt;T&gt;</code>成员，并创建实例）：</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">ObjectPool</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">xxxPool</span><span class="p">;</span> <span class="c1">// 1. 创建 xxx 池
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
@@ -3474,19 +3474,19 @@ alignNum - 1=16-1=15		  =01111
 </div>
 <p>项目中有不少需要替换的地方，这里就不一一截图了（可以 Ctrl+F），可以看本项目的实现。</p>
 <p>因为 ThreadCache 由线程私有，所以要将它的内存池设置为静态的，这样每个 ThreadCache 的对象就来自同一个内存池中。</p>
-<img src="./.高并发内存池.IMG/image-20240310053715345.png" alt="image-20240310053715345" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240310053715345.png" alt="image-20240310053715345" style="zoom:40%;" />
 <p><strong>注意</strong>：SpanList 中的 ObjectPool 池对象的实例化（Common.h）需要包含头文件<code>&lt;ObjectPool.h&gt;</code>，但是后者需要使用 Common.h 中的<code>NextObj()</code>和<code>PAGE_SHIFT</code>，所以它们是互相依赖的头文件。如果你用一个计数器打印，可以发现头文件会被循环包含，编译器规定了一个循环深度，在最后一次引用时，总会有一方找不到变量或函数，即使已经包含了头文件。</p>
 <p>查阅资料主要有两种解决办法，第一种办法是使用 <a href="https://www.cnblogs.com/wkfvawl/p/10801725.html" target="_blank" rel="noopener">前向声明</a>，但是<code>PAGE_SHIFT</code>是静态常量，前向声明难以解决循环依赖问题。第二种办法是修改代码结构，但是这里的 ObjectPool 是一个模板类，如果将它的声明和定义分离，那么就得在定义里特别指定模板的类型（模板的特化），这和设计这个模板类的初衷相违背。</p>
 <p>所以将<code>&lt;ObjectPool.h&gt;</code>的引用放在 SpanList 之前，以消除除了 SpanList 之外的（如果有更好的解决办法，请评论告诉我）：</p>
-<img src="./.高并发内存池.IMG/image-20240310053010355.png" alt="image-20240310053010355" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240310053010355.png" alt="image-20240310053010355" style="zoom:40%;" />
 <h2>线程查表加锁<span class="absolute -mt-20" id="线程查表加锁"></span>
     <a href="#%e7%ba%bf%e7%a8%8b%e6%9f%a5%e8%a1%a8%e5%8a%a0%e9%94%81" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>PageHeap 向系统申请内存，并在内存归还给操作系统之前做着最后的管理，所以要建立 Span 和页号之间的映射关系，以方便 Object 的回收和 Span 间的合并。因此将哈希表交由 PageHeap 维护是合理的。</p>
 <p>既然哈希表属于 PageHeap，那么线程在查表之前需要持有 PageHeap 互斥锁，以避免其他线程同时在访问或修改这张表。</p>
 <p>这里使用了 std::unique_lock 作为互斥锁，只是为了使用它，效果上和之前使用的互斥锁是一样的。</p>
-<img src="./.高并发内存池.IMG/image-20240310054032715.png" alt="image-20240310054032715" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240310054032715.png" alt="image-20240310054032715" style="zoom:40%;" />
 <h2>ObjectPool 加锁<span class="absolute -mt-20" id="objectpool-加锁"></span>
     <a href="#objectpool-%e5%8a%a0%e9%94%81" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>我们知道 ThreadCache 的内存空间来自同一个 objectsPool，如果按上面这样写，在多线程情况下会出现问题。</p>
-<img src="./.高并发内存池.IMG/image-20240310054423862.png" alt="image-20240310054423862" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240310054423862.png" alt="image-20240310054423862" style="zoom:40%;" />
 <p>初始情况下，如果线程 1 正好在第一个红框切换，线程 2 从头开始执行，此时<code>_remainBytes</code>是上一个线程修改后的值，那么它不会进入<code>if (objSize &gt; _remainBytes)</code>分支，那么<code>_memory_ptr</code>此时为<code>nullptr</code>，这会使定位 new 访问空指针。</p>
 <p>解决办法是 ThreadCache 在使用<code>New()</code>的前后加互斥锁。在 ObjectPool 中增加互斥锁成员变量：</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
@@ -3505,7 +3505,7 @@ alignNum - 1=16-1=15		  =01111
   </div>
 </div>
 <p>加锁：</p>
-<img src="./.高并发内存池.IMG/image-20240310055022324.png" alt="image-20240310055022324" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240310055022324.png" alt="image-20240310055022324" style="zoom:40%;" />
 <h1>综合测试</h1><p>下面在多线程环境下分别测试 malloc/free 和 ConcurrentAlloc/ConcurrentFree 的性能，放在<code>Benchmark.cpp</code>中（基准测试）。</p>
 <p>在此之前建议仍用之前的单线程用例测试，以保证申请和回收的逻辑是通的，也比较好调试。</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include&#34;ConcurrentAlloc.h&#34;
@@ -3641,18 +3641,18 @@ alignNum - 1=16-1=15		  =01111
 </div>
 <h2>测试一<span class="absolute -mt-20" id="测试一-2"></span>
     <a href="#%e6%b5%8b%e8%af%95%e4%b8%80-2" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>测试 4 个线程，10 轮，每轮 10000 次申请和释放固定大小的内存空间（同一个桶）：</p>
-<img src="./.高并发内存池.IMG/image-20240310055607980.png" alt="image-20240310055607980" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240310055607980.png" alt="image-20240310055607980" style="zoom:40%;" />
 <h2>测试二<span class="absolute -mt-20" id="测试二-2"></span>
     <a href="#%e6%b5%8b%e8%af%95%e4%ba%8c-2" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>测试 4 个线程，10 轮，每轮 10000 次申请和释放不同大小的内存空间（放开第二条注释的代码）：</p>
-<img src="./.高并发内存池.IMG/image-20240310061953225.png" alt="image-20240310061953225" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240310061953225.png" alt="image-20240310061953225" style="zoom:40%;" />
 <p>在 Debug 模式下（在 Release 模式下可能不一定），malloc/free 总比 ConcurrentAlloc/ConcurrentFree 快。ConcurrentAlloc 和 malloc 相当，但是 ConcurrentFree 远没有 free 快。其主要原因是：在多线程环境下，当多个线程试图同时释放内存到 CentralCache 或进行 Span 操作时，ConcurrentFree 涉及到对资源的竞争。涉及到 Span 合并和返回内存给 PageHeap 时，ConcurrentFree 在释放内存时会执行更复杂的内存合并操作。这些操作通常比简单地释放内存到线程本地缓存要复杂和耗时。</p>
 <p><a href="https://blog.csdn.net/gaoyi221119/article/details/88890486" target="_blank" rel="noopener">vs 中 debug 和 release 版本的区别</a></p>
-<img src="./.高并发内存池.IMG/image-20240310123855644.png" alt="image-20240310123855644" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240310123855644.png" alt="image-20240310123855644" style="zoom:40%;" />
 <h1>性能瓶颈分析</h1><p>把 BenchmarkMalloc() 注释掉，调试-&gt;性能探查器（Alt+F2）-&gt;“检测”-&gt;开始。</p>
 <p>可以看到，这个两个函数耗费的时间最长，而这也是 ConcurrentFree 调用的。</p>
-<img src="./.高并发内存池.IMG/image-20240310063738863.png" alt="image-20240310063738863" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240310063738863.png" alt="image-20240310063738863" style="zoom:40%;" />
 <p>查看调用链，“罪魁祸首”正如我们所分析的那样：</p>
-<img src="./.高并发内存池.IMG/image-20240310064330517.png" alt="image-20240310064330517" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240310064330517.png" alt="image-20240310064330517" style="zoom:40%;" />
 <p>从 TCMalloc 的设计来看，它高效的主要原因是 ThreadCache 是线程私有的缓存，线程无需加锁获取资源。在 TCMalloc 的实现中，使用了基数树优化性能瓶颈，最小粒度缓解了线程加锁竞争资源的问题。</p>
 <h1>基数树</h1><h2>介绍<span class="absolute -mt-20" id="介绍"></span>
     <a href="#%e4%bb%8b%e7%bb%8d" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>参看：<a href="https://blog.ihypo.net/16506944639091.html" target="_blank" rel="noopener">图解基数树 (RadixTree)</a>；<a href="https://pdai.tech/md/algorithm/alg-basic-tree-trie.html" target="_blank" rel="noopener">树 - 前缀树 (Trie Tree)</a></p>
@@ -3679,7 +3679,7 @@ alignNum - 1=16-1=15		  =01111
 <p>查找时，从树的根节点开始，逐步使用键的各个部分在树中向下遍历，直到找到对应的值或者到达一个叶子节点。</p>
 <p>与完全二叉树不同，基数树的节点可能不会完全填充。这使得它能有效地处理稀疏的键空间。</p>
 <p>例如这是一棵三层的基数树：</p>
-<img src="./.高并发内存池.IMG/radix-tree-2.png" alt="[big radix tree]" style="zoom:40%;" />
+<img src="高并发内存池.IMG/radix-tree-2.png" alt="[big radix tree]" style="zoom:40%;" />
 <p>图片来源：<a href="https://lwn.net/Articles/175432/" target="_blank" rel="noopener">Trees I: Radix trees</a></p>
 <p>在 Linux 层基数树的实现中，每个结点是长度为 64 的数组，并将键值内存中的最高有效 18 位作为查询的依据：用最高 6 位查询第一层；用中间 6 位查询第二层；用后 6 位查询第三层。这样，三层分别得到的结果再拼接起来，就是最终查询到的结果。</p>
 <p>树的层深取决于键值（地址）的长度，在内存分配器中，32 位平台一般使用二层基数树，64 位平台使用三层基数树。</p>
@@ -3902,17 +3902,17 @@ alignNum - 1=16-1=15		  =01111
 </div>
 <h2>用基数树代替哈希表<span class="absolute -mt-20" id="用基数树代替哈希表"></span>
     <a href="#%e7%94%a8%e5%9f%ba%e6%95%b0%e6%a0%91%e4%bb%a3%e6%9b%bf%e5%93%88%e5%b8%8c%e8%a1%a8" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>由于测试的平台选择了 32 位，可以随便选几层基数树，这里将二层哈希表的实现放在<code>PageMap.h</code>中。Common.h 包含它以后，将 PageHeap 的哈希表换成基数树：</p>
-<img src="./.高并发内存池.IMG/image-20240310150645421.png" alt="image-20240310150645421" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240310150645421.png" alt="image-20240310150645421" style="zoom:40%;" />
 <p>然后把所有哈希操作换成 get 和 set 函数。例如：</p>
-<img src="./.高并发内存池.IMG/image-20240310150828378.png" alt="image-20240310150828378" style="zoom:40%;" />
-<img src="./.高并发内存池.IMG/image-20240310151845388.png" alt="image-20240310151845388" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240310150828378.png" alt="image-20240310150828378" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240310151845388.png" alt="image-20240310151845388" style="zoom:40%;" />
 <p>有了基数树，PageHeap::MapObjectToSpan() 就不用加锁了。</p>
 <h1>最终测试</h1><h2>测试一<span class="absolute -mt-20" id="测试一-3"></span>
     <a href="#%e6%b5%8b%e8%af%95%e4%b8%80-3" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>测试 4 个线程，10 轮，每轮 10000 次申请和释放固定大小的内存空间（同一个桶）：</p>
-<img src="./.高并发内存池.IMG/image-20240310152302501.png" alt="image-20240310152302501" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240310152302501.png" alt="image-20240310152302501" style="zoom:40%;" />
 <h2>测试二<span class="absolute -mt-20" id="测试二-3"></span>
     <a href="#%e6%b5%8b%e8%af%95%e4%ba%8c-3" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>测试 4 个线程，10 轮，每轮 10000 次申请和释放不同大小的内存空间（放开第二条注释的代码）：</p>
-<img src="./.高并发内存池.IMG/image-20240310152430659.png" alt="image-20240310152430659" style="zoom:40%;" />
+<img src="高并发内存池.IMG/image-20240310152430659.png" alt="image-20240310152430659" style="zoom:40%;" />
 <p>可见，PageHeap::MapObjectToSpan() 没有了锁，尤其是在申请不同大小的对象时，ConcurrentFree 的整体速度要比 free 快好几倍。在 release 模式下会更快，这里用 debug 模式想让现象更明显。</p>
 <h1>总结</h1><h2>项目回顾<span class="absolute -mt-20" id="项目回顾"></span>
     <a href="#%e9%a1%b9%e7%9b%ae%e5%9b%9e%e9%a1%be" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>此项目是一个高效的内存管理器 TCMalloc 简易实现，旨在提高内存分配和回收的性能。它主要采用了以下方法实现高并发内存分配器：</p>

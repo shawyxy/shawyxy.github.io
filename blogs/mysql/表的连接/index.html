@@ -718,12 +718,12 @@
 <li>返回匹配的记录，以及表 A 和表 B 各自的多余记录，这叫全连接（full join）。</li>
 </ul>
 </blockquote>
-<img src="./.表的连接.IMG/bg2019011506.jpg" alt="img" style="zoom:40%;" />
+<img src="表的连接.IMG/bg2019011506.jpg" alt="img" style="zoom:40%;" />
 <p>上图中，表 A 的记录是 123，表 B 的记录是 ABC，颜色表示匹配关系。返回结果中，如果另一张表没有匹配的记录，则用 null 填充。</p>
 <p>这四种连接，又可以分成两大类：内连接（inner join）表示只包含匹配的记录，外连接（outer join）表示还包含不匹配的记录。所以，左连接、右连接、全连接都属于外连接。</p>
 <p>此外，还存在一种特殊的连接，叫做&quot;交叉连接&quot;（cross join），指的是表 A 和表 B 不存在关联字段，这时表 A（共有 n 条记录）与表 B （共有 m 条记录）连接后，会产生一张包含 n x m 条记录的新表（见下图）。</p>
-<img src="./.表的连接.IMG/bg2019011507.png" alt="img" style="zoom:40%;" />
-<h1>测试表</h1><img src="./.表的连接.IMG/image-20240223173257335.png" alt="image-20240223173257335" style="zoom:40%;" />
+<img src="表的连接.IMG/bg2019011507.png" alt="img" style="zoom:40%;" />
+<h1>测试表</h1><img src="表的连接.IMG/image-20240223173257335.png" alt="image-20240223173257335" style="zoom:40%;" />
 <h1>内连接</h1><p>内连接（Inner Join）：内连接返回两个数据表中满足连接条件的交集部分。只有当连接条件在两个表中<strong>都</strong>存在匹配时，才会返回结果。</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-SQL" data-lang="SQL"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">t2</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="err">连接条件</span><span class="w"> </span><span class="p">[</span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">t3</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="err">连接条件</span><span class="p">]</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="err">其他条件；</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
@@ -739,7 +739,7 @@
 <ul>
 <li>对上表做内连接。</li>
 </ul>
-<img src="./.表的连接.IMG/image-20240223173643272.png" alt="image-20240223173643272" style="zoom:40%;" />
+<img src="表的连接.IMG/image-20240223173643272.png" alt="image-20240223173643272" style="zoom:40%;" />
 <p>SQL 的构造顺序是：</p>
 <ol>
 <li>确定要连接的表：A INNER JOIN B</li>
@@ -763,7 +763,7 @@
 <ul>
 <li>对上表做左外连接。</li>
 </ul>
-<img src="./.表的连接.IMG/image-20240223174317091.png" alt="image-20240223174317091" style="zoom:40%;" />
+<img src="表的连接.IMG/image-20240223174317091.png" alt="image-20240223174317091" style="zoom:40%;" />
 <p>这意味着即使香蕉没有价格，也会将它的所有信息显示，因为香蕉存在于左表中的记录。其中左表不存在的属性，将会以 NULL 值填充。</p>
 <h2>右外连接<span class="absolute -mt-20" id="右外连接"></span>
     <a href="#%e5%8f%b3%e5%a4%96%e8%bf%9e%e6%8e%a5" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-SQL" data-lang="SQL"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="k">RIGHT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">t2</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="err">连接条件</span><span class="w"> </span><span class="p">[</span><span class="k">RIGHT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">t3</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="err">连接条件</span><span class="p">]</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="err">其他条件；</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
@@ -777,11 +777,11 @@
   </div>
 </div>
 <p>在右表中插入一条 ID 不存在于左表的记录：</p>
-<img src="./.表的连接.IMG/image-20240223174950933.png" alt="image-20240223174950933" style="zoom:40%;" />
+<img src="表的连接.IMG/image-20240223174950933.png" alt="image-20240223174950933" style="zoom:40%;" />
 <ul>
 <li>对上表进行右外连接。</li>
 </ul>
-<img src="./.表的连接.IMG/image-20240223175255978.png" alt="image-20240223175255978" style="zoom:40%;" />
+<img src="表的连接.IMG/image-20240223175255978.png" alt="image-20240223175255978" style="zoom:40%;" />
 <p>和左外连接类似地，右外连接会将右表存在而左表不存在的记录添加到返回值中，不存在的字段依然用 NULL 值填充。</p>
 <blockquote>
 <p>注意一个细节，在左外连接和右外连接查询 ID 时，指定的表是和连接方向对应的，这也说明了 SELECT 关键字在查找时是按照连接方向进行的。</p>
@@ -799,7 +799,7 @@
   </div>
 </div>
 <p>全外连接相当于对两个集合做加法，得到的是所有情况。</p>
-<img src="./.表的连接.IMG/image-20240223180041495.png" alt="image-20240223180041495" style="zoom:40%;" />
+<img src="表的连接.IMG/image-20240223180041495.png" alt="image-20240223180041495" style="zoom:40%;" />
 <h1>自然连接</h1><p>自然连接是一种特殊的连接，它省略了连接条件，直接使用两个表中相同列名进行连接。</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-SQL" data-lang="SQL"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="k">NATURAL</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">t2</span><span class="p">;</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
@@ -811,7 +811,7 @@
     </button>
   </div>
 </div>
-<img src="./.表的连接.IMG/image-20240223180340075.png" alt="image-20240223180340075" style="zoom:40%;" />
+<img src="表的连接.IMG/image-20240223180340075.png" alt="image-20240223180340075" style="zoom:40%;" />
 <p>这条 SQL 语句将会自动根据两个表中相同列名进行连接，返回结果中将包含这些相同列名的数据，并且自动过滤掉重复的列。</p>
 <p>注意：笛卡尔积是两个表所有可能的行对组合，不考虑任何连接条件。例如，如果表 A 有 M 行，表 B 有 N 行，它们的笛卡尔积将会有 M * N 行。</p>
 <p>自然连接避免了笛卡尔积中的大量无关组合，只返回在连接列上值匹配的行，因此结果集通常比笛卡尔积小得多。如果两个表没有列名相同的列，自然连接的结果将是一个空集，而不是笛卡尔积。</p>
@@ -826,7 +826,7 @@
     </button>
   </div>
 </div>
-<img src="./.表的连接.IMG/image-20240223180535693.png" alt="image-20240223180535693" style="zoom:40%;" />
+<img src="表的连接.IMG/image-20240223180535693.png" alt="image-20240223180535693" style="zoom:40%;" />
 <p>返回 table1 和 table2 的所有可能组合，即 table1 中每一行与 table2 中每一行的组合。</p>
 <h1>参考资料</h1><ul>
 <li><a href="https://www.ruanyifeng.com/blog/2019/01/table-join.html" target="_blank" rel="noopener">数据库表连接的简单解释</a></li>

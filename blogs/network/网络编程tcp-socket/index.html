@@ -1261,7 +1261,7 @@ TCP 套接字编程的基本流程是这样的：
 <p>控制命令行参数：在运行程序的同时将 IP 和 PORT 作为参数传递给进程，例如<code>./[name] [PORT]</code>这就需要提取出命令行参数和<code>PORT</code>。除此之外，通常的做法是通过打印一个语句来显示它的使用方法，一般使用一个函数<code>usage()</code>封装。</p>
 <blockquote>
 <p>这样做是合理的，例如在命令行随意输入一个命令的名字，但没有参数，就会有以下提示：</p>
-<img src="./.网络编程：TCP socket.IMG/image-20230507221335105.png" alt="image-20230507221335105" style="zoom:40%;" />
+<img src="网络编程：TCP socket.IMG/image-20230507221335105.png" alt="image-20230507221335105" style="zoom:40%;" />
 </blockquote>
 </li>
 <li>
@@ -1378,7 +1378,7 @@ TCP 套接字编程的基本流程是这样的：
 <li>日志：当创建文件描述符成功以后，记录刚才的操作。为了验证打开的文件描述符的值，可以将<code>_sockfd</code>作为日志信息的一部。</li>
 </ul>
 <p>简单测试一下：</p>
-<img src="./.网络编程：TCP socket.IMG/image-20230507231023100.png" alt="image-20230507231023100" style="zoom:40%;" />
+<img src="网络编程：TCP socket.IMG/image-20230507231023100.png" alt="image-20230507231023100" style="zoom:40%;" />
 <p>这一步和实现 UDP socket 编程的唯一区别就是使用<code>socket()</code>函数的第二个参数不同。</p>
 <h3>绑定<span class="absolute -mt-20" id="绑定"></span>
     <a href="#%e7%bb%91%e5%ae%9a" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>上面只完成了初始化服务器的第一步，下一步要将用户在命令行传入的 PORT 在内核中与当前进程强关联起来，也就是绑定（bind）。即通过绑定，在后续的执行逻辑中这个端口号就对只对应着被绑定的服务器进程，因为端口号标定着主机中进程的唯一性，服务器运行起来本身就是一个进程。</p>
@@ -1478,7 +1478,7 @@ TCP 套接字编程的基本流程是这样的：
 </li>
 </ul>
 <p>测试一下：</p>
-<img src="./.网络编程：TCP socket.IMG/image-20230507230939233.png" alt="image-20230507230939233" style="zoom:40%;" />
+<img src="网络编程：TCP socket.IMG/image-20230507230939233.png" alt="image-20230507230939233" style="zoom:40%;" />
 <p>UDP 服务器的实现就到此为止了，所以 UDP 通信的效率很高，但通过实现它的步骤可以知道，这是要付出代价的。</p>
 <h3>开启监听<span class="absolute -mt-20" id="开启监听"></span>
     <a href="#%e5%bc%80%e5%90%af%e7%9b%91%e5%90%ac" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>TCP 服务器是面向连接的，客户端在向服务器发送数据之前，首先要建立连接才能进行通信。但是建立连接的前提是服务端能及时对客户端发送的连接请求产生回应，因此在建立连接之前，需要让服务端不断接收客户端发送的连接请求。</p>
@@ -1547,7 +1547,7 @@ TCP 套接字编程的基本流程是这样的：
   </div>
 </div>
 <p>测试一下：
-<img src="./.网络编程：TCP socket.IMG/image-20230507230930768.png" alt="image-20230507230930768" style="zoom:40%;" /></p>
+<img src="网络编程：TCP socket.IMG/image-20230507230930768.png" alt="image-20230507230930768" style="zoom:40%;" /></p>
 <p>可以验证，打开的文件描述符是 3 号，说明 0、1 和 2 号文件描述符都是默认被打开的状态。</p>
 <h2>运行服务器<span class="absolute -mt-20" id="运行服务器"></span>
     <a href="#%e8%bf%90%e8%a1%8c%e6%9c%8d%e5%8a%a1%e5%99%a8" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>netstat 工具<span class="absolute -mt-20" id="netstat-工具"></span>
@@ -1596,7 +1596,7 @@ TCP 套接字编程的基本流程是这样的：
     </button>
   </div>
 </div>
-<img src="./.网络编程：TCP socket.IMG/image-20230507232320538.png" alt="image-20230507232320538" style="zoom:40%;" />
+<img src="网络编程：TCP socket.IMG/image-20230507232320538.png" alt="image-20230507232320538" style="zoom:40%;" />
 <h3>获取连接和通信准备<span class="absolute -mt-20" id="获取连接和通信准备"></span>
     <a href="#%e8%8e%b7%e5%8f%96%e8%bf%9e%e6%8e%a5%e5%92%8c%e9%80%9a%e4%bf%a1%e5%87%86%e5%a4%87" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>和 UDP 服务器不一样，TCP 服务器的实现要手动连接。</p>
 <p><code>accept()</code> 函数用于基于连接的套接字类型（<code>SOCK_STREAM</code>，<code>SOCK_SEQPACKET</code>）。它从监听套接字 <code>sockfd</code> 的挂起连接队列中提取第一个连接请求，创建一个新的已连接套接字，并返回指向该套接字的新文件描述符。新创建的套接字不处于监听状态。原始套接字 <code>sockfd</code> 不受此调用影响。参数 <code>sockfd</code> 是一个已使用 <code>socket(2)</code> 创建、使用 <code>bind(2)</code> 绑定到本地地址且正在监听的套接字。</p>
@@ -1797,12 +1797,12 @@ TCP 套接字编程的基本流程是这样的：
 <p>使用方法：输入<code>telnet</code>命令，后面跟上远程计算机的 IP 地址或主机名，以及要连接的端口号（如果不指定端口号，则默认为 23）。例如，要连接到 IP 地址为<code>192.168.1.1</code>的远程计算机，可以使用以下命令：<code>telnet 192.168.1.1</code>。在成功连接到远程计算机后，输入用户名和密码进行登录。</p>
 <p>当不需要远程登录时，首先键入转义字符<code>Ctrl - ]</code>，然后输入 exit 或 logout 命令退出 telnet 会话。</p>
 <h3>测试<span class="absolute -mt-20" id="测试"></span>
-    <a href="#%e6%b5%8b%e8%af%95" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><img src="./.网络编程：TCP socket.IMG/telnet1.gif" alt="telnet1" style="zoom:40%;" />
+    <a href="#%e6%b5%8b%e8%af%95" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><img src="网络编程：TCP socket.IMG/telnet1.gif" alt="telnet1" style="zoom:40%;" />
 <p>也可以用本地环回地址进行测试。</p>
 <p>细节：
 当<code>telnet</code>连接到服务器时，打印的日志信息说明文件描述符是 4 号。</p>
 <p>下面再增加一个客户端测试：</p>
-<img src="./.网络编程：TCP socket.IMG/telnet2.gif" alt="telnet2" style="zoom:40%;" />
+<img src="网络编程：TCP socket.IMG/telnet2.gif" alt="telnet2" style="zoom:40%;" />
 <p>这里的现象不是我们预想的那样，中间的客户端 1 连接成功以后，服务端打印了对应的日志信息，客户端 1 发送信息服务端也能正常回显。但是上面的客户端 2 执行<code>telnet</code>命令以后，服务端既没有打印日志信息也没有进行正常的回显操作，但是一旦客户端 1 退出，服务端就会一次性将刚刚没有输出的信息打印出来。</p>
 <p>原因是这个服务端中的<code>start()</code>处理数据的函数中的逻辑是在<code>while(1)</code>死循环中进行的，而且是单进程执行这个操作。如果某次死循环中的任务没有执行完毕，那么整个服务端进程将会陷入死循环中，一直等待任务被执行完。这个单进程服务端一次只能处理一个客户端的任务，处理完了才能处理下一个。虽然单进程版本没什么用，但是它作为学习还是很有价值的，是一切改进的基础。</p>
 <h2>多进程服务端（version2）<span class="absolute -mt-20" id="多进程服务端version2"></span>
@@ -1831,7 +1831,7 @@ TCP 套接字编程的基本流程是这样的：
 <p>关闭文件描述符是很重要的，因为每个进程都有一个文件描述符的限制。如果进程打开了太多的文件描述符而没有关闭它们，那么它将无法再打开新的文件描述符。此外，关闭文件描述符还可以释放系统资源，例如内存和文件锁。</p>
 <p>在某些情况下，如果不关闭文件描述符，可能会导致数据丢失或损坏。例如，如果进程使用 write() 函数将数据写入文件，但在退出之前没有关闭文件描述符，则可能会丢失未写入磁盘的数据。</p>
 <p>文件描述符是表征资源空间的一个下标，它被一个表储存着，它是有限的。如果子进程继承了父进程创建的服务套接字被使用完了，父进程也不关闭它，那么这个文件描述符对应的文件描述符就被浪费了，所以父子进程都要关闭自己不需要的文件描述符。这是文件描述符泄漏，类似内存泄漏。在云服务器中，单进程打开的文件描述符上限是 50000~100000 个。</p>
-<img src="./.网络编程：TCP socket.IMG/image-20230509231635852.png" alt="image-20230509231635852" style="zoom:40%;" />
+<img src="网络编程：TCP socket.IMG/image-20230509231635852.png" alt="image-20230509231635852" style="zoom:40%;" />
 <blockquote>
 <p>如果没有及时关闭文件描述符，那么在测试时会发现文件描述符的编号一直在增加，并且重启机器就会回复原样。</p>
 </blockquote>
@@ -1881,10 +1881,10 @@ TCP 套接字编程的基本流程是这样的：
   </div>
 </div>
 <p>依然使用两个<code>telnet</code>模拟客户端：
-<img src="./.网络编程：TCP socket.IMG/telnet_fork.gif" style="zoom:50%;" /></p>
+<img src="网络编程：TCP socket.IMG/telnet_fork.gif" style="zoom:50%;" /></p>
 <p>两个客户端连接成功以后，可以看到服务端中依次多了两个子进程，它们是被父进程创建用来执行线程函数的，所以可以同时响应多个客户端发送的信息，图中也不会出现单进程服务端一次只能处理一个客户端的情况了。</p>
 <p>值得注意的是，当两个子进程都调用<code>exit(0)</code>退出以后，它们会变成僵尸进程，这在打印的信息中是可以观察到的：</p>
-<img src="./.网络编程：TCP socket.IMG/image-20230509235421602.png" alt="image-20230509235421602" style="zoom:40%;" />
+<img src="网络编程：TCP socket.IMG/image-20230509235421602.png" alt="image-20230509235421602" style="zoom:40%;" />
 <blockquote>
 <p>在进程列表中，<code>&lt;defunct&gt;</code>表示僵尸进程。</p>
 </blockquote>
@@ -1949,10 +1949,10 @@ TCP 套接字编程的基本流程是这样的：
 <p>上面的代码只呈现了必要的部分，不需要的部分会说明。</p>
 </blockquote>
 <p>用同样的方式测试一下：</p>
-<img src="./.网络编程：TCP socket.IMG/telnet_fork_signal.gif" alt="telnet_fork_signal" style="zoom:40%;" />
+<img src="网络编程：TCP socket.IMG/telnet_fork_signal.gif" alt="telnet_fork_signal" style="zoom:40%;" />
 <p>可以看到，由于父进程忽略了子进程退出的信号，所以两个客户端进程退出以后不会变成僵尸进程：</p>
-<img src="./.网络编程：TCP socket.IMG/image-20230510225741376.png" alt="image-20230510225741376" style="zoom:40%;" />
-<img src="./.网络编程：TCP socket.IMG/image-20230510225849302.png" alt="image-20230510225849302" style="zoom:40%;" />
+<img src="网络编程：TCP socket.IMG/image-20230510225741376.png" alt="image-20230510225741376" style="zoom:40%;" />
+<img src="网络编程：TCP socket.IMG/image-20230510225849302.png" alt="image-20230510225849302" style="zoom:40%;" />
 <h4>孙子进程<span class="absolute -mt-20" id="孙子进程"></span>
     <a href="#%e5%ad%99%e5%ad%90%e8%bf%9b%e7%a8%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>让子进程再次创建子进程，就是孙子进程。那么原本子进程要执行的逻辑将会被孙子进程执行，子进程创建孙子进程后立即调用<code>exit(0)</code>退出，原本的父进程调用<code>wait()</code>或<code>waitpid()</code>函数等待子进程能立刻成功地回收子进程的资源，而不需要等待回收孙子进程的资源，这样原本的父进程就能避免因等待回收子进程资源而占用时间，降低效率了。</p>
 <blockquote>
@@ -2004,9 +2004,9 @@ TCP 套接字编程的基本流程是这样的：
   </div>
 </div>
 <p>用同样的方式和脚本测试一下：</p>
-<img src="./.网络编程：TCP socket.IMG/telnet_fork_son.gif" style="zoom:50%;" />
+<img src="网络编程：TCP socket.IMG/telnet_fork_son.gif" style="zoom:50%;" />
 <p>由于子进程创建孙子进程以后就立即退出了，那么孙子进程就是孤儿进程，它将被 1 号进程领养，不会出现僵尸进程的问题：</p>
-<img src="./.网络编程：TCP socket.IMG/image-20230510235305723.png" alt="image-20230510235305723" style="zoom:40%;" />
+<img src="网络编程：TCP socket.IMG/image-20230510235305723.png" alt="image-20230510235305723" style="zoom:40%;" />
 <h1>客户端</h1><h2>框架<span class="absolute -mt-20" id="框架-1"></span>
     <a href="#%e6%a1%86%e6%9e%b6-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>成员属性<span class="absolute -mt-20" id="成员属性-1"></span>
     <a href="#%e6%88%90%e5%91%98%e5%b1%9e%e6%80%a7-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>TCP 是面向连接的，客户端不同于服务端，它需要明确数据接收者的 IP 地址和 PORT。除此之外，还要有网络数据的载体&ndash;套接字，因此还要保存文件描述符。</p>
@@ -2263,8 +2263,8 @@ TCP 套接字编程的基本流程是这样的：
 </blockquote>
 <h3>测试<span class="absolute -mt-20" id="测试-2"></span>
     <a href="#%e6%b5%8b%e8%af%95-2" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>用两个实现的客户端替代之前的<code>telnet</code>，进行同样的测试：
-<img src="./.网络编程：TCP socket.IMG/tcp_client_1.gif" style="zoom:50%;" /></p>
-<img src="./.网络编程：TCP socket.IMG/image-20230513151907837.png" alt="image-20230513151907837" style="zoom:40%;" />
+<img src="网络编程：TCP socket.IMG/tcp_client_1.gif" style="zoom:50%;" /></p>
+<img src="网络编程：TCP socket.IMG/image-20230513151907837.png" alt="image-20230513151907837" style="zoom:40%;" />
 <p>通过多次发送信息的测试，效果还是符合预想的。</p>
 <p>可能遇到的问题：</p>
 <ol>
@@ -2420,9 +2420,9 @@ TCP 套接字编程的基本流程是这样的：
   </div>
 </div>
 <p>同样地，用两个客户端测试：</p>
-<img src="./.网络编程：TCP socket.IMG/tcp_server_threads1.gif" alt="tcp_server_threads1" style="zoom:40%;" />
+<img src="网络编程：TCP socket.IMG/tcp_server_threads1.gif" alt="tcp_server_threads1" style="zoom:40%;" />
 <p>可以看到，当客户端输入“quit”以后，服务端对应的线程也会退出：
-<img src="./.网络编程：TCP socket.IMG/image-20230514191019974.png" alt="image-20230514191019974" style="zoom:40%;" /></p>
+<img src="网络编程：TCP socket.IMG/image-20230514191019974.png" alt="image-20230514191019974" style="zoom:40%;" /></p>
 <p><a href="https://gitee.com/shawyxy/2023-linux/tree/main/TcpSocket/Threads" target="_blank" rel="noopener">源代码</a></p>
 <h1>线程池版服务端</h1><ul>
 <li><a href="https://blog.csdn.net/m0_63312733/article/details/130396163?spm=1001.2014.3001.5502" target="_blank" rel="noopener">线程池</a>（本小节还需了解<code>Thread</code>类和<code>ThreadPool</code>类的封装）</li>
@@ -2570,10 +2570,10 @@ TCP 套接字编程的基本流程是这样的：
 </div>
 <h2>测试<span class="absolute -mt-20" id="测试-4"></span>
     <a href="#%e6%b5%8b%e8%af%95-4" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>用同样的方式测试：
-<img src="./.网络编程：TCP socket.IMG/tcp_server_threadpool1.gif" alt="tcp_server_threadpool1" style="zoom:40%;" /></p>
+<img src="网络编程：TCP socket.IMG/tcp_server_threadpool1.gif" alt="tcp_server_threadpool1" style="zoom:40%;" /></p>
 <p>可以看到，只要客户端一运行起来，就会立即创建出 5 个线程（这是程序员自定义的），然后等待主线程派发任务。注意到服务端为客户端服务的线程的 PORT 是不一样的，也就说明是不同的线程（也可以在日志中增加线程信息）。</p>
 <p>例如：</p>
-<img src="./.网络编程：TCP socket.IMG/tcp_server_threadpool2.gif" alt="tcp_server_threadpool2" style="zoom:40%;" />
+<img src="网络编程：TCP socket.IMG/tcp_server_threadpool2.gif" alt="tcp_server_threadpool2" style="zoom:40%;" />
 <p><a href="https://gitee.com/shawyxy/2023-linux/tree/main/TcpSocket/ThreadPool" target="_blank" rel="noopener">源代码</a></p>
 <h2>问题<span class="absolute -mt-20" id="问题"></span>
     <a href="#%e9%97%ae%e9%a2%98" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>长连接业务<span class="absolute -mt-20" id="长连接业务"></span>
@@ -2794,7 +2794,7 @@ TCP 套接字编程的基本流程是这样的：
   </div>
 </div>
 <h2>测试<span class="absolute -mt-20" id="测试-5"></span>
-    <a href="#%e6%b5%8b%e8%af%95-5" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><img src="./.网络编程：TCP socket.IMG/image-20230515143556472.png" alt="image-20230515143556472" style="zoom:40%;" />
+    <a href="#%e6%b5%8b%e8%af%95-5" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><img src="网络编程：TCP socket.IMG/image-20230515143556472.png" alt="image-20230515143556472" style="zoom:40%;" />
 <p>通过简单的测试可以实现多线程执行来自客户端的请求。</p>
 <p>需要注意的是，<code>enToZh()</code>函数需要不断读取来自客户端的内容，否则只会在第一次执行任务，然后直接退出。</p>
 <p><a href="https://gitee.com/shawyxy/2023-linux/tree/main/TcpSocket/ThreadPoolChange" target="_blank" rel="noopener">源代码</a></p>
