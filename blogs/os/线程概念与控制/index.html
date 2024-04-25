@@ -12,11 +12,11 @@
 <link fetchpriority="low" href="/site.webmanifest" rel="manifest" />
 
   <title>线程概念与控制 – Shawy&#39;s Blog</title>
-  <meta name="description" content="1. 基础概念首先要说明，前主要阐述与 Linux 线程相关的（前导）概念，只有了解了 Linux 实现线程的基本原理，才能理解 Linux 中的线程。
-1.1 Linux 线程概念 ==线程在进程的内部执行，是操作系统调度和执行的基本单位。==在 Linux 中线程也被称之为轻量级进程。在 Linux 内核中（注意是 Linux），并没有线程的概念，它把所有的线程以统一的方式当做进程实现并管理。因此，Linux 内核中并未给进程单独提供特殊的系统调用，也没有为线程实现特定的内核数据结构，自然也就没有为线程提供单独的调度策略。在 Linux 操作系统中，线程与其他进程共享部分资源。
+  <meta name="description" content="1. 基础概念 首先要说明，前主要阐述与 Linux 线程相关的（前导）概念，只有了解了 Linux 实现线程的基本原理，才能理解 Linux 中的线程。
+1.1 Linux 线程概念 线程在进程的内部执行，是操作系统调度和执行的基本单位。在 Linux 中线程也被称之为轻量级进程。在 Linux 内核中（注意是 Linux），并没有线程的概念，它把所有的线程以统一的方式当做进程实现并管理。因此，Linux 内核中并未给进程单独提供特殊的系统调用，也没有为线程实现特定的内核数据结构，自然也就没有为线程提供单独的调度策略。在 Linux 操作系统中，线程与其他进程共享部分资源。
 由于线程是属于操作系统的概念，因此线程的实现方式取决于具体的系统，如 Windows 系统内核就单独为线程提供了系统调用和专门管理线程的调度策略。
 线程、thread、执行流，都是我们对代码被执行的情况形象的理解，执行流就像公路，有通往不同目的地的分叉路，有让车辆并驾齐驱的多车道。代码被执行，就是要完成某件事，而完成某件事的关键在于 CPU 的资源如此有限，如何通过不同的策略让代码更高效地被执行，同时保证数据的正确性。
-如上所说，轻量级进程（LWP，Lightweight Processes）是 Linux 中线程的别名，也就是说，Linux 中的线程是通过进程模拟实现的，因此它是内核线程的抽象，线程是我们从操作系统层面对它形象的理解。==线程是建立在内核之上并由内核支持的用户线程，==每一个轻量级进程都与一个特定的内核线程关联，每个 LWP 都可以作为独立单元由内核独立调度。
+如上所说，轻量级进程（LWP，Lightweight Processes）是 Linux 中线程的别名，也就是说，Linux 中的线程是通过进程模拟实现的，因此它是内核线程的抽象，线程是我们从操作系统层面对它形象的理解。线程是建立在内核之上并由内核支持的用户线程，每一个轻量级进程都与一个特定的内核线程关联，每个 LWP 都可以作为独立单元由内核独立调度。
 存疑：
 线程在进程内部执行？ 为什么把线程叫做轻量级进程？ 为什么线程是用户层面的？ Linux 中线程和进程的区别？（常见面试题） 1.2 多线程概念 在 Linux 中，多线程指的是在一个进程中同时运行多个线程（这是硬件支持的）。线程是操作系统能够进行运算调度的最小单位，它被包含在进程之中，是进程中的实际运作单位。每个线程都有自己的程序计数器、寄存器集合和栈，但是它们共享同一进程的内存空间和其他资源。
 多线程可以让程序在同一时间执行多个任务，提高程序的并发性和响应性。例如，在一个文本编辑器中，一个线程可以用来处理用户输入，另一个线程可以用来进行后台拼写检查。
@@ -24,7 +24,7 @@
 内核线程（kernel-level threads）是由操作系统内核管理的线程，它只运行在内核态，不受用户态上下文的拖累。它只能由内核管理并像普通进程一样被调度。每一个轻量级进程都与一个特定的内核线程关联，这样，每个 LWP 都可以作为独立单元由内核独立调度。这里的内核线程不是主线程，而是与轻量级进程关联的特定内核线程。在这里并不对此讨论，只要知道每个线程都有一个在内核中的调度者即可。
 在多线程中，线程分为主线程和其他线程。主线程的特殊之处在于它在程序中扮演的角色。它是程序启动时创建的第一个线程，通常用于执行程序的主要控制流程，并负责协调程序的结束。在许多语言中，main 函数是程序的入口，main 函数对应的执行流就是主线程。
 实际上，在学习进程时，我们所说的进程就是主线程，因为整个进程内没有其他线程。
-2. 线程资源相关数据结构2.1 vm_area_struct 结构体 vm_area_struct 是一个结构体，它表示进程使用的连续虚拟地址空间区域，保存着进程地址空间的信息。一个进程使用多个 vm_area_struct 结构来分别表示不同类型的虚拟内存区域，以满足不同类型数据的存储需求，包括虚拟内存的起始和结束地址，以及内存的访问权限等。
+2. 线程资源相关数据结构 2.1 vm_area_struct 结构体 vm_area_struct 是一个结构体，它表示进程使用的连续虚拟地址空间区域，保存着进程地址空间的信息。一个进程使用多个 vm_area_struct 结构来分别表示不同类型的虚拟内存区域，以满足不同类型数据的存储需求，包括虚拟内存的起始和结束地址，以及内存的访问权限等。
 vm_area_struct 结构描述了一个给定地址空间中连续区间上的单个内存区域。它可以用来描述进程中的各种内存区域，包括代码区（text）、数据区（data）、堆区（heap）、栈区（stack）和内存映射区（mmap）等。
 在 mm_struct 中有一个指向 vm_area_struct 的指针，用于表示该进程的虚拟内存区域列表。这些 vm_area_struct 结构通过链表连接起来，表示进程的整个虚拟地址空间。" />
   
@@ -35,11 +35,11 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
   
 
 <meta property="og:title" content="线程概念与控制" />
-<meta property="og:description" content="1. 基础概念首先要说明，前主要阐述与 Linux 线程相关的（前导）概念，只有了解了 Linux 实现线程的基本原理，才能理解 Linux 中的线程。
-1.1 Linux 线程概念 ==线程在进程的内部执行，是操作系统调度和执行的基本单位。==在 Linux 中线程也被称之为轻量级进程。在 Linux 内核中（注意是 Linux），并没有线程的概念，它把所有的线程以统一的方式当做进程实现并管理。因此，Linux 内核中并未给进程单独提供特殊的系统调用，也没有为线程实现特定的内核数据结构，自然也就没有为线程提供单独的调度策略。在 Linux 操作系统中，线程与其他进程共享部分资源。
+<meta property="og:description" content="1. 基础概念 首先要说明，前主要阐述与 Linux 线程相关的（前导）概念，只有了解了 Linux 实现线程的基本原理，才能理解 Linux 中的线程。
+1.1 Linux 线程概念 线程在进程的内部执行，是操作系统调度和执行的基本单位。在 Linux 中线程也被称之为轻量级进程。在 Linux 内核中（注意是 Linux），并没有线程的概念，它把所有的线程以统一的方式当做进程实现并管理。因此，Linux 内核中并未给进程单独提供特殊的系统调用，也没有为线程实现特定的内核数据结构，自然也就没有为线程提供单独的调度策略。在 Linux 操作系统中，线程与其他进程共享部分资源。
 由于线程是属于操作系统的概念，因此线程的实现方式取决于具体的系统，如 Windows 系统内核就单独为线程提供了系统调用和专门管理线程的调度策略。
 线程、thread、执行流，都是我们对代码被执行的情况形象的理解，执行流就像公路，有通往不同目的地的分叉路，有让车辆并驾齐驱的多车道。代码被执行，就是要完成某件事，而完成某件事的关键在于 CPU 的资源如此有限，如何通过不同的策略让代码更高效地被执行，同时保证数据的正确性。
-如上所说，轻量级进程（LWP，Lightweight Processes）是 Linux 中线程的别名，也就是说，Linux 中的线程是通过进程模拟实现的，因此它是内核线程的抽象，线程是我们从操作系统层面对它形象的理解。==线程是建立在内核之上并由内核支持的用户线程，==每一个轻量级进程都与一个特定的内核线程关联，每个 LWP 都可以作为独立单元由内核独立调度。
+如上所说，轻量级进程（LWP，Lightweight Processes）是 Linux 中线程的别名，也就是说，Linux 中的线程是通过进程模拟实现的，因此它是内核线程的抽象，线程是我们从操作系统层面对它形象的理解。线程是建立在内核之上并由内核支持的用户线程，每一个轻量级进程都与一个特定的内核线程关联，每个 LWP 都可以作为独立单元由内核独立调度。
 存疑：
 线程在进程内部执行？ 为什么把线程叫做轻量级进程？ 为什么线程是用户层面的？ Linux 中线程和进程的区别？（常见面试题） 1.2 多线程概念 在 Linux 中，多线程指的是在一个进程中同时运行多个线程（这是硬件支持的）。线程是操作系统能够进行运算调度的最小单位，它被包含在进程之中，是进程中的实际运作单位。每个线程都有自己的程序计数器、寄存器集合和栈，但是它们共享同一进程的内存空间和其他资源。
 多线程可以让程序在同一时间执行多个任务，提高程序的并发性和响应性。例如，在一个文本编辑器中，一个线程可以用来处理用户输入，另一个线程可以用来进行后台拼写检查。
@@ -47,7 +47,7 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
 内核线程（kernel-level threads）是由操作系统内核管理的线程，它只运行在内核态，不受用户态上下文的拖累。它只能由内核管理并像普通进程一样被调度。每一个轻量级进程都与一个特定的内核线程关联，这样，每个 LWP 都可以作为独立单元由内核独立调度。这里的内核线程不是主线程，而是与轻量级进程关联的特定内核线程。在这里并不对此讨论，只要知道每个线程都有一个在内核中的调度者即可。
 在多线程中，线程分为主线程和其他线程。主线程的特殊之处在于它在程序中扮演的角色。它是程序启动时创建的第一个线程，通常用于执行程序的主要控制流程，并负责协调程序的结束。在许多语言中，main 函数是程序的入口，main 函数对应的执行流就是主线程。
 实际上，在学习进程时，我们所说的进程就是主线程，因为整个进程内没有其他线程。
-2. 线程资源相关数据结构2.1 vm_area_struct 结构体 vm_area_struct 是一个结构体，它表示进程使用的连续虚拟地址空间区域，保存着进程地址空间的信息。一个进程使用多个 vm_area_struct 结构来分别表示不同类型的虚拟内存区域，以满足不同类型数据的存储需求，包括虚拟内存的起始和结束地址，以及内存的访问权限等。
+2. 线程资源相关数据结构 2.1 vm_area_struct 结构体 vm_area_struct 是一个结构体，它表示进程使用的连续虚拟地址空间区域，保存着进程地址空间的信息。一个进程使用多个 vm_area_struct 结构来分别表示不同类型的虚拟内存区域，以满足不同类型数据的存储需求，包括虚拟内存的起始和结束地址，以及内存的访问权限等。
 vm_area_struct 结构描述了一个给定地址空间中连续区间上的单个内存区域。它可以用来描述进程中的各种内存区域，包括代码区（text）、数据区（data）、堆区（heap）、栈区（stack）和内存映射区（mmap）等。
 在 mm_struct 中有一个指向 vm_area_struct 的指针，用于表示该进程的虚拟内存区域列表。这些 vm_area_struct 结构通过链表连接起来，表示进程的整个虚拟地址空间。" />
 <meta property="og:type" content="article" />
@@ -57,11 +57,11 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
 
   
   <meta itemprop="name" content="线程概念与控制">
-  <meta itemprop="description" content="1. 基础概念首先要说明，前主要阐述与 Linux 线程相关的（前导）概念，只有了解了 Linux 实现线程的基本原理，才能理解 Linux 中的线程。
-1.1 Linux 线程概念 ==线程在进程的内部执行，是操作系统调度和执行的基本单位。==在 Linux 中线程也被称之为轻量级进程。在 Linux 内核中（注意是 Linux），并没有线程的概念，它把所有的线程以统一的方式当做进程实现并管理。因此，Linux 内核中并未给进程单独提供特殊的系统调用，也没有为线程实现特定的内核数据结构，自然也就没有为线程提供单独的调度策略。在 Linux 操作系统中，线程与其他进程共享部分资源。
+  <meta itemprop="description" content="1. 基础概念 首先要说明，前主要阐述与 Linux 线程相关的（前导）概念，只有了解了 Linux 实现线程的基本原理，才能理解 Linux 中的线程。
+1.1 Linux 线程概念 线程在进程的内部执行，是操作系统调度和执行的基本单位。在 Linux 中线程也被称之为轻量级进程。在 Linux 内核中（注意是 Linux），并没有线程的概念，它把所有的线程以统一的方式当做进程实现并管理。因此，Linux 内核中并未给进程单独提供特殊的系统调用，也没有为线程实现特定的内核数据结构，自然也就没有为线程提供单独的调度策略。在 Linux 操作系统中，线程与其他进程共享部分资源。
 由于线程是属于操作系统的概念，因此线程的实现方式取决于具体的系统，如 Windows 系统内核就单独为线程提供了系统调用和专门管理线程的调度策略。
 线程、thread、执行流，都是我们对代码被执行的情况形象的理解，执行流就像公路，有通往不同目的地的分叉路，有让车辆并驾齐驱的多车道。代码被执行，就是要完成某件事，而完成某件事的关键在于 CPU 的资源如此有限，如何通过不同的策略让代码更高效地被执行，同时保证数据的正确性。
-如上所说，轻量级进程（LWP，Lightweight Processes）是 Linux 中线程的别名，也就是说，Linux 中的线程是通过进程模拟实现的，因此它是内核线程的抽象，线程是我们从操作系统层面对它形象的理解。==线程是建立在内核之上并由内核支持的用户线程，==每一个轻量级进程都与一个特定的内核线程关联，每个 LWP 都可以作为独立单元由内核独立调度。
+如上所说，轻量级进程（LWP，Lightweight Processes）是 Linux 中线程的别名，也就是说，Linux 中的线程是通过进程模拟实现的，因此它是内核线程的抽象，线程是我们从操作系统层面对它形象的理解。线程是建立在内核之上并由内核支持的用户线程，每一个轻量级进程都与一个特定的内核线程关联，每个 LWP 都可以作为独立单元由内核独立调度。
 存疑：
 线程在进程内部执行？ 为什么把线程叫做轻量级进程？ 为什么线程是用户层面的？ Linux 中线程和进程的区别？（常见面试题） 1.2 多线程概念 在 Linux 中，多线程指的是在一个进程中同时运行多个线程（这是硬件支持的）。线程是操作系统能够进行运算调度的最小单位，它被包含在进程之中，是进程中的实际运作单位。每个线程都有自己的程序计数器、寄存器集合和栈，但是它们共享同一进程的内存空间和其他资源。
 多线程可以让程序在同一时间执行多个任务，提高程序的并发性和响应性。例如，在一个文本编辑器中，一个线程可以用来处理用户输入，另一个线程可以用来进行后台拼写检查。
@@ -69,15 +69,15 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
 内核线程（kernel-level threads）是由操作系统内核管理的线程，它只运行在内核态，不受用户态上下文的拖累。它只能由内核管理并像普通进程一样被调度。每一个轻量级进程都与一个特定的内核线程关联，这样，每个 LWP 都可以作为独立单元由内核独立调度。这里的内核线程不是主线程，而是与轻量级进程关联的特定内核线程。在这里并不对此讨论，只要知道每个线程都有一个在内核中的调度者即可。
 在多线程中，线程分为主线程和其他线程。主线程的特殊之处在于它在程序中扮演的角色。它是程序启动时创建的第一个线程，通常用于执行程序的主要控制流程，并负责协调程序的结束。在许多语言中，main 函数是程序的入口，main 函数对应的执行流就是主线程。
 实际上，在学习进程时，我们所说的进程就是主线程，因为整个进程内没有其他线程。
-2. 线程资源相关数据结构2.1 vm_area_struct 结构体 vm_area_struct 是一个结构体，它表示进程使用的连续虚拟地址空间区域，保存着进程地址空间的信息。一个进程使用多个 vm_area_struct 结构来分别表示不同类型的虚拟内存区域，以满足不同类型数据的存储需求，包括虚拟内存的起始和结束地址，以及内存的访问权限等。
+2. 线程资源相关数据结构 2.1 vm_area_struct 结构体 vm_area_struct 是一个结构体，它表示进程使用的连续虚拟地址空间区域，保存着进程地址空间的信息。一个进程使用多个 vm_area_struct 结构来分别表示不同类型的虚拟内存区域，以满足不同类型数据的存储需求，包括虚拟内存的起始和结束地址，以及内存的访问权限等。
 vm_area_struct 结构描述了一个给定地址空间中连续区间上的单个内存区域。它可以用来描述进程中的各种内存区域，包括代码区（text）、数据区（data）、堆区（heap）、栈区（stack）和内存映射区（mmap）等。
 在 mm_struct 中有一个指向 vm_area_struct 的指针，用于表示该进程的虚拟内存区域列表。这些 vm_area_struct 结构通过链表连接起来，表示进程的整个虚拟地址空间。">
-  <meta itemprop="wordCount" content="2264"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="线程概念与控制">
-<meta name="twitter:description" content="1. 基础概念首先要说明，前主要阐述与 Linux 线程相关的（前导）概念，只有了解了 Linux 实现线程的基本原理，才能理解 Linux 中的线程。
-1.1 Linux 线程概念 ==线程在进程的内部执行，是操作系统调度和执行的基本单位。==在 Linux 中线程也被称之为轻量级进程。在 Linux 内核中（注意是 Linux），并没有线程的概念，它把所有的线程以统一的方式当做进程实现并管理。因此，Linux 内核中并未给进程单独提供特殊的系统调用，也没有为线程实现特定的内核数据结构，自然也就没有为线程提供单独的调度策略。在 Linux 操作系统中，线程与其他进程共享部分资源。
+  <meta itemprop="wordCount" content="2583"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="线程概念与控制">
+<meta name="twitter:description" content="1. 基础概念 首先要说明，前主要阐述与 Linux 线程相关的（前导）概念，只有了解了 Linux 实现线程的基本原理，才能理解 Linux 中的线程。
+1.1 Linux 线程概念 线程在进程的内部执行，是操作系统调度和执行的基本单位。在 Linux 中线程也被称之为轻量级进程。在 Linux 内核中（注意是 Linux），并没有线程的概念，它把所有的线程以统一的方式当做进程实现并管理。因此，Linux 内核中并未给进程单独提供特殊的系统调用，也没有为线程实现特定的内核数据结构，自然也就没有为线程提供单独的调度策略。在 Linux 操作系统中，线程与其他进程共享部分资源。
 由于线程是属于操作系统的概念，因此线程的实现方式取决于具体的系统，如 Windows 系统内核就单独为线程提供了系统调用和专门管理线程的调度策略。
 线程、thread、执行流，都是我们对代码被执行的情况形象的理解，执行流就像公路，有通往不同目的地的分叉路，有让车辆并驾齐驱的多车道。代码被执行，就是要完成某件事，而完成某件事的关键在于 CPU 的资源如此有限，如何通过不同的策略让代码更高效地被执行，同时保证数据的正确性。
-如上所说，轻量级进程（LWP，Lightweight Processes）是 Linux 中线程的别名，也就是说，Linux 中的线程是通过进程模拟实现的，因此它是内核线程的抽象，线程是我们从操作系统层面对它形象的理解。==线程是建立在内核之上并由内核支持的用户线程，==每一个轻量级进程都与一个特定的内核线程关联，每个 LWP 都可以作为独立单元由内核独立调度。
+如上所说，轻量级进程（LWP，Lightweight Processes）是 Linux 中线程的别名，也就是说，Linux 中的线程是通过进程模拟实现的，因此它是内核线程的抽象，线程是我们从操作系统层面对它形象的理解。线程是建立在内核之上并由内核支持的用户线程，每一个轻量级进程都与一个特定的内核线程关联，每个 LWP 都可以作为独立单元由内核独立调度。
 存疑：
 线程在进程内部执行？ 为什么把线程叫做轻量级进程？ 为什么线程是用户层面的？ Linux 中线程和进程的区别？（常见面试题） 1.2 多线程概念 在 Linux 中，多线程指的是在一个进程中同时运行多个线程（这是硬件支持的）。线程是操作系统能够进行运算调度的最小单位，它被包含在进程之中，是进程中的实际运作单位。每个线程都有自己的程序计数器、寄存器集合和栈，但是它们共享同一进程的内存空间和其他资源。
 多线程可以让程序在同一时间执行多个任务，提高程序的并发性和响应性。例如，在一个文本编辑器中，一个线程可以用来处理用户输入，另一个线程可以用来进行后台拼写检查。
@@ -85,7 +85,7 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
 内核线程（kernel-level threads）是由操作系统内核管理的线程，它只运行在内核态，不受用户态上下文的拖累。它只能由内核管理并像普通进程一样被调度。每一个轻量级进程都与一个特定的内核线程关联，这样，每个 LWP 都可以作为独立单元由内核独立调度。这里的内核线程不是主线程，而是与轻量级进程关联的特定内核线程。在这里并不对此讨论，只要知道每个线程都有一个在内核中的调度者即可。
 在多线程中，线程分为主线程和其他线程。主线程的特殊之处在于它在程序中扮演的角色。它是程序启动时创建的第一个线程，通常用于执行程序的主要控制流程，并负责协调程序的结束。在许多语言中，main 函数是程序的入口，main 函数对应的执行流就是主线程。
 实际上，在学习进程时，我们所说的进程就是主线程，因为整个进程内没有其他线程。
-2. 线程资源相关数据结构2.1 vm_area_struct 结构体 vm_area_struct 是一个结构体，它表示进程使用的连续虚拟地址空间区域，保存着进程地址空间的信息。一个进程使用多个 vm_area_struct 结构来分别表示不同类型的虚拟内存区域，以满足不同类型数据的存储需求，包括虚拟内存的起始和结束地址，以及内存的访问权限等。
+2. 线程资源相关数据结构 2.1 vm_area_struct 结构体 vm_area_struct 是一个结构体，它表示进程使用的连续虚拟地址空间区域，保存着进程地址空间的信息。一个进程使用多个 vm_area_struct 结构来分别表示不同类型的虚拟内存区域，以满足不同类型数据的存储需求，包括虚拟内存的起始和结束地址，以及内存的访问权限等。
 vm_area_struct 结构描述了一个给定地址空间中连续区间上的单个内存区域。它可以用来描述进程中的各种内存区域，包括代码区（text）、数据区（data）、堆区（heap）、栈区（stack）和内存映射区（mmap）等。
 在 mm_struct 中有一个指向 vm_area_struct 的指针，用于表示该进程的虚拟内存区域列表。这些 vm_area_struct 结构通过链表连接起来，表示进程的整个虚拟地址空间。">
 
@@ -94,7 +94,7 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
 
 
 
-  <link href="/css/custom.min.e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css" rel="stylesheet" integrity="sha256-47DEQpj8HBSa&#43;/TImW&#43;5JCeuQeRkm5NMpJWZG3hSuFU=" />
+  <link href="/css/custom.min.7d43e1fdc41380d9e5d795e4b7ab39cca64e2e8ac32a15c33924c1f0a8cb1df0.css" rel="stylesheet" integrity="sha256-fUPh/cQTgNnl15Xkt6s5zKZOLorDKhXDOSTB8KjLHfA=" />
 
 
 
@@ -148,7 +148,7 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
             <span class="text-center">About</span>
           </a><a
             title="Contact ↗"
-            href="https://blog.csdn.net/m0_63312733?type=blog"
+            href="https://img-blog.csdnimg.cn/7deb340b1c95414d9dc25a89d1cb1f32.png"
             target="_blank" rel="noreferer"
             class="text-sm contrast-more:text-gray-700 contrast-more:dark:text-gray-100 relative -ml-2 hidden whitespace-nowrap p-2 md:inline-block text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
           >
@@ -239,7 +239,15 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
       text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
     href="/blogs/cpp/"
     
-  >C/C&#43;&#43;
+  >C&#43;&#43;
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/c/"
+    
+  >C语言
     </a>
               
             </li><li class="flex flex-col "><a
@@ -373,6 +381,14 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
               
             </li></ul>
       </div>
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/block-chain/"
+    
+  >区块链
+    </a>
+              
             </li><li class="flex flex-col open"><a
     class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
       text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
@@ -472,111 +488,33 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
   
     <ul class='flex flex-col gap-1 relative before:absolute before:inset-y-1 before:w-px before:bg-gray-200 before:content-[""] dark:before:bg-neutral-800 ltr:pl-3 ltr:before:left-0 rtl:pr-3 rtl:before:right-0 ltr:ml-3 rtl:mr-3'><li>
               <a
-                href="#11-linux-%e7%ba%bf%e7%a8%8b%e6%a6%82%e5%bf%b5"
+                href="#1-%e5%9f%ba%e7%a1%80%e6%a6%82%e5%bf%b5"
                 class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >1.1 Linux 线程概念</a>
+              >1. 基础概念</a>
             </li>
           <li>
               <a
-                href="#12-%e5%a4%9a%e7%ba%bf%e7%a8%8b%e6%a6%82%e5%bf%b5"
+                href="#2-%e7%ba%bf%e7%a8%8b%e8%b5%84%e6%ba%90%e7%9b%b8%e5%85%b3%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84"
                 class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >1.2 多线程概念</a>
+              >2. 线程资源相关数据结构</a>
             </li>
           <li>
               <a
-                href="#13-%e4%b8%bb%e7%ba%bf%e7%a8%8b%e5%92%8c%e5%85%b6%e4%bb%96%e7%ba%bf%e7%a8%8b"
+                href="#3-%e4%ba%86%e8%a7%a3%e7%ba%bf%e7%a8%8b"
                 class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >1.3 主线程和其他线程</a>
+              >3. 了解线程</a>
             </li>
           <li>
               <a
-                href="#21-vm_area_struct-%e7%bb%93%e6%9e%84%e4%bd%93"
+                href="#4-%e7%ba%bf%e7%a8%8b%e6%8e%a7%e5%88%b6"
                 class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >2.1 vm_area_struct 结构体</a>
+              >4. 线程控制</a>
             </li>
           <li>
               <a
-                href="#22-%e4%ba%8c%e7%ba%a7%e9%a1%b5%e8%a1%a8"
+                href="#5-%e7%90%86%e8%a7%a3%e7%ba%bf%e7%a8%8b"
                 class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >2.2 二级页表</a>
-            </li>
-          <li>
-              <a
-                href="#31-%e5%ae%9e%e7%8e%b0%e6%b5%81%e7%a8%8b"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >3.1 实现流程</a>
-            </li>
-          <li>
-              <a
-                href="#32-%e4%b8%a4%e4%b8%aa%e8%a7%92%e5%ba%a6"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >3.2 两个角度</a>
-            </li>
-          <li>
-              <a
-                href="#33-%e8%bf%9b%e7%a8%8b%e5%92%8c%e7%ba%bf%e7%a8%8b%e8%b5%84%e6%ba%90%e5%85%b1%e4%ba%ab"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >3.3 进程和线程资源共享</a>
-            </li>
-          <li>
-              <a
-                href="#41-%e7%ba%bf%e7%a8%8b%e5%ba%93"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >4.1 线程库</a>
-            </li>
-          <li>
-              <a
-                href="#42-%e5%88%9b%e5%bb%ba%e7%ba%bf%e7%a8%8b"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >4.2 创建线程</a>
-            </li>
-          <li>
-              <a
-                href="#43-%e7%ad%89%e5%be%85%e7%ba%bf%e7%a8%8b"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >4.3 等待线程</a>
-            </li>
-          <li>
-              <a
-                href="#44-%e7%bb%88%e6%ad%a2%e7%ba%bf%e7%a8%8b"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >4.4 终止线程</a>
-            </li>
-          <li>
-              <a
-                href="#45-%e7%ba%bf%e7%a8%8b%e5%88%86%e7%a6%bb"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >4.5 线程分离</a>
-            </li>
-          <li>
-              <a
-                href="#51-%e7%ba%bf%e7%a8%8b%e5%85%b1%e4%ba%ab%e8%bf%9b%e7%a8%8b%e7%9a%84%e8%b5%84%e6%ba%90"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >5.1 线程共享进程的资源</a>
-            </li>
-          <li>
-              <a
-                href="#52-%e7%ba%bf%e7%a8%8b%e7%9a%84%e4%bc%98%e7%82%b9"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >5.2 线程的优点</a>
-            </li>
-          <li>
-              <a
-                href="#53-%e7%ba%bf%e7%a8%8b%e7%9a%84%e7%bc%ba%e7%82%b9"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >5.3 线程的缺点</a>
-            </li>
-          <li>
-              <a
-                href="#54-%e7%ba%bf%e7%a8%8b%e5%bc%82%e5%b8%b8"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >5.4 线程异常</a>
-            </li>
-          <li>
-              <a
-                href="#55-%e7%ba%bf%e7%a8%8b%e7%9a%84%e4%bd%9c%e7%94%a8"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >5.5 线程的作用</a>
+              >5. 理解线程</a>
             </li>
           </ul>
   
@@ -653,6 +591,14 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
     href="/blogs/data-structure/"
     
   >数据结构与算法
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/algorithm/"
+    
+  >算法
     </a>
               
             </li><li class="flex flex-col "><a
@@ -778,159 +724,179 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
 <nav class="hextra-toc order-last hidden w-64 shrink-0 xl:block print:hidden px-4" aria-label="table of contents">
     <div class="hextra-scrollbar sticky top-16 overflow-y-auto pr-4 pt-6 text-sm [hyphens:auto] max-h-[calc(100vh-var(--navbar-height)-env(safe-area-inset-bottom))] ltr:-mr-4 rtl:-ml-4"><p class="mb-4 font-semibold tracking-tight">On this page</p><ul>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#11-linux-%e7%ba%bf%e7%a8%8b%e6%a6%82%e5%bf%b5">1.1 Linux 线程概念
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#1-%e5%9f%ba%e7%a1%80%e6%a6%82%e5%bf%b5">1. 基础概念
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#12-%e5%a4%9a%e7%ba%bf%e7%a8%8b%e6%a6%82%e5%bf%b5">1.2 多线程概念
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#11-linux-%e7%ba%bf%e7%a8%8b%e6%a6%82%e5%bf%b5">1.1 Linux 线程概念
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#13-%e4%b8%bb%e7%ba%bf%e7%a8%8b%e5%92%8c%e5%85%b6%e4%bb%96%e7%ba%bf%e7%a8%8b">1.3 主线程和其他线程
-        </a>
-      </li></ul><ul>
-      <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#21-vm_area_struct-%e7%bb%93%e6%9e%84%e4%bd%93">2.1 vm_area_struct 结构体
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#12-%e5%a4%9a%e7%ba%bf%e7%a8%8b%e6%a6%82%e5%bf%b5">1.2 多线程概念
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#22-%e4%ba%8c%e7%ba%a7%e9%a1%b5%e8%a1%a8">2.2 二级页表
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#13-%e4%b8%bb%e7%ba%bf%e7%a8%8b%e5%92%8c%e5%85%b6%e4%bb%96%e7%ba%bf%e7%a8%8b">1.3 主线程和其他线程
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%bc%95%e5%85%a5">引入
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#2-%e7%ba%bf%e7%a8%8b%e8%b5%84%e6%ba%90%e7%9b%b8%e5%85%b3%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84">2. 线程资源相关数据结构
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e9%a1%b5%e5%b8%a7%e5%92%8c%e9%a1%b5%e6%a1%86">页帧和页框
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#21-vm_area_struct-%e7%bb%93%e6%9e%84%e4%bd%93">2.1 vm_area_struct 结构体
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%98%a0%e5%b0%84%e5%8e%9f%e7%90%86">映射原理
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#22-%e4%ba%8c%e7%ba%a7%e9%a1%b5%e8%a1%a8">2.2 二级页表
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e7%bc%ba%e9%a1%b5%e5%bc%82%e5%b8%b8">缺页异常
-        </a>
-      </li></ul><ul>
-      <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#31-%e5%ae%9e%e7%8e%b0%e6%b5%81%e7%a8%8b">3.1 实现流程
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%bc%95%e5%85%a5">引入
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#32-%e4%b8%a4%e4%b8%aa%e8%a7%92%e5%ba%a6">3.2 两个角度
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e9%a1%b5%e5%b8%a7%e5%92%8c%e9%a1%b5%e6%a1%86">页帧和页框
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#33-%e8%bf%9b%e7%a8%8b%e5%92%8c%e7%ba%bf%e7%a8%8b%e8%b5%84%e6%ba%90%e5%85%b1%e4%ba%ab">3.3 进程和线程资源共享
-        </a>
-      </li></ul><ul>
-      <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#41-%e7%ba%bf%e7%a8%8b%e5%ba%93">4.1 线程库
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%98%a0%e5%b0%84%e5%8e%9f%e7%90%86">映射原理
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#posix-%e7%ba%bf%e7%a8%8b%e5%ba%93">POSIX 线程库
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e7%bc%ba%e9%a1%b5%e5%bc%82%e5%b8%b8">缺页异常
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#42-%e5%88%9b%e5%bb%ba%e7%ba%bf%e7%a8%8b">4.2 创建线程
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#3-%e4%ba%86%e8%a7%a3%e7%ba%bf%e7%a8%8b">3. 了解线程
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%b5%8b%e8%af%95">测试
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#31-%e5%ae%9e%e7%8e%b0%e6%b5%81%e7%a8%8b">3.1 实现流程
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e8%8e%b7%e5%8f%96%e7%ba%bf%e7%a8%8b-id">获取线程 ID
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#32-%e4%b8%a4%e4%b8%aa%e8%a7%92%e5%ba%a6">3.2 两个角度
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#43-%e7%ad%89%e5%be%85%e7%ba%bf%e7%a8%8b">4.3 等待线程
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#33-%e8%bf%9b%e7%a8%8b%e5%92%8c%e7%ba%bf%e7%a8%8b%e8%b5%84%e6%ba%90%e5%85%b1%e4%ba%ab">3.3 进程和线程资源共享
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%b5%8b%e8%af%95-1">测试 1
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#4-%e7%ba%bf%e7%a8%8b%e6%8e%a7%e5%88%b6">4. 线程控制
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%b5%8b%e8%af%95-2">测试 2
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#41-%e7%ba%bf%e7%a8%8b%e5%ba%93">4.1 线程库
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#44-%e7%bb%88%e6%ad%a2%e7%ba%bf%e7%a8%8b">4.4 终止线程
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#posix-%e7%ba%bf%e7%a8%8b%e5%ba%93">POSIX 线程库
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#return-%e7%bb%88%e6%ad%a2%e7%ba%bf%e7%a8%8b">return 终止线程
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#42-%e5%88%9b%e5%bb%ba%e7%ba%bf%e7%a8%8b">4.2 创建线程
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#pthread_exit-%e5%87%bd%e6%95%b0%e7%bb%88%e6%ad%a2%e7%ba%bf%e7%a8%8b">pthread_exit 函数终止线程
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%b5%8b%e8%af%95">测试
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#pthread_cancel-%e5%87%bd%e6%95%b0%e7%bb%88%e6%ad%a2%e7%ba%bf%e7%a8%8b">pthread_cancel 函数终止线程
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e8%8e%b7%e5%8f%96%e7%ba%bf%e7%a8%8b-id">获取线程 ID
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e8%a1%a5%e5%85%85">补充
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#43-%e7%ad%89%e5%be%85%e7%ba%bf%e7%a8%8b">4.3 等待线程
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%8f%96%e6%b6%88%e7%ba%bf%e7%a8%8b%e7%9a%84%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9">取消线程的注意事项
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%b5%8b%e8%af%95-1">测试 1
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#pthread-%e5%ba%93%e7%9b%b8%e5%85%b3">pthread 库相关
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%b5%8b%e8%af%95-2">测试 2
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e8%bf%9b%e7%a8%8b%e6%9b%bf%e6%8d%a2%e9%80%a0%e6%88%90%e7%9a%84%e5%bd%b1%e5%93%8d">进程替换造成的影响
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#44-%e7%bb%88%e6%ad%a2%e7%ba%bf%e7%a8%8b">4.4 终止线程
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%af%84%e5%ad%98%e5%99%a8">寄存器
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#return-%e7%bb%88%e6%ad%a2%e7%ba%bf%e7%a8%8b">return 终止线程
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#45-%e7%ba%bf%e7%a8%8b%e5%88%86%e7%a6%bb">4.5 线程分离
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#pthread_exit-%e5%87%bd%e6%95%b0%e7%bb%88%e6%ad%a2%e7%ba%bf%e7%a8%8b">pthread_exit 函数终止线程
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#pthread_detach-%e5%87%bd%e6%95%b0%e5%88%86%e7%a6%bb%e7%ba%bf%e7%a8%8b">pthread_detach 函数分离线程
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#pthread_cancel-%e5%87%bd%e6%95%b0%e7%bb%88%e6%ad%a2%e7%ba%bf%e7%a8%8b">pthread_cancel 函数终止线程
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#__thread">__thread
-        </a>
-      </li></ul><ul>
-      <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#51-%e7%ba%bf%e7%a8%8b%e5%85%b1%e4%ba%ab%e8%bf%9b%e7%a8%8b%e7%9a%84%e8%b5%84%e6%ba%90">5.1 线程共享进程的资源
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e8%a1%a5%e5%85%85">补充
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e8%a1%a5%e5%85%85-1">补充
+        <a class="ltr:pl-12 rtl:pr-12 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%8f%96%e6%b6%88%e7%ba%bf%e7%a8%8b%e7%9a%84%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9">取消线程的注意事项
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%b0%8f%e7%bb%93">小结
+        <a class="ltr:pl-12 rtl:pr-12 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#pthread-%e5%ba%93%e7%9b%b8%e5%85%b3">pthread 库相关
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#52-%e7%ba%bf%e7%a8%8b%e7%9a%84%e4%bc%98%e7%82%b9">5.2 线程的优点
+        <a class="ltr:pl-12 rtl:pr-12 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e8%bf%9b%e7%a8%8b%e6%9b%bf%e6%8d%a2%e9%80%a0%e6%88%90%e7%9a%84%e5%bd%b1%e5%93%8d">进程替换造成的影响
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#53-%e7%ba%bf%e7%a8%8b%e7%9a%84%e7%bc%ba%e7%82%b9">5.3 线程的缺点
+        <a class="ltr:pl-12 rtl:pr-12 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%af%84%e5%ad%98%e5%99%a8">寄存器
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#54-%e7%ba%bf%e7%a8%8b%e5%bc%82%e5%b8%b8">5.4 线程异常
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#45-%e7%ba%bf%e7%a8%8b%e5%88%86%e7%a6%bb">4.5 线程分离
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#55-%e7%ba%bf%e7%a8%8b%e7%9a%84%e4%bd%9c%e7%94%a8">5.5 线程的作用
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#pthread_detach-%e5%87%bd%e6%95%b0%e5%88%86%e7%a6%bb%e7%ba%bf%e7%a8%8b">pthread_detach 函数分离线程
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-12 rtl:pr-12 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#__thread">__thread
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#5-%e7%90%86%e8%a7%a3%e7%ba%bf%e7%a8%8b">5. 理解线程
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#51-%e7%ba%bf%e7%a8%8b%e5%85%b1%e4%ba%ab%e8%bf%9b%e7%a8%8b%e7%9a%84%e8%b5%84%e6%ba%90">5.1 线程共享进程的资源
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e8%a1%a5%e5%85%85-1">补充
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%b0%8f%e7%bb%93">小结
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#52-%e7%ba%bf%e7%a8%8b%e7%9a%84%e4%bc%98%e7%82%b9">5.2 线程的优点
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#53-%e7%ba%bf%e7%a8%8b%e7%9a%84%e7%bc%ba%e7%82%b9">5.3 线程的缺点
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#54-%e7%ba%bf%e7%a8%8b%e5%bc%82%e5%b8%b8">5.4 线程异常
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#55-%e7%ba%bf%e7%a8%8b%e7%9a%84%e4%bd%9c%e7%94%a8">5.5 线程的作用
         </a>
       </li></ul>
       <div class="mt-8 border-t bg-white pt-8 shadow-[0_-12px_16px_white] dark:bg-dark dark:shadow-[0_-12px_16px_#111] sticky bottom-0 flex flex-col items-start gap-2 pb-8 dark:border-neutral-800 contrast-more:border-t contrast-more:border-neutral-400 contrast-more:shadow-none contrast-more:dark:border-neutral-400">
@@ -951,14 +917,15 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
         <h1 class="text-center mt-2 text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100">线程概念与控制</h1>
         <div class="mb-16"></div>
         <div class="content">
-          <h1>1. 基础概念</h1><p>首先要说明，前主要阐述与 Linux 线程相关的（前导）概念，只有了解了 Linux 实现线程的基本原理，才能理解 Linux 中的线程。</p>
-<h2>1.1 Linux 线程概念<span class="absolute -mt-20" id="11-linux-线程概念"></span>
-    <a href="#11-linux-%e7%ba%bf%e7%a8%8b%e6%a6%82%e5%bf%b5" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>==线程在进程的内部执行，是操作系统调度和执行的基本单位。==在 Linux 中线程也被称之为轻量级进程。在 Linux 内核中（注意是 Linux），并没有线程的概念，它把所有的线程以统一的方式当做进程实现并管理。因此，Linux 内核中并未给进程单独提供特殊的系统调用，也没有为线程实现特定的内核数据结构，自然也就没有为线程提供单独的调度策略。在 Linux 操作系统中，线程与其他进程共享部分资源。</p>
+          <h2>1. 基础概念<span class="absolute -mt-20" id="1-基础概念"></span>
+    <a href="#1-%e5%9f%ba%e7%a1%80%e6%a6%82%e5%bf%b5" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>首先要说明，前主要阐述与 Linux 线程相关的（前导）概念，只有了解了 Linux 实现线程的基本原理，才能理解 Linux 中的线程。</p>
+<h3>1.1 Linux 线程概念<span class="absolute -mt-20" id="11-linux-线程概念"></span>
+    <a href="#11-linux-%e7%ba%bf%e7%a8%8b%e6%a6%82%e5%bf%b5" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p><mark>线程在进程的内部执行，是操作系统调度和执行的基本单位。</mark>在 Linux 中线程也被称之为轻量级进程。在 Linux 内核中（注意是 Linux），并没有线程的概念，它把所有的线程以统一的方式当做进程实现并管理。因此，Linux 内核中并未给进程单独提供特殊的系统调用，也没有为线程实现特定的内核数据结构，自然也就没有为线程提供单独的调度策略。在 Linux 操作系统中，线程与其他进程共享部分资源。</p>
 <blockquote>
 <p>由于线程是属于操作系统的概念，因此线程的实现方式取决于具体的系统，如 Windows 系统内核就单独为线程提供了系统调用和专门管理线程的调度策略。</p>
 <p>线程、thread、执行流，都是我们对代码被执行的情况形象的理解，执行流就像公路，有通往不同目的地的分叉路，有让车辆并驾齐驱的多车道。代码被执行，就是要完成某件事，而完成某件事的关键在于 CPU 的资源如此有限，如何通过不同的策略让代码更高效地被执行，同时保证数据的正确性。</p>
 </blockquote>
-<p>如上所说，轻量级进程（LWP，Lightweight Processes）是 Linux 中线程的别名，也就是说，Linux 中的线程是通过进程模拟实现的，因此它是内核线程的抽象，线程是我们从操作系统层面对它形象的理解。==线程是建立在内核之上并由内核支持的用户线程，==每一个轻量级进程都与一个特定的内核线程关联，每个 LWP 都可以作为独立单元由内核独立调度。</p>
+<p>如上所说，轻量级进程（LWP，Lightweight Processes）是 Linux 中线程的别名，也就是说，Linux 中的线程是通过进程模拟实现的，因此它是内核线程的抽象，线程是我们从操作系统层面对它形象的理解。<mark>线程是建立在内核之上并由内核支持的用户线程，</mark>每一个轻量级进程都与一个特定的内核线程关联，每个 LWP 都可以作为独立单元由内核独立调度。</p>
 <blockquote>
 <p>存疑：</p>
 <ol>
@@ -968,22 +935,60 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
 <li>Linux 中线程和进程的区别？（常见面试题）</li>
 </ol>
 </blockquote>
-<h2>1.2 多线程概念<span class="absolute -mt-20" id="12-多线程概念"></span>
-    <a href="#12-%e5%a4%9a%e7%ba%bf%e7%a8%8b%e6%a6%82%e5%bf%b5" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>在 Linux 中，多线程指的是在一个进程中同时运行多个线程（这是硬件支持的）。线程是操作系统能够进行运算调度的最小单位，它被包含在进程之中，是进程中的实际运作单位。每个线程都有自己的程序计数器、寄存器集合和栈，但是它们共享同一进程的内存空间和其他资源。</p>
+<h3>1.2 多线程概念<span class="absolute -mt-20" id="12-多线程概念"></span>
+    <a href="#12-%e5%a4%9a%e7%ba%bf%e7%a8%8b%e6%a6%82%e5%bf%b5" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>在 Linux 中，多线程指的是在一个进程中同时运行多个线程（这是硬件支持的）。线程是操作系统能够进行运算调度的最小单位，它被包含在进程之中，是进程中的实际运作单位。每个线程都有自己的程序计数器、寄存器集合和栈，但是它们共享同一进程的内存空间和其他资源。</p>
 <p>多线程可以让程序在同一时间执行多个任务，提高程序的并发性和响应性。例如，在一个文本编辑器中，一个线程可以用来处理用户输入，另一个线程可以用来进行后台拼写检查。</p>
-<h2>1.3 主线程和其他线程<span class="absolute -mt-20" id="13-主线程和其他线程"></span>
-    <a href="#13-%e4%b8%bb%e7%ba%bf%e7%a8%8b%e5%92%8c%e5%85%b6%e4%bb%96%e7%ba%bf%e7%a8%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><blockquote>
+<h3>1.3 主线程和其他线程<span class="absolute -mt-20" id="13-主线程和其他线程"></span>
+    <a href="#13-%e4%b8%bb%e7%ba%bf%e7%a8%8b%e5%92%8c%e5%85%b6%e4%bb%96%e7%ba%bf%e7%a8%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><blockquote>
 <p>区别内核线程和主线程：</p>
 <p>内核线程（kernel-level threads）是由操作系统内核管理的线程，它只运行在内核态，不受用户态上下文的拖累。它只能由内核管理并像普通进程一样被调度。每一个轻量级进程都与一个特定的内核线程关联，这样，每个 LWP 都可以作为独立单元由内核独立调度。这里的内核线程不是主线程，而是与轻量级进程关联的特定内核线程。在这里并不对此讨论，只要知道每个线程都有一个在内核中的调度者即可。</p>
 </blockquote>
 <p>在多线程中，线程分为主线程和其他线程。主线程的特殊之处在于它在程序中扮演的角色。它是程序启动时创建的第一个线程，通常用于执行程序的主要控制流程，并负责协调程序的结束。在许多语言中，main 函数是程序的入口，main 函数对应的执行流就是主线程。</p>
 <p>实际上，在学习进程时，我们所说的进程就是主线程，因为整个进程内没有其他线程。</p>
-<h1>2. 线程资源相关数据结构</h1><h2>2.1 vm_area_struct 结构体<span class="absolute -mt-20" id="21-vm_area_struct-结构体"></span>
-    <a href="#21-vm_area_struct-%e7%bb%93%e6%9e%84%e4%bd%93" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>vm_area_struct 是一个结构体，它表示进程使用的连续虚拟地址空间区域，保存着进程地址空间的信息。一个进程使用多个 vm_area_struct 结构来分别表示不同类型的虚拟内存区域，以满足不同类型数据的存储需求，包括虚拟内存的起始和结束地址，以及内存的访问权限等。</p>
+<h2>2. 线程资源相关数据结构<span class="absolute -mt-20" id="2-线程资源相关数据结构"></span>
+    <a href="#2-%e7%ba%bf%e7%a8%8b%e8%b5%84%e6%ba%90%e7%9b%b8%e5%85%b3%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>2.1 vm_area_struct 结构体<span class="absolute -mt-20" id="21-vm_area_struct-结构体"></span>
+    <a href="#21-vm_area_struct-%e7%bb%93%e6%9e%84%e4%bd%93" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>vm_area_struct 是一个结构体，它表示进程使用的连续虚拟地址空间区域，保存着进程地址空间的信息。一个进程使用多个 vm_area_struct 结构来分别表示不同类型的虚拟内存区域，以满足不同类型数据的存储需求，包括虚拟内存的起始和结束地址，以及内存的访问权限等。</p>
 <p>vm_area_struct 结构描述了一个给定地址空间中连续区间上的单个内存区域。它可以用来描述进程中的各种内存区域，包括代码区（text）、数据区（data）、堆区（heap）、栈区（stack）和内存映射区（mmap）等。</p>
 <p>在 mm_struct 中有一个指向 vm_area_struct 的指针，用于表示该进程的虚拟内存区域列表。这些 vm_area_struct 结构通过链表连接起来，表示进程的整个虚拟地址空间。</p>
 <p>它的定义如下：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">vm_area_struct</span> <span class="p">{</span>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">vm_area_struct</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">vm_start</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">vm_end</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  
@@ -1009,13 +1014,15 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
 </span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">file</span><span class="o">*</span> <span class="n">vm_file</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">void</span><span class="o">*</span> <span class="n">vm_private_data</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl"><span class="cp">#ifndef CONFIG_MMU
+</span></span><span class="line"><span class="cl"><span class="cp">##ifndef CONFIG_MMU
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>    <span class="k">struct</span> <span class="n">vm_region</span><span class="o">*</span> <span class="n">vm_region</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="cp">#endif
-</span></span></span><span class="line"><span class="cl"><span class="cp">#ifdef CONFIG_NUMA
+</span></span><span class="line"><span class="cl"><span class="cp">##endif
+</span></span></span><span class="line"><span class="cl"><span class="cp">##ifdef CONFIG_NUMA
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>    <span class="k">struct</span> <span class="n">mempolicy</span><span class="o">*</span> <span class="n">vm_policy</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="cp">#endif
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="p">};</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span><span class="line"><span class="cl"><span class="cp">##endif
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="p">};</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1041,16 +1048,16 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
 <p>值得注意的是，Linux 多线程的实现需要链接动态库。</p>
 </blockquote>
 <p>vm_area_struct 维护的是更细小的空间，它是一个双向链表。说明了操作系统可以做到让进程进行资源的粒度划分的，单纯对进程而言，是颗粒度比较大的。例如进程确定某个变量在堆区，那么操作系统会通过这个双向链表找到某个 vm_area_struct 结点，这个结点的成员 start 和 end 限制的空间范围就是某个变量存储的范围。</p>
-<h2>2.2 二级页表<span class="absolute -mt-20" id="22-二级页表"></span>
-    <a href="#22-%e4%ba%8c%e7%ba%a7%e9%a1%b5%e8%a1%a8" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>引入<span class="absolute -mt-20" id="引入"></span>
-    <a href="#%e5%bc%95%e5%85%a5" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><blockquote>
+<h3>2.2 二级页表<span class="absolute -mt-20" id="22-二级页表"></span>
+    <a href="#22-%e4%ba%8c%e7%ba%a7%e9%a1%b5%e8%a1%a8" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><h4>引入<span class="absolute -mt-20" id="引入"></span>
+    <a href="#%e5%bc%95%e5%85%a5" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><blockquote>
 <p>在学习进程时，我们知道页表其实就是一种 key-value 模型，是虚拟地址和物理地址之间的桥梁。32 位系统中一共有$2^{32}$个地址需要被映射，那么页表是如何将这么多虚拟地址映射到物理地址的？（下面以 32 位机器为例）</p>
 </blockquote>
 <p>在磁盘中，程序本质是一个文件，可执行程序在生成时，按照上图中的布局进行编译，即按照进程地址空间方式编译。这样，可执行程序中的区域就被划分成了以 4KB 为单位大小的物理内存区域，它是和上图中的逻辑布局相对应，为了配合语句跳转，页表的大小也被设计为了 4KB。（为什么页表大小是 4KB，稍后会做出解释）</p>
 <p>假设页表的条目（行）的大小是 9 字节（8 字节保存一对保存地址映射的变量，1 字节保存区分权限等级的标记变量），对于$2^{32}$个地址，整个页表的大小约为 36GB，这显然不可能作为页表的存储方式。</p>
 <p>实际上，我们在之前讨论的页表是一个多级结构，从虚拟-&gt;物理映射时（32 位），要经过一级页表和二级页表。在 Linux 中，多级页表用于支持对大地址空间快速、高效的管理。因此，Linux 内核对页表进行了分级。对于 32 位系统中，两级页表已经足够了。但是 64 位需要更多数量的分页级别。为了同时支持适用于 32 位和 64 位的系统，Linux 采用了通用的分页模型，在此不做讨论，是类似的。</p>
-<h3>页帧和页框<span class="absolute -mt-20" id="页帧和页框"></span>
-    <a href="#%e9%a1%b5%e5%b8%a7%e5%92%8c%e9%a1%b5%e6%a1%86" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>页帧和页框是同一个概念，都是指内存区域的划分，而且它们的大小都是 4KB：</p>
+<h4>页帧和页框<span class="absolute -mt-20" id="页帧和页框"></span>
+    <a href="#%e9%a1%b5%e5%b8%a7%e5%92%8c%e9%a1%b5%e6%a1%86" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>页帧和页框是同一个概念，都是指内存区域的划分，而且它们的大小都是 4KB：</p>
 <ul>
 <li>页框/页帧（page frame）是一个固定长度的内存块，是对于内存而言的；</li>
 <li>页（page）是一个固定长度的数据块，是对于磁盘而言的。</li>
@@ -1060,8 +1067,8 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
 <p>值得注意的是，内存中的进程地址空间也被以 4KB 为单位大小划分为不同区域。</p>
 <p>我们通常用一个结构体数组来定义页表，这样便能实现查找的时间复杂度为$O(1)$。</p>
 </blockquote>
-<h3>映射原理<span class="absolute -mt-20" id="映射原理"></span>
-    <a href="#%e6%98%a0%e5%b0%84%e5%8e%9f%e7%90%86" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>对于 32 位机器，虚拟地址到物理地址的转换通常使用两级页表，其中一级页表是一个目录，它不是真正的页表，一级页表充当着索引二级页表的作用。在这种情况下，32 位虚拟地址被分为三部分：前 10 位，中间 10 位和后 12 位：</p>
+<h4>映射原理<span class="absolute -mt-20" id="映射原理"></span>
+    <a href="#%e6%98%a0%e5%b0%84%e5%8e%9f%e7%90%86" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>对于 32 位机器，虚拟地址到物理地址的转换通常使用两级页表，其中一级页表是一个目录，它不是真正的页表，一级页表充当着索引二级页表的作用。在这种情况下，32 位虚拟地址被分为三部分：前 10 位，中间 10 位和后 12 位：</p>
 <ul>
 <li>前 10 位：用于索引页目录表（Page Directory Table），该表包含指向页表（Page Table）的指针。</li>
 <li>中间的 10 位：用于索引页表，保存物理内存中对应页的起始地址。</li>
@@ -1074,21 +1081,22 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
 <p>一级页表必须存在，但是二级页表不一定。原因是操作系统不会全负荷地给每一个进程完整地提供所有空间大小的页表。当进程使用的虚拟空间比较少时，就会少分配一些页表管理内存。但是对于进程而言这是无感知的，因为操作系统会根据情况分配内存，在进程眼中它能使用的空间依然是 4GB，这就好像操作系统给进程画的 4GB 大小的饼，吃完了再申请。实际上并不会真的分配这么多给进程，否则机器内存就不够用了。</p>
 <p>这是结构决定的。一级页表是虚拟内存到物理内存映射的基础，它包含指向二级页表的指针。如果没有一级页表，就无法进行虚拟地址到物理地址的转换。二级页表是可选的，它用于进一步细分虚拟地址空间。在某些情况下，一级页表可能已经足够满足需求，因此不需要使用二级页表。例如，在小型系统中，虚拟地址空间可能不够大，无需使用二级页表进行进一步细分。</p>
 <p>二级页表要需要配合缺页异常才能做到节省内存，进程往往只需将一级页表保持到内存中，二级页表在缺页异常时再分配。</p>
-<h3>缺页异常<span class="absolute -mt-20" id="缺页异常"></span>
-    <a href="#%e7%bc%ba%e9%a1%b5%e5%bc%82%e5%b8%b8" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>缺页异常（Page Fault）是指当软件试图访问已映射在虚拟地址空间中，但是并未被加载在物理内存中的一个分页时，由中央处理器的内存管理单元所发出的中断。这通常发生在虚拟内存系统中，当所需的数据不在物理内存中时，操作系统会将其从辅助存储器（如硬盘）调入物理内存。</p>
+<h4>缺页异常<span class="absolute -mt-20" id="缺页异常"></span>
+    <a href="#%e7%bc%ba%e9%a1%b5%e5%bc%82%e5%b8%b8" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>缺页异常（Page Fault）是指当软件试图访问已映射在虚拟地址空间中，但是并未被加载在物理内存中的一个分页时，由中央处理器的内存管理单元所发出的中断。这通常发生在虚拟内存系统中，当所需的数据不在物理内存中时，操作系统会将其从辅助存储器（如硬盘）调入物理内存。</p>
 <p>缺页异常并不一定是错误。它是一种常见且必要的机制，用于利用虚拟内存来增加程序可用内存空间的操作系统，缺页异常对用户是无感知的。</p>
 <p>原理：</p>
 <p>缺页异常的原理是基于虚拟内存系统的工作原理。虚拟地址空间通常比物理内存空间大得多，这意味着程序可以使用比物理内存更多的内存。当程序访问一个虚拟地址时，操作系统会检查该地址是否已经被映射到物理内存中。如果该地址已经被映射，那么程序可以直接访问物理内存中的数据。但是，如果该地址尚未被映射，那么操作系统就会触发一个缺页异常。</p>
 <p>当缺页异常发生时，操作系统会暂停程序的执行，并将所需的数据从辅助存储器（如硬盘）调入物理内存中。然后，操作系统会更新虚拟地址到物理地址的映射关系，并恢复程序的执行。这样，当程序再次访问该虚拟地址时，它就可以直接访问物理内存中的数据了。</p>
-<h1>3. 了解线程</h1><p>每个进程都有它独立的 PCB，包括父子进程。但是这样有点浪费时间和资源，也会带来系统维护的开销。不恰当但容易理解的话：如果多个进程共享一个进程地址空间，那么这些进程就叫做线程。每个进程的 task_struct 就叫做线程。在同一个虚拟地址空间内，按照某种调度策略，将主进程的资源划分给不同的 task_struct。</p>
+<h2>3. 了解线程<span class="absolute -mt-20" id="3-了解线程"></span>
+    <a href="#3-%e4%ba%86%e8%a7%a3%e7%ba%bf%e7%a8%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>每个进程都有它独立的 PCB，包括父子进程。但是这样有点浪费时间和资源，也会带来系统维护的开销。不恰当但容易理解的话：如果多个进程共享一个进程地址空间，那么这些进程就叫做线程。每个进程的 task_struct 就叫做线程。在同一个虚拟地址空间内，按照某种调度策略，将主进程的资源划分给不同的 task_struct。</p>
 <blockquote>
 <p>因此，在 Linux 内核中，task_struct 不仅用于表示一个进程，还能表示线程。每个进程或线程都有一个对应的 task_struct 实例，其中包含了该进程或线程的许多重要信息。</p>
 </blockquote>
-<h2>3.1 实现流程<span class="absolute -mt-20" id="31-实现流程"></span>
-    <a href="#31-%e5%ae%9e%e7%8e%b0%e6%b5%81%e7%a8%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>在 Linux 内核中，并没有严格地区分进程和线程，而它们也不过是人们取的名字，本质上还是执行指令，完成指派的任务，不同的是执行任务的效率有区别。线程的虚拟地址空间是从进程的地址中划分出来的，且共享页表等内核数据结构，创建线程和创建进程都要创建 task_struct 结构体对象。由于线程存在于进程中，所以把线程叫做“轻量级进程”，因为线程只要直接用进程申请好的资源就行，不用它自己申请，进程（主线程）会帮其他线程管理好自己的资源，线程要做的就是执行主线程指派给它的任务；主线程的主要任务就是管理好它内部的线程，给它指派任务，管理好自己这块进程空间的资源。</p>
+<h3>3.1 实现流程<span class="absolute -mt-20" id="31-实现流程"></span>
+    <a href="#31-%e5%ae%9e%e7%8e%b0%e6%b5%81%e7%a8%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>在 Linux 内核中，并没有严格地区分进程和线程，而它们也不过是人们取的名字，本质上还是执行指令，完成指派的任务，不同的是执行任务的效率有区别。线程的虚拟地址空间是从进程的地址中划分出来的，且共享页表等内核数据结构，创建线程和创建进程都要创建 task_struct 结构体对象。由于线程存在于进程中，所以把线程叫做“轻量级进程”，因为线程只要直接用进程申请好的资源就行，不用它自己申请，进程（主线程）会帮其他线程管理好自己的资源，线程要做的就是执行主线程指派给它的任务；主线程的主要任务就是管理好它内部的线程，给它指派任务，管理好自己这块进程空间的资源。</p>
 <p>CPU 从来不关心执行流是线程还是进程的，它只关心 PCB，CPU 都是以 task_struct 为单位进程调度的（例如进程切换）。</p>
-<h2>3.2 两个角度<span class="absolute -mt-20" id="32-两个角度"></span>
-    <a href="#32-%e4%b8%a4%e4%b8%aa%e8%a7%92%e5%ba%a6" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>可以以两个视角看待进程和线程使用资源的关系：</p>
+<h3>3.2 两个角度<span class="absolute -mt-20" id="32-两个角度"></span>
+    <a href="#32-%e4%b8%a4%e4%b8%aa%e8%a7%92%e5%ba%a6" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>可以以两个视角看待进程和线程使用资源的关系：</p>
 <ul>
 <li>用户角度：进程（主要）=相关数据结构+进程代码和数据。线程的资源不需要重新申请，从进程直接获取资源。</li>
 <li>内核角度：进程是承担分配系统资源的基本实体。进程以进程的身份向操作系统申请资源，线程以线程的身份使用进程的资源，而不需要从操作系统申请获取，进程相当于线程的上级。</li>
@@ -1099,10 +1107,11 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
 <p>Windows 中有真正的线程，它有属于自己的数据结构，因此在 Windows 中线程是有实体的，就像进程一样。</p>
 </blockquote>
 <p>对于单纯程是不矛盾的，相当于没有线程的存在，或者进程内部只有一个线程。对于多线程，就是进程内部含有多个执行流，即前者是后者的子集。</p>
-<h2>3.3 进程和线程资源共享<span class="absolute -mt-20" id="33-进程和线程资源共享"></span>
-    <a href="#33-%e8%bf%9b%e7%a8%8b%e5%92%8c%e7%ba%bf%e7%a8%8b%e8%b5%84%e6%ba%90%e5%85%b1%e4%ba%ab" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>在 Linux 中，线程共享的环境包括：进程代码段、进程的公有数据（利用这些共享的数据，线程很容易的实现相互之间的通讯）、进程打开的文件描述符、信号的处理器、进程的当前目录和进程用户 ID 与进程组 ID。</p>
-<h1>4. 线程控制</h1><h2>4.1 线程库<span class="absolute -mt-20" id="41-线程库"></span>
-    <a href="#41-%e7%ba%bf%e7%a8%8b%e5%ba%93" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>Linux 并不像 Windows 操作系统一样使用由内核提供的线程库控制线程，自然不能通过系统调用创建线程或多线程，Linux 使用轻量级进程的概念统一管理进程和线程，它不提供线程专用的接口，只能提供轻量级进程的接口。</p>
+<h3>3.3 进程和线程资源共享<span class="absolute -mt-20" id="33-进程和线程资源共享"></span>
+    <a href="#33-%e8%bf%9b%e7%a8%8b%e5%92%8c%e7%ba%bf%e7%a8%8b%e8%b5%84%e6%ba%90%e5%85%b1%e4%ba%ab" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>在 Linux 中，线程共享的环境包括：进程代码段、进程的公有数据（利用这些共享的数据，线程很容易的实现相互之间的通讯）、进程打开的文件描述符、信号的处理器、进程的当前目录和进程用户 ID 与进程组 ID。</p>
+<h2>4. 线程控制<span class="absolute -mt-20" id="4-线程控制"></span>
+    <a href="#4-%e7%ba%bf%e7%a8%8b%e6%8e%a7%e5%88%b6" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>4.1 线程库<span class="absolute -mt-20" id="41-线程库"></span>
+    <a href="#41-%e7%ba%bf%e7%a8%8b%e5%ba%93" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>Linux 并不像 Windows 操作系统一样使用由内核提供的线程库控制线程，自然不能通过系统调用创建线程或多线程，Linux 使用轻量级进程的概念统一管理进程和线程，它不提供线程专用的接口，只能提供轻量级进程的接口。</p>
 <p>但是作为用户（程序员），从操作系统知识的完整度层面上，我们要学习线程的概念，但是这又和 Linux 的概念不太统一，理解和控制线程也就有了困难。所以 Linux 作者们考虑到用户的学习成本（Linux 的生存），做了一个违背祖宗的决定：在用户层实现了一台用户层多线程方案，以（动态或静态）库的方式开放接口供用户创建线程。</p>
 <blockquote>
 <p>历史：</p>
@@ -1110,8 +1119,8 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
 <p>相对于 LinuxThreads，NPTL 的主要优势在于：内核线程不再是一个进程，这就避免了很多进程模拟内核线程导致的语义问题；抛弃了管理线程，终止线程、回收线程堆栈等工作可以由内核来完成；由于不存在管理线程，所以一个进程的线程可以运行在不同的 CPU 上，从而充分利用了多处理器系统的优势；线程的同步由内核来完成，属于不同进程的线程之间也能共享互斥锁，因此可实现跨进程的线程同步。</p>
 <p>因此，Linux 的线程库并不是内核直接提供的，而是由 glibc 库提供，并与内核紧密协作，以便利用内核提供的功能（例如调度和同步）来实现线程。这样，线程库可以在用户空间中实现，又能够充分利用内核提供的功能，这样可以提高灵活性和可移植性，并且可以减少内核的复杂性。</p>
 </blockquote>
-<h3>POSIX 线程库<span class="absolute -mt-20" id="posix-线程库"></span>
-    <a href="#posix-%e7%ba%bf%e7%a8%8b%e5%ba%93" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>pthread，即 POSIX 线程（POSIX threads），它是一种跨平台的线程标准，定义了创建和操作线程的一组 API，是用户层的原生线程库。在 Linux 系统上，pthread 库是由 glibc 库提供的。</p>
+<h4>POSIX 线程库<span class="absolute -mt-20" id="posix-线程库"></span>
+    <a href="#posix-%e7%ba%bf%e7%a8%8b%e5%ba%93" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>pthread，即 POSIX 线程（POSIX threads），它是一种跨平台的线程标准，定义了创建和操作线程的一组 API，是用户层的原生线程库。在 Linux 系统上，pthread 库是由 glibc 库提供的。</p>
 <blockquote>
 <p>用户层/应用层是什么层？</p>
 </blockquote>
@@ -1131,12 +1140,22 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
 <p>pthread 库提供了许多函数来管理线程，包括创建、终止、同步和调度等。例如，可以使用 <code>pthread_create</code> 函数来创建一个新线程，使用 <code>pthread_join</code> 函数来等待一个线程结束，使用 <code>pthread_mutex_lock</code> 和 <code>pthread_mutex_unlock</code> 函数来实现互斥锁，以保护关键区域。</p>
 <p>此外，pthread 库还提供了一些高级特性，例如条件变量、读写锁和屏障等。这些特性可以帮助程序员更好地管理多线程程序。</p>
 <p>POSIX 线程库（pthread 库）通常是作为操作系统的 C 库（例如 Linux 系统上的 glibc 库）的一部分提供的。这些 C 库既提供静态库版本，也提供动态库版本。通常情况下，程序会链接 C 库的动态库版本，这样可以减小程序的大小，并且可以在运行时共享动态库。但是，在某些情况下，需要链接静态库版本，以便生成独立的可执行文件。</p>
-<h2>4.2 创建线程<span class="absolute -mt-20" id="42-创建线程"></span>
-    <a href="#42-%e5%88%9b%e5%bb%ba%e7%ba%bf%e7%a8%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>pthread_create 用于在进程中创建一个新线程。原型：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;pthread.h&gt;</span><span class="cp">
+<h3>4.2 创建线程<span class="absolute -mt-20" id="42-创建线程"></span>
+    <a href="#42-%e5%88%9b%e5%bb%ba%e7%ba%bf%e7%a8%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>pthread_create 用于在进程中创建一个新线程。原型：</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">##include &lt;pthread.h&gt;
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">pthread_create</span><span class="p">(</span><span class="kt">pthread_t</span> <span class="o">*</span><span class="kr">thread</span><span class="p">,</span> <span class="k">const</span> <span class="kt">pthread_attr_t</span> <span class="o">*</span><span class="n">attr</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                   <span class="kt">void</span> <span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="n">start_routine</span><span class="p">)</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">),</span> <span class="kt">void</span> <span class="o">*</span><span class="n">arg</span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span><span class="line"><span class="cl">                   <span class="kt">void</span> <span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="n">start_routine</span><span class="p">)</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">),</span> <span class="kt">void</span> <span class="o">*</span><span class="n">arg</span><span class="p">);</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1168,8 +1187,16 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
 <p>新线程通过调用 start_routine 开始执行，arg 作为 start_routine 的唯一参数传递。如果 pthread_create 成功完成，thread 将包含创建的线程的 ID。如果失败，则不会创建新线程。</p>
 <blockquote>
 <p>通过手册 man pthread_create 查看，有非常重要的一句话：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">DESCRIPTION
-</span></span><span class="line"><span class="cl">      The  pthread_create()  function  starts  a  new  thread  in the calling process. </span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">DESCRIPTION
+</span></span><span class="line"><span class="cl">      The  pthread_create()  function  starts  a  new  thread  in the calling process. </span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1180,13 +1207,53 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
   </div>
 </div>
 </blockquote>
-<h3>测试<span class="absolute -mt-20" id="测试"></span>
-    <a href="#%e6%b5%8b%e8%af%95" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>如之前所说，主线程一般是 main 函数启动的进程，因此主线程被叫做 main 线程。</p>
+<h4>测试<span class="absolute -mt-20" id="测试"></span>
+    <a href="#%e6%b5%8b%e8%af%95" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>如之前所说，主线程一般是 main 函数启动的进程，因此主线程被叫做 main 线程。</p>
 <p>下面的代码通过主线程和它创建的 5 个线程一起打印进程的 PID：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;pthread.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;iostream&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;pthread.h&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;unistd.h&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;string&gt;
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">Print</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">name</span><span class="p">)</span>
@@ -1218,7 +1285,9 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
 </span></span><span class="line"><span class="cl">		<span class="n">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1236,8 +1305,16 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
 <img src="线程概念与控制.IMG/image-20230405234616852.png" alt="image-20230405234616852" style="zoom:40%;" />
 <p>分别用 g++的 -fpermissive 和 -lpthread 两个选项，以表示忽略转换风险和链接动态版本的线程库。</p>
 <p>可以用 ps 指令查看当前系统内的线程信息：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">ps -aL <span class="p">|</span> head -1 <span class="o">&amp;&amp;</span> ps -aL <span class="p">|</span> grep threadTest
-</span></span><span class="line"><span class="cl"><span class="c1"># -L 选项表示查看每个进程内的线程（轻量级进程，Light）。</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">ps -aL <span class="p">|</span> head -1 <span class="o">&amp;&amp;</span> ps -aL <span class="p">|</span> grep threadTest
+</span></span><span class="line"><span class="cl"><span class="c1">## -L 选项表示查看每个进程内的线程（轻量级进程，Light）。</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1251,14 +1328,21 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
 <p>可以看到，当所有线程被调度执行打印任务时，它们的 PID 虽然相同（实际上它们的 PPID 也相同），但是它们的 LWP 不同。</p>
 <p>LWP（Light Weight Process）是轻量级进程的 ID。在 Linux 中，用户层的线程与内核的 LWP 是一一对应的，实际上操作系统调度时采用的是 LWP，而非 PID，只不过我们之前接触到的进程只有它自己一个主线程，所以 PID 和 LWP 相等，因此使用 PID 和 LWP 调度单线程进程是等价的。</p>
 <p>而且当终止进程时，所有线程也会随之退出。验证了线程的直接管理者是进程。</p>
-<h3>获取线程 ID<span class="absolute -mt-20" id="获取线程-id"></span>
-    <a href="#%e8%8e%b7%e5%8f%96%e7%ba%bf%e7%a8%8b-id" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>获取线程 ID 的方式有两种：</p>
+<h4>获取线程 ID<span class="absolute -mt-20" id="获取线程-id"></span>
+    <a href="#%e8%8e%b7%e5%8f%96%e7%ba%bf%e7%a8%8b-id" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>获取线程 ID 的方式有两种：</p>
 <ol>
 <li>pthread_self 函数：返回调用线程的 ID。</li>
 <li>输出型参数：pthread_create 第三个参数返回的值。</li>
 </ol>
 <p>pthread_self 原型：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">pthread_t</span> <span class="nf">pthread_self</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">pthread_t</span> <span class="nf">pthread_self</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1269,7 +1353,42 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
   </div>
 </div>
 <p>分别通过两种方式打印线程 ID：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">Print</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">name</span><span class="p">)</span>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">Print</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">name</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">name</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;, PID: &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">getpid</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;, PPID: &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">getppid</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;, TID: &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">pthread_self</span><span class="p">()</span> <span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
@@ -1299,7 +1418,9 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
 </span></span><span class="line"><span class="cl">		<span class="n">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1313,10 +1434,17 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
 <p>可以看到，两种方式打印的线程 ID 的值都是相同的。</p>
 <p>值得注意的是，通过调用 pthread_self 获取到的线程 TID 是不同于通过 ps 指令查看到的线程 LWP，虽然它们都是线程 ID，但是 pthread_self 返回的线程 ID 是 POSIX 描述的线程 ID，而不是内核真正的线程 ID。它相对于进程中各个线程之间的标识号，对于这个进程内是唯一的，而不同进程中，每个线程的 pthread_self 可能返回是一样的。</p>
 <p>也就是说，pthread_self 函数获得的是线程库提供的线程 ID，而 LWP 是内核中轻量级进程 ID，它们是一对一的关系。</p>
-<h2>4.3 等待线程<span class="absolute -mt-20" id="43-等待线程"></span>
-    <a href="#43-%e7%ad%89%e5%be%85%e7%ba%bf%e7%a8%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>在 Linux 中，线程在进程内部实现，虽然线程能直接使用进程共享的部分资源，但是如果进程作为资源的管理者不回收线程的资源，也会造成类似僵尸进程的问题，导致线程的资源不能被释放，也不能被复用，即内存泄漏。</p>
+<h3>4.3 等待线程<span class="absolute -mt-20" id="43-等待线程"></span>
+    <a href="#43-%e7%ad%89%e5%be%85%e7%ba%bf%e7%a8%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>在 Linux 中，线程在进程内部实现，虽然线程能直接使用进程共享的部分资源，但是如果进程作为资源的管理者不回收线程的资源，也会造成类似僵尸进程的问题，导致线程的资源不能被释放，也不能被复用，即内存泄漏。</p>
 <p>pthread_join 等待目标线程终止。原型：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">pthread_join</span><span class="p">(</span><span class="kt">pthread_t</span> <span class="kr">thread</span><span class="p">,</span> <span class="kt">void</span> <span class="o">**</span><span class="n">retval</span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">pthread_join</span><span class="p">(</span><span class="kt">pthread_t</span> <span class="kr">thread</span><span class="p">,</span> <span class="kt">void</span> <span class="o">**</span><span class="n">retval</span><span class="p">);</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1350,9 +1478,36 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
 </ul>
 </li>
 </ul>
-<h3>测试 1<span class="absolute -mt-20" id="测试-1"></span>
-    <a href="#%e6%b5%8b%e8%af%95-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>下面通过 pthread_create 创建一个线程，让线程执行完打印任务后，主线程用 pthread_join 等待进程：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span><span class="o">*</span> <span class="nf">threadMission</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">args</span><span class="p">)</span> <span class="c1">// 参数就是传入的线程名字
+<h4>测试 1<span class="absolute -mt-20" id="测试-1"></span>
+    <a href="#%e6%b5%8b%e8%af%95-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>下面通过 pthread_create 创建一个线程，让线程执行完打印任务后，主线程用 pthread_join 等待进程：</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span><span class="o">*</span> <span class="nf">threadMission</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">args</span><span class="p">)</span> <span class="c1">// 参数就是传入的线程名字
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="k">const</span> <span class="n">string</span> <span class="n">name</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">args</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
@@ -1374,7 +1529,9 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;主线程等待目标进程成功，已退出&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1386,12 +1543,33 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
 </div>
 <img src="线程概念与控制.IMG/image-20230406104435461.png" alt="image-20230406104435461" style="zoom:40%;" />
 <p>主线程在等待目标线程退出时，主线程会等待目标线程执行完毕，否则会一直阻塞式地等待，就像进程使用 wait 阻塞式等待目标进程一样。</p>
-<h3>测试 2<span class="absolute -mt-20" id="测试-2"></span>
-    <a href="#%e6%b5%8b%e8%af%95-2" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><blockquote>
+<h4>测试 2<span class="absolute -mt-20" id="测试-2"></span>
+    <a href="#%e6%b5%8b%e8%af%95-2" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><blockquote>
 <p>对于 pthread_create 第三个参数（线程函数），是进程指派给线程的任务，它是一个回调函数，那么它的返回值是返回给谁呢？</p>
 </blockquote>
 <p>这个函数的返回值可以通过 pthread_join 函数的第二个参数来获取，它是一个输出型参数。当你调用 pthread_join 来等待线程退出时，这个返回值会被存储在 pthread_join 的第二个参数所指向的内存中。</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span><span class="o">*</span> <span class="nf">threadMission</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">args</span><span class="p">)</span>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span><span class="o">*</span> <span class="nf">threadMission</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">args</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// ... 同上
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">return</span> <span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="mi">10</span><span class="p">;</span>
@@ -1407,7 +1585,9 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
 </span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;主线程等待目标进程成功，已退出，退出信息：&#34;</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">ret</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1426,17 +1606,47 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
 <p>通过上面的代码可以验证，线程函数的返回值一般会返回给主线程，主线程通过 pthread_join 的第二个参数获取。</p>
 <p>另外，void* 的返回值甚至能支持返回一个数组：</p>
 <img src="线程概念与控制.IMG/image-20230406112425836.png" alt="image-20230406112425836" style="zoom:40%;" />
-<h2>4.4 终止线程<span class="absolute -mt-20" id="44-终止线程"></span>
-    <a href="#44-%e7%bb%88%e6%ad%a2%e7%ba%bf%e7%a8%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>在 Linux 中，有几种方法可以终止线程：</p>
+<h3>4.4 终止线程<span class="absolute -mt-20" id="44-终止线程"></span>
+    <a href="#44-%e7%bb%88%e6%ad%a2%e7%ba%bf%e7%a8%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>在 Linux 中，有几种方法可以终止线程：</p>
 <ul>
 <li>线程执行 return 语句，这与 main 函数结束类似。</li>
 <li>线程调用 pthread_exit 函数，终止自己，这与调用 exit 返回类似。</li>
 <li>目标线程被另一个线程通过 pthread_cancel 函数取消，这与通过 kill 函数发送 SIGKILL 信号类似。</li>
 </ul>
 <p>如果进程终止，那么进程内部所有线程也会终止。这是可以理解的，线程的资源来自进程，如果资源的管理者都终止了，线程不退出的话也不合理。</p>
-<h3>return 终止线程<span class="absolute -mt-20" id="return-终止线程"></span>
-    <a href="#return-%e7%bb%88%e6%ad%a2%e7%ba%bf%e7%a8%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>下面将在主线程内每隔 5 秒创建一个线程，在线程函数中 3 秒后退出：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span><span class="o">*</span> <span class="nf">threadMission</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">agrs</span><span class="p">)</span>
+<h4>return 终止线程<span class="absolute -mt-20" id="return-终止线程"></span>
+    <a href="#return-%e7%bb%88%e6%ad%a2%e7%ba%bf%e7%a8%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>下面将在主线程内每隔 5 秒创建一个线程，在线程函数中 3 秒后退出：</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span><span class="o">*</span> <span class="nf">threadMission</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">agrs</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="k">const</span> <span class="n">string</span> <span class="n">name</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">agrs</span><span class="p">;</span>
@@ -1461,7 +1671,9 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>	
 </span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;主线程退出！&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1473,7 +1685,14 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
 </div>
 <img src="线程概念与控制.IMG/image-20230406125307488.png" alt="image-20230406125307488" style="zoom:40%;" />
 <p>每隔五秒创建线程，线程 3 秒后退出，是为了让结果更清晰，还能用含有 ps 指令的脚本循环打印线程信息：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="k">while</span> :<span class="p">;</span> <span class="k">do</span> ps -aL <span class="p">|</span> head -1 <span class="o">&amp;&amp;</span> ps -aL <span class="p">|</span> grep threadTest <span class="p">|</span> grep -v grep<span class="p">;</span><span class="nb">echo</span> <span class="s2">&#34;#&#34;</span><span class="p">;</span>sleep 3<span class="p">;</span><span class="k">done</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="k">while</span> :<span class="p">;</span> <span class="k">do</span> ps -aL <span class="p">|</span> head -1 <span class="o">&amp;&amp;</span> ps -aL <span class="p">|</span> grep threadTest <span class="p">|</span> grep -v grep<span class="p">;</span><span class="nb">echo</span> <span class="s2">&#34;#&#34;</span><span class="p">;</span>sleep 3<span class="p">;</span><span class="k">done</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1485,9 +1704,16 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
 </div>
 <img src="线程概念与控制.IMG/屏幕录制 2023-04-06 13.37.30.gif" alt="屏幕录制 2023-04-06 13.37.30" style="zoom:40%;" />
 <p>可见，LWP 为 3163 的线程始终存在，说明它就是主线程，其 LWP 和 进程的 PID 是相同的，并且当所有线程退出以后，主线程也会随之退出。</p>
-<h3>pthread_exit 函数终止线程<span class="absolute -mt-20" id="pthread_exit-函数终止线程"></span>
-    <a href="#pthread_exit-%e5%87%bd%e6%95%b0%e7%bb%88%e6%ad%a2%e7%ba%bf%e7%a8%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>pthread_exit 函数的功能是终止指定线程。原型：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">pthread_exit</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">retval</span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+<h4>pthread_exit 函数终止线程<span class="absolute -mt-20" id="pthread_exit-函数终止线程"></span>
+    <a href="#pthread_exit-%e5%87%bd%e6%95%b0%e7%bb%88%e6%ad%a2%e7%ba%bf%e7%a8%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>pthread_exit 函数的功能是终止指定线程。原型：</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">pthread_exit</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">retval</span><span class="p">);</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1512,7 +1738,39 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
 <p>该函数无返回值，跟进程一样，线程结束的时候无法返回它的调用者（自身）。
 pthread_exit 或者 return 返回的指针所指向的内存单元必须是全局的或者是用 malloc 分配的，不能在线程函数的栈上分配，因为当其他线程得到这个返回指针时，线程函数已经退出了。</p>
 <p>创建线程后，在线程内部调用 pthread_exit 函数终止进程：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span><span class="o">*</span> <span class="nf">threadMission</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">agrs</span><span class="p">)</span>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span><span class="o">*</span> <span class="nf">threadMission</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">agrs</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="k">const</span> <span class="n">string</span> <span class="n">name</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">agrs</span><span class="p">;</span>
@@ -1539,7 +1797,9 @@ pthread_exit 或者 return 返回的指针所指向的内存单元必须是全�
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>	
 </span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;主线程退出！&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1558,12 +1818,24 @@ pthread_exit 或者 return 返回的指针所指向的内存单元必须是全�
 <p>补充：C 语言风格的强制类型转换只改变了值的类型，而不改变它的左值或右值属性。</p>
 </blockquote>
 <p>如果在线程中使用 exit 退出呢？</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span><span class="o">*</span> <span class="nf">threadMission</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">agrs</span><span class="p">)</span>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span><span class="o">*</span> <span class="nf">threadMission</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">agrs</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="c1">// ... 同上
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//pthread_exit((void*)1234); // 线程终止
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">exit</span><span class="p">(</span><span class="mi">1234</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1575,9 +1847,16 @@ pthread_exit 或者 return 返回的指针所指向的内存单元必须是全�
 </div>
 <img src="线程概念与控制.IMG/image-20230406140157143.png" alt="image-20230406140157143" style="zoom:40%;" />
 <p>可以看到只要一个线程使用了 exit 退出，整个进程都会退出，而且主线程后面的执行流也未被执行。因为 exit 的作用是终止进程而不是终止线程，如果在任何线程中使用了它，就等价于在进程中使用了 exit 终止进程。</p>
-<h3>pthread_cancel 函数终止线程<span class="absolute -mt-20" id="pthread_cancel-函数终止线程"></span>
-    <a href="#pthread_cancel-%e5%87%bd%e6%95%b0%e7%bb%88%e6%ad%a2%e7%ba%bf%e7%a8%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>pthread_cancel 函数用于取消一个线程的执行。原型：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">pthread_cancel</span><span class="p">(</span><span class="kt">pthread_t</span> <span class="kr">thread</span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+<h4>pthread_cancel 函数终止线程<span class="absolute -mt-20" id="pthread_cancel-函数终止线程"></span>
+    <a href="#pthread_cancel-%e5%87%bd%e6%95%b0%e7%bb%88%e6%ad%a2%e7%ba%bf%e7%a8%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>pthread_cancel 函数用于取消一个线程的执行。原型：</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">pthread_cancel</span><span class="p">(</span><span class="kt">pthread_t</span> <span class="kr">thread</span><span class="p">);</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1594,7 +1873,41 @@ pthread_exit 或者 return 返回的指针所指向的内存单元必须是全�
 </blockquote>
 <p>需要注意的是，即使 pthread_cancel 函数成功返回，也不能保证线程已经终止。线程可以选择忽略取消请求，或者延迟处理取消请求。因此，在调用 pthread_cancel 函数后，应该使用 pthread_join 函数来等待线程结束。</p>
 <p>下面的代码会创建三个线程，并在执行线程函数 threadMission 打印一些语句之后再调用 pthread_cancel 函数来取消它们。</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span><span class="o">*</span> <span class="nf">threadMission</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">agrs</span><span class="p">)</span>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span><span class="o">*</span> <span class="nf">threadMission</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">agrs</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="k">const</span> <span class="n">string</span> <span class="n">name</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">agrs</span><span class="p">;</span>
@@ -1623,7 +1936,9 @@ pthread_exit 或者 return 返回的指针所指向的内存单元必须是全�
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>	
 </span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;主线程退出！&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1649,9 +1964,9 @@ pthread_exit 或者 return 返回的指针所指向的内存单元必须是全�
 <blockquote>
 <p>为什么这么说呢？实际上面的示例代码虽然创建了多个进程，但都是在同一个循环中创建，并取消的，也就是每次只创建了一个线程。因为我想让打印出来的结果比较工整，如果分别创建和取消线程，那么打印出来的语句会比较混乱，因为不同线程的执行顺序是不确定的。</p>
 </blockquote>
-<h3>补充<span class="absolute -mt-20" id="补充"></span>
-    <a href="#%e8%a1%a5%e5%85%85" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><h4>取消线程的注意事项<span class="absolute -mt-20" id="取消线程的注意事项"></span>
-    <a href="#%e5%8f%96%e6%b6%88%e7%ba%bf%e7%a8%8b%e7%9a%84%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>其他线程可以在线程函数中通过 pthread_exit 和 pthread_cancel 终止自己，但这样做总感觉怪怪的，因为线程的直接管理者是主线程，所以通常情况下其他线程由主线程创建，那就由主线程取消，这是符合逻辑的。</p>
+<h4>补充<span class="absolute -mt-20" id="补充"></span>
+    <a href="#%e8%a1%a5%e5%85%85" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><h5>取消线程的注意事项<span class="absolute -mt-20" id="取消线程的注意事项"></span>
+    <a href="#%e5%8f%96%e6%b6%88%e7%ba%bf%e7%a8%8b%e7%9a%84%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><p>其他线程可以在线程函数中通过 pthread_exit 和 pthread_cancel 终止自己，但这样做总感觉怪怪的，因为线程的直接管理者是主线程，所以通常情况下其他线程由主线程创建，那就由主线程取消，这是符合逻辑的。</p>
 <p>创建线程后立马取消它，通过测试我们知道，由于操作系统的调度策略，这并不会真正创建进程（在 Linux 中），取消线程的前提是线程已经被创建了，但是线程可能并未被创建，如果对一个未被创建的进程取消，可能出现未定义行为。因为就执行流而言，所有线程（包括主线程）的调度是不确定的，这也是我在一些示例代码中让线程做点事情（例如打印）的原因。上面这么做只是为了示例，这种做法本身是无意义的，也很少有这样的需求。</p>
 <blockquote>
 <p>一个不恰当的体会：取消线程这个操作就好像我们感觉某个线程做的不错，差不多了就踹开它，妥妥的“工具人”。</p>
@@ -1665,8 +1980,8 @@ pthread_exit 或者 return 返回的指针所指向的内存单元必须是全�
 <p>为什么线程的 ID 那么长？</p>
 </blockquote>
 <p>我们知道，线程的 ID 本质上是一个地址，这个地址的 32 个比特位（32 位）被分为 3 部分，以此讲虚拟地址通过不止一层的页表映射到物理内存地址。内核只负责管理和调度线程，而线程是由用户层的 pthread 库提供的，因此线程资源的管理是在用户层面的。</p>
-<h4>pthread 库相关<span class="absolute -mt-20" id="pthread-库相关"></span>
-    <a href="#pthread-%e5%ba%93%e7%9b%b8%e5%85%b3" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>对于磁盘中的动态 pthread 库，在多线程程序运行时，需要将动态库加载到物理内存中。多线程程序需要通过页表映射到物理空间中，才能访问到 pthread 库中的代码。因为动态库被加载到进程地址空间中的共享区，那么程序调用 pthread 库函数时，只要从代码区跳转到共享区即可；如果执行流使用了系统调用，那么会通过内核级页表跳转到内核地址空间中。例如，当线程需要进行 I/O 操作、创建新线程或进程 (fork)、改变进程属性等操作时，它会通过系统调用来实现。</p>
+<h5>pthread 库相关<span class="absolute -mt-20" id="pthread-库相关"></span>
+    <a href="#pthread-%e5%ba%93%e7%9b%b8%e5%85%b3" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><p>对于磁盘中的动态 pthread 库，在多线程程序运行时，需要将动态库加载到物理内存中。多线程程序需要通过页表映射到物理空间中，才能访问到 pthread 库中的代码。因为动态库被加载到进程地址空间中的共享区，那么程序调用 pthread 库函数时，只要从代码区跳转到共享区即可；如果执行流使用了系统调用，那么会通过内核级页表跳转到内核地址空间中。例如，当线程需要进行 I/O 操作、创建新线程或进程 (fork)、改变进程属性等操作时，它会通过系统调用来实现。</p>
 <blockquote>
 <p>我知道每个 PCB/TCB 都要被操作系统调度，但是整个进程地址空间中只有一个栈区，线程在运行时也需要自己私有的栈，寄存器只有一份吗？是如何保证每个小栈区都是线程独占的？</p>
 </blockquote>
@@ -1690,20 +2005,27 @@ pthread_exit 或者 return 返回的指针所指向的内存单元必须是全�
 <p>如果每个线程都在库中维护，那么主线程自己的栈区谁来维护？</p>
 </blockquote>
 <p>主线程的栈空间是由操作系统内核在创建进程时分配的，两者互不冲突。如果只有一个执行流，就使用内核提供的栈区。在进程运行期间，主线程栈的维护是由用户层的程序来完成的。当主线程调用函数时，它会在栈上分配空间来存储函数的局部变量和返回地址。当函数返回时，主线程会释放栈上分配的空间。</p>
-<h4>进程替换造成的影响<span class="absolute -mt-20" id="进程替换造成的影响"></span>
-    <a href="#%e8%bf%9b%e7%a8%8b%e6%9b%bf%e6%8d%a2%e9%80%a0%e6%88%90%e7%9a%84%e5%bd%b1%e5%93%8d" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>如果在线程中调用 execl 执行进程替换，会替换页表中虚拟地址的部分。对于线程，虚拟地址的内容是属于当前主线程的，一旦替换以后，所有代码将被替换，原本进程中所有其他线程都将停止执行它们各自的执行流。可以测试：主线程先执行 5 秒，然后让新线程替换进程，5s 后线程就会全部退出，ps axj 也找不到了任何线程相关信息。</p>
+<h5>进程替换造成的影响<span class="absolute -mt-20" id="进程替换造成的影响"></span>
+    <a href="#%e8%bf%9b%e7%a8%8b%e6%9b%bf%e6%8d%a2%e9%80%a0%e6%88%90%e7%9a%84%e5%bd%b1%e5%93%8d" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><p>如果在线程中调用 execl 执行进程替换，会替换页表中虚拟地址的部分。对于线程，虚拟地址的内容是属于当前主线程的，一旦替换以后，所有代码将被替换，原本进程中所有其他线程都将停止执行它们各自的执行流。可以测试：主线程先执行 5 秒，然后让新线程替换进程，5s 后线程就会全部退出，ps axj 也找不到了任何线程相关信息。</p>
 <p>任意一个线程调用 execl，等价于进程替换，相当于 exit。</p>
-<h4>寄存器<span class="absolute -mt-20" id="寄存器"></span>
-    <a href="#%e5%af%84%e5%ad%98%e5%99%a8" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>寄存器是计算机中的硬件部件，它是一种高速存储器，位于 CPU 内部。寄存器用来存储指令、数据和地址等信息。由于寄存器位于 CPU 内部，所以它的访问速度非常快。</p>
-<h2>4.5 线程分离<span class="absolute -mt-20" id="45-线程分离"></span>
-    <a href="#45-%e7%ba%bf%e7%a8%8b%e5%88%86%e7%a6%bb" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>线程分离是指线程的资源由系统回收，而不需要主线程调用 pthread_join 来回收。</p>
+<h5>寄存器<span class="absolute -mt-20" id="寄存器"></span>
+    <a href="#%e5%af%84%e5%ad%98%e5%99%a8" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><p>寄存器是计算机中的硬件部件，它是一种高速存储器，位于 CPU 内部。寄存器用来存储指令、数据和地址等信息。由于寄存器位于 CPU 内部，所以它的访问速度非常快。</p>
+<h3>4.5 线程分离<span class="absolute -mt-20" id="45-线程分离"></span>
+    <a href="#45-%e7%ba%bf%e7%a8%8b%e5%88%86%e7%a6%bb" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>线程分离是指线程的资源由系统回收，而不需要主线程调用 pthread_join 来回收。</p>
 <p>在退出系统时，系统会自动回收资源。这样可以防止主线程因为调用 pthread_join 而被堵塞，无法处理其他事务。有两种方法可以实现线程分离。一种是使用函数 pthread_detach 来实现线程分离。另一种是通过设置线程属性为 PTHREAD_CREATE_DETACHED 来实现线程分离（暂不讨论）。</p>
 <blockquote>
 <p>线程分离是相对于主线程而言的。</p>
 </blockquote>
-<h3>pthread_detach 函数分离线程<span class="absolute -mt-20" id="pthread_detach-函数分离线程"></span>
-    <a href="#pthread_detach-%e5%87%bd%e6%95%b0%e5%88%86%e7%a6%bb%e7%ba%bf%e7%a8%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>pthread_detach 函数用于实现线程分离，不再受主线程管理，由系统接任。原型：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">pthread_detach</span><span class="p">(</span><span class="kt">pthread_t</span> <span class="kr">thread</span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+<h4>pthread_detach 函数分离线程<span class="absolute -mt-20" id="pthread_detach-函数分离线程"></span>
+    <a href="#pthread_detach-%e5%87%bd%e6%95%b0%e5%88%86%e7%a6%bb%e7%ba%bf%e7%a8%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>pthread_detach 函数用于实现线程分离，不再受主线程管理，由系统接任。原型：</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">pthread_detach</span><span class="p">(</span><span class="kt">pthread_t</span> <span class="kr">thread</span><span class="p">);</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1716,7 +2038,42 @@ pthread_exit 或者 return 返回的指针所指向的内存单元必须是全�
 <p>参数 thread：被指定要分离的线程的 ID。</p>
 <p>返回值：成功返回 0；失败返回错误信息（非 0）。</p>
 <p>pthread_detach 函数可以由主线程或其他线程调用。下面的代码在其他线程中的线程函数执行分离线程操作，并且在每个线程中打印一个全局变量：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">global_val</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">global_val</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">void</span><span class="o">*</span> <span class="nf">threadMission</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">agrs</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -1746,7 +2103,9 @@ pthread_exit 或者 return 返回的指针所指向的内存单元必须是全�
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>	
 </span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;主线程退出！&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1758,7 +2117,26 @@ pthread_exit 或者 return 返回的指针所指向的内存单元必须是全�
 </div>
 <img src="线程概念与控制.IMG/image-20230406173638210.png" alt="image-20230406173638210" style="zoom:40%;" />
 <p>当线程分离后，主线程就不能再使用 pthread_join 等待线程了，如果在目标线程内部对这个全局变量自增：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span><span class="o">*</span> <span class="nf">threadMission</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">agrs</span><span class="p">)</span>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span><span class="o">*</span> <span class="nf">threadMission</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">agrs</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// ...
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">pthread_detach</span><span class="p">(</span><span class="n">pthread_self</span><span class="p">());</span> <span class="c1">// 分离线程
@@ -1772,7 +2150,9 @@ pthread_exit 或者 return 返回的指针所指向的内存单元必须是全�
 </span></span><span class="line"><span class="cl">    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;分离线程返回值：&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">ret</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="c1">// ...
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1786,11 +2166,39 @@ pthread_exit 或者 return 返回的指针所指向的内存单元必须是全�
 <p>当线程被分离以后，它就不能获取进程内的资源了，换句话说，目标线程的直接管理者就是操作系统而不是它所在的进程了。所以主线程就不能等待它。如果把 pthread_join 相关语句注释掉，那么就不会出现段错误，而且能够正常打印全局变量被修改后的值。</p>
 <img src="线程概念与控制.IMG/image-20230406175829425.png" alt="image-20230406175829425" style="zoom:40%;" />
 <p>类似的，如果主线程先退出了，那么其他线程再分离就没有意义了。因为当主函数返回或调用 exit 时，系统将终止进程和该进程中运行的所有线程。如果希望分离线程并想让它们继续运行，你必须只结束主线程，而不是进程，这也是 pthread_exit 存在的原因，它允许只终止任意一个线程。</p>
-<h4>__thread<span class="absolute -mt-20" id="__thread"></span>
-    <a href="#__thread" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>__thread 是 GCC 提供的一种线程局部存储（Thread Local Storage，TLS）技术。它允许声明一些变量，这些变量在线程之间是独立的，每个线程都有自己的一份拷贝（编译时）。</p>
+<h5>__thread<span class="absolute -mt-20" id="__thread"></span>
+    <a href="#__thread" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><p>__thread 是 GCC 提供的一种线程局部存储（Thread Local Storage，TLS）技术。它允许声明一些变量，这些变量在线程之间是独立的，每个线程都有自己的一份拷贝（编译时）。</p>
 <p>当在一个变量前面加上 __thread 关键字时，该变量就成为了线程局部变量。每个线程都有自己独立的一份拷贝，线程之间互不影响。这样可以在多线程程序中使用全局变量而不必担心同步问题了。</p>
 <p>例如将上面的全局变量用 __thread 修饰：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">__thread</span> <span class="kt">int</span> <span class="n">global_val</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">__thread</span> <span class="kt">int</span> <span class="n">global_val</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">void</span><span class="o">*</span> <span class="nf">threadMission</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">agrs</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -1813,7 +2221,9 @@ pthread_exit 或者 return 返回的指针所指向的内存单元必须是全�
 </span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;主线程：&#34;</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; global_val: &#34;</span><span class="o">&lt;&lt;</span> <span class="n">global_val</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; : &#34;</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;&amp;global_val: &#34;</span> <span class="o">&lt;&lt;</span> <span class="o">&amp;</span><span class="n">global_val</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;主线程退出！&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1827,9 +2237,10 @@ pthread_exit 或者 return 返回的指针所指向的内存单元必须是全�
 <p>另外，在主进程永不退出或超长时间不退出时（后台服务），分离其他线程是有很有意义的，可以避免内存泄漏。线程分离和进程不 wait 或不 waitpid 是类似的。</p>
 <p>线程分离和进程不调用 wait 或 waitpid 函数有一些相似之处。当一个线程被分离后，它结束运行时会自动释放所有资源，无需其他线程调用 pthread_join 函数来等待它结束。类似地，当一个进程不调用 wait 或 waitpid 函数来等待子进程结束时，子进程结束运行后会变成僵尸进程，直到父进程退出或显式等待它结束。</p>
 <p>但是，这两者之间也有一些区别。当一个线程被分离后，它结束运行时会自动释放所有资源，而不会变成僵尸线程。但是，当一个进程不调用 wait 或 waitpid 函数来等待子进程结束时，子进程结束运行后会变成僵尸进程，占用系统资源，直到父进程退出或显式等待它结束。</p>
-<h1>5. 理解线程</h1><p>上面介绍了几个线程相关的的基本概念，以及演示了控制线程的方法，下面将从 Linux 中线程的实现原理理解 Linux 中的线程。</p>
-<h2>5.1 线程共享进程的资源<span class="absolute -mt-20" id="51-线程共享进程的资源"></span>
-    <a href="#51-%e7%ba%bf%e7%a8%8b%e5%85%b1%e4%ba%ab%e8%bf%9b%e7%a8%8b%e7%9a%84%e8%b5%84%e6%ba%90" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>进程是承担分配系统资源的基本实体，线程是调度的基本单位。这是我们对线程和进程从资源分配和调度策略上的高度总结，我们知道进程是线程的直接管理者，线程的资源从它所在的进程而来，然而，并非进程所有资源都能被线程使用。</p>
+<h2>5. 理解线程<span class="absolute -mt-20" id="5-理解线程"></span>
+    <a href="#5-%e7%90%86%e8%a7%a3%e7%ba%bf%e7%a8%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>上面介绍了几个线程相关的的基本概念，以及演示了控制线程的方法，下面将从 Linux 中线程的实现原理理解 Linux 中的线程。</p>
+<h3>5.1 线程共享进程的资源<span class="absolute -mt-20" id="51-线程共享进程的资源"></span>
+    <a href="#51-%e7%ba%bf%e7%a8%8b%e5%85%b1%e4%ba%ab%e8%bf%9b%e7%a8%8b%e7%9a%84%e8%b5%84%e6%ba%90" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>进程是承担分配系统资源的基本实体，线程是调度的基本单位。这是我们对线程和进程从资源分配和调度策略上的高度总结，我们知道进程是线程的直接管理者，线程的资源从它所在的进程而来，然而，并非进程所有资源都能被线程使用。</p>
 <blockquote>
 <p>每个家庭就像一个进程，当家的就是主线程，其他成员是其他线程，虽然大家都有各自的任务，但是最终目的都是统一的，是让家庭幸福。每个线程就像每个家庭成员，共享着房子中的大部分资源，例如空间、食物。但是每个成员也有属于自己私有的空间，例如自己的房间、自己写的日记等，线程也是一样的，它们共享着进程的一部分资源，也同时具有自己私有的数据。</p>
 </blockquote>
@@ -1837,7 +2248,7 @@ pthread_exit 或者 return 返回的指针所指向的内存单元必须是全�
 <blockquote>
 <p>虽然上面以进程和线程为例，但言外之意是所有线程共享了许多资源。这些共享的资源并不是其他线程共享了主线程的资源，而是所有线程都共享了同一进程中的这些资源。也就是说，所有线程都可以访问这些共享的资源，而不仅仅是主线程。</p>
 </blockquote>
-<p>==每个线程最重要的两种资源：一组寄存器和栈区。==每个线程都有自己独立的、私有的栈区，用于保存函数运行时的信息，如栈帧。此外，函数运行时需要额外的寄存器来保存一些信息，如部分局部变量（存储在栈区），esp 和 ebp 寄存器用来标记函数栈帧的范围，这些寄存器也是线程私有的。</p>
+<p><mark>每个线程最重要的两种资源：一组寄存器和栈区。</mark>每个线程都有自己独立的、私有的栈区，用于保存函数运行时的信息，如栈帧。此外，函数运行时需要额外的寄存器来保存一些信息，如部分局部变量（存储在栈区），esp 和 ebp 寄存器用来标记函数栈帧的范围，这些寄存器也是线程私有的。</p>
 <blockquote>
 <p>尽管栈区是线程的私有数据，但由于栈区没有添加任何保护机制，一个线程的栈区对其它线程是可以见的，也就是说我们可以修改属于任何一个线程的栈区。</p>
 </blockquote>
@@ -1850,14 +2261,14 @@ pthread_exit 或者 return 返回的指针所指向的内存单元必须是全�
 </blockquote>
 <p>在 Linux 中，切换线程的成本比切换进程的成本更低，主要是因为线程之间共享了许多资源，这些共享的资源使得线程之间切换时不需要重新加载这些资源，从而降低了切换成本。</p>
 <p>另外，在切换线程时，只需要保存和恢复线程私有的上下文信息，如程序计数器、栈指针和寄存器等。而在切换进程时，需要保存和恢复更多的上下文信息，包括虚拟内存映射、文件描述符和信号处理等，不需要重新加载这些资源。这也使得切换线程的成本比切换进程的成本更低。</p>
-<p>结论：==线程切换成本更低的主要原因是线程之间共享了许多资源。==</p>
+<p>结论：<mark>线程切换成本更低的主要原因是线程之间共享了许多资源。</mark></p>
 <blockquote>
 <p>这得益于 CPU 中的哪个硬件？</p>
 </blockquote>
 <p>首先，在切换线程时，不需要切换进程的地址空间和页表，只要更改 CPU 寄存器中的值。其中 CPU 中的 Cache 硬件相当于内存和 CPU 之间的缓存区。CPU 将指令 load 到 CPU 中，距离还是很远的，如果每次只读取一条指令，会导致效率非常低。所以 CPU 一般会一次性读取很多条指令先存放在它内部的 Cache 硬件中。根据局部性原理，很大概率 CPU 会执行上一条指令附近的指令，那么刚好就能从它身边的 Cache 中取出，速度就快起来了。</p>
 <p>线程切换成本比进程切换成本更低是由于操作系统在设计上对线程和进程进行了不同的处理，而不是由于 CPU 中的某个硬件实现的。</p>
-<h3>补充<span class="absolute -mt-20" id="补充-1"></span>
-    <a href="#%e8%a1%a5%e5%85%85-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p><strong>CPU 缓存</strong></p>
+<h4>补充<span class="absolute -mt-20" id="补充-1"></span>
+    <a href="#%e8%a1%a5%e5%85%85-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p><strong>CPU 缓存</strong></p>
 <p>CPU 缓存（Cache）是一种高速存储器，位于 CPU 和内存之间。它用于暂存最近访问过的内存数据，以便 CPU 在下次访问相同数据时能够更快地获取。由于 CPU 缓存比内存更快，所以当 CPU 需要访问内存数据时，它会首先检查缓存中是否有所需数据。如果缓存中有所需数据，那么 CPU 就可以直接从缓存中获取数据，而不需要访问内存。这样就可以大大减少访问内存的时间，从而提高程序运行速度。</p>
 <p>CPU 缓存通常分为多级，如 L1、L2 和 L3 缓存。L1 缓存位于 CPU 内部，速度最快但容量最小；L2 缓存位于 CPU 外部，速度较快但容量较大；L3 缓存位于主板上，速度较慢但容量最大。当 CPU 需要访问内存数据时，它会首先检查 L1 缓存，如果没有找到所需数据，再检查 L2 缓存，最后检查 L3 缓存。如果仍然没有找到所需数据，那么 CPU 就需要访问内存。</p>
 <p>当然，CPU 缓存并不是万能的。它只能暂存有限的数据，所以当程序需要访问的数据不在缓存中时，CPU 仍然需要访问内存。此外，由于缓存和内存之间需要保持一致性，所以当内存数据发生变化时，缓存也需要进行更新。这些都会影响程序运行速度。</p>
@@ -1865,31 +2276,31 @@ pthread_exit 或者 return 返回的指针所指向的内存单元必须是全�
 <p>CPU 高速缓存命中率（Cache Hit Rate）是指 CPU 在访问内存数据时，能够在缓存中找到所需数据的比例。它是衡量 CPU 缓存效率的一个重要指标。</p>
 <p>当 CPU 需要访问内存数据时，它会首先检查缓存中是否有所需数据。如果缓存中有所需数据，那么就称为一次缓存命中（Cache Hit），此时 CPU 可以直接从缓存中获取数据，而不需要访问内存。如果缓存中没有所需数据，那么就称为一次缓存未命中（Cache Miss），此时 CPU 需要访问内存来获取数据。</p>
 <p>CPU 高速缓存命中率通常用百分比来表示，计算公式为：缓存命中次数 / （缓存命中次数 + 缓存未命中次数）。高速缓存命中率越高，说明 CPU 在访问内存数据时能够更多地从缓存中获取数据，从而提高程序运行速度。</p>
-<h3>小结<span class="absolute -mt-20" id="小结"></span>
-    <a href="#%e5%b0%8f%e7%bb%93" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>在 Linux 中，线程切换的成本相对较低，因为它不需要切换虚拟内存空间。这意味着在线程切换期间，虚拟内存空间保持不变，而在进程切换期间则不是这样。两种类型都涉及将控制权交给操作系统内核来执行上下文切换。执行上下文切换的过程以及寄存器切换的成本是执行上下文切换的最大固定成本。</p>
+<h4>小结<span class="absolute -mt-20" id="小结"></span>
+    <a href="#%e5%b0%8f%e7%bb%93" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>在 Linux 中，线程切换的成本相对较低，因为它不需要切换虚拟内存空间。这意味着在线程切换期间，虚拟内存空间保持不变，而在进程切换期间则不是这样。两种类型都涉及将控制权交给操作系统内核来执行上下文切换。执行上下文切换的过程以及寄存器切换的成本是执行上下文切换的最大固定成本。</p>
 <p>另一个模糊的成本是上下文切换会影响处理器的缓存机制。线程切换与 CPU 高速缓存命中率有关，因为线程切换不需要更改虚拟内存空间，这意味着 CPU 高速缓存中的数据仍然有效并且可以继续使用。基本上，当 CPU 进行上下文切换时，处理器缓存中“记忆”的所有内存地址实际上都变得无用。当您更改虚拟内存空间时，处理器的转换后备缓冲区（TLB）或等效内容会被刷新，使得一段时间内的内存访问变得更加昂贵。这在线程切换期间不会发生。</p>
 <p>如果进程切换，Cache 会立即失效，新进程只能重新缓存。</p>
-<h2>5.2 线程的优点<span class="absolute -mt-20" id="52-线程的优点"></span>
-    <a href="#52-%e7%ba%bf%e7%a8%8b%e7%9a%84%e4%bc%98%e7%82%b9" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>在 Linux 中，线程有很多优点。例如，创建一个新线程的代价要比创建一个新进程小得多，释放成本也更低。与进程之间的切换相比，线程之间的切换需要操作系统做的工作要少很多。此外，线程占用的资源要比进程少很多。</p>
+<h3>5.2 线程的优点<span class="absolute -mt-20" id="52-线程的优点"></span>
+    <a href="#52-%e7%ba%bf%e7%a8%8b%e7%9a%84%e4%bc%98%e7%82%b9" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>在 Linux 中，线程有很多优点。例如，创建一个新线程的代价要比创建一个新进程小得多，释放成本也更低。与进程之间的切换相比，线程之间的切换需要操作系统做的工作要少很多。此外，线程占用的资源要比进程少很多。</p>
 <p>线程还能充分利用多处理器的可并行数量。在等待慢速 I/O 操作结束的同时，程序可执行其他的计算任务。计算密集型应用，为了能在多处理器系统上运行，将计算分解到多个线程中实现。I/O 密集型应用，为了提高性能，将 I/O 操作重叠。线程可以同时等待不同的 I/O 操作。</p>
 <blockquote>
 <p>计算密集型任务是指 CPU 计算占主要的任务，CPU 一直处于满负荷状态。例如，在一个很大的列表中查找元素，复杂的加减乘除等。</p>
 <p>IO 密集型任务是指磁盘 IO、网络 IO 占主要的任务，计算量很小。比如请求网页、读写文件等。</p>
 </blockquote>
-<h2>5.3 线程的缺点<span class="absolute -mt-20" id="53-线程的缺点"></span>
-    <a href="#53-%e7%ba%bf%e7%a8%8b%e7%9a%84%e7%bc%ba%e7%82%b9" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><ul>
+<h3>5.3 线程的缺点<span class="absolute -mt-20" id="53-线程的缺点"></span>
+    <a href="#53-%e7%ba%bf%e7%a8%8b%e7%9a%84%e7%bc%ba%e7%82%b9" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
 <li>性能损失：例如，一个很少被外部事件阻塞的计算密集型线程往往无法与其他线程共享同一个处理器。如果计算密集型线程的数量比可用的处理器多，那么可能会有较大的性能损失，这里的性能损失指的是增加了额外的同步和调度开销，而可用的资源不变。</li>
 <li>健壮性降低：编写多线程需要更全面更深入的考虑，在一个多线程程序里，因时间分配上的细微偏差或者因共享了不该共享的变量而造成不良影响的可能性是很大的，换句话说，线程之间是缺乏保护的。</li>
 <li>缺乏访问控制：进程是访问控制的基本粒度，在一个线程中调用某些 OS 函数会对整个进程造成影响。例如一个线程因 exit 或异常终止，其他线程也会因此终止。</li>
 <li>编程难度提高：编写与调试一个多线程程序比单线程程序困难得多。</li>
 </ul>
-<h2>5.4 线程异常<span class="absolute -mt-20" id="54-线程异常"></span>
-    <a href="#54-%e7%ba%bf%e7%a8%8b%e5%bc%82%e5%b8%b8" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><ul>
+<h3>5.4 线程异常<span class="absolute -mt-20" id="54-线程异常"></span>
+    <a href="#54-%e7%ba%bf%e7%a8%8b%e5%bc%82%e5%b8%b8" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
 <li>单个线程如果出现除零、野指针等问题导致线程崩溃，进程也会随着崩溃。</li>
 <li>线程是进程的执行分支，线程出异常，就类似进程出异常，进而触发信号机制，终止进程，进程终止，该进程内的所有线程也就随即退出。</li>
 </ul>
-<h2>5.5 线程的作用<span class="absolute -mt-20" id="55-线程的作用"></span>
-    <a href="#55-%e7%ba%bf%e7%a8%8b%e7%9a%84%e4%bd%9c%e7%94%a8" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>线程是程序执行的最小单位，它可以让程序在同一时间内执行多个任务。这样可以提高程序的执行效率，尤其是在多核处理器的计算机上。</p>
+<h3>5.5 线程的作用<span class="absolute -mt-20" id="55-线程的作用"></span>
+    <a href="#55-%e7%ba%bf%e7%a8%8b%e7%9a%84%e4%bd%9c%e7%94%a8" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>线程是程序执行的最小单位，它可以让程序在同一时间内执行多个任务。这样可以提高程序的执行效率，尤其是在多核处理器的计算机上。</p>
 <p>线程还能充分利用多处理器的可并行数量。在等待慢速 I/O 操作结束的同时，程序可执行其他的计算任务。计算密集型应用，为了能在多处理器系统上运行，将计算分解到多个线程中实现。I/O 密集型应用，为了提高性能，将 I/O 操作重叠。线程可以同时等待不同的 I/O 操作。</p>
 <blockquote>
 <p>例如一些下载器“边下边播”的功能就是通过多线程实现的。</p>

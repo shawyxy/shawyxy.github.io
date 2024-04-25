@@ -16,7 +16,7 @@
 友情链接：
 高级 I/O【Linux】
 I/O 多路复用【Linux/网络】（C&#43;&#43;实现 epoll、select 和 epoll 服务器）
-1. 什么是 Reactor 模式既然你开始了解 Reactor（反应器） 模式，说明你知道在实现服务端时，多线程只能处理少量的客户端请求，一旦数量增多，维护线程的成本会急剧上升，导致服务端性能下降。而 Reactor 模型就是为解决这个问题而诞生的。
+1. 什么是 Reactor 模式 既然你开始了解 Reactor（反应器） 模式，说明你知道在实现服务端时，多线程只能处理少量的客户端请求，一旦数量增多，维护线程的成本会急剧上升，导致服务端性能下降。而 Reactor 模型就是为解决这个问题而诞生的。
 Reactor 模式是一种基于事件驱动的设计模式，它是 I/O 多路复用在设计模式层面上的体现。Reactor 设计模式的“设计”体现在：
 将 I/O 事件的处理分为两个阶段：事件分发阶段（Dispatcher）和事件处理阶段（Handler）。这种分离可以将 I/O 事件的处理从阻塞 I/O 中解耦出来，从而提高系统的并发能力和吞吐量。
 使用 I/O 多路复用技术：I/O 多路复用技术可以让一个线程或进程监听多个 I/O 事件，从而提高系统的资源利用率。
@@ -37,7 +37,7 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
 友情链接：
 高级 I/O【Linux】
 I/O 多路复用【Linux/网络】（C&#43;&#43;实现 epoll、select 和 epoll 服务器）
-1. 什么是 Reactor 模式既然你开始了解 Reactor（反应器） 模式，说明你知道在实现服务端时，多线程只能处理少量的客户端请求，一旦数量增多，维护线程的成本会急剧上升，导致服务端性能下降。而 Reactor 模型就是为解决这个问题而诞生的。
+1. 什么是 Reactor 模式 既然你开始了解 Reactor（反应器） 模式，说明你知道在实现服务端时，多线程只能处理少量的客户端请求，一旦数量增多，维护线程的成本会急剧上升，导致服务端性能下降。而 Reactor 模型就是为解决这个问题而诞生的。
 Reactor 模式是一种基于事件驱动的设计模式，它是 I/O 多路复用在设计模式层面上的体现。Reactor 设计模式的“设计”体现在：
 将 I/O 事件的处理分为两个阶段：事件分发阶段（Dispatcher）和事件处理阶段（Handler）。这种分离可以将 I/O 事件的处理从阻塞 I/O 中解耦出来，从而提高系统的并发能力和吞吐量。
 使用 I/O 多路复用技术：I/O 多路复用技术可以让一个线程或进程监听多个 I/O 事件，从而提高系统的资源利用率。
@@ -57,7 +57,7 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
 友情链接：
 高级 I/O【Linux】
 I/O 多路复用【Linux/网络】（C&#43;&#43;实现 epoll、select 和 epoll 服务器）
-1. 什么是 Reactor 模式既然你开始了解 Reactor（反应器） 模式，说明你知道在实现服务端时，多线程只能处理少量的客户端请求，一旦数量增多，维护线程的成本会急剧上升，导致服务端性能下降。而 Reactor 模型就是为解决这个问题而诞生的。
+1. 什么是 Reactor 模式 既然你开始了解 Reactor（反应器） 模式，说明你知道在实现服务端时，多线程只能处理少量的客户端请求，一旦数量增多，维护线程的成本会急剧上升，导致服务端性能下降。而 Reactor 模型就是为解决这个问题而诞生的。
 Reactor 模式是一种基于事件驱动的设计模式，它是 I/O 多路复用在设计模式层面上的体现。Reactor 设计模式的“设计”体现在：
 将 I/O 事件的处理分为两个阶段：事件分发阶段（Dispatcher）和事件处理阶段（Handler）。这种分离可以将 I/O 事件的处理从阻塞 I/O 中解耦出来，从而提高系统的并发能力和吞吐量。
 使用 I/O 多路复用技术：I/O 多路复用技术可以让一个线程或进程监听多个 I/O 事件，从而提高系统的资源利用率。
@@ -66,12 +66,12 @@ Reactor 模式是一种基于事件驱动的设计模式，它是 I/O 多路复�
 理解这张图，需要你了解 select 服务器的写法。
 这就是一个 Reactor 模型（以 select 为例），它主要包含五个组件：
 Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Sychronous Event Demultiplexer（同步事件分离器） 本质是系统调用，用于等待事件的发生。对于 Linux 来说，同步事件分离器指的就是 I/O 多路复用的接口，比如 select、poll、epoll 等。 Event Handler（事件处理器） 由多个回调方法构成，这些回调方法构成了与应用相关的对于某个事件的处理反馈，由用户实现。 Concrete Event Handler（具体事件处理器） 事件处理器中各个回调方法的具体实现（可以认为是 Event Handler 的函数体）。 Initiation Dispatcher（初始分发器） 初始分发器就是 Reactor 模型，它会通过同步事件分离器来等待事件的发生，当对应事件就绪时就调用事件处理器，最后调用对应的回调方法来处理这个事件。 2.">
-  <meta itemprop="wordCount" content="2383"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Reactor 模式">
+  <meta itemprop="wordCount" content="3037"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Reactor 模式">
 <meta name="twitter:description" content="前导：本文是 I/O 多路复用的升级和实践，如果想实现一个类似的服务器的话，需要事先学习 epoll 服务器的编写。
 友情链接：
 高级 I/O【Linux】
 I/O 多路复用【Linux/网络】（C&#43;&#43;实现 epoll、select 和 epoll 服务器）
-1. 什么是 Reactor 模式既然你开始了解 Reactor（反应器） 模式，说明你知道在实现服务端时，多线程只能处理少量的客户端请求，一旦数量增多，维护线程的成本会急剧上升，导致服务端性能下降。而 Reactor 模型就是为解决这个问题而诞生的。
+1. 什么是 Reactor 模式 既然你开始了解 Reactor（反应器） 模式，说明你知道在实现服务端时，多线程只能处理少量的客户端请求，一旦数量增多，维护线程的成本会急剧上升，导致服务端性能下降。而 Reactor 模型就是为解决这个问题而诞生的。
 Reactor 模式是一种基于事件驱动的设计模式，它是 I/O 多路复用在设计模式层面上的体现。Reactor 设计模式的“设计”体现在：
 将 I/O 事件的处理分为两个阶段：事件分发阶段（Dispatcher）和事件处理阶段（Handler）。这种分离可以将 I/O 事件的处理从阻塞 I/O 中解耦出来，从而提高系统的并发能力和吞吐量。
 使用 I/O 多路复用技术：I/O 多路复用技术可以让一个线程或进程监听多个 I/O 事件，从而提高系统的资源利用率。
@@ -86,7 +86,7 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
 
 
 
-  <link href="/css/custom.min.e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css" rel="stylesheet" integrity="sha256-47DEQpj8HBSa&#43;/TImW&#43;5JCeuQeRkm5NMpJWZG3hSuFU=" />
+  <link href="/css/custom.min.7d43e1fdc41380d9e5d795e4b7ab39cca64e2e8ac32a15c33924c1f0a8cb1df0.css" rel="stylesheet" integrity="sha256-fUPh/cQTgNnl15Xkt6s5zKZOLorDKhXDOSTB8KjLHfA=" />
 
 
 
@@ -140,7 +140,7 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
             <span class="text-center">About</span>
           </a><a
             title="Contact ↗"
-            href="https://blog.csdn.net/m0_63312733?type=blog"
+            href="https://img-blog.csdnimg.cn/7deb340b1c95414d9dc25a89d1cb1f32.png"
             target="_blank" rel="noreferer"
             class="text-sm contrast-more:text-gray-700 contrast-more:dark:text-gray-100 relative -ml-2 hidden whitespace-nowrap p-2 md:inline-block text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
           >
@@ -231,7 +231,15 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
       text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
     href="/blogs/cpp/"
     
-  >C/C&#43;&#43;
+  >C&#43;&#43;
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/c/"
+    
+  >C语言
     </a>
               
             </li><li class="flex flex-col "><a
@@ -365,6 +373,14 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
               
             </li></ul>
       </div>
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/block-chain/"
+    
+  >区块链
+    </a>
+              
             </li><li class="flex flex-col open"><a
     class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
       text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
@@ -528,27 +544,9 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
   
     <ul class='flex flex-col gap-1 relative before:absolute before:inset-y-1 before:w-px before:bg-gray-200 before:content-[""] dark:before:bg-neutral-800 ltr:pl-3 ltr:before:left-0 rtl:pr-3 rtl:before:right-0 ltr:ml-3 rtl:mr-3'><li>
               <a
-                href="#41-connection-%e7%b1%bb"
+                href="#"
                 class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >4.1 Connection 类</a>
-            </li>
-          <li>
-              <a
-                href="#42-tcpserver-%e6%9c%8d%e5%8a%a1%e5%99%a8"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >4.2 TcpServer 服务器</a>
-            </li>
-          <li>
-              <a
-                href="#43-%e6%b5%8b%e8%af%95"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >4.3 测试</a>
-            </li>
-          <li>
-              <a
-                href="#44-%e6%89%a9%e5%b1%95-1"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >4.4 扩展 1</a>
+              ></a>
             </li>
           </ul>
   
@@ -561,6 +559,14 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
     href="/blogs/data-structure/"
     
   >数据结构与算法
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/algorithm/"
+    
+  >算法
     </a>
               
             </li><li class="flex flex-col "><a
@@ -684,59 +690,79 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
 </div></div></aside>
     
 <nav class="hextra-toc order-last hidden w-64 shrink-0 xl:block print:hidden px-4" aria-label="table of contents">
-    <div class="hextra-scrollbar sticky top-16 overflow-y-auto pr-4 pt-6 text-sm [hyphens:auto] max-h-[calc(100vh-var(--navbar-height)-env(safe-area-inset-bottom))] ltr:-mr-4 rtl:-ml-4"><p class="mb-4 font-semibold tracking-tight">On this page</p><ul></ul><ul></ul><ul></ul><ul>
+    <div class="hextra-scrollbar sticky top-16 overflow-y-auto pr-4 pt-6 text-sm [hyphens:auto] max-h-[calc(100vh-var(--navbar-height)-env(safe-area-inset-bottom))] ltr:-mr-4 rtl:-ml-4"><p class="mb-4 font-semibold tracking-tight">On this page</p><ul>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#41-connection-%e7%b1%bb">4.1 Connection 类
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#1-%e4%bb%80%e4%b9%88%e6%98%af-reactor-%e6%a8%a1%e5%bc%8f">1. 什么是 Reactor 模式
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#42-tcpserver-%e6%9c%8d%e5%8a%a1%e5%99%a8">4.2 TcpServer 服务器
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#2-reactor-%e6%a8%a1%e5%9e%8b%e7%9a%84%e6%bc%94%e5%8c%96">2. Reactor 模型的演化
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#epoll-%e7%b1%bb">Epoll 类
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#3-reactor-%e6%a8%a1%e5%bc%8f%e7%9a%84%e5%b7%a5%e4%bd%9c%e6%b5%81%e7%a8%8b">3. Reactor 模式的工作流程
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%9c%8d%e5%8a%a1%e5%99%a8%e7%b1%bb%e6%a1%86%e6%9e%b6">服务器类框架
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#4-reactor-%e6%9c%8d%e5%8a%a1%e5%99%a8">4. Reactor 服务器
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#looponce-%e5%87%bd%e6%95%b0">LoopOnce 函数
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#41-connection-%e7%b1%bb">4.1 Connection 类
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#accepter-%e5%9b%9e%e8%b0%83%e5%87%bd%e6%95%b0">Accepter 回调函数
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#42-tcpserver-%e6%9c%8d%e5%8a%a1%e5%99%a8">4.2 TcpServer 服务器
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#recver-%e5%9b%9e%e8%b0%83%e5%87%bd%e6%95%b0">Recver 回调函数
+        <a class="ltr:pl-12 rtl:pr-12 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#epoll-%e7%b1%bb">Epoll 类
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%ae%9a%e5%88%b6%e5%8d%8f%e8%ae%ae%e5%92%8c%e8%a7%a3%e5%86%b3%e7%b2%98%e5%8c%85%e9%97%ae%e9%a2%98">定制协议和解决粘包问题
+        <a class="ltr:pl-12 rtl:pr-12 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%9c%8d%e5%8a%a1%e5%99%a8%e7%b1%bb%e6%a1%86%e6%9e%b6">服务器类框架
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#enablereadwrite-%e5%87%bd%e6%95%b0">EnableReadWrite 函数
+        <a class="ltr:pl-12 rtl:pr-12 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#looponce-%e5%87%bd%e6%95%b0">LoopOnce 函数
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#sender-%e5%87%bd%e6%95%b0">Sender 函数
+        <a class="ltr:pl-12 rtl:pr-12 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#accepter-%e5%9b%9e%e8%b0%83%e5%87%bd%e6%95%b0">Accepter 回调函数
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#excepter-%e5%87%bd%e6%95%b0">Excepter 函数
+        <a class="ltr:pl-12 rtl:pr-12 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#recver-%e5%9b%9e%e8%b0%83%e5%87%bd%e6%95%b0">Recver 回调函数
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#43-%e6%b5%8b%e8%af%95">4.3 测试
+        <a class="ltr:pl-12 rtl:pr-12 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%ae%9a%e5%88%b6%e5%8d%8f%e8%ae%ae%e5%92%8c%e8%a7%a3%e5%86%b3%e7%b2%98%e5%8c%85%e9%97%ae%e9%a2%98">定制协议和解决粘包问题
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#44-%e6%89%a9%e5%b1%95-1">4.4 扩展 1
+        <a class="ltr:pl-12 rtl:pr-12 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#enablereadwrite-%e5%87%bd%e6%95%b0">EnableReadWrite 函数
         </a>
-      </li></ul><ul></ul>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-12 rtl:pr-12 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#sender-%e5%87%bd%e6%95%b0">Sender 函数
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-12 rtl:pr-12 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#excepter-%e5%87%bd%e6%95%b0">Excepter 函数
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#43-%e6%b5%8b%e8%af%95">4.3 测试
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#44-%e6%89%a9%e5%b1%95-1">4.4 扩展 1
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99">参考资料
+        </a>
+      </li></ul>
       <div class="mt-8 border-t bg-white pt-8 shadow-[0_-12px_16px_white] dark:bg-dark dark:shadow-[0_-12px_16px_#111] sticky bottom-0 flex flex-col items-start gap-2 pb-8 dark:border-neutral-800 contrast-more:border-t contrast-more:border-neutral-400 contrast-more:shadow-none contrast-more:dark:border-neutral-400">
         <button aria-hidden="true" id="backToTop" onClick="scrollUp();" class="transition-all transition duration-75 opacity-0 text-xs font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 contrast-more:text-gray-800 contrast-more:dark:text-gray-50">
           <span>Scroll to top</span>
@@ -765,7 +791,8 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
 <p><a href="https://blog.csdn.net/m0_63312733/article/details/133661648?spm=1001.2014.3001.5501" target="_blank" rel="noopener">I/O 多路复用【Linux/网络】（C++实现 epoll、select 和 epoll 服务器）</a></p>
 </li>
 </ul>
-<h1>1. 什么是 Reactor 模式</h1><p>既然你开始了解 Reactor（反应器） 模式，说明你知道在实现服务端时，多线程只能处理少量的客户端请求，一旦数量增多，维护线程的成本会急剧上升，导致服务端性能下降。而 Reactor 模型就是为解决这个问题而诞生的。</p>
+<h3>1. 什么是 Reactor 模式<span class="absolute -mt-20" id="1-什么是-reactor-模式"></span>
+    <a href="#1-%e4%bb%80%e4%b9%88%e6%98%af-reactor-%e6%a8%a1%e5%bc%8f" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>既然你开始了解 Reactor（反应器） 模式，说明你知道在实现服务端时，多线程只能处理少量的客户端请求，一旦数量增多，维护线程的成本会急剧上升，导致服务端性能下降。而 Reactor 模型就是为解决这个问题而诞生的。</p>
 <p>Reactor 模式是一种基于事件驱动的设计模式，它是 I/O 多路复用在设计模式层面上的体现。Reactor 设计模式的“设计”体现在：</p>
 <ul>
 <li>
@@ -810,7 +837,8 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
 </tr>
 </tbody>
 </table>
-<h1>2. Reactor 模型的演化</h1><p>我们知道一个服务器在接收数据后，要对这个数据进行解码，反序列化，处理，有必要的话还要序列化，然后将处理后的数据返回给客户端。这些操作可以抽象为一个个模块，交给线程去做。</p>
+<h3>2. Reactor 模型的演化<span class="absolute -mt-20" id="2-reactor-模型的演化"></span>
+    <a href="#2-reactor-%e6%a8%a1%e5%9e%8b%e7%9a%84%e6%bc%94%e5%8c%96" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>我们知道一个服务器在接收数据后，要对这个数据进行解码，反序列化，处理，有必要的话还要序列化，然后将处理后的数据返回给客户端。这些操作可以抽象为一个个模块，交给线程去做。</p>
 <img src="Reactor 模式.IMG/MD202310080037417.png" alt="image-20231005154104276" style="zoom:40%;" />
 <p>首先是单线程 Reator 模型，Reactor 模型会利用给定的 selectionKeys 进行派发操作，派发到给定的 Handler，之后当有客户端连接上来的时候，Acceptor 会调用接口 accept()，之后将接收到的连接和之前派发的 Handler 进行组合并启动。</p>
 <img src="Reactor 模式.IMG/MD202310080037418.png" alt="image-20231005154226516" style="zoom:40%;" />
@@ -818,7 +846,8 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
 <img src="Reactor 模式.IMG/MD202310080037419.png" alt="image-20231005154526596" style="zoom:40%;" />
 <p>图片来源：https://gee.cs.oswego.edu/dl/cpjslides/nio.pdf</p>
 <p>最后是多 Reactor 模型，此模型中，有一个主 Reactor（Main Reactor）和多个从 Reactor（Sub Reactor）。Main Reactor 负责处理客户端的连接请求，而 Sub Reactor 则负责处理已经建立的连接的读写事件。这种模型的好处就是整体职责更加明确，同时对于多核 CPU 的机器，系统资源的利用更加高一些。</p>
-<h1>3. Reactor 模式的工作流程</h1><ol>
+<h3>3. Reactor 模式的工作流程<span class="absolute -mt-20" id="3-reactor-模式的工作流程"></span>
+    <a href="#3-reactor-%e6%a8%a1%e5%bc%8f%e7%9a%84%e5%b7%a5%e4%bd%9c%e6%b5%81%e7%a8%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ol>
 <li>Reactor 对象通过 I/O 多路复用接口监听客户端请求事件，收到事件后，通过 Dispatch 进行分发。</li>
 <li>如果是建立连接请求，则 Acceptor 通过 accept() 处理连接请求，然后创建一个 Handler 对象处理完成连接后的各种事件。</li>
 <li>如果不是连接请求，说明是读事件就绪，则由 Reactor 分发调用连接对应的 Handler 来处理。</li>
@@ -826,12 +855,44 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
 <li>Worker 线程池（如果有的话）会分配独立线程完成真正的业务，并将结果返回给 Handler。</li>
 <li>Handler 收到响应后，通过 send() 分发将结果返回给客户端。</li>
 </ol>
-<h1>4. Reactor 服务器</h1><p>下面是一个 epoll 服务器比较完善的写法，它是 <a href="https://blog.csdn.net/m0_63312733/article/details/133661648?spm=1001.2014.3001.5501" target="_blank" rel="noopener">I/O 多路复用【Linux/网络】（C++实现 epoll、select 和 epoll 服务器）</a> 中 epoll 服务器的提升版。</p>
-<h2>4.1 Connection 类<span class="absolute -mt-20" id="41-connection-类"></span>
-    <a href="#41-connection-%e7%b1%bb" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>承接上一节中的 epoll 服务器：现在的问题是，来自用户的数据可能会被 TCP 协议拆分成多个报文，那么服务器怎么才能知道什么时候最后一个小报文被接收了呢？要保证完整地读取客户端发送的数据，服务器需要将这次读取到的数据保存起来，对它们进行一定的处理（报文可能会有报头，以解决粘包问题），最后将它们拼接起来，再向上层应用程序交付。</p>
+<h3>4. Reactor 服务器<span class="absolute -mt-20" id="4-reactor-服务器"></span>
+    <a href="#4-reactor-%e6%9c%8d%e5%8a%a1%e5%99%a8" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>下面是一个 epoll 服务器比较完善的写法，它是 <a href="https://blog.csdn.net/m0_63312733/article/details/133661648?spm=1001.2014.3001.5501" target="_blank" rel="noopener">I/O 多路复用【Linux/网络】（C++实现 epoll、select 和 epoll 服务器）</a> 中 epoll 服务器的提升版。</p>
+<h4>4.1 Connection 类<span class="absolute -mt-20" id="41-connection-类"></span>
+    <a href="#41-connection-%e7%b1%bb" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>承接上一节中的 epoll 服务器：现在的问题是，来自用户的数据可能会被 TCP 协议拆分成多个报文，那么服务器怎么才能知道什么时候最后一个小报文被接收了呢？要保证完整地读取客户端发送的数据，服务器需要将这次读取到的数据保存起来，对它们进行一定的处理（报文可能会有报头，以解决粘包问题），最后将它们拼接起来，再向上层应用程序交付。</p>
 <p>问题是 Recver 中的缓冲区 buffer 是一个局部变量，每次循环都会重置。而服务端可能会有成百上千个来自客户端建立连接后打开的文件描述符，这无法保证为每个文件描述符都保存本轮循环读取的数据。</p>
 <p>解决办法是为套接字文件描述符建立独立的接收和发送缓冲区，因为套接字是基于连接的，所以用一个名为 Connection 的类来保存所有和连接相关的属性，例如文件描述符，收发缓冲区，以及对文件描述符的操作（包括读、写和异常操作），所以要设置三个回调函数以供后续在不同的分支调用，最后还要设置一个回指指针，它将会保存服务器对象的地址，到后面会介绍它的用处。</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TcpServer</span><span class="p">;</span>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TcpServer</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">func_t</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="n">Connection</span><span class="o">*</span><span class="p">)</span><span class="o">&gt;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
@@ -857,7 +918,9 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">_in_buffer</span><span class="p">;</span>     <span class="c1">// 接收缓冲区
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">_out_buffer</span><span class="p">;</span>    <span class="c1">// 发送缓冲区
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">TcpServer</span><span class="o">*</span> <span class="n">_tsvr</span><span class="p">;</span>           <span class="c1">// 服务器回指指针
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -868,15 +931,81 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
   </div>
 </div>
 <p>成员函数 SetCallBack 是用来设置回调函数的地址的。注意成员变量的访问权限设置为 public，这么做是测试是就不用写 Get 和 Set 方法了。</p>
-<h2>4.2 TcpServer 服务器<span class="absolute -mt-20" id="42-tcpserver-服务器"></span>
-    <a href="#42-tcpserver-%e6%9c%8d%e5%8a%a1%e5%99%a8" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>服务器类已经实现很多遍了，这里只是将名字从 EpollServer 换成 TcpServer，其中许多逻辑是不变的。不同的是成员变量将 epoll 的文件描述符换成了 epoll 对象，因为在服务器类中，希望直接调用函数，而不进行传参（其实不改也可以，只是换个地方传参），所以对 Epoll 类的封装改进了一下。</p>
-<h3>Epoll 类<span class="absolute -mt-20" id="epoll-类"></span>
-    <a href="#epoll-%e7%b1%bb" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#pragma once
+<h4>4.2 TcpServer 服务器<span class="absolute -mt-20" id="42-tcpserver-服务器"></span>
+    <a href="#42-tcpserver-%e6%9c%8d%e5%8a%a1%e5%99%a8" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>服务器类已经实现很多遍了，这里只是将名字从 EpollServer 换成 TcpServer，其中许多逻辑是不变的。不同的是成员变量将 epoll 的文件描述符换成了 epoll 对象，因为在服务器类中，希望直接调用函数，而不进行传参（其实不改也可以，只是换个地方传参），所以对 Epoll 类的封装改进了一下。</p>
+<h5>Epoll 类<span class="absolute -mt-20" id="epoll-类"></span>
+    <a href="#epoll-%e7%b1%bb" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">###pragma once
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span><span class="line"><span class="cl"><span class="cp">###include &lt;iostream&gt;
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/epoll.h&gt;</span><span class="cp">
+</span></span><span class="line"><span class="cl"><span class="cp">###include &lt;sys/epoll.h&gt;
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Epoll</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -932,7 +1061,9 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
 </span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">_epfd</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">_timeout</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -943,10 +1074,95 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
   </div>
 </div>
 <p>这里将成员访问限制限定为 public，这么做是方便直接访问，否则要写一些 Get 或 Set 方法。</p>
-<h3>服务器类框架<span class="absolute -mt-20" id="服务器类框架"></span>
-    <a href="#%e6%9c%8d%e5%8a%a1%e5%99%a8%e7%b1%bb%e6%a1%86%e6%9e%b6" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>在构造函数中，除了创建 listensock 和创建 Epoll 对象等之外，要注意不仅 listensock，真正运行起来的服务器应该会存在大量的 socket，每一个 sock 都要被封装为一个 Connection 对象。那么这些 Connection 对象这么多，必须要管理它们：先描述，后组织。所以在服务器中使用哈希表组织这些 Connection 对象，key 是 sock，value 是 Connection 对象。</p>
+<h5>服务器类框架<span class="absolute -mt-20" id="服务器类框架"></span>
+    <a href="#%e6%9c%8d%e5%8a%a1%e5%99%a8%e7%b1%bb%e6%a1%86%e6%9e%b6" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><p>在构造函数中，除了创建 listensock 和创建 Epoll 对象等之外，要注意不仅 listensock，真正运行起来的服务器应该会存在大量的 socket，每一个 sock 都要被封装为一个 Connection 对象。那么这些 Connection 对象这么多，必须要管理它们：先描述，后组织。所以在服务器中使用哈希表组织这些 Connection 对象，key 是 sock，value 是 Connection 对象。</p>
 <p>以后只要 sock 对应的文件描述符就绪，通过哈希表就能找到对应的 Connection 对象，这样就能立马调用它的三个回调方法，对套接字进行处理。通过这个哈希表，就将 Epoll 和应用程序解耦。Epoll 的 AddSockToEpoll 成员函数就是为维护哈希表而设计的。</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TcpServer</span>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TcpServer</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="k">static</span> <span class="kt">int</span> <span class="n">default_port</span> <span class="o">=</span> <span class="mi">8080</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="k">static</span> <span class="kt">int</span> <span class="n">g_num</span> <span class="o">=</span> <span class="mi">128</span><span class="p">;</span>
@@ -1026,7 +1242,9 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">struct</span> <span class="nc">epoll_event</span> <span class="o">*</span><span class="n">_revs</span><span class="p">;</span>                          <span class="c1">// 保存从就绪队列中取出的就绪事件的文件描述符的数组
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">int</span> <span class="n">_nrevs</span><span class="p">;</span>                                         <span class="c1">// 数组长度
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">Connection</span> <span class="o">*&gt;</span> <span class="n">_connections</span><span class="p">;</span> <span class="c1">// 用哈希表保存连接
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1037,14 +1255,28 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
   </div>
 </div>
 <p>其中，SetNonBlock 在 Sock 类中的实现：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">bool</span> <span class="nf">SetNonBlock</span><span class="p">(</span><span class="kt">int</span> <span class="n">sock</span><span class="p">)</span>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">bool</span> <span class="nf">SetNonBlock</span><span class="p">(</span><span class="kt">int</span> <span class="n">sock</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">fl</span> <span class="o">=</span> <span class="n">fcntl</span><span class="p">(</span><span class="n">sock</span><span class="p">,</span> <span class="n">F_GETFL</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">fl</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">fcntl</span><span class="p">(</span><span class="n">sock</span><span class="p">,</span> <span class="n">F_SETFL</span><span class="p">,</span> <span class="n">fl</span> <span class="o">|</span> <span class="n">O_NONBLOCK</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1068,9 +1300,44 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
 <p><code>std::bind(&amp;TcpServer::Accepter, this, std::placeholders::_1)</code>这行代码的含义是创建一个新的函数对象，这个对象绑定了成员函数 TcpServer::Accepter 和对象 this 指针。其中，<code>std::placeholders::_1</code>是一个占位符，表示这个新的函数对象的第一个参数。</p>
 <p>当这个新的函数对象被调用时，它会调用 TcpServer::Accepter 这个成员函数，同时传入的参数会替换掉占位符<code>std::placeholders::_1</code>。</p>
 </blockquote>
-<h3>LoopOnce 函数<span class="absolute -mt-20" id="looponce-函数"></span>
-    <a href="#looponce-%e5%87%bd%e6%95%b0" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>在 LoopOnce 函数中执行的是每一次循环要做的事，对于 epoll 而言，用户进程只需要用一个数组存放已经就绪的文件描述符。然后遍历它。数组的每个元素都是一个事件结构体，通过它的成员判断事件的类型，是读还是写（异常稍后再说）。</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">bool</span> <span class="nf">IsConnectionExists</span><span class="p">(</span><span class="kt">int</span> <span class="n">sock</span><span class="p">)</span>
+<h5>LoopOnce 函数<span class="absolute -mt-20" id="looponce-函数"></span>
+    <a href="#looponce-%e5%87%bd%e6%95%b0" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><p>在 LoopOnce 函数中执行的是每一次循环要做的事，对于 epoll 而言，用户进程只需要用一个数组存放已经就绪的文件描述符。然后遍历它。数组的每个元素都是一个事件结构体，通过它的成员判断事件的类型，是读还是写（异常稍后再说）。</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">bool</span> <span class="nf">IsConnectionExists</span><span class="p">(</span><span class="kt">int</span> <span class="n">sock</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">auto</span> <span class="n">iter</span> <span class="o">=</span> <span class="n">_connections</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">sock</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">iter</span> <span class="o">==</span> <span class="n">_connections</span><span class="p">.</span><span class="n">end</span><span class="p">())</span>
@@ -1100,7 +1367,9 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
 </span></span><span class="line"><span class="cl">                <span class="n">_connections</span><span class="p">[</span><span class="n">sock</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">_send_cb</span><span class="p">(</span><span class="n">_connections</span><span class="p">[</span><span class="n">sock</span><span class="p">]);</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1112,12 +1381,54 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
 </div>
 <p>注意：只有当这个 sock 对应的 Connection 对象在哈希表中才能调用它里面的回调函数，而且要保证在调用之前回调函数是被设置过的，否则会空指针异常。</p>
 <p>判断 Connection 对象在哈希表中，通过函数 IsConnectionExists 实现。</p>
-<h3>Accepter 回调函数<span class="absolute -mt-20" id="accepter-回调函数"></span>
-    <a href="#accepter-%e5%9b%9e%e8%b0%83%e5%87%bd%e6%95%b0" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>Accepter 函数要做的时和之前一样，但是和之前实现的 epoll 服务器不同的是，由于服务端要处理不止一个连接，所以要在一个死循环中执行逻辑，直到文件描述符获取失败。但这次失败不会影响到下次，因为设置的 sock 是非阻塞的。</p>
+<h5>Accepter 回调函数<span class="absolute -mt-20" id="accepter-回调函数"></span>
+    <a href="#accepter-%e5%9b%9e%e8%b0%83%e5%87%bd%e6%95%b0" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><p>Accepter 函数要做的时和之前一样，但是和之前实现的 epoll 服务器不同的是，由于服务端要处理不止一个连接，所以要在一个死循环中执行逻辑，直到文件描述符获取失败。但这次失败不会影响到下次，因为设置的 sock 是非阻塞的。</p>
 <p>Accept() 函数的返回值小于零，并不代表出现了很严重的错误，对于本轮循环，如果没有连接请求了，就说明底层就绪的连接被取完了，退出。EAGAIN 和 EWOULDBLOCK 是两个含义相同的错误码（因为历史版本而形式不同），它们表示数据没有就绪。</p>
 <p>这通过一个输出型参数 accept_errno 来获取底层调用 accept() 的错误码，因此 Sock::Accept() 也有做相应修改。</p>
 <p>当 Accept 成功，说明这个文件描述符和服务端建立了连接，所以要为这个连接创建一个 Connection 对象，以保存它的信息，不要忘了注册回调函数。这样就相当于在派发时，各自调用了回调函数。</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">Accepter</span><span class="p">(</span><span class="n">Connection</span> <span class="o">*</span><span class="n">conn</span><span class="p">)</span>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">Accepter</span><span class="p">(</span><span class="n">Connection</span> <span class="o">*</span><span class="n">conn</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 服务端需要处理不止一个连接
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">while</span> <span class="p">(</span><span class="nb">true</span><span class="p">)</span>
@@ -1154,7 +1465,9 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
 </span></span><span class="line"><span class="cl">                       <span class="n">client_ip</span><span class="p">.</span><span class="n">c_str</span><span class="p">(),</span> <span class="n">client_port</span><span class="p">,</span> <span class="n">sock</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1166,10 +1479,54 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
 </div>
 <p>还是那个问题，虽然 Accept 函数成功执行了，但即使建立了连接，服务端也不知道客户端何时会发送数据，但现在 sock 的性质从之前的监听套接字变成了一个普通的 I/O 套接字，那么继续交给 TcpServer 中的 epoll 实例监视。</p>
 <p>这个将文件描述符“交付”给内核的操作，在 select 服务器的编写过程中我们通过将文件描述符添加到数组中，那么在 epoll 服务器中，我们只需要将<code>&lt;文件描述符，Connection 对象（三个回调函数）&gt;</code>这样的键值对插入到哈希表中，就实现了用户和内核之间的解耦，和数组的作用是类似的，只不过我们不用自己维护哈希表。</p>
-<h3>Recver 回调函数<span class="absolute -mt-20" id="recver-回调函数"></span>
-    <a href="#recver-%e5%9b%9e%e8%b0%83%e5%87%bd%e6%95%b0" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>由于文件描述符是非阻塞的，而且 epoll 被设置为 ET 模式，所以要不断地处理本次客户端发送的数据，因此在死循环中执行逻辑。差错处理和上面类似，不同的是当出现错误时或对端关闭连接时，调用 Excepter 函数。</p>
+<h5>Recver 回调函数<span class="absolute -mt-20" id="recver-回调函数"></span>
+    <a href="#recver-%e5%9b%9e%e8%b0%83%e5%87%bd%e6%95%b0" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><p>由于文件描述符是非阻塞的，而且 epoll 被设置为 ET 模式，所以要不断地处理本次客户端发送的数据，因此在死循环中执行逻辑。差错处理和上面类似，不同的是当出现错误时或对端关闭连接时，调用 Excepter 函数。</p>
 <p>当 recv() 成功时，将本轮循环读取的数据尾插到 sock 自己的接收缓冲区中。跳出循环则说明本次客户端发送的数据全部读取完毕，测试打印一下接收的数据。</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">Recver</span><span class="p">(</span><span class="n">Connection</span> <span class="o">*</span><span class="n">conn</span><span class="p">)</span>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">Recver</span><span class="p">(</span><span class="n">Connection</span> <span class="o">*</span><span class="n">conn</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="kt">int</span> <span class="n">num</span> <span class="o">=</span> <span class="mi">1024</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">bool</span> <span class="n">err</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
@@ -1208,7 +1565,9 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">err</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    	<span class="n">logMessage</span><span class="p">(</span><span class="n">DEBUG</span><span class="p">,</span> <span class="s">&#34;client[%d]&gt;&gt;&gt; %s&#34;</span><span class="p">,</span> <span class="n">conn</span><span class="o">-&gt;</span><span class="n">_sock</span><span class="p">,</span> <span class="n">conn</span><span class="o">-&gt;</span><span class="n">_in_buffer</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1228,14 +1587,28 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
 <blockquote>
 <p>实际上，可以将客户端发来请求封装为一个任务对象，然后放到任务队列中，让线程池处理，这样服务器就只用关心连接和收发数据本身，而不关心业务。发送数据只需要将序列化后的数据放到缓冲区中，让服务器帮忙转发。</p>
 </blockquote>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">using</span> <span class="n">callback_t</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="n">Connection</span> <span class="o">*</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">request</span><span class="p">)</span><span class="o">&gt;</span><span class="p">;</span>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">using</span> <span class="n">callback_t</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="n">Connection</span> <span class="o">*</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">request</span><span class="p">)</span><span class="o">&gt;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TcpServer</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// ...
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">private</span><span class="o">:</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// ...
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">callback_t</span> <span class="n">_cb</span><span class="p">;</span> <span class="c1">// 上层设置的业务处理回调函数
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1246,8 +1619,8 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
   </div>
 </div>
 <p>定义一个函数对象叫 callback_t，它的参数是 (Connection *, std::string &amp;request)，这其中包含连接的 sock 以及三个回调函数，还有客户端发送的请求，这个请求是上层业务需要解析的。</p>
-<h3>定制协议和解决粘包问题<span class="absolute -mt-20" id="定制协议和解决粘包问题"></span>
-    <a href="#%e5%ae%9a%e5%88%b6%e5%8d%8f%e8%ae%ae%e5%92%8c%e8%a7%a3%e5%86%b3%e7%b2%98%e5%8c%85%e9%97%ae%e9%a2%98" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>关于客户端请求的处理，在 <a href="https://blog.csdn.net/m0_63312733/article/details/131034790?spm=1001.2014.3001.5501" target="_blank" rel="noopener">认识协议【网络基础】</a> 有介绍，现在把其中的 Protocol.hpp 中的 Request 类和 Response 类以及 NetCal.hpp 的 calculatorHelper() 的放到这。</p>
+<h5>定制协议和解决粘包问题<span class="absolute -mt-20" id="定制协议和解决粘包问题"></span>
+    <a href="#%e5%ae%9a%e5%88%b6%e5%8d%8f%e8%ae%ae%e5%92%8c%e8%a7%a3%e5%86%b3%e7%b2%98%e5%8c%85%e9%97%ae%e9%a2%98" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><p>关于客户端请求的处理，在 <a href="https://blog.csdn.net/m0_63312733/article/details/131034790?spm=1001.2014.3001.5501" target="_blank" rel="noopener">认识协议【网络基础】</a> 有介绍，现在把其中的 Protocol.hpp 中的 Request 类和 Response 类以及 NetCal.hpp 的 calculatorHelper() 的放到这。</p>
 <ul>
 <li>Request 类和 Response 类：这两个类封装了序列化的反序列化的逻辑，用来接收客户端发送的请求（Request），处理后的数据如果有必要返回的话，那就返回应答（Response）给客户端。</li>
 <li>calculatorHelper()：实现了简单的加减乘除，用这个简易的计算机代表上层应用程序的业务。</li>
@@ -1277,7 +1650,36 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
   </div>
 </div>
 <p>在 Recver 接收到客户端发送的一个完整的请求后，调用 SpliteMessage 函数将请求中的<code>X</code>剔除，用数组存放每一个有效子请求，然后把每个子请求交给上层业务逻辑。</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">Recver</span><span class="p">(</span><span class="n">Connection</span> <span class="o">*</span><span class="n">conn</span><span class="p">)</span>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">Recver</span><span class="p">(</span><span class="n">Connection</span> <span class="o">*</span><span class="n">conn</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="kt">int</span> <span class="n">num</span> <span class="o">=</span> <span class="mi">1024</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">bool</span> <span class="n">err</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
@@ -1301,7 +1703,9 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="o">&amp;</span><span class="nl">msg</span> <span class="p">:</span> <span class="n">message</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">            <span class="n">_cb</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">msg</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1312,18 +1716,144 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
   </div>
 </div>
 <p>下面是实现拆分报文以及请求和响应中的序列化和反序列化的逻辑：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// Protocol.hpp
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#pragma once
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// Protocol.hpp
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">###pragma once
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;cstring&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+</span></span><span class="line"><span class="cl"><span class="cp">###include &lt;iostream&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp">###include &lt;cstring&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp">###include &lt;string&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp">###include &lt;vector&gt;
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl"><span class="cp">#define SEP &#34;X&#34;
-</span></span></span><span class="line"><span class="cl"><span class="cp">#define SEP_LEN strlen(SEP)
-</span></span></span><span class="line"><span class="cl"><span class="cp">#define SPACE &#34; &#34;
-</span></span></span><span class="line"><span class="cl"><span class="cp">#define SPACE_LEN strlen(SPACE)
+</span></span><span class="line"><span class="cl"><span class="cp">###define SEP &#34;X&#34;
+</span></span></span><span class="line"><span class="cl"><span class="cp">###define SEP_LEN strlen(SEP)
+</span></span></span><span class="line"><span class="cl"><span class="cp">###define SPACE &#34; &#34;
+</span></span></span><span class="line"><span class="cl"><span class="cp">###define SPACE_LEN strlen(SPACE)
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">SpliteMessage</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">buffer</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="o">*</span><span class="n">out</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -1433,7 +1963,9 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">_x</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">_y</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">_op</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1454,9 +1986,76 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
 <p>在服务端处理数据的粘包问题时，为什么已经获取到缓冲区中真正有效的数据以后，还要将缓冲区中的内容做修改，被处理后的缓冲区中的内容似乎没有什么作用了。</p>
 </blockquote>
 <p>虽然内容已经被解码器拷贝出来并交给上层处理了，所以它们在缓冲区中就没有存在的意义，但是如果不删除或者移动它们，那么它们就会占用缓冲区的空间，并且可能干扰下一个数据包的读取和解析。所以解码器会将它们清理掉，以保持缓冲区的整洁和正确。</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// main.cc
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&#34;TcpServer.hpp&#34;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;memory&gt;</span><span class="cp">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// main.cc
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">###include &#34;TcpServer.hpp&#34;
+</span></span></span><span class="line"><span class="cl"><span class="cp">###include &lt;memory&gt;
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="n">Response</span> <span class="nf">calculatorHelper</span><span class="p">(</span><span class="k">const</span> <span class="n">Request</span> <span class="o">&amp;</span><span class="n">req</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -1516,7 +2115,9 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">TcpServer</span><span class="o">&gt;</span> <span class="n">svr</span><span class="p">(</span><span class="k">new</span> <span class="n">TcpServer</span><span class="p">());</span>
 </span></span><span class="line"><span class="cl">    <span class="n">svr</span><span class="o">-&gt;</span><span class="n">Dispather</span><span class="p">(</span><span class="n">calculator</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1529,10 +2130,24 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
 <p>[<strong>重点</strong>] 现在的问题是，如何让服务器将处理好的数据发送给客户端呢（我们假设 Sender 已经写完了）？在服务器的构造函数中，只关心新到来的连接的文件描述符的<strong>读事件</strong>，而不关心写事件。当一个连接到来后，按规则发送了请求，但是服务器中的 Epoll 对象并没有打开对写事件的关心，这就没办法返回响应给客户端了。</p>
 <p>所以在要返回响应给客户端的前提是让服务器打开对写事件的关心？但是问题又来了，这里已经是服务器上层的业务逻辑了，怎么才能回到服务器中设置呢？</p>
 <p>还记得 Connection 类中有一个 TcpServer 类型的回指指针吗？它可以帮助上层业务回到服务器中设置服务器对写事件的关心。</p>
-<h3>EnableReadWrite 函数<span class="absolute -mt-20" id="enablereadwrite-函数"></span>
-    <a href="#enablereadwrite-%e5%87%bd%e6%95%b0" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>这个函数用来设置服务器的 epoll 对象对连接读写事件的关心与否。它接受三个参数：一个是 Connection 类型的指针，表示要设置的连接对象；两个是 bool 类型的值，表示是否允许读取或写入数据。</p>
+<h5>EnableReadWrite 函数<span class="absolute -mt-20" id="enablereadwrite-函数"></span>
+    <a href="#enablereadwrite-%e5%87%bd%e6%95%b0" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><p>这个函数用来设置服务器的 epoll 对象对连接读写事件的关心与否。它接受三个参数：一个是 Connection 类型的指针，表示要设置的连接对象；两个是 bool 类型的值，表示是否允许读取或写入数据。</p>
 <p>函数的主要逻辑是根据这两个布尔值来确定要设置的事件类型，然后调用_poll.Ctrl() 方法来修改连接的事件监听状态</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">EnableReadWrite</span><span class="p">(</span><span class="n">Connection</span> <span class="o">*</span><span class="n">conn</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">readable</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">writeable</span><span class="p">)</span>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">EnableReadWrite</span><span class="p">(</span><span class="n">Connection</span> <span class="o">*</span><span class="n">conn</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">readable</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">writeable</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">uint32_t</span> <span class="n">events</span> <span class="o">=</span> <span class="p">((</span><span class="n">readable</span> <span class="o">?</span> <span class="nl">EPOLLIN</span> <span class="p">:</span> <span class="mi">0</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">writeable</span> <span class="o">?</span> <span class="nl">EPOLLOUT</span> <span class="p">:</span> <span class="mi">0</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">bool</span> <span class="n">res</span> <span class="o">=</span> <span class="n">_poll</span><span class="p">.</span><span class="n">Ctrl</span><span class="p">(</span><span class="n">conn</span><span class="o">-&gt;</span><span class="n">_sock</span><span class="p">,</span> <span class="n">events</span><span class="p">);</span>
@@ -1541,7 +2156,9 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
 </span></span><span class="line"><span class="cl">        <span class="n">logMessage</span><span class="p">(</span><span class="n">ERROR</span><span class="p">,</span> <span class="s">&#34;EnableReadWrite() error...code:[%d]:%s&#34;</span><span class="p">,</span> <span class="n">errno</span><span class="p">,</span> <span class="n">strerror</span><span class="p">(</span><span class="n">errno</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1552,10 +2169,49 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
   </div>
 </div>
 <p>除此之外，EnableReadWrite 函数将会在 Sender 函数中也发挥作用。</p>
-<h3>Sender 函数<span class="absolute -mt-20" id="sender-函数"></span>
-    <a href="#sender-%e5%87%bd%e6%95%b0" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>在 Sender 函数中，应该将上层业务处理好后的数据发送给客户端。同样地，send() 函数可能没办法一次性将发送缓冲区的数据发送给客户端，所以要在一个死循环中执行。</p>
+<h5>Sender 函数<span class="absolute -mt-20" id="sender-函数"></span>
+    <a href="#sender-%e5%87%bd%e6%95%b0" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><p>在 Sender 函数中，应该将上层业务处理好后的数据发送给客户端。同样地，send() 函数可能没办法一次性将发送缓冲区的数据发送给客户端，所以要在一个死循环中执行。</p>
 <p>在本轮循环发送的数据必须从发送缓冲区中移除。在差错处理时，通过发送缓冲区为空与否，来判断数据是否全部发送给客户端。</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">Sender</span><span class="p">(</span><span class="n">Connection</span> <span class="o">*</span><span class="n">conn</span><span class="p">)</span>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">Sender</span><span class="p">(</span><span class="n">Connection</span> <span class="o">*</span><span class="n">conn</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="nb">true</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
@@ -1589,7 +2245,9 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
 </span></span><span class="line"><span class="cl">    <span class="c1">// b. 缓冲区未空，继续发送，保持服务器 epoll 模型对连接写事件的关心
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">else</span>
 </span></span><span class="line"><span class="cl">        <span class="n">EnableReadWrite</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="nb">true</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1609,15 +2267,39 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
 <p>为什么在 epoll 实现的服务器中，服务器在发送数据之后，要关闭 epoll 对写事件的关心呢？</p>
 </blockquote>
 <p>是因为 EPOLLOUT 事件是一个<strong>高频率触发</strong>的事件，也就是说，在大多数情况下，文件描述符都是可写的，除非缓冲区满了或者出现异常。如果不关闭 epoll 对写事件的关心，那么每次 epoll_wait 返回时，都会返回大量的 EPOLLOUT 事件，占用了服务器的 CPU 资源，并且可能干扰其他更重要的事件的处理。因此，在发送数据之后，如果数据已经发送完毕，就应该关闭 epoll 对写事件的关心，只保留对读事件或者其他事件的关心。这样可以提高服务器的性能和效率。</p>
-<h3>Excepter 函数<span class="absolute -mt-20" id="excepter-函数"></span>
-    <a href="#excepter-%e5%87%bd%e6%95%b0" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>Excepter 函数是当内核检测到异常事件就绪时触发的回调函数。它的作用是在 Recver 函数或 Sender 函数中，当 recv() 或 send() 系统调用出现<strong>致命性错误</strong>时进行移除不需要的文件描述符以及资源回收等操作。</p>
+<h5>Excepter 函数<span class="absolute -mt-20" id="excepter-函数"></span>
+    <a href="#excepter-%e5%87%bd%e6%95%b0" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><p>Excepter 函数是当内核检测到异常事件就绪时触发的回调函数。它的作用是在 Recver 函数或 Sender 函数中，当 recv() 或 send() 系统调用出现<strong>致命性错误</strong>时进行移除不需要的文件描述符以及资源回收等操作。</p>
 <p>致命性错误指的是系统调用真的出错了，导致这个文件描述符没有再维护和监视的意义，例如在使用 revc() 来接收数据时，对端关闭了连接，那么服务端也就没有必要再监视这个文件描述符了。</p>
 <p>在此想强调的是，要熟悉这些系统调用返回值和错误码的意义，返回值小于零，并不代表它真的出错了，还要进一步通过错误码来判断真实的错误。</p>
 <blockquote>
 <p>例如我在调试时，我没有在初始化列表中为 timeout 参数初始化，所以当 LoopOnce() 调用 EpollWait() 函数时其中的 epoll_wait 函数执行失败了，但刚好这里面没有进行差错处理，为此花了不少时间。</p>
 <p>我的收获是，不仅要根据返回值还要根据错误码定位错误原因。在 Recver 函数和 Sender 函数中也是这么做的。</p>
 </blockquote>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">Excepter</span><span class="p">(</span><span class="n">Connection</span> <span class="o">*</span><span class="n">conn</span><span class="p">)</span>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">Excepter</span><span class="p">(</span><span class="n">Connection</span> <span class="o">*</span><span class="n">conn</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>   
 </span></span><span class="line"><span class="cl">    <span class="c1">// 0. 判断连接是否存在
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">IsConnectionExists</span><span class="p">(</span><span class="n">conn</span><span class="o">-&gt;</span><span class="n">_sock</span><span class="p">))</span>
@@ -1636,7 +2318,9 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">delete</span> <span class="n">conn</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="n">logMessage</span><span class="p">(</span><span class="n">DEBUG</span><span class="p">,</span> <span class="s">&#34;Excepter() OK...&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1648,7 +2332,41 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
 </div>
 <p>除了 Recver 函数和 Sender 函数，LoopOnce 函数也需要差错处理，如果事件的类型是 EPOLLERR（文件描述符发生错误） 或 EPOLLHUP（对端将文件描述符关闭），那么应该调用 Excepter 函数。但是 LoopOnce 函数中应该进行的是服务器一次循环应该做的事，也就是根据就绪事件的类型，来调用 Recver 函数还是 Sender 函数。</p>
 <p>而事件的状态是通过事件掩码保存的，那么将“出错”这个状态通过<code>|</code>运算设置进事件掩码中，是不影响其他状态的，因为出错后都要调用 Excepter 函数，直接让 Sender 和 Recver 函数去做就好了。</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">LoopOnce</span><span class="p">()</span>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">LoopOnce</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">_poll</span><span class="p">.</span><span class="n">Wait</span><span class="p">(</span><span class="n">_revs</span><span class="p">,</span> <span class="n">_nrevs</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
@@ -1677,7 +2395,9 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
 </span></span><span class="line"><span class="cl">                    <span class="n">_connections</span><span class="p">[</span><span class="n">sock</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">_send_cb</span><span class="p">(</span><span class="n">_connections</span><span class="p">[</span><span class="n">sock</span><span class="p">]);</span>
 </span></span><span class="line"><span class="cl">            <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1694,11 +2414,66 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
 <p>这样做的目的是能够及时发现和处理各种错误情况，并且避免不必要的错误处理。什么意思呢？就是说 Excepter 函数只处理<strong>致命的错误</strong>，言外之意是<strong>文件描述符的状态无法真正表征错误的严重性</strong>。</p>
 <p>和上面的系统调用出错时的返回值问题类似，有些错误不能仅仅通过文件描述符的状态来判断，因为一个错误状态可能对应多个问题。而且有些错误并不是立即可知的，而是需要通过 recv 或 send 函数（ read 或 write 函数）来检测到。例如，如果对方正常关闭了连接，那么 read 函数会返回 0；如果对方异常关闭了连接，那么 recv 或 send 函数（ read 或 write 函数）会返回 -1，并设置 errno 为 ECONNRESET 或 EPIPE。这些情况都需要通过 recv 或 send 函数（ read 或 write 函数）来发现，并进行相应的处理。因此，在事件出错时，将它们的状态设置为可读可写，可以让 Recver 或 Sender 函数在尝试读或写时发现错误，并调用 Excepter 函数来处理。</p>
 <p>同样地，有些错误并不是致命的，而是可以通过重试或忽略来解决的（注意代码中的 break 和 continue 对应着不同的错误）。如代码中写的，如果 recv 或 send 函数（ read 或 write 函数）返回 -1，并设置 errno 为 EAGAIN 或 EWOULDBLOCK，那么表示缓冲区已满或者没有数据可读，只需要等待下一次可读或可写时再次尝试即可；如果 recv 或 send 函数（ read 或 write 函数）返回 -1，并设置 errno 为 EINTR，那么表示被信号中断了，只需要继续尝试即可。这些情况都不需要调用 Excepter 函数来处理。因此，在事件出错时，将它们的状态设置为可读可写，可以让 Recver 或 Sender 函数在遇到这些错误时进行重试或忽略。</p>
-<h2>4.3 测试<span class="absolute -mt-20" id="43-测试"></span>
-    <a href="#43-%e6%b5%8b%e8%af%95" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><img src="Reactor 模式.IMG/MD202310080037421.gif" alt="屏幕录制 2023-10-06 19.58.44" style="zoom:40%;" />
-<h2>4.4 扩展 1<span class="absolute -mt-20" id="44-扩展-1"></span>
-    <a href="#44-%e6%89%a9%e5%b1%95-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>如果有恶意节点和服务端建立大量连接，并且保持长时间不发送数据，这种无意义的连接会占用服务端大量资源，解决办法是设置一个超时时间。记录当前时间和客户端最近一次发送数据的时间，当它们的差值超过设定的超时时间，就断开连接。</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Connection</span>
+<h4>4.3 测试<span class="absolute -mt-20" id="43-测试"></span>
+    <a href="#43-%e6%b5%8b%e8%af%95" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><img src="Reactor 模式.IMG/MD202310080037421.gif" alt="屏幕录制 2023-10-06 19.58.44" style="zoom:40%;" />
+<h4>4.4 扩展 1<span class="absolute -mt-20" id="44-扩展-1"></span>
+    <a href="#44-%e6%89%a9%e5%b1%95-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>如果有恶意节点和服务端建立大量连接，并且保持长时间不发送数据，这种无意义的连接会占用服务端大量资源，解决办法是设置一个超时时间。记录当前时间和客户端最近一次发送数据的时间，当它们的差值超过设定的超时时间，就断开连接。</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Connection</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// ...
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">public</span><span class="o">:</span>
@@ -1748,7 +2523,9 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// ...
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1771,7 +2548,8 @@ Handle（句柄） 用于标识不同的事件，本质是文件描述符。 Syc
 <blockquote>
 <p>来自网络，以后会填坑。</p>
 </blockquote>
-<h1>参考资料</h1><ul>
+<h3>参考资料<span class="absolute -mt-20" id="参考资料"></span>
+    <a href="#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
 <li><a href="https://www.cnblogs.com/chenssy/p/15440348.html" target="_blank" rel="noopener">【死磕 NIO】— Reactor 模式就一定意味着高性能吗？</a></li>
 <li><a href="https://en.wikipedia.org/wiki/Reactor_pattern" target="_blank" rel="noopener">Reactor pattern&ndash;wiki</a></li>
 <li><a href="http://www.dre.vanderbilt.edu/~schmidt/PDF/reactor-siemens.pdf" target="_blank" rel="noopener">reactor-siemens</a></li>

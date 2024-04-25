@@ -12,15 +12,13 @@
 <link fetchpriority="low" href="/site.webmanifest" rel="manifest" />
 
   <title>C语言连接 – Shawy&#39;s Blog</title>
-  <meta name="description" content="安装 MySQL 库在 CentOS7 下，使用命令安装 MySQL：
+  <meta name="description" content="安装 MySQL 库 在 CentOS7 下，使用命令安装 MySQL：
 yum install mysql-devel 在/usr/include可以看到一个mysql新目录，里面存放的是 mysql 的头文件。另外在 /lib64/mysql/ 以及 /usr/lib64/mysql 目录下存放了 mysql 的动态和静态库。
 用一个 MySQL 库提供的接口验证 MySQL 库是否安装成功：
-#include &lt;iostream&gt; #include &lt;mysql/mysql.h&gt; using namespace std; int main() { cout &lt;&lt; &#34;mysql version: &#34; &lt;&lt; mysql_get_client_info() &lt;&lt; endl; return 0; } 编译：
+1 2 3 4 5 6 7 8 9 10 ##include &lt;iostream&gt; ##include &lt;mysql/mysql.h&gt; using namespace std; int main() { cout &lt;&lt; &#34;mysql version: &#34; &lt;&lt; mysql_get_client_info() &lt;&lt; endl; return 0; } 编译：
 g&#43;&#43; sql.cc -o sql -I/usr/include/mysql -L/usr/lib64/mysql -lmysqlclient 编译选项中关于库的使用：
 -I：用于指明头文件的搜索路径。 -L：用于指明库文件的搜索路径。 -l：用于指明需要连接库文件路径下的哪一个库。 因为这个库没有在链接的默认目录/usr/lib64下，所以作为第三方导入的库，在编译时需要显式地指定-L/usr/lib64/mysql；同理，头文件不在默认目录/usr/include下，所以要显式地指定-I/usr/include/mysql。在这个目录下，存在名为mysqlclient的第三方库，同样需要用-l显式地声明。
-只要正常运行上面的程序，那就表明库的链接没有问题，剩下的就是简单的 API 使用。
-连接 MySQLMYSQL 类 在使用 MySQL 提供的接口之前，需要了解一下这个重要的类。
-MYSQL类是一个非常核心的结构体，它用于表示与 MySQL 服务器的一个连接实例。在客户端程序中，这个结构体用来保存客户端与数据库服务器之间连接的所有必要信息，包括但不限于：" />
+只要正常运行上面的程序，那就表明库的链接没有问题，剩下的就是简单的 API 使用。" />
   
   
     <link rel="canonical" href="/blogs/mysql/c%E8%AF%AD%E8%A8%80%E8%BF%9E%E6%8E%A5/" itemprop="url" />
@@ -29,15 +27,13 @@ MYSQL类是一个非常核心的结构体，它用于表示与 MySQL 服务器�
   
 
 <meta property="og:title" content="C语言连接" />
-<meta property="og:description" content="安装 MySQL 库在 CentOS7 下，使用命令安装 MySQL：
+<meta property="og:description" content="安装 MySQL 库 在 CentOS7 下，使用命令安装 MySQL：
 yum install mysql-devel 在/usr/include可以看到一个mysql新目录，里面存放的是 mysql 的头文件。另外在 /lib64/mysql/ 以及 /usr/lib64/mysql 目录下存放了 mysql 的动态和静态库。
 用一个 MySQL 库提供的接口验证 MySQL 库是否安装成功：
-#include &lt;iostream&gt; #include &lt;mysql/mysql.h&gt; using namespace std; int main() { cout &lt;&lt; &#34;mysql version: &#34; &lt;&lt; mysql_get_client_info() &lt;&lt; endl; return 0; } 编译：
+1 2 3 4 5 6 7 8 9 10 ##include &lt;iostream&gt; ##include &lt;mysql/mysql.h&gt; using namespace std; int main() { cout &lt;&lt; &#34;mysql version: &#34; &lt;&lt; mysql_get_client_info() &lt;&lt; endl; return 0; } 编译：
 g&#43;&#43; sql.cc -o sql -I/usr/include/mysql -L/usr/lib64/mysql -lmysqlclient 编译选项中关于库的使用：
 -I：用于指明头文件的搜索路径。 -L：用于指明库文件的搜索路径。 -l：用于指明需要连接库文件路径下的哪一个库。 因为这个库没有在链接的默认目录/usr/lib64下，所以作为第三方导入的库，在编译时需要显式地指定-L/usr/lib64/mysql；同理，头文件不在默认目录/usr/include下，所以要显式地指定-I/usr/include/mysql。在这个目录下，存在名为mysqlclient的第三方库，同样需要用-l显式地声明。
-只要正常运行上面的程序，那就表明库的链接没有问题，剩下的就是简单的 API 使用。
-连接 MySQLMYSQL 类 在使用 MySQL 提供的接口之前，需要了解一下这个重要的类。
-MYSQL类是一个非常核心的结构体，它用于表示与 MySQL 服务器的一个连接实例。在客户端程序中，这个结构体用来保存客户端与数据库服务器之间连接的所有必要信息，包括但不限于：" />
+只要正常运行上面的程序，那就表明库的链接没有问题，剩下的就是简单的 API 使用。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/blogs/mysql/c%E8%AF%AD%E8%A8%80%E8%BF%9E%E6%8E%A5/" /><meta property="article:section" content="blogs" />
 
@@ -45,32 +41,28 @@ MYSQL类是一个非常核心的结构体，它用于表示与 MySQL 服务器�
 
   
   <meta itemprop="name" content="C语言连接">
-  <meta itemprop="description" content="安装 MySQL 库在 CentOS7 下，使用命令安装 MySQL：
+  <meta itemprop="description" content="安装 MySQL 库 在 CentOS7 下，使用命令安装 MySQL：
 yum install mysql-devel 在/usr/include可以看到一个mysql新目录，里面存放的是 mysql 的头文件。另外在 /lib64/mysql/ 以及 /usr/lib64/mysql 目录下存放了 mysql 的动态和静态库。
 用一个 MySQL 库提供的接口验证 MySQL 库是否安装成功：
-#include &lt;iostream&gt; #include &lt;mysql/mysql.h&gt; using namespace std; int main() { cout &lt;&lt; &#34;mysql version: &#34; &lt;&lt; mysql_get_client_info() &lt;&lt; endl; return 0; } 编译：
+1 2 3 4 5 6 7 8 9 10 ##include &lt;iostream&gt; ##include &lt;mysql/mysql.h&gt; using namespace std; int main() { cout &lt;&lt; &#34;mysql version: &#34; &lt;&lt; mysql_get_client_info() &lt;&lt; endl; return 0; } 编译：
 g&#43;&#43; sql.cc -o sql -I/usr/include/mysql -L/usr/lib64/mysql -lmysqlclient 编译选项中关于库的使用：
 -I：用于指明头文件的搜索路径。 -L：用于指明库文件的搜索路径。 -l：用于指明需要连接库文件路径下的哪一个库。 因为这个库没有在链接的默认目录/usr/lib64下，所以作为第三方导入的库，在编译时需要显式地指定-L/usr/lib64/mysql；同理，头文件不在默认目录/usr/include下，所以要显式地指定-I/usr/include/mysql。在这个目录下，存在名为mysqlclient的第三方库，同样需要用-l显式地声明。
-只要正常运行上面的程序，那就表明库的链接没有问题，剩下的就是简单的 API 使用。
-连接 MySQLMYSQL 类 在使用 MySQL 提供的接口之前，需要了解一下这个重要的类。
-MYSQL类是一个非常核心的结构体，它用于表示与 MySQL 服务器的一个连接实例。在客户端程序中，这个结构体用来保存客户端与数据库服务器之间连接的所有必要信息，包括但不限于：">
-  <meta itemprop="wordCount" content="1012"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="C语言连接">
-<meta name="twitter:description" content="安装 MySQL 库在 CentOS7 下，使用命令安装 MySQL：
+只要正常运行上面的程序，那就表明库的链接没有问题，剩下的就是简单的 API 使用。">
+  <meta itemprop="wordCount" content="1187"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="C语言连接">
+<meta name="twitter:description" content="安装 MySQL 库 在 CentOS7 下，使用命令安装 MySQL：
 yum install mysql-devel 在/usr/include可以看到一个mysql新目录，里面存放的是 mysql 的头文件。另外在 /lib64/mysql/ 以及 /usr/lib64/mysql 目录下存放了 mysql 的动态和静态库。
 用一个 MySQL 库提供的接口验证 MySQL 库是否安装成功：
-#include &lt;iostream&gt; #include &lt;mysql/mysql.h&gt; using namespace std; int main() { cout &lt;&lt; &#34;mysql version: &#34; &lt;&lt; mysql_get_client_info() &lt;&lt; endl; return 0; } 编译：
+1 2 3 4 5 6 7 8 9 10 ##include &lt;iostream&gt; ##include &lt;mysql/mysql.h&gt; using namespace std; int main() { cout &lt;&lt; &#34;mysql version: &#34; &lt;&lt; mysql_get_client_info() &lt;&lt; endl; return 0; } 编译：
 g&#43;&#43; sql.cc -o sql -I/usr/include/mysql -L/usr/lib64/mysql -lmysqlclient 编译选项中关于库的使用：
 -I：用于指明头文件的搜索路径。 -L：用于指明库文件的搜索路径。 -l：用于指明需要连接库文件路径下的哪一个库。 因为这个库没有在链接的默认目录/usr/lib64下，所以作为第三方导入的库，在编译时需要显式地指定-L/usr/lib64/mysql；同理，头文件不在默认目录/usr/include下，所以要显式地指定-I/usr/include/mysql。在这个目录下，存在名为mysqlclient的第三方库，同样需要用-l显式地声明。
-只要正常运行上面的程序，那就表明库的链接没有问题，剩下的就是简单的 API 使用。
-连接 MySQLMYSQL 类 在使用 MySQL 提供的接口之前，需要了解一下这个重要的类。
-MYSQL类是一个非常核心的结构体，它用于表示与 MySQL 服务器的一个连接实例。在客户端程序中，这个结构体用来保存客户端与数据库服务器之间连接的所有必要信息，包括但不限于：">
+只要正常运行上面的程序，那就表明库的链接没有问题，剩下的就是简单的 API 使用。">
 
     <link rel="preload" href="/css/compiled/main.min.5a06ca26e024c4f511f45ee6c33a2a1faefaebe6be8a38d36e100f40a4c59c06.css" as="style" integrity="sha256-WgbKJuAkxPUR9F7mwzoqH6766&#43;a&#43;ijjTbhAPQKTFnAY=" />
     <link href="/css/compiled/main.min.5a06ca26e024c4f511f45ee6c33a2a1faefaebe6be8a38d36e100f40a4c59c06.css" rel="stylesheet" integrity="sha256-WgbKJuAkxPUR9F7mwzoqH6766&#43;a&#43;ijjTbhAPQKTFnAY=" />
 
 
 
-  <link href="/css/custom.min.e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css" rel="stylesheet" integrity="sha256-47DEQpj8HBSa&#43;/TImW&#43;5JCeuQeRkm5NMpJWZG3hSuFU=" />
+  <link href="/css/custom.min.7d43e1fdc41380d9e5d795e4b7ab39cca64e2e8ac32a15c33924c1f0a8cb1df0.css" rel="stylesheet" integrity="sha256-fUPh/cQTgNnl15Xkt6s5zKZOLorDKhXDOSTB8KjLHfA=" />
 
 
 
@@ -124,7 +116,7 @@ MYSQL类是一个非常核心的结构体，它用于表示与 MySQL 服务器�
             <span class="text-center">About</span>
           </a><a
             title="Contact ↗"
-            href="https://blog.csdn.net/m0_63312733?type=blog"
+            href="https://img-blog.csdnimg.cn/7deb340b1c95414d9dc25a89d1cb1f32.png"
             target="_blank" rel="noreferer"
             class="text-sm contrast-more:text-gray-700 contrast-more:dark:text-gray-100 relative -ml-2 hidden whitespace-nowrap p-2 md:inline-block text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
           >
@@ -215,7 +207,15 @@ MYSQL类是一个非常核心的结构体，它用于表示与 MySQL 服务器�
       text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
     href="/blogs/cpp/"
     
-  >C/C&#43;&#43;
+  >C&#43;&#43;
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/c/"
+    
+  >C语言
     </a>
               
             </li><li class="flex flex-col open"><a
@@ -349,45 +349,59 @@ MYSQL类是一个非常核心的结构体，它用于表示与 MySQL 服务器�
   
     <ul class='flex flex-col gap-1 relative before:absolute before:inset-y-1 before:w-px before:bg-gray-200 before:content-[""] dark:before:bg-neutral-800 ltr:pl-3 ltr:before:left-0 rtl:pr-3 rtl:before:right-0 ltr:ml-3 rtl:mr-3'><li>
               <a
-                href="#mysql-%e7%b1%bb"
+                href="#%e5%ae%89%e8%a3%85-mysql-%e5%ba%93"
                 class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >MYSQL 类</a>
+              >安装 MySQL 库</a>
             </li>
           <li>
               <a
-                href="#%e5%88%9b%e5%bb%ba-mysql-%e5%af%b9%e8%b1%a1"
+                href="#%e8%bf%9e%e6%8e%a5-mysql"
                 class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >创建 MySQL 对象</a>
+              >连接 MySQL</a>
             </li>
           <li>
               <a
-                href="#%e8%bf%9e%e6%8e%a5%e6%95%b0%e6%8d%ae%e5%ba%93"
+                href="#%e5%8f%91%e9%80%81%e5%91%bd%e4%bb%a4"
                 class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >连接数据库</a>
+              >发送命令</a>
             </li>
           <li>
               <a
-                href="#%e5%85%b3%e9%97%ad%e6%95%b0%e6%8d%ae%e5%ba%93%e8%bf%9e%e6%8e%a5"
+                href="#%e8%ae%be%e7%bd%ae%e7%bc%96%e7%a0%81%e6%a0%bc%e5%bc%8f"
                 class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >关闭数据库连接</a>
+              >设置编码格式</a>
             </li>
           <li>
               <a
-                href="#%e7%a4%ba%e4%be%8b"
+                href="#%e6%8f%92%e5%85%a5%e5%88%a0%e9%99%a4%e6%88%96%e4%bf%ae%e6%94%b9%e8%ae%b0%e5%bd%95"
                 class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >示例</a>
+              >插入、删除或修改记录</a>
             </li>
           <li>
               <a
-                href="#%e7%a4%ba%e4%be%8b-1"
+                href="#%e6%9f%a5%e8%af%a2%e8%ae%b0%e5%bd%95"
                 class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >示例</a>
+              >查询记录</a>
+            </li>
+          <li>
+              <a
+                href="#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >参考资料</a>
             </li>
           </ul>
   
               
             </li></ul>
       </div>
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/block-chain/"
+    
+  >区块链
+    </a>
+              
             </li><li class="flex flex-col "><a
     class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
       text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
@@ -562,6 +576,14 @@ MYSQL类是一个非常核心的结构体，它用于表示与 MySQL 服务器�
             </li><li class="flex flex-col "><a
     class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
       text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/algorithm/"
+    
+  >算法
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
     href="/blogs/network/"
     
   >计算机网络
@@ -680,31 +702,59 @@ MYSQL类是一个非常核心的结构体，它用于表示与 MySQL 服务器�
 </div></div></aside>
     
 <nav class="hextra-toc order-last hidden w-64 shrink-0 xl:block print:hidden px-4" aria-label="table of contents">
-    <div class="hextra-scrollbar sticky top-16 overflow-y-auto pr-4 pt-6 text-sm [hyphens:auto] max-h-[calc(100vh-var(--navbar-height)-env(safe-area-inset-bottom))] ltr:-mr-4 rtl:-ml-4"><p class="mb-4 font-semibold tracking-tight">On this page</p><ul></ul><ul>
+    <div class="hextra-scrollbar sticky top-16 overflow-y-auto pr-4 pt-6 text-sm [hyphens:auto] max-h-[calc(100vh-var(--navbar-height)-env(safe-area-inset-bottom))] ltr:-mr-4 rtl:-ml-4"><p class="mb-4 font-semibold tracking-tight">On this page</p><ul>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#mysql-%e7%b1%bb">MYSQL 类
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%ae%89%e8%a3%85-mysql-%e5%ba%93">安装 MySQL 库
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%88%9b%e5%bb%ba-mysql-%e5%af%b9%e8%b1%a1">创建 MySQL 对象
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e8%bf%9e%e6%8e%a5-mysql">连接 MySQL
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e8%bf%9e%e6%8e%a5%e6%95%b0%e6%8d%ae%e5%ba%93">连接数据库
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#mysql-%e7%b1%bb">MYSQL 类
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%85%b3%e9%97%ad%e6%95%b0%e6%8d%ae%e5%ba%93%e8%bf%9e%e6%8e%a5">关闭数据库连接
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%88%9b%e5%bb%ba-mysql-%e5%af%b9%e8%b1%a1">创建 MySQL 对象
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e7%a4%ba%e4%be%8b">示例
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e8%bf%9e%e6%8e%a5%e6%95%b0%e6%8d%ae%e5%ba%93">连接数据库
         </a>
-      </li></ul><ul></ul><ul></ul><ul></ul><ul>
+      </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e7%a4%ba%e4%be%8b-1">示例
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%85%b3%e9%97%ad%e6%95%b0%e6%8d%ae%e5%ba%93%e8%bf%9e%e6%8e%a5">关闭数据库连接
         </a>
-      </li></ul><ul></ul>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e7%a4%ba%e4%be%8b">示例
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%8f%91%e9%80%81%e5%91%bd%e4%bb%a4">发送命令
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e8%ae%be%e7%bd%ae%e7%bc%96%e7%a0%81%e6%a0%bc%e5%bc%8f">设置编码格式
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%8f%92%e5%85%a5%e5%88%a0%e9%99%a4%e6%88%96%e4%bf%ae%e6%94%b9%e8%ae%b0%e5%bd%95">插入、删除或修改记录
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%9f%a5%e8%af%a2%e8%ae%b0%e5%bd%95">查询记录
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e7%a4%ba%e4%be%8b-1">示例
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99">参考资料
+        </a>
+      </li></ul>
       <div class="mt-8 border-t bg-white pt-8 shadow-[0_-12px_16px_white] dark:bg-dark dark:shadow-[0_-12px_16px_#111] sticky bottom-0 flex flex-col items-start gap-2 pb-8 dark:border-neutral-800 contrast-more:border-t contrast-more:border-neutral-400 contrast-more:shadow-none contrast-more:dark:border-neutral-400">
         <button aria-hidden="true" id="backToTop" onClick="scrollUp();" class="transition-all transition duration-75 opacity-0 text-xs font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 contrast-more:text-gray-800 contrast-more:dark:text-gray-50">
           <span>Scroll to top</span>
@@ -723,7 +773,8 @@ MYSQL类是一个非常核心的结构体，它用于表示与 MySQL 服务器�
         <h1 class="text-center mt-2 text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100">C语言连接</h1>
         <div class="mb-16"></div>
         <div class="content">
-          <h1>安装 MySQL 库</h1><p>在 CentOS7 下，使用命令安装 MySQL：</p>
+          <h2>安装 MySQL 库<span class="absolute -mt-20" id="安装-mysql-库"></span>
+    <a href="#%e5%ae%89%e8%a3%85-mysql-%e5%ba%93" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>在 CentOS7 下，使用命令安装 MySQL：</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><pre><code>yum install mysql-devel</code></pre><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
@@ -736,8 +787,22 @@ MYSQL类是一个非常核心的结构体，它用于表示与 MySQL 服务器�
 </div>
 <p>在<code>/usr/include</code>可以看到一个<code>mysql</code>新目录，里面存放的是 mysql 的头文件。另外在 <code>/lib64/mysql/</code> 以及 <code>/usr/lib64/mysql</code> 目录下存放了 mysql 的动态和静态库。</p>
 <p>用一个 MySQL 库提供的接口验证 MySQL 库是否安装成功：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;mysql/mysql.h&gt;</span><span class="cp">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;iostream&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;mysql/mysql.h&gt;
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
@@ -745,7 +810,9 @@ MYSQL类是一个非常核心的结构体，它用于表示与 MySQL 服务器�
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;mysql version: &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">mysql_get_client_info</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -776,8 +843,9 @@ MYSQL类是一个非常核心的结构体，它用于表示与 MySQL 服务器�
 <img src="C语言连接.IMG/image-20240227182921177.png" alt="image-20240227182921177" style="zoom:40%;" />
 <p>因为这个库没有在链接的默认目录<code>/usr/lib64</code>下，所以作为第三方导入的库，在编译时需要显式地指定<code>-L/usr/lib64/mysql</code>；同理，头文件不在默认目录<code>/usr/include</code>下，所以要显式地指定<code>-I/usr/include/mysql</code>。在这个目录下，存在名为<code>mysqlclient</code>的第三方库，同样需要用<code>-l</code>显式地声明。</p>
 <p>只要正常运行上面的程序，那就表明库的链接没有问题，剩下的就是简单的 API 使用。</p>
-<h1>连接 MySQL</h1><h2>MYSQL 类<span class="absolute -mt-20" id="mysql-类"></span>
-    <a href="#mysql-%e7%b1%bb" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>在使用 MySQL 提供的接口之前，需要了解一下这个重要的类。</p>
+<h2>连接 MySQL<span class="absolute -mt-20" id="连接-mysql"></span>
+    <a href="#%e8%bf%9e%e6%8e%a5-mysql" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>MYSQL 类<span class="absolute -mt-20" id="mysql-类"></span>
+    <a href="#mysql-%e7%b1%bb" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>在使用 MySQL 提供的接口之前，需要了解一下这个重要的类。</p>
 <p><code>MYSQL</code>类是一个非常核心的结构体，它用于表示与 MySQL 服务器的一个连接实例。在客户端程序中，这个结构体用来保存客户端与数据库服务器之间连接的所有必要信息，包括但不限于：</p>
 <ul>
 <li>服务器的地址</li>
@@ -789,7 +857,54 @@ MYSQL类是一个非常核心的结构体，它用于表示与 MySQL 服务器�
 <li>选项设置</li>
 </ul>
 <p>在<code>mysql.h</code>中可以查看 MYSQL 结构体的定义（了解即可）：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">typedef</span> <span class="k">struct</span> <span class="nc">st_mysql</span>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">typedef</span> <span class="k">struct</span> <span class="nc">st_mysql</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="n">NET</span>		<span class="n">net</span><span class="p">;</span>			<span class="cm">/* Communication parameters */</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">unsigned</span> <span class="kt">char</span>	<span class="o">*</span><span class="n">connector_fd</span><span class="p">;</span>		<span class="cm">/* ConnectorFd for SSL */</span>
@@ -831,7 +946,9 @@ MYSQL类是一个非常核心的结构体，它用于表示与 MySQL 服务器�
 </span></span><span class="line"><span class="cl">  <span class="cm">/* needed for embedded server - no net buffer to store the &#39;info&#39; */</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="o">*</span><span class="n">info_buffer</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="o">*</span><span class="n">extension</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="n">MYSQL</span><span class="p">;</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="n">MYSQL</span><span class="p">;</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -844,8 +961,15 @@ MYSQL类是一个非常核心的结构体，它用于表示与 MySQL 服务器�
 <ul>
 <li>MYSQL 对象中的 methods 成员是一个结构体变量，该变量里面保存着很多函数指针，这些函数指针将会在数据库连接成功以后的各种数据操作中被调用。</li>
 </ul>
-<h2>创建 MySQL 对象<span class="absolute -mt-20" id="创建-mysql-对象"></span>
-    <a href="#%e5%88%9b%e5%bb%ba-mysql-%e5%af%b9%e8%b1%a1" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">MYSQL</span><span class="o">*</span> <span class="nf">mysql_init</span><span class="p">(</span><span class="n">MYSQL</span> <span class="o">*</span><span class="n">mysql</span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+<h3>创建 MySQL 对象<span class="absolute -mt-20" id="创建-mysql-对象"></span>
+    <a href="#%e5%88%9b%e5%bb%ba-mysql-%e5%af%b9%e8%b1%a1" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">MYSQL</span><span class="o">*</span> <span class="nf">mysql_init</span><span class="p">(</span><span class="n">MYSQL</span> <span class="o">*</span><span class="n">mysql</span><span class="p">);</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -860,14 +984,27 @@ MYSQL类是一个非常核心的结构体，它用于表示与 MySQL 服务器�
 <li>如果传入的参数是 NULL，那么 mysql_init 将自动为你分配一个 MySQL 对象并返回。</li>
 <li>如果传入的参数是一个地址，那么 mysql_init 将在该地址处帮你完成初始化。</li>
 </ul>
-<h2>连接数据库<span class="absolute -mt-20" id="连接数据库"></span>
-    <a href="#%e8%bf%9e%e6%8e%a5%e6%95%b0%e6%8d%ae%e5%ba%93" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">MYSQL</span><span class="o">*</span> <span class="nf">mysql_real_connect</span><span class="p">(</span><span class="n">MYSQL</span> <span class="o">*</span><span class="n">mysql</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">host</span><span class="p">,</span>
+<h3>连接数据库<span class="absolute -mt-20" id="连接数据库"></span>
+    <a href="#%e8%bf%9e%e6%8e%a5%e6%95%b0%e6%8d%ae%e5%ba%93" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">MYSQL</span><span class="o">*</span> <span class="nf">mysql_real_connect</span><span class="p">(</span><span class="n">MYSQL</span> <span class="o">*</span><span class="n">mysql</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">host</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">					<span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">user</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">					<span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">passwd</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">					<span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">db</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">					<span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">port</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">					<span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">unix_socket</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">					<span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">clientflag</span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span><span class="line"><span class="cl">					<span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">clientflag</span><span class="p">);</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -893,8 +1030,15 @@ MYSQL类是一个非常核心的结构体，它用于表示与 MySQL 服务器�
 <li>如果连接数据库成功，则返回一个 MySQL 对象，该对象与第一个参数的值相同。</li>
 <li>如果连接数据库失败，则返回 NULL。</li>
 </ul>
-<h2>关闭数据库连接<span class="absolute -mt-20" id="关闭数据库连接"></span>
-    <a href="#%e5%85%b3%e9%97%ad%e6%95%b0%e6%8d%ae%e5%ba%93%e8%bf%9e%e6%8e%a5" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">mysql_close</span><span class="p">(</span><span class="n">MYSQL</span> <span class="o">*</span><span class="n">sock</span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+<h3>关闭数据库连接<span class="absolute -mt-20" id="关闭数据库连接"></span>
+    <a href="#%e5%85%b3%e9%97%ad%e6%95%b0%e6%8d%ae%e5%ba%93%e8%bf%9e%e6%8e%a5" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">mysql_close</span><span class="p">(</span><span class="n">MYSQL</span> <span class="o">*</span><span class="n">sock</span><span class="p">);</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -909,8 +1053,8 @@ MYSQL类是一个非常核心的结构体，它用于表示与 MySQL 服务器�
 <li>该函数的参数，就是连接数据库前调用 mysql_init 创建的 MySQL 对象。</li>
 <li>如果传入的 MySQL 对象是 mysql_init 自动创建的，那么调用 mysql_close 时就会释放这个对象。</li>
 </ul>
-<h2>示例<span class="absolute -mt-20" id="示例"></span>
-    <a href="#%e7%a4%ba%e4%be%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>在 MySQL 中首先有一个新用户：</p>
+<h3>示例<span class="absolute -mt-20" id="示例"></span>
+    <a href="#%e7%a4%ba%e4%be%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>在 MySQL 中首先有一个新用户：</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><pre><code>grant all on curd_db.* to &#39;new_user&#39;@&#39;%&#39; identified by &#39;12345&#39;;</code></pre><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
@@ -923,9 +1067,42 @@ MYSQL类是一个非常核心的结构体，它用于表示与 MySQL 服务器�
 </div>
 <p>用户名是<code>new_user</code>，<code>%</code>表示任意主机的用户，<code>grant all</code>表示它被授予所有权限在<code>curd.db</code>数据库下，密码是<code>12345</code>。</p>
 <p>在本地测试：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;mysql/mysql.h&gt;</span><span class="cp">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;iostream&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;string&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;mysql/mysql.h&gt;
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="n">string</span> <span class="n">host</span> <span class="o">=</span> <span class="s">&#34;localhost&#34;</span><span class="p">;</span>
@@ -951,7 +1128,9 @@ MYSQL类是一个非常核心的结构体，它用于表示与 MySQL 服务器�
 </span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;数据库关闭成功！&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -963,7 +1142,15 @@ MYSQL类是一个非常核心的结构体，它用于表示与 MySQL 服务器�
 </div>
 <p>编译并运行：</p>
 <img src="C语言连接.IMG/image-20240227190559910.png" alt="image-20240227190559910" style="zoom:40%;" />
-<h1>发送命令</h1><div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">mysql_query</span><span class="p">(</span><span class="n">MYSQL</span> <span class="o">*</span><span class="n">mysql</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">stmt_str</span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+<h2>发送命令<span class="absolute -mt-20" id="发送命令"></span>
+    <a href="#%e5%8f%91%e9%80%81%e5%91%bd%e4%bb%a4" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">mysql_query</span><span class="p">(</span><span class="n">MYSQL</span> <span class="o">*</span><span class="n">mysql</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">stmt_str</span><span class="p">);</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -984,7 +1171,8 @@ MYSQL类是一个非常核心的结构体，它用于表示与 MySQL 服务器�
 <li>成功执行时，返回 <code>0</code>。</li>
 <li>出现错误时，返回非 <code>0</code> 值。</li>
 </ul>
-<h1>设置编码格式</h1><p>在连接数据库之后，需要统一客户端和服务器的编码格式，避免在数据交互过程中出现乱码，设置编码格式的函数如下：</p>
+<h2>设置编码格式<span class="absolute -mt-20" id="设置编码格式"></span>
+    <a href="#%e8%ae%be%e7%bd%ae%e7%bc%96%e7%a0%81%e6%a0%bc%e5%bc%8f" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>在连接数据库之后，需要统一客户端和服务器的编码格式，避免在数据交互过程中出现乱码，设置编码格式的函数如下：</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><pre><code>int mysql_set_character_set(MYSQL *mysql, const char *csname);</code></pre><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
@@ -1004,8 +1192,29 @@ MYSQL类是一个非常核心的结构体，它用于表示与 MySQL 服务器�
 <ul>
 <li>返回值为 0 表示设置成功，否则表示设置失败。</li>
 </ul>
-<h1>插入、删除或修改记录</h1><p>在 mysql_query 函数中向 MySQL 发送 INSERT SQL：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<h2>插入、删除或修改记录<span class="absolute -mt-20" id="插入删除或修改记录"></span>
+    <a href="#%e6%8f%92%e5%85%a5%e5%88%a0%e9%99%a4%e6%88%96%e4%bf%ae%e6%94%b9%e8%ae%b0%e5%bd%95" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>在 mysql_query 函数中向 MySQL 发送 INSERT SQL：</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// ...
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;数据库连接成功！&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
@@ -1020,7 +1229,9 @@ MYSQL类是一个非常核心的结构体，它用于表示与 MySQL 服务器�
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">	<span class="c1">// ...
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1033,7 +1244,14 @@ MYSQL类是一个非常核心的结构体，它用于表示与 MySQL 服务器�
 <p>数据被成功插入到表中。</p>
 <img src="C语言连接.IMG/image-20240227193308014.png" alt="image-20240227193308014" style="zoom:40%;" />
 <p>类似地，可以删除和修改记录：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">	<span class="n">string</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">&#34;update account set balance=222 where id=2&#34;</span><span class="p">;</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">	<span class="n">string</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">&#34;update account set balance=222 where id=2&#34;</span><span class="p">;</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1044,7 +1262,14 @@ MYSQL类是一个非常核心的结构体，它用于表示与 MySQL 服务器�
   </div>
 </div>
 <img src="C语言连接.IMG/image-20240227193749866.png" alt="image-20240227193749866" style="zoom:40%;" />
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">	<span class="n">string</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">&#34;delete from account where id=4&#34;</span><span class="p">;</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">	<span class="n">string</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">&#34;delete from account where id=4&#34;</span><span class="p">;</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1055,8 +1280,16 @@ MYSQL类是一个非常核心的结构体，它用于表示与 MySQL 服务器�
   </div>
 </div>
 <img src="C语言连接.IMG/image-20240227193844242.png" alt="image-20240227193844242" style="zoom:40%;" />
-<h1>查询记录</h1><p>对于 mysql_query 函数而言，插入、删除和修改操作都很简单，只要将 SQL 字符串作为参数传入即可，不需要返回值。但是 SELECT 查询需要返回结果，这需要使用到 MYSQL_RES 对象。</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">MYSQL_RES</span><span class="o">*</span> <span class="nf">mysql_store_result</span><span class="p">(</span><span class="n">MYSQL</span> <span class="o">*</span><span class="n">mysql</span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+<h2>查询记录<span class="absolute -mt-20" id="查询记录"></span>
+    <a href="#%e6%9f%a5%e8%af%a2%e8%ae%b0%e5%bd%95" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>对于 mysql_query 函数而言，插入、删除和修改操作都很简单，只要将 SQL 字符串作为参数传入即可，不需要返回值。但是 SELECT 查询需要返回结果，这需要使用到 MYSQL_RES 对象。</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">MYSQL_RES</span><span class="o">*</span> <span class="nf">mysql_store_result</span><span class="p">(</span><span class="n">MYSQL</span> <span class="o">*</span><span class="n">mysql</span><span class="p">);</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1071,7 +1304,28 @@ MYSQL类是一个非常核心的结构体，它用于表示与 MySQL 服务器�
 <li>需要注意的是，MYSQL_RES 变量的内存空间是 malloc 出来的，因此在使用完后需要调用 free 函数进行释放，否则会造成内存泄露。</li>
 </ul>
 <p>MYSQL_RES 变量中保存了查询得到的各种信息，其类型定义如下：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">typedef</span> <span class="k">struct</span> <span class="nc">st_mysql_res</span> <span class="p">{</span>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">typedef</span> <span class="k">struct</span> <span class="nc">st_mysql_res</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="n">my_ulonglong</span>  <span class="n">row_count</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="n">MYSQL_FIELD</span>	<span class="o">*</span><span class="n">fields</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="n">MYSQL_DATA</span>	<span class="o">*</span><span class="n">data</span><span class="p">;</span>
@@ -1087,7 +1341,9 @@ MYSQL类是一个非常核心的结构体，它用于表示与 MySQL 服务器�
 </span></span><span class="line"><span class="cl">    <span class="cm">/* mysql_stmt_close() had to cancel this result */</span>
 </span></span><span class="line"><span class="cl">    <span class="n">my_bool</span>       <span class="n">unbuffered_fetch_cancelled</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="o">*</span><span class="n">extension</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="n">MYSQL_RES</span><span class="p">;</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="n">MYSQL_RES</span><span class="p">;</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1098,7 +1354,14 @@ MYSQL类是一个非常核心的结构体，它用于表示与 MySQL 服务器�
   </div>
 </div>
 <p>获取查询结果的行数：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">my_ulonglong</span> <span class="nf">mysql_num_rows</span><span class="p">(</span><span class="n">MYSQL_RES</span> <span class="o">*</span><span class="n">res</span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">my_ulonglong</span> <span class="nf">mysql_num_rows</span><span class="p">(</span><span class="n">MYSQL_RES</span> <span class="o">*</span><span class="n">res</span><span class="p">);</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1109,7 +1372,14 @@ MYSQL类是一个非常核心的结构体，它用于表示与 MySQL 服务器�
   </div>
 </div>
 <p>获取查询结果的列数：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">unsigned</span> <span class="kt">int</span> <span class="nf">mysql_num_fields</span><span class="p">(</span><span class="n">MYSQL_RES</span> <span class="o">*</span><span class="n">res</span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">unsigned</span> <span class="kt">int</span> <span class="nf">mysql_num_fields</span><span class="p">(</span><span class="n">MYSQL_RES</span> <span class="o">*</span><span class="n">res</span><span class="p">);</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1120,7 +1390,14 @@ MYSQL类是一个非常核心的结构体，它用于表示与 MySQL 服务器�
   </div>
 </div>
 <p>获取查询结果的列属性：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">MYSQL_FIELD</span><span class="o">*</span> <span class="nf">mysql_fetch_fields</span><span class="p">(</span><span class="n">MYSQL_RES</span> <span class="o">*</span><span class="n">res</span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">MYSQL_FIELD</span><span class="o">*</span> <span class="nf">mysql_fetch_fields</span><span class="p">(</span><span class="n">MYSQL_RES</span> <span class="o">*</span><span class="n">res</span><span class="p">);</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1185,8 +1462,50 @@ MYSQL类是一个非常核心的结构体，它用于表示与 MySQL 服务器�
     </button>
   </div>
 </div>
-<h2>示例<span class="absolute -mt-20" id="示例-1"></span>
-    <a href="#%e7%a4%ba%e4%be%8b-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<h3>示例<span class="absolute -mt-20" id="示例-1"></span>
+    <a href="#%e7%a4%ba%e4%be%8b-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// ...
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// 3、查询数据库表中的记录
@@ -1223,7 +1542,9 @@ MYSQL类是一个非常核心的结构体，它用于表示与 MySQL 服务器�
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">free</span><span class="p">(</span><span class="n">res</span><span class="p">);</span> 
 </span></span><span class="line"><span class="cl">    <span class="c1">// ...
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1234,7 +1555,8 @@ MYSQL类是一个非常核心的结构体，它用于表示与 MySQL 服务器�
   </div>
 </div>
 <img src="C语言连接.IMG/image-20240227195504420.png" alt="image-20240227195504420" style="zoom:40%;" />
-<h1>参考资料</h1><ul>
+<h2>参考资料<span class="absolute -mt-20" id="参考资料"></span>
+    <a href="#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><ul>
 <li><a href="https://developer.aliyun.com/article/641363" target="_blank" rel="noopener">Linux centos 7/ubantu 下： 用 C 语言连接 MySQL 数据库</a></li>
 <li><a href="https://blog.csdn.net/chenlong_cxy/article/details/129039323" target="_blank" rel="noopener">MySQL 使用 C 语言连接</a></li>
 </ul>

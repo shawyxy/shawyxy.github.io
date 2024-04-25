@@ -12,18 +12,18 @@
 <link fetchpriority="low" href="/site.webmanifest" rel="manifest" />
 
   <title>表的约束 – Shawy&#39;s Blog</title>
-  <meta name="description" content="什么是约束在数据库中，约束（constraint）指的是对表中数据的限制条件。数据是由数据库的操作人员（一般是程序员）插入到表中的，因此对表的数据做约束，确实也是一种对程序员的规范，要求他们在编写代码时遵循一定的逻辑和规则，以保证数据的质量和一致性。
+  <meta name="description" content="什么是约束 在数据库中，约束（constraint）指的是对表中数据的限制条件。数据是由数据库的操作人员（一般是程序员）插入到表中的，因此对表的数据做约束，确实也是一种对程序员的规范，要求他们在编写代码时遵循一定的逻辑和规则，以保证数据的质量和一致性。
 对于数据本身而言，对它们做约束可以：
 提高数据的安全性 提高数据的可读性 提高查询数据的效率 因此约束不仅是对程序员的限制，也是对数据的保护和优化。通常在创建表时，会对列属性添加约束；在表已经存在的情况下，可以使用ALTER TABLE语句来修改或删除约束。
-DEFAULT（默认约束）DEFAULT 是用来指定某列的默认值的约束。例如当插入一条记录时没有为这个列赋值，那么 MySQL 会为这个列赋值为 DEFAULT 约束所指定的值。
+DEFAULT（默认约束） DEFAULT 是用来指定某列的默认值的约束。例如当插入一条记录时没有为这个列赋值，那么 MySQL 会为这个列赋值为 DEFAULT 约束所指定的值。
 在创建表时添加 DEFAULT 约束：
-mysql&gt; create table default_test( -&gt; name varchar(20) default &#39;这是一个默认值&#39; -&gt; ); 查看表结构：
+1 2 3 mysql&gt; create table default_test( -&gt; name varchar(20) default &#39;这是一个默认值&#39; -&gt; ); 查看表结构：
 插入一条没有 name 属性的记录：
 在表已存在时添加DEFAULT约束：
-alter table default_test modify name varchar(20) default &#39;这是一个默认值&#39;; 或者：
-alter table default_test change name name varchar(20) default &#39;这是一个默认值&#39;; 删除DEFAULT约束：
-alter table default_test modify name varchar(20); 或者：
-alter table default_test change name name varchar(20); 因为 MySQL 在执行这些修改表的操作不是在原有的基础上做部分修改，而是用新的 SQL 执行后将旧的列属性替换，所以修改的语句和创建表时是一样的，只是用ALTER&#43;MODIFY或者CHANGE关键字表示要修改某一列的属性。" />
+1 alter table default_test modify name varchar(20) default &#39;这是一个默认值&#39;; 或者：
+1 alter table default_test change name name varchar(20) default &#39;这是一个默认值&#39;; 删除DEFAULT约束：
+1 alter table default_test modify name varchar(20); 或者：
+1 alter table default_test change name name varchar(20); 因为 MySQL 在执行这些修改表的操作不是在原有的基础上做部分修改，而是用新的 SQL 执行后将旧的列属性替换，所以修改的语句和创建表时是一样的，只是用ALTER&#43;MODIFY或者CHANGE关键字表示要修改某一列的属性。" />
   
   
     <link rel="canonical" href="/blogs/mysql/%E8%A1%A8%E7%9A%84%E7%BA%A6%E6%9D%9F/" itemprop="url" />
@@ -32,18 +32,18 @@ alter table default_test change name name varchar(20); 因为 MySQL 在执行这
   
 
 <meta property="og:title" content="表的约束" />
-<meta property="og:description" content="什么是约束在数据库中，约束（constraint）指的是对表中数据的限制条件。数据是由数据库的操作人员（一般是程序员）插入到表中的，因此对表的数据做约束，确实也是一种对程序员的规范，要求他们在编写代码时遵循一定的逻辑和规则，以保证数据的质量和一致性。
+<meta property="og:description" content="什么是约束 在数据库中，约束（constraint）指的是对表中数据的限制条件。数据是由数据库的操作人员（一般是程序员）插入到表中的，因此对表的数据做约束，确实也是一种对程序员的规范，要求他们在编写代码时遵循一定的逻辑和规则，以保证数据的质量和一致性。
 对于数据本身而言，对它们做约束可以：
 提高数据的安全性 提高数据的可读性 提高查询数据的效率 因此约束不仅是对程序员的限制，也是对数据的保护和优化。通常在创建表时，会对列属性添加约束；在表已经存在的情况下，可以使用ALTER TABLE语句来修改或删除约束。
-DEFAULT（默认约束）DEFAULT 是用来指定某列的默认值的约束。例如当插入一条记录时没有为这个列赋值，那么 MySQL 会为这个列赋值为 DEFAULT 约束所指定的值。
+DEFAULT（默认约束） DEFAULT 是用来指定某列的默认值的约束。例如当插入一条记录时没有为这个列赋值，那么 MySQL 会为这个列赋值为 DEFAULT 约束所指定的值。
 在创建表时添加 DEFAULT 约束：
-mysql&gt; create table default_test( -&gt; name varchar(20) default &#39;这是一个默认值&#39; -&gt; ); 查看表结构：
+1 2 3 mysql&gt; create table default_test( -&gt; name varchar(20) default &#39;这是一个默认值&#39; -&gt; ); 查看表结构：
 插入一条没有 name 属性的记录：
 在表已存在时添加DEFAULT约束：
-alter table default_test modify name varchar(20) default &#39;这是一个默认值&#39;; 或者：
-alter table default_test change name name varchar(20) default &#39;这是一个默认值&#39;; 删除DEFAULT约束：
-alter table default_test modify name varchar(20); 或者：
-alter table default_test change name name varchar(20); 因为 MySQL 在执行这些修改表的操作不是在原有的基础上做部分修改，而是用新的 SQL 执行后将旧的列属性替换，所以修改的语句和创建表时是一样的，只是用ALTER&#43;MODIFY或者CHANGE关键字表示要修改某一列的属性。" />
+1 alter table default_test modify name varchar(20) default &#39;这是一个默认值&#39;; 或者：
+1 alter table default_test change name name varchar(20) default &#39;这是一个默认值&#39;; 删除DEFAULT约束：
+1 alter table default_test modify name varchar(20); 或者：
+1 alter table default_test change name name varchar(20); 因为 MySQL 在执行这些修改表的操作不是在原有的基础上做部分修改，而是用新的 SQL 执行后将旧的列属性替换，所以修改的语句和创建表时是一样的，只是用ALTER&#43;MODIFY或者CHANGE关键字表示要修改某一列的属性。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/blogs/mysql/%E8%A1%A8%E7%9A%84%E7%BA%A6%E6%9D%9F/" /><meta property="article:section" content="blogs" />
 
@@ -51,38 +51,38 @@ alter table default_test change name name varchar(20); 因为 MySQL 在执行这
 
   
   <meta itemprop="name" content="表的约束">
-  <meta itemprop="description" content="什么是约束在数据库中，约束（constraint）指的是对表中数据的限制条件。数据是由数据库的操作人员（一般是程序员）插入到表中的，因此对表的数据做约束，确实也是一种对程序员的规范，要求他们在编写代码时遵循一定的逻辑和规则，以保证数据的质量和一致性。
+  <meta itemprop="description" content="什么是约束 在数据库中，约束（constraint）指的是对表中数据的限制条件。数据是由数据库的操作人员（一般是程序员）插入到表中的，因此对表的数据做约束，确实也是一种对程序员的规范，要求他们在编写代码时遵循一定的逻辑和规则，以保证数据的质量和一致性。
 对于数据本身而言，对它们做约束可以：
 提高数据的安全性 提高数据的可读性 提高查询数据的效率 因此约束不仅是对程序员的限制，也是对数据的保护和优化。通常在创建表时，会对列属性添加约束；在表已经存在的情况下，可以使用ALTER TABLE语句来修改或删除约束。
-DEFAULT（默认约束）DEFAULT 是用来指定某列的默认值的约束。例如当插入一条记录时没有为这个列赋值，那么 MySQL 会为这个列赋值为 DEFAULT 约束所指定的值。
+DEFAULT（默认约束） DEFAULT 是用来指定某列的默认值的约束。例如当插入一条记录时没有为这个列赋值，那么 MySQL 会为这个列赋值为 DEFAULT 约束所指定的值。
 在创建表时添加 DEFAULT 约束：
-mysql&gt; create table default_test( -&gt; name varchar(20) default &#39;这是一个默认值&#39; -&gt; ); 查看表结构：
+1 2 3 mysql&gt; create table default_test( -&gt; name varchar(20) default &#39;这是一个默认值&#39; -&gt; ); 查看表结构：
 插入一条没有 name 属性的记录：
 在表已存在时添加DEFAULT约束：
-alter table default_test modify name varchar(20) default &#39;这是一个默认值&#39;; 或者：
-alter table default_test change name name varchar(20) default &#39;这是一个默认值&#39;; 删除DEFAULT约束：
-alter table default_test modify name varchar(20); 或者：
-alter table default_test change name name varchar(20); 因为 MySQL 在执行这些修改表的操作不是在原有的基础上做部分修改，而是用新的 SQL 执行后将旧的列属性替换，所以修改的语句和创建表时是一样的，只是用ALTER&#43;MODIFY或者CHANGE关键字表示要修改某一列的属性。">
-  <meta itemprop="wordCount" content="566"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="表的约束">
-<meta name="twitter:description" content="什么是约束在数据库中，约束（constraint）指的是对表中数据的限制条件。数据是由数据库的操作人员（一般是程序员）插入到表中的，因此对表的数据做约束，确实也是一种对程序员的规范，要求他们在编写代码时遵循一定的逻辑和规则，以保证数据的质量和一致性。
+1 alter table default_test modify name varchar(20) default &#39;这是一个默认值&#39;; 或者：
+1 alter table default_test change name name varchar(20) default &#39;这是一个默认值&#39;; 删除DEFAULT约束：
+1 alter table default_test modify name varchar(20); 或者：
+1 alter table default_test change name name varchar(20); 因为 MySQL 在执行这些修改表的操作不是在原有的基础上做部分修改，而是用新的 SQL 执行后将旧的列属性替换，所以修改的语句和创建表时是一样的，只是用ALTER&#43;MODIFY或者CHANGE关键字表示要修改某一列的属性。">
+  <meta itemprop="wordCount" content="632"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="表的约束">
+<meta name="twitter:description" content="什么是约束 在数据库中，约束（constraint）指的是对表中数据的限制条件。数据是由数据库的操作人员（一般是程序员）插入到表中的，因此对表的数据做约束，确实也是一种对程序员的规范，要求他们在编写代码时遵循一定的逻辑和规则，以保证数据的质量和一致性。
 对于数据本身而言，对它们做约束可以：
 提高数据的安全性 提高数据的可读性 提高查询数据的效率 因此约束不仅是对程序员的限制，也是对数据的保护和优化。通常在创建表时，会对列属性添加约束；在表已经存在的情况下，可以使用ALTER TABLE语句来修改或删除约束。
-DEFAULT（默认约束）DEFAULT 是用来指定某列的默认值的约束。例如当插入一条记录时没有为这个列赋值，那么 MySQL 会为这个列赋值为 DEFAULT 约束所指定的值。
+DEFAULT（默认约束） DEFAULT 是用来指定某列的默认值的约束。例如当插入一条记录时没有为这个列赋值，那么 MySQL 会为这个列赋值为 DEFAULT 约束所指定的值。
 在创建表时添加 DEFAULT 约束：
-mysql&gt; create table default_test( -&gt; name varchar(20) default &#39;这是一个默认值&#39; -&gt; ); 查看表结构：
+1 2 3 mysql&gt; create table default_test( -&gt; name varchar(20) default &#39;这是一个默认值&#39; -&gt; ); 查看表结构：
 插入一条没有 name 属性的记录：
 在表已存在时添加DEFAULT约束：
-alter table default_test modify name varchar(20) default &#39;这是一个默认值&#39;; 或者：
-alter table default_test change name name varchar(20) default &#39;这是一个默认值&#39;; 删除DEFAULT约束：
-alter table default_test modify name varchar(20); 或者：
-alter table default_test change name name varchar(20); 因为 MySQL 在执行这些修改表的操作不是在原有的基础上做部分修改，而是用新的 SQL 执行后将旧的列属性替换，所以修改的语句和创建表时是一样的，只是用ALTER&#43;MODIFY或者CHANGE关键字表示要修改某一列的属性。">
+1 alter table default_test modify name varchar(20) default &#39;这是一个默认值&#39;; 或者：
+1 alter table default_test change name name varchar(20) default &#39;这是一个默认值&#39;; 删除DEFAULT约束：
+1 alter table default_test modify name varchar(20); 或者：
+1 alter table default_test change name name varchar(20); 因为 MySQL 在执行这些修改表的操作不是在原有的基础上做部分修改，而是用新的 SQL 执行后将旧的列属性替换，所以修改的语句和创建表时是一样的，只是用ALTER&#43;MODIFY或者CHANGE关键字表示要修改某一列的属性。">
 
     <link rel="preload" href="/css/compiled/main.min.5a06ca26e024c4f511f45ee6c33a2a1faefaebe6be8a38d36e100f40a4c59c06.css" as="style" integrity="sha256-WgbKJuAkxPUR9F7mwzoqH6766&#43;a&#43;ijjTbhAPQKTFnAY=" />
     <link href="/css/compiled/main.min.5a06ca26e024c4f511f45ee6c33a2a1faefaebe6be8a38d36e100f40a4c59c06.css" rel="stylesheet" integrity="sha256-WgbKJuAkxPUR9F7mwzoqH6766&#43;a&#43;ijjTbhAPQKTFnAY=" />
 
 
 
-  <link href="/css/custom.min.e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css" rel="stylesheet" integrity="sha256-47DEQpj8HBSa&#43;/TImW&#43;5JCeuQeRkm5NMpJWZG3hSuFU=" />
+  <link href="/css/custom.min.7d43e1fdc41380d9e5d795e4b7ab39cca64e2e8ac32a15c33924c1f0a8cb1df0.css" rel="stylesheet" integrity="sha256-fUPh/cQTgNnl15Xkt6s5zKZOLorDKhXDOSTB8KjLHfA=" />
 
 
 
@@ -136,7 +136,7 @@ alter table default_test change name name varchar(20); 因为 MySQL 在执行这
             <span class="text-center">About</span>
           </a><a
             title="Contact ↗"
-            href="https://blog.csdn.net/m0_63312733?type=blog"
+            href="https://img-blog.csdnimg.cn/7deb340b1c95414d9dc25a89d1cb1f32.png"
             target="_blank" rel="noreferer"
             class="text-sm contrast-more:text-gray-700 contrast-more:dark:text-gray-100 relative -ml-2 hidden whitespace-nowrap p-2 md:inline-block text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
           >
@@ -227,7 +227,15 @@ alter table default_test change name name varchar(20); 因为 MySQL 在执行这
       text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
     href="/blogs/cpp/"
     
-  >C/C&#43;&#43;
+  >C&#43;&#43;
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/c/"
+    
+  >C语言
     </a>
               
             </li><li class="flex flex-col open"><a
@@ -287,7 +295,73 @@ alter table default_test change name name varchar(20); 因为 MySQL 在执行这
   >表的约束
     </a>
   
-    <ul class='flex flex-col gap-1 relative before:absolute before:inset-y-1 before:w-px before:bg-gray-200 before:content-[""] dark:before:bg-neutral-800 ltr:pl-3 ltr:before:left-0 rtl:pr-3 rtl:before:right-0 ltr:ml-3 rtl:mr-3'></ul>
+    <ul class='flex flex-col gap-1 relative before:absolute before:inset-y-1 before:w-px before:bg-gray-200 before:content-[""] dark:before:bg-neutral-800 ltr:pl-3 ltr:before:left-0 rtl:pr-3 rtl:before:right-0 ltr:ml-3 rtl:mr-3'><li>
+              <a
+                href="#%e4%bb%80%e4%b9%88%e6%98%af%e7%ba%a6%e6%9d%9f"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >什么是约束</a>
+            </li>
+          <li>
+              <a
+                href="#default%e9%bb%98%e8%ae%a4%e7%ba%a6%e6%9d%9f"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >DEFAULT（默认约束）</a>
+            </li>
+          <li>
+              <a
+                href="#null%e4%b8%8e-not-null%e9%9d%9e%e7%a9%ba%e7%ba%a6%e6%9d%9f"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >NULL与 NOT NULL（非空约束）</a>
+            </li>
+          <li>
+              <a
+                href="#comment%e6%b3%a8%e9%87%8a%e7%ba%a6%e6%9d%9f"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >COMMENT（注释约束）</a>
+            </li>
+          <li>
+              <a
+                href="#zerofill%e9%9b%b6%e5%a1%ab%e5%85%85%e7%ba%a6%e6%9d%9f"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >ZEROFILL（零填充约束）</a>
+            </li>
+          <li>
+              <a
+                href="#unique%e5%94%af%e4%b8%80%e9%94%ae%e7%ba%a6%e6%9d%9f"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >UNIQUE（唯一键约束）</a>
+            </li>
+          <li>
+              <a
+                href="#primary-key%e4%b8%bb%e9%94%ae%e7%ba%a6%e6%9d%9f"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >*PRIMARY KEY（主键约束）</a>
+            </li>
+          <li>
+              <a
+                href="#%e5%a4%8d%e5%90%88%e4%b8%bb%e9%94%ae"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >复合主键</a>
+            </li>
+          <li>
+              <a
+                href="#foreign-key%e5%a4%96%e9%94%ae%e7%ba%a6%e6%9d%9f"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >FOREIGN KEY（外键约束）</a>
+            </li>
+          <li>
+              <a
+                href="#auto_increment%e8%87%aa%e5%a2%9e%e9%95%bf%e7%ba%a6%e6%9d%9f"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >AUTO_INCREMENT（自增长约束）</a>
+            </li>
+          <li>
+              <a
+                href="#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >参考资料</a>
+            </li>
+          </ul>
   
               
             </li><li class="flex flex-col "><a
@@ -364,6 +438,14 @@ alter table default_test change name name varchar(20); 因为 MySQL 在执行这
               
             </li></ul>
       </div>
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/block-chain/"
+    
+  >区块链
+    </a>
+              
             </li><li class="flex flex-col "><a
     class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
       text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
@@ -538,6 +620,14 @@ alter table default_test change name name varchar(20); 因为 MySQL 在执行这
             </li><li class="flex flex-col "><a
     class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
       text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/algorithm/"
+    
+  >算法
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
     href="/blogs/network/"
     
   >计算机网络
@@ -656,7 +746,51 @@ alter table default_test change name name varchar(20); 因为 MySQL 在执行这
 </div></div></aside>
     
 <nav class="hextra-toc order-last hidden w-64 shrink-0 xl:block print:hidden px-4" aria-label="table of contents">
-    <div class="hextra-scrollbar sticky top-16 overflow-y-auto pr-4 pt-6 text-sm [hyphens:auto] max-h-[calc(100vh-var(--navbar-height)-env(safe-area-inset-bottom))] ltr:-mr-4 rtl:-ml-4"><p class="mb-4 font-semibold tracking-tight">On this page</p><ul></ul><ul></ul><ul></ul><ul></ul><ul></ul><ul></ul><ul></ul><ul></ul><ul></ul><ul></ul><ul></ul>
+    <div class="hextra-scrollbar sticky top-16 overflow-y-auto pr-4 pt-6 text-sm [hyphens:auto] max-h-[calc(100vh-var(--navbar-height)-env(safe-area-inset-bottom))] ltr:-mr-4 rtl:-ml-4"><p class="mb-4 font-semibold tracking-tight">On this page</p><ul>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%bb%80%e4%b9%88%e6%98%af%e7%ba%a6%e6%9d%9f">什么是约束
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#default%e9%bb%98%e8%ae%a4%e7%ba%a6%e6%9d%9f">DEFAULT（默认约束）
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#null%e4%b8%8e-not-null%e9%9d%9e%e7%a9%ba%e7%ba%a6%e6%9d%9f">NULL与 NOT NULL（非空约束）
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#comment%e6%b3%a8%e9%87%8a%e7%ba%a6%e6%9d%9f">COMMENT（注释约束）
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#zerofill%e9%9b%b6%e5%a1%ab%e5%85%85%e7%ba%a6%e6%9d%9f">ZEROFILL（零填充约束）
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#unique%e5%94%af%e4%b8%80%e9%94%ae%e7%ba%a6%e6%9d%9f">UNIQUE（唯一键约束）
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#primary-key%e4%b8%bb%e9%94%ae%e7%ba%a6%e6%9d%9f">*PRIMARY KEY（主键约束）
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%a4%8d%e5%90%88%e4%b8%bb%e9%94%ae">复合主键
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#foreign-key%e5%a4%96%e9%94%ae%e7%ba%a6%e6%9d%9f">FOREIGN KEY（外键约束）
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#auto_increment%e8%87%aa%e5%a2%9e%e9%95%bf%e7%ba%a6%e6%9d%9f">AUTO_INCREMENT（自增长约束）
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99">参考资料
+        </a>
+      </li></ul>
       <div class="mt-8 border-t bg-white pt-8 shadow-[0_-12px_16px_white] dark:bg-dark dark:shadow-[0_-12px_16px_#111] sticky bottom-0 flex flex-col items-start gap-2 pb-8 dark:border-neutral-800 contrast-more:border-t contrast-more:border-neutral-400 contrast-more:shadow-none contrast-more:dark:border-neutral-400">
         <button aria-hidden="true" id="backToTop" onClick="scrollUp();" class="transition-all transition duration-75 opacity-0 text-xs font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 contrast-more:text-gray-800 contrast-more:dark:text-gray-50">
           <span>Scroll to top</span>
@@ -675,7 +809,8 @@ alter table default_test change name name varchar(20); 因为 MySQL 在执行这
         <h1 class="text-center mt-2 text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100">表的约束</h1>
         <div class="mb-16"></div>
         <div class="content">
-          <h1>什么是约束</h1><p>在数据库中，约束（constraint）指的是对表中数据的限制条件。数据是由数据库的操作人员（一般是程序员）插入到表中的，因此对表的数据做约束，确实也是一种对程序员的规范，要求他们在编写代码时遵循一定的逻辑和规则，以保证数据的质量和一致性。</p>
+          <h2>什么是约束<span class="absolute -mt-20" id="什么是约束"></span>
+    <a href="#%e4%bb%80%e4%b9%88%e6%98%af%e7%ba%a6%e6%9d%9f" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>在数据库中，约束（constraint）指的是对表中数据的限制条件。数据是由数据库的操作人员（一般是程序员）插入到表中的，因此对表的数据做约束，确实也是一种对程序员的规范，要求他们在编写代码时遵循一定的逻辑和规则，以保证数据的质量和一致性。</p>
 <p>对于数据本身而言，对它们做约束可以：</p>
 <ul>
 <li>提高数据的安全性</li>
@@ -683,11 +818,21 @@ alter table default_test change name name varchar(20); 因为 MySQL 在执行这
 <li>提高查询数据的效率</li>
 </ul>
 <p>因此约束不仅是对程序员的限制，也是对数据的保护和优化。通常在创建表时，会对列属性添加约束；在表已经存在的情况下，可以使用<code>ALTER TABLE</code>语句来修改或删除约束。</p>
-<h1>DEFAULT（默认约束）</h1><p>DEFAULT 是用来指定某列的默认值的约束。例如当插入一条记录时没有为这个列赋值，那么 MySQL 会为这个列赋值为 DEFAULT 约束所指定的值。</p>
+<h2>DEFAULT（默认约束）<span class="absolute -mt-20" id="default默认约束"></span>
+    <a href="#default%e9%bb%98%e8%ae%a4%e7%ba%a6%e6%9d%9f" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>DEFAULT 是用来指定某列的默认值的约束。例如当插入一条记录时没有为这个列赋值，那么 MySQL 会为这个列赋值为 DEFAULT 约束所指定的值。</p>
 <p>在创建表时添加 DEFAULT 约束：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="nf">default_test</span><span class="p">(</span><span class="w">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="nf">default_test</span><span class="p">(</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="s1">&#39;这是一个默认值&#39;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">);</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -702,7 +847,14 @@ alter table default_test change name name varchar(20); 因为 MySQL 在执行这
 <p>插入一条没有 name 属性的记录：</p>
 <img src="表的约束.IMG/image-20231026174132021.png" alt="image-20231026174132021" style="zoom:40%;" />
 <p>在表已存在时添加DEFAULT约束：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">default_test</span><span class="w"> </span><span class="n">modify</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="s1">&#39;这是一个默认值&#39;</span><span class="p">;</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">default_test</span><span class="w"> </span><span class="n">modify</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="s1">&#39;这是一个默认值&#39;</span><span class="p">;</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -713,7 +865,14 @@ alter table default_test change name name varchar(20); 因为 MySQL 在执行这
   </div>
 </div>
 <p>或者：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">default_test</span><span class="w"> </span><span class="k">change</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="s1">&#39;这是一个默认值&#39;</span><span class="p">;</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">default_test</span><span class="w"> </span><span class="k">change</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="s1">&#39;这是一个默认值&#39;</span><span class="p">;</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -724,7 +883,14 @@ alter table default_test change name name varchar(20); 因为 MySQL 在执行这
   </div>
 </div>
 <p>删除DEFAULT约束：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">default_test</span><span class="w"> </span><span class="n">modify</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">default_test</span><span class="w"> </span><span class="n">modify</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -735,7 +901,14 @@ alter table default_test change name name varchar(20); 因为 MySQL 在执行这
   </div>
 </div>
 <p>或者：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">default_test</span><span class="w"> </span><span class="k">change</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">default_test</span><span class="w"> </span><span class="k">change</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -749,7 +922,8 @@ alter table default_test change name name varchar(20); 因为 MySQL 在执行这
 <blockquote>
 <p>修改表的操作都是类似的，下面就以常用的<code>MODIFY</code>修改。</p>
 </blockquote>
-<h1>NULL与 NOT NULL（非空约束）</h1><p>SELECT命令可以计算表达式的值：</p>
+<h2>NULL与 NOT NULL（非空约束）<span class="absolute -mt-20" id="null与-not-null非空约束"></span>
+    <a href="#null%e4%b8%8e-not-null%e9%9d%9e%e7%a9%ba%e7%ba%a6%e6%9d%9f" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>SELECT命令可以计算表达式的值：</p>
 <img src="表的约束.IMG/image-20231026180043606.png" alt="image-20231026180043606" style="zoom:40%;" />
 <p>然而NULL 值是无法参与运算的，或者说 NULL 与任何值运算的结果都是 NULL。</p>
 <p>MySQL 中的 NULL 和 NOT NULL 是两种不同的列属性，用来表示某个列是否可以存储空值。空值表示没有值或未知值，而非空值表示有确定的值。</p>
@@ -759,10 +933,20 @@ alter table default_test change name name varchar(20); 因为 MySQL 在执行这
 </ul>
 <p>在 MySQL 中，可以使用 IS NULL 或 IS NOT NULL 运算符来判断一个列是否为空值；也可以使用 IFNULL() 函数来处理空值。</p>
 <p>在创建表时不添加 NULL 和 NOT NULL 约束：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="no">null</span><span class="nf">_test</span><span class="p">(</span><span class="w">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="no">null</span><span class="nf">_test</span><span class="p">(</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">tel</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">);</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -778,7 +962,14 @@ alter table default_test change name name varchar(20); 因为 MySQL 在执行这
 <p>如果在插入时，不指定 tel 的值：</p>
 <img src="表的约束.IMG/image-20231026181256580.png" alt="image-20231026181256580" style="zoom:40%;" />
 <p>在这个表的基础上增加 tel 属性的约束为 NOT NULL：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="no">null</span><span class="n">_test</span><span class="w"> </span><span class="n">modify</span><span class="w"> </span><span class="n">tel</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="no">null</span><span class="p">;</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="no">null</span><span class="n">_test</span><span class="w"> </span><span class="n">modify</span><span class="w"> </span><span class="n">tel</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="no">null</span><span class="p">;</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -793,10 +984,20 @@ alter table default_test change name name varchar(20); 因为 MySQL 在执行这
 <p>插入数据：
 <img src="表的约束.IMG/image-20231026182417715.png" alt="image-20231026182417715" style="zoom:40%;" /></p>
 <p>给表中某一列属性同时设置 not null 和 default ，它的意思是，这个列不能存储空值，只能存储非空值，而且如果没有为这个列提供值，那么它会自动赋值为 default 所指定的值。这个做法不是必要的，但是一种规范，因为 DEFAULT 就意味着它一定不是空的。</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="nf">deft_null_test</span><span class="p">(</span><span class="w">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="nf">deft_null_test</span><span class="p">(</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> 
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="no">null</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="s1">&#39;未知&#39;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">);</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -807,12 +1008,23 @@ alter table default_test change name name varchar(20); 因为 MySQL 在执行这
   </div>
 </div>
 <img src="表的约束.IMG/image-20231026183203203.png" alt="image-20231026183203203" style="zoom:40%;" />
-<h1>COMMENT（注释约束）</h1><p>MySQL 的 COMMENT 约束是一种用来给表或字段添加注释的约束。注释可以帮助用户记录表或字段的用途、含义、来源等信息，方便以后查看或维护。</p>
+<h2>COMMENT（注释约束）<span class="absolute -mt-20" id="comment注释约束"></span>
+    <a href="#comment%e6%b3%a8%e9%87%8a%e7%ba%a6%e6%9d%9f" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>MySQL 的 COMMENT 约束是一种用来给表或字段添加注释的约束。注释可以帮助用户记录表或字段的用途、含义、来源等信息，方便以后查看或维护。</p>
 <p>在创建表或字段时使用 COMMENT 关键字来添加注释：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">comment_test</span><span class="p">(</span><span class="w">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">comment_test</span><span class="p">(</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="nb">int</span><span class="w"> </span><span class="k">comment</span><span class="w"> </span><span class="s1">&#39;用户 ID&#39;</span><span class="p">,</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="w"> </span><span class="k">comment</span><span class="w"> </span><span class="s1">&#39;用户姓名&#39;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="k">comment</span><span class="w"> </span><span class="s1">&#39;用户信息&#39;</span><span class="p">;</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="k">comment</span><span class="w"> </span><span class="s1">&#39;用户信息&#39;</span><span class="p">;</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -825,7 +1037,14 @@ alter table default_test change name name varchar(20); 因为 MySQL 在执行这
 <p>甚至还可以给表注释。这样就能方便维护时查看表的注释信息，可以使用：</p>
 <img src="表的约束.IMG/image-20231026184320467.png" alt="image-20231026184320467" style="zoom:40%;" />
 <p>或者：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="k">SHOW</span><span class="w"> </span><span class="n">FULL</span><span class="w"> </span><span class="n">COLUMNS</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">;</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="k">SHOW</span><span class="w"> </span><span class="n">FULL</span><span class="w"> </span><span class="n">COLUMNS</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">;</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -836,8 +1055,16 @@ alter table default_test change name name varchar(20); 因为 MySQL 在执行这
   </div>
 </div>
 <p>在表或字段已经存在的情况下，使用 ALTER TABLE 语句来修改或删除注释，例如：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">MODIFY</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;用户编号&#39;</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">MODIFY</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">;</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">MODIFY</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;用户编号&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">MODIFY</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">;</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -848,11 +1075,22 @@ alter table default_test change name name varchar(20); 因为 MySQL 在执行这
   </div>
 </div>
 <p>这样，就可以将 id 字段的注释改为 ‘用户编号’，或者将 name 字段的注释删除。</p>
-<h1>ZEROFILL（零填充约束）</h1><p>MySQL 的 zerofill 约束是一种用来给数值类型的字段添加前导零的约束。当你插入或查询一个数值类型的字段时，如果它的值的长度小于定义的长度，那么它会在前面补上相应的零，直到达到定义的长度。例如，如果你定义一个字段为 int (8) zerofill，那么当你插入一个值为 123 的记录时，它会显示为 000001233。</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="nf">zerofill_test</span><span class="p">(</span><span class="w">
+<h2>ZEROFILL（零填充约束）<span class="absolute -mt-20" id="zerofill零填充约束"></span>
+    <a href="#zerofill%e9%9b%b6%e5%a1%ab%e5%85%85%e7%ba%a6%e6%9d%9f" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>MySQL 的 zerofill 约束是一种用来给数值类型的字段添加前导零的约束。当你插入或查询一个数值类型的字段时，如果它的值的长度小于定义的长度，那么它会在前面补上相应的零，直到达到定义的长度。例如，如果你定义一个字段为 int (8) zerofill，那么当你插入一个值为 123 的记录时，它会显示为 000001233。</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="nf">zerofill_test</span><span class="p">(</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">num1</span><span class="w"> </span><span class="kt">int</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">num2</span><span class="w"> </span><span class="kt">int</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="k">zerofill</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">);</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -872,7 +1110,8 @@ alter table default_test change name name varchar(20); 因为 MySQL 在执行这
 <li>zerofill 约束只会影响数据的显示方式，不会影响数据的存储方式和比较方式。</li>
 <li>如果数据的长度超过了定义的长度，那么不会截断数据，而是完整地显示数据。</li>
 </ul>
-<h1>UNIQUE（唯一键约束）</h1><p>MySQL 的 unique 约束用来保证表中的一列或多列的值不重复。</p>
+<h2>UNIQUE（唯一键约束）<span class="absolute -mt-20" id="unique唯一键约束"></span>
+    <a href="#unique%e5%94%af%e4%b8%80%e9%94%ae%e7%ba%a6%e6%9d%9f" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>MySQL 的 unique 约束用来保证表中的一列或多列的值不重复。</p>
 <p>唯一约束：</p>
 <ul>
 <li>指定列属性不能重复，以保证数据的唯一性。</li>
@@ -881,10 +1120,20 @@ alter table default_test change name name varchar(20); 因为 MySQL 在执行这
 </ul>
 <p>unique 和 primary key 约束都可以实现唯一性，但是每个表只能有一个 primary key。</p>
 <p>在创建表时使用 unique 关键字来指定某个列或多个列为唯一约束，例如：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">uni_test</span><span class="p">(</span><span class="w">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">uni_test</span><span class="p">(</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="nb">int</span><span class="p">,</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="w"> </span><span class="k">unique</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">);</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -897,8 +1146,16 @@ alter table default_test change name name varchar(20); 因为 MySQL 在执行这
 <img src="表的约束.IMG/image-20231026191341737.png" alt="image-20231026191341737" style="zoom:40%;" />
 <p>Key 为 UNI 的列表示它是一个唯一键，唯一键是允许为空的。</p>
 <p>也可以在表已经存在时使用 alter table 语句来添加或删除唯一约束，例如：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">uni_test</span><span class="w"> </span><span class="k">ADD</span><span class="w"> </span><span class="k">UNIQUE</span><span class="w"> </span><span class="p">(</span><span class="n">name</span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">uni_test</span><span class="w"> </span><span class="k">DROP</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">name</span><span class="p">;</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">uni_test</span><span class="w"> </span><span class="k">ADD</span><span class="w"> </span><span class="k">UNIQUE</span><span class="w"> </span><span class="p">(</span><span class="n">name</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">uni_test</span><span class="w"> </span><span class="k">DROP</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">name</span><span class="p">;</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -911,7 +1168,8 @@ alter table default_test change name name varchar(20); 因为 MySQL 在执行这
 <p>[注]如果删除的唯一约束列具有自增长约束，则必须先删除自增长约束，再去删除唯一约束。</p>
 <img src="表的约束.IMG/image-20231026191701937.png" alt="image-20231026191701937" style="zoom:40%;" />
 <p>在使用上，被唯一键约束的列，插入记录时不允许重复，除非是 NULL 值。</p>
-<h1>*PRIMARY KEY（主键约束）</h1><p>MySQL 的主键约束（primary key）是一种用来唯一标识表中<strong>每条记录</strong>的约束。它要求被约束的字段或字段组合不能重复，也不能为null。</p>
+<h2>*PRIMARY KEY（主键约束）<span class="absolute -mt-20" id="primary-key主键约束"></span>
+    <a href="#primary-key%e4%b8%bb%e9%94%ae%e7%ba%a6%e6%9d%9f" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>MySQL 的主键约束（primary key）是一种用来唯一标识表中<strong>每条记录</strong>的约束。它要求被约束的字段或字段组合不能重复，也不能为null。</p>
 <p>主键约束相当于唯一键约束（unique）和非空约束（not null）的组合。这意味着，主键约束要求被约束的字段或字段组合不能重复，也不能为null。而且，<strong>每个表只能有一个主键约束</strong>，但可以有多个唯一键约束。</p>
 <p><strong>主键约束的粒度比唯一键约束的粒度更强</strong>：对于主键约束和唯一键约束，我们可以把它们看作是两种不同的维度组合。主键约束是由非空且唯一的字段或字段组合构成的维度，而唯一键约束是由可空且唯一的字段或字段组合构成的维度。显然，主键约束的维度组合比唯一键约束的维度组合更严格，因为它排除了空值的可能性。</p>
 <blockquote>
@@ -930,10 +1188,20 @@ alter table default_test change name name varchar(20); 因为 MySQL 在执行这
 <p>那么，主键约束能保证某列中的所有数据不重复，而且不为空，那这就可以作为查找的依据，相当于一个完整映射且不重复的键值对了。因此从这个角度看，一般具有唯一性且不为空的列，可以作为主键，例如人的身份证号，学生的学号等等。</p>
 <p>因为主键是唯一且不为空的， 所以一般将主键称之为“某表的主键”。</p>
 <p>在创建表时指定 id 列为主键约束：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="nf">pri_test</span><span class="p">(</span><span class="w">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="nf">pri_test</span><span class="p">(</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">tel</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">);</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -961,17 +1229,29 @@ alter table default_test change name name varchar(20); 因为 MySQL 在执行这
 <li>与其他表的外键建立关联，实现数据之间的逻辑关系和引用完整性。</li>
 <li>规范数据的显示顺序，使数据更加有序和易于管理。</li>
 </ul>
-<h1>复合主键</h1><p>MySQL复合主键是指数据库表的主键由多个字段组成。复合主键可以用于以下场景：</p>
+<h2>复合主键<span class="absolute -mt-20" id="复合主键"></span>
+    <a href="#%e5%a4%8d%e5%90%88%e4%b8%bb%e9%94%ae" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>MySQL复合主键是指数据库表的主键由多个字段组成。复合主键可以用于以下场景：</p>
 <ul>
 <li>当单个字段无法唯一标识记录时，需要使用复合主键。例如，一个用户表中，用户名和手机号码可以组成复合主键，用于唯一标识用户。</li>
 <li>当表中存在多个字段具有相同的业务含义时，可以使用复合主键来强制它们的值保持一致。例如，一个订单表中，订单号和订单状态可以组成复合主键，用于保证每笔订单的订单号和订单状态是唯一且一致的。</li>
 </ul>
 <p>在创建表时，单独在表的最后用括号包含若干个列名，然后用PRIMARY KEY 关键字来表名它们是复合主键。</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="nf">pris_test</span><span class="p">(</span><span class="w">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="nf">pris_test</span><span class="p">(</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">tel</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">tel</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">);</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -992,7 +1272,8 @@ alter table default_test change name name varchar(20); 因为 MySQL 在执行这
 <img src="表的约束.IMG/image-20231026201631997.png" alt="image-20231026201631997" style="zoom:40%;" />
 <p>同样地，在增加复合主键时，也要保证这些「列组合」的唯一性。</p>
 <p>在设计主键时，除了要选择这个表中数据唯一的那一列，还要保证它与业务无关，也就是说业务调整以后，不会影响主键的表结构。</p>
-<h1>FOREIGN KEY（外键约束）</h1><p>MySQL 的外键约束是指在两个表之间建立的一种关联关系，建立外键约束的表叫做从表，对于从表而言，“外键”是主表的主键，这样可以保证从表中的外键值必须在主表中存在，从而维护数据的一致性和完整性。</p>
+<h2>FOREIGN KEY（外键约束）<span class="absolute -mt-20" id="foreign-key外键约束"></span>
+    <a href="#foreign-key%e5%a4%96%e9%94%ae%e7%ba%a6%e6%9d%9f" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>MySQL 的外键约束是指在两个表之间建立的一种关联关系，建立外键约束的表叫做从表，对于从表而言，“外键”是主表的主键，这样可以保证从表中的外键值必须在主表中存在，从而维护数据的一致性和完整性。</p>
 <p>外键约束可以用于以下场景：</p>
 <ul>
 <li>确保一个表中的记录与另一个表中的记录之间存在关联关系。例如，一个客户表和一个订单表。每个客户可以有多个订单，每个订单只属于一个客户。客户表是主表（父表），订单表是从表（子表）。订单表中的 customer_id 列是外键，它引用了客户表中的 id 列，这是主键。</li>
@@ -1001,10 +1282,20 @@ alter table default_test change name name varchar(20); 因为 MySQL 在执行这
 <p>例如在订单表中，引用了用户表的主键 id：</p>
 <img src="表的约束.IMG/image-20231026204404700.png" alt="image-20231026204404700" style="zoom:40%;" />
 <p>创建 customers 表：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="nf">customers</span><span class="p">(</span><span class="w">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="nf">customers</span><span class="p">(</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">customer_id</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">);</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1016,12 +1307,24 @@ alter table default_test change name name varchar(20); 因为 MySQL 在执行这
 </div>
 <img src="表的约束.IMG/image-20231026205348344.png" alt="image-20231026205348344" style="zoom:40%;" />
 <p>在创建表时使用 FOREIGN KEY 和 REFERENCES 关键字创建外键约束：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="nf">sales</span><span class="p">(</span><span class="w">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="nf">sales</span><span class="p">(</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">sale_id</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">product</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">customer_id</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">foreign</span><span class="w"> </span><span class="k">key</span><span class="p">(</span><span class="n">customer_id</span><span class="p">)</span><span class="w"> </span><span class="k">references</span><span class="w"> </span><span class="nf">customers</span><span class="p">(</span><span class="n">customer_id</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">);</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1053,7 +1356,8 @@ alter table default_test change name name varchar(20); 因为 MySQL 在执行这
 <p>这取决于表的列属性之间的关联性，例如学校的班级表和班级的学生表，合并后会有许多冗余的信息，例如有好多个同学都是同一个班的。如果把这张表作为学校领导评估班级学习成果的参考，那么就太麻烦了。</p>
 <p>这还不算非常冗余的表，因为它们之间有一个共同的属性––班级。如果两张表之间没有任何连接条件，那么它们的交叉连接就是笛卡尔积。如果 A 有 8 行，B 有 10 行，那么 A 表和 B表的笛卡尔积就有 80 行。</p>
 <p>关于「表的连接」，可以本栏目中找到对应介绍。</p>
-<h1>AUTO_INCREMENT（自增长约束）</h1><p>AUTO_INCREMENT 是一种特殊的属性，它可以让一个整数类型的列自动增加一个唯一的值，每当向表中插入一条新记录时。这样可以方便地为表中的每一行添加一个标识符，而不需要用户手动输入。</p>
+<h2>AUTO_INCREMENT（自增长约束）<span class="absolute -mt-20" id="auto_increment自增长约束"></span>
+    <a href="#auto_increment%e8%87%aa%e5%a2%9e%e9%95%bf%e7%ba%a6%e6%9d%9f" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>AUTO_INCREMENT 是一种特殊的属性，它可以让一个整数类型的列自动增加一个唯一的值，每当向表中插入一条新记录时。这样可以方便地为表中的每一行添加一个标识符，而不需要用户手动输入。</p>
 <p>因此，在大多数情况下，使用自增长的列作为主键是比较推荐的做法。</p>
 <blockquote>
 <p>但是使用自增长的列作为主键也有一些限制，例如，在分库分表或复制的场景下，可能会出现主键冲突或不连续的问题。</p>
@@ -1061,10 +1365,20 @@ alter table default_test change name name varchar(20); 因为 MySQL 在执行这
 <p>因此，是否将自增长约束设置为主键取决于具体需求和场景。</p>
 </blockquote>
 <p>要创建一个 AUTO_INCREMENT 的列，可以在 CREATE TABLE 或 ALTER TABLE 语句中使用 AUTO_INCREMENT 关键字，并指定该列为主键或唯一键。例如，以下语句创建了一个名为 customers 的表，其中 id 列是一个 AUTO_INCREMENT 的主键：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">auto_inc</span><span class="p">(</span><span class="w">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">auto_inc</span><span class="p">(</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="nb">int</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="w"> </span><span class="n">auto_increment</span><span class="p">,</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">);</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1089,7 +1403,8 @@ alter table default_test change name name varchar(20); 因为 MySQL 在执行这
 <img src="表的约束.IMG/image-20231027185838996.png" alt="image-20231027185838996" style="zoom:40%;" />
 <p>删除某个列的自增属性：</p>
 <img src="表的约束.IMG/image-20231027190002938.png" alt="image-20231027190002938" style="zoom:40%;" />
-<h1>参考资料</h1><ul>
+<h2>参考资料<span class="absolute -mt-20" id="参考资料"></span>
+    <a href="#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><ul>
 <li><a href="https://www.cnblogs.com/cangqinglang/p/10036680.html" target="_blank" rel="noopener">MySQL——约束(constraint)详解</a></li>
 <li><a href="https://segmentfault.com/a/1190000039214953" target="_blank" rel="noopener">一篇文章带你彻底了解MySQL各种约束</a></li>
 </ul>

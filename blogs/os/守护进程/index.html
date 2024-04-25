@@ -12,14 +12,14 @@
 <link fetchpriority="low" href="/site.webmanifest" rel="manifest" />
 
   <title>守护进程 – Shawy&#39;s Blog</title>
-  <meta name="description" content="前导知识shell、terminal、console terminal（终端）是一种可以和计算机交互的设备，通常有键盘和显示器，可以输入和输出文本信息。终端可以是物理的（如电传打字机）或者虚拟的（如终端模拟器程序）。 shell（外壳）是一种命令行解释器，它接收终端输入的命令，并将其转换为操作系统内核可以理解的语言，然后调用相应的应用程序，并将输出结果返回给终端显示。shell 可以有不同的类型，如 bash, zsh, PowerShell 等。 console（控制台）是一种特殊的物理终端，通常位于计算机主机上，有开关和指示灯，可以对计算机进行底层的操作。在软件意义上，控制台和终端是同义词，表示一个文本输入输出环境。 由于技术的发展，terminal 和 console 两个物理设备逐渐变成了具有图形化界面的软件，因此我们现在并未对二者做严格区分，所以要了解它们之间本质区别，还需要从历史发展中学习。
+  <meta name="description" content="前导知识 shell、terminal、console terminal（终端）是一种可以和计算机交互的设备，通常有键盘和显示器，可以输入和输出文本信息。终端可以是物理的（如电传打字机）或者虚拟的（如终端模拟器程序）。 shell（外壳）是一种命令行解释器，它接收终端输入的命令，并将其转换为操作系统内核可以理解的语言，然后调用相应的应用程序，并将输出结果返回给终端显示。shell 可以有不同的类型，如 bash, zsh, PowerShell 等。 console（控制台）是一种特殊的物理终端，通常位于计算机主机上，有开关和指示灯，可以对计算机进行底层的操作。在软件意义上，控制台和终端是同义词，表示一个文本输入输出环境。 由于技术的发展，terminal 和 console 两个物理设备逐渐变成了具有图形化界面的软件，因此我们现在并未对二者做严格区分，所以要了解它们之间本质区别，还需要从历史发展中学习。
 相关资料：
 视频：【技术杂谈】shell 和 terminal
 对于本文，只要知道 shell 是一个命令行解释器即可，它是我们和机器交互的窗口，我们的各种任务，都是通过 shell 交给机器执行的。
 进程组 进程组（Process Group）是一个或多个进程的集合，它们通常有共同的目的或协作关系，如它们可以接收来自同一个终端的信号。每个进程组都有一个唯一的进程组 ID，它等于该进程组中第一个进程的进程 ID（PGID），以标识该进程组。每个进程组都有一个“进程组首进程”（process group leader）。进程组 ID 就是进程组首进程的 PID。只要在某个进程组中还有一个进程存在，则该进程组就存在。即使进程组首进程终止了，该进程组依然存在。
 进程组可以分为前台进程组和后台进程组，前台进程组可以从控制终端接收输入和信号，后台进程组则不能。
 作业 作业（Job）是指由同一个 shell 启动的一组进程，shell 可以允许一个前台作业（foreground job）和任意多个后台作业（background job）。在前台运行的作业接收终端的输入输出，后台作业则在后台运行，不占用终端。shell 可以通过作业控制命令来切换作业的前后台状态，或者暂停、恢复、终止作业。
-进程组和作业之间的关系是：每个作业都对应一个进程组，但不是每个进程组都是一个作业。==只有由 shell 启动的进程组才是作业==，而其他程序启动的进程组则不是。例如，系统启动时创建的 init 进程和它的子进程就不属于任何作业。另外，如果作业中的某个进程又创建了子进程，则子进程不属于作业，而是属于另一个进程组。
+进程组和作业之间的关系是：每个作业都对应一个进程组，但不是每个进程组都是一个作业。只有由 shell 启动的进程组才是作业，而其他程序启动的进程组则不是。例如，系统启动时创建的 init 进程和它的子进程就不属于任何作业。另外，如果作业中的某个进程又创建了子进程，则子进程不属于作业，而是属于另一个进程组。
 注意：
 若作业中（进程组）的某个进程创建了一个新的子进程，那么这个子进程是不属于作业的。当作业运行结束以后，shell 会将它自己作为前台作业，如果原先的前台进程依然存在，即这个新的子进程还未终止，那么它将会变成后台进程组。
 会话 会话（Session）是一次用户登录系统后的交互过程（从使用上看就是打开的 terminal 窗口），一个会话可以包含一个或多个进程组，但只能有一个前台进程组。每个会话都有一个会话首进程，即创建会话的进程，其进程 ID 是会话 ID。一个会话可以有一个控制终端，通常是登录的终端设备（硬件）或伪终端设备（软件）。控制终端上的输入和信号会发送给前台进程组中的所有进程。一个会话可以有多个作业，但只有一个作业是前台作业，其他的都是后台作业。前台作业可以接收终端的输入和输出，而后台作业则不会影响终端的交互。
@@ -32,14 +32,14 @@
   
 
 <meta property="og:title" content="守护进程" />
-<meta property="og:description" content="前导知识shell、terminal、console terminal（终端）是一种可以和计算机交互的设备，通常有键盘和显示器，可以输入和输出文本信息。终端可以是物理的（如电传打字机）或者虚拟的（如终端模拟器程序）。 shell（外壳）是一种命令行解释器，它接收终端输入的命令，并将其转换为操作系统内核可以理解的语言，然后调用相应的应用程序，并将输出结果返回给终端显示。shell 可以有不同的类型，如 bash, zsh, PowerShell 等。 console（控制台）是一种特殊的物理终端，通常位于计算机主机上，有开关和指示灯，可以对计算机进行底层的操作。在软件意义上，控制台和终端是同义词，表示一个文本输入输出环境。 由于技术的发展，terminal 和 console 两个物理设备逐渐变成了具有图形化界面的软件，因此我们现在并未对二者做严格区分，所以要了解它们之间本质区别，还需要从历史发展中学习。
+<meta property="og:description" content="前导知识 shell、terminal、console terminal（终端）是一种可以和计算机交互的设备，通常有键盘和显示器，可以输入和输出文本信息。终端可以是物理的（如电传打字机）或者虚拟的（如终端模拟器程序）。 shell（外壳）是一种命令行解释器，它接收终端输入的命令，并将其转换为操作系统内核可以理解的语言，然后调用相应的应用程序，并将输出结果返回给终端显示。shell 可以有不同的类型，如 bash, zsh, PowerShell 等。 console（控制台）是一种特殊的物理终端，通常位于计算机主机上，有开关和指示灯，可以对计算机进行底层的操作。在软件意义上，控制台和终端是同义词，表示一个文本输入输出环境。 由于技术的发展，terminal 和 console 两个物理设备逐渐变成了具有图形化界面的软件，因此我们现在并未对二者做严格区分，所以要了解它们之间本质区别，还需要从历史发展中学习。
 相关资料：
 视频：【技术杂谈】shell 和 terminal
 对于本文，只要知道 shell 是一个命令行解释器即可，它是我们和机器交互的窗口，我们的各种任务，都是通过 shell 交给机器执行的。
 进程组 进程组（Process Group）是一个或多个进程的集合，它们通常有共同的目的或协作关系，如它们可以接收来自同一个终端的信号。每个进程组都有一个唯一的进程组 ID，它等于该进程组中第一个进程的进程 ID（PGID），以标识该进程组。每个进程组都有一个“进程组首进程”（process group leader）。进程组 ID 就是进程组首进程的 PID。只要在某个进程组中还有一个进程存在，则该进程组就存在。即使进程组首进程终止了，该进程组依然存在。
 进程组可以分为前台进程组和后台进程组，前台进程组可以从控制终端接收输入和信号，后台进程组则不能。
 作业 作业（Job）是指由同一个 shell 启动的一组进程，shell 可以允许一个前台作业（foreground job）和任意多个后台作业（background job）。在前台运行的作业接收终端的输入输出，后台作业则在后台运行，不占用终端。shell 可以通过作业控制命令来切换作业的前后台状态，或者暂停、恢复、终止作业。
-进程组和作业之间的关系是：每个作业都对应一个进程组，但不是每个进程组都是一个作业。==只有由 shell 启动的进程组才是作业==，而其他程序启动的进程组则不是。例如，系统启动时创建的 init 进程和它的子进程就不属于任何作业。另外，如果作业中的某个进程又创建了子进程，则子进程不属于作业，而是属于另一个进程组。
+进程组和作业之间的关系是：每个作业都对应一个进程组，但不是每个进程组都是一个作业。只有由 shell 启动的进程组才是作业，而其他程序启动的进程组则不是。例如，系统启动时创建的 init 进程和它的子进程就不属于任何作业。另外，如果作业中的某个进程又创建了子进程，则子进程不属于作业，而是属于另一个进程组。
 注意：
 若作业中（进程组）的某个进程创建了一个新的子进程，那么这个子进程是不属于作业的。当作业运行结束以后，shell 会将它自己作为前台作业，如果原先的前台进程依然存在，即这个新的子进程还未终止，那么它将会变成后台进程组。
 会话 会话（Session）是一次用户登录系统后的交互过程（从使用上看就是打开的 terminal 窗口），一个会话可以包含一个或多个进程组，但只能有一个前台进程组。每个会话都有一个会话首进程，即创建会话的进程，其进程 ID 是会话 ID。一个会话可以有一个控制终端，通常是登录的终端设备（硬件）或伪终端设备（软件）。控制终端上的输入和信号会发送给前台进程组中的所有进程。一个会话可以有多个作业，但只有一个作业是前台作业，其他的都是后台作业。前台作业可以接收终端的输入和输出，而后台作业则不会影响终端的交互。
@@ -51,27 +51,27 @@
 
   
   <meta itemprop="name" content="守护进程">
-  <meta itemprop="description" content="前导知识shell、terminal、console terminal（终端）是一种可以和计算机交互的设备，通常有键盘和显示器，可以输入和输出文本信息。终端可以是物理的（如电传打字机）或者虚拟的（如终端模拟器程序）。 shell（外壳）是一种命令行解释器，它接收终端输入的命令，并将其转换为操作系统内核可以理解的语言，然后调用相应的应用程序，并将输出结果返回给终端显示。shell 可以有不同的类型，如 bash, zsh, PowerShell 等。 console（控制台）是一种特殊的物理终端，通常位于计算机主机上，有开关和指示灯，可以对计算机进行底层的操作。在软件意义上，控制台和终端是同义词，表示一个文本输入输出环境。 由于技术的发展，terminal 和 console 两个物理设备逐渐变成了具有图形化界面的软件，因此我们现在并未对二者做严格区分，所以要了解它们之间本质区别，还需要从历史发展中学习。
+  <meta itemprop="description" content="前导知识 shell、terminal、console terminal（终端）是一种可以和计算机交互的设备，通常有键盘和显示器，可以输入和输出文本信息。终端可以是物理的（如电传打字机）或者虚拟的（如终端模拟器程序）。 shell（外壳）是一种命令行解释器，它接收终端输入的命令，并将其转换为操作系统内核可以理解的语言，然后调用相应的应用程序，并将输出结果返回给终端显示。shell 可以有不同的类型，如 bash, zsh, PowerShell 等。 console（控制台）是一种特殊的物理终端，通常位于计算机主机上，有开关和指示灯，可以对计算机进行底层的操作。在软件意义上，控制台和终端是同义词，表示一个文本输入输出环境。 由于技术的发展，terminal 和 console 两个物理设备逐渐变成了具有图形化界面的软件，因此我们现在并未对二者做严格区分，所以要了解它们之间本质区别，还需要从历史发展中学习。
 相关资料：
 视频：【技术杂谈】shell 和 terminal
 对于本文，只要知道 shell 是一个命令行解释器即可，它是我们和机器交互的窗口，我们的各种任务，都是通过 shell 交给机器执行的。
 进程组 进程组（Process Group）是一个或多个进程的集合，它们通常有共同的目的或协作关系，如它们可以接收来自同一个终端的信号。每个进程组都有一个唯一的进程组 ID，它等于该进程组中第一个进程的进程 ID（PGID），以标识该进程组。每个进程组都有一个“进程组首进程”（process group leader）。进程组 ID 就是进程组首进程的 PID。只要在某个进程组中还有一个进程存在，则该进程组就存在。即使进程组首进程终止了，该进程组依然存在。
 进程组可以分为前台进程组和后台进程组，前台进程组可以从控制终端接收输入和信号，后台进程组则不能。
 作业 作业（Job）是指由同一个 shell 启动的一组进程，shell 可以允许一个前台作业（foreground job）和任意多个后台作业（background job）。在前台运行的作业接收终端的输入输出，后台作业则在后台运行，不占用终端。shell 可以通过作业控制命令来切换作业的前后台状态，或者暂停、恢复、终止作业。
-进程组和作业之间的关系是：每个作业都对应一个进程组，但不是每个进程组都是一个作业。==只有由 shell 启动的进程组才是作业==，而其他程序启动的进程组则不是。例如，系统启动时创建的 init 进程和它的子进程就不属于任何作业。另外，如果作业中的某个进程又创建了子进程，则子进程不属于作业，而是属于另一个进程组。
+进程组和作业之间的关系是：每个作业都对应一个进程组，但不是每个进程组都是一个作业。只有由 shell 启动的进程组才是作业，而其他程序启动的进程组则不是。例如，系统启动时创建的 init 进程和它的子进程就不属于任何作业。另外，如果作业中的某个进程又创建了子进程，则子进程不属于作业，而是属于另一个进程组。
 注意：
 若作业中（进程组）的某个进程创建了一个新的子进程，那么这个子进程是不属于作业的。当作业运行结束以后，shell 会将它自己作为前台作业，如果原先的前台进程依然存在，即这个新的子进程还未终止，那么它将会变成后台进程组。
 会话 会话（Session）是一次用户登录系统后的交互过程（从使用上看就是打开的 terminal 窗口），一个会话可以包含一个或多个进程组，但只能有一个前台进程组。每个会话都有一个会话首进程，即创建会话的进程，其进程 ID 是会话 ID。一个会话可以有一个控制终端，通常是登录的终端设备（硬件）或伪终端设备（软件）。控制终端上的输入和信号会发送给前台进程组中的所有进程。一个会话可以有多个作业，但只有一个作业是前台作业，其他的都是后台作业。前台作业可以接收终端的输入和输出，而后台作业则不会影响终端的交互。
 会话的创建和终止由终端设备控制。当一个用户登录到一个终端（计算机）时，登录进程就会为这个用户创建一个新的会话，该会话的首个进程是登录 shell，登录 shell 被作为“会话首进程”。登录 shell 可以启动其他的进程或进程组，从而形成该会话的作业。会话首进程的 PID 就被作为会话 ID。会话是一个或多个进程组的集合。会话囊括了登录用户的所有活动，并且分配给用户一个控制终端（controling terminal）。控制终端是用于处理用户 I/O 的特定 tty 设备。因此，会话的功能和 shell 差不多。实际上，没有谁刻意去区分它们。&ndash;《Linux 系统编程（第二版）》">
-  <meta itemprop="wordCount" content="527"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="守护进程">
-<meta name="twitter:description" content="前导知识shell、terminal、console terminal（终端）是一种可以和计算机交互的设备，通常有键盘和显示器，可以输入和输出文本信息。终端可以是物理的（如电传打字机）或者虚拟的（如终端模拟器程序）。 shell（外壳）是一种命令行解释器，它接收终端输入的命令，并将其转换为操作系统内核可以理解的语言，然后调用相应的应用程序，并将输出结果返回给终端显示。shell 可以有不同的类型，如 bash, zsh, PowerShell 等。 console（控制台）是一种特殊的物理终端，通常位于计算机主机上，有开关和指示灯，可以对计算机进行底层的操作。在软件意义上，控制台和终端是同义词，表示一个文本输入输出环境。 由于技术的发展，terminal 和 console 两个物理设备逐渐变成了具有图形化界面的软件，因此我们现在并未对二者做严格区分，所以要了解它们之间本质区别，还需要从历史发展中学习。
+  <meta itemprop="wordCount" content="607"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="守护进程">
+<meta name="twitter:description" content="前导知识 shell、terminal、console terminal（终端）是一种可以和计算机交互的设备，通常有键盘和显示器，可以输入和输出文本信息。终端可以是物理的（如电传打字机）或者虚拟的（如终端模拟器程序）。 shell（外壳）是一种命令行解释器，它接收终端输入的命令，并将其转换为操作系统内核可以理解的语言，然后调用相应的应用程序，并将输出结果返回给终端显示。shell 可以有不同的类型，如 bash, zsh, PowerShell 等。 console（控制台）是一种特殊的物理终端，通常位于计算机主机上，有开关和指示灯，可以对计算机进行底层的操作。在软件意义上，控制台和终端是同义词，表示一个文本输入输出环境。 由于技术的发展，terminal 和 console 两个物理设备逐渐变成了具有图形化界面的软件，因此我们现在并未对二者做严格区分，所以要了解它们之间本质区别，还需要从历史发展中学习。
 相关资料：
 视频：【技术杂谈】shell 和 terminal
 对于本文，只要知道 shell 是一个命令行解释器即可，它是我们和机器交互的窗口，我们的各种任务，都是通过 shell 交给机器执行的。
 进程组 进程组（Process Group）是一个或多个进程的集合，它们通常有共同的目的或协作关系，如它们可以接收来自同一个终端的信号。每个进程组都有一个唯一的进程组 ID，它等于该进程组中第一个进程的进程 ID（PGID），以标识该进程组。每个进程组都有一个“进程组首进程”（process group leader）。进程组 ID 就是进程组首进程的 PID。只要在某个进程组中还有一个进程存在，则该进程组就存在。即使进程组首进程终止了，该进程组依然存在。
 进程组可以分为前台进程组和后台进程组，前台进程组可以从控制终端接收输入和信号，后台进程组则不能。
 作业 作业（Job）是指由同一个 shell 启动的一组进程，shell 可以允许一个前台作业（foreground job）和任意多个后台作业（background job）。在前台运行的作业接收终端的输入输出，后台作业则在后台运行，不占用终端。shell 可以通过作业控制命令来切换作业的前后台状态，或者暂停、恢复、终止作业。
-进程组和作业之间的关系是：每个作业都对应一个进程组，但不是每个进程组都是一个作业。==只有由 shell 启动的进程组才是作业==，而其他程序启动的进程组则不是。例如，系统启动时创建的 init 进程和它的子进程就不属于任何作业。另外，如果作业中的某个进程又创建了子进程，则子进程不属于作业，而是属于另一个进程组。
+进程组和作业之间的关系是：每个作业都对应一个进程组，但不是每个进程组都是一个作业。只有由 shell 启动的进程组才是作业，而其他程序启动的进程组则不是。例如，系统启动时创建的 init 进程和它的子进程就不属于任何作业。另外，如果作业中的某个进程又创建了子进程，则子进程不属于作业，而是属于另一个进程组。
 注意：
 若作业中（进程组）的某个进程创建了一个新的子进程，那么这个子进程是不属于作业的。当作业运行结束以后，shell 会将它自己作为前台作业，如果原先的前台进程依然存在，即这个新的子进程还未终止，那么它将会变成后台进程组。
 会话 会话（Session）是一次用户登录系统后的交互过程（从使用上看就是打开的 terminal 窗口），一个会话可以包含一个或多个进程组，但只能有一个前台进程组。每个会话都有一个会话首进程，即创建会话的进程，其进程 ID 是会话 ID。一个会话可以有一个控制终端，通常是登录的终端设备（硬件）或伪终端设备（软件）。控制终端上的输入和信号会发送给前台进程组中的所有进程。一个会话可以有多个作业，但只有一个作业是前台作业，其他的都是后台作业。前台作业可以接收终端的输入和输出，而后台作业则不会影响终端的交互。
@@ -82,7 +82,7 @@
 
 
 
-  <link href="/css/custom.min.e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css" rel="stylesheet" integrity="sha256-47DEQpj8HBSa&#43;/TImW&#43;5JCeuQeRkm5NMpJWZG3hSuFU=" />
+  <link href="/css/custom.min.7d43e1fdc41380d9e5d795e4b7ab39cca64e2e8ac32a15c33924c1f0a8cb1df0.css" rel="stylesheet" integrity="sha256-fUPh/cQTgNnl15Xkt6s5zKZOLorDKhXDOSTB8KjLHfA=" />
 
 
 
@@ -136,7 +136,7 @@
             <span class="text-center">About</span>
           </a><a
             title="Contact ↗"
-            href="https://blog.csdn.net/m0_63312733?type=blog"
+            href="https://img-blog.csdnimg.cn/7deb340b1c95414d9dc25a89d1cb1f32.png"
             target="_blank" rel="noreferer"
             class="text-sm contrast-more:text-gray-700 contrast-more:dark:text-gray-100 relative -ml-2 hidden whitespace-nowrap p-2 md:inline-block text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
           >
@@ -227,7 +227,15 @@
       text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
     href="/blogs/cpp/"
     
-  >C/C&#43;&#43;
+  >C&#43;&#43;
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/c/"
+    
+  >C语言
     </a>
               
             </li><li class="flex flex-col "><a
@@ -361,6 +369,14 @@
               
             </li></ul>
       </div>
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/block-chain/"
+    
+  >区块链
+    </a>
+              
             </li><li class="flex flex-col open"><a
     class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
       text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
@@ -500,51 +516,15 @@
   
     <ul class='flex flex-col gap-1 relative before:absolute before:inset-y-1 before:w-px before:bg-gray-200 before:content-[""] dark:before:bg-neutral-800 ltr:pl-3 ltr:before:left-0 rtl:pr-3 rtl:before:right-0 ltr:ml-3 rtl:mr-3'><li>
               <a
-                href="#shellterminalconsole"
+                href="#%e5%89%8d%e5%af%bc%e7%9f%a5%e8%af%86"
                 class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >shell、terminal、console</a>
+              >前导知识</a>
             </li>
           <li>
               <a
-                href="#%e8%bf%9b%e7%a8%8b%e7%bb%84"
+                href="#%e5%ae%88%e6%8a%a4%e8%bf%9b%e7%a8%8b"
                 class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >进程组</a>
-            </li>
-          <li>
-              <a
-                href="#%e4%bd%9c%e4%b8%9a"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >作业</a>
-            </li>
-          <li>
-              <a
-                href="#%e4%bc%9a%e8%af%9d"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >会话</a>
-            </li>
-          <li>
-              <a
-                href="#%e4%bc%9a%e8%af%9d%e6%8e%a7%e5%88%b6"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >会话控制</a>
-            </li>
-          <li>
-              <a
-                href="#%e4%bd%9c%e7%94%a8"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >作用</a>
-            </li>
-          <li>
-              <a
-                href="#%e6%9f%a5%e7%9c%8b%e5%ae%88%e6%8a%a4%e8%bf%9b%e7%a8%8b"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >查看守护进程</a>
-            </li>
-          <li>
-              <a
-                href="#%e5%88%9b%e5%bb%ba%e5%ae%88%e6%8a%a4%e8%bf%9b%e7%a8%8b"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >创建守护进程</a>
+              >守护进程</a>
             </li>
           </ul>
   
@@ -581,6 +561,14 @@
     href="/blogs/data-structure/"
     
   >数据结构与算法
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/algorithm/"
+    
+  >算法
     </a>
               
             </li><li class="flex flex-col "><a
@@ -706,55 +694,63 @@
 <nav class="hextra-toc order-last hidden w-64 shrink-0 xl:block print:hidden px-4" aria-label="table of contents">
     <div class="hextra-scrollbar sticky top-16 overflow-y-auto pr-4 pt-6 text-sm [hyphens:auto] max-h-[calc(100vh-var(--navbar-height)-env(safe-area-inset-bottom))] ltr:-mr-4 rtl:-ml-4"><p class="mb-4 font-semibold tracking-tight">On this page</p><ul>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#shellterminalconsole">shell、terminal、console
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%89%8d%e5%af%bc%e7%9f%a5%e8%af%86">前导知识
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e8%bf%9b%e7%a8%8b%e7%bb%84">进程组
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#shellterminalconsole">shell、terminal、console
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%bd%9c%e4%b8%9a">作业
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e8%bf%9b%e7%a8%8b%e7%bb%84">进程组
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%bc%9a%e8%af%9d">会话
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%bd%9c%e4%b8%9a">作业
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%b5%8b%e8%af%95">测试
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%bc%9a%e8%af%9d">会话
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%bc%9a%e8%af%9d%e6%8e%a7%e5%88%b6">会话控制
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%b5%8b%e8%af%95">测试
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#job">job
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%bc%9a%e8%af%9d%e6%8e%a7%e5%88%b6">会话控制
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#fg">fg
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#job">job
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#bg">bg
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#fg">fg
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#ps">ps
-        </a>
-      </li></ul><ul>
-      <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%bd%9c%e7%94%a8">作用
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#bg">bg
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%9f%a5%e7%9c%8b%e5%ae%88%e6%8a%a4%e8%bf%9b%e7%a8%8b">查看守护进程
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#ps">ps
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%88%9b%e5%bb%ba%e5%ae%88%e6%8a%a4%e8%bf%9b%e7%a8%8b">创建守护进程
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%ae%88%e6%8a%a4%e8%bf%9b%e7%a8%8b">守护进程
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%bd%9c%e7%94%a8">作用
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%9f%a5%e7%9c%8b%e5%ae%88%e6%8a%a4%e8%bf%9b%e7%a8%8b">查看守护进程
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%88%9b%e5%bb%ba%e5%ae%88%e6%8a%a4%e8%bf%9b%e7%a8%8b">创建守护进程
         </a>
       </li></ul>
       <div class="mt-8 border-t bg-white pt-8 shadow-[0_-12px_16px_white] dark:bg-dark dark:shadow-[0_-12px_16px_#111] sticky bottom-0 flex flex-col items-start gap-2 pb-8 dark:border-neutral-800 contrast-more:border-t contrast-more:border-neutral-400 contrast-more:shadow-none contrast-more:dark:border-neutral-400">
@@ -775,8 +771,9 @@
         <h1 class="text-center mt-2 text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100">守护进程</h1>
         <div class="mb-16"></div>
         <div class="content">
-          <h1>前导知识</h1><h2>shell、terminal、console<span class="absolute -mt-20" id="shellterminalconsole"></span>
-    <a href="#shellterminalconsole" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><ul>
+          <h2>前导知识<span class="absolute -mt-20" id="前导知识"></span>
+    <a href="#%e5%89%8d%e5%af%bc%e7%9f%a5%e8%af%86" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>shell、terminal、console<span class="absolute -mt-20" id="shellterminalconsole"></span>
+    <a href="#shellterminalconsole" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
 <li>terminal（终端）是一种可以和计算机交互的设备，通常有键盘和显示器，可以输入和输出文本信息。终端可以是物理的（如电传打字机）或者虚拟的（如终端模拟器程序）。</li>
 <li>shell（外壳）是一种命令行解释器，它接收终端输入的命令，并将其转换为操作系统内核可以理解的语言，然后调用相应的应用程序，并将输出结果返回给终端显示。shell 可以有不同的类型，如 bash, zsh, PowerShell 等。</li>
 <li>console（控制台）是一种特殊的物理终端，通常位于计算机主机上，有开关和指示灯，可以对计算机进行底层的操作。在软件意义上，控制台和终端是同义词，表示一个文本输入输出环境。</li>
@@ -785,16 +782,16 @@
 <p>相关资料：</p>
 <p><a href="https://www.bilibili.com/video/BV16A411675V/?from=search&amp;seid=877614585939603485&amp;spm_id_from=333.337.0.0&amp;vd_source=b46c022ff65a946442d77e8b7b4b2646" target="_blank" rel="noopener">视频：【技术杂谈】shell 和 terminal</a></p>
 <p>对于本文，只要知道 shell 是一个命令行解释器即可，它是我们和机器交互的窗口，我们的各种任务，都是通过 shell 交给机器执行的。</p>
-<h2>进程组<span class="absolute -mt-20" id="进程组"></span>
-    <a href="#%e8%bf%9b%e7%a8%8b%e7%bb%84" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>进程组（Process Group）是一个或多个进程的集合，它们通常有共同的目的或协作关系，如它们可以接收来自同一个终端的信号。每个进程组都有一个唯一的进程组 ID，它等于该进程组中第一个进程的进程 ID（PGID），以标识该进程组。每个进程组都有一个“进程组首进程”（process group leader）。进程组 ID 就是进程组首进程的 PID。只要在某个进程组中还有一个进程存在，则该进程组就存在。即使进程组首进程终止了，该进程组依然存在。</p>
+<h3>进程组<span class="absolute -mt-20" id="进程组"></span>
+    <a href="#%e8%bf%9b%e7%a8%8b%e7%bb%84" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>进程组（Process Group）是一个或多个进程的集合，它们通常有共同的目的或协作关系，如它们可以接收来自同一个终端的信号。每个进程组都有一个唯一的进程组 ID，它等于该进程组中第一个进程的进程 ID（PGID），以标识该进程组。每个进程组都有一个“进程组首进程”（process group leader）。进程组 ID 就是进程组首进程的 PID。只要在某个进程组中还有一个进程存在，则该进程组就存在。即使进程组首进程终止了，该进程组依然存在。</p>
 <p>进程组可以分为前台进程组和后台进程组，前台进程组可以从控制终端接收输入和信号，后台进程组则不能。</p>
-<h2>作业<span class="absolute -mt-20" id="作业"></span>
-    <a href="#%e4%bd%9c%e4%b8%9a" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>作业（Job）是指由同一个 shell 启动的一组进程，shell 可以允许一个前台作业（foreground job）和任意多个后台作业（background job）。在前台运行的作业接收终端的输入输出，后台作业则在后台运行，不占用终端。shell 可以通过作业控制命令来切换作业的前后台状态，或者暂停、恢复、终止作业。</p>
-<p>进程组和作业之间的关系是：每个作业都对应一个进程组，但不是每个进程组都是一个作业。==只有由 shell 启动的进程组才是作业==，而其他程序启动的进程组则不是。例如，系统启动时创建的 init 进程和它的子进程就不属于任何作业。另外，如果作业中的某个进程又创建了子进程，则子进程不属于作业，而是属于另一个进程组。</p>
+<h3>作业<span class="absolute -mt-20" id="作业"></span>
+    <a href="#%e4%bd%9c%e4%b8%9a" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>作业（Job）是指由同一个 shell 启动的一组进程，shell 可以允许一个前台作业（foreground job）和任意多个后台作业（background job）。在前台运行的作业接收终端的输入输出，后台作业则在后台运行，不占用终端。shell 可以通过作业控制命令来切换作业的前后台状态，或者暂停、恢复、终止作业。</p>
+<p>进程组和作业之间的关系是：每个作业都对应一个进程组，但不是每个进程组都是一个作业。<mark>只有由 shell 启动的进程组才是作业</mark>，而其他程序启动的进程组则不是。例如，系统启动时创建的 init 进程和它的子进程就不属于任何作业。另外，如果作业中的某个进程又创建了子进程，则子进程不属于作业，而是属于另一个进程组。</p>
 <p>注意：</p>
 <p>若作业中（进程组）的某个进程创建了一个新的子进程，那么这个子进程是不属于作业的。当作业运行结束以后，shell 会将它自己作为前台作业，如果原先的前台进程依然存在，即这个新的子进程还未终止，那么它将会变成后台进程组。</p>
-<h2>会话<span class="absolute -mt-20" id="会话"></span>
-    <a href="#%e4%bc%9a%e8%af%9d" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>会话（Session）是一次用户登录系统后的交互过程（从使用上看就是打开的 terminal 窗口），一个会话可以包含一个或多个进程组，但只能有一个前台进程组。每个会话都有一个会话首进程，即创建会话的进程，其进程 ID 是会话 ID。一个会话可以有一个控制终端，通常是登录的终端设备（硬件）或伪终端设备（软件）。控制终端上的输入和信号会发送给前台进程组中的所有进程。一个会话可以有多个作业，但只有一个作业是前台作业，其他的都是后台作业。前台作业可以接收终端的输入和输出，而后台作业则不会影响终端的交互。</p>
+<h3>会话<span class="absolute -mt-20" id="会话"></span>
+    <a href="#%e4%bc%9a%e8%af%9d" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>会话（Session）是一次用户登录系统后的交互过程（从使用上看就是打开的 terminal 窗口），一个会话可以包含一个或多个进程组，但只能有一个前台进程组。每个会话都有一个会话首进程，即创建会话的进程，其进程 ID 是会话 ID。一个会话可以有一个控制终端，通常是登录的终端设备（硬件）或伪终端设备（软件）。控制终端上的输入和信号会发送给前台进程组中的所有进程。一个会话可以有多个作业，但只有一个作业是前台作业，其他的都是后台作业。前台作业可以接收终端的输入和输出，而后台作业则不会影响终端的交互。</p>
 <p>会话的创建和终止由终端设备控制。当一个用户登录到一个终端（计算机）时，登录进程就会为这个用户创建一个新的会话，该会话的首个进程是登录 shell，登录 shell 被作为“会话首进程”。登录 shell 可以启动其他的进程或进程组，从而形成该会话的作业。会话首进程的 PID 就被作为会话 ID。会话是一个或多个进程组的集合。会话囊括了登录用户的所有活动，并且分配给用户一个控制终端（controling terminal）。控制终端是用于处理用户 I/O 的特定 tty 设备。因此，会话的功能和 shell 差不多。实际上，没有谁刻意去区分它们。&ndash;《Linux 系统编程（第二版）》</p>
 <p>当用户退出终端时，会向前端进程组中的所有进程发送 SIGQUIT 信号。当终端发现网络中断的情况时，会向前端进程组中的所有进程发送 SIGHUP 信号。当用户敲入了终止键（一般是 Ctrl+C），会向前端进程组中的所有进程发送 SIGINT 信号。因此，会话使得 shell 可以更容易管理终端以及登录行为。</p>
 <blockquote>
@@ -807,15 +804,27 @@
 <li>当在 shell 中输入一个命令或者通过管道连接的一组命令时，shell 就会创建一个或多个新的进程，并把它们放在一个新的进程组中，这个进程组就是一个作业。如果在命令后面加上&amp;符号，就表示让这个作业在后台运行，否则就让它在前台运行。可以用 shell 提供的一些命令来管理作业。</li>
 <li>当在计算机上注销时，就结束了当前的会话，所有属于这个会话的进程组和作业都会被终止，控制终端也会被释放。如果还有其他的会话在运行（比如通过远程登录或者打开多个终端窗口），它们不会受到影响。</li>
 </ul>
-<h3>测试<span class="absolute -mt-20" id="测试"></span>
-    <a href="#%e6%b5%8b%e8%af%95" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>一个会话中，应该包括建立与控制终端连接的会话首进程的控制进程，若干进程组分为一个前台进程组和任意多个后台进程组。</p>
+<h4>测试<span class="absolute -mt-20" id="测试"></span>
+    <a href="#%e6%b5%8b%e8%af%95" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>一个会话中，应该包括建立与控制终端连接的会话首进程的控制进程，若干进程组分为一个前台进程组和任意多个后台进程组。</p>
 <p>为了方便观察现象，使用同一个休眠或死循环来生成多个可执行程序：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;unistd.h&gt;
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">sleep</span><span class="p">(</span><span class="mi">100000000</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -831,7 +840,14 @@
 <p>将 test3 和 test4 放到前台运行：</p>
 <img src="守护进程.IMG/image-20230602134456513.png" alt="image-20230602134456513" style="zoom:40%;" />
 <p>可以看到，将进程置于后台运行时，它会返回一个提示信息，例如这里的：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">[1] 623</span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">[1] 623</span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -844,7 +860,14 @@
 <p>其中，1 是作业编号。623 是作业中某个进程的 ID。</p>
 <p>当在命令后面加上<code>&amp;</code>符号时，就表示让这个命令在后台运行，shell 会把它当作一个作业，并给它分配一个编号。否则就表示让这个命令在前台运行，shell 不会把它当作一个作业，并且会等待它结束才返回提示符。</p>
 <p>通过脚本查看进程的信息：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">ps axj<span class="p">|</span>head -1<span class="o">&amp;&amp;</span>ps axj<span class="p">|</span>grep test</span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">ps axj<span class="p">|</span>head -1<span class="o">&amp;&amp;</span>ps axj<span class="p">|</span>grep test</span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -864,14 +887,14 @@
 <p>可以用同一组进程（如 test1 和 test2）多次作为进程组在后台运行：</p>
 <img src="守护进程.IMG/image-20230602143018424.png" alt="image-20230602143018424" style="zoom:40%;" />
 <p>值得注意的是，当关闭了本次会话，相当于执行了“注销”操作，那么这个会话运行的所有进程都会退出。在新会话中，不会存在之前正在运行的后台进程（可以用脚本验证）。</p>
-<h2>会话控制<span class="absolute -mt-20" id="会话控制"></span>
-    <a href="#%e4%bc%9a%e8%af%9d%e6%8e%a7%e5%88%b6" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>除了创建前台进程组和后台进程组，还能使用各种命令对它们操作。</p>
-<h3>job<span class="absolute -mt-20" id="job"></span>
-    <a href="#job" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>使用<code>jobs</code>命令，可以查看当前会话中的作业情况：</p>
+<h3>会话控制<span class="absolute -mt-20" id="会话控制"></span>
+    <a href="#%e4%bc%9a%e8%af%9d%e6%8e%a7%e5%88%b6" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>除了创建前台进程组和后台进程组，还能使用各种命令对它们操作。</p>
+<h4>job<span class="absolute -mt-20" id="job"></span>
+    <a href="#job" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>使用<code>jobs</code>命令，可以查看当前会话中的作业情况：</p>
 <img src="守护进程.IMG/image-20230602151702714.png" alt="image-20230602151702714" style="zoom:40%;" />
 <p><code>[1]-</code>和<code>[2]+</code>表示这是第一个和第二个后台作业，Killed 表示这些作业被 SIGKILL 信号终止了。+和-表示这些作业在 shell 中的相对位置。+表示当前作业，或者说最近被调到前台的作业，-表示当前作业的前一个作业。</p>
-<h3>fg<span class="absolute -mt-20" id="fg"></span>
-    <a href="#fg" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>使用<code>fg</code>命令（foreground），可以将作业提至前台运行，如果该作业正在后台运行则直接提至前台运行，如果该作业处于停止状态，则给进程组的每个进程发 SIGCONT 信号使它继续运行并提至前台。</p>
+<h4>fg<span class="absolute -mt-20" id="fg"></span>
+    <a href="#fg" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>使用<code>fg</code>命令（foreground），可以将作业提至前台运行，如果该作业正在后台运行则直接提至前台运行，如果该作业处于停止状态，则给进程组的每个进程发 SIGCONT 信号使它继续运行并提至前台。</p>
 <p>将 1 号作业提至前台运行：</p>
 <img src="守护进程.IMG/image-20230602151751838.png" alt="image-20230602151751838" style="zoom:40%;" />
 <p>可以看到，1 号进程组的两个进程的状态后面多了符号<code>+</code>，表示前台进程。</p>
@@ -882,26 +905,27 @@
 </blockquote>
 <p>将提至前台运行的进程用 Ctrl + Z 停止：</p>
 <img src="守护进程.IMG/image-20230602152846468.png" alt="image-20230602152846468" style="zoom:40%;" />
-<h3>bg<span class="absolute -mt-20" id="bg"></span>
-    <a href="#bg" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>使用<code>bg</code>（begin）命令可以让停止的作业在后台继续运行（Running），本质是给该作业的进程组的每个进程发 SIGCONT 信号：</p>
+<h4>bg<span class="absolute -mt-20" id="bg"></span>
+    <a href="#bg" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>使用<code>bg</code>（begin）命令可以让停止的作业在后台继续运行（Running），本质是给该作业的进程组的每个进程发 SIGCONT 信号：</p>
 <img src="守护进程.IMG/image-20230602153022540.png" alt="image-20230602153022540" style="zoom:40%;" />
-<h3>ps<span class="absolute -mt-20" id="ps"></span>
-    <a href="#ps" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p><code>ps</code>命令已经很熟悉了，如果带上<code>-o</code>选项，可以查看==本会话==的进程信息：</p>
+<h4>ps<span class="absolute -mt-20" id="ps"></span>
+    <a href="#ps" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p><code>ps</code>命令已经很熟悉了，如果带上<code>-o</code>选项，可以查看<mark>本会话</mark>的进程信息：</p>
 <img src="守护进程.IMG/image-20230602153452104.png" alt="image-20230602153452104" style="zoom:40%;" />
 <p>如上所说，每次“登录”的操作就是创建 bash 进程的操作，即新建一个会话。同一个会话中的所有进程的 SESS 都是相同的。例如我在另一个 shell 中输入同样的指令：</p>
 <img src="守护进程.IMG/image-20230602153635846.png" alt="image-20230602153635846" style="zoom:40%;" />
 <p>注意到这两个会话的 SESS 值是不一样的。</p>
-<h1>守护进程</h1><p>守护进程（Daemon）是一种在后台运行的特殊进程，它不属于任何终端，也不受用户的交互控制，通常用来执行一些系统服务或应用程序。</p>
+<h2>守护进程<span class="absolute -mt-20" id="守护进程"></span>
+    <a href="#%e5%ae%88%e6%8a%a4%e8%bf%9b%e7%a8%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>守护进程（Daemon）是一种在后台运行的特殊进程，它不属于任何终端，也不受用户的交互控制，通常用来执行一些系统服务或应用程序。</p>
 <p>守护进程的特点是：它们由系统启动时或其他进程创建，而不是由用户登录时创建；它们没有控制终端，也不会接收终端上的信号；它们通常有一个特殊的父进程（init 或 launchd），当它们的创建者退出时，不会成为孤儿进程；它们通常以 root 用户或者其他特殊的用户（例如 apache 和 postfix）运行，并处理一些系统级的任务。习惯上守护进程的名字通常以 d 结尾，例如 httpd（Web 服务器的守护进程）、sshd（SSH 服务器的守护进程）、crond（作业规划进程）等等。</p>
 <blockquote>
 <p>这个名字的由来源于 Maxwell’s demon，它是物理学家 James Maxwell 在 1867 年进行的一个思想实验。Daemon 这个词也是希腊神话中的鬼怪，它存在于人类和神之间，拥有占卜的能力。与 Judeo-Christian 神话中的 daemon 不同，希腊神话中的 daemon 不是邪恶的。实际上，神话中的 daemon 是神的助手，做一些奥林匹斯山的居民自己不愿做的事——很像 UNIX 中的守护进程，完成前端用户不愿做的事。</p>
 </blockquote>
-<h2>作用<span class="absolute -mt-20" id="作用"></span>
-    <a href="#%e4%bd%9c%e7%94%a8" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>守护进程的作用是在后台运行不受终端控制的进程，这样就能在系统运行期间在后台执行某些特定任务，通常是为了提供系统服务，例如 Web 服务器、邮件服务器、数据库服务器等等，一般的网络服务都是以守护进程的方式运行的。它们可以在系统启动时启动，并在整个系统运行期间一直存在，以便在需要时随时提供服务。</p>
+<h3>作用<span class="absolute -mt-20" id="作用"></span>
+    <a href="#%e4%bd%9c%e7%94%a8" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>守护进程的作用是在后台运行不受终端控制的进程，这样就能在系统运行期间在后台执行某些特定任务，通常是为了提供系统服务，例如 Web 服务器、邮件服务器、数据库服务器等等，一般的网络服务都是以守护进程的方式运行的。它们可以在系统启动时启动，并在整个系统运行期间一直存在，以便在需要时随时提供服务。</p>
 <p>系统服务进程会启动很多系统服务进程和守护进程，例如网络服务、文件系统服务、日志服务、安全服务等等。这些服务进程和守护进程提供的功能是 Linux 系统正常运行所必需的。因此，守护进程是 Linux 系统中非常重要的一部分，它们保证了系统的可靠性和稳定性。</p>
 <p>守护进程可以突破终端的限制，即使关闭终端，守护进程也不会被关闭，而是一直运行到系统关机或者被 kill 命令终止。</p>
-<h2>查看守护进程<span class="absolute -mt-20" id="查看守护进程"></span>
-    <a href="#%e6%9f%a5%e7%9c%8b%e5%ae%88%e6%8a%a4%e8%bf%9b%e7%a8%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>最常用的方式是使用<code>ps</code>指令，当使用<code>ps</code>命令时，可以使用各种选项来控制显示的进程信息。下面是一些常用的选项：</p>
+<h3>查看守护进程<span class="absolute -mt-20" id="查看守护进程"></span>
+    <a href="#%e6%9f%a5%e7%9c%8b%e5%ae%88%e6%8a%a4%e8%bf%9b%e7%a8%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>最常用的方式是使用<code>ps</code>指令，当使用<code>ps</code>命令时，可以使用各种选项来控制显示的进程信息。下面是一些常用的选项：</p>
 <ul>
 <li><code>a</code>：显示所有进程，包括其他用户的进程。</li>
 <li><code>u</code>：显示进程的详细信息，例如用户、CPU 使用率、内存使用情况等。</li>
@@ -924,8 +948,8 @@
 <li>acpid 负责电源管理。</li>
 <li>syslogd 负责维护/var/log 下的日志文件。</li>
 </ul>
-<h2>创建守护进程<span class="absolute -mt-20" id="创建守护进程"></span>
-    <a href="#%e5%88%9b%e5%bb%ba%e5%ae%88%e6%8a%a4%e8%bf%9b%e7%a8%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>对于守护进程，有两个基本要求：一是必须作为 init 进程的子进程运行，二是不与任何控制终端交互。</p>
+<h3>创建守护进程<span class="absolute -mt-20" id="创建守护进程"></span>
+    <a href="#%e5%88%9b%e5%bb%ba%e5%ae%88%e6%8a%a4%e8%bf%9b%e7%a8%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>对于守护进程，有两个基本要求：一是必须作为 init 进程的子进程运行，二是不与任何控制终端交互。</p>
 <p>一般来讲，进程可以通过以下步骤成为守护进程。</p>
 <p>1．调用 fork()，创建新的进程，该进程将会成为守护进程。</p>
 <p>2．在（将要成为）守护进程的父进程中调用 exit()。这会确保父进程的父进程（即守护进程的祖父进程）在其子进程结束时会退出，保证了守护进程的父进程不再继续运行，而且守护进程不是首进程。最后一点是成功完成下一步骤的前提。</p>
@@ -944,12 +968,46 @@
 <li>在孙进程中处理 SIGCHLD 信号，是为了防止产生僵尸进程，因为守护进程可能会 fork() 出一些子进程来处理请求或任务，如果父进程不等待或忽略这些子进程的结束状态，那么这些子进程就会变成僵尸进程，占用系统资源。</li>
 </ul>
 <p>下面这个程序遵循了以上这些规则，可以成为守护进程：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;signal.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/stat.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;fcntl.h&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;signal.h&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/types.h&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/stat.h&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;unistd.h&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;stdlib.h&gt;
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -973,7 +1031,9 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -993,9 +1053,18 @@
 <img src="守护进程.IMG/image-20230603210015099.png" alt="image-20230603210015099" style="zoom:40%;" />
 <p>说明该进程的标准输入和标准输入及标准错误成功重定向到了<code>/dev/null</code>。</p>
 <p>许多 UNIX 系统在它们的 C 函数库中提供了 daemon() 函数来自动完成这些工作，从而简化了一些繁琐的工作：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">##include &lt;unistd.h&gt;
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">daemon</span><span class="p">(</span><span class="kt">int</span> <span class="n">nochdir</span><span class="p">,</span> <span class="kt">int</span> <span class="n">noclose</span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">daemon</span><span class="p">(</span><span class="kt">int</span> <span class="n">nochdir</span><span class="p">,</span> <span class="kt">int</span> <span class="n">noclose</span><span class="p">);</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1008,12 +1077,53 @@
 <p>如果参数 nochdir 是非 0 值，就不会将工作目录改为根目录。如果参数 noclose 是非 0 值，就不会关闭所有打开的文件描述符。如果父进程设置了守护进程的这些属性，那么这些参数是很有用的。通常都会把这些参数设为 0。</p>
 <p>成功时，返回 0。失败时，返回-1，并将 errno 设置为调用 fork() 或 setsid() 的错误码之一。</p>
 <p>用 daemon() 完善代码：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;signal.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/stat.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;fcntl.h&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;signal.h&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/types.h&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/stat.h&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;unistd.h&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;stdlib.h&gt;
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">daemonTest</span><span class="p">(</span><span class="kt">int</span> <span class="n">nochdir</span><span class="p">,</span> <span class="kt">int</span> <span class="n">noclose</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -1044,7 +1154,9 @@
 </span></span><span class="line"><span class="cl">    <span class="n">daemonTest</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"

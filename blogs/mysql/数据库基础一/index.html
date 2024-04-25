@@ -12,14 +12,14 @@
 <link fetchpriority="low" href="/site.webmanifest" rel="manifest" />
 
   <title>数据库基础（一） – Shawy&#39;s Blog</title>
-  <meta name="description" content="安装 MySQL这是在 Linux 中安装 MySQL 的教程：Linux 下 MySQL 安装。本系列测试用的 MySQL 版本是 5.7，机器是 centOS7.6。
+  <meta name="description" content="安装 MySQL 这是在 Linux 中安装 MySQL 的教程：Linux 下 MySQL 安装。本系列测试用的 MySQL 版本是 5.7，机器是 centOS7.6。
 实际应用中，一般 MySQL 服务都是部署在 Linux 主机上的，如果想在 Windows 系统中安装，可以参考：Windows 下 MySQL 安装。
-修改密码MySQL 在安装时会为用户设置一个默认的随机密码，可以通过：
-cat /var/log/mysqld.log | grep &#39;temporary password&#39; 来查看密码：
-2023-10-20T08:04:42.247710Z 1 [Note] A temporary password is generated for root@localhost: crOcKwwB;7Wd 其中，crOcKwwB;7Wd就是密码，使用它来登录：
-mysql -uroot -p # 以 root 身份登录 修改 root 用户的密码有多个方法，在此介绍其中一种，在命令行中使用：
-[root@xy xy]# mysqladmin -uroot -p&#39;旧密码&#39; password &#39;新密码&#39; [注] 如果出现以下提示，则说明密码过于简单：
-mysqladmin: unable to change password; error: &#39;Your password does not satisfy the current policy requirements&#39; 连接和退出数据库服务器mysql -uroot -p # 以 root 身份登录 h： 表示你要连接的 MySQL 服务器所在的主机，127." />
+修改密码 MySQL 在安装时会为用户设置一个默认的随机密码，可以通过：
+1 cat /var/log/mysqld.log | grep &#39;temporary password&#39; 来查看密码：
+1 2023-10-20T08:04:42.247710Z 1 [Note] A temporary password is generated for root@localhost: crOcKwwB;7Wd 其中，crOcKwwB;7Wd就是密码，使用它来登录：
+1 mysql -uroot -p # 以 root 身份登录 修改 root 用户的密码有多个方法，在此介绍其中一种，在命令行中使用：
+1 [root@xy xy]# mysqladmin -uroot -p&#39;旧密码&#39; password &#39;新密码&#39; [注] 如果出现以下提示，则说明密码过于简单：
+1 mysqladmin: unable to change password; error: &#39;Your password does not satisfy the current policy requirements&#39; 连接和退出数据库服务器 1 mysql -uroot -p # 以 root 身份登录 h： 表示你要连接的 MySQL 服务器所在的主机，127." />
   
   
     <link rel="canonical" href="/blogs/mysql/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E7%A1%80%E4%B8%80/" itemprop="url" />
@@ -28,14 +28,14 @@ mysqladmin: unable to change password; error: &#39;Your password does not satisf
   
 
 <meta property="og:title" content="数据库基础（一）" />
-<meta property="og:description" content="安装 MySQL这是在 Linux 中安装 MySQL 的教程：Linux 下 MySQL 安装。本系列测试用的 MySQL 版本是 5.7，机器是 centOS7.6。
+<meta property="og:description" content="安装 MySQL 这是在 Linux 中安装 MySQL 的教程：Linux 下 MySQL 安装。本系列测试用的 MySQL 版本是 5.7，机器是 centOS7.6。
 实际应用中，一般 MySQL 服务都是部署在 Linux 主机上的，如果想在 Windows 系统中安装，可以参考：Windows 下 MySQL 安装。
-修改密码MySQL 在安装时会为用户设置一个默认的随机密码，可以通过：
-cat /var/log/mysqld.log | grep &#39;temporary password&#39; 来查看密码：
-2023-10-20T08:04:42.247710Z 1 [Note] A temporary password is generated for root@localhost: crOcKwwB;7Wd 其中，crOcKwwB;7Wd就是密码，使用它来登录：
-mysql -uroot -p # 以 root 身份登录 修改 root 用户的密码有多个方法，在此介绍其中一种，在命令行中使用：
-[root@xy xy]# mysqladmin -uroot -p&#39;旧密码&#39; password &#39;新密码&#39; [注] 如果出现以下提示，则说明密码过于简单：
-mysqladmin: unable to change password; error: &#39;Your password does not satisfy the current policy requirements&#39; 连接和退出数据库服务器mysql -uroot -p # 以 root 身份登录 h： 表示你要连接的 MySQL 服务器所在的主机，127." />
+修改密码 MySQL 在安装时会为用户设置一个默认的随机密码，可以通过：
+1 cat /var/log/mysqld.log | grep &#39;temporary password&#39; 来查看密码：
+1 2023-10-20T08:04:42.247710Z 1 [Note] A temporary password is generated for root@localhost: crOcKwwB;7Wd 其中，crOcKwwB;7Wd就是密码，使用它来登录：
+1 mysql -uroot -p # 以 root 身份登录 修改 root 用户的密码有多个方法，在此介绍其中一种，在命令行中使用：
+1 [root@xy xy]# mysqladmin -uroot -p&#39;旧密码&#39; password &#39;新密码&#39; [注] 如果出现以下提示，则说明密码过于简单：
+1 mysqladmin: unable to change password; error: &#39;Your password does not satisfy the current policy requirements&#39; 连接和退出数据库服务器 1 mysql -uroot -p # 以 root 身份登录 h： 表示你要连接的 MySQL 服务器所在的主机，127." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/blogs/mysql/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E7%A1%80%E4%B8%80/" /><meta property="article:section" content="blogs" />
 
@@ -43,30 +43,30 @@ mysqladmin: unable to change password; error: &#39;Your password does not satisf
 
   
   <meta itemprop="name" content="数据库基础（一）">
-  <meta itemprop="description" content="安装 MySQL这是在 Linux 中安装 MySQL 的教程：Linux 下 MySQL 安装。本系列测试用的 MySQL 版本是 5.7，机器是 centOS7.6。
+  <meta itemprop="description" content="安装 MySQL 这是在 Linux 中安装 MySQL 的教程：Linux 下 MySQL 安装。本系列测试用的 MySQL 版本是 5.7，机器是 centOS7.6。
 实际应用中，一般 MySQL 服务都是部署在 Linux 主机上的，如果想在 Windows 系统中安装，可以参考：Windows 下 MySQL 安装。
-修改密码MySQL 在安装时会为用户设置一个默认的随机密码，可以通过：
-cat /var/log/mysqld.log | grep &#39;temporary password&#39; 来查看密码：
-2023-10-20T08:04:42.247710Z 1 [Note] A temporary password is generated for root@localhost: crOcKwwB;7Wd 其中，crOcKwwB;7Wd就是密码，使用它来登录：
-mysql -uroot -p # 以 root 身份登录 修改 root 用户的密码有多个方法，在此介绍其中一种，在命令行中使用：
-[root@xy xy]# mysqladmin -uroot -p&#39;旧密码&#39; password &#39;新密码&#39; [注] 如果出现以下提示，则说明密码过于简单：
-mysqladmin: unable to change password; error: &#39;Your password does not satisfy the current policy requirements&#39; 连接和退出数据库服务器mysql -uroot -p # 以 root 身份登录 h： 表示你要连接的 MySQL 服务器所在的主机，127.">
-  <meta itemprop="wordCount" content="575"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="数据库基础（一）">
-<meta name="twitter:description" content="安装 MySQL这是在 Linux 中安装 MySQL 的教程：Linux 下 MySQL 安装。本系列测试用的 MySQL 版本是 5.7，机器是 centOS7.6。
+修改密码 MySQL 在安装时会为用户设置一个默认的随机密码，可以通过：
+1 cat /var/log/mysqld.log | grep &#39;temporary password&#39; 来查看密码：
+1 2023-10-20T08:04:42.247710Z 1 [Note] A temporary password is generated for root@localhost: crOcKwwB;7Wd 其中，crOcKwwB;7Wd就是密码，使用它来登录：
+1 mysql -uroot -p # 以 root 身份登录 修改 root 用户的密码有多个方法，在此介绍其中一种，在命令行中使用：
+1 [root@xy xy]# mysqladmin -uroot -p&#39;旧密码&#39; password &#39;新密码&#39; [注] 如果出现以下提示，则说明密码过于简单：
+1 mysqladmin: unable to change password; error: &#39;Your password does not satisfy the current policy requirements&#39; 连接和退出数据库服务器 1 mysql -uroot -p # 以 root 身份登录 h： 表示你要连接的 MySQL 服务器所在的主机，127.">
+  <meta itemprop="wordCount" content="652"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="数据库基础（一）">
+<meta name="twitter:description" content="安装 MySQL 这是在 Linux 中安装 MySQL 的教程：Linux 下 MySQL 安装。本系列测试用的 MySQL 版本是 5.7，机器是 centOS7.6。
 实际应用中，一般 MySQL 服务都是部署在 Linux 主机上的，如果想在 Windows 系统中安装，可以参考：Windows 下 MySQL 安装。
-修改密码MySQL 在安装时会为用户设置一个默认的随机密码，可以通过：
-cat /var/log/mysqld.log | grep &#39;temporary password&#39; 来查看密码：
-2023-10-20T08:04:42.247710Z 1 [Note] A temporary password is generated for root@localhost: crOcKwwB;7Wd 其中，crOcKwwB;7Wd就是密码，使用它来登录：
-mysql -uroot -p # 以 root 身份登录 修改 root 用户的密码有多个方法，在此介绍其中一种，在命令行中使用：
-[root@xy xy]# mysqladmin -uroot -p&#39;旧密码&#39; password &#39;新密码&#39; [注] 如果出现以下提示，则说明密码过于简单：
-mysqladmin: unable to change password; error: &#39;Your password does not satisfy the current policy requirements&#39; 连接和退出数据库服务器mysql -uroot -p # 以 root 身份登录 h： 表示你要连接的 MySQL 服务器所在的主机，127.">
+修改密码 MySQL 在安装时会为用户设置一个默认的随机密码，可以通过：
+1 cat /var/log/mysqld.log | grep &#39;temporary password&#39; 来查看密码：
+1 2023-10-20T08:04:42.247710Z 1 [Note] A temporary password is generated for root@localhost: crOcKwwB;7Wd 其中，crOcKwwB;7Wd就是密码，使用它来登录：
+1 mysql -uroot -p # 以 root 身份登录 修改 root 用户的密码有多个方法，在此介绍其中一种，在命令行中使用：
+1 [root@xy xy]# mysqladmin -uroot -p&#39;旧密码&#39; password &#39;新密码&#39; [注] 如果出现以下提示，则说明密码过于简单：
+1 mysqladmin: unable to change password; error: &#39;Your password does not satisfy the current policy requirements&#39; 连接和退出数据库服务器 1 mysql -uroot -p # 以 root 身份登录 h： 表示你要连接的 MySQL 服务器所在的主机，127.">
 
     <link rel="preload" href="/css/compiled/main.min.5a06ca26e024c4f511f45ee6c33a2a1faefaebe6be8a38d36e100f40a4c59c06.css" as="style" integrity="sha256-WgbKJuAkxPUR9F7mwzoqH6766&#43;a&#43;ijjTbhAPQKTFnAY=" />
     <link href="/css/compiled/main.min.5a06ca26e024c4f511f45ee6c33a2a1faefaebe6be8a38d36e100f40a4c59c06.css" rel="stylesheet" integrity="sha256-WgbKJuAkxPUR9F7mwzoqH6766&#43;a&#43;ijjTbhAPQKTFnAY=" />
 
 
 
-  <link href="/css/custom.min.e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css" rel="stylesheet" integrity="sha256-47DEQpj8HBSa&#43;/TImW&#43;5JCeuQeRkm5NMpJWZG3hSuFU=" />
+  <link href="/css/custom.min.7d43e1fdc41380d9e5d795e4b7ab39cca64e2e8ac32a15c33924c1f0a8cb1df0.css" rel="stylesheet" integrity="sha256-fUPh/cQTgNnl15Xkt6s5zKZOLorDKhXDOSTB8KjLHfA=" />
 
 
 
@@ -120,7 +120,7 @@ mysqladmin: unable to change password; error: &#39;Your password does not satisf
             <span class="text-center">About</span>
           </a><a
             title="Contact ↗"
-            href="https://blog.csdn.net/m0_63312733?type=blog"
+            href="https://img-blog.csdnimg.cn/7deb340b1c95414d9dc25a89d1cb1f32.png"
             target="_blank" rel="noreferer"
             class="text-sm contrast-more:text-gray-700 contrast-more:dark:text-gray-100 relative -ml-2 hidden whitespace-nowrap p-2 md:inline-block text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
           >
@@ -211,7 +211,15 @@ mysqladmin: unable to change password; error: &#39;Your password does not satisf
       text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
     href="/blogs/cpp/"
     
-  >C/C&#43;&#43;
+  >C&#43;&#43;
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/c/"
+    
+  >C语言
     </a>
               
             </li><li class="flex flex-col open"><a
@@ -231,7 +239,49 @@ mysqladmin: unable to change password; error: &#39;Your password does not satisf
   >数据库基础（一）
     </a>
   
-    <ul class='flex flex-col gap-1 relative before:absolute before:inset-y-1 before:w-px before:bg-gray-200 before:content-[""] dark:before:bg-neutral-800 ltr:pl-3 ltr:before:left-0 rtl:pr-3 rtl:before:right-0 ltr:ml-3 rtl:mr-3'></ul>
+    <ul class='flex flex-col gap-1 relative before:absolute before:inset-y-1 before:w-px before:bg-gray-200 before:content-[""] dark:before:bg-neutral-800 ltr:pl-3 ltr:before:left-0 rtl:pr-3 rtl:before:right-0 ltr:ml-3 rtl:mr-3'><li>
+              <a
+                href="#%e5%ae%89%e8%a3%85-mysql"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >安装 MySQL</a>
+            </li>
+          <li>
+              <a
+                href="#%e4%bf%ae%e6%94%b9%e5%af%86%e7%a0%81"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >修改密码</a>
+            </li>
+          <li>
+              <a
+                href="#%e8%bf%9e%e6%8e%a5%e5%92%8c%e9%80%80%e5%87%ba%e6%95%b0%e6%8d%ae%e5%ba%93%e6%9c%8d%e5%8a%a1%e5%99%a8"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >连接和退出数据库服务器</a>
+            </li>
+          <li>
+              <a
+                href="#%e4%bd%bf%e7%94%a8-systemctl-%e7%ae%a1%e7%90%86%e6%9c%8d%e5%8a%a1%e5%99%a8%e8%bf%9b%e7%a8%8b"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >使用 systemctl 管理服务器进程</a>
+            </li>
+          <li>
+              <a
+                href="#%e9%85%8d%e7%bd%ae%e6%95%b0%e6%8d%ae%e5%ba%93"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >配置数据库</a>
+            </li>
+          <li>
+              <a
+                href="#%e4%bb%8e%e6%96%87%e4%bb%b6%e8%a7%92%e5%ba%a6%e7%9c%8b%e5%be%85%e6%95%b0%e6%8d%ae%e5%ba%93"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >从文件角度看待数据库</a>
+            </li>
+          <li>
+              <a
+                href="#%e6%9f%a5%e7%9c%8b%e8%bf%9e%e6%8e%a5%e6%83%85%e5%86%b5"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >查看连接情况</a>
+            </li>
+          </ul>
   
               
             </li><li class="flex flex-col "><a
@@ -348,6 +398,14 @@ mysqladmin: unable to change password; error: &#39;Your password does not satisf
               
             </li></ul>
       </div>
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/block-chain/"
+    
+  >区块链
+    </a>
+              
             </li><li class="flex flex-col "><a
     class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
       text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
@@ -522,6 +580,14 @@ mysqladmin: unable to change password; error: &#39;Your password does not satisf
             </li><li class="flex flex-col "><a
     class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
       text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/algorithm/"
+    
+  >算法
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
     href="/blogs/network/"
     
   >计算机网络
@@ -640,7 +706,35 @@ mysqladmin: unable to change password; error: &#39;Your password does not satisf
 </div></div></aside>
     
 <nav class="hextra-toc order-last hidden w-64 shrink-0 xl:block print:hidden px-4" aria-label="table of contents">
-    <div class="hextra-scrollbar sticky top-16 overflow-y-auto pr-4 pt-6 text-sm [hyphens:auto] max-h-[calc(100vh-var(--navbar-height)-env(safe-area-inset-bottom))] ltr:-mr-4 rtl:-ml-4"><p class="mb-4 font-semibold tracking-tight">On this page</p><ul></ul><ul></ul><ul></ul><ul></ul><ul></ul><ul></ul><ul></ul>
+    <div class="hextra-scrollbar sticky top-16 overflow-y-auto pr-4 pt-6 text-sm [hyphens:auto] max-h-[calc(100vh-var(--navbar-height)-env(safe-area-inset-bottom))] ltr:-mr-4 rtl:-ml-4"><p class="mb-4 font-semibold tracking-tight">On this page</p><ul>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%ae%89%e8%a3%85-mysql">安装 MySQL
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%bf%ae%e6%94%b9%e5%af%86%e7%a0%81">修改密码
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e8%bf%9e%e6%8e%a5%e5%92%8c%e9%80%80%e5%87%ba%e6%95%b0%e6%8d%ae%e5%ba%93%e6%9c%8d%e5%8a%a1%e5%99%a8">连接和退出数据库服务器
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%bd%bf%e7%94%a8-systemctl-%e7%ae%a1%e7%90%86%e6%9c%8d%e5%8a%a1%e5%99%a8%e8%bf%9b%e7%a8%8b">使用 systemctl 管理服务器进程
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e9%85%8d%e7%bd%ae%e6%95%b0%e6%8d%ae%e5%ba%93">配置数据库
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%bb%8e%e6%96%87%e4%bb%b6%e8%a7%92%e5%ba%a6%e7%9c%8b%e5%be%85%e6%95%b0%e6%8d%ae%e5%ba%93">从文件角度看待数据库
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%9f%a5%e7%9c%8b%e8%bf%9e%e6%8e%a5%e6%83%85%e5%86%b5">查看连接情况
+        </a>
+      </li></ul>
       <div class="mt-8 border-t bg-white pt-8 shadow-[0_-12px_16px_white] dark:bg-dark dark:shadow-[0_-12px_16px_#111] sticky bottom-0 flex flex-col items-start gap-2 pb-8 dark:border-neutral-800 contrast-more:border-t contrast-more:border-neutral-400 contrast-more:shadow-none contrast-more:dark:border-neutral-400">
         <button aria-hidden="true" id="backToTop" onClick="scrollUp();" class="transition-all transition duration-75 opacity-0 text-xs font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 contrast-more:text-gray-800 contrast-more:dark:text-gray-50">
           <span>Scroll to top</span>
@@ -659,10 +753,19 @@ mysqladmin: unable to change password; error: &#39;Your password does not satisf
         <h1 class="text-center mt-2 text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100">数据库基础（一）</h1>
         <div class="mb-16"></div>
         <div class="content">
-          <h1>安装 MySQL</h1><p>这是在 Linux 中安装 MySQL 的教程：<a href="https://blog.csdn.net/lirendada/article/details/131513739?ops_request_misc=&amp;request_id=&amp;biz_id=102&amp;utm_term=MySQL%E5%AE%89%E8%A3%85&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-1-131513739.142%5ev96%5epc_search_result_base5&amp;spm=1018.2226.3001.4187" target="_blank" rel="noopener">Linux 下 MySQL 安装</a>。本系列测试用的 MySQL 版本是 5.7，机器是 centOS7.6。</p>
+          <h2>安装 MySQL<span class="absolute -mt-20" id="安装-mysql"></span>
+    <a href="#%e5%ae%89%e8%a3%85-mysql" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>这是在 Linux 中安装 MySQL 的教程：<a href="https://blog.csdn.net/lirendada/article/details/131513739?ops_request_misc=&amp;request_id=&amp;biz_id=102&amp;utm_term=MySQL%E5%AE%89%E8%A3%85&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-1-131513739.142%5ev96%5epc_search_result_base5&amp;spm=1018.2226.3001.4187" target="_blank" rel="noopener">Linux 下 MySQL 安装</a>。本系列测试用的 MySQL 版本是 5.7，机器是 centOS7.6。</p>
 <p>实际应用中，一般 MySQL 服务都是部署在 Linux 主机上的，如果想在 Windows 系统中安装，可以参考：<a href="https://blog.csdn.net/m0_63112274/article/details/130517120?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522169788855716800213052480%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&amp;request_id=169788855716800213052480&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_click~default-11-130517120-null-null.142%5ev96%5epc_search_result_base5&amp;utm_term=MySQL%E5%AE%89%E8%A3%85&amp;spm=1018.2226.3001.4187" target="_blank" rel="noopener">Windows 下 MySQL 安装</a>。</p>
-<h1>修改密码</h1><p>MySQL 在安装时会为用户设置一个默认的随机密码，可以通过：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat /var/log/mysqld.log <span class="p">|</span> grep <span class="s1">&#39;temporary password&#39;</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+<h2>修改密码<span class="absolute -mt-20" id="修改密码"></span>
+    <a href="#%e4%bf%ae%e6%94%b9%e5%af%86%e7%a0%81" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>MySQL 在安装时会为用户设置一个默认的随机密码，可以通过：</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat /var/log/mysqld.log <span class="p">|</span> grep <span class="s1">&#39;temporary password&#39;</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -673,7 +776,14 @@ mysqladmin: unable to change password; error: &#39;Your password does not satisf
   </div>
 </div>
 <p>来查看密码：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">2023-10-20T08:04:42.247710Z 1 [Note] A temporary password is generated for root@localhost: crOcKwwB;7Wd</span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">2023-10-20T08:04:42.247710Z 1 [Note] A temporary password is generated for root@localhost: crOcKwwB;7Wd</span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -684,7 +794,14 @@ mysqladmin: unable to change password; error: &#39;Your password does not satisf
   </div>
 </div>
 <p>其中，<code>crOcKwwB;7Wd</code>就是密码，使用它来登录：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mysql -uroot -p <span class="c1"># 以 root 身份登录</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mysql -uroot -p <span class="c1"># 以 root 身份登录</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -695,7 +812,14 @@ mysqladmin: unable to change password; error: &#39;Your password does not satisf
   </div>
 </div>
 <p>修改 root 用户的密码有多个方法，在此介绍其中一种，在命令行中使用：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@xy xy<span class="o">]</span><span class="c1"># mysqladmin -uroot -p&#39;旧密码&#39; password &#39;新密码&#39;</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@xy xy<span class="o">]</span><span class="c1"># mysqladmin -uroot -p&#39;旧密码&#39; password &#39;新密码&#39;</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -706,7 +830,14 @@ mysqladmin: unable to change password; error: &#39;Your password does not satisf
   </div>
 </div>
 <p>[注] 如果出现以下提示，则说明密码过于简单：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">mysqladmin: unable to change password; error: &#39;Your password does not satisfy the current policy requirements&#39;</span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">mysqladmin: unable to change password; error: &#39;Your password does not satisfy the current policy requirements&#39;</span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -716,7 +847,15 @@ mysqladmin: unable to change password; error: &#39;Your password does not satisf
     </button>
   </div>
 </div>
-<h1>连接和退出数据库服务器</h1><div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mysql -uroot -p <span class="c1"># 以 root 身份登录</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+<h2>连接和退出数据库服务器<span class="absolute -mt-20" id="连接和退出数据库服务器"></span>
+    <a href="#%e8%bf%9e%e6%8e%a5%e5%92%8c%e9%80%80%e5%87%ba%e6%95%b0%e6%8d%ae%e5%ba%93%e6%9c%8d%e5%8a%a1%e5%99%a8" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mysql -uroot -p <span class="c1"># 以 root 身份登录</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -742,9 +881,17 @@ mysqladmin: unable to change password; error: &#39;Your password does not satisf
 </ul>
 <p>为了方便学习，都以 root 用户登录数据库服务器。</p>
 <p>在 MySQL 服务器的命令行中键入<code>quit</code>/<code>exit</code>/<code>\q</code>回车以退出。</p>
-<h1>使用 systemctl 管理服务器进程</h1><p>systemctl 是一个用于控制和检查 systemd 系统和服务管理器的工具，它负责在 Linux 内核启动后运行和维护用户空间的组件。systemctl 可以用来启动、停止、重启、重载、启用、禁用等各种操作 systemd 的服务单元，也可以用来查看系统的状态、日志、性能等信息。</p>
+<h2>使用 systemctl 管理服务器进程<span class="absolute -mt-20" id="使用-systemctl-管理服务器进程"></span>
+    <a href="#%e4%bd%bf%e7%94%a8-systemctl-%e7%ae%a1%e7%90%86%e6%9c%8d%e5%8a%a1%e5%99%a8%e8%bf%9b%e7%a8%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>systemctl 是一个用于控制和检查 systemd 系统和服务管理器的工具，它负责在 Linux 内核启动后运行和维护用户空间的组件。systemctl 可以用来启动、停止、重启、重载、启用、禁用等各种操作 systemd 的服务单元，也可以用来查看系统的状态、日志、性能等信息。</p>
 <p>终止服务器进程：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">systemctl stop mysqld</span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">systemctl stop mysqld</span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -755,7 +902,14 @@ mysqladmin: unable to change password; error: &#39;Your password does not satisf
   </div>
 </div>
 <p>启动服务器进程：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">systemctl start mysqld</span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">systemctl start mysqld</span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -766,7 +920,14 @@ mysqladmin: unable to change password; error: &#39;Your password does not satisf
   </div>
 </div>
 <p>重启服务器进程：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">systemctl restart mysqld</span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">systemctl restart mysqld</span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -777,8 +938,16 @@ mysqladmin: unable to change password; error: &#39;Your password does not satisf
   </div>
 </div>
 <p><code>mysqld</code>可以是你想要操作的进程名称。</p>
-<h1>配置数据库</h1><p>MySQL 的配置文件在这个路径：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat /etc/my.cnf</span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+<h2>配置数据库<span class="absolute -mt-20" id="配置数据库"></span>
+    <a href="#%e9%85%8d%e7%bd%ae%e6%95%b0%e6%8d%ae%e5%ba%93" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>MySQL 的配置文件在这个路径：</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat /etc/my.cnf</span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -788,29 +957,64 @@ mysqladmin: unable to change password; error: &#39;Your password does not satisf
     </button>
   </div>
 </div>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl"># For advice on how to change settings please see
-</span></span><span class="line"><span class="cl"># http://dev.mysql.com/doc/refman/5.7/en/server-configuration-defaults.html
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">## For advice on how to change settings please see
+</span></span><span class="line"><span class="cl">## http://dev.mysql.com/doc/refman/5.7/en/server-configuration-defaults.html
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">[mysqld]
-</span></span><span class="line"><span class="cl">#
-</span></span><span class="line"><span class="cl"># Remove leading # and set to the amount of RAM for the most important data
-</span></span><span class="line"><span class="cl"># cache in MySQL. Start at 70% of total RAM for dedicated server, else 10%.
-</span></span><span class="line"><span class="cl"># innodb_buffer_pool_size = 128M
-</span></span><span class="line"><span class="cl">#
-</span></span><span class="line"><span class="cl"># Remove leading # to turn on a very important data integrity option: logging
-</span></span><span class="line"><span class="cl"># changes to the binary log between backups.
-</span></span><span class="line"><span class="cl"># log_bin
-</span></span><span class="line"><span class="cl">#
-</span></span><span class="line"><span class="cl"># Remove leading # to set options mainly useful for reporting servers.
-</span></span><span class="line"><span class="cl"># The server defaults are faster for transactions and fast SELECTs.
-</span></span><span class="line"><span class="cl"># Adjust sizes as needed, experiment to find the optimal values.
-</span></span><span class="line"><span class="cl"># join_buffer_size = 128M
-</span></span><span class="line"><span class="cl"># sort_buffer_size = 2M
-</span></span><span class="line"><span class="cl"># read_rnd_buffer_size = 2M
+</span></span><span class="line"><span class="cl">##
+</span></span><span class="line"><span class="cl">## Remove leading # and set to the amount of RAM for the most important data
+</span></span><span class="line"><span class="cl">## cache in MySQL. Start at 70% of total RAM for dedicated server, else 10%.
+</span></span><span class="line"><span class="cl">## innodb_buffer_pool_size = 128M
+</span></span><span class="line"><span class="cl">##
+</span></span><span class="line"><span class="cl">## Remove leading # to turn on a very important data integrity option: logging
+</span></span><span class="line"><span class="cl">## changes to the binary log between backups.
+</span></span><span class="line"><span class="cl">## log_bin
+</span></span><span class="line"><span class="cl">##
+</span></span><span class="line"><span class="cl">## Remove leading # to set options mainly useful for reporting servers.
+</span></span><span class="line"><span class="cl">## The server defaults are faster for transactions and fast SELECTs.
+</span></span><span class="line"><span class="cl">## Adjust sizes as needed, experiment to find the optimal values.
+</span></span><span class="line"><span class="cl">## join_buffer_size = 128M
+</span></span><span class="line"><span class="cl">## sort_buffer_size = 2M
+</span></span><span class="line"><span class="cl">## read_rnd_buffer_size = 2M
 </span></span><span class="line"><span class="cl">datadir=/var/lib/mysql
 </span></span><span class="line"><span class="cl">socket=/var/lib/mysql/mysql.sock
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"># Disabling symbolic-links is recommended to prevent assorted security risks
+</span></span><span class="line"><span class="cl">## Disabling symbolic-links is recommended to prevent assorted security risks
 </span></span><span class="line"><span class="cl">symbolic-links=0
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">log-error=/var/log/mysqld.log
@@ -818,7 +1022,9 @@ mysqladmin: unable to change password; error: &#39;Your password does not satisf
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">port=3306
 </span></span><span class="line"><span class="cl">character-set-server=utf8
-</span></span><span class="line"><span class="cl">default-storage-engine=innodb</span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span><span class="line"><span class="cl">default-storage-engine=innodb</span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -846,7 +1052,8 @@ mysqladmin: unable to change password; error: &#39;Your password does not satisf
 </ul>
 <p>其中打<code>*</code>号的是自定义的选项，可能数据库默认的选项就是它们，但为了保险，仍然显式地在配置文件中设定。datadir 的路径可以自定义，但这里使用默认的路径。当配置完毕后，要使配置文件生效，（重启 mysqld 后）重新连接 MySQL 服务。</p>
 <p>在这里简单介绍一下索引：如果说数据库是一本字典，那么索引就是字典的目录。有了目录才能提高查找的效率，但目录本身也是占用数据库的空间的，所以这是空间换时间的做法。</p>
-<h1>从文件角度看待数据库</h1><p>在<code>/var/lib/mysql</code>路径下， 存放的是 MySQL 的所有数据库和表文件。例如创建了一个数据库<code>test_db</code>：</p>
+<h2>从文件角度看待数据库<span class="absolute -mt-20" id="从文件角度看待数据库"></span>
+    <a href="#%e4%bb%8e%e6%96%87%e4%bb%b6%e8%a7%92%e5%ba%a6%e7%9c%8b%e5%be%85%e6%95%b0%e6%8d%ae%e5%ba%93" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>在<code>/var/lib/mysql</code>路径下， 存放的是 MySQL 的所有数据库和表文件。例如创建了一个数据库<code>test_db</code>：</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><pre><code>mysql&gt; create database test_db</code></pre><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
@@ -862,11 +1069,22 @@ mysqladmin: unable to change password; error: &#39;Your password does not satisf
 <p>这个目录下有一个<code>db.log</code>文件，它记录这个数据库的默认字符集和字符校验规则：</p>
 <img src="数据库基础（一）.IMG/image-20231021184915551.png" alt="image-20231021184915551" style="zoom:40%;" />
 <p>如果在这个数据库中创建一个表：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">use</span><span class="w"> </span><span class="n">test_db</span><span class="p">;</span><span class="w"> </span><span class="c1"># 进入数据库
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">use</span><span class="w"> </span><span class="n">test_db</span><span class="p">;</span><span class="w"> </span><span class="c1"># 进入数据库
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="nf">test_table</span><span class="p">(</span><span class="w"> </span><span class="c1"># 创建表
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="kt">int</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">);</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -890,7 +1108,14 @@ mysqladmin: unable to change password; error: &#39;Your password does not satisf
 <p>上面这些操作数据库和表的 SQL 语句将会在后续学习，此处只是站在文件的角度理解。</p>
 </blockquote>
 <p>上面的操作是用户使用 SQL 语句，让 MySQL 创建数据库和表，假如用户直接操作这些底层文件会发生什么呢？下面直接将刚才创建的数据库<code>test_db</code>这个目录下的所有文件删除：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rm -rf test_db/</span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rm -rf test_db/</span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -901,7 +1126,34 @@ mysqladmin: unable to change password; error: &#39;Your password does not satisf
   </div>
 </div>
 <p>在 MySQL 客户端中查看数据库：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="c1">######## 删除前 ########
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="c1">######### 删除前 ########
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">show</span><span class="w"> </span><span class="k">databases</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">+--------------------+</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="k">Database</span><span class="w">           </span><span class="o">|</span><span class="w">
@@ -913,7 +1165,7 @@ mysqladmin: unable to change password; error: &#39;Your password does not satisf
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">test_db</span><span class="w">            </span><span class="o">|</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">+--------------------+</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="mi">5</span><span class="w"> </span><span class="n">rows</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="kt">set</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span><span class="w"> </span><span class="n">sec</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">######## 删除后 ########
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">######### 删除后 ########
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">show</span><span class="w"> </span><span class="k">databases</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">+--------------------+</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="k">Database</span><span class="w">           </span><span class="o">|</span><span class="w">
@@ -923,7 +1175,9 @@ mysqladmin: unable to change password; error: &#39;Your password does not satisf
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">performance_schema</span><span class="w"> </span><span class="o">|</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">sys</span><span class="w">                </span><span class="o">|</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">+--------------------+</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="mi">4</span><span class="w"> </span><span class="n">rows</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="kt">set</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span><span class="w"> </span><span class="n">sec</span><span class="p">)</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="mi">4</span><span class="w"> </span><span class="n">rows</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="kt">set</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span><span class="w"> </span><span class="n">sec</span><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -943,7 +1197,8 @@ mysqladmin: unable to change password; error: &#39;Your password does not satisf
 <li>performance_schema：这个数据库主要用于收集数据库服务器性能参数。它提供了进程等待的详细信息，包括锁、互斥变量、文件信息等，并保存了历史的事件汇总信息，为提供 MySQL 服务器性能做出详细的判断。</li>
 <li>sys：这个库所有的数据源来自 performance_schema。它的目标是降低 performance_schema 的复杂度，让 DBA 能更好地阅读这个库里的内容，从而让 DBA 更快地了解 DB 的运行情况。</li>
 </ol>
-<h1>查看连接情况</h1><p>show processlist 命令可以显示当前连接到 MySQL 服务器的线程的信息，可以使用这个命令来监控服务器的性能，排查问题，或者终止某些线程。</p>
+<h2>查看连接情况<span class="absolute -mt-20" id="查看连接情况"></span>
+    <a href="#%e6%9f%a5%e7%9c%8b%e8%bf%9e%e6%8e%a5%e6%83%85%e5%86%b5" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>show processlist 命令可以显示当前连接到 MySQL 服务器的线程的信息，可以使用这个命令来监控服务器的性能，排查问题，或者终止某些线程。</p>
 <img src="数据库基础（一）.IMG/image-20231022004024786.png" alt="image-20231022004024786" style="zoom:40%;" />
 <p>其中：</p>
 <ul>

@@ -14,11 +14,11 @@
   <title>高级 I/O – Shawy&#39;s Blog</title>
   <meta name="description" content="阅读前导：
 “高级 I/O”处于知识树中网络和操作系统的最后，因此本文默认读者有计算机网络和操作系统的基础。
-1. 什么是 I/O下面以“流”（stream）和冯诺依曼体系架构的视角来简单回顾一下什么是 I/O：
+1. 什么是 I/O 下面以“流”（stream）和冯诺依曼体系架构的视角来简单回顾一下什么是 I/O：
 I/O 可以理解为数据在计算机内部和外部之间的流动。
 在冯诺依曼体系架构中，程序和数据都是以二进制编码的形式存储在存储器中，CPU 可以直接访问存储器中的任何位置，也可以通过输入设备和输出设备与外部世界进行数据交换。因此，I/O 就是数据在存储器和输入输出设备之间的传输，或者说是数据在 CPU 和外部世界（即外设）之间的交换。
 I/O 的速度和效率受到多种因素的影响，例如存储器的容量和速度、输入输出设备的性能和类型、总线或接口的带宽和协议、CPU 的运算能力和指令集、操作系统的调度和管理、程序的设计和优化等。
-2. I/O 的本质==I/O = 等待 &#43; 数据拷贝==
+2. I/O 的本质 ==I/O = 等待 &#43; 数据拷贝==
 例子：假设要对磁盘中的文件修改，包括两个步骤：
 将磁盘中的文件加载到内存的缓冲区中 将内存中的文件修改，然后再写回磁盘 什么是高效的 I/O ?
 其中，如果缓冲区中没有数据，CPU 会阻塞地等待，直到缓冲区中有数据之后才会拷贝数据。如果等待的时间占比过大，就会造成 I/O 低效。也就是说，降低单位时间内，等待的比例，就相当于提高 I/O 的效率。
@@ -36,11 +36,11 @@ I/O 的速度和效率受到多种因素的影响，例如存储器的容量和�
 <meta property="og:title" content="高级 I/O" />
 <meta property="og:description" content="阅读前导：
 “高级 I/O”处于知识树中网络和操作系统的最后，因此本文默认读者有计算机网络和操作系统的基础。
-1. 什么是 I/O下面以“流”（stream）和冯诺依曼体系架构的视角来简单回顾一下什么是 I/O：
+1. 什么是 I/O 下面以“流”（stream）和冯诺依曼体系架构的视角来简单回顾一下什么是 I/O：
 I/O 可以理解为数据在计算机内部和外部之间的流动。
 在冯诺依曼体系架构中，程序和数据都是以二进制编码的形式存储在存储器中，CPU 可以直接访问存储器中的任何位置，也可以通过输入设备和输出设备与外部世界进行数据交换。因此，I/O 就是数据在存储器和输入输出设备之间的传输，或者说是数据在 CPU 和外部世界（即外设）之间的交换。
 I/O 的速度和效率受到多种因素的影响，例如存储器的容量和速度、输入输出设备的性能和类型、总线或接口的带宽和协议、CPU 的运算能力和指令集、操作系统的调度和管理、程序的设计和优化等。
-2. I/O 的本质==I/O = 等待 &#43; 数据拷贝==
+2. I/O 的本质 ==I/O = 等待 &#43; 数据拷贝==
 例子：假设要对磁盘中的文件修改，包括两个步骤：
 将磁盘中的文件加载到内存的缓冲区中 将内存中的文件修改，然后再写回磁盘 什么是高效的 I/O ?
 其中，如果缓冲区中没有数据，CPU 会阻塞地等待，直到缓冲区中有数据之后才会拷贝数据。如果等待的时间占比过大，就会造成 I/O 低效。也就是说，降低单位时间内，等待的比例，就相当于提高 I/O 的效率。
@@ -57,11 +57,11 @@ I/O 的速度和效率受到多种因素的影响，例如存储器的容量和�
   <meta itemprop="name" content="高级 I/O">
   <meta itemprop="description" content="阅读前导：
 “高级 I/O”处于知识树中网络和操作系统的最后，因此本文默认读者有计算机网络和操作系统的基础。
-1. 什么是 I/O下面以“流”（stream）和冯诺依曼体系架构的视角来简单回顾一下什么是 I/O：
+1. 什么是 I/O 下面以“流”（stream）和冯诺依曼体系架构的视角来简单回顾一下什么是 I/O：
 I/O 可以理解为数据在计算机内部和外部之间的流动。
 在冯诺依曼体系架构中，程序和数据都是以二进制编码的形式存储在存储器中，CPU 可以直接访问存储器中的任何位置，也可以通过输入设备和输出设备与外部世界进行数据交换。因此，I/O 就是数据在存储器和输入输出设备之间的传输，或者说是数据在 CPU 和外部世界（即外设）之间的交换。
 I/O 的速度和效率受到多种因素的影响，例如存储器的容量和速度、输入输出设备的性能和类型、总线或接口的带宽和协议、CPU 的运算能力和指令集、操作系统的调度和管理、程序的设计和优化等。
-2. I/O 的本质==I/O = 等待 &#43; 数据拷贝==
+2. I/O 的本质 ==I/O = 等待 &#43; 数据拷贝==
 例子：假设要对磁盘中的文件修改，包括两个步骤：
 将磁盘中的文件加载到内存的缓冲区中 将内存中的文件修改，然后再写回磁盘 什么是高效的 I/O ?
 其中，如果缓冲区中没有数据，CPU 会阻塞地等待，直到缓冲区中有数据之后才会拷贝数据。如果等待的时间占比过大，就会造成 I/O 低效。也就是说，降低单位时间内，等待的比例，就相当于提高 I/O 的效率。
@@ -69,14 +69,14 @@ I/O 的速度和效率受到多种因素的影响，例如存储器的容量和�
 如何理解这个“等”呢？
 像我们在使用 C 或 C&#43;&#43;的 scanf 或 cin 时，程序运行起来光标会一直闪烁，这就是程序在等待标准输入中的数据，这个数据就是从外设键盘而来。文件和网络相关接口诸如 read()、write() 和 send()、 recv() 也是类似的。事实上也是如此，例如 read() 就是将内核缓冲区的数据拷贝到用户缓冲区，write() 就是将用户缓冲区的数据拷贝到内核缓冲区。
 从 OS 的视角：调用这些 I/O 接口的进程或线程会被阻塞，更底层地说，操作系统将该进程或线程的状态设置为某种非 R 状态，然后将其放入等待队列中，直到缓冲区中的数据就绪后再唤醒它； 从 I/O 的视角：阻塞就是让这些调用 I/O 的进程在“等”。 网络通信的本质可以从不同的角度来理解：">
-  <meta itemprop="wordCount" content="774"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="高级 I/O">
+  <meta itemprop="wordCount" content="860"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="高级 I/O">
 <meta name="twitter:description" content="阅读前导：
 “高级 I/O”处于知识树中网络和操作系统的最后，因此本文默认读者有计算机网络和操作系统的基础。
-1. 什么是 I/O下面以“流”（stream）和冯诺依曼体系架构的视角来简单回顾一下什么是 I/O：
+1. 什么是 I/O 下面以“流”（stream）和冯诺依曼体系架构的视角来简单回顾一下什么是 I/O：
 I/O 可以理解为数据在计算机内部和外部之间的流动。
 在冯诺依曼体系架构中，程序和数据都是以二进制编码的形式存储在存储器中，CPU 可以直接访问存储器中的任何位置，也可以通过输入设备和输出设备与外部世界进行数据交换。因此，I/O 就是数据在存储器和输入输出设备之间的传输，或者说是数据在 CPU 和外部世界（即外设）之间的交换。
 I/O 的速度和效率受到多种因素的影响，例如存储器的容量和速度、输入输出设备的性能和类型、总线或接口的带宽和协议、CPU 的运算能力和指令集、操作系统的调度和管理、程序的设计和优化等。
-2. I/O 的本质==I/O = 等待 &#43; 数据拷贝==
+2. I/O 的本质 ==I/O = 等待 &#43; 数据拷贝==
 例子：假设要对磁盘中的文件修改，包括两个步骤：
 将磁盘中的文件加载到内存的缓冲区中 将内存中的文件修改，然后再写回磁盘 什么是高效的 I/O ?
 其中，如果缓冲区中没有数据，CPU 会阻塞地等待，直到缓冲区中有数据之后才会拷贝数据。如果等待的时间占比过大，就会造成 I/O 低效。也就是说，降低单位时间内，等待的比例，就相当于提高 I/O 的效率。
@@ -90,7 +90,7 @@ I/O 的速度和效率受到多种因素的影响，例如存储器的容量和�
 
 
 
-  <link href="/css/custom.min.e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css" rel="stylesheet" integrity="sha256-47DEQpj8HBSa&#43;/TImW&#43;5JCeuQeRkm5NMpJWZG3hSuFU=" />
+  <link href="/css/custom.min.7d43e1fdc41380d9e5d795e4b7ab39cca64e2e8ac32a15c33924c1f0a8cb1df0.css" rel="stylesheet" integrity="sha256-fUPh/cQTgNnl15Xkt6s5zKZOLorDKhXDOSTB8KjLHfA=" />
 
 
 
@@ -144,7 +144,7 @@ I/O 的速度和效率受到多种因素的影响，例如存储器的容量和�
             <span class="text-center">About</span>
           </a><a
             title="Contact ↗"
-            href="https://blog.csdn.net/m0_63312733?type=blog"
+            href="https://img-blog.csdnimg.cn/7deb340b1c95414d9dc25a89d1cb1f32.png"
             target="_blank" rel="noreferer"
             class="text-sm contrast-more:text-gray-700 contrast-more:dark:text-gray-100 relative -ml-2 hidden whitespace-nowrap p-2 md:inline-block text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
           >
@@ -235,7 +235,15 @@ I/O 的速度和效率受到多种因素的影响，例如存储器的容量和�
       text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
     href="/blogs/cpp/"
     
-  >C/C&#43;&#43;
+  >C&#43;&#43;
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/c/"
+    
+  >C语言
     </a>
               
             </li><li class="flex flex-col "><a
@@ -369,6 +377,14 @@ I/O 的速度和效率受到多种因素的影响，例如存储器的容量和�
               
             </li></ul>
       </div>
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/block-chain/"
+    
+  >区块链
+    </a>
+              
             </li><li class="flex flex-col open"><a
     class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
       text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
@@ -516,57 +532,33 @@ I/O 的速度和效率受到多种因素的影响，例如存储器的容量和�
   
     <ul class='flex flex-col gap-1 relative before:absolute before:inset-y-1 before:w-px before:bg-gray-200 before:content-[""] dark:before:bg-neutral-800 ltr:pl-3 ltr:before:left-0 rtl:pr-3 rtl:before:right-0 ltr:ml-3 rtl:mr-3'><li>
               <a
-                href="#31-%e5%bc%95%e5%85%a5"
+                href="#1-%e4%bb%80%e4%b9%88%e6%98%af-io"
                 class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >3.1 引入</a>
+              >1. 什么是 I/O</a>
             </li>
           <li>
               <a
-                href="#32-%e9%98%bb%e5%a1%9e-io"
+                href="#2-io-%e7%9a%84%e6%9c%ac%e8%b4%a8"
                 class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >3.2 阻塞 I/O</a>
+              >2. I/O 的本质</a>
             </li>
           <li>
               <a
-                href="#33-%e9%9d%9e%e9%98%bb%e5%a1%9e-io"
+                href="#3-%e4%ba%94%e7%a7%8d-io-%e6%a8%a1%e5%9e%8b"
                 class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >3.3 非阻塞 I/O</a>
+              >3. 五种 I/O 模型</a>
             </li>
           <li>
               <a
-                href="#34-%e5%a4%9a%e8%b7%af%e5%a4%8d%e7%94%a8-io"
+                href="#4-%e5%90%8c%e6%ad%a5%e9%80%9a%e4%bf%a1%e5%92%8c%e5%bc%82%e6%ad%a5%e9%80%9a%e4%bf%a1"
                 class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >3.4 多路复用 I/O</a>
+              >4. 同步通信和异步通信</a>
             </li>
           <li>
               <a
-                href="#35-%e4%bf%a1%e5%8f%b7%e9%a9%b1%e5%8a%a8-io"
+                href="#5-%e6%b5%8b%e8%af%95"
                 class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >3.5 信号驱动 I/O</a>
-            </li>
-          <li>
-              <a
-                href="#36-%e5%bc%82%e6%ad%a5-io"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >3.6 异步 I/O</a>
-            </li>
-          <li>
-              <a
-                href="#37-%e5%b0%8f%e7%bb%93"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >3.7 小结</a>
-            </li>
-          <li>
-              <a
-                href="#51-%e9%98%bb%e5%a1%9e-io"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >5.1 阻塞 I/O</a>
-            </li>
-          <li>
-              <a
-                href="#52-%e9%9d%9e%e9%98%bb%e5%a1%9e"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >5.2 非阻塞</a>
+              >5. 测试</a>
             </li>
           </ul>
   
@@ -595,6 +587,14 @@ I/O 的速度和效率受到多种因素的影响，例如存储器的容量和�
     href="/blogs/data-structure/"
     
   >数据结构与算法
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/algorithm/"
+    
+  >算法
     </a>
               
             </li><li class="flex flex-col "><a
@@ -718,41 +718,61 @@ I/O 的速度和效率受到多种因素的影响，例如存储器的容量和�
 </div></div></aside>
     
 <nav class="hextra-toc order-last hidden w-64 shrink-0 xl:block print:hidden px-4" aria-label="table of contents">
-    <div class="hextra-scrollbar sticky top-16 overflow-y-auto pr-4 pt-6 text-sm [hyphens:auto] max-h-[calc(100vh-var(--navbar-height)-env(safe-area-inset-bottom))] ltr:-mr-4 rtl:-ml-4"><p class="mb-4 font-semibold tracking-tight">On this page</p><ul></ul><ul></ul><ul>
+    <div class="hextra-scrollbar sticky top-16 overflow-y-auto pr-4 pt-6 text-sm [hyphens:auto] max-h-[calc(100vh-var(--navbar-height)-env(safe-area-inset-bottom))] ltr:-mr-4 rtl:-ml-4"><p class="mb-4 font-semibold tracking-tight">On this page</p><ul>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#31-%e5%bc%95%e5%85%a5">3.1 引入
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#1-%e4%bb%80%e4%b9%88%e6%98%af-io">1. 什么是 I/O
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#32-%e9%98%bb%e5%a1%9e-io">3.2 阻塞 I/O
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#2-io-%e7%9a%84%e6%9c%ac%e8%b4%a8">2. I/O 的本质
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#33-%e9%9d%9e%e9%98%bb%e5%a1%9e-io">3.3 非阻塞 I/O
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#3-%e4%ba%94%e7%a7%8d-io-%e6%a8%a1%e5%9e%8b">3. 五种 I/O 模型
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#34-%e5%a4%9a%e8%b7%af%e5%a4%8d%e7%94%a8-io">3.4 多路复用 I/O
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#31-%e5%bc%95%e5%85%a5">3.1 引入
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#35-%e4%bf%a1%e5%8f%b7%e9%a9%b1%e5%8a%a8-io">3.5 信号驱动 I/O
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#32-%e9%98%bb%e5%a1%9e-io">3.2 阻塞 I/O
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#36-%e5%bc%82%e6%ad%a5-io">3.6 异步 I/O
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#33-%e9%9d%9e%e9%98%bb%e5%a1%9e-io">3.3 非阻塞 I/O
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#37-%e5%b0%8f%e7%bb%93">3.7 小结
-        </a>
-      </li></ul><ul></ul><ul>
-      <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#51-%e9%98%bb%e5%a1%9e-io">5.1 阻塞 I/O
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#34-%e5%a4%9a%e8%b7%af%e5%a4%8d%e7%94%a8-io">3.4 多路复用 I/O
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#52-%e9%9d%9e%e9%98%bb%e5%a1%9e">5.2 非阻塞
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#35-%e4%bf%a1%e5%8f%b7%e9%a9%b1%e5%8a%a8-io">3.5 信号驱动 I/O
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#36-%e5%bc%82%e6%ad%a5-io">3.6 异步 I/O
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#37-%e5%b0%8f%e7%bb%93">3.7 小结
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#4-%e5%90%8c%e6%ad%a5%e9%80%9a%e4%bf%a1%e5%92%8c%e5%bc%82%e6%ad%a5%e9%80%9a%e4%bf%a1">4. 同步通信和异步通信
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#5-%e6%b5%8b%e8%af%95">5. 测试
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#51-%e9%98%bb%e5%a1%9e-io">5.1 阻塞 I/O
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#52-%e9%9d%9e%e9%98%bb%e5%a1%9e">5.2 非阻塞
         </a>
       </li></ul>
       <div class="mt-8 border-t bg-white pt-8 shadow-[0_-12px_16px_white] dark:bg-dark dark:shadow-[0_-12px_16px_#111] sticky bottom-0 flex flex-col items-start gap-2 pb-8 dark:border-neutral-800 contrast-more:border-t contrast-more:border-neutral-400 contrast-more:shadow-none contrast-more:dark:border-neutral-400">
@@ -775,12 +795,14 @@ I/O 的速度和效率受到多种因素的影响，例如存储器的容量和�
         <div class="content">
           <p>阅读前导：</p>
 <p>“高级 I/O”处于知识树中网络和操作系统的最后，因此本文默认读者有计算机网络和操作系统的基础。</p>
-<h1>1. 什么是 I/O</h1><p>下面以“流”（stream）和冯诺依曼体系架构的视角来简单回顾一下什么是 I/O：</p>
+<h2>1. 什么是 I/O<span class="absolute -mt-20" id="1-什么是-io"></span>
+    <a href="#1-%e4%bb%80%e4%b9%88%e6%98%af-io" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>下面以“流”（stream）和冯诺依曼体系架构的视角来简单回顾一下什么是 I/O：</p>
 <p>I/O 可以理解为数据在计算机内部和外部之间的流动。</p>
 <p>在冯诺依曼体系架构中，程序和数据都是以二进制编码的形式存储在存储器中，CPU 可以直接访问存储器中的任何位置，也可以通过输入设备和输出设备与外部世界进行数据交换。因此，I/O 就是数据在存储器和输入输出设备之间的传输，或者说是数据在 CPU 和外部世界（即外设）之间的交换。</p>
 <img src="高级 IO.IMG/MD202209262106093.png" alt="image-20220926132952292" style="zoom:40%;" />
 <p>I/O 的速度和效率受到多种因素的影响，例如存储器的容量和速度、输入输出设备的性能和类型、总线或接口的带宽和协议、CPU 的运算能力和指令集、操作系统的调度和管理、程序的设计和优化等。</p>
-<h1>2. I/O 的本质</h1><p>==I/O = 等待 + 数据拷贝==</p>
+<h2>2. I/O 的本质<span class="absolute -mt-20" id="2-io-的本质"></span>
+    <a href="#2-io-%e7%9a%84%e6%9c%ac%e8%b4%a8" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>==I/O = 等待 + 数据拷贝==</p>
 <p>例子：假设要对磁盘中的文件修改，包括两个步骤：</p>
 <ol>
 <li>将磁盘中的文件加载到内存的缓冲区中</li>
@@ -806,8 +828,9 @@ I/O 的速度和效率受到多种因素的影响，例如存储器的容量和�
 <li>从进程的角度，网络通信就是不同计算机上的进程之间的通信。</li>
 </ul>
 <p>其中进程是最具象的角度，因为数据的交换和共享的主体是进程，它们通过文件描述符来访问网络资源，例如套接字、管道、FIFO 等。在 Linux 下，一切皆文件，这意味着所有的设备、资源和对象都可以用统一的方式来操作，即打开、读写、关闭等。进程的 TCB 控制块存储进程的各种信息，例如进程 ID、状态、优先级、寄存器、信号、文件描述符等。每个进程都有一个文件描述符表，用来记录文件描述符和文件之间的映射关系，文件描述符是一个非负整数，是文件描述符表的下标，用来标识进程打开的文件。</p>
-<h1>3. 五种 I/O 模型</h1><h2>3.1 引入<span class="absolute -mt-20" id="31-引入"></span>
-    <a href="#31-%e5%bc%95%e5%85%a5" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>下面用打电话的例子作为引入：</p>
+<h2>3. 五种 I/O 模型<span class="absolute -mt-20" id="3-五种-io-模型"></span>
+    <a href="#3-%e4%ba%94%e7%a7%8d-io-%e6%a8%a1%e5%9e%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>3.1 引入<span class="absolute -mt-20" id="31-引入"></span>
+    <a href="#31-%e5%bc%95%e5%85%a5" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>下面用打电话的例子作为引入：</p>
 <ol>
 <li>阻塞 I/O：你在打电话给一个朋友，你一直等待他接听，直到你们开始通话，期间你不能做其他事情。</li>
 <li>非阻塞 I/O：你在打电话给一个朋友，如果他没有接听，你就挂断，然后做其他事情，或者过一会再打一次，直到你们开始通话。</li>
@@ -819,12 +842,12 @@ I/O 的速度和效率受到多种因素的影响，例如存储器的容量和�
 <p>什么是阻塞和非阻塞？</p>
 <p>什么是同步和异步？</p>
 </blockquote>
-<p>阻塞和非阻塞是一种调用机制，主要指的是调用者（程序）在等待返回结果（或输入）时的状态。==阻塞==时，在调用结果返回前，当前线程会被挂起，并在得到结果之后返回。==非阻塞==时，如果不能立刻得到结果，则该调用不会阻塞当前线程，而是直接返回一个错误信息或空值，因此调用者需要多次调用或轮询来检查结果是否就绪。</p>
-<p>阻塞和非阻塞的概念通常和 I/O 操作（如文件读写，网络通信等）联系在一起，因为 I/O 操作涉及到系统调用，即用户空间的程序通过调用操作系统内核提供的接口来完成一些特权操作。系统调用可能会因为 I/O 设备的速度或者网络延迟等原因不能立即完成，这时操作系统内核会将调用者的进程挂起为等待状态，直到 I/O 操作完成后再唤醒该进程。这就是==阻塞式==的 I/O 操作。</p>
-<p>==非阻塞式==的 I/O 操作则是指调用者在发起系统调用后，不会等待 I/O 操作的完成，而是立即返回。这样调用者可以继续执行其他的任务，而不会被阻塞。但是这也带来了一个问题，就是调用者如何知道 I/O 操作的结果呢？一种方法是调用者定期检查 I/O 操作的状态，这叫做轮询（polling）。另一种方法是调用者注册一个回调函数（callback），当 I/O 操作完成时，操作系统内核会调用该函数来通知调用者。这叫做异步（asynchronous）I/O 操作。</p>
+<p>阻塞和非阻塞是一种调用机制，主要指的是调用者（程序）在等待返回结果（或输入）时的状态。<mark>阻塞</mark>时，在调用结果返回前，当前线程会被挂起，并在得到结果之后返回。<mark>非阻塞</mark>时，如果不能立刻得到结果，则该调用不会阻塞当前线程，而是直接返回一个错误信息或空值，因此调用者需要多次调用或轮询来检查结果是否就绪。</p>
+<p>阻塞和非阻塞的概念通常和 I/O 操作（如文件读写，网络通信等）联系在一起，因为 I/O 操作涉及到系统调用，即用户空间的程序通过调用操作系统内核提供的接口来完成一些特权操作。系统调用可能会因为 I/O 设备的速度或者网络延迟等原因不能立即完成，这时操作系统内核会将调用者的进程挂起为等待状态，直到 I/O 操作完成后再唤醒该进程。这就是<mark>阻塞式</mark>的 I/O 操作。</p>
+<p><mark>非阻塞式</mark>的 I/O 操作则是指调用者在发起系统调用后，不会等待 I/O 操作的完成，而是立即返回。这样调用者可以继续执行其他的任务，而不会被阻塞。但是这也带来了一个问题，就是调用者如何知道 I/O 操作的结果呢？一种方法是调用者定期检查 I/O 操作的状态，这叫做轮询（polling）。另一种方法是调用者注册一个回调函数（callback），当 I/O 操作完成时，操作系统内核会调用该函数来通知调用者。这叫做异步（asynchronous）I/O 操作。</p>
 <p>阻塞和非阻塞是描述调用者在等待结果时的状态，而同步和异步是描述调用者如何获取结果的方式。阻塞和非阻塞的区别在于是否让出 CPU 的控制权，而同步和异步的区别在于是否需要主动轮询或被动通知。</p>
-<h2>3.2 阻塞 I/O<span class="absolute -mt-20" id="32-阻塞-io"></span>
-    <a href="#32-%e9%98%bb%e5%a1%9e-io" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>阻塞 I/O 是一种在输入输出操作期间让进程或线程==等待==的 IO 模型，进程或线程在调用 I/O 操作时，会一直等待数据就绪，直到数据从内核缓冲区拷贝到进程缓冲区，然后才返回。言外之意，阻塞 I/O 在“等”和“拷贝”阶段都不会返回。</p>
+<h3>3.2 阻塞 I/O<span class="absolute -mt-20" id="32-阻塞-io"></span>
+    <a href="#32-%e9%98%bb%e5%a1%9e-io" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>阻塞 I/O 是一种在输入输出操作期间让进程或线程<mark>等待</mark>的 IO 模型，进程或线程在调用 I/O 操作时，会一直等待数据就绪，直到数据从内核缓冲区拷贝到进程缓冲区，然后才返回。言外之意，阻塞 I/O 在“等”和“拷贝”阶段都不会返回。</p>
 <p>在 Linux 中，有很多系统调用是阻塞 I/O 的，例如 read, write, accept, connect, recv, send 等，即所有的套接字默认都以阻塞方式工作，这是因为：</p>
 <ul>
 <li>阻塞方式是最简单易用和最直观的 I/O 模型，它可以保证数据的完整性和一致性，不需要额外的处理逻辑。</li>
@@ -832,8 +855,8 @@ I/O 的速度和效率受到多种因素的影响，例如存储器的容量和�
 <li>阻塞方式可以适应各种网络环境和数据量，因为它会根据缓冲区的大小和状态来调整数据的发送和接收，不会造成数据的丢失或拥塞。</li>
 </ul>
 <p>缺点是效率低，因为在等待数据就绪和拷贝数据的过程中，进程或线程无法做其他事情，浪费时间和资源。所以阻塞 I/O 适合于数据量不大，实时性要求不高的场景。</p>
-<h2>3.3 非阻塞 I/O<span class="absolute -mt-20" id="33-非阻塞-io"></span>
-    <a href="#33-%e9%9d%9e%e9%98%bb%e5%a1%9e-io" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>非阻塞 I/O 是一种在输入输出操作期间让进程或线程==不需要等待==的 I/O 模型。</p>
+<h3>3.3 非阻塞 I/O<span class="absolute -mt-20" id="33-非阻塞-io"></span>
+    <a href="#33-%e9%9d%9e%e9%98%bb%e5%a1%9e-io" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>非阻塞 I/O 是一种在输入输出操作期间让进程或线程<mark>不需要等待</mark>的 I/O 模型。</p>
 <ul>
 <li>当进程或线程调用一个 I/O 操作时，如果数据还没有准备好，内核会立即返回一个错误码，表示不能执行该操作，而不会阻塞进程或线程。</li>
 <li>进程或线程可以根据返回的错误码（EWOULDBLOCK，error would block）来判断是否需要重试该操作（在这里通常会轮询），或者执行其他的任务，这样就可以避免浪费时间在等待数据上。</li>
@@ -857,10 +880,10 @@ I/O 的速度和效率受到多种因素的影响，例如存储器的容量和�
 <p>非阻塞 I/O 当数据没有就绪时，后续检测数据是否就绪的工作是由用户发起的。这也是阻塞 I/O 和非阻塞 I/O 的一个重要的区别。</p>
 </li>
 </ul>
-<h2>3.4 多路复用 I/O<span class="absolute -mt-20" id="34-多路复用-io"></span>
-    <a href="#34-%e5%a4%9a%e8%b7%af%e5%a4%8d%e7%94%a8-io" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>多路复用 I/O 是一种<strong>同步 I/O 模型</strong>，实现一个线程或进程可以同时监视多个文件描述符是否可以执行 I/O 操作。多路复用 I/O 的原理是：</p>
+<h3>3.4 多路复用 I/O<span class="absolute -mt-20" id="34-多路复用-io"></span>
+    <a href="#34-%e5%a4%9a%e8%b7%af%e5%a4%8d%e7%94%a8-io" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>多路复用 I/O 是一种<strong>同步 I/O 模型</strong>，实现一个线程或进程可以同时监视多个文件描述符是否可以执行 I/O 操作。多路复用 I/O 的原理是：</p>
 <ul>
-<li>当应用程序调用一个多路复用 I/O 的函数（如 select, poll, epoll 等）时，它会将想要监视的==一组文件描述符==传递给内核（让它监视），然后阻塞等待某些事件的发生或超时。（注意，==这些函数只负责 I/O 中“等”的操作==）</li>
+<li>当应用程序调用一个多路复用 I/O 的函数（如 select, poll, epoll 等）时，它会将想要监视的<mark>一组文件描述符</mark>传递给内核（让它监视），然后阻塞等待某些事件的发生或超时。（注意，<mark>这些函数只负责 I/O 中“等”的操作</mark>）</li>
 <li>当内核检测到某些（至少一个）文件描述符就绪（可以进行读或写操作）或者超时，它会将就绪的文件描述符集合返回给应用程序，然后应用程序可以对这些文件描述符进行相应的 I/O 操作（如果多路复用 I/O 的函数完成了“等待”，那么用户进程只需要进行“拷贝操作”）。</li>
 <li>应用程序可以根据不同的多路复用 I/O 的函数，设置不同的参数和选项，来控制文件描述符的监视方式，如超时时间，事件类型，触发模式等。</li>
 </ul>
@@ -871,8 +894,8 @@ I/O 的速度和效率受到多种因素的影响，例如存储器的容量和�
 <p>I/O 操作包括等待和拷贝两个步骤，而像 read、recvfrom 等 I/O 系统调用，一个进程或线程一次只能对一个文件描述符操作（注意数量上的对应），如果需要同时处理多个 I/O 事件，自然而然地想创建多个进程或线程，我们知道这么做是很难的，因为维护进程和线程的成本不低。</p>
 <p>所以 Linux 的 select、poll、epoll 接口的参数都是文件描述符数组，而不是一个文件描述符。这样，用户进程可以一次性地监测多个文件描述符的 I/O 状态，而不需要逐个地检查。这种方式可以提高 I/O 的效率，避免不必要的阻塞和轮询。</p>
 <p>这就好像上学时老师总会定几个组长，这样每次收作业时老师只需要等这几个组长，但实际上等待不同组的同学上交作业的时间是有重叠的，这样便节省了时间。另外一个例子：百米赛跑都是几个人一起跑，而不是一个一个地测。</p>
-<h2>3.5 信号驱动 I/O<span class="absolute -mt-20" id="35-信号驱动-io"></span>
-    <a href="#35-%e4%bf%a1%e5%8f%b7%e9%a9%b1%e5%8a%a8-io" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>信号驱动 I/O 是一种在输入输出操作期间让进程或线程不需要等待，而是==通过信号通知==的 I/O 模型。信号驱动 I/O 的原理是：</p>
+<h3>3.5 信号驱动 I/O<span class="absolute -mt-20" id="35-信号驱动-io"></span>
+    <a href="#35-%e4%bf%a1%e5%8f%b7%e9%a9%b1%e5%8a%a8-io" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>信号驱动 I/O 是一种在输入输出操作期间让进程或线程不需要等待，而是<mark>通过信号通知</mark>的 I/O 模型。信号驱动 I/O 的原理是：</p>
 <ul>
 <li>当进程或线程调用一个 I/O 操作时，如果数据还没有准备好，内核会立即返回一个错误码，表示不能执行该操作，而不会阻塞进程或线程。</li>
 <li>进程或线程可以为该文件描述符设置一个信号处理函数，当数据准备好了，内核会发送一个 SIGIO 信号给进程或线程，然后调用信号处理函数。而不需要轮询或阻塞。</li>
@@ -891,14 +914,15 @@ I/O 的速度和效率受到多种因素的影响，例如存储器的容量和�
 <p>同步 I/O 的特点是在 I/O 操作进行时，用户线程会被阻塞，直到 I/O 操作完成后才返回。同步 I/O 通常需要用户线程主动发起 I/O 请求，并等待或轮询 I/O 操作的结果。同步 I/O 的优点是简单易用，缺点是效率低下，因为用户线程在等待 I/O 操作时无法做其他事情。</p>
 <p>信号驱动 I/O 是同步 I/O 的一种，是因为在信号产生后，用户进程还需要调用 IO 系统调用来完成数据的读写操作，这个过程是阻塞的，因为信号的处理是在进程的控制下进行的，进程可以选择是否接收信号，以及何时处理信号，而不是被动地等待信号的到来。所以用户进程需要等待 I/O 操作的完成。</p>
 <p>异步 I/O 则不同，用户进程只需要发起 I/O 请求，然后就可以继续做其他事情，当 I/O 操作完成后，内核会通知用户进程，而不需要用户进程再次调用 I/O 系统调用。</p>
-<h2>3.6 异步 I/O<span class="absolute -mt-20" id="36-异步-io"></span>
-    <a href="#36-%e5%bc%82%e6%ad%a5-io" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>异步 I/O 是在 I/O 操作进行时，用户进程不需要等待或轮询 I/O 操作的结果，而是继续执行其他任务。当 I/O 操作完成后，内核会发送信号通知用户进程，用户进程再根据 I/O 事件执行相应的回调函数。这样用户进程就不需要等待或轮询 I/O 状态，而是在收到信号后，直接获取 I/O 结果。</p>
-<p>异步 I/O 的原理是利用操作系统的内核支持，==让内核负责数据的传输和通知==。不同的操作系统有不同的异步 I/O 实现方式，比如 Linux 的 epoll，Mac 的 kqueue，Windows 的 IOCP 等。这些方式都是基于事件驱动的，即当 I/O 事件发生时，内核会将事件放入一个队列，用户进程可以从队列中获取事件，并执行相应的回调函数。这样，用户进程就不需要主动查询 I/O 状态，而是==被动==地响应 I/O 事件。</p>
-<p>异步 I/O 的效率最高，因为进程可以完全避免阻塞和轮询，而且不需要数据拷贝，因为内核会直接将数据放到进程指定的位置，也就是说“等”和“拷贝”两个 I/O 操作都由操作系统完成，==用户进程只需要发起 IO 请求==，然后就可以去做其他事情，不需要关心 IO 的具体细节，比如数据的传输、缓冲、通知等。这些细节都由内核来处理，用户进程或线程只需要在 IO 完成后，根据内核的通知，执行相应的回调函数。</p>
+<h3>3.6 异步 I/O<span class="absolute -mt-20" id="36-异步-io"></span>
+    <a href="#36-%e5%bc%82%e6%ad%a5-io" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>异步 I/O 是在 I/O 操作进行时，用户进程不需要等待或轮询 I/O 操作的结果，而是继续执行其他任务。当 I/O 操作完成后，内核会发送信号通知用户进程，用户进程再根据 I/O 事件执行相应的回调函数。这样用户进程就不需要等待或轮询 I/O 状态，而是在收到信号后，直接获取 I/O 结果。</p>
+<p>异步 I/O 的原理是利用操作系统的内核支持，<mark>让内核负责数据的传输和通知</mark>。不同的操作系统有不同的异步 I/O 实现方式，比如 Linux 的 epoll，Mac 的 kqueue，Windows 的 IOCP 等。这些方式都是基于事件驱动的，即当 I/O 事件发生时，内核会将事件放入一个队列，用户进程可以从队列中获取事件，并执行相应的回调函数。这样，用户进程就不需要主动查询 I/O 状态，而是<mark>被动</mark>地响应 I/O 事件。</p>
+<p>异步 I/O 的效率最高，因为进程可以完全避免阻塞和轮询，而且不需要数据拷贝，因为内核会直接将数据放到进程指定的位置，也就是说“等”和“拷贝”两个 I/O 操作都由操作系统完成，<mark>用户进程只需要发起 IO 请求</mark>，然后就可以去做其他事情，不需要关心 IO 的具体细节，比如数据的传输、缓冲、通知等。这些细节都由内核来处理，用户进程或线程只需要在 IO 完成后，根据内核的通知，执行相应的回调函数。</p>
 <p>这样，它可以充分利用 CPU 资源，提高系统的吞吐量和效率，缺点是编程复杂度较高，需要处理好异步通知和回调函数。</p>
-<h2>3.7 小结<span class="absolute -mt-20" id="37-小结"></span>
-    <a href="#37-%e5%b0%8f%e7%bb%93" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>由于 I/O=等待资源就绪+拷贝资源，那么异步 I/O 就是最理想的模式，因为它可以将“等”和“拷贝”的开销都降到最低。阻塞 I/O、非阻塞 I/O 和信号驱动 I/O 本质上不能提高 I/O 的效率，但非阻塞 I/O 和信号驱动 I/O 能提高整体的效率。</p>
-<h1>4. 同步通信和异步通信</h1><p>同步和异步是两种不同的消息通信机制，它们主要区别在于调用者和被调用者之间的交互方式：</p>
+<h3>3.7 小结<span class="absolute -mt-20" id="37-小结"></span>
+    <a href="#37-%e5%b0%8f%e7%bb%93" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>由于 I/O=等待资源就绪+拷贝资源，那么异步 I/O 就是最理想的模式，因为它可以将“等”和“拷贝”的开销都降到最低。阻塞 I/O、非阻塞 I/O 和信号驱动 I/O 本质上不能提高 I/O 的效率，但非阻塞 I/O 和信号驱动 I/O 能提高整体的效率。</p>
+<h2>4. 同步通信和异步通信<span class="absolute -mt-20" id="4-同步通信和异步通信"></span>
+    <a href="#4-%e5%90%8c%e6%ad%a5%e9%80%9a%e4%bf%a1%e5%92%8c%e5%bc%82%e6%ad%a5%e9%80%9a%e4%bf%a1" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>同步和异步是两种不同的消息通信机制，它们主要区别在于调用者和被调用者之间的交互方式：</p>
 <ul>
 <li>
 <p>同步通信是指调用者在发出一个调用后，必须等待被调用者返回结果，才能继续执行后续的操作。这种方式的好处是调用者可以马上得到结果，不会错过任何信息，但是也会造成调用者的阻塞和等待，降低效率。</p>
@@ -911,7 +935,7 @@ I/O 的速度和效率受到多种因素的影响，例如存储器的容量和�
 <p>“调用”是指对一个函数或者一个系统服务的请求，也就是让一个已经定义好的代码段执行一定的功能。通信是一种手段，目的是达成进程间的资源交换或共享，数据不一定对通信双方都有用，例如在 C/S 模式下，server 处理后的数据通常是 client 需要的。</p>
 </blockquote>
 <p>同步通信是需要等待的，而异步通信是不需要等待的。同步通信是直接获取结果的，而异步通信是通过其他方式获取结果的。</p>
-<p>因此，我们可以以“==进程或线程是否参与 I/O==”为标准，判断以上五种 I/O 模型是否为同步 I/O（除了异步 I/O，其他都是同步 I/O）。</p>
+<p>因此，我们可以以“<mark>进程或线程是否参与 I/O</mark>”为标准，判断以上五种 I/O 模型是否为同步 I/O（除了异步 I/O，其他都是同步 I/O）。</p>
 <blockquote>
 <p>照这么说，非阻塞 I/O 也算是同步 I/O 吗？它在数据未就绪，也就是未得到结果时就直接返回一个错误码了。</p>
 </blockquote>
@@ -934,12 +958,39 @@ I/O 的速度和效率受到多种因素的影响，例如存储器的容量和�
 <li>通信同步是一种通信方式；而进程或线程间的同步是一种协作方式，例如通过何种手段，使得进程或线程按照某种规则安全地访问临界资源，从而有效避免饥饿问题。</li>
 <li>通信同步的目的是实现数据的传输和交换，相反的概念是异步；而进程或线程间的同步是为了实现任务的分工和协作，相反的概念是互斥。</li>
 </ul>
-<h1>5. 测试</h1><p>下面会用几个简单的例子，加深对阻塞 I/O 和非阻塞 I/O 的理解，关于多路复用 I/O，将会在下一节中着重学习。</p>
-<h2>5.1 阻塞 I/O<span class="absolute -mt-20" id="51-阻塞-io"></span>
-    <a href="#51-%e9%98%bb%e5%a1%9e-io" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>在 Linux 一切皆文件的意义下，一个文件的 I/O 阻塞与否，也是一种属性，一个文件的 I/O 阻塞属性是由文件描述符中的一个文件状态标志来表示的。文件描述符是一个整数，用来标识一个打开的文件。文件状态标志是一个位图，用来记录文件的一些属性，比如读写模式、是否追加、是否同步等。其中，<code>O_NONBLOCK</code>标志位用来表示文件是否为非阻塞模式。如果该位为 1，表示文件为非阻塞模式，否则为阻塞模式。</p>
+<h2>5. 测试<span class="absolute -mt-20" id="5-测试"></span>
+    <a href="#5-%e6%b5%8b%e8%af%95" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>下面会用几个简单的例子，加深对阻塞 I/O 和非阻塞 I/O 的理解，关于多路复用 I/O，将会在下一节中着重学习。</p>
+<h3>5.1 阻塞 I/O<span class="absolute -mt-20" id="51-阻塞-io"></span>
+    <a href="#51-%e9%98%bb%e5%a1%9e-io" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>在 Linux 一切皆文件的意义下，一个文件的 I/O 阻塞与否，也是一种属性，一个文件的 I/O 阻塞属性是由文件描述符中的一个文件状态标志来表示的。文件描述符是一个整数，用来标识一个打开的文件。文件状态标志是一个位图，用来记录文件的一些属性，比如读写模式、是否追加、是否同步等。其中，<code>O_NONBLOCK</code>标志位用来表示文件是否为非阻塞模式。如果该位为 1，表示文件为非阻塞模式，否则为阻塞模式。</p>
 <p>下面以一个简单的例子作为引入：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;iostream&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;unistd.h&gt;
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
@@ -959,7 +1010,9 @@ I/O 的速度和效率受到多种因素的影响，例如存储器的容量和�
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -971,14 +1024,24 @@ I/O 的速度和效率受到多种因素的影响，例如存储器的容量和�
 </div>
 <p>在这段代码中，用字符数组 buffer 来存储从标准输入（键盘）读取的数据，然后在死循环中调用 read()，成功则回显，失败则打印错误信息。</p>
 <p>测试：
-<img src="./IMG/屏幕录制 2023-09-29 23.09.19.gif" alt="屏幕录制 2023-09-29 23.09.19" style="zoom:40%;" /></p>
+<img src="高级 IO.IMG/屏幕录制2023-09-29 23.09.19.gif" alt="屏幕录制2023-09-29 23.09.19" style="zoom:40%;" /></p>
 <p>当光标在闪烁时，说明用户设定的缓冲区 buffer 中没有数据就绪，那么 read 会一直等待，使得这个进程处于阻塞状态。</p>
-<h2>5.2 非阻塞<span class="absolute -mt-20" id="52-非阻塞"></span>
-    <a href="#52-%e9%9d%9e%e9%98%bb%e5%a1%9e" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>在上面代码的基础上，如果要以非阻塞的方式打开某个文件或套接字，就需要使用 fcntl （file control）系统调用：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp">
+<h3>5.2 非阻塞<span class="absolute -mt-20" id="52-非阻塞"></span>
+    <a href="#52-%e9%9d%9e%e9%98%bb%e5%a1%9e" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>在上面代码的基础上，如果要以非阻塞的方式打开某个文件或套接字，就需要使用 fcntl （file control）系统调用：</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">##include &lt;unistd.h&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;fcntl.h&gt;
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">fcntl</span><span class="p">(</span><span class="kt">int</span> <span class="n">fd</span><span class="p">,</span> <span class="kt">int</span> <span class="n">cmd</span><span class="p">,</span> <span class="p">...</span> <span class="cm">/* arg */</span><span class="p">);</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">fcntl</span><span class="p">(</span><span class="kt">int</span> <span class="n">fd</span><span class="p">,</span> <span class="kt">int</span> <span class="n">cmd</span><span class="p">,</span> <span class="p">...</span> <span class="cm">/* arg */</span><span class="p">);</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1017,11 +1080,70 @@ I/O 的速度和效率受到多种因素的影响，例如存储器的容量和�
 <p>我们知道 Linux 内核中为每个进程都默认打开了三个文件描述符，0 便是标准输入，只要进程设置一次，后续的 I/O 操作就都是非阻塞式的了。</p>
 <p>值得注意的是，当 read 函数以非阻塞方式读取标准输入的数据时，如果数据没有就绪（也就是没有键入）或者说缓冲区空，read 函数会立即返回-1，错误码 errno 被设置为<code>EAGAIN</code>或<code>EWOULDBLOCK</code>（这两个错误码含义是相同的，因平台而异）。另外，当错误码被设置为 <code>EINTR</code>时，说明 read 函数在读取数据时被信号中断。</p>
 <p>所以还要为 read 函数的返回值进一步做差错处理，出现上述错误码则说明本次调用的 read 函数没有成功地读取缓冲区中的数据，所以应该等待下一次调用。</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;cstring&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;cerrno&gt;</span><span class="cp">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;iostream&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;unistd.h&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;fcntl.h&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;cstring&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;cerrno&gt;
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">bool</span> <span class="nf">SetNonBlock</span><span class="p">(</span><span class="kt">int</span> <span class="n">fd</span><span class="p">)</span>
@@ -1071,7 +1193,9 @@ I/O 的速度和效率受到多种因素的影响，例如存储器的容量和�
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1082,7 +1206,7 @@ I/O 的速度和效率受到多种因素的影响，例如存储器的容量和�
   </div>
 </div>
 <p>测试：
-<img src="./IMG/屏幕录制 2023-09-30 00.07.00.gif" alt="屏幕录制 2023-09-30 00.07.00" style="zoom:40%;" /></p>
+<img src="高级 IO.IMG/屏幕录制2023-09-30 00.07.00.gif" alt="屏幕录制2023-09-30 00.07.00" style="zoom:40%;" /></p>
 <p>其中，为了方便观察，每次循环一开始都 sleep 1 秒，以上代码就是进行非阻塞 I/O 的基本处理方式，这样只要有数据就读，没数据就绪就会进入后面两个分支，在这里面可以放一些想让它执行的任务。</p>
 
         </div>

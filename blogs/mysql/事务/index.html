@@ -12,10 +12,10 @@
 <link fetchpriority="low" href="/site.webmanifest" rel="manifest" />
 
   <title>事务 – Shawy&#39;s Blog</title>
-  <meta name="description" content="事务的概念引入 在 A 转账 100 元给 B 的过程中，如果在 A 的账户已经减去了 100 元，B 的账户还未加上 100 元之前断网，那么这 100 元将会凭空消失。对于转账这件事，转出和转入这两件事应该是绑定在一起的，任意一个动作出现错误，都会导致双方数据出现异常 。
+  <meta name="description" content="事务的概念 引入 在 A 转账 100 元给 B 的过程中，如果在 A 的账户已经减去了 100 元，B 的账户还未加上 100 元之前断网，那么这 100 元将会凭空消失。对于转账这件事，转出和转入这两件事应该是绑定在一起的，任意一个动作出现错误，都会导致双方数据出现异常 。
 数据库作为服务端应用，需要接受大量客户端的请求，某些数据可能同时被多个客户端访问。
 为了解决这样的问题，引入了事务。
-概念 事务（Transaction）是数据库管理系统中执行的一个操作序列单元（由一个或多个 SQL 语句组成），这些操作作为一个整体一起执行，==要么全部成功，要么全部失败==。
+概念 事务（Transaction）是数据库管理系统中执行的一个操作序列单元（由一个或多个 SQL 语句组成），这些操作作为一个整体一起执行，要么全部成功，要么全部失败。
 事务是数据库维护数据一致性的重要机制，尤其是在并发操作环境下。它们遵循 ACID 属性，以确保数据库的完整性和可靠性。
 ACID 属性 原子性（Atomicity）：事务中的所有操作都被视为一个单一的单位，要么全部执行，要么全部不执行。这意味着如果事务中的任何操作失败，整个事务都会回滚到开始状态，如同它从未执行过一样。
 一致性（Consistency）：事务执行的结果必须使数据库从一个一致性状态转换到另一个一致性状态。事务执行过程中不应破坏数据的完整性和业务规则。
@@ -27,7 +27,7 @@ ACID 属性 原子性（Atomicity）：事务中的所有操作都被视为一�
 学习事务不仅要从程序员的角度，还要站在使用者的角度看待才能更好地理解。由逻辑组织的若干 SQL 组成了事务，它们本质上是运行在计算机上的程序，一个数据库中不止一个事务，需要对其描述和组织。因此从原理上依然还是要从数据结构&#43;算法的角度理解它。
 示例 例如上面简单的银行转账操作，需要从账户 A 转移资金到账户 B：
 开始事务。 从账户 A 扣除相应金额。 向账户 B 添加相应金额。 如果步骤 2 和 3 都成功执行，则提交事务；否则，回滚事务。 这个过程确保了转账操作的原子性，一致性，隔离性和持久性，保障了数据库的完整性和准确性。
-版本支持show engines查看数据库引擎： 其中：
+版本支持 show engines查看数据库引擎： 其中：
 Engine： 表示存储引擎的名称。 Support： 表示服务器对存储引擎的支持级别，YES 表示支持，NO 表示不支持， DEFAULT 表示数据库默认使用的存储引擎，DISABLED 表示支持引擎但已将其禁用。 Comment： 表示存储引擎的简要说明。 Transactions： 表示存储引擎是否支持事务，可以看到 InnoDB 存储引擎支持事务，而 MyISAM 存储引擎不支持事务。 XA： 表示存储引擎是否支持 XA 事务。 Savepoints： 表示存储引擎是否支持保存点。 在 MySQL 中只有使用了 InnoDB 存储引擎的数据库或表才支持事务。" />
   
   
@@ -37,10 +37,10 @@ Engine： 表示存储引擎的名称。 Support： 表示服务器对存储引�
   
 
 <meta property="og:title" content="事务" />
-<meta property="og:description" content="事务的概念引入 在 A 转账 100 元给 B 的过程中，如果在 A 的账户已经减去了 100 元，B 的账户还未加上 100 元之前断网，那么这 100 元将会凭空消失。对于转账这件事，转出和转入这两件事应该是绑定在一起的，任意一个动作出现错误，都会导致双方数据出现异常 。
+<meta property="og:description" content="事务的概念 引入 在 A 转账 100 元给 B 的过程中，如果在 A 的账户已经减去了 100 元，B 的账户还未加上 100 元之前断网，那么这 100 元将会凭空消失。对于转账这件事，转出和转入这两件事应该是绑定在一起的，任意一个动作出现错误，都会导致双方数据出现异常 。
 数据库作为服务端应用，需要接受大量客户端的请求，某些数据可能同时被多个客户端访问。
 为了解决这样的问题，引入了事务。
-概念 事务（Transaction）是数据库管理系统中执行的一个操作序列单元（由一个或多个 SQL 语句组成），这些操作作为一个整体一起执行，==要么全部成功，要么全部失败==。
+概念 事务（Transaction）是数据库管理系统中执行的一个操作序列单元（由一个或多个 SQL 语句组成），这些操作作为一个整体一起执行，要么全部成功，要么全部失败。
 事务是数据库维护数据一致性的重要机制，尤其是在并发操作环境下。它们遵循 ACID 属性，以确保数据库的完整性和可靠性。
 ACID 属性 原子性（Atomicity）：事务中的所有操作都被视为一个单一的单位，要么全部执行，要么全部不执行。这意味着如果事务中的任何操作失败，整个事务都会回滚到开始状态，如同它从未执行过一样。
 一致性（Consistency）：事务执行的结果必须使数据库从一个一致性状态转换到另一个一致性状态。事务执行过程中不应破坏数据的完整性和业务规则。
@@ -52,7 +52,7 @@ ACID 属性 原子性（Atomicity）：事务中的所有操作都被视为一�
 学习事务不仅要从程序员的角度，还要站在使用者的角度看待才能更好地理解。由逻辑组织的若干 SQL 组成了事务，它们本质上是运行在计算机上的程序，一个数据库中不止一个事务，需要对其描述和组织。因此从原理上依然还是要从数据结构&#43;算法的角度理解它。
 示例 例如上面简单的银行转账操作，需要从账户 A 转移资金到账户 B：
 开始事务。 从账户 A 扣除相应金额。 向账户 B 添加相应金额。 如果步骤 2 和 3 都成功执行，则提交事务；否则，回滚事务。 这个过程确保了转账操作的原子性，一致性，隔离性和持久性，保障了数据库的完整性和准确性。
-版本支持show engines查看数据库引擎： 其中：
+版本支持 show engines查看数据库引擎： 其中：
 Engine： 表示存储引擎的名称。 Support： 表示服务器对存储引擎的支持级别，YES 表示支持，NO 表示不支持， DEFAULT 表示数据库默认使用的存储引擎，DISABLED 表示支持引擎但已将其禁用。 Comment： 表示存储引擎的简要说明。 Transactions： 表示存储引擎是否支持事务，可以看到 InnoDB 存储引擎支持事务，而 MyISAM 存储引擎不支持事务。 XA： 表示存储引擎是否支持 XA 事务。 Savepoints： 表示存储引擎是否支持保存点。 在 MySQL 中只有使用了 InnoDB 存储引擎的数据库或表才支持事务。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/blogs/mysql/%E4%BA%8B%E5%8A%A1/" /><meta property="article:section" content="blogs" />
@@ -61,10 +61,10 @@ Engine： 表示存储引擎的名称。 Support： 表示服务器对存储引�
 
   
   <meta itemprop="name" content="事务">
-  <meta itemprop="description" content="事务的概念引入 在 A 转账 100 元给 B 的过程中，如果在 A 的账户已经减去了 100 元，B 的账户还未加上 100 元之前断网，那么这 100 元将会凭空消失。对于转账这件事，转出和转入这两件事应该是绑定在一起的，任意一个动作出现错误，都会导致双方数据出现异常 。
+  <meta itemprop="description" content="事务的概念 引入 在 A 转账 100 元给 B 的过程中，如果在 A 的账户已经减去了 100 元，B 的账户还未加上 100 元之前断网，那么这 100 元将会凭空消失。对于转账这件事，转出和转入这两件事应该是绑定在一起的，任意一个动作出现错误，都会导致双方数据出现异常 。
 数据库作为服务端应用，需要接受大量客户端的请求，某些数据可能同时被多个客户端访问。
 为了解决这样的问题，引入了事务。
-概念 事务（Transaction）是数据库管理系统中执行的一个操作序列单元（由一个或多个 SQL 语句组成），这些操作作为一个整体一起执行，==要么全部成功，要么全部失败==。
+概念 事务（Transaction）是数据库管理系统中执行的一个操作序列单元（由一个或多个 SQL 语句组成），这些操作作为一个整体一起执行，要么全部成功，要么全部失败。
 事务是数据库维护数据一致性的重要机制，尤其是在并发操作环境下。它们遵循 ACID 属性，以确保数据库的完整性和可靠性。
 ACID 属性 原子性（Atomicity）：事务中的所有操作都被视为一个单一的单位，要么全部执行，要么全部不执行。这意味着如果事务中的任何操作失败，整个事务都会回滚到开始状态，如同它从未执行过一样。
 一致性（Consistency）：事务执行的结果必须使数据库从一个一致性状态转换到另一个一致性状态。事务执行过程中不应破坏数据的完整性和业务规则。
@@ -76,13 +76,13 @@ ACID 属性 原子性（Atomicity）：事务中的所有操作都被视为一�
 学习事务不仅要从程序员的角度，还要站在使用者的角度看待才能更好地理解。由逻辑组织的若干 SQL 组成了事务，它们本质上是运行在计算机上的程序，一个数据库中不止一个事务，需要对其描述和组织。因此从原理上依然还是要从数据结构&#43;算法的角度理解它。
 示例 例如上面简单的银行转账操作，需要从账户 A 转移资金到账户 B：
 开始事务。 从账户 A 扣除相应金额。 向账户 B 添加相应金额。 如果步骤 2 和 3 都成功执行，则提交事务；否则，回滚事务。 这个过程确保了转账操作的原子性，一致性，隔离性和持久性，保障了数据库的完整性和准确性。
-版本支持show engines查看数据库引擎： 其中：
+版本支持 show engines查看数据库引擎： 其中：
 Engine： 表示存储引擎的名称。 Support： 表示服务器对存储引擎的支持级别，YES 表示支持，NO 表示不支持， DEFAULT 表示数据库默认使用的存储引擎，DISABLED 表示支持引擎但已将其禁用。 Comment： 表示存储引擎的简要说明。 Transactions： 表示存储引擎是否支持事务，可以看到 InnoDB 存储引擎支持事务，而 MyISAM 存储引擎不支持事务。 XA： 表示存储引擎是否支持 XA 事务。 Savepoints： 表示存储引擎是否支持保存点。 在 MySQL 中只有使用了 InnoDB 存储引擎的数据库或表才支持事务。">
-  <meta itemprop="wordCount" content="1043"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="事务">
-<meta name="twitter:description" content="事务的概念引入 在 A 转账 100 元给 B 的过程中，如果在 A 的账户已经减去了 100 元，B 的账户还未加上 100 元之前断网，那么这 100 元将会凭空消失。对于转账这件事，转出和转入这两件事应该是绑定在一起的，任意一个动作出现错误，都会导致双方数据出现异常 。
+  <meta itemprop="wordCount" content="1102"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="事务">
+<meta name="twitter:description" content="事务的概念 引入 在 A 转账 100 元给 B 的过程中，如果在 A 的账户已经减去了 100 元，B 的账户还未加上 100 元之前断网，那么这 100 元将会凭空消失。对于转账这件事，转出和转入这两件事应该是绑定在一起的，任意一个动作出现错误，都会导致双方数据出现异常 。
 数据库作为服务端应用，需要接受大量客户端的请求，某些数据可能同时被多个客户端访问。
 为了解决这样的问题，引入了事务。
-概念 事务（Transaction）是数据库管理系统中执行的一个操作序列单元（由一个或多个 SQL 语句组成），这些操作作为一个整体一起执行，==要么全部成功，要么全部失败==。
+概念 事务（Transaction）是数据库管理系统中执行的一个操作序列单元（由一个或多个 SQL 语句组成），这些操作作为一个整体一起执行，要么全部成功，要么全部失败。
 事务是数据库维护数据一致性的重要机制，尤其是在并发操作环境下。它们遵循 ACID 属性，以确保数据库的完整性和可靠性。
 ACID 属性 原子性（Atomicity）：事务中的所有操作都被视为一个单一的单位，要么全部执行，要么全部不执行。这意味着如果事务中的任何操作失败，整个事务都会回滚到开始状态，如同它从未执行过一样。
 一致性（Consistency）：事务执行的结果必须使数据库从一个一致性状态转换到另一个一致性状态。事务执行过程中不应破坏数据的完整性和业务规则。
@@ -94,7 +94,7 @@ ACID 属性 原子性（Atomicity）：事务中的所有操作都被视为一�
 学习事务不仅要从程序员的角度，还要站在使用者的角度看待才能更好地理解。由逻辑组织的若干 SQL 组成了事务，它们本质上是运行在计算机上的程序，一个数据库中不止一个事务，需要对其描述和组织。因此从原理上依然还是要从数据结构&#43;算法的角度理解它。
 示例 例如上面简单的银行转账操作，需要从账户 A 转移资金到账户 B：
 开始事务。 从账户 A 扣除相应金额。 向账户 B 添加相应金额。 如果步骤 2 和 3 都成功执行，则提交事务；否则，回滚事务。 这个过程确保了转账操作的原子性，一致性，隔离性和持久性，保障了数据库的完整性和准确性。
-版本支持show engines查看数据库引擎： 其中：
+版本支持 show engines查看数据库引擎： 其中：
 Engine： 表示存储引擎的名称。 Support： 表示服务器对存储引擎的支持级别，YES 表示支持，NO 表示不支持， DEFAULT 表示数据库默认使用的存储引擎，DISABLED 表示支持引擎但已将其禁用。 Comment： 表示存储引擎的简要说明。 Transactions： 表示存储引擎是否支持事务，可以看到 InnoDB 存储引擎支持事务，而 MyISAM 存储引擎不支持事务。 XA： 表示存储引擎是否支持 XA 事务。 Savepoints： 表示存储引擎是否支持保存点。 在 MySQL 中只有使用了 InnoDB 存储引擎的数据库或表才支持事务。">
 
     <link rel="preload" href="/css/compiled/main.min.5a06ca26e024c4f511f45ee6c33a2a1faefaebe6be8a38d36e100f40a4c59c06.css" as="style" integrity="sha256-WgbKJuAkxPUR9F7mwzoqH6766&#43;a&#43;ijjTbhAPQKTFnAY=" />
@@ -102,7 +102,7 @@ Engine： 表示存储引擎的名称。 Support： 表示服务器对存储引�
 
 
 
-  <link href="/css/custom.min.e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css" rel="stylesheet" integrity="sha256-47DEQpj8HBSa&#43;/TImW&#43;5JCeuQeRkm5NMpJWZG3hSuFU=" />
+  <link href="/css/custom.min.7d43e1fdc41380d9e5d795e4b7ab39cca64e2e8ac32a15c33924c1f0a8cb1df0.css" rel="stylesheet" integrity="sha256-fUPh/cQTgNnl15Xkt6s5zKZOLorDKhXDOSTB8KjLHfA=" />
 
 
 
@@ -156,7 +156,7 @@ Engine： 表示存储引擎的名称。 Support： 表示服务器对存储引�
             <span class="text-center">About</span>
           </a><a
             title="Contact ↗"
-            href="https://blog.csdn.net/m0_63312733?type=blog"
+            href="https://img-blog.csdnimg.cn/7deb340b1c95414d9dc25a89d1cb1f32.png"
             target="_blank" rel="noreferer"
             class="text-sm contrast-more:text-gray-700 contrast-more:dark:text-gray-100 relative -ml-2 hidden whitespace-nowrap p-2 md:inline-block text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
           >
@@ -247,7 +247,15 @@ Engine： 表示存储引擎的名称。 Support： 表示服务器对存储引�
       text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
     href="/blogs/cpp/"
     
-  >C/C&#43;&#43;
+  >C&#43;&#43;
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/c/"
+    
+  >C语言
     </a>
               
             </li><li class="flex flex-col open"><a
@@ -365,129 +373,51 @@ Engine： 表示存储引擎的名称。 Support： 表示服务器对存储引�
   
     <ul class='flex flex-col gap-1 relative before:absolute before:inset-y-1 before:w-px before:bg-gray-200 before:content-[""] dark:before:bg-neutral-800 ltr:pl-3 ltr:before:left-0 rtl:pr-3 rtl:before:right-0 ltr:ml-3 rtl:mr-3'><li>
               <a
-                href="#%e5%bc%95%e5%85%a5"
+                href="#%e4%ba%8b%e5%8a%a1%e7%9a%84%e6%a6%82%e5%bf%b5"
                 class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >引入</a>
+              >事务的概念</a>
             </li>
           <li>
               <a
-                href="#%e6%a6%82%e5%bf%b5"
+                href="#%e7%89%88%e6%9c%ac%e6%94%af%e6%8c%81"
                 class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >概念</a>
+              >版本支持</a>
             </li>
           <li>
               <a
-                href="#%e6%b5%8b%e8%af%95%e8%a1%a8"
+                href="#%e4%ba%8b%e5%8a%a1%e7%9a%84%e6%8f%90%e4%ba%a4%e6%96%b9%e5%bc%8f"
                 class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >测试表</a>
+              >事务的提交方式</a>
             </li>
           <li>
               <a
-                href="#%e5%90%af%e5%8a%a8%e4%ba%8b%e5%8a%a1"
+                href="#%e4%ba%8b%e5%8a%a1%e7%9a%84%e5%9f%ba%e6%9c%ac%e6%93%8d%e4%bd%9c"
                 class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >启动事务</a>
+              >事务的基本操作</a>
             </li>
           <li>
               <a
-                href="#%e4%bf%9d%e5%ad%98%e7%82%b9"
+                href="#%e4%ba%8b%e5%8a%a1%e7%9a%84%e9%9a%94%e7%a6%bb%e7%ba%a7%e5%88%ab"
                 class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >保存点</a>
+              >事务的隔离级别</a>
             </li>
           <li>
               <a
-                href="#%e5%9b%9e%e6%bb%9a"
+                href="#%e4%ba%8b%e5%8a%a1%e7%9a%84%e4%b8%80%e8%87%b4%e6%80%a7"
                 class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >回滚</a>
+              >事务的一致性</a>
             </li>
           <li>
               <a
-                href="#%e6%8f%90%e4%ba%a4"
+                href="#%e5%a4%9a%e7%89%88%e6%9c%ac%e5%b9%b6%e5%8f%91%e6%8e%a7%e5%88%b6"
                 class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >提交</a>
+              >多版本并发控制</a>
             </li>
           <li>
               <a
-                href="#%e4%b8%ba%e4%bb%80%e4%b9%88%e9%9c%80%e8%a6%81%e9%9a%94%e7%a6%bb%e7%ba%a7%e5%88%ab"
+                href="#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99"
                 class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >为什么需要隔离级别？</a>
-            </li>
-          <li>
-              <a
-                href="#%e4%ba%8b%e5%8a%a1%e9%9a%94%e7%a6%bb%e7%ba%a7%e5%88%ab"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >事务隔离级别</a>
-            </li>
-          <li>
-              <a
-                href="#%e8%ae%be%e7%bd%ae%e9%9a%94%e7%a6%bb%e7%ba%a7%e5%88%ab"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >设置隔离级别</a>
-            </li>
-          <li>
-              <a
-                href="#%e8%af%bb%e6%9c%aa%e6%8f%90%e4%ba%a4"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >读未提交</a>
-            </li>
-          <li>
-              <a
-                href="#%e8%af%bb%e5%b7%b2%e6%8f%90%e4%ba%a4"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >读已提交</a>
-            </li>
-          <li>
-              <a
-                href="#%e5%8f%af%e9%87%8d%e5%a4%8d%e8%af%bb"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >可重复读</a>
-            </li>
-          <li>
-              <a
-                href="#%e4%b8%b2%e8%a1%8c%e5%8c%96"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >串行化</a>
-            </li>
-          <li>
-              <a
-                href="#%e6%80%bb%e7%bb%93"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >总结</a>
-            </li>
-          <li>
-              <a
-                href="#mvcc"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >MVCC</a>
-            </li>
-          <li>
-              <a
-                href="#%e8%ae%b0%e5%bd%95%e7%9a%84%e4%b8%89%e4%b8%aa%e9%9a%90%e8%97%8f%e5%ad%97%e6%ae%b5"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >记录的三个隐藏字段</a>
-            </li>
-          <li>
-              <a
-                href="#undo-%e6%97%a5%e5%bf%97"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >undo 日志</a>
-            </li>
-          <li>
-              <a
-                href="#%e5%bf%ab%e7%85%a7"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >快照</a>
-            </li>
-          <li>
-              <a
-                href="#%e8%af%bb%e8%a7%86%e5%9b%be"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >读视图</a>
-            </li>
-          <li>
-              <a
-                href="#%e8%af%bb%e5%b7%b2%e6%8f%90%e4%ba%a4%e5%92%8c%e5%8f%af%e9%87%8d%e5%a4%8d%e8%af%bb%e7%9a%84%e6%9c%ac%e8%b4%a8%e5%8c%ba%e5%88%ab"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >读已提交和可重复读的本质区别</a>
+              >参考资料</a>
             </li>
           </ul>
   
@@ -510,6 +440,14 @@ Engine： 表示存储引擎的名称。 Support： 表示服务器对存储引�
               
             </li></ul>
       </div>
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/block-chain/"
+    
+  >区块链
+    </a>
+              
             </li><li class="flex flex-col "><a
     class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
       text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
@@ -684,6 +622,14 @@ Engine： 表示存储引擎的名称。 Support： 表示服务器对存储引�
             </li><li class="flex flex-col "><a
     class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
       text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/algorithm/"
+    
+  >算法
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
     href="/blogs/network/"
     
   >计算机网络
@@ -804,229 +750,261 @@ Engine： 表示存储引擎的名称。 Support： 表示服务器对存储引�
 <nav class="hextra-toc order-last hidden w-64 shrink-0 xl:block print:hidden px-4" aria-label="table of contents">
     <div class="hextra-scrollbar sticky top-16 overflow-y-auto pr-4 pt-6 text-sm [hyphens:auto] max-h-[calc(100vh-var(--navbar-height)-env(safe-area-inset-bottom))] ltr:-mr-4 rtl:-ml-4"><p class="mb-4 font-semibold tracking-tight">On this page</p><ul>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%bc%95%e5%85%a5">引入
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%ba%8b%e5%8a%a1%e7%9a%84%e6%a6%82%e5%bf%b5">事务的概念
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%a6%82%e5%bf%b5">概念
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%bc%95%e5%85%a5">引入
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#acid-%e5%b1%9e%e6%80%a7">ACID 属性
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%a6%82%e5%bf%b5">概念
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%ba%8b%e5%8a%a1%e7%9a%84%e6%93%8d%e4%bd%9c">事务的操作
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#acid-%e5%b1%9e%e6%80%a7">ACID 属性
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%bd%bf%e7%94%a8%e5%9c%ba%e6%99%af">使用场景
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%ba%8b%e5%8a%a1%e7%9a%84%e6%93%8d%e4%bd%9c">事务的操作
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e7%a4%ba%e4%be%8b">示例
-        </a>
-      </li></ul><ul></ul><ul></ul><ul>
-      <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%b5%8b%e8%af%95%e8%a1%a8">测试表
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%bd%bf%e7%94%a8%e5%9c%ba%e6%99%af">使用场景
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%90%af%e5%8a%a8%e4%ba%8b%e5%8a%a1">启动事务
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e7%a4%ba%e4%be%8b">示例
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%bf%9d%e5%ad%98%e7%82%b9">保存点
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e7%89%88%e6%9c%ac%e6%94%af%e6%8c%81">版本支持
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%9b%9e%e6%bb%9a">回滚
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%ba%8b%e5%8a%a1%e7%9a%84%e6%8f%90%e4%ba%a4%e6%96%b9%e5%bc%8f">事务的提交方式
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%8f%90%e4%ba%a4">提交
-        </a>
-      </li></ul><ul>
-      <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%b8%ba%e4%bb%80%e4%b9%88%e9%9c%80%e8%a6%81%e9%9a%94%e7%a6%bb%e7%ba%a7%e5%88%ab">为什么需要隔离级别？
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%ba%8b%e5%8a%a1%e7%9a%84%e5%9f%ba%e6%9c%ac%e6%93%8d%e4%bd%9c">事务的基本操作
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%ba%8b%e5%8a%a1%e9%9a%94%e7%a6%bb%e7%ba%a7%e5%88%ab">事务隔离级别
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%b5%8b%e8%af%95%e8%a1%a8">测试表
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e8%ae%be%e7%bd%ae%e9%9a%94%e7%a6%bb%e7%ba%a7%e5%88%ab">设置隔离级别
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%90%af%e5%8a%a8%e4%ba%8b%e5%8a%a1">启动事务
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e8%af%bb%e6%9c%aa%e6%8f%90%e4%ba%a4">读未提交
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%bf%9d%e5%ad%98%e7%82%b9">保存点
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e8%84%8f%e8%af%bbdirty-reads">脏读（Dirty Reads）
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%9b%9e%e6%bb%9a">回滚
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%8f%90%e9%ab%98%e5%b9%b6%e5%8f%91%e6%80%a7">提高并发性
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%8f%90%e4%ba%a4">提交
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%80%a7%e8%83%bd%e6%8f%90%e5%8d%87">性能提升
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%ba%8b%e5%8a%a1%e7%9a%84%e9%9a%94%e7%a6%bb%e7%ba%a7%e5%88%ab">事务的隔离级别
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%ba%94%e7%94%a8%e5%9c%ba%e6%99%af%e7%9a%84%e9%99%90%e5%88%b6">应用场景的限制
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%b8%ba%e4%bb%80%e4%b9%88%e9%9c%80%e8%a6%81%e9%9a%94%e7%a6%bb%e7%ba%a7%e5%88%ab">为什么需要隔离级别？
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%95%b0%e6%8d%ae%e4%b8%8d%e4%b8%80%e8%87%b4%e7%9a%84%e9%a3%8e%e9%99%a9">数据不一致的风险
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%ba%8b%e5%8a%a1%e9%9a%94%e7%a6%bb%e7%ba%a7%e5%88%ab">事务隔离级别
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%bd%bf%e7%94%a8%e5%9c%ba%e6%99%af-1">使用场景
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e8%ae%be%e7%bd%ae%e9%9a%94%e7%a6%bb%e7%ba%a7%e5%88%ab">设置隔离级别
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e8%af%bb%e5%b7%b2%e6%8f%90%e4%ba%a4">读已提交
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e8%af%bb%e6%9c%aa%e6%8f%90%e4%ba%a4">读未提交
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e9%81%bf%e5%85%8d%e8%84%8f%e8%af%bb">避免脏读
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e8%84%8f%e8%af%bbdirty-reads">脏读（Dirty Reads）
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%b8%8d%e5%8f%af%e9%87%8d%e5%a4%8d%e8%af%bb">不可重复读
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%8f%90%e9%ab%98%e5%b9%b6%e5%8f%91%e6%80%a7">提高并发性
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%8f%90%e9%ab%98%e5%b9%b6%e5%8f%91%e6%80%a7-1">提高并发性
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%80%a7%e8%83%bd%e6%8f%90%e5%8d%87">性能提升
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%ae%9e%e7%8e%b0%e6%96%b9%e5%bc%8f">实现方式
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%ba%94%e7%94%a8%e5%9c%ba%e6%99%af%e7%9a%84%e9%99%90%e5%88%b6">应用场景的限制
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e9%80%82%e7%94%a8%e5%9c%ba%e6%99%af">适用场景
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%95%b0%e6%8d%ae%e4%b8%8d%e4%b8%80%e8%87%b4%e7%9a%84%e9%a3%8e%e9%99%a9">数据不一致的风险
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%b9%bb%e8%af%bb%e9%97%ae%e9%a2%98">幻读问题
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%bd%bf%e7%94%a8%e5%9c%ba%e6%99%af-1">使用场景
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%8f%af%e9%87%8d%e5%a4%8d%e8%af%bb">可重复读
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e8%af%bb%e5%b7%b2%e6%8f%90%e4%ba%a4">读已提交
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e8%a7%a3%e5%86%b3%e4%b8%8d%e5%8f%af%e9%87%8d%e5%a4%8d%e8%af%bb">解决不可重复读
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e9%81%bf%e5%85%8d%e8%84%8f%e8%af%bb">避免脏读
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%8f%af%e8%83%bd%e9%81%87%e5%88%b0%e5%b9%bb%e8%af%bb">可能遇到幻读
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%b8%8d%e5%8f%af%e9%87%8d%e5%a4%8d%e8%af%bb">不可重复读
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%a4%9a%e7%89%88%e6%9c%ac%e5%b9%b6%e5%8f%91%e6%8e%a7%e5%88%b6mvcc">多版本并发控制（MVCC）
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%8f%90%e9%ab%98%e5%b9%b6%e5%8f%91%e6%80%a7-1">提高并发性
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%80%a7%e8%83%bd%e5%92%8c%e5%b9%b6%e5%8f%91%e6%80%a7">性能和并发性
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%ae%9e%e7%8e%b0%e6%96%b9%e5%bc%8f">实现方式
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%bd%bf%e7%94%a8%e5%9c%ba%e6%99%af-2">使用场景
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e9%80%82%e7%94%a8%e5%9c%ba%e6%99%af">适用场景
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%b8%b2%e8%a1%8c%e5%8c%96">串行化
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%b9%bb%e8%af%bb%e9%97%ae%e9%a2%98">幻读问题
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%ae%8c%e5%85%a8%e9%81%bf%e5%85%8d%e5%b9%b6%e5%8f%91%e9%97%ae%e9%a2%98">完全避免并发问题
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%8f%af%e9%87%8d%e5%a4%8d%e8%af%bb">可重复读
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%80%a7%e8%83%bd%e5%bd%b1%e5%93%8d">性能影响
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e8%a7%a3%e5%86%b3%e4%b8%8d%e5%8f%af%e9%87%8d%e5%a4%8d%e8%af%bb">解决不可重复读
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e9%94%81%e5%ae%9a%e6%9c%ba%e5%88%b6">锁定机制
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%8f%af%e8%83%bd%e9%81%87%e5%88%b0%e5%b9%bb%e8%af%bb">可能遇到幻读
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%ba%94%e7%94%a8%e5%9c%ba%e6%99%af">应用场景
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%a4%9a%e7%89%88%e6%9c%ac%e5%b9%b6%e5%8f%91%e6%8e%a7%e5%88%b6mvcc">多版本并发控制（MVCC）
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%80%bb%e7%bb%93">总结
-        </a>
-      </li></ul><ul></ul><ul>
-      <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#mvcc">MVCC
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%80%a7%e8%83%bd%e5%92%8c%e5%b9%b6%e5%8f%91%e6%80%a7">性能和并发性
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#mvcc-%e7%9a%84%e5%b7%a5%e4%bd%9c%e5%8e%9f%e7%90%86">MVCC 的工作原理
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%bd%bf%e7%94%a8%e5%9c%ba%e6%99%af-2">使用场景
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#mvcc-%e7%9a%84%e4%bc%98%e7%82%b9">MVCC 的优点
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%b8%b2%e8%a1%8c%e5%8c%96">串行化
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%ba%94%e7%94%a8%e5%9c%ba%e6%99%af-1">应用场景
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%ae%8c%e5%85%a8%e9%81%bf%e5%85%8d%e5%b9%b6%e5%8f%91%e9%97%ae%e9%a2%98">完全避免并发问题
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e8%ae%b0%e5%bd%95%e7%9a%84%e4%b8%89%e4%b8%aa%e9%9a%90%e8%97%8f%e5%ad%97%e6%ae%b5">记录的三个隐藏字段
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%80%a7%e8%83%bd%e5%bd%b1%e5%93%8d">性能影响
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#undo-%e6%97%a5%e5%bf%97">undo 日志
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e9%94%81%e5%ae%9a%e6%9c%ba%e5%88%b6">锁定机制
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%b8%bb%e8%a6%81%e4%bd%9c%e7%94%a8">主要作用
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%ba%94%e7%94%a8%e5%9c%ba%e6%99%af">应用场景
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#undo-%e6%97%a5%e5%bf%97%e7%9a%84%e5%b7%a5%e4%bd%9c%e5%8e%9f%e7%90%86">undo 日志的工作原理
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%80%bb%e7%bb%93">总结
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#undo-%e6%97%a5%e5%bf%97%e7%9a%84%e7%ae%a1%e7%90%86">undo 日志的管理
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%ba%8b%e5%8a%a1%e7%9a%84%e4%b8%80%e8%87%b4%e6%80%a7">事务的一致性
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%bf%ab%e7%85%a7">快照
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%a4%9a%e7%89%88%e6%9c%ac%e5%b9%b6%e5%8f%91%e6%8e%a7%e5%88%b6">多版本并发控制
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%bf%ab%e7%85%a7%e7%9a%84%e5%b7%a5%e4%bd%9c%e5%8e%9f%e7%90%86">快照的工作原理
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#mvcc">MVCC
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%bd%bf%e7%94%a8%e5%9c%ba%e6%99%af-3">使用场景
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#mvcc-%e7%9a%84%e5%b7%a5%e4%bd%9c%e5%8e%9f%e7%90%86">MVCC 的工作原理
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e9%9a%94%e7%a6%bb%e7%ba%a7%e5%88%ab%e5%92%8c%e5%bf%ab%e7%85%a7">隔离级别和快照
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#mvcc-%e7%9a%84%e4%bc%98%e7%82%b9">MVCC 的优点
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e7%a4%ba%e4%be%8b-1">示例
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%ba%94%e7%94%a8%e5%9c%ba%e6%99%af-1">应用场景
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e8%af%bb%e8%a7%86%e5%9b%be">读视图
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e8%ae%b0%e5%bd%95%e7%9a%84%e4%b8%89%e4%b8%aa%e9%9a%90%e8%97%8f%e5%ad%97%e6%ae%b5">记录的三个隐藏字段
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e8%af%bb%e5%b7%b2%e6%8f%90%e4%ba%a4%e5%92%8c%e5%8f%af%e9%87%8d%e5%a4%8d%e8%af%bb%e7%9a%84%e6%9c%ac%e8%b4%a8%e5%8c%ba%e5%88%ab">读已提交和可重复读的本质区别
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#undo-%e6%97%a5%e5%bf%97">undo 日志
         </a>
-      </li></ul><ul></ul>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%b8%bb%e8%a6%81%e4%bd%9c%e7%94%a8">主要作用
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#undo-%e6%97%a5%e5%bf%97%e7%9a%84%e5%b7%a5%e4%bd%9c%e5%8e%9f%e7%90%86">undo 日志的工作原理
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#undo-%e6%97%a5%e5%bf%97%e7%9a%84%e7%ae%a1%e7%90%86">undo 日志的管理
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%bf%ab%e7%85%a7">快照
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%bf%ab%e7%85%a7%e7%9a%84%e5%b7%a5%e4%bd%9c%e5%8e%9f%e7%90%86">快照的工作原理
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%bd%bf%e7%94%a8%e5%9c%ba%e6%99%af-3">使用场景
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e9%9a%94%e7%a6%bb%e7%ba%a7%e5%88%ab%e5%92%8c%e5%bf%ab%e7%85%a7">隔离级别和快照
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e7%a4%ba%e4%be%8b-1">示例
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e8%af%bb%e8%a7%86%e5%9b%be">读视图
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e8%af%bb%e5%b7%b2%e6%8f%90%e4%ba%a4%e5%92%8c%e5%8f%af%e9%87%8d%e5%a4%8d%e8%af%bb%e7%9a%84%e6%9c%ac%e8%b4%a8%e5%8c%ba%e5%88%ab">读已提交和可重复读的本质区别
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99">参考资料
+        </a>
+      </li></ul>
       <div class="mt-8 border-t bg-white pt-8 shadow-[0_-12px_16px_white] dark:bg-dark dark:shadow-[0_-12px_16px_#111] sticky bottom-0 flex flex-col items-start gap-2 pb-8 dark:border-neutral-800 contrast-more:border-t contrast-more:border-neutral-400 contrast-more:shadow-none contrast-more:dark:border-neutral-400">
         <button aria-hidden="true" id="backToTop" onClick="scrollUp();" class="transition-all transition duration-75 opacity-0 text-xs font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 contrast-more:text-gray-800 contrast-more:dark:text-gray-50">
           <span>Scroll to top</span>
@@ -1045,15 +1023,16 @@ Engine： 表示存储引擎的名称。 Support： 表示服务器对存储引�
         <h1 class="text-center mt-2 text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100">事务</h1>
         <div class="mb-16"></div>
         <div class="content">
-          <h1>事务的概念</h1><h2>引入<span class="absolute -mt-20" id="引入"></span>
-    <a href="#%e5%bc%95%e5%85%a5" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>在 A 转账 100 元给 B 的过程中，如果在 A 的账户已经减去了 100 元，B 的账户还未加上 100 元之前断网，那么这 100 元将会凭空消失。对于转账这件事，转出和转入这两件事应该是<strong>绑定</strong>在一起的，任意一个动作出现错误，都会导致双方数据出现异常 。</p>
+          <h2>事务的概念<span class="absolute -mt-20" id="事务的概念"></span>
+    <a href="#%e4%ba%8b%e5%8a%a1%e7%9a%84%e6%a6%82%e5%bf%b5" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>引入<span class="absolute -mt-20" id="引入"></span>
+    <a href="#%e5%bc%95%e5%85%a5" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>在 A 转账 100 元给 B 的过程中，如果在 A 的账户已经减去了 100 元，B 的账户还未加上 100 元之前断网，那么这 100 元将会凭空消失。对于转账这件事，转出和转入这两件事应该是<strong>绑定</strong>在一起的，任意一个动作出现错误，都会导致双方数据出现异常 。</p>
 <p>数据库作为服务端应用，需要接受大量客户端的请求，某些数据可能同时被多个客户端访问。</p>
 <p>为了解决这样的问题，引入了事务。</p>
-<h2>概念<span class="absolute -mt-20" id="概念"></span>
-    <a href="#%e6%a6%82%e5%bf%b5" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>事务（Transaction）是数据库管理系统中执行的一个操作序列单元（由一个或多个 SQL 语句组成），这些操作作为一个整体一起执行，==要么全部成功，要么全部失败==。</p>
+<h3>概念<span class="absolute -mt-20" id="概念"></span>
+    <a href="#%e6%a6%82%e5%bf%b5" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>事务（Transaction）是数据库管理系统中执行的一个操作序列单元（由一个或多个 SQL 语句组成），这些操作作为一个整体一起执行，<mark>要么全部成功，要么全部失败</mark>。</p>
 <p>事务是数据库维护数据一致性的重要机制，尤其是在并发操作环境下。它们遵循 ACID 属性，以确保数据库的完整性和可靠性。</p>
-<h3>ACID 属性<span class="absolute -mt-20" id="acid-属性"></span>
-    <a href="#acid-%e5%b1%9e%e6%80%a7" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ol>
+<h4>ACID 属性<span class="absolute -mt-20" id="acid-属性"></span>
+    <a href="#acid-%e5%b1%9e%e6%80%a7" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><ol>
 <li>
 <p>原子性（Atomicity）：事务中的所有操作都被视为一个单一的单位，要么全部执行，要么全部不执行。这意味着如果事务中的任何操作失败，整个事务都会回滚到开始状态，如同它从未执行过一样。</p>
 </li>
@@ -1067,21 +1046,21 @@ Engine： 表示存储引擎的名称。 Support： 表示服务器对存储引�
 <p>持久性（Durability）：一旦事务成功完成（即提交），其对数据库的更改就是永久性的，即使发生系统故障，更改也不会丢失。</p>
 </li>
 </ol>
-<h3>事务的操作<span class="absolute -mt-20" id="事务的操作"></span>
-    <a href="#%e4%ba%8b%e5%8a%a1%e7%9a%84%e6%93%8d%e4%bd%9c" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
+<h4>事务的操作<span class="absolute -mt-20" id="事务的操作"></span>
+    <a href="#%e4%ba%8b%e5%8a%a1%e7%9a%84%e6%93%8d%e4%bd%9c" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><ul>
 <li>开始事务（BEGIN TRANSACTION）：标志着事务的开始。</li>
 <li>提交事务（COMMIT）：事务中的所有更改都被永久保存到数据库中。</li>
 <li>回滚事务（ROLLBACK）：撤销事务中的所有操作，回到事务开始前的状态。</li>
 </ul>
-<h3>使用场景<span class="absolute -mt-20" id="使用场景"></span>
-    <a href="#%e4%bd%bf%e7%94%a8%e5%9c%ba%e6%99%af" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>事务在很多场景中都非常有用，特别是那些需要多步操作且操作间有依赖关系的场景，例如银行转账（从一个账户扣款并向另一个账户存款）、订单处理系统（更新库存、记录订单详情、更新用户余额）等。</p>
+<h4>使用场景<span class="absolute -mt-20" id="使用场景"></span>
+    <a href="#%e4%bd%bf%e7%94%a8%e5%9c%ba%e6%99%af" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>事务在很多场景中都非常有用，特别是那些需要多步操作且操作间有依赖关系的场景，例如银行转账（从一个账户扣款并向另一个账户存款）、订单处理系统（更新库存、记录订单详情、更新用户余额）等。</p>
 <p>事务不是数据库的天然属性，而是面向业务应运而生。在多用户和并发环境中，事务不仅能维护数据的一致性，处理并发控制，还能进行错误恢复等操作。只要用户开启了事务，那么数据库将会自动执行这些操作，这简化了编程和错误处理。开发者不需要担心每个单独操作的状态和错误管理，只需要关注整个事务的成功或失败，从而提高了数据库系统的可靠性。</p>
 <blockquote>
 <p>面试时回答“什么是事务”时，首先要回答为什么，再回答是什么。</p>
 <p>学习事务不仅要从程序员的角度，还要站在使用者的角度看待才能更好地理解。由逻辑组织的若干 SQL 组成了事务，它们本质上是运行在计算机上的程序，一个数据库中不止一个事务，需要对其描述和组织。因此从原理上依然还是要从数据结构+算法的角度理解它。</p>
 </blockquote>
-<h3>示例<span class="absolute -mt-20" id="示例"></span>
-    <a href="#%e7%a4%ba%e4%be%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>例如上面简单的银行转账操作，需要从账户 A 转移资金到账户 B：</p>
+<h4>示例<span class="absolute -mt-20" id="示例"></span>
+    <a href="#%e7%a4%ba%e4%be%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>例如上面简单的银行转账操作，需要从账户 A 转移资金到账户 B：</p>
 <ol>
 <li><strong>开始事务</strong>。</li>
 <li>从账户 A 扣除相应金额。</li>
@@ -1089,7 +1068,8 @@ Engine： 表示存储引擎的名称。 Support： 表示服务器对存储引�
 <li><strong>如果步骤 2 和 3 都成功执行，则提交事务</strong>；否则，<strong>回滚事务</strong>。</li>
 </ol>
 <p>这个过程确保了转账操作的原子性，一致性，隔离性和持久性，保障了数据库的完整性和准确性。</p>
-<h1>版本支持</h1><p><code>show engines</code>查看数据库引擎：
+<h2>版本支持<span class="absolute -mt-20" id="版本支持"></span>
+    <a href="#%e7%89%88%e6%9c%ac%e6%94%af%e6%8c%81" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p><code>show engines</code>查看数据库引擎：
 <img src="事务.IMG/image-20240226104351842.png" alt="image-20240226104351842" style="zoom:40%;" /></p>
 <p>其中：</p>
 <ul>
@@ -1103,10 +1083,12 @@ Engine： 表示存储引擎的名称。 Support： 表示服务器对存储引�
 <li>Savepoints： 表示存储引擎是否支持保存点。</li>
 </ul>
 <p>在 MySQL 中只有使用了 InnoDB 存储引擎的数据库或表才支持事务。</p>
-<h1>事务的提交方式</h1><p>通过查看全局变量中的<code>autocommit</code>判断：</p>
+<h2>事务的提交方式<span class="absolute -mt-20" id="事务的提交方式"></span>
+    <a href="#%e4%ba%8b%e5%8a%a1%e7%9a%84%e6%8f%90%e4%ba%a4%e6%96%b9%e5%bc%8f" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>通过查看全局变量中的<code>autocommit</code>判断：</p>
 <img src="事务.IMG/image-20240226104912231.png" alt="image-20240226104912231" style="zoom:40%;" />
 <p>通过<code>set autocommit=1 或 0</code>来设置自动提交或手动提交。</p>
-<h1>事务的基本操作</h1><p>事务的基本操作主要包括以下几个方面：</p>
+<h2>事务的基本操作<span class="absolute -mt-20" id="事务的基本操作"></span>
+    <a href="#%e4%ba%8b%e5%8a%a1%e7%9a%84%e5%9f%ba%e6%9c%ac%e6%93%8d%e4%bd%9c" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>事务的基本操作主要包括以下几个方面：</p>
 <ol>
 <li>开始事务（BEGIN TRANSACTION 或 START TRANSACTION）：这标志着事务的开始。从这一点开始，事务中的所有操作要么全部成功提交，要么全部失败回滚，以保证数据的一致性和完整性。</li>
 <li>提交事务（COMMIT）：提交事务意味着事务中的所有操作都已成功完成，并且对数据库所做的所有更改都将被永久保存。一旦事务被提交，这些更改就对其他用户和事务可见。</li>
@@ -1115,9 +1097,16 @@ Engine： 表示存储引擎的名称。 Support： 表示服务器对存储引�
 <li>释放保存点（RELEASE SAVEPOINT）：释放一个先前设置的保存点。一旦释放，你将无法再回滚到这个保存点。这通常用于在确认事务的某个阶段已成功完成后，释放不再需要的保存点资源。</li>
 <li>设置事务特性（如设置隔离级别）：在开始事务时，可以设置一些特性，如事务的隔离级别。隔离级别决定了一个事务所做的更改在被其他事务看到之前需要满足的条件，这直接影响到事务的并发性和系统的整体性能。</li>
 </ol>
-<h2>测试表<span class="absolute -mt-20" id="测试表"></span>
-    <a href="#%e6%b5%8b%e8%af%95%e8%a1%a8" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>为了方便观察实验现象，将隔离级别设置为“读未提交”。</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">set</span><span class="w"> </span><span class="k">global</span><span class="w"> </span><span class="k">transaction</span><span class="w"> </span><span class="k">isolation</span><span class="w"> </span><span class="k">level</span><span class="w"> </span><span class="k">read</span><span class="w"> </span><span class="k">uncommitted</span><span class="p">;</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+<h3>测试表<span class="absolute -mt-20" id="测试表"></span>
+    <a href="#%e6%b5%8b%e8%af%95%e8%a1%a8" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>为了方便观察实验现象，将隔离级别设置为“读未提交”。</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">set</span><span class="w"> </span><span class="k">global</span><span class="w"> </span><span class="k">transaction</span><span class="w"> </span><span class="k">isolation</span><span class="w"> </span><span class="k">level</span><span class="w"> </span><span class="k">read</span><span class="w"> </span><span class="k">uncommitted</span><span class="p">;</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1132,24 +1121,24 @@ Engine： 表示存储引擎的名称。 Support： 表示服务器对存储引�
 <p>创建账户表：</p>
 <img src="事务.IMG/image-20240226123245027.png" alt="image-20240226123245027" style="zoom:40%;" />
 <p>下面的演示将会用两个会话模拟并发情况。</p>
-<h2>启动事务<span class="absolute -mt-20" id="启动事务"></span>
-    <a href="#%e5%90%af%e5%8a%a8%e4%ba%8b%e5%8a%a1" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>使用<code>start transaction</code>或<code>begin</code>启动一个事务。</p>
+<h3>启动事务<span class="absolute -mt-20" id="启动事务"></span>
+    <a href="#%e5%90%af%e5%8a%a8%e4%ba%8b%e5%8a%a1" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>使用<code>start transaction</code>或<code>begin</code>启动一个事务。</p>
 <img src="事务.IMG/image-20240226124456358.png" alt="image-20240226124456358" />
 <p>在右事务查看表中信息，还未插入记录。</p>
 <p>左事务插入记录的同时在右事务查看表内容：</p>
 <img src="事务.IMG/image-20240226124800827.png" alt="image-20240226124800827" style="zoom:40%;" />
 <p>之所以右事务能够实时看到左事务改变了表的内容，是因为隔离级别事先被设置为“读未提交”，即左事务的事务在 commit 之前，右事务也能看到其修改的内容。</p>
-<h2>保存点<span class="absolute -mt-20" id="保存点"></span>
-    <a href="#%e4%bf%9d%e5%ad%98%e7%82%b9" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>使用<code>savepoint point_name</code>创建一个保存点，以用于回滚。</p>
+<h3>保存点<span class="absolute -mt-20" id="保存点"></span>
+    <a href="#%e4%bf%9d%e5%ad%98%e7%82%b9" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>使用<code>savepoint point_name</code>创建一个保存点，以用于回滚。</p>
 <img src="事务.IMG/image-20240226125552226.png" alt="image-20240226125552226" style="zoom:40%;" />
 <p>创建保存点不影响隔离级别。</p>
-<h2>回滚<span class="absolute -mt-20" id="回滚"></span>
-    <a href="#%e5%9b%9e%e6%bb%9a" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>使用<code>rollback to 保存点名</code>回滚到保存点，这样会失去保存点之后的记录。</p>
+<h3>回滚<span class="absolute -mt-20" id="回滚"></span>
+    <a href="#%e5%9b%9e%e6%bb%9a" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>使用<code>rollback to 保存点名</code>回滚到保存点，这样会失去保存点之后的记录。</p>
 <img src="事务.IMG/image-20240226125809193.png" alt="image-20240226125809193" style="zoom:40%;" />
 <p>使用<code>rollback</code>回滚在事务的起点，这样会失去所有记录。</p>
 <img src="事务.IMG/image-20240226125916208.png" alt="image-20240226125916208" style="zoom:40%;" />
-<h2>提交<span class="absolute -mt-20" id="提交"></span>
-    <a href="#%e6%8f%90%e4%ba%a4" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>重新开始一个事务，然后插入两条数据。</p>
+<h3>提交<span class="absolute -mt-20" id="提交"></span>
+    <a href="#%e6%8f%90%e4%ba%a4" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>重新开始一个事务，然后插入两条数据。</p>
 <img src="事务.IMG/image-20240226130424689.png" alt="image-20240226130424689" style="zoom:40%;" />
 <p>当客户端断开连接后（quit），表中内容将被清空。原因是启动了事务却没有提交，在这种情况下 MySQL 会将表回滚到事务启动之前的样子。</p>
 <p>在插入记录后 commit，并尝试回滚和断开连接：</p>
@@ -1161,8 +1150,16 @@ Engine： 表示存储引擎的名称。 Support： 表示服务器对存储引�
 <p>实际上，当<code>autocommit</code>模式开启时（默认设置），普通的 SQL 语句（如<code>INSERT</code>、<code>UPDATE</code>、<code>DELETE</code>等）被视为一个只包含单个操作的事务，并且在执行后会自动提交。这意味着每条这样的 SQL 语句立即被执行，并且它们对数据库所做的更改是永久性的，除非显式地通过事务控制命令（如<code>BEGIN</code>、<code>ROLLBACK</code>）进行管理。</p>
 <p>示例：</p>
 <p>当<code>autocommit</code>开启时：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="k">table_name</span><span class="w"> </span><span class="p">(</span><span class="n">column1</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;value1&#39;</span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 这条 INSERT 语句执行后会立即提交更改。</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="k">table_name</span><span class="w"> </span><span class="p">(</span><span class="n">column1</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;value1&#39;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 这条 INSERT 语句执行后会立即提交更改。</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1174,10 +1171,20 @@ Engine： 表示存储引擎的名称。 Support： 表示服务器对存储引�
 </div>
 <p>从这一点来看，事务的存在确实方便了用户的工作。</p>
 <p>当<code>autocommit</code>关闭时：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SET</span><span class="w"> </span><span class="n">autocommit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SET</span><span class="w"> </span><span class="n">autocommit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="k">table_name</span><span class="w"> </span><span class="p">(</span><span class="n">column1</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;value1&#39;</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 这条 INSERT 语句不会立即提交，需要显式执行 COMMIT 命令。
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">COMMIT</span><span class="p">;</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">COMMIT</span><span class="p">;</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1188,7 +1195,8 @@ Engine： 表示存储引擎的名称。 Support： 表示服务器对存储引�
   </div>
 </div>
 <p>在处理复杂事务或需要确保数据一致性的情况下，可能需要关闭<code>autocommit</code>模式，以手动控制事务的提交和回滚。</p>
-<h1>事务的隔离级别</h1><p>事务的隔离级别是为了解决在并发事务中可能出现的几种问题，同时在隔离性与并发性能之间寻找平衡。事务可能由多条 SQL 语句组成，这意味着它可能会出现中间状态，数据库事务在执行时可能会遇到以下并发问题：</p>
+<h2>事务的隔离级别<span class="absolute -mt-20" id="事务的隔离级别"></span>
+    <a href="#%e4%ba%8b%e5%8a%a1%e7%9a%84%e9%9a%94%e7%a6%bb%e7%ba%a7%e5%88%ab" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>事务的隔离级别是为了解决在并发事务中可能出现的几种问题，同时在隔离性与并发性能之间寻找平衡。事务可能由多条 SQL 语句组成，这意味着它可能会出现中间状态，数据库事务在执行时可能会遇到以下并发问题：</p>
 <ol>
 <li>
 <p>脏读（Dirty Read）：一个事务读取到了另一个事务未提交的数据。如果那个事务回滚，读取到的数据将是不准确的。</p>
@@ -1203,13 +1211,13 @@ Engine： 表示存储引擎的名称。 Support： 表示服务器对存储引�
 <p>丢失修改（Lost Update）：当两个或多个事务读取相同的数据，并基于读取的值更新该数据时，其中一个事务的修改可能会被另一个事务的修改覆盖。</p>
 </li>
 </ol>
-<h2>为什么需要隔离级别？<span class="absolute -mt-20" id="为什么需要隔离级别"></span>
-    <a href="#%e4%b8%ba%e4%bb%80%e4%b9%88%e9%9c%80%e8%a6%81%e9%9a%94%e7%a6%bb%e7%ba%a7%e5%88%ab" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><ul>
+<h3>为什么需要隔离级别？<span class="absolute -mt-20" id="为什么需要隔离级别"></span>
+    <a href="#%e4%b8%ba%e4%bb%80%e4%b9%88%e9%9c%80%e8%a6%81%e9%9a%94%e7%a6%bb%e7%ba%a7%e5%88%ab" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
 <li>性能与准确性的权衡（主要）：较低的隔离级别（如读未提交）可能提高并发性能，但增加了数据不一致的风险。较高的隔离级别（如串行化）提供了更强的数据一致性保证，但可能导致较大的性能开销，因为它们限制了事务的并发执行。</li>
 <li>业务需求：不同的应用和业务场景对数据的准确性和处理速度有不同的要求。选择合适的隔离级别可以确保应用在满足数据一致性要求的同时，还能获得良好的性能表现。</li>
 </ul>
-<h2>事务隔离级别<span class="absolute -mt-20" id="事务隔离级别"></span>
-    <a href="#%e4%ba%8b%e5%8a%a1%e9%9a%94%e7%a6%bb%e7%ba%a7%e5%88%ab" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>为了解决以上问题，SQL 标准定义了四个隔离级别，每个级别都以不同的方式平衡了数据的准确性和访问速度：</p>
+<h3>事务隔离级别<span class="absolute -mt-20" id="事务隔离级别"></span>
+    <a href="#%e4%ba%8b%e5%8a%a1%e9%9a%94%e7%a6%bb%e7%ba%a7%e5%88%ab" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>为了解决以上问题，SQL 标准定义了四个隔离级别，每个级别都以不同的方式平衡了数据的准确性和访问速度：</p>
 <ol>
 <li>
 <p>读未提交（Read Uncommitted）：最低的隔离级别，允许脏读，但可以最大程度地提高并发性。</p>
@@ -1224,8 +1232,8 @@ Engine： 表示存储引擎的名称。 Support： 表示服务器对存储引�
 <p>串行化（Serializable）：最高的隔离级别，通过强制事务串行执行，避免脏读、不可重复读和幻读，但并发性能最低。</p>
 </li>
 </ol>
-<h2>设置隔离级别<span class="absolute -mt-20" id="设置隔离级别"></span>
-    <a href="#%e8%ae%be%e7%bd%ae%e9%9a%94%e7%a6%bb%e7%ba%a7%e5%88%ab" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>通过<code>select @@global.tx_isolation</code>查看全局隔离级别：</p>
+<h3>设置隔离级别<span class="absolute -mt-20" id="设置隔离级别"></span>
+    <a href="#%e8%ae%be%e7%bd%ae%e9%9a%94%e7%a6%bb%e7%ba%a7%e5%88%ab" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>通过<code>select @@global.tx_isolation</code>查看全局隔离级别：</p>
 <img src="事务.IMG/image-20240226133815358.png" alt="image-20240226133815358" style="zoom:40%;" />
 <p>通过<code>set global transaction isolation level 隔离级别</code>设置全局隔离级别。</p>
 <img src="事务.IMG/image-20240226134011027.png" alt="image-20240226134011027" style="zoom:40%;" />
@@ -1235,95 +1243,95 @@ Engine： 表示存储引擎的名称。 Support： 表示服务器对存储引�
 <p>通过<code>set session transaction isolation level 隔离级别</code>设置当前会话隔离级别。</p>
 <img src="事务.IMG/image-20240226134304489.png" alt="image-20240226134304489" style="zoom:40%;" />
 <p>注意会话隔离级别的修改只对此次会话有效，其他会话仍使用全局隔离级别的设置。</p>
-<h2>读未提交<span class="absolute -mt-20" id="读未提交"></span>
-    <a href="#%e8%af%bb%e6%9c%aa%e6%8f%90%e4%ba%a4" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>设置两个会话的隔离级别都为“读未提交”，然后左右会话各自启动一个事务，只要其中一个事务对表内容做修改，其他事务能立即查看修改后的内容。</p>
+<h3>读未提交<span class="absolute -mt-20" id="读未提交"></span>
+    <a href="#%e8%af%bb%e6%9c%aa%e6%8f%90%e4%ba%a4" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>设置两个会话的隔离级别都为“读未提交”，然后左右会话各自启动一个事务，只要其中一个事务对表内容做修改，其他事务能立即查看修改后的内容。</p>
 <img src="事务.IMG/image-20240226141516789.png" alt="image-20240226141516789" style="zoom:40%;" />
 <blockquote>
 <p>如果并未达到类似效果，可以重新连接 MySQL 尝试。</p>
 </blockquote>
 <p>读未提交（Read Uncommitted）是数据库事务的最低隔离级别。在这个隔离级别下，一个事务可以读取另一个事务尚未提交的数据变更。这种行为可能导致几个问题，最主要的是“脏读”（Dirty Reads）。以下是读未提交隔离级别的几个关键特点：</p>
-<h3>脏读（Dirty Reads）<span class="absolute -mt-20" id="脏读dirty-reads"></span>
-    <a href="#%e8%84%8f%e8%af%bbdirty-reads" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
+<h4>脏读（Dirty Reads）<span class="absolute -mt-20" id="脏读dirty-reads"></span>
+    <a href="#%e8%84%8f%e8%af%bbdirty-reads" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><ul>
 <li><strong>定义</strong>：当一个事务能够看到其他并发事务未提交的更改时，就发生了脏读。这意味着，如果那个并发事务回滚（Rollback），读取到的数据就会变成从未存在过的，导致数据不一致的问题。</li>
 <li><strong>例子</strong>：事务 A 修改了一条记录但尚未提交，事务 B 在此时读取了同一记录，若事务 A 回滚，事务 B 读到的数据就是错误的。</li>
 </ul>
-<h3>提高并发性<span class="absolute -mt-20" id="提高并发性"></span>
-    <a href="#%e6%8f%90%e9%ab%98%e5%b9%b6%e5%8f%91%e6%80%a7" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
+<h4>提高并发性<span class="absolute -mt-20" id="提高并发性"></span>
+    <a href="#%e6%8f%90%e9%ab%98%e5%b9%b6%e5%8f%91%e6%80%a7" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><ul>
 <li>由于读未提交级别不会对读取的数据加锁，它允许更高程度的并发操作。这可以在某些高并发的应用场景中减少等待时间和锁争用。</li>
 </ul>
-<h3>性能提升<span class="absolute -mt-20" id="性能提升"></span>
-    <a href="#%e6%80%a7%e8%83%bd%e6%8f%90%e5%8d%87" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
+<h4>性能提升<span class="absolute -mt-20" id="性能提升"></span>
+    <a href="#%e6%80%a7%e8%83%bd%e6%8f%90%e5%8d%87" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><ul>
 <li>在读未提交级别，由于几乎没有锁操作，事务可以快速执行，这在理论上可以提高系统的整体性能。然而，这种性能提升是以牺牲数据的准确性和完整性为代价的。</li>
 </ul>
-<h3>应用场景的限制<span class="absolute -mt-20" id="应用场景的限制"></span>
-    <a href="#%e5%ba%94%e7%94%a8%e5%9c%ba%e6%99%af%e7%9a%84%e9%99%90%e5%88%b6" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
+<h4>应用场景的限制<span class="absolute -mt-20" id="应用场景的限制"></span>
+    <a href="#%e5%ba%94%e7%94%a8%e5%9c%ba%e6%99%af%e7%9a%84%e9%99%90%e5%88%b6" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><ul>
 <li>由于脏读的风险，读未提交级别在需要保证数据一致性和准确性的应用中通常不被推荐。它可能只在对数据一致性要求不高的特定场景下被考虑。</li>
 </ul>
-<h3>数据不一致的风险<span class="absolute -mt-20" id="数据不一致的风险"></span>
-    <a href="#%e6%95%b0%e6%8d%ae%e4%b8%8d%e4%b8%80%e8%87%b4%e7%9a%84%e9%a3%8e%e9%99%a9" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
+<h4>数据不一致的风险<span class="absolute -mt-20" id="数据不一致的风险"></span>
+    <a href="#%e6%95%b0%e6%8d%ae%e4%b8%8d%e4%b8%80%e8%87%b4%e7%9a%84%e9%a3%8e%e9%99%a9" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><ul>
 <li>除了脏读，读未提交隔离级别也可能导致其他数据不一致问题，如不可重复读和幻读，尽管这些问题在更高的隔离级别中更常被讨论。</li>
 </ul>
-<h3>使用场景<span class="absolute -mt-20" id="使用场景-1"></span>
-    <a href="#%e4%bd%bf%e7%94%a8%e5%9c%ba%e6%99%af-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
+<h4>使用场景<span class="absolute -mt-20" id="使用场景-1"></span>
+    <a href="#%e4%bd%bf%e7%94%a8%e5%9c%ba%e6%99%af-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><ul>
 <li>尽管存在上述问题和限制，但在某些特定的应用场景下，如果事务主要执行读操作，且对数据的绝对一致性要求不高，读未提交的隔离级别可以被用来提高性能。例如，实时数据分析和统计，其中数据的最新准确性不是首要关注点。</li>
 </ul>
-<h2>读已提交<span class="absolute -mt-20" id="读已提交"></span>
-    <a href="#%e8%af%bb%e5%b7%b2%e6%8f%90%e4%ba%a4" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>设置两个会话的隔离级别都为“读已提交”，然后左右会话各自启动一个事务，只有事务在修改后 commit，其他事务才能查看修改后的内容。</p>
+<h3>读已提交<span class="absolute -mt-20" id="读已提交"></span>
+    <a href="#%e8%af%bb%e5%b7%b2%e6%8f%90%e4%ba%a4" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>设置两个会话的隔离级别都为“读已提交”，然后左右会话各自启动一个事务，只有事务在修改后 commit，其他事务才能查看修改后的内容。</p>
 <img src="事务.IMG/image-20240226143216694.png" alt="image-20240226143216694" style="zoom:40%;" />
 <p>读已提交（Read Committed）提供了比读未提交（Read Uncommitted）更严格的数据一致性保证。在读已提交隔离级别下，一个事务只能看到其他事务已经提交的更改。这个级别主要用来避免脏读（Dirty Reads），但仍可能遇到不可重复读（Non-repeatable Reads）和幻读（Phantom Reads）的问题。以下是读已提交隔离级别的关键特点：</p>
-<h3>避免脏读<span class="absolute -mt-20" id="避免脏读"></span>
-    <a href="#%e9%81%bf%e5%85%8d%e8%84%8f%e8%af%bb" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
+<h4>避免脏读<span class="absolute -mt-20" id="避免脏读"></span>
+    <a href="#%e9%81%bf%e5%85%8d%e8%84%8f%e8%af%bb" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><ul>
 <li><strong>脏读</strong>是指一个事务读取到另一个事务未提交的数据。在读已提交隔离级别下，事务只能读取到其他事务已经成功提交的更改，从而避免了脏读的发生。</li>
 </ul>
-<h3>不可重复读<span class="absolute -mt-20" id="不可重复读"></span>
-    <a href="#%e4%b8%8d%e5%8f%af%e9%87%8d%e5%a4%8d%e8%af%bb" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
+<h4>不可重复读<span class="absolute -mt-20" id="不可重复读"></span>
+    <a href="#%e4%b8%8d%e5%8f%af%e9%87%8d%e5%a4%8d%e8%af%bb" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><ul>
 <li>在读已提交隔离级别下，一个事务在其执行期间对同一数据集的多次读取可能会看到不同的数据。这是因为其他事务可能在这两次读取之间修改并提交了这些数据，导致所谓的<strong>不可重复读</strong>问题。</li>
 </ul>
 <p>在上面的例子中，一个会话多次相同查询，得到了不同的结果，这就是不可重复读。</p>
-<h3>提高并发性<span class="absolute -mt-20" id="提高并发性-1"></span>
-    <a href="#%e6%8f%90%e9%ab%98%e5%b9%b6%e5%8f%91%e6%80%a7-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
+<h4>提高并发性<span class="absolute -mt-20" id="提高并发性-1"></span>
+    <a href="#%e6%8f%90%e9%ab%98%e5%b9%b6%e5%8f%91%e6%80%a7-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><ul>
 <li>与更高隔离级别（如可重复读和串行化）相比，读已提交提供了更高的并发性。这是因为数据在读取时只被锁定很短的时间，或者使用版本控制机制来避免锁定，从而减少了锁争用。</li>
 </ul>
-<h3>实现方式<span class="absolute -mt-20" id="实现方式"></span>
-    <a href="#%e5%ae%9e%e7%8e%b0%e6%96%b9%e5%bc%8f" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
+<h4>实现方式<span class="absolute -mt-20" id="实现方式"></span>
+    <a href="#%e5%ae%9e%e7%8e%b0%e6%96%b9%e5%bc%8f" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><ul>
 <li>大多数数据库系统提供了两种实现读已提交隔离级别的方式：一种是使用锁定机制，另一种是使用多版本并发控制（MVCC）。MVCC 允许读操作不阻塞写操作，写操作不阻塞读操作，从而进一步提高了并发性。</li>
 </ul>
-<h3>适用场景<span class="absolute -mt-20" id="适用场景"></span>
-    <a href="#%e9%80%82%e7%94%a8%e5%9c%ba%e6%99%af" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
+<h4>适用场景<span class="absolute -mt-20" id="适用场景"></span>
+    <a href="#%e9%80%82%e7%94%a8%e5%9c%ba%e6%99%af" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><ul>
 <li>读已提交是许多数据库系统的默认隔离级别，因为它在保证数据一致性的同时也提供了较好的性能和并发性。它适用于对脏读不能容忍，但可以接受不可重复读的应用场景。</li>
 </ul>
-<h3>幻读问题<span class="absolute -mt-20" id="幻读问题"></span>
-    <a href="#%e5%b9%bb%e8%af%bb%e9%97%ae%e9%a2%98" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
+<h4>幻读问题<span class="absolute -mt-20" id="幻读问题"></span>
+    <a href="#%e5%b9%bb%e8%af%bb%e9%97%ae%e9%a2%98" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><ul>
 <li>尽管读已提交可以避免脏读，但它无法解决幻读问题。幻读是指当一个事务在对表中某些行进行操作时，另一个事务插入或删除了满足操作条件的行，导致第一个事务在再次读取表时看到不一致的结果。</li>
 </ul>
 <p>读已提交隔离级别在很多数据库应用中被广泛使用，因为它为应用提供了合理的平衡点，既保证了一定级别的数据一致性，又保持了良好的系统性能和高并发能力。</p>
-<h2>可重复读<span class="absolute -mt-20" id="可重复读"></span>
-    <a href="#%e5%8f%af%e9%87%8d%e5%a4%8d%e8%af%bb" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>设置两个会话的隔离级别都为“可重复读”，然后左右会话各自启动一个事务，只有当两个事务都 commit 后，才能查看修改后的内容。</p>
+<h3>可重复读<span class="absolute -mt-20" id="可重复读"></span>
+    <a href="#%e5%8f%af%e9%87%8d%e5%a4%8d%e8%af%bb" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>设置两个会话的隔离级别都为“可重复读”，然后左右会话各自启动一个事务，只有当两个事务都 commit 后，才能查看修改后的内容。</p>
 <img src="事务.IMG/image-20240226144056257.png" alt="image-20240226144056257" style="zoom:40%;" />
 <p>可重复读（Repeatable Read）提供比读已提交更强的数据一致性保证。在可重复读隔离级别下，一个事务在其整个执行过程中多次读取同一数据集的结果将保持一致，即使其他事务在这期间提交了更新那些数据的操作。这个级别主要用来解决脏读（Dirty Reads）和不可重复读（Non-repeatable Reads）的问题。以下是可重复读隔离级别的几个关键特点：</p>
-<h3>解决不可重复读<span class="absolute -mt-20" id="解决不可重复读"></span>
-    <a href="#%e8%a7%a3%e5%86%b3%e4%b8%8d%e5%8f%af%e9%87%8d%e5%a4%8d%e8%af%bb" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
+<h4>解决不可重复读<span class="absolute -mt-20" id="解决不可重复读"></span>
+    <a href="#%e8%a7%a3%e5%86%b3%e4%b8%8d%e5%8f%af%e9%87%8d%e5%a4%8d%e8%af%bb" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><ul>
 <li>可重复读隔离级别确保了在一个事务内部，多次读取同一数据集的结果是一致的。这意味着，如果一个事务已经读取了一个数据集，那么在这个事务的剩余部分中，其他事务所做的对这个数据集的更新操作对当前事务是不可见的。</li>
 </ul>
-<h3>可能遇到幻读<span class="absolute -mt-20" id="可能遇到幻读"></span>
-    <a href="#%e5%8f%af%e8%83%bd%e9%81%87%e5%88%b0%e5%b9%bb%e8%af%bb" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
+<h4>可能遇到幻读<span class="absolute -mt-20" id="可能遇到幻读"></span>
+    <a href="#%e5%8f%af%e8%83%bd%e9%81%87%e5%88%b0%e5%b9%bb%e8%af%bb" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><ul>
 <li>尽管可重复读隔离级别可以防止不可重复读，但它可能无法完全解决幻读（Phantom Reads）问题。幻读是指当一个事务重新执行范围查询时，返回了其他事务插入或删除的行。在某些数据库系统中，例如 MySQL 的 InnoDB 存储引擎，可重复读通过使用多版本并发控制（MVCC）机制实际上也能够有效防止幻读。</li>
 </ul>
-<h3>多版本并发控制（MVCC）<span class="absolute -mt-20" id="多版本并发控制mvcc"></span>
-    <a href="#%e5%a4%9a%e7%89%88%e6%9c%ac%e5%b9%b6%e5%8f%91%e6%8e%a7%e5%88%b6mvcc" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
+<h4>多版本并发控制（MVCC）<span class="absolute -mt-20" id="多版本并发控制mvcc"></span>
+    <a href="#%e5%a4%9a%e7%89%88%e6%9c%ac%e5%b9%b6%e5%8f%91%e6%8e%a7%e5%88%b6mvcc" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><ul>
 <li>许多支持可重复读隔离级别的数据库系统使用 MVCC 来实现它。MVCC 通过为每个读取的数据项创建一个快照来保证事务的可重复读特性，从而允许读写操作并发执行而互不干扰，提高了系统的并发性能。</li>
 </ul>
-<h3>性能和并发性<span class="absolute -mt-20" id="性能和并发性"></span>
-    <a href="#%e6%80%a7%e8%83%bd%e5%92%8c%e5%b9%b6%e5%8f%91%e6%80%a7" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
+<h4>性能和并发性<span class="absolute -mt-20" id="性能和并发性"></span>
+    <a href="#%e6%80%a7%e8%83%bd%e5%92%8c%e5%b9%b6%e5%8f%91%e6%80%a7" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><ul>
 <li>相对于串行化（Serializable）隔离级别，可重复读提供了更高的并发性，因为它不需要对读取的数据加锁。然而，它可能比读已提交隔离级别稍微牺牲一些性能，因为需要维护数据的多个版本来支持 MVCC。</li>
 </ul>
-<h3>使用场景<span class="absolute -mt-20" id="使用场景-2"></span>
-    <a href="#%e4%bd%bf%e7%94%a8%e5%9c%ba%e6%99%af-2" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
+<h4>使用场景<span class="absolute -mt-20" id="使用场景-2"></span>
+    <a href="#%e4%bd%bf%e7%94%a8%e5%9c%ba%e6%99%af-2" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><ul>
 <li>可重复读是许多数据库系统的默认隔离级别（例如，MySQL 的 InnoDB 存储引擎），适用于那些需要防止脏读和不可重复读，但又不想因为使用串行化隔离级别而带来的性能开销的应用场景。</li>
 </ul>
 <p>可重复读隔离级别在保证较高数据一致性的同时，尝试平衡性能和并发性。它对于需要在事务中多次读取相同数据，并期望每次读取结果一致的应用非常有用。然而，它不能解决幻读。</p>
-<h2>串行化<span class="absolute -mt-20" id="串行化"></span>
-    <a href="#%e4%b8%b2%e8%a1%8c%e5%8c%96" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>设置两个会话的隔离级别都为“串行化”，然后左右会话各自启动一个事务，尝试同时读或写。</p>
+<h3>串行化<span class="absolute -mt-20" id="串行化"></span>
+    <a href="#%e4%b8%b2%e8%a1%8c%e5%8c%96" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>设置两个会话的隔离级别都为“串行化”，然后左右会话各自启动一个事务，尝试同时读或写。</p>
 <p>当两个事务都尝试读取表中内容时，事务不会被阻塞，可以并发执行。</p>
 <img src="事务.IMG/image-20240226145257363.png" alt="image-20240226145257363" style="zoom:40%;" />
 <p>当任意一个事务尝试写操作，它会被立即阻塞，直到其他所有事务都 commit 后才会被唤醒。</p>
@@ -1331,25 +1339,25 @@ Engine： 表示存储引擎的名称。 Support： 表示服务器对存储引�
 <p>另一个事务 commit。</p>
 <img src="事务.IMG/image-20240226145629332.png" alt="image-20240226145629332" style="zoom:40%;" />
 <p>串行化（Serializable）提供了最严格的事务隔离。在串行化隔离级别下，事务将会被顺序执行，以避免事务之间的干扰，从而防止脏读（Dirty Reads）、不可重复读（Non-repeatable Reads）和幻读（Phantom Reads）。这个级别通过完全串行化事务的执行来确保数据的绝对一致性，模拟了一个用户在任意时刻都是独占数据库的情况。以下是串行化隔离级别的几个关键特点：</p>
-<h3>完全避免并发问题<span class="absolute -mt-20" id="完全避免并发问题"></span>
-    <a href="#%e5%ae%8c%e5%85%a8%e9%81%bf%e5%85%8d%e5%b9%b6%e5%8f%91%e9%97%ae%e9%a2%98" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
+<h4>完全避免并发问题<span class="absolute -mt-20" id="完全避免并发问题"></span>
+    <a href="#%e5%ae%8c%e5%85%a8%e9%81%bf%e5%85%8d%e5%b9%b6%e5%8f%91%e9%97%ae%e9%a2%98" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><ul>
 <li>串行化通过锁定所涉及的数据库表或行（取决于实现细节），确保了一个事务在执行期间，不会与其他事务发生冲突，从而避免了所有的并发问题，包括脏读、不可重复读和幻读。</li>
 </ul>
-<h3>性能影响<span class="absolute -mt-20" id="性能影响"></span>
-    <a href="#%e6%80%a7%e8%83%bd%e5%bd%b1%e5%93%8d" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
+<h4>性能影响<span class="absolute -mt-20" id="性能影响"></span>
+    <a href="#%e6%80%a7%e8%83%bd%e5%bd%b1%e5%93%8d" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><ul>
 <li>由于事务是顺序执行的，串行化隔离级别可能会显著降低数据库的并发性能。在高并发应用中，这可能导致显著的性能瓶颈，因为事务必须等待其他事务完成才能继续执行。</li>
 </ul>
-<h3>锁定机制<span class="absolute -mt-20" id="锁定机制"></span>
-    <a href="#%e9%94%81%e5%ae%9a%e6%9c%ba%e5%88%b6" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
+<h4>锁定机制<span class="absolute -mt-20" id="锁定机制"></span>
+    <a href="#%e9%94%81%e5%ae%9a%e6%9c%ba%e5%88%b6" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><ul>
 <li>实现串行化隔离级别通常依赖于数据库的锁定机制。这可能包括行锁、表锁或更精细的锁定策略，以保证事务的串行执行。不同的数据库管理系统（DBMS）可能采用不同的锁定策略来实现这一隔离级别。</li>
 </ul>
-<h3>应用场景<span class="absolute -mt-20" id="应用场景"></span>
-    <a href="#%e5%ba%94%e7%94%a8%e5%9c%ba%e6%99%af" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
+<h4>应用场景<span class="absolute -mt-20" id="应用场景"></span>
+    <a href="#%e5%ba%94%e7%94%a8%e5%9c%ba%e6%99%af" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><ul>
 <li>串行化隔离级别适用于对数据一致性要求极高的场景，其中任何并发问题都是不可接受的。然而，由于其对系统性能的影响，通常只在绝对必要时才使用。</li>
 </ul>
 <p>串行化隔离级别提供了最强的事务隔离保证，但这也伴随着性能和并发性的牺牲。</p>
-<h2>总结<span class="absolute -mt-20" id="总结"></span>
-    <a href="#%e6%80%bb%e7%bb%93" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><table>
+<h3>总结<span class="absolute -mt-20" id="总结"></span>
+    <a href="#%e6%80%bb%e7%bb%93" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><table>
 <thead>
 <tr>
 <th style="text-align:center">隔离级别</th>
@@ -1390,7 +1398,8 @@ Engine： 表示存储引擎的名称。 Support： 表示服务器对存储引�
 </tr>
 </tbody>
 </table>
-<h1>事务的一致性</h1><p>事务的一致性是指在数据库事务开始之前和完成之后，数据库从一个正确的状态转变到另一个正确的状态的特性。这意味着事务的执行不会破坏数据库数据的完整性和业务规则。</p>
+<h2>事务的一致性<span class="absolute -mt-20" id="事务的一致性"></span>
+    <a href="#%e4%ba%8b%e5%8a%a1%e7%9a%84%e4%b8%80%e8%87%b4%e6%80%a7" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>事务的一致性是指在数据库事务开始之前和完成之后，数据库从一个正确的状态转变到另一个正确的状态的特性。这意味着事务的执行不会破坏数据库数据的完整性和业务规则。</p>
 <ul>
 <li>
 <p>事务执行的结果：在事务开始和结束时，数据库必须处于一致的状态。即使事务中包含了多个操作，这些操作要么全部成功（在此情况下，事务被提交），要么完全不发生（事务回滚），从而保证数据的一致性。</p>
@@ -1413,8 +1422,9 @@ Engine： 表示存储引擎的名称。 Support： 表示服务器对存储引�
 </ul>
 <p>事务的一致性是确保数据库在执行事务操作后仍然保持正确状态的关键特性，它要求事务的执行不能违反数据库的任何完整性约束或<strong>业务规则</strong>。从技术方面，原子性、隔离性和持久性保证了一致性；从业务方面，上层用户是逻辑设计也会影响一致性。</p>
 <p>实际上，在“可重复读”这个隔离级别下，多个事务的 UPDATE，INSERT 和 DELETE 时会出现加锁现象，而 SELECT 不加锁。这是通过（行或表的）读写锁和 MVCC 实现的隔离性。</p>
-<h1>多版本并发控制</h1><h2>MVCC<span class="absolute -mt-20" id="mvcc"></span>
-    <a href="#mvcc" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>多版本并发控制（Multiversion Concurrency Control，MVCC）是一种广泛用于数据库管理系统中的技术，用于提高数据库事务的并发性能，同时保持数据的一致性。MVCC 通过为数据对象保留不同时间点的多个版本来实现，<strong>允许读取操作和写入操作并发执行而互不干扰，从而避免了在读取时对数据进行锁定</strong>（并发读写不加锁）。这种机制特别适用于读多写少的应用场景，可以显著减少等待时间和锁争用，提高系统的整体性能。</p>
+<h2>多版本并发控制<span class="absolute -mt-20" id="多版本并发控制"></span>
+    <a href="#%e5%a4%9a%e7%89%88%e6%9c%ac%e5%b9%b6%e5%8f%91%e6%8e%a7%e5%88%b6" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>MVCC<span class="absolute -mt-20" id="mvcc"></span>
+    <a href="#mvcc" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>多版本并发控制（Multiversion Concurrency Control，MVCC）是一种广泛用于数据库管理系统中的技术，用于提高数据库事务的并发性能，同时保持数据的一致性。MVCC 通过为数据对象保留不同时间点的多个版本来实现，<strong>允许读取操作和写入操作并发执行而互不干扰，从而避免了在读取时对数据进行锁定</strong>（并发读写不加锁）。这种机制特别适用于读多写少的应用场景，可以显著减少等待时间和锁争用，提高系统的整体性能。</p>
 <p>数据库并发的场景无非如下三种：</p>
 <ul>
 <li>读-读并发：不存在任何问题，不需要并发控制。</li>
@@ -1426,8 +1436,8 @@ Engine： 表示存储引擎的名称。 Support： 表示服务器对存储引�
 <li>覆盖丢失（Lost Update）：发生在两个或多个事务试图同时更新同一数据项时。如果没有适当的并发控制机制，一个事务的更新可能会被另一个事务的更新所覆盖，导致第一个事务的更改丢失。</li>
 <li>回滚丢失（Lost Rollback）：它指的是在某些系统中处理回滚操作时可能遇到的问题，其中一个事务的回滚操作意外地撤销了其他事务已经提交的更改。实际上，在现代数据库系统中，更常见的情况是，系统设计应确保一旦事务提交，其更改就是永久性的，不会因为其他事务的回滚而丢失。</li>
 </ul>
-<h3>MVCC 的工作原理<span class="absolute -mt-20" id="mvcc-的工作原理"></span>
-    <a href="#mvcc-%e7%9a%84%e5%b7%a5%e4%bd%9c%e5%8e%9f%e7%90%86" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ol>
+<h4>MVCC 的工作原理<span class="absolute -mt-20" id="mvcc-的工作原理"></span>
+    <a href="#mvcc-%e7%9a%84%e5%b7%a5%e4%bd%9c%e5%8e%9f%e7%90%86" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><ol>
 <li>
 <p>版本控制：每当数据被修改时，MVCC 不是直接覆写旧的数据，而是创建一个新的版本（或快照）。这意味着同一数据项可以有多个版本，每个版本都有一个时间戳或事务 ID。</p>
 </li>
@@ -1444,16 +1454,16 @@ Engine： 表示存储引擎的名称。 Support： 表示服务器对存储引�
 <p>垃圾收集：随着时间的推移，一些旧版本的数据将不再被任何事务所需要，系统可以通过垃圾收集过程来清理这些不再需要的数据版本。</p>
 </li>
 </ol>
-<h3>MVCC 的优点<span class="absolute -mt-20" id="mvcc-的优点"></span>
-    <a href="#mvcc-%e7%9a%84%e4%bc%98%e7%82%b9" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
+<h4>MVCC 的优点<span class="absolute -mt-20" id="mvcc-的优点"></span>
+    <a href="#mvcc-%e7%9a%84%e4%bc%98%e7%82%b9" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><ul>
 <li>提高并发性：<strong>MVCC 允许多个读者和写者同时对数据库进行操作，而不会相互阻塞</strong>，大大提高了并发性能。</li>
 <li>减少锁争用：由于读操作不需要锁定数据，因此减少了锁争用，提高了系统的响应速度和吞吐量。</li>
 <li>支持事务隔离级别：MVCC 能够支持不同的事务隔离级别，包括读已提交（Read Committed）和可重复读（Repeatable Read）等，而不需要显式的锁定机制。</li>
 </ul>
-<h3>应用场景<span class="absolute -mt-20" id="应用场景-1"></span>
-    <a href="#%e5%ba%94%e7%94%a8%e5%9c%ba%e6%99%af-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>MVCC 特别适用于读操作远多于写操作的应用场景，例如在线事务处理（OLTP）系统、Web 应用和报表生成等。通过 MVCC，这些应用可以实现高效的并发访问，同时保持数据的一致性和完整性。</p>
-<h2>记录的三个隐藏字段<span class="absolute -mt-20" id="记录的三个隐藏字段"></span>
-    <a href="#%e8%ae%b0%e5%bd%95%e7%9a%84%e4%b8%89%e4%b8%aa%e9%9a%90%e8%97%8f%e5%ad%97%e6%ae%b5" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>在 MySQL 的 InnoDB 存储引擎中，每条记录（row）都会有一些隐藏的字段，这些字段对于用户是不可见的，但它们对于数据库的内部操作非常重要。这些隐藏字段主要用于支持事务的多版本并发控制（MVCC），以及其他一些内部机制。对于 InnoDB 存储引擎，每条记录通常会包含以下三个隐藏字段：</p>
+<h4>应用场景<span class="absolute -mt-20" id="应用场景-1"></span>
+    <a href="#%e5%ba%94%e7%94%a8%e5%9c%ba%e6%99%af-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>MVCC 特别适用于读操作远多于写操作的应用场景，例如在线事务处理（OLTP）系统、Web 应用和报表生成等。通过 MVCC，这些应用可以实现高效的并发访问，同时保持数据的一致性和完整性。</p>
+<h3>记录的三个隐藏字段<span class="absolute -mt-20" id="记录的三个隐藏字段"></span>
+    <a href="#%e8%ae%b0%e5%bd%95%e7%9a%84%e4%b8%89%e4%b8%aa%e9%9a%90%e8%97%8f%e5%ad%97%e6%ae%b5" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>在 MySQL 的 InnoDB 存储引擎中，每条记录（row）都会有一些隐藏的字段，这些字段对于用户是不可见的，但它们对于数据库的内部操作非常重要。这些隐藏字段主要用于支持事务的多版本并发控制（MVCC），以及其他一些内部机制。对于 InnoDB 存储引擎，每条记录通常会包含以下三个隐藏字段：</p>
 <ol>
 <li>
 <p>DB_TRX_ID：每当记录被修改时，InnoDB 都会在这个隐藏字段中存储一个事务 ID（Transaction ID）。这个事务 ID 代表了最后修改该记录的事务。这个字段是 MVCC 机制的一部分，用于确定在给定事务中哪些更改是可见的。</p>
@@ -1475,8 +1485,8 @@ Engine： 表示存储引擎的名称。 Support： 表示服务器对存储引�
 <li>由于这条记录是新插入的，没有历史版本，所以回滚指针<code>DB_ROLL_PTR</code>的值设置为 null。</li>
 </ul>
 <p>这些隐藏字段是 InnoDB 实现事务隔离级别、MVCC、数据一致性等功能的基础。它们使得 InnoDB 能够有效地管理并发访问，提供高性能的事务处理能力，同时保持数据的一致性和完整性。</p>
-<h2>undo 日志<span class="absolute -mt-20" id="undo-日志"></span>
-    <a href="#undo-%e6%97%a5%e5%bf%97" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>undo 日志是 MySQL 的 InnoDB 存储引擎中用于支持事务回滚（Rollback）和多版本并发控制（MVCC）的一种机制。undo 日志记录了事务发生之前的数据状态，如果一个事务需要被回滚（例如，由于执行错误或显式的 ROLLBACK 语句），数据库可以利用 undo 日志中的信息将数据恢复到事务开始之前的状态。</p>
+<h3>undo 日志<span class="absolute -mt-20" id="undo-日志"></span>
+    <a href="#undo-%e6%97%a5%e5%bf%97" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>undo 日志是 MySQL 的 InnoDB 存储引擎中用于支持事务回滚（Rollback）和多版本并发控制（MVCC）的一种机制。undo 日志记录了事务发生之前的数据状态，如果一个事务需要被回滚（例如，由于执行错误或显式的 ROLLBACK 语句），数据库可以利用 undo 日志中的信息将数据恢复到事务开始之前的状态。</p>
 <p>MySQL 的三大日志：</p>
 <ul>
 <li>redo log：重做日志，由 Innodb 存储引擎层生成。用于 MySQL 崩溃后进行数据恢复，保证数据的持久性。</li>
@@ -1484,8 +1494,8 @@ Engine： 表示存储引擎的名称。 Support： 表示服务器对存储引�
 <li>undo log：回滚日志，由 Innodb 存储引擎层生成。用于对已经执行的操作进行回滚和 MVCC，保证事务的原子性。</li>
 </ul>
 <p>MySQL 会为上述三大日志开辟对应的缓冲区，用于存储日志相关的信息，必要时会将缓冲区中的数据刷新到磁盘。</p>
-<h3>主要作用<span class="absolute -mt-20" id="主要作用"></span>
-    <a href="#%e4%b8%bb%e8%a6%81%e4%bd%9c%e7%94%a8" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ol>
+<h4>主要作用<span class="absolute -mt-20" id="主要作用"></span>
+    <a href="#%e4%b8%bb%e8%a6%81%e4%bd%9c%e7%94%a8" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><ol>
 <li>
 <p>支持事务回滚：当一个事务因为错误或其他原因需要被取消时，undo 日志提供了必要的信息来撤销该事务所做的所有更改，确保数据库的一致性不被破坏。</p>
 </li>
@@ -1493,22 +1503,22 @@ Engine： 表示存储引擎的名称。 Support： 表示服务器对存储引�
 <p>实现 MVCC：在支持 MVCC 的数据库系统中，undo 日志用于存储旧的数据版本。这允许系统为不同的事务提供数据的一致性视图，即使这些数据被其他事务并发修改。通过访问 undo 日志中的旧版本数据，事务可以看到在其启动时刻数据库的一致性状态，从而实现非锁定读取，提高并发性能。</p>
 </li>
 </ol>
-<h3>undo 日志的工作原理<span class="absolute -mt-20" id="undo-日志的工作原理"></span>
-    <a href="#undo-%e6%97%a5%e5%bf%97%e7%9a%84%e5%b7%a5%e4%bd%9c%e5%8e%9f%e7%90%86" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
+<h4>undo 日志的工作原理<span class="absolute -mt-20" id="undo-日志的工作原理"></span>
+    <a href="#undo-%e6%97%a5%e5%bf%97%e7%9a%84%e5%b7%a5%e4%bd%9c%e5%8e%9f%e7%90%86" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><ul>
 <li>当事务对数据库进行修改时（如插入、更新或删除操作），数据库不仅会修改当前数据，还会在 undo 日志中记录修改前的数据状态。</li>
 <li>如果事务成功提交，undo 日志中的数据最终会被清理。但在事务提交之前，undo 日志中的信息必须保留，以便于在需要时进行数据恢复。</li>
 <li>在 MVCC 中，undo 日志中保留的旧版本数据可以被并发执行的其他事务访问，以获取数据的一致性视图。</li>
 </ul>
-<h3>undo 日志的管理<span class="absolute -mt-20" id="undo-日志的管理"></span>
-    <a href="#undo-%e6%97%a5%e5%bf%97%e7%9a%84%e7%ae%a1%e7%90%86" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
+<h4>undo 日志的管理<span class="absolute -mt-20" id="undo-日志的管理"></span>
+    <a href="#undo-%e6%97%a5%e5%bf%97%e7%9a%84%e7%ae%a1%e7%90%86" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><ul>
 <li>undo 日志通常存储在数据库的特定区域或文件中，数据库系统会管理 undo 日志的空间和生命周期，确保 undo 日志的有效利用和及时清理。</li>
 <li>数据库可能会根据 undo 日志的大小和使用情况自动进行优化，如扩展存储空间或回收不再需要的 undo 信息。</li>
 </ul>
-<h2>快照<span class="absolute -mt-20" id="快照"></span>
-    <a href="#%e5%bf%ab%e7%85%a7" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>快照（Snapshot）是 InnoDB 实现高效并发控制（MVCC）的关键机制，通过允许事务访问数据的一致性视图，同时避免了直接的数据锁定，大大提高了数据库的性能和可伸缩性。</p>
+<h3>快照<span class="absolute -mt-20" id="快照"></span>
+    <a href="#%e5%bf%ab%e7%85%a7" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>快照（Snapshot）是 InnoDB 实现高效并发控制（MVCC）的关键机制，通过允许事务访问数据的一致性视图，同时避免了直接的数据锁定，大大提高了数据库的性能和可伸缩性。</p>
 <p>快照并不指代物理的数据副本，而是一种逻辑上的数据视图或状态，允许事务查询到数据库在某一特定时间点的状态，而无需关心在这之后是否有其他事务对数据进行了修改。这种机制使得数据库能够支持高效的并发读写操作，同时保持一致性和隔离性。</p>
-<h3>快照的工作原理<span class="absolute -mt-20" id="快照的工作原理"></span>
-    <a href="#%e5%bf%ab%e7%85%a7%e7%9a%84%e5%b7%a5%e4%bd%9c%e5%8e%9f%e7%90%86" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ol>
+<h4>快照的工作原理<span class="absolute -mt-20" id="快照的工作原理"></span>
+    <a href="#%e5%bf%ab%e7%85%a7%e7%9a%84%e5%b7%a5%e4%bd%9c%e5%8e%9f%e7%90%86" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><ol>
 <li>
 <p>非阻塞读取：快照允许读取操作在不阻塞写入操作的情况下进行，反之亦然。这是通过为每个读取操作提供一个数据库状态的“快照”来实现的，这个状态反映了读取操作开始时的数据状态。</p>
 </li>
@@ -1519,8 +1529,8 @@ Engine： 表示存储引擎的名称。 Support： 表示服务器对存储引�
 <p>隐藏列：InnoDB 为每行数据自动添加几个隐藏的列，用于支持 MVCC，包括事务 ID（表示最后修改该行的事务）和回滚指针（指向该行的旧版本）。这些隐藏列使得 InnoDB 能够根据事务的开始时间决定哪些数据版本对当前事务是可见的。</p>
 </li>
 </ol>
-<h3>使用场景<span class="absolute -mt-20" id="使用场景-3"></span>
-    <a href="#%e4%bd%bf%e7%94%a8%e5%9c%ba%e6%99%af-3" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
+<h4>使用场景<span class="absolute -mt-20" id="使用场景-3"></span>
+    <a href="#%e4%bd%bf%e7%94%a8%e5%9c%ba%e6%99%af-3" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><ul>
 <li>
 <p>一致性非锁定读取（Consistent Non-locking Reads）：在 READ COMMITTED 和 REPEATABLE READ 隔离级别下，快照支持查询在不加锁的情况下读取一致的数据状态。</p>
 </li>
@@ -1528,13 +1538,13 @@ Engine： 表示存储引擎的名称。 Support： 表示服务器对存储引�
 <p>事务回滚：如果事务需要被回滚，快照中保留的数据版本可以用来恢复数据到事务开始前的状态。</p>
 </li>
 </ul>
-<h3>隔离级别和快照<span class="absolute -mt-20" id="隔离级别和快照"></span>
-    <a href="#%e9%9a%94%e7%a6%bb%e7%ba%a7%e5%88%ab%e5%92%8c%e5%bf%ab%e7%85%a7" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
+<h4>隔离级别和快照<span class="absolute -mt-20" id="隔离级别和快照"></span>
+    <a href="#%e9%9a%94%e7%a6%bb%e7%ba%a7%e5%88%ab%e5%92%8c%e5%bf%ab%e7%85%a7" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><ul>
 <li>READ COMMITTED：在这个隔离级别下，每个 SQL 语句都会创建一个新的快照。</li>
 <li>REPEATABLE READ：在 MySQL 的 InnoDB 存储引擎中，默认的隔离级别。在这个级别下，事务开始时创建的快照会被整个事务期间复用，确保了事务中的查询可以重复读取到相同的数据集。</li>
 </ul>
-<h3>示例<span class="absolute -mt-20" id="示例-1"></span>
-    <a href="#%e7%a4%ba%e4%be%8b-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>下文引用自：https://blog.csdn.net/chenlong_cxy/article/details/128919989</p>
+<h4>示例<span class="absolute -mt-20" id="示例-1"></span>
+    <a href="#%e7%a4%ba%e4%be%8b-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>下文引用自：https://blog.csdn.net/chenlong_cxy/article/details/128919989</p>
 <p>现在有一个事务 ID 为 10 的事务，要将刚才插入学生表中的记录的学生姓名改为“李四”：</p>
 <ul>
 <li>因为是要进行写操作，所以需要先给该记录加行锁。</li>
@@ -1596,10 +1606,38 @@ Engine： 表示存储引擎的名称。 Support： 表示服务器对存储引�
 <li>对于新插入的记录来说，没有其他事务会访问它的历史版本，因此新插入的记录在提交后就可以将 undo log 中的版本链清除了。</li>
 <li>因此版本链在 undo log 中可能会存在很长时间，尤其是有其他事务和这个版本链相关联的时候，但这也没有坏处，这说明它是一个热数据。</li>
 </ul>
-<h2>读视图<span class="absolute -mt-20" id="读视图"></span>
-    <a href="#%e8%af%bb%e8%a7%86%e5%9b%be" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>在 InnoDB 存储引擎中，读视图（Read View）是多版本并发控制（MVCC）机制中的一个关键组成部分，用于实现事务的一致性非锁定读取。读视图允许事务看到数据库在特定时间点的一致状态，而忽略在该事务开始之后发生的其他事务所做的更改。这样，即使数据库中的数据在事务执行期间被其他事务修改，当前事务也能保持对数据的一致视图。</p>
+<h3>读视图<span class="absolute -mt-20" id="读视图"></span>
+    <a href="#%e8%af%bb%e8%a7%86%e5%9b%be" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>在 InnoDB 存储引擎中，读视图（Read View）是多版本并发控制（MVCC）机制中的一个关键组成部分，用于实现事务的一致性非锁定读取。读视图允许事务看到数据库在特定时间点的一致状态，而忽略在该事务开始之后发生的其他事务所做的更改。这样，即使数据库中的数据在事务执行期间被其他事务修改，当前事务也能保持对数据的一致视图。</p>
 <p>在 MySQL 的源码中，读视图实现的参数：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">ReadView</span> <span class="p">{</span>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">ReadView</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="c1">// 省略。..
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">private</span><span class="o">:</span>
 </span></span><span class="line"><span class="cl">	<span class="cm">/** 高水位：大于等于这个 ID 的事务均不可见*/</span>
@@ -1622,7 +1660,9 @@ Engine： 表示存储引擎的名称。 Support： 表示服务器对存储引�
 </span></span><span class="line"><span class="cl">	<span class="kt">bool</span> <span class="n">m_closed</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	
 </span></span><span class="line"><span class="cl">	<span class="c1">// 省略。..
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1652,7 +1692,32 @@ Engine： 表示存储引擎的名称。 Support： 表示服务器对存储引�
 </ul>
 <p>注意，快照的事务 ID 不一定是连续的，因为有些事务可能在快照之前就 commit 了。</p>
 <p>源码中策略的部分实现，它将会被事务调用：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">bool</span> <span class="nf">changes_visible</span><span class="p">(</span><span class="n">trx_id_t</span> <span class="n">id</span><span class="p">,</span> <span class="k">const</span> <span class="n">table_name_t</span><span class="o">&amp;</span> <span class="n">name</span><span class="p">)</span> <span class="k">const</span> 
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">bool</span> <span class="nf">changes_visible</span><span class="p">(</span><span class="n">trx_id_t</span> <span class="n">id</span><span class="p">,</span> <span class="k">const</span> <span class="n">table_name_t</span><span class="o">&amp;</span> <span class="n">name</span><span class="p">)</span> <span class="k">const</span> 
 </span></span><span class="line"><span class="cl">	<span class="n">MY_ATTRIBUTE</span><span class="p">((</span><span class="n">warn_unused_result</span><span class="p">))</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="n">ut_ad</span><span class="p">(</span><span class="n">id</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">);</span>
@@ -1672,7 +1737,9 @@ Engine： 表示存储引擎的名称。 Support： 表示服务器对存储引�
 </span></span><span class="line"><span class="cl">	<span class="k">const</span> <span class="n">ids_t</span><span class="o">::</span><span class="n">value_type</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="n">m_ids</span><span class="p">.</span><span class="n">data</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">	<span class="c1">//4、事务 id 位于 m_up_limit_id 和 m_low_limit_id 之间，如果在活跃事务 id 列表中则不可见，如果不在则可见
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">return</span> <span class="p">(</span><span class="o">!</span><span class="n">std</span><span class="o">::</span><span class="n">binary_search</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">p</span> <span class="o">+</span> <span class="n">m_ids</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">id</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1684,8 +1751,8 @@ Engine： 表示存储引擎的名称。 Support： 表示服务器对存储引�
 </div>
 <p>使用该函数时将版本的 DB_TRX_ID 传给参数 id，该函数的作用就是根据 Read View，判断当前事务能否看到这个版本。</p>
 <p>当事务被启动时，Read View 不会被创建；只有当首次 SELECT 时才会创建 Read View 对象。</p>
-<h2>读已提交和可重复读的本质区别<span class="absolute -mt-20" id="读已提交和可重复读的本质区别"></span>
-    <a href="#%e8%af%bb%e5%b7%b2%e6%8f%90%e4%ba%a4%e5%92%8c%e5%8f%af%e9%87%8d%e5%a4%8d%e8%af%bb%e7%9a%84%e6%9c%ac%e8%b4%a8%e5%8c%ba%e5%88%ab" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>本质区别是：Read View 的生成时机不同，造成了快照读的结果的不同。</p>
+<h3>读已提交和可重复读的本质区别<span class="absolute -mt-20" id="读已提交和可重复读的本质区别"></span>
+    <a href="#%e8%af%bb%e5%b7%b2%e6%8f%90%e4%ba%a4%e5%92%8c%e5%8f%af%e9%87%8d%e5%a4%8d%e8%af%bb%e7%9a%84%e6%9c%ac%e8%b4%a8%e5%8c%ba%e5%88%ab" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>本质区别是：Read View 的生成时机不同，造成了快照读的结果的不同。</p>
 <p>在读已提交隔离级别下，<strong>每个 SQL 语句执行时都会生成一个新的快照</strong>。这意味着：</p>
 <ul>
 <li>当事务执行一个查询时，它看到的是执行该查询时刻其他事务已经提交的更改。</li>
@@ -1705,7 +1772,8 @@ Engine： 表示存储引擎的名称。 Support： 表示服务器对存储引�
 <p>实验二：在启动两边的事务后，（注意顺序）直接左事务中修改并提交。然后再右事务中查看表的内容，然而修改后的数据直接被呈现出来了。</p>
 <img src="事务.IMG/image-20240226165650309.png" alt="image-20240226165650309" />
 <p>造成两种方式不一样的直接原因是 SQL 在不同事务中执行的顺序不同，实验一的右事务在数据修改之前访问了表数据，这相当于进行了一次快照读，创建了 Read View；实验二的右事务没有，也就没有快照。由于是可重复读级别，所以要求读取的内容要一致，因此第一次进行快照读的地方决定了该事务后续快照读结果的能力。</p>
-<h1>参考资料</h1><ul>
+<h2>参考资料<span class="absolute -mt-20" id="参考资料"></span>
+    <a href="#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><ul>
 <li>
 <p><a href="https://blog.csdn.net/chenlong_cxy/article/details/128919989" target="_blank" rel="noopener">MySQL 事务管理</a></p>
 </li>

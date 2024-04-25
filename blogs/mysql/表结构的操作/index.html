@@ -15,11 +15,11 @@
   <meta name="description" content="阅读前导：
 一般来说，对表的操作可以分为对表结构和对表内容的操作。
 对表结构的操作，就是用数据定义语言 DDL 来创建、修改或删除表中的对象，比如字段、索引、约束等。常用的命令有 CREATE、ALTER、DROP 等。 对表内容的操作，就是用数据操作语言 DML 来插入、更新或删除表中的记录，比如数据行或列。常用的命令有 INSERT、UPDATE、DELETE 等。 本文介绍对表结构的操作，在学习 MySQL 的数据类型、表的约束以后，再学习表内容的增删查改。
-创建表SQL：
-CREATE TABLE [IF NOT EXISTS] table_name( field1 datatype1 [COMMENT &#39;注释信息&#39;], field2 datatype2 [COMMENT &#39;注释信息&#39;], field3 datatype3 [COMMENT &#39;注释信息&#39;] )[CHARSET=charset_name] [COLLATE=collation_name] [ENGINE=engine_name]; 其中：
+创建表 SQL：
+1 2 3 4 5 CREATE TABLE [IF NOT EXISTS] table_name( field1 datatype1 [COMMENT &#39;注释信息&#39;], field2 datatype2 [COMMENT &#39;注释信息&#39;], field3 datatype3 [COMMENT &#39;注释信息&#39;] )[CHARSET=charset_name] [COLLATE=collation_name] [ENGINE=engine_name]; 其中：
 大写单词表示关键字（使用时可以小写，MySQL 会自动优化合并），[ ] 中代表的是可选项。如果没有指定可选项，就根据配置文件选择。 field 表示列名，datatype 表示列的类型。 CHARSET 用于指定表所采用的编码格式，如果没有指定则以所在数据库的编码格式为准。 COLLATE 用于指定表所采用的校验规则，如果没有指定则以所在数据库的校验规则为准。 ENGINE 用于指定表所采用的存储引擎。 COMMENT 用于对指定列添加注释信息。 例子 不同的存储引擎，创建表时底层的文件类型和数量有所不同。
 例如下面在一个名为table_test_db1这个数据库中分别指定存储引擎为 MyISAM 和 InnoDB 创建了名为table_test1和table_test2的表，并且为它们的列属性分别添加了注释信息：
-mysql&gt; create table table_test1( -&gt; id int comment &#39;用户的 ID&#39; -&gt; )charset=utf8 engine=MyISAM; mysql&gt; create table table_test2( -&gt; name varchar(20) -&gt; )charset=gbk engine=InnoDB; 在/var/lib/mysql/table_test_db1路径下：" />
+1 2 3 4 5 6 7 8 mysql&gt; create table table_test1( -&gt; id int comment &#39;用户的 ID&#39; -&gt; )charset=utf8 engine=MyISAM; mysql&gt; create table table_test2( -&gt; name varchar(20) -&gt; )charset=gbk engine=InnoDB; 在/var/lib/mysql/table_test_db1路径下：" />
   
   
     <link rel="canonical" href="/blogs/mysql/%E8%A1%A8%E7%BB%93%E6%9E%84%E7%9A%84%E6%93%8D%E4%BD%9C/" itemprop="url" />
@@ -31,11 +31,11 @@ mysql&gt; create table table_test1( -&gt; id int comment &#39;用户的 ID&#39; 
 <meta property="og:description" content="阅读前导：
 一般来说，对表的操作可以分为对表结构和对表内容的操作。
 对表结构的操作，就是用数据定义语言 DDL 来创建、修改或删除表中的对象，比如字段、索引、约束等。常用的命令有 CREATE、ALTER、DROP 等。 对表内容的操作，就是用数据操作语言 DML 来插入、更新或删除表中的记录，比如数据行或列。常用的命令有 INSERT、UPDATE、DELETE 等。 本文介绍对表结构的操作，在学习 MySQL 的数据类型、表的约束以后，再学习表内容的增删查改。
-创建表SQL：
-CREATE TABLE [IF NOT EXISTS] table_name( field1 datatype1 [COMMENT &#39;注释信息&#39;], field2 datatype2 [COMMENT &#39;注释信息&#39;], field3 datatype3 [COMMENT &#39;注释信息&#39;] )[CHARSET=charset_name] [COLLATE=collation_name] [ENGINE=engine_name]; 其中：
+创建表 SQL：
+1 2 3 4 5 CREATE TABLE [IF NOT EXISTS] table_name( field1 datatype1 [COMMENT &#39;注释信息&#39;], field2 datatype2 [COMMENT &#39;注释信息&#39;], field3 datatype3 [COMMENT &#39;注释信息&#39;] )[CHARSET=charset_name] [COLLATE=collation_name] [ENGINE=engine_name]; 其中：
 大写单词表示关键字（使用时可以小写，MySQL 会自动优化合并），[ ] 中代表的是可选项。如果没有指定可选项，就根据配置文件选择。 field 表示列名，datatype 表示列的类型。 CHARSET 用于指定表所采用的编码格式，如果没有指定则以所在数据库的编码格式为准。 COLLATE 用于指定表所采用的校验规则，如果没有指定则以所在数据库的校验规则为准。 ENGINE 用于指定表所采用的存储引擎。 COMMENT 用于对指定列添加注释信息。 例子 不同的存储引擎，创建表时底层的文件类型和数量有所不同。
 例如下面在一个名为table_test_db1这个数据库中分别指定存储引擎为 MyISAM 和 InnoDB 创建了名为table_test1和table_test2的表，并且为它们的列属性分别添加了注释信息：
-mysql&gt; create table table_test1( -&gt; id int comment &#39;用户的 ID&#39; -&gt; )charset=utf8 engine=MyISAM; mysql&gt; create table table_test2( -&gt; name varchar(20) -&gt; )charset=gbk engine=InnoDB; 在/var/lib/mysql/table_test_db1路径下：" />
+1 2 3 4 5 6 7 8 mysql&gt; create table table_test1( -&gt; id int comment &#39;用户的 ID&#39; -&gt; )charset=utf8 engine=MyISAM; mysql&gt; create table table_test2( -&gt; name varchar(20) -&gt; )charset=gbk engine=InnoDB; 在/var/lib/mysql/table_test_db1路径下：" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/blogs/mysql/%E8%A1%A8%E7%BB%93%E6%9E%84%E7%9A%84%E6%93%8D%E4%BD%9C/" /><meta property="article:section" content="blogs" />
 
@@ -46,27 +46,27 @@ mysql&gt; create table table_test1( -&gt; id int comment &#39;用户的 ID&#39; 
   <meta itemprop="description" content="阅读前导：
 一般来说，对表的操作可以分为对表结构和对表内容的操作。
 对表结构的操作，就是用数据定义语言 DDL 来创建、修改或删除表中的对象，比如字段、索引、约束等。常用的命令有 CREATE、ALTER、DROP 等。 对表内容的操作，就是用数据操作语言 DML 来插入、更新或删除表中的记录，比如数据行或列。常用的命令有 INSERT、UPDATE、DELETE 等。 本文介绍对表结构的操作，在学习 MySQL 的数据类型、表的约束以后，再学习表内容的增删查改。
-创建表SQL：
-CREATE TABLE [IF NOT EXISTS] table_name( field1 datatype1 [COMMENT &#39;注释信息&#39;], field2 datatype2 [COMMENT &#39;注释信息&#39;], field3 datatype3 [COMMENT &#39;注释信息&#39;] )[CHARSET=charset_name] [COLLATE=collation_name] [ENGINE=engine_name]; 其中：
+创建表 SQL：
+1 2 3 4 5 CREATE TABLE [IF NOT EXISTS] table_name( field1 datatype1 [COMMENT &#39;注释信息&#39;], field2 datatype2 [COMMENT &#39;注释信息&#39;], field3 datatype3 [COMMENT &#39;注释信息&#39;] )[CHARSET=charset_name] [COLLATE=collation_name] [ENGINE=engine_name]; 其中：
 大写单词表示关键字（使用时可以小写，MySQL 会自动优化合并），[ ] 中代表的是可选项。如果没有指定可选项，就根据配置文件选择。 field 表示列名，datatype 表示列的类型。 CHARSET 用于指定表所采用的编码格式，如果没有指定则以所在数据库的编码格式为准。 COLLATE 用于指定表所采用的校验规则，如果没有指定则以所在数据库的校验规则为准。 ENGINE 用于指定表所采用的存储引擎。 COMMENT 用于对指定列添加注释信息。 例子 不同的存储引擎，创建表时底层的文件类型和数量有所不同。
 例如下面在一个名为table_test_db1这个数据库中分别指定存储引擎为 MyISAM 和 InnoDB 创建了名为table_test1和table_test2的表，并且为它们的列属性分别添加了注释信息：
-mysql&gt; create table table_test1( -&gt; id int comment &#39;用户的 ID&#39; -&gt; )charset=utf8 engine=MyISAM; mysql&gt; create table table_test2( -&gt; name varchar(20) -&gt; )charset=gbk engine=InnoDB; 在/var/lib/mysql/table_test_db1路径下：">
-  <meta itemprop="wordCount" content="276"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="表结构的操作">
+1 2 3 4 5 6 7 8 mysql&gt; create table table_test1( -&gt; id int comment &#39;用户的 ID&#39; -&gt; )charset=utf8 engine=MyISAM; mysql&gt; create table table_test2( -&gt; name varchar(20) -&gt; )charset=gbk engine=InnoDB; 在/var/lib/mysql/table_test_db1路径下：">
+  <meta itemprop="wordCount" content="307"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="表结构的操作">
 <meta name="twitter:description" content="阅读前导：
 一般来说，对表的操作可以分为对表结构和对表内容的操作。
 对表结构的操作，就是用数据定义语言 DDL 来创建、修改或删除表中的对象，比如字段、索引、约束等。常用的命令有 CREATE、ALTER、DROP 等。 对表内容的操作，就是用数据操作语言 DML 来插入、更新或删除表中的记录，比如数据行或列。常用的命令有 INSERT、UPDATE、DELETE 等。 本文介绍对表结构的操作，在学习 MySQL 的数据类型、表的约束以后，再学习表内容的增删查改。
-创建表SQL：
-CREATE TABLE [IF NOT EXISTS] table_name( field1 datatype1 [COMMENT &#39;注释信息&#39;], field2 datatype2 [COMMENT &#39;注释信息&#39;], field3 datatype3 [COMMENT &#39;注释信息&#39;] )[CHARSET=charset_name] [COLLATE=collation_name] [ENGINE=engine_name]; 其中：
+创建表 SQL：
+1 2 3 4 5 CREATE TABLE [IF NOT EXISTS] table_name( field1 datatype1 [COMMENT &#39;注释信息&#39;], field2 datatype2 [COMMENT &#39;注释信息&#39;], field3 datatype3 [COMMENT &#39;注释信息&#39;] )[CHARSET=charset_name] [COLLATE=collation_name] [ENGINE=engine_name]; 其中：
 大写单词表示关键字（使用时可以小写，MySQL 会自动优化合并），[ ] 中代表的是可选项。如果没有指定可选项，就根据配置文件选择。 field 表示列名，datatype 表示列的类型。 CHARSET 用于指定表所采用的编码格式，如果没有指定则以所在数据库的编码格式为准。 COLLATE 用于指定表所采用的校验规则，如果没有指定则以所在数据库的校验规则为准。 ENGINE 用于指定表所采用的存储引擎。 COMMENT 用于对指定列添加注释信息。 例子 不同的存储引擎，创建表时底层的文件类型和数量有所不同。
 例如下面在一个名为table_test_db1这个数据库中分别指定存储引擎为 MyISAM 和 InnoDB 创建了名为table_test1和table_test2的表，并且为它们的列属性分别添加了注释信息：
-mysql&gt; create table table_test1( -&gt; id int comment &#39;用户的 ID&#39; -&gt; )charset=utf8 engine=MyISAM; mysql&gt; create table table_test2( -&gt; name varchar(20) -&gt; )charset=gbk engine=InnoDB; 在/var/lib/mysql/table_test_db1路径下：">
+1 2 3 4 5 6 7 8 mysql&gt; create table table_test1( -&gt; id int comment &#39;用户的 ID&#39; -&gt; )charset=utf8 engine=MyISAM; mysql&gt; create table table_test2( -&gt; name varchar(20) -&gt; )charset=gbk engine=InnoDB; 在/var/lib/mysql/table_test_db1路径下：">
 
     <link rel="preload" href="/css/compiled/main.min.5a06ca26e024c4f511f45ee6c33a2a1faefaebe6be8a38d36e100f40a4c59c06.css" as="style" integrity="sha256-WgbKJuAkxPUR9F7mwzoqH6766&#43;a&#43;ijjTbhAPQKTFnAY=" />
     <link href="/css/compiled/main.min.5a06ca26e024c4f511f45ee6c33a2a1faefaebe6be8a38d36e100f40a4c59c06.css" rel="stylesheet" integrity="sha256-WgbKJuAkxPUR9F7mwzoqH6766&#43;a&#43;ijjTbhAPQKTFnAY=" />
 
 
 
-  <link href="/css/custom.min.e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css" rel="stylesheet" integrity="sha256-47DEQpj8HBSa&#43;/TImW&#43;5JCeuQeRkm5NMpJWZG3hSuFU=" />
+  <link href="/css/custom.min.7d43e1fdc41380d9e5d795e4b7ab39cca64e2e8ac32a15c33924c1f0a8cb1df0.css" rel="stylesheet" integrity="sha256-fUPh/cQTgNnl15Xkt6s5zKZOLorDKhXDOSTB8KjLHfA=" />
 
 
 
@@ -120,7 +120,7 @@ mysql&gt; create table table_test1( -&gt; id int comment &#39;用户的 ID&#39; 
             <span class="text-center">About</span>
           </a><a
             title="Contact ↗"
-            href="https://blog.csdn.net/m0_63312733?type=blog"
+            href="https://img-blog.csdnimg.cn/7deb340b1c95414d9dc25a89d1cb1f32.png"
             target="_blank" rel="noreferer"
             class="text-sm contrast-more:text-gray-700 contrast-more:dark:text-gray-100 relative -ml-2 hidden whitespace-nowrap p-2 md:inline-block text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
           >
@@ -211,7 +211,15 @@ mysql&gt; create table table_test1( -&gt; id int comment &#39;用户的 ID&#39; 
       text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
     href="/blogs/cpp/"
     
-  >C/C&#43;&#43;
+  >C&#43;&#43;
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/c/"
+    
+  >C语言
     </a>
               
             </li><li class="flex flex-col open"><a
@@ -257,39 +265,27 @@ mysql&gt; create table table_test1( -&gt; id int comment &#39;用户的 ID&#39; 
   
     <ul class='flex flex-col gap-1 relative before:absolute before:inset-y-1 before:w-px before:bg-gray-200 before:content-[""] dark:before:bg-neutral-800 ltr:pl-3 ltr:before:left-0 rtl:pr-3 rtl:before:right-0 ltr:ml-3 rtl:mr-3'><li>
               <a
-                href="#%e4%be%8b%e5%ad%90"
+                href="#%e5%88%9b%e5%bb%ba%e8%a1%a8"
                 class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >例子</a>
+              >创建表</a>
             </li>
           <li>
               <a
-                href="#%e6%96%b0%e5%a2%9e%e5%88%97%e5%b1%9e%e6%80%a7"
+                href="#%e6%9f%a5%e7%9c%8b%e8%a1%a8%e7%bb%93%e6%9e%84"
                 class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >新增列属性</a>
+              >查看表结构</a>
             </li>
           <li>
               <a
-                href="#%e4%bf%ae%e6%94%b9%e5%88%97%e5%b1%9e%e6%80%a7"
+                href="#%e4%bf%ae%e6%94%b9%e8%a1%a8"
                 class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >修改列属性</a>
+              >修改表</a>
             </li>
           <li>
               <a
-                href="#%e4%bf%ae%e6%94%b9%e5%88%97%e5%90%8d"
+                href="#%e5%88%a0%e9%99%a4%e8%a1%a8"
                 class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >修改列名</a>
-            </li>
-          <li>
-              <a
-                href="#%e4%bf%ae%e6%94%b9%e8%a1%a8%e5%90%8d"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >修改表名</a>
-            </li>
-          <li>
-              <a
-                href="#%e5%88%a0%e9%99%a4%e5%88%97"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >删除列</a>
+              >删除表</a>
             </li>
           </ul>
   
@@ -384,6 +380,14 @@ mysql&gt; create table table_test1( -&gt; id int comment &#39;用户的 ID&#39; 
               
             </li></ul>
       </div>
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/block-chain/"
+    
+  >区块链
+    </a>
+              
             </li><li class="flex flex-col "><a
     class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
       text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
@@ -558,6 +562,14 @@ mysql&gt; create table table_test1( -&gt; id int comment &#39;用户的 ID&#39; 
             </li><li class="flex flex-col "><a
     class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
       text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/algorithm/"
+    
+  >算法
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
     href="/blogs/network/"
     
   >计算机网络
@@ -678,29 +690,45 @@ mysql&gt; create table table_test1( -&gt; id int comment &#39;用户的 ID&#39; 
 <nav class="hextra-toc order-last hidden w-64 shrink-0 xl:block print:hidden px-4" aria-label="table of contents">
     <div class="hextra-scrollbar sticky top-16 overflow-y-auto pr-4 pt-6 text-sm [hyphens:auto] max-h-[calc(100vh-var(--navbar-height)-env(safe-area-inset-bottom))] ltr:-mr-4 rtl:-ml-4"><p class="mb-4 font-semibold tracking-tight">On this page</p><ul>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%be%8b%e5%ad%90">例子
-        </a>
-      </li></ul><ul></ul><ul>
-      <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%96%b0%e5%a2%9e%e5%88%97%e5%b1%9e%e6%80%a7">新增列属性
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%88%9b%e5%bb%ba%e8%a1%a8">创建表
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%bf%ae%e6%94%b9%e5%88%97%e5%b1%9e%e6%80%a7">修改列属性
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%be%8b%e5%ad%90">例子
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%bf%ae%e6%94%b9%e5%88%97%e5%90%8d">修改列名
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%9f%a5%e7%9c%8b%e8%a1%a8%e7%bb%93%e6%9e%84">查看表结构
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%bf%ae%e6%94%b9%e8%a1%a8%e5%90%8d">修改表名
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%bf%ae%e6%94%b9%e8%a1%a8">修改表
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%88%a0%e9%99%a4%e5%88%97">删除列
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%96%b0%e5%a2%9e%e5%88%97%e5%b1%9e%e6%80%a7">新增列属性
         </a>
-      </li></ul><ul></ul>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%bf%ae%e6%94%b9%e5%88%97%e5%b1%9e%e6%80%a7">修改列属性
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%bf%ae%e6%94%b9%e5%88%97%e5%90%8d">修改列名
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%bf%ae%e6%94%b9%e8%a1%a8%e5%90%8d">修改表名
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%88%a0%e9%99%a4%e5%88%97">删除列
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%88%a0%e9%99%a4%e8%a1%a8">删除表
+        </a>
+      </li></ul>
       <div class="mt-8 border-t bg-white pt-8 shadow-[0_-12px_16px_white] dark:bg-dark dark:shadow-[0_-12px_16px_#111] sticky bottom-0 flex flex-col items-start gap-2 pb-8 dark:border-neutral-800 contrast-more:border-t contrast-more:border-neutral-400 contrast-more:shadow-none contrast-more:dark:border-neutral-400">
         <button aria-hidden="true" id="backToTop" onClick="scrollUp();" class="transition-all transition duration-75 opacity-0 text-xs font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 contrast-more:text-gray-800 contrast-more:dark:text-gray-50">
           <span>Scroll to top</span>
@@ -726,12 +754,24 @@ mysql&gt; create table table_test1( -&gt; id int comment &#39;用户的 ID&#39; 
 <li>对表内容的操作，就是用数据操作语言 DML 来插入、更新或删除表中的记录，比如数据行或列。常用的命令有 INSERT、UPDATE、DELETE 等。</li>
 </ul>
 <p>本文介绍对表结构的操作，在学习 MySQL 的数据类型、表的约束以后，再学习表内容的增删查改。</p>
-<h1>创建表</h1><p>SQL：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="p">[</span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="p">]</span><span class="w"> </span><span class="nf">table_name</span><span class="p">(</span><span class="w">
+<h2>创建表<span class="absolute -mt-20" id="创建表"></span>
+    <a href="#%e5%88%9b%e5%bb%ba%e8%a1%a8" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>SQL：</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="p">[</span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="p">]</span><span class="w"> </span><span class="nf">table_name</span><span class="p">(</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">field1</span><span class="w"> </span><span class="n">datatype1</span><span class="w"> </span><span class="p">[</span><span class="n">COMMENT</span><span class="w"> </span><span class="s1">&#39;注释信息&#39;</span><span class="p">],</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">field2</span><span class="w"> </span><span class="n">datatype2</span><span class="w"> </span><span class="p">[</span><span class="n">COMMENT</span><span class="w"> </span><span class="s1">&#39;注释信息&#39;</span><span class="p">],</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">field3</span><span class="w"> </span><span class="n">datatype3</span><span class="w">  </span><span class="p">[</span><span class="n">COMMENT</span><span class="w"> </span><span class="s1">&#39;注释信息&#39;</span><span class="p">]</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">)[</span><span class="kp">CHARSET</span><span class="o">=</span><span class="n">charset_name</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="k">COLLATE</span><span class="o">=</span><span class="n">collation_name</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="kp">ENGINE</span><span class="o">=</span><span class="n">engine_name</span><span class="p">];</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">)[</span><span class="kp">CHARSET</span><span class="o">=</span><span class="n">charset_name</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="k">COLLATE</span><span class="o">=</span><span class="n">collation_name</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="kp">ENGINE</span><span class="o">=</span><span class="n">engine_name</span><span class="p">];</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -750,17 +790,31 @@ mysql&gt; create table table_test1( -&gt; id int comment &#39;用户的 ID&#39; 
 <li>ENGINE 用于指定表所采用的存储引擎。</li>
 <li>COMMENT 用于对指定列添加注释信息。</li>
 </ul>
-<h2>例子<span class="absolute -mt-20" id="例子"></span>
-    <a href="#%e4%be%8b%e5%ad%90" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>不同的存储引擎，创建表时底层的文件类型和数量有所不同。</p>
+<h3>例子<span class="absolute -mt-20" id="例子"></span>
+    <a href="#%e4%be%8b%e5%ad%90" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>不同的存储引擎，创建表时底层的文件类型和数量有所不同。</p>
 <p>例如下面在一个名为<code>table_test_db1</code>这个数据库中分别指定存储引擎为 MyISAM 和 InnoDB 创建了名为<code>table_test1</code>和<code>table_test2</code>的表，并且为它们的列属性分别添加了注释信息：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="nf">table_test1</span><span class="p">(</span><span class="w">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="nf">table_test1</span><span class="p">(</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">comment</span><span class="w"> </span><span class="s1">&#39;用户的 ID&#39;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">)</span><span class="kp">charset</span><span class="o">=</span><span class="n">utf8</span><span class="w"> </span><span class="kp">engine</span><span class="o">=</span><span class="n">MyISAM</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="nf">table_test2</span><span class="p">(</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">)</span><span class="kp">charset</span><span class="o">=</span><span class="n">gbk</span><span class="w"> </span><span class="kp">engine</span><span class="o">=</span><span class="n">InnoDB</span><span class="p">;</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">)</span><span class="kp">charset</span><span class="o">=</span><span class="n">gbk</span><span class="w"> </span><span class="kp">engine</span><span class="o">=</span><span class="n">InnoDB</span><span class="p">;</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -804,8 +858,16 @@ mysql&gt; create table table_test1( -&gt; id int comment &#39;用户的 ID&#39; 
 </ul>
 </li>
 </ul>
-<h1>查看表结构</h1><p>SQL：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="k">desc</span><span class="w"> </span><span class="o">&lt;</span><span class="err">表名</span><span class="o">&gt;</span><span class="p">;</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+<h2>查看表结构<span class="absolute -mt-20" id="查看表结构"></span>
+    <a href="#%e6%9f%a5%e7%9c%8b%e8%a1%a8%e7%bb%93%e6%9e%84" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>SQL：</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="k">desc</span><span class="w"> </span><span class="o">&lt;</span><span class="err">表名</span><span class="o">&gt;</span><span class="p">;</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -827,9 +889,18 @@ mysql&gt; create table table_test1( -&gt; id int comment &#39;用户的 ID&#39; 
 </ul>
 <p>这些属性的具体细节，将会在 MySQL 的数据类型中学习。</p>
 <p>虽然这些 SQL 的关键字标准写法需要大写，但是在使用时可以用小写，这是因为 MySQL 会对用户输入的 SQL 做语法分析和优化，使用</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="k">show</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="o">&lt;</span><span class="err">表名</span><span class="o">&gt;</span><span class="w"> </span><span class="err">\</span><span class="n">G</span><span class="w">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="k">show</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="o">&lt;</span><span class="err">表名</span><span class="o">&gt;</span><span class="w"> </span><span class="err">\</span><span class="n">G</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">show</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="o">&lt;</span><span class="err">数据库名</span><span class="o">&gt;</span><span class="w"> </span><span class="err">\</span><span class="n">G</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">show</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="o">&lt;</span><span class="err">数据库名</span><span class="o">&gt;</span><span class="w"> </span><span class="err">\</span><span class="n">G</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -841,8 +912,22 @@ mysql&gt; create table table_test1( -&gt; id int comment &#39;用户的 ID&#39; 
 </div>
 <p>来查看创建表或数据库格式化后的 SQL：</p>
 <img src="表结构的操作.IMG/image-20231022191947763.png" alt="image-20231022191947763" style="zoom:40%;" />
-<h1>修改表</h1><p>SQL：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">table_name</span><span class="w"> </span><span class="k">ADD</span><span class="w"> </span><span class="err">新增列名</span><span class="w"> </span><span class="err">新增列的属性；</span><span class="w">
+<h2>修改表<span class="absolute -mt-20" id="修改表"></span>
+    <a href="#%e4%bf%ae%e6%94%b9%e8%a1%a8" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>SQL：</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">table_name</span><span class="w"> </span><span class="k">ADD</span><span class="w"> </span><span class="err">新增列名</span><span class="w"> </span><span class="err">新增列的属性；</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">table_name</span><span class="w"> </span><span class="n">MODIFY</span><span class="w"> </span><span class="err">列名</span><span class="w"> </span><span class="err">修改后的列属性；</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
@@ -850,7 +935,9 @@ mysql&gt; create table table_test1( -&gt; id int comment &#39;用户的 ID&#39; 
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">table_name</span><span class="w"> </span><span class="k">RENAME</span><span class="w"> </span><span class="p">[</span><span class="k">TO</span><span class="p">]</span><span class="w"> </span><span class="err">新表名；</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">table_name</span><span class="w"> </span><span class="k">CHANGE</span><span class="w"> </span><span class="err">列名</span><span class="w"> </span><span class="err">新列名</span><span class="w"> </span><span class="err">新列属性；</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">table_name</span><span class="w"> </span><span class="k">CHANGE</span><span class="w"> </span><span class="err">列名</span><span class="w"> </span><span class="err">新列名</span><span class="w"> </span><span class="err">新列属性；</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -860,30 +947,38 @@ mysql&gt; create table table_test1( -&gt; id int comment &#39;用户的 ID&#39; 
     </button>
   </div>
 </div>
-<h2>新增列属性<span class="absolute -mt-20" id="新增列属性"></span>
-    <a href="#%e6%96%b0%e5%a2%9e%e5%88%97%e5%b1%9e%e6%80%a7" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>为刚才创建的<code>table_test1</code>表中增加<code>name</code>和<code>adress</code>列属性：
+<h3>新增列属性<span class="absolute -mt-20" id="新增列属性"></span>
+    <a href="#%e6%96%b0%e5%a2%9e%e5%88%97%e5%b1%9e%e6%80%a7" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>为刚才创建的<code>table_test1</code>表中增加<code>name</code>和<code>adress</code>列属性：
 <img src="表结构的操作.IMG/image-20231022193155544.png" alt="image-20231022193155544" style="zoom:40%;" /></p>
 <p>如果你想让新的一列插入到 name 列之后，只需在 SQL 的最后增加<code>after name</code>；如果要放在第一列，换成<code>not null first</code>。</p>
 <p>插入两条数据：</p>
 <img src="表结构的操作.IMG/image-20231022193705174.png" alt="image-20231022193705174" style="zoom:40%;" />
-<h2>修改列属性<span class="absolute -mt-20" id="修改列属性"></span>
-    <a href="#%e4%bf%ae%e6%94%b9%e5%88%97%e5%b1%9e%e6%80%a7" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>修改列属性，会将这一列的所有数据的属性都修改。</p>
+<h3>修改列属性<span class="absolute -mt-20" id="修改列属性"></span>
+    <a href="#%e4%bf%ae%e6%94%b9%e5%88%97%e5%b1%9e%e6%80%a7" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>修改列属性，会将这一列的所有数据的属性都修改。</p>
 <p>例如修改<code>adress</code>属性为<code>varchar(64)</code>：</p>
 <img src="表结构的操作.IMG/image-20231022194058081.png" alt="image-20231022194058081" style="zoom:40%;" />
 <p>值得注意的是， MySQL 在修改时，会把原来的列定义<strong>替换</strong>为新的列定义，而不是在原有的基础上修改。所以如果想保留原来的 comment 字段，需要再修改时显式定义。</p>
-<h2>修改列名<span class="absolute -mt-20" id="修改列名"></span>
-    <a href="#%e4%bf%ae%e6%94%b9%e5%88%97%e5%90%8d" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>将上表的<code>adress</code>改为<code>home</code>：</p>
+<h3>修改列名<span class="absolute -mt-20" id="修改列名"></span>
+    <a href="#%e4%bf%ae%e6%94%b9%e5%88%97%e5%90%8d" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>将上表的<code>adress</code>改为<code>home</code>：</p>
 <img src="表结构的操作.IMG/image-20231022194646689.png" alt="image-20231022194646689" style="zoom:40%;" />
 <p>由于 MySQL 在修改列属性是是替换而不是直接修改，所以在修改列名时要指定列属性。</p>
-<h2>修改表名<span class="absolute -mt-20" id="修改表名"></span>
-    <a href="#%e4%bf%ae%e6%94%b9%e8%a1%a8%e5%90%8d" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>将<code>table_test1</code>表改为<code>test_table1</code>：</p>
+<h3>修改表名<span class="absolute -mt-20" id="修改表名"></span>
+    <a href="#%e4%bf%ae%e6%94%b9%e8%a1%a8%e5%90%8d" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>将<code>table_test1</code>表改为<code>test_table1</code>：</p>
 <img src="表结构的操作.IMG/image-20231022195008486.png" alt="image-20231022195008486" style="zoom:40%;" />
-<h2>删除列<span class="absolute -mt-20" id="删除列"></span>
-    <a href="#%e5%88%a0%e9%99%a4%e5%88%97" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>将<code>test_table1</code>表中的<code>name</code>列删除：</p>
+<h3>删除列<span class="absolute -mt-20" id="删除列"></span>
+    <a href="#%e5%88%a0%e9%99%a4%e5%88%97" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>将<code>test_table1</code>表中的<code>name</code>列删除：</p>
 <img src="表结构的操作.IMG/image-20231022195328802.png" alt="image-20231022195328802" style="zoom:40%;" />
 <p>删除这一列后，一整列的数据都没有了。除了备份外，MySQL 会记忆之前的所有插入的 SQL，其中包含了数据本身。</p>
-<h1>删除表</h1><p>SQL：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="k">DROP</span><span class="w"> </span><span class="p">[</span><span class="n">TEMPORARY</span><span class="p">]</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="p">[</span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="p">]</span><span class="w"> </span><span class="n">table_name</span><span class="p">;</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+<h2>删除表<span class="absolute -mt-20" id="删除表"></span>
+    <a href="#%e5%88%a0%e9%99%a4%e8%a1%a8" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>SQL：</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="k">DROP</span><span class="w"> </span><span class="p">[</span><span class="n">TEMPORARY</span><span class="p">]</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="p">[</span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="p">]</span><span class="w"> </span><span class="n">table_name</span><span class="p">;</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"

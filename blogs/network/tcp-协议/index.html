@@ -14,7 +14,7 @@
   <title>TCP 协议 – Shawy&#39;s Blog</title>
   <meta name="description" content="[重要] 本文默认读者已经体系地学习过操作系统。
 为了读者能更好地学习 TCP 协议，本文首先简单介绍 TCP 协议（是啥），然后再简述 TCP 的主要内容（干嘛的），最后再阐述 TCP 的各个细节（原理）。
-1. 简介1.1 TCP 协议是什么 与 UDP 不同，TCP（Transmission Control Protocol）则“人如其名”，可以说是对“传输、发送、通信”进行“控制”的“协议”。
+1. 简介 1.1 TCP 协议是什么 与 UDP 不同，TCP（Transmission Control Protocol）则“人如其名”，可以说是对“传输、发送、通信”进行“控制”的“协议”。
 TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控制功能，可以进行丢包时的重发控制，还可以对次序乱掉的分包进行顺序控制。而这些在 UDP 中都没有。此外，TCP 作为一种面向有连接的协议，只有在确认通信对端存在时才会发送数据，从而可以控制通信流量的浪费（由于 UDP 没有连接控制，所以即使对端从一开始就不存在或中途退出网络，数据包还是能够发送出去）。
 在 UDP 中，由应用层划分的数据包在网络中分发的「顺序」取决于网络中的「路由选择」，是难以确定的。
 1.2 TCP 协议的作用 TCP 协议是在不可靠的网络环境中提供可靠的数据传输服务而设计的。它解决了以下几个问题：
@@ -22,8 +22,8 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 1.3 什么是“面向连接” 连接是指各种设备、线路，或网络中进行通信的两个应用程序为了相互传递消息而专有的、虚拟的通信线路，也叫做虚拟电路。
 一旦建立了连接，进行通信的应用程序只使用这个虚拟的通信线路发送和接收数据，就可以保障信息的传输。应用程序可以不用顾虑提供尽职服务的 IP 网络上可能发生的各种问题，依然可以转发数据。TCP 则负责控制连接的建立、断开、保持等管理工作。
 注意，“端对端”中的“端”指的是主机上特定 端 口号对应的进程。
-==面向连接是 TCP 的一种特性，它意味着在数据传输之前，两个通信实体必须建立一个连接==。这个连接是由一系列的握手消息来建立的，它们用于协商连接的参数，如序号、窗口大小和最大报文段长度。面向连接的目的是保证数据的可靠传输，即数据按照正确的顺序、完整性和无差错地到达目的地。面向连接也使得 TCP 能够实现流量控制和拥塞控制，以适应网络的状况。
-2. 简述 TCP2.1 封装和解包 封装：将应用层传来的数据分割成一个个的报文段，每个报文段都有一个序号和一个校验和。TCP 在发送端将报文段封装成 IP 数据报，加上源地址和目的地址，然后通过网络层发送到目的地。 解包：TCP 在接收端将 IP 数据报解封装，提取出报文段，根据序号和校验和来检查报文段的完整性和顺序。如果报文段有损坏或丢失，TCP 会发送重传请求，要求发送端重新发送报文段。如果报文段没有问题，TCP 会将其放入接收缓冲区，并按照序号排序。当接收缓冲区中有一定数量的连续报文段时，TCP 会将它们传递给应用层。根据当前网页内容，这就是 TCP 进行解包和交付的过程。 如何确定缓冲区？" />
+面向连接是 TCP 的一种特性，它意味着在数据传输之前，两个通信实体必须建立一个连接。这个连接是由一系列的握手消息来建立的，它们用于协商连接的参数，如序号、窗口大小和最大报文段长度。面向连接的目的是保证数据的可靠传输，即数据按照正确的顺序、完整性和无差错地到达目的地。面向连接也使得 TCP 能够实现流量控制和拥塞控制，以适应网络的状况。
+2. 简述 TCP 2." />
   
   
     <link rel="canonical" href="/blogs/network/tcp-%E5%8D%8F%E8%AE%AE/" itemprop="url" />
@@ -34,7 +34,7 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 <meta property="og:title" content="TCP 协议" />
 <meta property="og:description" content="[重要] 本文默认读者已经体系地学习过操作系统。
 为了读者能更好地学习 TCP 协议，本文首先简单介绍 TCP 协议（是啥），然后再简述 TCP 的主要内容（干嘛的），最后再阐述 TCP 的各个细节（原理）。
-1. 简介1.1 TCP 协议是什么 与 UDP 不同，TCP（Transmission Control Protocol）则“人如其名”，可以说是对“传输、发送、通信”进行“控制”的“协议”。
+1. 简介 1.1 TCP 协议是什么 与 UDP 不同，TCP（Transmission Control Protocol）则“人如其名”，可以说是对“传输、发送、通信”进行“控制”的“协议”。
 TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控制功能，可以进行丢包时的重发控制，还可以对次序乱掉的分包进行顺序控制。而这些在 UDP 中都没有。此外，TCP 作为一种面向有连接的协议，只有在确认通信对端存在时才会发送数据，从而可以控制通信流量的浪费（由于 UDP 没有连接控制，所以即使对端从一开始就不存在或中途退出网络，数据包还是能够发送出去）。
 在 UDP 中，由应用层划分的数据包在网络中分发的「顺序」取决于网络中的「路由选择」，是难以确定的。
 1.2 TCP 协议的作用 TCP 协议是在不可靠的网络环境中提供可靠的数据传输服务而设计的。它解决了以下几个问题：
@@ -42,8 +42,8 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 1.3 什么是“面向连接” 连接是指各种设备、线路，或网络中进行通信的两个应用程序为了相互传递消息而专有的、虚拟的通信线路，也叫做虚拟电路。
 一旦建立了连接，进行通信的应用程序只使用这个虚拟的通信线路发送和接收数据，就可以保障信息的传输。应用程序可以不用顾虑提供尽职服务的 IP 网络上可能发生的各种问题，依然可以转发数据。TCP 则负责控制连接的建立、断开、保持等管理工作。
 注意，“端对端”中的“端”指的是主机上特定 端 口号对应的进程。
-==面向连接是 TCP 的一种特性，它意味着在数据传输之前，两个通信实体必须建立一个连接==。这个连接是由一系列的握手消息来建立的，它们用于协商连接的参数，如序号、窗口大小和最大报文段长度。面向连接的目的是保证数据的可靠传输，即数据按照正确的顺序、完整性和无差错地到达目的地。面向连接也使得 TCP 能够实现流量控制和拥塞控制，以适应网络的状况。
-2. 简述 TCP2.1 封装和解包 封装：将应用层传来的数据分割成一个个的报文段，每个报文段都有一个序号和一个校验和。TCP 在发送端将报文段封装成 IP 数据报，加上源地址和目的地址，然后通过网络层发送到目的地。 解包：TCP 在接收端将 IP 数据报解封装，提取出报文段，根据序号和校验和来检查报文段的完整性和顺序。如果报文段有损坏或丢失，TCP 会发送重传请求，要求发送端重新发送报文段。如果报文段没有问题，TCP 会将其放入接收缓冲区，并按照序号排序。当接收缓冲区中有一定数量的连续报文段时，TCP 会将它们传递给应用层。根据当前网页内容，这就是 TCP 进行解包和交付的过程。 如何确定缓冲区？" />
+面向连接是 TCP 的一种特性，它意味着在数据传输之前，两个通信实体必须建立一个连接。这个连接是由一系列的握手消息来建立的，它们用于协商连接的参数，如序号、窗口大小和最大报文段长度。面向连接的目的是保证数据的可靠传输，即数据按照正确的顺序、完整性和无差错地到达目的地。面向连接也使得 TCP 能够实现流量控制和拥塞控制，以适应网络的状况。
+2. 简述 TCP 2." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/blogs/network/tcp-%E5%8D%8F%E8%AE%AE/" /><meta property="article:section" content="blogs" />
 
@@ -53,7 +53,7 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
   <meta itemprop="name" content="TCP 协议">
   <meta itemprop="description" content="[重要] 本文默认读者已经体系地学习过操作系统。
 为了读者能更好地学习 TCP 协议，本文首先简单介绍 TCP 协议（是啥），然后再简述 TCP 的主要内容（干嘛的），最后再阐述 TCP 的各个细节（原理）。
-1. 简介1.1 TCP 协议是什么 与 UDP 不同，TCP（Transmission Control Protocol）则“人如其名”，可以说是对“传输、发送、通信”进行“控制”的“协议”。
+1. 简介 1.1 TCP 协议是什么 与 UDP 不同，TCP（Transmission Control Protocol）则“人如其名”，可以说是对“传输、发送、通信”进行“控制”的“协议”。
 TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控制功能，可以进行丢包时的重发控制，还可以对次序乱掉的分包进行顺序控制。而这些在 UDP 中都没有。此外，TCP 作为一种面向有连接的协议，只有在确认通信对端存在时才会发送数据，从而可以控制通信流量的浪费（由于 UDP 没有连接控制，所以即使对端从一开始就不存在或中途退出网络，数据包还是能够发送出去）。
 在 UDP 中，由应用层划分的数据包在网络中分发的「顺序」取决于网络中的「路由选择」，是难以确定的。
 1.2 TCP 协议的作用 TCP 协议是在不可靠的网络环境中提供可靠的数据传输服务而设计的。它解决了以下几个问题：
@@ -61,12 +61,12 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 1.3 什么是“面向连接” 连接是指各种设备、线路，或网络中进行通信的两个应用程序为了相互传递消息而专有的、虚拟的通信线路，也叫做虚拟电路。
 一旦建立了连接，进行通信的应用程序只使用这个虚拟的通信线路发送和接收数据，就可以保障信息的传输。应用程序可以不用顾虑提供尽职服务的 IP 网络上可能发生的各种问题，依然可以转发数据。TCP 则负责控制连接的建立、断开、保持等管理工作。
 注意，“端对端”中的“端”指的是主机上特定 端 口号对应的进程。
-==面向连接是 TCP 的一种特性，它意味着在数据传输之前，两个通信实体必须建立一个连接==。这个连接是由一系列的握手消息来建立的，它们用于协商连接的参数，如序号、窗口大小和最大报文段长度。面向连接的目的是保证数据的可靠传输，即数据按照正确的顺序、完整性和无差错地到达目的地。面向连接也使得 TCP 能够实现流量控制和拥塞控制，以适应网络的状况。
-2. 简述 TCP2.1 封装和解包 封装：将应用层传来的数据分割成一个个的报文段，每个报文段都有一个序号和一个校验和。TCP 在发送端将报文段封装成 IP 数据报，加上源地址和目的地址，然后通过网络层发送到目的地。 解包：TCP 在接收端将 IP 数据报解封装，提取出报文段，根据序号和校验和来检查报文段的完整性和顺序。如果报文段有损坏或丢失，TCP 会发送重传请求，要求发送端重新发送报文段。如果报文段没有问题，TCP 会将其放入接收缓冲区，并按照序号排序。当接收缓冲区中有一定数量的连续报文段时，TCP 会将它们传递给应用层。根据当前网页内容，这就是 TCP 进行解包和交付的过程。 如何确定缓冲区？">
-  <meta itemprop="wordCount" content="3701"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="TCP 协议">
+面向连接是 TCP 的一种特性，它意味着在数据传输之前，两个通信实体必须建立一个连接。这个连接是由一系列的握手消息来建立的，它们用于协商连接的参数，如序号、窗口大小和最大报文段长度。面向连接的目的是保证数据的可靠传输，即数据按照正确的顺序、完整性和无差错地到达目的地。面向连接也使得 TCP 能够实现流量控制和拥塞控制，以适应网络的状况。
+2. 简述 TCP 2.">
+  <meta itemprop="wordCount" content="3861"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="TCP 协议">
 <meta name="twitter:description" content="[重要] 本文默认读者已经体系地学习过操作系统。
 为了读者能更好地学习 TCP 协议，本文首先简单介绍 TCP 协议（是啥），然后再简述 TCP 的主要内容（干嘛的），最后再阐述 TCP 的各个细节（原理）。
-1. 简介1.1 TCP 协议是什么 与 UDP 不同，TCP（Transmission Control Protocol）则“人如其名”，可以说是对“传输、发送、通信”进行“控制”的“协议”。
+1. 简介 1.1 TCP 协议是什么 与 UDP 不同，TCP（Transmission Control Protocol）则“人如其名”，可以说是对“传输、发送、通信”进行“控制”的“协议”。
 TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控制功能，可以进行丢包时的重发控制，还可以对次序乱掉的分包进行顺序控制。而这些在 UDP 中都没有。此外，TCP 作为一种面向有连接的协议，只有在确认通信对端存在时才会发送数据，从而可以控制通信流量的浪费（由于 UDP 没有连接控制，所以即使对端从一开始就不存在或中途退出网络，数据包还是能够发送出去）。
 在 UDP 中，由应用层划分的数据包在网络中分发的「顺序」取决于网络中的「路由选择」，是难以确定的。
 1.2 TCP 协议的作用 TCP 协议是在不可靠的网络环境中提供可靠的数据传输服务而设计的。它解决了以下几个问题：
@@ -74,15 +74,15 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 1.3 什么是“面向连接” 连接是指各种设备、线路，或网络中进行通信的两个应用程序为了相互传递消息而专有的、虚拟的通信线路，也叫做虚拟电路。
 一旦建立了连接，进行通信的应用程序只使用这个虚拟的通信线路发送和接收数据，就可以保障信息的传输。应用程序可以不用顾虑提供尽职服务的 IP 网络上可能发生的各种问题，依然可以转发数据。TCP 则负责控制连接的建立、断开、保持等管理工作。
 注意，“端对端”中的“端”指的是主机上特定 端 口号对应的进程。
-==面向连接是 TCP 的一种特性，它意味着在数据传输之前，两个通信实体必须建立一个连接==。这个连接是由一系列的握手消息来建立的，它们用于协商连接的参数，如序号、窗口大小和最大报文段长度。面向连接的目的是保证数据的可靠传输，即数据按照正确的顺序、完整性和无差错地到达目的地。面向连接也使得 TCP 能够实现流量控制和拥塞控制，以适应网络的状况。
-2. 简述 TCP2.1 封装和解包 封装：将应用层传来的数据分割成一个个的报文段，每个报文段都有一个序号和一个校验和。TCP 在发送端将报文段封装成 IP 数据报，加上源地址和目的地址，然后通过网络层发送到目的地。 解包：TCP 在接收端将 IP 数据报解封装，提取出报文段，根据序号和校验和来检查报文段的完整性和顺序。如果报文段有损坏或丢失，TCP 会发送重传请求，要求发送端重新发送报文段。如果报文段没有问题，TCP 会将其放入接收缓冲区，并按照序号排序。当接收缓冲区中有一定数量的连续报文段时，TCP 会将它们传递给应用层。根据当前网页内容，这就是 TCP 进行解包和交付的过程。 如何确定缓冲区？">
+面向连接是 TCP 的一种特性，它意味着在数据传输之前，两个通信实体必须建立一个连接。这个连接是由一系列的握手消息来建立的，它们用于协商连接的参数，如序号、窗口大小和最大报文段长度。面向连接的目的是保证数据的可靠传输，即数据按照正确的顺序、完整性和无差错地到达目的地。面向连接也使得 TCP 能够实现流量控制和拥塞控制，以适应网络的状况。
+2. 简述 TCP 2.">
 
     <link rel="preload" href="/css/compiled/main.min.5a06ca26e024c4f511f45ee6c33a2a1faefaebe6be8a38d36e100f40a4c59c06.css" as="style" integrity="sha256-WgbKJuAkxPUR9F7mwzoqH6766&#43;a&#43;ijjTbhAPQKTFnAY=" />
     <link href="/css/compiled/main.min.5a06ca26e024c4f511f45ee6c33a2a1faefaebe6be8a38d36e100f40a4c59c06.css" rel="stylesheet" integrity="sha256-WgbKJuAkxPUR9F7mwzoqH6766&#43;a&#43;ijjTbhAPQKTFnAY=" />
 
 
 
-  <link href="/css/custom.min.e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css" rel="stylesheet" integrity="sha256-47DEQpj8HBSa&#43;/TImW&#43;5JCeuQeRkm5NMpJWZG3hSuFU=" />
+  <link href="/css/custom.min.7d43e1fdc41380d9e5d795e4b7ab39cca64e2e8ac32a15c33924c1f0a8cb1df0.css" rel="stylesheet" integrity="sha256-fUPh/cQTgNnl15Xkt6s5zKZOLorDKhXDOSTB8KjLHfA=" />
 
 
 
@@ -136,7 +136,7 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
             <span class="text-center">About</span>
           </a><a
             title="Contact ↗"
-            href="https://blog.csdn.net/m0_63312733?type=blog"
+            href="https://img-blog.csdnimg.cn/7deb340b1c95414d9dc25a89d1cb1f32.png"
             target="_blank" rel="noreferer"
             class="text-sm contrast-more:text-gray-700 contrast-more:dark:text-gray-100 relative -ml-2 hidden whitespace-nowrap p-2 md:inline-block text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
           >
@@ -227,7 +227,15 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
       text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
     href="/blogs/cpp/"
     
-  >C/C&#43;&#43;
+  >C&#43;&#43;
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/c/"
+    
+  >C语言
     </a>
               
             </li><li class="flex flex-col "><a
@@ -361,6 +369,14 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
               
             </li></ul>
       </div>
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/block-chain/"
+    
+  >区块链
+    </a>
+              
             </li><li class="flex flex-col "><a
     class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
       text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
@@ -532,6 +548,14 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
   >数据结构与算法
     </a>
               
+            </li><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
+    href="/blogs/algorithm/"
+    
+  >算法
+    </a>
+              
             </li><li class="flex flex-col open"><a
     class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
       text-gray-500 hover:bg-gray-100 hover:text-gray-900 contrast-more:border contrast-more:border-transparent contrast-more:text-gray-900 contrast-more:hover:border-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:dark:text-gray-50 contrast-more:dark:hover:border-gray-50"
@@ -615,141 +639,33 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
   
     <ul class='flex flex-col gap-1 relative before:absolute before:inset-y-1 before:w-px before:bg-gray-200 before:content-[""] dark:before:bg-neutral-800 ltr:pl-3 ltr:before:left-0 rtl:pr-3 rtl:before:right-0 ltr:ml-3 rtl:mr-3'><li>
               <a
-                href="#11-tcp-%e5%8d%8f%e8%ae%ae%e6%98%af%e4%bb%80%e4%b9%88"
+                href="#1-%e7%ae%80%e4%bb%8b"
                 class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >1.1 TCP 协议是什么</a>
+              >1. 简介</a>
             </li>
           <li>
               <a
-                href="#12-tcp-%e5%8d%8f%e8%ae%ae%e7%9a%84%e4%bd%9c%e7%94%a8"
+                href="#2-%e7%ae%80%e8%bf%b0-tcp"
                 class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >1.2 TCP 协议的作用</a>
+              >2. 简述 TCP</a>
             </li>
           <li>
               <a
-                href="#13-%e4%bb%80%e4%b9%88%e6%98%af%e9%9d%a2%e5%90%91%e8%bf%9e%e6%8e%a5"
+                href="#3-%e8%af%a6%e8%bf%b0-tcp"
                 class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >1.3 什么是“面向连接”</a>
+              >3. 详述 TCP</a>
             </li>
           <li>
               <a
-                href="#21-%e5%b0%81%e8%a3%85%e5%92%8c%e8%a7%a3%e5%8c%85"
+                href="#4-tcp-%e5%b0%8f%e7%bb%93"
                 class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >2.1 封装和解包</a>
+              >4. TCP 小结</a>
             </li>
           <li>
               <a
-                href="#22-tcp-%e6%8a%a5%e6%96%87%e6%a0%bc%e5%bc%8f"
+                href="#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99"
                 class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >2.2 TCP 报文格式</a>
-            </li>
-          <li>
-              <a
-                href="#23-%e4%bb%80%e4%b9%88%e6%98%af%e9%9d%a2%e5%90%91%e5%ad%97%e8%8a%82%e6%b5%81"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >2.3 什么是“面向字节流”</a>
-            </li>
-          <li>
-              <a
-                href="#24-%e9%80%9a%e8%bf%87-ack-%e6%9c%ba%e5%88%b6%e5%ae%9e%e7%8e%b0%e4%b8%80%e5%ae%9a%e5%8f%af%e9%9d%a0%e6%80%a7"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >2.4 通过 ACK 机制实现一定可靠性</a>
-            </li>
-          <li>
-              <a
-                href="#31-%e5%9f%ba%e6%9c%ac%e8%ae%a4%e8%af%86"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >3.1 基本认识</a>
-            </li>
-          <li>
-              <a
-                href="#32-%e8%bf%9e%e6%8e%a5%e7%9a%84%e5%bb%ba%e7%ab%8b"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >3.2 连接的建立</a>
-            </li>
-          <li>
-              <a
-                href="#33-%e9%87%8d%e4%bc%a0%e6%9c%ba%e5%88%b6"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >3.3 重传机制</a>
-            </li>
-          <li>
-              <a
-                href="#34-%e8%bf%9e%e6%8e%a5%e7%9a%84%e6%96%ad%e5%bc%80"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >3.4 连接的断开</a>
-            </li>
-          <li>
-              <a
-                href="#35-%e6%b5%81%e9%87%8f%e6%8e%a7%e5%88%b6"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >3.5 流量控制</a>
-            </li>
-          <li>
-              <a
-                href="#36-%e6%8b%a5%e5%a1%9e%e6%8e%a7%e5%88%b6"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >3.6 拥塞控制</a>
-            </li>
-          <li>
-              <a
-                href="#37-%e5%bb%b6%e8%bf%9f%e5%ba%94%e7%ad%94"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >3.7 延迟应答</a>
-            </li>
-          <li>
-              <a
-                href="#38-%e6%8d%8e%e5%b8%a6%e5%ba%94%e7%ad%94"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >3.8 捎带应答</a>
-            </li>
-          <li>
-              <a
-                href="#39-%e9%9d%a2%e5%90%91%e5%ad%97%e8%8a%82%e6%b5%81"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >3.9 面向字节流</a>
-            </li>
-          <li>
-              <a
-                href="#310-%e7%b2%98%e5%8c%85%e9%97%ae%e9%a2%98"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >3.10 粘包问题</a>
-            </li>
-          <li>
-              <a
-                href="#311-tcp-%e5%bc%82%e5%b8%b8%e6%83%85%e5%86%b5"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >3.11 TCP 异常情况</a>
-            </li>
-          <li>
-              <a
-                href="#%e5%b0%8f%e7%bb%93-1"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >小结</a>
-            </li>
-          <li>
-              <a
-                href="#tcp-%e5%ae%9a%e6%97%b6%e5%99%a8"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >TCP 定时器</a>
-            </li>
-          <li>
-              <a
-                href="#%e7%90%86%e8%a7%a3%e4%bc%a0%e8%be%93%e6%8e%a7%e5%88%b6%e5%8d%8f%e8%ae%ae"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >理解传输控制协议</a>
-            </li>
-          <li>
-              <a
-                href="#socket-%e7%bc%96%e7%a8%8b%e7%9b%b8%e5%85%b3%e9%97%ae%e9%a2%98"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >Socket 编程相关问题</a>
-            </li>
-          <li>
-              <a
-                href="#listen"
-                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
-              >Listen</a>
+              >参考资料</a>
             </li>
           </ul>
   
@@ -796,273 +712,293 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 <nav class="hextra-toc order-last hidden w-64 shrink-0 xl:block print:hidden px-4" aria-label="table of contents">
     <div class="hextra-scrollbar sticky top-16 overflow-y-auto pr-4 pt-6 text-sm [hyphens:auto] max-h-[calc(100vh-var(--navbar-height)-env(safe-area-inset-bottom))] ltr:-mr-4 rtl:-ml-4"><p class="mb-4 font-semibold tracking-tight">On this page</p><ul>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#11-tcp-%e5%8d%8f%e8%ae%ae%e6%98%af%e4%bb%80%e4%b9%88">1.1 TCP 协议是什么
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#1-%e7%ae%80%e4%bb%8b">1. 简介
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#12-tcp-%e5%8d%8f%e8%ae%ae%e7%9a%84%e4%bd%9c%e7%94%a8">1.2 TCP 协议的作用
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#11-tcp-%e5%8d%8f%e8%ae%ae%e6%98%af%e4%bb%80%e4%b9%88">1.1 TCP 协议是什么
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#13-%e4%bb%80%e4%b9%88%e6%98%af%e9%9d%a2%e5%90%91%e8%bf%9e%e6%8e%a5">1.3 什么是“面向连接”
-        </a>
-      </li></ul><ul>
-      <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#21-%e5%b0%81%e8%a3%85%e5%92%8c%e8%a7%a3%e5%8c%85">2.1 封装和解包
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#12-tcp-%e5%8d%8f%e8%ae%ae%e7%9a%84%e4%bd%9c%e7%94%a8">1.2 TCP 协议的作用
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#22-tcp-%e6%8a%a5%e6%96%87%e6%a0%bc%e5%bc%8f">2.2 TCP 报文格式
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#13-%e4%bb%80%e4%b9%88%e6%98%af%e9%9d%a2%e5%90%91%e8%bf%9e%e6%8e%a5">1.3 什么是“面向连接”
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#23-%e4%bb%80%e4%b9%88%e6%98%af%e9%9d%a2%e5%90%91%e5%ad%97%e8%8a%82%e6%b5%81">2.3 什么是“面向字节流”
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#2-%e7%ae%80%e8%bf%b0-tcp">2. 简述 TCP
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#24-%e9%80%9a%e8%bf%87-ack-%e6%9c%ba%e5%88%b6%e5%ae%9e%e7%8e%b0%e4%b8%80%e5%ae%9a%e5%8f%af%e9%9d%a0%e6%80%a7">2.4 通过 ACK 机制实现一定可靠性
-        </a>
-      </li></ul><ul>
-      <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#31-%e5%9f%ba%e6%9c%ac%e8%ae%a4%e8%af%86">3.1 基本认识
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#21-%e5%b0%81%e8%a3%85%e5%92%8c%e8%a7%a3%e5%8c%85">2.1 封装和解包
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#tcp-%e6%8a%a5%e5%a4%b4%e6%a0%bc%e5%bc%8f">TCP 报头格式
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#22-tcp-%e6%8a%a5%e6%96%87%e6%a0%bc%e5%bc%8f">2.2 TCP 报文格式
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#16-%e4%bd%8d%e6%ba%90%e7%9b%ae%e6%a0%87%e7%ab%af%e5%8f%a3%e5%8f%b7">16 位源/目标端口号
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#23-%e4%bb%80%e4%b9%88%e6%98%af%e9%9d%a2%e5%90%91%e5%ad%97%e8%8a%82%e6%b5%81">2.3 什么是“面向字节流”
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#32-%e4%bd%8d%e5%ba%8f%e5%88%97%e5%8f%b7">32 位序列号
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#24-%e9%80%9a%e8%bf%87-ack-%e6%9c%ba%e5%88%b6%e5%ae%9e%e7%8e%b0%e4%b8%80%e5%ae%9a%e5%8f%af%e9%9d%a0%e6%80%a7">2.4 通过 ACK 机制实现一定可靠性
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#32-%e4%bd%8d%e7%a1%ae%e8%ae%a4%e5%ba%94%e7%ad%94%e5%8f%b7">*32 位确认应答号
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#3-%e8%af%a6%e8%bf%b0-tcp">3. 详述 TCP
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#4-%e4%bd%8d%e9%a6%96%e9%83%a8%e9%95%bf%e5%ba%a6">4 位首部长度
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#31-%e5%9f%ba%e6%9c%ac%e8%ae%a4%e8%af%86">3.1 基本认识
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#46-%e4%bd%8d%e4%bf%9d%e7%95%99%e4%bd%8d">4/6 位保留位
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#tcp-%e6%8a%a5%e5%a4%b4%e6%a0%bc%e5%bc%8f">TCP 报头格式
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#86-%e4%bd%8d%e6%8e%a7%e5%88%b6%e4%bd%8d">*8/6 位控制位
+        <a class="ltr:pl-12 rtl:pr-12 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#16-%e4%bd%8d%e6%ba%90%e7%9b%ae%e6%a0%87%e7%ab%af%e5%8f%a3%e5%8f%b7">16 位源/目标端口号
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#16-%e4%bd%8d%e7%aa%97%e5%8f%a3%e5%a4%a7%e5%b0%8f">*16 位窗口大小
+        <a class="ltr:pl-12 rtl:pr-12 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#32-%e4%bd%8d%e5%ba%8f%e5%88%97%e5%8f%b7">32 位序列号
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%85%b6%e4%bb%96%e5%ad%97%e6%ae%b5">其他字段
+        <a class="ltr:pl-12 rtl:pr-12 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#32-%e4%bd%8d%e7%a1%ae%e8%ae%a4%e5%ba%94%e7%ad%94%e5%8f%b7">*32 位确认应答号
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-12 rtl:pr-12 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%a0%a1%e9%aa%8c%e5%92%8c">校验和
+        <a class="ltr:pl-12 rtl:pr-12 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#4-%e4%bd%8d%e9%a6%96%e9%83%a8%e9%95%bf%e5%ba%a6">4 位首部长度
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-12 rtl:pr-12 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#16-%e4%bd%8d%e7%b4%a7%e6%80%a5%e6%8c%87%e9%92%88">16 位紧急指针
+        <a class="ltr:pl-12 rtl:pr-12 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#46-%e4%bd%8d%e4%bf%9d%e7%95%99%e4%bd%8d">4/6 位保留位
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-12 rtl:pr-12 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e9%80%89%e9%a1%b9">选项
+        <a class="ltr:pl-12 rtl:pr-12 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#86-%e4%bd%8d%e6%8e%a7%e5%88%b6%e4%bd%8d">*8/6 位控制位
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-12 rtl:pr-12 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%b3%a8%e6%84%8f">注意
+        <a class="ltr:pl-12 rtl:pr-12 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#16-%e4%bd%8d%e7%aa%97%e5%8f%a3%e5%a4%a7%e5%b0%8f">*16 位窗口大小
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%ba%8f%e5%88%97%e5%8f%b7%e5%92%8c%e7%a1%ae%e8%ae%a4%e5%ba%94%e7%ad%94%e5%8f%b7">序列号和确认应答号
+        <a class="ltr:pl-12 rtl:pr-12 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%85%b6%e4%bb%96%e5%ad%97%e6%ae%b5">其他字段
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%b0%8f%e7%bb%93">小结
+        <a class="ltr:pl-16 rtl:pr-16 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%a0%a1%e9%aa%8c%e5%92%8c">校验和
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#32-%e8%bf%9e%e6%8e%a5%e7%9a%84%e5%bb%ba%e7%ab%8b">3.2 连接的建立
+        <a class="ltr:pl-16 rtl:pr-16 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#16-%e4%bd%8d%e7%b4%a7%e6%80%a5%e6%8c%87%e9%92%88">16 位紧急指针
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%a6%82%e4%bd%95%e7%90%86%e8%a7%a3%e8%bf%9e%e6%8e%a5">如何理解“连接”
+        <a class="ltr:pl-16 rtl:pr-16 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e9%80%89%e9%a1%b9">选项
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%b8%89%e6%ac%a1%e6%8f%a1%e6%89%8b">三次握手
+        <a class="ltr:pl-16 rtl:pr-16 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%b3%a8%e6%84%8f">注意
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%8f%af%e9%9d%a0%e6%80%a7">可靠性
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%ba%8f%e5%88%97%e5%8f%b7%e5%92%8c%e7%a1%ae%e8%ae%a4%e5%ba%94%e7%ad%94%e5%8f%b7">序列号和确认应答号
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%a0%87%e5%bf%97%e4%bd%8d">标志位
+        <a class="ltr:pl-12 rtl:pr-12 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%b0%8f%e7%bb%93">小结
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-12 rtl:pr-12 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#rst">RST
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#32-%e8%bf%9e%e6%8e%a5%e7%9a%84%e5%bb%ba%e7%ab%8b">3.2 连接的建立
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-12 rtl:pr-12 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#psh">PSH
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%a6%82%e4%bd%95%e7%90%86%e8%a7%a3%e8%bf%9e%e6%8e%a5">如何理解“连接”
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-12 rtl:pr-12 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#urg">URG
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%b8%89%e6%ac%a1%e6%8f%a1%e6%89%8b">三次握手
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#tcp-%e7%9a%84%e7%8a%b6%e6%80%81">TCP 的状态
+        <a class="ltr:pl-12 rtl:pr-12 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%8f%af%e9%9d%a0%e6%80%a7">可靠性
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%b8%89%e6%ac%a1%e6%8f%a1%e6%89%8b-1">三次握手
+        <a class="ltr:pl-12 rtl:pr-12 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%a0%87%e5%bf%97%e4%bd%8d">标志位
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%8d%8a%e8%bf%9e%e6%8e%a5%e5%92%8c%e5%85%a8%e8%bf%9e%e6%8e%a5%e9%98%9f%e5%88%97">半连接和全连接队列
+        <a class="ltr:pl-16 rtl:pr-16 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#rst">RST
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%86%8d%e6%ac%a1%e7%90%86%e8%a7%a3%e4%b8%89%e6%ac%a1%e6%8f%a1%e6%89%8b">再次理解“三次握手”
+        <a class="ltr:pl-16 rtl:pr-16 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#psh">PSH
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e9%98%bb%e6%ad%a2%e9%87%8d%e5%a4%8d%e5%8e%86%e5%8f%b2%e8%bf%9e%e6%8e%a5%e7%9a%84%e5%88%9d%e5%a7%8b%e5%8c%96">阻止重复历史连接的初始化
+        <a class="ltr:pl-16 rtl:pr-16 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#urg">URG
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%90%8c%e6%ad%a5%e5%8f%8c%e6%96%b9%e5%88%9d%e5%a7%8b%e5%ba%8f%e5%88%97%e5%8f%b7">同步双方初始序列号
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#tcp-%e7%9a%84%e7%8a%b6%e6%80%81">TCP 的状态
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e9%81%bf%e5%85%8d%e8%b5%84%e6%ba%90%e6%b5%aa%e8%b4%b9">避免资源浪费
+        <a class="ltr:pl-12 rtl:pr-12 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e4%b8%89%e6%ac%a1%e6%8f%a1%e6%89%8b-1">三次握手
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#33-%e9%87%8d%e4%bc%a0%e6%9c%ba%e5%88%b6">3.3 重传机制
+        <a class="ltr:pl-12 rtl:pr-12 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%8d%8a%e8%bf%9e%e6%8e%a5%e5%92%8c%e5%85%a8%e8%bf%9e%e6%8e%a5%e9%98%9f%e5%88%97">半连接和全连接队列
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e8%b6%85%e6%97%b6%e9%87%8d%e4%bc%a0%e6%9c%ba%e5%88%b6">超时重传机制
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%86%8d%e6%ac%a1%e7%90%86%e8%a7%a3%e4%b8%89%e6%ac%a1%e6%8f%a1%e6%89%8b">再次理解“三次握手”
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%bf%ab%e9%80%9f%e9%87%8d%e4%bc%a0">快速重传
+        <a class="ltr:pl-12 rtl:pr-12 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e9%98%bb%e6%ad%a2%e9%87%8d%e5%a4%8d%e5%8e%86%e5%8f%b2%e8%bf%9e%e6%8e%a5%e7%9a%84%e5%88%9d%e5%a7%8b%e5%8c%96">阻止重复历史连接的初始化
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#34-%e8%bf%9e%e6%8e%a5%e7%9a%84%e6%96%ad%e5%bc%80">3.4 连接的断开
+        <a class="ltr:pl-12 rtl:pr-12 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%90%8c%e6%ad%a5%e5%8f%8c%e6%96%b9%e5%88%9d%e5%a7%8b%e5%ba%8f%e5%88%97%e5%8f%b7">同步双方初始序列号
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%9b%9b%e6%ac%a1%e6%8c%a5%e6%89%8b">四次挥手
+        <a class="ltr:pl-12 rtl:pr-12 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e9%81%bf%e5%85%8d%e8%b5%84%e6%ba%90%e6%b5%aa%e8%b4%b9">避免资源浪费
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%b8%b8%e8%a7%81%e9%97%ae%e9%a2%98">常见问题
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#33-%e9%87%8d%e4%bc%a0%e6%9c%ba%e5%88%b6">3.3 重传机制
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%b5%8b%e8%af%95">测试
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e8%b6%85%e6%97%b6%e9%87%8d%e4%bc%a0%e6%9c%ba%e5%88%b6">超时重传机制
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#35-%e6%b5%81%e9%87%8f%e6%8e%a7%e5%88%b6">3.5 流量控制
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%bf%ab%e9%80%9f%e9%87%8d%e4%bc%a0">快速重传
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%bb%91%e5%8a%a8%e7%aa%97%e5%8f%a3">滑动窗口
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#34-%e8%bf%9e%e6%8e%a5%e7%9a%84%e6%96%ad%e5%bc%80">3.4 连接的断开
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%bb%91%e5%8a%a8%e7%aa%97%e5%8f%a3%e7%9a%84%e5%8e%9f%e7%90%86">*滑动窗口的原理
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%9b%9b%e6%ac%a1%e6%8c%a5%e6%89%8b">四次挥手
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#36-%e6%8b%a5%e5%a1%9e%e6%8e%a7%e5%88%b6">3.6 拥塞控制
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%b8%b8%e8%a7%81%e9%97%ae%e9%a2%98">常见问题
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%8b%a5%e5%a1%9e%e7%aa%97%e5%8f%a3">拥塞窗口
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%b5%8b%e8%af%95">测试
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%85%a2%e5%90%af%e5%8a%a8">慢启动
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#35-%e6%b5%81%e9%87%8f%e6%8e%a7%e5%88%b6">3.5 流量控制
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%8b%a5%e5%a1%9e%e9%81%bf%e5%85%8d">拥塞避免
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%bb%91%e5%8a%a8%e7%aa%97%e5%8f%a3">滑动窗口
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%8b%a5%e5%a1%9e%e5%8f%91%e7%94%9f">拥塞发生
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%bb%91%e5%8a%a8%e7%aa%97%e5%8f%a3%e7%9a%84%e5%8e%9f%e7%90%86">*滑动窗口的原理
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%8f%91%e7%94%9f%e8%b6%85%e6%97%b6%e9%87%8d%e4%bc%a0%e7%9a%84%e6%8b%a5%e5%a1%9e%e5%8f%91%e7%94%9f%e7%ae%97%e6%b3%95">发生超时重传的拥塞发生算法
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#36-%e6%8b%a5%e5%a1%9e%e6%8e%a7%e5%88%b6">3.6 拥塞控制
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%8f%91%e7%94%9f%e5%bf%ab%e9%80%9f%e9%87%8d%e4%bc%a0%e7%9a%84%e6%8b%a5%e5%a1%9e%e5%8f%91%e7%94%9f%e7%ae%97%e6%b3%95">发生快速重传的拥塞发生算法
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%8b%a5%e5%a1%9e%e7%aa%97%e5%8f%a3">拥塞窗口
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%bf%ab%e9%80%9f%e6%81%a2%e5%a4%8d">快速恢复
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%85%a2%e5%90%af%e5%8a%a8">慢启动
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#37-%e5%bb%b6%e8%bf%9f%e5%ba%94%e7%ad%94">3.7 延迟应答
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%8b%a5%e5%a1%9e%e9%81%bf%e5%85%8d">拥塞避免
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#38-%e6%8d%8e%e5%b8%a6%e5%ba%94%e7%ad%94">3.8 捎带应答
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%8b%a5%e5%a1%9e%e5%8f%91%e7%94%9f">拥塞发生
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#39-%e9%9d%a2%e5%90%91%e5%ad%97%e8%8a%82%e6%b5%81">3.9 面向字节流
+        <a class="ltr:pl-12 rtl:pr-12 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%8f%91%e7%94%9f%e8%b6%85%e6%97%b6%e9%87%8d%e4%bc%a0%e7%9a%84%e6%8b%a5%e5%a1%9e%e5%8f%91%e7%94%9f%e7%ae%97%e6%b3%95">发生超时重传的拥塞发生算法
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#310-%e7%b2%98%e5%8c%85%e9%97%ae%e9%a2%98">3.10 粘包问题
+        <a class="ltr:pl-12 rtl:pr-12 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%8f%91%e7%94%9f%e5%bf%ab%e9%80%9f%e9%87%8d%e4%bc%a0%e7%9a%84%e6%8b%a5%e5%a1%9e%e5%8f%91%e7%94%9f%e7%ae%97%e6%b3%95">发生快速重传的拥塞发生算法
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#311-tcp-%e5%bc%82%e5%b8%b8%e6%83%85%e5%86%b5">3.11 TCP 异常情况
-        </a>
-      </li></ul><ul>
-      <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%b0%8f%e7%bb%93-1">小结
+        <a class="ltr:pl-12 rtl:pr-12 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%bf%ab%e9%80%9f%e6%81%a2%e5%a4%8d">快速恢复
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#tcp-%e5%ae%9a%e6%97%b6%e5%99%a8">TCP 定时器
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#37-%e5%bb%b6%e8%bf%9f%e5%ba%94%e7%ad%94">3.7 延迟应答
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e7%90%86%e8%a7%a3%e4%bc%a0%e8%be%93%e6%8e%a7%e5%88%b6%e5%8d%8f%e8%ae%ae">理解传输控制协议
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#38-%e6%8d%8e%e5%b8%a6%e5%ba%94%e7%ad%94">3.8 捎带应答
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#socket-%e7%bc%96%e7%a8%8b%e7%9b%b8%e5%85%b3%e9%97%ae%e9%a2%98">Socket 编程相关问题
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#39-%e9%9d%a2%e5%90%91%e5%ad%97%e8%8a%82%e6%b5%81">3.9 面向字节流
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#accept">Accept
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#310-%e7%b2%98%e5%8c%85%e9%97%ae%e9%a2%98">3.10 粘包问题
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#listen">Listen
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#311-tcp-%e5%bc%82%e5%b8%b8%e6%83%85%e5%86%b5">3.11 TCP 异常情况
         </a>
-      </li></ul><ul></ul>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#4-tcp-%e5%b0%8f%e7%bb%93">4. TCP 小结
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%b0%8f%e7%bb%93-1">小结
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#tcp-%e5%ae%9a%e6%97%b6%e5%99%a8">TCP 定时器
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e7%90%86%e8%a7%a3%e4%bc%a0%e8%be%93%e6%8e%a7%e5%88%b6%e5%8d%8f%e8%ae%ae">理解传输控制协议
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#socket-%e7%bc%96%e7%a8%8b%e7%9b%b8%e5%85%b3%e9%97%ae%e9%a2%98">Socket 编程相关问题
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#accept">Accept
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#listen">Listen
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99">参考资料
+        </a>
+      </li></ul>
       <div class="mt-8 border-t bg-white pt-8 shadow-[0_-12px_16px_white] dark:bg-dark dark:shadow-[0_-12px_16px_#111] sticky bottom-0 flex flex-col items-start gap-2 pb-8 dark:border-neutral-800 contrast-more:border-t contrast-more:border-neutral-400 contrast-more:shadow-none contrast-more:dark:border-neutral-400">
         <button aria-hidden="true" id="backToTop" onClick="scrollUp();" class="transition-all transition duration-75 opacity-0 text-xs font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 contrast-more:text-gray-800 contrast-more:dark:text-gray-50">
           <span>Scroll to top</span>
@@ -1085,14 +1021,15 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 <p>[重要] 本文默认读者已经体系地学习过操作系统。</p>
 <p>为了读者能更好地学习 TCP 协议，本文首先简单介绍 TCP 协议（是啥），然后再简述 TCP 的主要内容（干嘛的），最后再阐述 TCP 的各个细节（原理）。</p>
 </blockquote>
-<h1>1. 简介</h1><h2>1.1 TCP 协议是什么<span class="absolute -mt-20" id="11-tcp-协议是什么"></span>
-    <a href="#11-tcp-%e5%8d%8f%e8%ae%ae%e6%98%af%e4%bb%80%e4%b9%88" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>与 UDP 不同，TCP（Transmission Control Protocol）则“人如其名”，可以说是对“传输、发送、通信”进行“控制”的“协议”。</p>
+<h2>1. 简介<span class="absolute -mt-20" id="1-简介"></span>
+    <a href="#1-%e7%ae%80%e4%bb%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>1.1 TCP 协议是什么<span class="absolute -mt-20" id="11-tcp-协议是什么"></span>
+    <a href="#11-tcp-%e5%8d%8f%e8%ae%ae%e6%98%af%e4%bb%80%e4%b9%88" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>与 UDP 不同，TCP（Transmission Control Protocol）则“人如其名”，可以说是对“传输、发送、通信”进行“控制”的“协议”。</p>
 <p>TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控制功能，可以进行丢包时的重发控制，还可以对次序乱掉的分包进行顺序控制。而这些在 UDP 中都没有。此外，TCP 作为一种面向有连接的协议，只有在确认通信对端存在时才会发送数据，从而可以控制通信流量的浪费（由于 UDP 没有连接控制，所以即使对端从一开始就不存在或中途退出网络，数据包还是能够发送出去）。</p>
 <blockquote>
 <p>在 UDP 中，由应用层划分的数据包在网络中分发的「顺序」取决于网络中的「路由选择」，是难以确定的。</p>
 </blockquote>
-<h2>1.2 TCP 协议的作用<span class="absolute -mt-20" id="12-tcp-协议的作用"></span>
-    <a href="#12-tcp-%e5%8d%8f%e8%ae%ae%e7%9a%84%e4%bd%9c%e7%94%a8" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>TCP 协议是在不可靠的网络环境中提供可靠的数据传输服务而设计的。它解决了以下几个问题：</p>
+<h3>1.2 TCP 协议的作用<span class="absolute -mt-20" id="12-tcp-协议的作用"></span>
+    <a href="#12-tcp-%e5%8d%8f%e8%ae%ae%e7%9a%84%e4%bd%9c%e7%94%a8" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>TCP 协议是在不可靠的网络环境中提供可靠的数据传输服务而设计的。它解决了以下几个问题：</p>
 <ul>
 <li>数据丢失：由于网络故障、拥塞、错误或攻击，数据包可能在传输过程中丢失或损坏。TCP 协议通过序列号、确认号、校验和、重传机制等方法，保证了数据的完整性和正确性。</li>
 <li>数据乱序：由于网络的异构性、路由的动态变化、分片的不同顺序等原因，数据包可能以不同的顺序到达接收方。TCP 协议通过序列号、确认号、缓冲区等方法，保证了数据的有序性和连续性。</li>
@@ -1101,16 +1038,17 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 <li>拥塞控制：由于网络中的节点或链路可能超过其承载能力，导致网络拥塞和性能下降。TCP 协议通过慢启动、拥塞避免、快速重传、快速恢复等方法，根据网络状况，动态调整发送方的拥塞窗口，避免了网络拥塞和数据丢失。</li>
 </ul>
 <p>这些问题将被 TCP 在一定程度上解决。</p>
-<h2>1.3 什么是“面向连接”<span class="absolute -mt-20" id="13-什么是面向连接"></span>
-    <a href="#13-%e4%bb%80%e4%b9%88%e6%98%af%e9%9d%a2%e5%90%91%e8%bf%9e%e6%8e%a5" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>连接是指各种设备、线路，或网络中进行通信的两个应用程序为了相互传递消息而专有的、虚拟的通信线路，也叫做虚拟电路。</p>
+<h3>1.3 什么是“面向连接”<span class="absolute -mt-20" id="13-什么是面向连接"></span>
+    <a href="#13-%e4%bb%80%e4%b9%88%e6%98%af%e9%9d%a2%e5%90%91%e8%bf%9e%e6%8e%a5" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>连接是指各种设备、线路，或网络中进行通信的两个应用程序为了相互传递消息而专有的、虚拟的通信线路，也叫做虚拟电路。</p>
 <p>一旦建立了连接，进行通信的应用程序只使用这个虚拟的通信线路发送和接收数据，就可以保障信息的传输。应用程序可以不用顾虑提供尽职服务的 IP 网络上可能发生的各种问题，依然可以转发数据。TCP 则负责控制连接的建立、断开、保持等管理工作。</p>
 <img src="TCP 协议.IMG/Image00226.jpg" alt="Image00226" style="zoom:40%;" />
 <blockquote>
 <p>注意，“端对端”中的“端”指的是主机上特定 <strong>端</strong> 口号对应的进程。</p>
 </blockquote>
-<p>==面向连接是 TCP 的一种特性，它意味着在数据传输之前，两个通信实体必须建立一个连接==。这个连接是由一系列的握手消息来建立的，它们用于协商连接的参数，如序号、窗口大小和最大报文段长度。面向连接的目的是保证数据的可靠传输，即数据按照正确的顺序、完整性和无差错地到达目的地。面向连接也使得 TCP 能够实现流量控制和拥塞控制，以适应网络的状况。</p>
-<h1>2. 简述 TCP</h1><h2>2.1 封装和解包<span class="absolute -mt-20" id="21-封装和解包"></span>
-    <a href="#21-%e5%b0%81%e8%a3%85%e5%92%8c%e8%a7%a3%e5%8c%85" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><ul>
+<p><mark>面向连接是 TCP 的一种特性，它意味着在数据传输之前，两个通信实体必须建立一个连接</mark>。这个连接是由一系列的握手消息来建立的，它们用于协商连接的参数，如序号、窗口大小和最大报文段长度。面向连接的目的是保证数据的可靠传输，即数据按照正确的顺序、完整性和无差错地到达目的地。面向连接也使得 TCP 能够实现流量控制和拥塞控制，以适应网络的状况。</p>
+<h2>2. 简述 TCP<span class="absolute -mt-20" id="2-简述-tcp"></span>
+    <a href="#2-%e7%ae%80%e8%bf%b0-tcp" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>2.1 封装和解包<span class="absolute -mt-20" id="21-封装和解包"></span>
+    <a href="#21-%e5%b0%81%e8%a3%85%e5%92%8c%e8%a7%a3%e5%8c%85" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
 <li>封装：将应用层传来的数据分割成一个个的报文段，每个报文段都有一个序号和一个校验和。TCP 在发送端将报文段封装成 IP 数据报，加上源地址和目的地址，然后通过网络层发送到目的地。</li>
 <li>解包：TCP 在接收端将 IP 数据报解封装，提取出报文段，根据序号和校验和来检查报文段的完整性和顺序。如果报文段有损坏或丢失，TCP 会发送重传请求，要求发送端重新发送报文段。如果报文段没有问题，TCP 会将其放入接收缓冲区，并按照序号排序。当接收缓冲区中有一定数量的连续报文段时，TCP 会将它们传递给应用层。根据当前网页内容，这就是 TCP 进行解包和交付的过程。</li>
 </ul>
@@ -1125,8 +1063,8 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 </ul>
 <p>TCP 在建立连接时，会为每个连接分配一个套接字对，即一个源套接字和一个目的套接字。这个套接字对就是 TCP 连接的唯一标识。TCP 在接收端，会根据报文段中的源地址、源端口、目的地址和目的端口来匹配相应的套接字对，然后将报文段放入该套接字对对应的接收缓冲区。</p>
 <p>TCP 在传递数据给应用层时，会根据应用层请求的套接字来从相应的接收缓冲区中取出数据。<strong>因此，缓冲区是由套接字来确定的，而不是由文件描述符来确定的。文件描述符和套接字之间有一种映射关系，即每个文件描述符都可以对应一个套接字</strong>，但不是每个套接字都可以对应一个文件描述符。</p>
-<h2>2.2 TCP 报文格式<span class="absolute -mt-20" id="22-tcp-报文格式"></span>
-    <a href="#22-tcp-%e6%8a%a5%e6%96%87%e6%a0%bc%e5%bc%8f" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>就报文格式而言，TCP 比 UDP 复杂得多，下文结合 TCP 报文格式，阐述 TCP 是如何「解包」的，其他组成部分的功能将在第三节「详述」部分阐述。</p>
+<h3>2.2 TCP 报文格式<span class="absolute -mt-20" id="22-tcp-报文格式"></span>
+    <a href="#22-tcp-%e6%8a%a5%e6%96%87%e6%a0%bc%e5%bc%8f" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>就报文格式而言，TCP 比 UDP 复杂得多，下文结合 TCP 报文格式，阐述 TCP 是如何「解包」的，其他组成部分的功能将在第三节「详述」部分阐述。</p>
 <img src="TCP 协议.IMG/Image00247-8374717.jpg" alt="Image00247" style="zoom:40%;" />
 <p>TCP 的报头是变长的，包括固定的 20 字节和变长的选项。其中，“数据偏移”也叫做“首部长度”，它占固定 4 位，作用是保存报头整体的长度，以便接收端能够正确解析报文中的字段。值得注意的是，虽然首部长度占 4 位，但是它的单位是 1 个字节，那么 4 个比特位能表示的范围 0~15，就能表示 0~60 字节。</p>
 <p>图中，每一行有 4 个字节，解包步骤如下：</p>
@@ -1151,8 +1089,8 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 <p>所以『端对端』从操作系统的角度理解是进程，从代码实现的角度来看就是 socket，因为 socket 的实现 bind 了端口号。</p>
 <p>四元组+协议 =五元组，可以唯一确认某一协议的连接。</p>
 </blockquote>
-<h2>2.3 什么是“面向字节流”<span class="absolute -mt-20" id="23-什么是面向字节流"></span>
-    <a href="#23-%e4%bb%80%e4%b9%88%e6%98%af%e9%9d%a2%e5%90%91%e5%ad%97%e8%8a%82%e6%b5%81" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p><strong>由于 TCP 面向字节流，所以它不一定每次都能接收到未被分割的数据，因此不需要判定报文之间的边界</strong>。</p>
+<h3>2.3 什么是“面向字节流”<span class="absolute -mt-20" id="23-什么是面向字节流"></span>
+    <a href="#23-%e4%bb%80%e4%b9%88%e6%98%af%e9%9d%a2%e5%90%91%e5%ad%97%e8%8a%82%e6%b5%81" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p><strong>由于 TCP 面向字节流，所以它不一定每次都能接收到未被分割的数据，因此不需要判定报文之间的边界</strong>。</p>
 <p>这句话的意思是，TCP 协议在传输数据时，不会保留数据的边界信息，也就是说，发送方发送的数据可能会被拆分或合并成不同的 TCP 报文段，接收方收到的数据也可能是不完整或多个数据拼接在一起的。因此，接收方不能根据 TCP 报文段来判断数据的完整性和顺序，而需要自己定义一些规则来区分不同的数据。</p>
 <blockquote>
 <p>简单地说，“流”就像水龙头中的水，我们要接一桶水，可以一次性接满，也可以分批次接。</p>
@@ -1164,8 +1102,8 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 <li>对于 UDP 来说，数据是以报文为单位分别传输的，每个报文都有自己的边界和长度。</li>
 </ul>
 <p>从代码实现来看，面向字节流就相当于这些数据都由一个字符数组保存。</p>
-<h2>2.4 通过 ACK 机制实现一定可靠性<span class="absolute -mt-20" id="24-通过-ack-机制实现一定可靠性"></span>
-    <a href="#24-%e9%80%9a%e8%bf%87-ack-%e6%9c%ba%e5%88%b6%e5%ae%9e%e7%8e%b0%e4%b8%80%e5%ae%9a%e5%8f%af%e9%9d%a0%e6%80%a7" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>ACK （Acknowledgement，到达确认 ）机制是指：</p>
+<h3>2.4 通过 ACK 机制实现一定可靠性<span class="absolute -mt-20" id="24-通过-ack-机制实现一定可靠性"></span>
+    <a href="#24-%e9%80%9a%e8%bf%87-ack-%e6%9c%ba%e5%88%b6%e5%ae%9e%e7%8e%b0%e4%b8%80%e5%ae%9a%e5%8f%af%e9%9d%a0%e6%80%a7" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>ACK （Acknowledgement，到达确认 ）机制是指：</p>
 <ul>
 <li>TCP 在接收端收到报文段后，会发送一个确认报文段（ACK）给发送端，表示已经收到了某个序号的报文段。</li>
 <li>发送端收到 ACK 后，会更新自己的发送窗口，表示可以继续发送更多的报文段。</li>
@@ -1190,7 +1128,7 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 <blockquote>
 <p>[了解] 为什么要让 TCP 提供可靠性，其他层次的协议不可以吗？</p>
 </blockquote>
-<p>让 TCP 提供可靠性，是因为 TCP 是运输层的一个协议，而运输层的主要功能之一就是为上层的应用层提供可靠的==端到端==的数据传输服务。</p>
+<p>让 TCP 提供可靠性，是因为 TCP 是运输层的一个协议，而运输层的主要功能之一就是为上层的应用层提供可靠的<mark>端到端</mark>的数据传输服务。</p>
 <p>其他层次的协议也可以提供可靠性，但是可能会有一些问题或者限制。</p>
 <ul>
 <li>应用层的协议可以在自己的层次上实现可靠性，例如 FTP、HTTP 等，但是这样会增加应用层的复杂度和开销，而且可能会和运输层的可靠性机制冲突或者重复。</li>
@@ -1198,9 +1136,10 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 <li>链路层的协议可以提供可靠性，例如 PPP、ATM 等，但是这样只能保证链路之间的可靠性，而不能保证 <strong>端到端的可靠性</strong>，而且可能会和运输层的可靠性机制冲突或者重复。</li>
 </ul>
 <p>因此，在互联网协议栈中，让 TCP 提供可靠性，是一种比较合理和高效的设计选择，它可以为上层应用提供一个可靠的字节流服务，而不需要关心下层网络的细节和不确定性。</p>
-<h1>3. 详述 TCP</h1><h2>3.1 基本认识<span class="absolute -mt-20" id="31-基本认识"></span>
-    <a href="#31-%e5%9f%ba%e6%9c%ac%e8%ae%a4%e8%af%86" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>TCP 报头格式<span class="absolute -mt-20" id="tcp-报头格式"></span>
-    <a href="#tcp-%e6%8a%a5%e5%a4%b4%e6%a0%bc%e5%bc%8f" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>在第二节中简单介绍了 TCP 报头中的 4 位首部长度（数据偏移），下面将介绍其他部分。</p>
+<h2>3. 详述 TCP<span class="absolute -mt-20" id="3-详述-tcp"></span>
+    <a href="#3-%e8%af%a6%e8%bf%b0-tcp" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>3.1 基本认识<span class="absolute -mt-20" id="31-基本认识"></span>
+    <a href="#31-%e5%9f%ba%e6%9c%ac%e8%ae%a4%e8%af%86" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><h4>TCP 报头格式<span class="absolute -mt-20" id="tcp-报头格式"></span>
+    <a href="#tcp-%e6%8a%a5%e5%a4%b4%e6%a0%bc%e5%bc%8f" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>在第二节中简单介绍了 TCP 报头中的 4 位首部长度（数据偏移），下面将介绍其他部分。</p>
 <blockquote>
 <p>[注] 标*的为重点</p>
 </blockquote>
@@ -1208,12 +1147,50 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 <p>了解即可：</p>
 <p>TCP 的报头在 Linux 内核中属于 <strong>struct tcphdr</strong> 数据类型，该类型定义在 <strong>linux/tcp.h</strong> 文件中。TCP 的报头包含了一些字段，其中 6 个标志位（URG、ACK、PSH、RST、SYN、FIN）是用来表示 TCP 的控制信息的，它们本质上是 <strong>位域/位段</strong>，即用一个字节或者一个字中的某些位来表示一个变量。</p>
 <p>TCP 的报头的结构如下：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">tcphdr</span> <span class="p">{</span>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">tcphdr</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="n">__be16</span> <span class="n">source</span><span class="p">;</span> <span class="c1">// 源端口号
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">__be16</span> <span class="n">dest</span><span class="p">;</span> <span class="c1">// 目的端口号
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">__be32</span> <span class="n">seq</span><span class="p">;</span> <span class="c1">// 序列号
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">__be32</span> <span class="n">ack_seq</span><span class="p">;</span> <span class="c1">// 确认号
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#if defined (__LITTLE_ENDIAN_BITFIELD)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">##if defined (__LITTLE_ENDIAN_BITFIELD)
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>	<span class="n">__u16</span> <span class="nl">res1</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span> <span class="c1">// 保留位
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nl">doff</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span> <span class="c1">// 数据偏移，表示报头长度
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nl">fin</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="c1">// FIN 标志位，表示结束连接
@@ -1224,7 +1201,7 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nl">urg</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="c1">// URG 标志位，表示紧急数据
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nl">ece</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="c1">// ECE 标志位，表示显式拥塞通知回应
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nl">cwr</span><span class="p">:</span><span class="mi">1</span><span class="p">;</span> <span class="c1">// CWR 标志位，表示拥塞窗口减少
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#elif defined (__BIG_ENDIAN_BITFIELD)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">##elif defined (__BIG_ENDIAN_BITFIELD)
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>	<span class="n">__u16</span> <span class="nl">doff</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span> <span class="c1">// 数据偏移，表示报头长度
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nl">res1</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span> <span class="c1">// 保留位
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nl">cwr</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="c1">// CWR 标志位，表示拥塞窗口减少
@@ -1235,13 +1212,15 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nl">rst</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="c1">// RST 标志位，表示重置连接
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nl">syn</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="c1">// SYN 标志位，表示请求建立连接
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nl">fin</span><span class="p">:</span><span class="mi">1</span><span class="p">;</span> <span class="c1">// FIN 标志位，表示结束连接
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#else
-</span></span></span><span class="line"><span class="cl"><span class="cp">#error &#34;Adjust your &lt;asm/byteorder.h&gt; defines&#34;
-</span></span></span><span class="line"><span class="cl"><span class="cp">#endif	
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">##else
+</span></span></span><span class="line"><span class="cl"><span class="cp">##error &#34;Adjust your &lt;asm/byteorder.h&gt; defines&#34;
+</span></span></span><span class="line"><span class="cl"><span class="cp">##endif	
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>	<span class="n">__be16</span> <span class="n">window</span><span class="p">;</span> <span class="c1">// 窗口大小
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">__sum16</span> <span class="n">check</span><span class="p">;</span> <span class="c1">// 校验和
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">__be16</span> <span class="n">urg_ptr</span><span class="p">;</span> <span class="c1">// 紧急指针，指示紧急数据的位置
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1255,8 +1234,8 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 <p>这是一个结构体，其中的一些字段是位段。位段是一种用来节省空间的数据结构，它可以用一个字节或者一个字中的某些位来表示一个变量。</p>
 <p>例如，TCP 报头中的标志位字段，就是用一个 16 位的字中的 6 个位来表示 6 个不同的变量，每个变量只占 1 位。</p>
 </blockquote>
-<h4>16 位源/目标端口号<span class="absolute -mt-20" id="16-位源目标端口号"></span>
-    <a href="#16-%e4%bd%8d%e6%ba%90%e7%9b%ae%e6%a0%87%e7%ab%af%e5%8f%a3%e5%8f%b7" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><ul>
+<h5>16 位源/目标端口号<span class="absolute -mt-20" id="16-位源目标端口号"></span>
+    <a href="#16-%e4%bd%8d%e6%ba%90%e7%9b%ae%e6%a0%87%e7%ab%af%e5%8f%a3%e5%8f%b7" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><ul>
 <li>
 <p>源端口号（Source Port）：表示发送端端口号，字段长 16 位。</p>
 </li>
@@ -1264,25 +1243,25 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 <p>目标端口号（Destination Port）：表示接收端端口号，字段长度 16 位。</p>
 </li>
 </ul>
-<h4>32 位序列号<span class="absolute -mt-20" id="32-位序列号"></span>
-    <a href="#32-%e4%bd%8d%e5%ba%8f%e5%88%97%e5%8f%b7" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>在建立连接时由计算机生成的随机数作为其初始值，通过 SYN 包传给接收端主机，每发送一次数据，就 <strong>累加</strong> 一次该 <strong>数据字节数</strong> 的大小。</p>
+<h5>32 位序列号<span class="absolute -mt-20" id="32-位序列号"></span>
+    <a href="#32-%e4%bd%8d%e5%ba%8f%e5%88%97%e5%8f%b7" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><p>在建立连接时由计算机生成的随机数作为其初始值，通过 SYN 包传给接收端主机，每发送一次数据，就 <strong>累加</strong> 一次该 <strong>数据字节数</strong> 的大小。</p>
 <p>作用：由于请求很可能不止一个，而且通信的任意一方接收到的报文中都含有序号，所以要用序号给每个请求标号，以待条件允许时，只要对其排序，就可以实现有序地回应，解决网络包乱序问题。</p>
-<h4>*32 位确认应答号<span class="absolute -mt-20" id="32-位确认应答号"></span>
-    <a href="#32-%e4%bd%8d%e7%a1%ae%e8%ae%a4%e5%ba%94%e7%ad%94%e5%8f%b7" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>指下一次 <strong>应该收到</strong> 的数据的序列号。即在 2.4 节中简述的 ACK 机制。</p>
+<h5>*32 位确认应答号<span class="absolute -mt-20" id="32-位确认应答号"></span>
+    <a href="#32-%e4%bd%8d%e7%a1%ae%e8%ae%a4%e5%ba%94%e7%ad%94%e5%8f%b7" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><p>指下一次 <strong>应该收到</strong> 的数据的序列号。即在 2.4 节中简述的 ACK 机制。</p>
 <p>实际上，它是指已收到确认应答号减一为止的数据。发送端收到这个确认应答以后可以认为在这个序号以前的数据都已经被正常接收。</p>
 <p>作用：解决丢包问题。例如 2.4 中的第一个例子，对端主机发送了 1~1000 的数据，那么收到数据的一端就要发送 1001 的确认应答号，<strong>表示 1001 之前的数据已经被成功接收</strong>。</p>
 <img src="TCP 协议.IMG/image-20230708173847157.png" alt="image-20230708173847157" style="zoom:40%;" />
-<p>确认应答号非常重要，如果它的值是 x，那么发送 x 的一端要传达的信息就是：==我已经收到了 x 之前（注意是之前）的数据==。如果发送数据的一端收不到 x 或者收到的 x 和预期的不一样（可能是上次的），那么它会认为接收数据的一端没有成功接收到数据，即发生了丢包，此时发送数据的一端就会重新发送数据。这样发送数据的一端就能按照确认应答传达的信息继续发送下一段数据，以保证数据不被丢失。</p>
-<h4>4 位首部长度<span class="absolute -mt-20" id="4-位首部长度"></span>
-    <a href="#4-%e4%bd%8d%e9%a6%96%e9%83%a8%e9%95%bf%e5%ba%a6" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>首部长度表示 TCP 所传输的数据部分应该从 TCP 包的哪个位开始计算，看作 TCP 首部的长度。该字段长 4 位，单位为 4 字节（即 32 位）。</p>
+<p>确认应答号非常重要，如果它的值是 x，那么发送 x 的一端要传达的信息就是：<mark>我已经收到了 x 之前（注意是之前）的数据</mark>。如果发送数据的一端收不到 x 或者收到的 x 和预期的不一样（可能是上次的），那么它会认为接收数据的一端没有成功接收到数据，即发生了丢包，此时发送数据的一端就会重新发送数据。这样发送数据的一端就能按照确认应答传达的信息继续发送下一段数据，以保证数据不被丢失。</p>
+<h5>4 位首部长度<span class="absolute -mt-20" id="4-位首部长度"></span>
+    <a href="#4-%e4%bd%8d%e9%a6%96%e9%83%a8%e9%95%bf%e5%ba%a6" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><p>首部长度表示 TCP 所传输的数据部分应该从 TCP 包的哪个位开始计算，看作 TCP 首部的长度。该字段长 4 位，单位为 4 字节（即 32 位）。</p>
 <p><strong>不包括选项字段</strong> 的话，TCP 的首部规定为 20 字节长，因此首部长度字段可以设置为 5。反之，如果该字段的值为 5，那说明从 TCP 包的最一开始到 20 字节为止都是 TCP 首部，余下的部分为 TCP 数据。</p>
-<h4>4/6 位保留位<span class="absolute -mt-20" id="46-位保留位"></span>
-    <a href="#46-%e4%bd%8d%e4%bf%9d%e7%95%99%e4%bd%8d" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><blockquote>
+<h5>4/6 位保留位<span class="absolute -mt-20" id="46-位保留位"></span>
+    <a href="#46-%e4%bd%8d%e4%bf%9d%e7%95%99%e4%bd%8d" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><blockquote>
 <p>暂时不用关心。</p>
 </blockquote>
 <p>该字段主要是为了以后扩展时使用，其长度一般为 4 位。一般设置为 0，但即使收到的包在该字段不为 0，此包也不会被丢弃（保留字段的第 4 位（如下图中的第 7 位）用于实验目的，相当于 NS（Nonce Sum）标志位。） 。</p>
-<h4>*8/6 位控制位<span class="absolute -mt-20" id="86-位控制位"></span>
-    <a href="#86-%e4%bd%8d%e6%8e%a7%e5%88%b6%e4%bd%8d" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>字段长为 8 位，每一位从左至右分别为 CWR、ECE、URG、ACK、PSH、RST、SYN、FIN。这些控制标志也叫做控制位。当它们对应位上的值为 1 时，具体含义如图所示。</p>
+<h5>*8/6 位控制位<span class="absolute -mt-20" id="86-位控制位"></span>
+    <a href="#86-%e4%bd%8d%e6%8e%a7%e5%88%b6%e4%bd%8d" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><p>字段长为 8 位，每一位从左至右分别为 CWR、ECE、URG、ACK、PSH、RST、SYN、FIN。这些控制标志也叫做控制位。当它们对应位上的值为 1 时，具体含义如图所示。</p>
 <img src="TCP 协议.IMG/image-20230708170846789.png" alt="image-20230708170846789" style="zoom:40%;" />
 <blockquote>
 <p>[注] 如上所述：</p>
@@ -1341,25 +1320,25 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 </li>
 </ul>
 <p>对于这后三个标记位，应该结合 TCP 的握手过程理解。</p>
-<h4>*16 位窗口大小<span class="absolute -mt-20" id="16-位窗口大小"></span>
-    <a href="#16-%e4%bd%8d%e7%aa%97%e5%8f%a3%e5%a4%a7%e5%b0%8f" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>由于服务端在任何时候都可能接收来自不同客户端发送的数据，因此服务端==接收==数据的能力是有限的，而且是实时变化的。所以客户端就要以合适的速率传输数据给服务端，这==取决于服务端的接收缓冲区中剩余空间的大小==。类似地，客户端==发送==数据的能力也是有限的。</p>
-<p>速度的快慢是相对的，这取决于通信双方的发送能力和接收能力。举个例子，新老师在上课时经常会问同学们讲课的速度，这是因为新老师需要知晓同学接收信息的能力。类似地，在上网课时，老师会时不时说“听懂打 1”，通过老师==请求==-学生==反馈==的方式获取学生的接收能力。</p>
+<h5>*16 位窗口大小<span class="absolute -mt-20" id="16-位窗口大小"></span>
+    <a href="#16-%e4%bd%8d%e7%aa%97%e5%8f%a3%e5%a4%a7%e5%b0%8f" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><p>由于服务端在任何时候都可能接收来自不同客户端发送的数据，因此服务端<mark>接收</mark>数据的能力是有限的，而且是实时变化的。所以客户端就要以合适的速率传输数据给服务端，这<mark>取决于服务端的接收缓冲区中剩余空间的大小</mark>。类似地，客户端<mark>发送</mark>数据的能力也是有限的。</p>
+<p>速度的快慢是相对的，这取决于通信双方的发送能力和接收能力。举个例子，新老师在上课时经常会问同学们讲课的速度，这是因为新老师需要知晓同学接收信息的能力。类似地，在上网课时，老师会时不时说“听懂打 1”，通过老师<mark>请求</mark>-学生<mark>反馈</mark>的方式获取学生的接收能力。</p>
 <blockquote>
 <p>如何保证发送方用合适的流量发送？</p>
 </blockquote>
 <p>服务端在响应时，给客户端同步自己的接收能力。如何告知对方呢？</p>
-<p>报头中的 16 位窗口大小指的是接收端当前可以接收的数据量，双方进行报文交换的过程，就是报头交换的过程。参与通信的任意一方都可能会发送或接收数据，那么在发送数据时，应该将报头中的窗口大小填写为==自己==可以接收的数据量的大小。</p>
+<p>报头中的 16 位窗口大小指的是接收端当前可以接收的数据量，双方进行报文交换的过程，就是报头交换的过程。参与通信的任意一方都可能会发送或接收数据，那么在发送数据时，应该将报头中的窗口大小填写为<mark>自己</mark>可以接收的数据量的大小。</p>
 <blockquote>
 <p>值得注意的是，窗口大小是指接收端当前可以接收的数据量，它并不一定等于当前可变缓冲区的剩余大小。因为接收端可能会根据网络状况或者应用需求，动态地调整自己的接收窗口大小，而不是简单地根据缓冲区的剩余大小来设置。例如将会使用后续要介绍的『拥塞控制』算法限制窗口大小等。</p>
 <p>关于窗口大小的具体作用，将在后续的『滑动窗口』中介绍。</p>
 </blockquote>
-<h4>其他字段<span class="absolute -mt-20" id="其他字段"></span>
-    <a href="#%e5%85%b6%e4%bb%96%e5%ad%97%e6%ae%b5" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>剩下的字段包括：校验和、紧急指针和选项。在此学习时可以最后再补充它们，在此仅做介绍。</p>
+<h5>其他字段<span class="absolute -mt-20" id="其他字段"></span>
+    <a href="#%e5%85%b6%e4%bb%96%e5%ad%97%e6%ae%b5" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><p>剩下的字段包括：校验和、紧急指针和选项。在此学习时可以最后再补充它们，在此仅做介绍。</p>
 <blockquote>
 <p>下文大部分内容引用自《图解 TCP/IP》</p>
 </blockquote>
-<h5>校验和<span class="absolute -mt-20" id="校验和"></span>
-    <a href="#%e6%a0%a1%e9%aa%8c%e5%92%8c" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><p>校验和（checksum）是用来 <strong>检测 TCP 报头和数据是否有错误的</strong>，它占 16 位，是对报头和数据的所有字节求和后取反得到的。发送端在发送报文段时，会计算校验和并填充在报头中；接收端在收到报文段时，会重新计算校验和并与报头中的值比较，如果不相等，说明报文段有错误，需要丢弃或者重传。</p>
+<h6>校验和<span class="absolute -mt-20" id="校验和"></span>
+    <a href="#%e6%a0%a1%e9%aa%8c%e5%92%8c" class="subheading-anchor" aria-label="Permalink for this section"></a></h6><p>校验和（checksum）是用来 <strong>检测 TCP 报头和数据是否有错误的</strong>，它占 16 位，是对报头和数据的所有字节求和后取反得到的。发送端在发送报文段时，会计算校验和并填充在报头中；接收端在收到报文段时，会重新计算校验和并与报头中的值比较，如果不相等，说明报文段有错误，需要丢弃或者重传。</p>
 <img src="TCP 协议.IMG/image-20230709190634816.png" alt="image-20230709190634816" style="zoom:40%;" />
 <blockquote>
 <p>源 IP 地址与目标 IP 地址在 IPv4 的情况下都是 32 位字段，在 IPv6 地址时都为 128 位字段。填充是为了补充位数时用，一般填入 0。</p>
@@ -1373,16 +1352,16 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 <p>有噪声干扰的通信途中如果出现位错误，可以由数据链路的 FCS 检查出来。那么为什么 TCP 或 UDP 中也需要校验和呢？</p>
 <p>其实，相比检查噪声影响导致的错误，TCP 与 UDP 的校验和更是一种进行路由器内存故障或程序漏洞导致的数据是否被破坏的检查。</p>
 <p>有过 C 语言编程经验的人都知道，如果指针使用不当，极有可能会破坏内存中的数据结构。路由器的程序中也可能会存在漏洞，或程序异常宕掉的可能。在互联网中发送数据包要经由好多个路由器，一旦在发送途中的某一个路由器发生故障，经过此路由器的包、协议首部或数据就极有可能被破坏。即使在这种情况下，TCP 或 UDP 如果能够提供校验和计算，也可以判断协议首部和数据是否被破坏。</p>
-<h5>16 位紧急指针<span class="absolute -mt-20" id="16-位紧急指针"></span>
-    <a href="#16-%e4%bd%8d%e7%b4%a7%e6%80%a5%e6%8c%87%e9%92%88" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><p>紧急指针（urgent pointer）是用来处理紧急数据的，它占 16 位，==只有当 URG 标志位被设置时才有效==，它表示紧急数据在报文段中的位置。发送端在发送紧急数据时，会设置 URG 标志位并填充紧急指针；接收端在收到 URG 标志位时，会根据紧急指针找到紧急数据，并优先处理。</p>
+<h6>16 位紧急指针<span class="absolute -mt-20" id="16-位紧急指针"></span>
+    <a href="#16-%e4%bd%8d%e7%b4%a7%e6%80%a5%e6%8c%87%e9%92%88" class="subheading-anchor" aria-label="Permalink for this section"></a></h6><p>紧急指针（urgent pointer）是用来处理紧急数据的，它占 16 位，<mark>只有当 URG 标志位被设置时才有效</mark>，它表示紧急数据在报文段中的位置。发送端在发送紧急数据时，会设置 URG 标志位并填充紧急指针；接收端在收到 URG 标志位时，会根据紧急指针找到紧急数据，并优先处理。</p>
 <blockquote>
 <p>如何处理紧急数据？</p>
 </blockquote>
 <p>如何处理紧急数据属于应用的问题。一般在暂时中断通信，或中断通信的情况下使用。例如在 Web 浏览器中点击停止按钮，或者使用 TELNET 输入 Ctrl + C 时都会有 URG 为 1 的包。此外，紧急指针也用作表示数据流分段的标志</p>
-<h5>选项<span class="absolute -mt-20" id="选项"></span>
-    <a href="#%e9%80%89%e9%a1%b9" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><p>选项（options）是用来扩展 TCP 功能的，用于提高 TCP 的传输性能。它是可选的，可以占 0 到 320 位，一般是 32 位的整数倍，这取决于数据偏移（首部长度）。选项可以用来设置一些参数或者协商一些特性，例如最大报文段长度（MSS）、窗口缩放因子（WSF）、选择性确认（SACK）等。选项一般在 TCP 连接建立时交换，也可以在数据传输过程中使用。</p>
-<h5>注意<span class="absolute -mt-20" id="注意"></span>
-    <a href="#%e6%b3%a8%e6%84%8f" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><p>紧急指针并不常用，也不太可靠。 紧急指针只能表示一个字节的位置，而不是一个数据块的范围；而且不同的操作系统对紧急指针的处理方式也不一致，有些会将紧急数据单独传递给应用层，有些会将紧急数据与普通数据混合在一起。因此，在实际应用中，很少使用紧急指针来传输重要或异常的信息，而更多地使用其他的方式，例如单独的信道或者应用层协议。</p>
+<h6>选项<span class="absolute -mt-20" id="选项"></span>
+    <a href="#%e9%80%89%e9%a1%b9" class="subheading-anchor" aria-label="Permalink for this section"></a></h6><p>选项（options）是用来扩展 TCP 功能的，用于提高 TCP 的传输性能。它是可选的，可以占 0 到 320 位，一般是 32 位的整数倍，这取决于数据偏移（首部长度）。选项可以用来设置一些参数或者协商一些特性，例如最大报文段长度（MSS）、窗口缩放因子（WSF）、选择性确认（SACK）等。选项一般在 TCP 连接建立时交换，也可以在数据传输过程中使用。</p>
+<h6>注意<span class="absolute -mt-20" id="注意"></span>
+    <a href="#%e6%b3%a8%e6%84%8f" class="subheading-anchor" aria-label="Permalink for this section"></a></h6><p>紧急指针并不常用，也不太可靠。 紧急指针只能表示一个字节的位置，而不是一个数据块的范围；而且不同的操作系统对紧急指针的处理方式也不一致，有些会将紧急数据单独传递给应用层，有些会将紧急数据与普通数据混合在一起。因此，在实际应用中，很少使用紧急指针来传输重要或异常的信息，而更多地使用其他的方式，例如单独的信道或者应用层协议。</p>
 <p>相比之下，校验和和选项可能更值得关注，因为它们对 TCP 的可靠性和性能有很大的影响。校验和可以保证 TCP 报文段的完整性和正确性；选项可以提供一些高级功能和优化策略。</p>
 <p>通过序列号和 ACK 机制提高可靠性</p>
 <p>在 2.4 中，说明了 ACK 机制能够提高可靠性，但仅靠 ACK 机制是无法完全实现可靠性的。言外之意是，TCP 为了实现它的可靠性，采取了若干措施，付出了很多代价。</p>
@@ -1391,7 +1370,7 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 <img src="TCP 协议.IMG/image-20230709192411441.png" alt="image-20230709192411441" style="zoom:40%;" />
 <p>此外，也有可能因为一些其他原因导致确认应答延迟到达，在源主机重发数据以后才到达的情况也履见不鲜。不论如何，发送了数据却收不到确认应答，源发送主机只要按照机制重发数据即可。</p>
 <p>对于但是对于目标主机来说，这简直是一种“灾难”。<strong>它会反复收到相同的数据</strong>。而为了对上层应用提供可靠的传输，必须得放弃重复的数据包。为此，就必须引入一种机制，<strong>它能够识别是否已经接收数据，又能够判断是否需要接收</strong>。</p>
-<p>上述这些确认应答处理、重发控制以及重复控制等功能都可以通过==序列号==实现。序列号是按顺序给发送数据的每一个字节（8 位字节）都标上号码的编号。接收端查询接收数据 TCP 首部中的序列号和数据的长度，将自己下一步应该接收的序号作为确认应答返送回去。就这样，通过序列号和确认应答号，TCP 可以实现可靠传输。</p>
+<p>上述这些确认应答处理、重发控制以及重复控制等功能都可以通过<mark>序列号</mark>实现。序列号是按顺序给发送数据的每一个字节（8 位字节）都标上号码的编号。接收端查询接收数据 TCP 首部中的序列号和数据的长度，将自己下一步应该接收的序号作为确认应答返送回去。就这样，通过序列号和确认应答号，TCP 可以实现可靠传输。</p>
 <img src="TCP 协议.IMG/image-20230709192950975.png" alt="image-20230709192950975" style="zoom:40%;" />
 <p>其中：</p>
 <ul>
@@ -1403,41 +1382,41 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 <img src="TCP 协议.IMG/image-20231107173628682.png" alt="image-20231107173628682" style="zoom:40%;" />
 </li>
 <li>
-<p>MSS（Maximum Segment Size，报文最大长度）：在建立 TCP 连接的同时，也可以确定发送数据包的单位，我们也可以称其为“==最大消息长度==”（MSS）。最理想的情况是，最大消息长度正好是 IP 中不会被分片处理的最大数据长度（这样就省去了分片和重组的成本）。</p>
+<p>MSS（Maximum Segment Size，报文最大长度）：在建立 TCP 连接的同时，也可以确定发送数据包的单位，我们也可以称其为“<mark>最大消息长度</mark>”（MSS）。最理想的情况是，最大消息长度正好是 IP 中不会被分片处理的最大数据长度（这样就省去了分片和重组的成本）。</p>
 <p>TCP 在传送大量数据时，是 <strong>以 MSS 的大小将数据进行分割</strong> 发送。进行 <strong>重发</strong> 时也是以 MSS 为单位。</p>
 <p>MSS 是在三次握手的时候，在两端主机之间被计算得出。两端的主机在发出建立连接的请求时，会在 TCP 首部中写入 MSS 选项，告诉对方自己的接口能够适应的 MSS 的大小（为附加 MSS 选项，TCP 首部将不再是 20 字节，而是 4 字节的整数倍。如下图所示的+4。） 。然后会在两者之间选择一个较小的值投入使用（在建立连接时，如果某一方的 MSS 选项被省略，可以选为 IP 包的长度不超过 576 字节的值（IP 首部 20 字节，TCP 首部 20 字节，MSS 536 字节）。） 。</p>
 <img src="TCP 协议.IMG/image-20230709193250404.png" alt="image-20230709193250404" style="zoom:40%;" />
 </li>
 </ul>
 <p>因此，TCP 是以『段』（Segment）为单位发送数据的，和 MSS 对应。</p>
-<h3>序列号和确认应答号<span class="absolute -mt-20" id="序列号和确认应答号"></span>
-    <a href="#%e5%ba%8f%e5%88%97%e5%8f%b7%e5%92%8c%e7%a1%ae%e8%ae%a4%e5%ba%94%e7%ad%94%e5%8f%b7" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><blockquote>
+<h4>序列号和确认应答号<span class="absolute -mt-20" id="序列号和确认应答号"></span>
+    <a href="#%e5%ba%8f%e5%88%97%e5%8f%b7%e5%92%8c%e7%a1%ae%e8%ae%a4%e5%ba%94%e7%ad%94%e5%8f%b7" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><blockquote>
 <p>序列号的作用是标记数据的顺序，那么确认号有什么作用？</p>
 </blockquote>
 <p>序列号由发送数据的一方发出，而确认号由接收数据的一方发出，<strong>确认号告诉发送数据的一方：我已经接收到了你这次发送的数据，请你从这个序号的位置继续发送</strong>。</p>
 <img src="TCP 协议.IMG/Image00227.jpg" alt="Image00227" style="zoom:40%;" />
-<p>其中，1001 和 2001 都是确认号。它们表示的意义是==确认号之前==的数据都已收到，这样便能保证数据的完整性（如果网络条件良好的话）。</p>
+<p>其中，1001 和 2001 都是确认号。它们表示的意义是<mark>确认号之前</mark>的数据都已收到，这样便能保证数据的完整性（如果网络条件良好的话）。</p>
 <blockquote>
 <p>注意，它们的单位是字节，这恰好和字符数组的单位大小相同。</p>
 </blockquote>
-<p>序列号和确认号存在的原因是，要保证 TCP 是==全双工==的，即主机 A 在接收主机 B 的数据的同时，也要给主机 B 发送它自己要发送的数据（往往是主机 A 的应答）。就像生活中吵架一样，边吵边听，互不影响，==既可以收，也可以发==。</p>
+<p>序列号和确认号存在的原因是，要保证 TCP 是<mark>全双工</mark>的，即主机 A 在接收主机 B 的数据的同时，也要给主机 B 发送它自己要发送的数据（往往是主机 A 的应答）。就像生活中吵架一样，边吵边听，互不影响，<mark>既可以收，也可以发</mark>。</p>
 <p>因此，TCP 是一个 <strong>双向</strong> 的字节流协议，也就是说，每个方向上都有一个独立的字节流和序列号空间。因此，对于任意一方来说，它既有自己的序列号，也有对方的确认序号；它既有自己发送的报文段，也有对方发送的报文段。</p>
 <p>不论是请求还是应答，本质上对于任意一方都是报文，报文在“字节流”的意义下是一个字符数组，那么序列号就相当于数组的下标，确认序号就是数组未被使用的最新的位置。</p>
 <img src="TCP 协议.IMG/image-20230709201405566.png" alt="image-20230709201405566" style="zoom:40%;" />
-<h4>小结<span class="absolute -mt-20" id="小结"></span>
-    <a href="#%e5%b0%8f%e7%bb%93" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>序列号和确认序号的作用：</p>
+<h5>小结<span class="absolute -mt-20" id="小结"></span>
+    <a href="#%e5%b0%8f%e7%bb%93" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><p>序列号和确认序号的作用：</p>
 <ul>
 <li>将请求和应答一一对应起来；</li>
 <li>确认序号表示的是它之前的数据已经全部收到；</li>
 <li>允许部分确认应答丢失，或者不发送确认应答；</li>
 <li>保证了 TCP 的全双工通信。</li>
 </ul>
-<h2>3.2 连接的建立<span class="absolute -mt-20" id="32-连接的建立"></span>
-    <a href="#32-%e8%bf%9e%e6%8e%a5%e7%9a%84%e5%bb%ba%e7%ab%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>如何理解“连接”<span class="absolute -mt-20" id="如何理解连接"></span>
-    <a href="#%e5%a6%82%e4%bd%95%e7%90%86%e8%a7%a3%e8%bf%9e%e6%8e%a5" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>我们知道，TCP 在『端对端』之间建立的信道，为上层『端』对应的进程提供服务，它由客户端和服务端的套接字（socket）以及它们之间交换的数据包（segment）组成。TCP 连接的建立、维持和终止都需要遵循一定的协议和状态机制。另外，中心化的 Client-Server 模式使得大量不同的 Client 将会与同一台 Server 建立连接，那么 Server 端势必要对这些来源不同的连接进行管理。</p>
-<p>从数据结构的角度理解：我们知道，TCP 是处于传输层的协议，也就是说，TCP 的各种逻辑由操作系统（特指 Linux）维护，那么这些数据就得按照操作系统的规则组织，即==先描述，后组织==。</p>
+<h3>3.2 连接的建立<span class="absolute -mt-20" id="32-连接的建立"></span>
+    <a href="#32-%e8%bf%9e%e6%8e%a5%e7%9a%84%e5%bb%ba%e7%ab%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><h4>如何理解“连接”<span class="absolute -mt-20" id="如何理解连接"></span>
+    <a href="#%e5%a6%82%e4%bd%95%e7%90%86%e8%a7%a3%e8%bf%9e%e6%8e%a5" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>我们知道，TCP 在『端对端』之间建立的信道，为上层『端』对应的进程提供服务，它由客户端和服务端的套接字（socket）以及它们之间交换的数据包（segment）组成。TCP 连接的建立、维持和终止都需要遵循一定的协议和状态机制。另外，中心化的 Client-Server 模式使得大量不同的 Client 将会与同一台 Server 建立连接，那么 Server 端势必要对这些来源不同的连接进行管理。</p>
+<p>从数据结构的角度理解：我们知道，TCP 是处于传输层的协议，也就是说，TCP 的各种逻辑由操作系统（特指 Linux）维护，那么这些数据就得按照操作系统的规则组织，即<mark>先描述，后组织</mark>。</p>
 <p>现在我们知道了，这些连接在操作系统眼里，只不过内核中的数据结构类型（通过结构体组织），当连接成功被建立时，内存中就会创建对应的『连接对象』。管理不同的连接，即对这些连接对象进行增删查改等操作。</p>
-<p>既然组织连接相关的数据结构需要操作系统维护，那么维护是需要成本的，主要是==CPU 和内存资源==。这是许多网络攻击方式的切入点。</p>
+<p>既然组织连接相关的数据结构需要操作系统维护，那么维护是需要成本的，主要是<mark>CPU 和内存资源</mark>。这是许多网络攻击方式的切入点。</p>
 <p>当然，TCP 连接需要维护一些状态信息和参数，例如序号、确认号、窗口大小、重传计时器等。这些信息和参数被存储在一个称为传输控制块（Transmission Control Block，TCB）的数据结构中。每个 TCP 连接都有一个唯一的 TCB 与之对应，操作系统用一张表来存储所有的 TCB。TCB 中的信息和参数会随着连接的状态变化而更新。</p>
 <blockquote>
 <p>为什么说在学习网络之前一定要先学好操作系统呢？</p>
@@ -1448,8 +1427,8 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 <li>一个进程或者线程可以创建多个套接字，这些套接字用于与其他进程或者线程进行通信。因此，进程控制块或者线程控制块中有一个文件描述符表，其中包含了指向套接字对应传输控制块的指针。</li>
 </ul>
 </blockquote>
-<h3>三次握手<span class="absolute -mt-20" id="三次握手"></span>
-    <a href="#%e4%b8%89%e6%ac%a1%e6%8f%a1%e6%89%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>TCP 不像 UDP 一样不检查通信信道是否正常而直接向网络中发送数据，它会在数据通信之前，通过 TCP 首部发送一个 SYN 包作为建立连接的请求等待确认应答（为了描述的方便，通常将 TCP 中发送第一个 SYN 包的一方叫做客户端，接收这个的一方叫做服务端） 。</p>
+<h4>三次握手<span class="absolute -mt-20" id="三次握手"></span>
+    <a href="#%e4%b8%89%e6%ac%a1%e6%8f%a1%e6%89%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>TCP 不像 UDP 一样不检查通信信道是否正常而直接向网络中发送数据，它会在数据通信之前，通过 TCP 首部发送一个 SYN 包作为建立连接的请求等待确认应答（为了描述的方便，通常将 TCP 中发送第一个 SYN 包的一方叫做客户端，接收这个的一方叫做服务端） 。</p>
 <ul>
 <li>
 <p>如果对端发来确认应答，则认为可以进行数据通信。</p>
@@ -1507,8 +1486,8 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 <li>验证全双工通信（主要），即保证两个方向的通信信道通畅。</li>
 </ul>
 <p>三次握手的目的不仅在于让通信双方了解一个连接正在建立，还在于利用数据包中的选项来传递信息。</p>
-<h4>可靠性<span class="absolute -mt-20" id="可靠性"></span>
-    <a href="#%e5%8f%af%e9%9d%a0%e6%80%a7" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>尽管 TCP 依靠各种办法使得连接成功的可能性尽可能高，但是三次握手并不能 100%保证双方通信信道连接成功，这是因为，三次握手中的前两次握手能确保一定被对端接收到，而<strong>第三次握手是无法知晓它是否成功被接收的</strong>。原因在于此时服务端可能会出现宕机、关机等不可预测的行为，导致第三次握手的 ACK 无法正常被服务端接收，也就是丢包，这样连接就会建立失败。</p>
+<h5>可靠性<span class="absolute -mt-20" id="可靠性"></span>
+    <a href="#%e5%8f%af%e9%9d%a0%e6%80%a7" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><p>尽管 TCP 依靠各种办法使得连接成功的可能性尽可能高，但是三次握手并不能 100%保证双方通信信道连接成功，这是因为，三次握手中的前两次握手能确保一定被对端接收到，而<strong>第三次握手是无法知晓它是否成功被接收的</strong>。原因在于此时服务端可能会出现宕机、关机等不可预测的行为，导致第三次握手的 ACK 无法正常被服务端接收，也就是丢包，这样连接就会建立失败。</p>
 <blockquote>
 <p>第一次和第二次握手丢包不需要担心，因为如果发送报文的一方在一定时间内没有收到对方的反馈，就会重新发送报文。</p>
 </blockquote>
@@ -1520,18 +1499,18 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 <blockquote>
 <p>一个很常见的例子：游戏厂商往往会在各地架设服务器，以供玩家选择最短距离的服务器，这样延迟能尽可能低，丢包率也会比较稳定。加速器也是类似的原理，有些服务器离玩家很远，那么加速器充当着跳板的角色，间接地缩短了两者的距离。</p>
 </blockquote>
-<h4>标志位<span class="absolute -mt-20" id="标志位"></span>
-    <a href="#%e6%a0%87%e5%bf%97%e4%bd%8d" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><h5>RST<span class="absolute -mt-20" id="rst"></span>
-    <a href="#rst" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><p>在客户端发送第三个报文即 ACK 报文后，客户端此时可能会直接向对端发送数据（报文），但由于这个 ACK 报文是没有应答的，因此如果服务端未收到 ACK 报文时，服务端认为连接出现异常，会返回一个含有异常标志位的报头信息 RST。</p>
+<h5>标志位<span class="absolute -mt-20" id="标志位"></span>
+    <a href="#%e6%a0%87%e5%bf%97%e4%bd%8d" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><h6>RST<span class="absolute -mt-20" id="rst"></span>
+    <a href="#rst" class="subheading-anchor" aria-label="Permalink for this section"></a></h6><p>在客户端发送第三个报文即 ACK 报文后，客户端此时可能会直接向对端发送数据（报文），但由于这个 ACK 报文是没有应答的，因此如果服务端未收到 ACK 报文时，服务端认为连接出现异常，会返回一个含有异常标志位的报头信息 RST。</p>
 <blockquote>
 <p>仅做举例，实际上发生类似情况的概率很小。因为客户端发送数据时也会携带 ACK 标记位。</p>
 </blockquote>
-<h5>PSH<span class="absolute -mt-20" id="psh"></span>
-    <a href="#psh" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><p>让优先级更高的报文先被处理。</p>
-<h5>URG<span class="absolute -mt-20" id="urg"></span>
-    <a href="#urg" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><p>这里的『指针』不应该局限于语言层面上的指针，实际上只要能表示『方向』，都可以叫做指针。紧急指针表示的是一个位置，但是 16 位只能表示一个地址，它本质上是一个偏移量。</p>
-<h3>TCP 的状态<span class="absolute -mt-20" id="tcp-的状态"></span>
-    <a href="#tcp-%e7%9a%84%e7%8a%b6%e6%80%81" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>上文简要介绍了 TCP 三次握手的过程，以及三次握手的原理，既然第三个报文 ACK 无法收到应答，那么什么时候才算连接建立成功呢？这就需要用各种状态表示当前 TCP 连接，以对应不同的操作和响应。</p>
+<h6>PSH<span class="absolute -mt-20" id="psh"></span>
+    <a href="#psh" class="subheading-anchor" aria-label="Permalink for this section"></a></h6><p>让优先级更高的报文先被处理。</p>
+<h6>URG<span class="absolute -mt-20" id="urg"></span>
+    <a href="#urg" class="subheading-anchor" aria-label="Permalink for this section"></a></h6><p>这里的『指针』不应该局限于语言层面上的指针，实际上只要能表示『方向』，都可以叫做指针。紧急指针表示的是一个位置，但是 16 位只能表示一个地址，它本质上是一个偏移量。</p>
+<h4>TCP 的状态<span class="absolute -mt-20" id="tcp-的状态"></span>
+    <a href="#tcp-%e7%9a%84%e7%8a%b6%e6%80%81" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>上文简要介绍了 TCP 三次握手的过程，以及三次握手的原理，既然第三个报文 ACK 无法收到应答，那么什么时候才算连接建立成功呢？这就需要用各种状态表示当前 TCP 连接，以对应不同的操作和响应。</p>
 <p>友情链接：<a href="https://www.cnblogs.com/qingergege/p/6603488.html" target="_blank" rel="noopener">TCP 的 11 种状态</a></p>
 <p>TCP 的状态有 11 种，分别是：</p>
 <ul>
@@ -1547,8 +1526,8 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 <li><strong>LAST_ACK</strong>：表示被动关闭连接的一方已发送 FIN+ACK 报文，等待对方的 ACK 报文。</li>
 <li><strong>TIME_WAIT</strong>：表示主动关闭连接的一方已收到对方的 FIN+ACK 报文，并回复了 ACK 报文，等待足够的时间以确保对方收到 ACK 报文。</li>
 </ul>
-<h4>三次握手<span class="absolute -mt-20" id="三次握手-1"></span>
-    <a href="#%e4%b8%89%e6%ac%a1%e6%8f%a1%e6%89%8b-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>TCP 的状态在三次握手中的变化是这样的：</p>
+<h5>三次握手<span class="absolute -mt-20" id="三次握手-1"></span>
+    <a href="#%e4%b8%89%e6%ac%a1%e6%8f%a1%e6%89%8b-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><p>TCP 的状态在三次握手中的变化是这样的：</p>
 <img src="TCP 协议.IMG/image-20230711173812497.png" alt="image-20230711173812497" style="zoom:40%;" />
 <blockquote>
 <p>图片和描述来自：<a href="https://xiaolincoding.com/network/3_tcp/tcp_interview.html#tcp-%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B%E6%98%AF%E6%80%8E%E6%A0%B7%E7%9A%84" target="_blank" rel="noopener">小林 coding：TCP 三次握手过程是怎样的？</a></p>
@@ -1579,8 +1558,8 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 <li>客户端在接收到 SYN+ACK 包后，就认为 TCP 连接已经建立，状态为 ESTABLISHED。如果此时客户端向服务端发送数据，服务端将以 RST 包响应，用于强制关闭 TCP 连接。</li>
 <li>如果服务端收到客户端重发的 ACK 包，会先判断全连接队列是否已满，如果未满则从半连接队列中拿出相关信息存放入全连接队列中，之后服务端 accept() 处理此请求。如果已满，则根据 tcp_abort_on_overflow 参数的值决定是扔掉 ACK 包还是发送 RST 包给客户端。</li>
 </ul>
-<h4>半连接和全连接队列<span class="absolute -mt-20" id="半连接和全连接队列"></span>
-    <a href="#%e5%8d%8a%e8%bf%9e%e6%8e%a5%e5%92%8c%e5%85%a8%e8%bf%9e%e6%8e%a5%e9%98%9f%e5%88%97" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>tcp_abort_on_overflow 是一个布尔型参数，当服务端的监听队列满时，新的连接请求会有两种处理方式，一是丢弃，二是拒绝连接（通过向服务端发送 RST 报文实现）。通过哪种方式处理，取决于这个参数：</p>
+<h5>半连接和全连接队列<span class="absolute -mt-20" id="半连接和全连接队列"></span>
+    <a href="#%e5%8d%8a%e8%bf%9e%e6%8e%a5%e5%92%8c%e5%85%a8%e8%bf%9e%e6%8e%a5%e9%98%9f%e5%88%97" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><p>tcp_abort_on_overflow 是一个布尔型参数，当服务端的监听队列满时，新的连接请求会有两种处理方式，一是丢弃，二是拒绝连接（通过向服务端发送 RST 报文实现）。通过哪种方式处理，取决于这个参数：</p>
 <ul>
 <li>tcp_abort_on_overflow 为 0，丢弃服务端发送的 ACK 报文，不建立连接。</li>
 <li>tcp_abort_on_overflow 为 1，发送 RST 报文给客户端，拒绝连接。</li>
@@ -1598,8 +1577,8 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 <li>当客户端发起连接请求时，服务端会根据 TCP 三次握手的进度，将连接请求放入半连接队列或全连接队列。</li>
 <li>当应用程序调用 accept 函数时，服务端会从全连接队列中取出一个连接请求，并返回一个新的 socket 给应用程序，用于和客户端通信。</li>
 </ul>
-<h3>再次理解“三次握手”<span class="absolute -mt-20" id="再次理解三次握手"></span>
-    <a href="#%e5%86%8d%e6%ac%a1%e7%90%86%e8%a7%a3%e4%b8%89%e6%ac%a1%e6%8f%a1%e6%89%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>在前面几个小节中，我们知道了什么是连接，也了解了 TCP 的三次握手过程和 TCP 状态的变化。在了解这些前提后，我们再来谈谈 TCP 为什么是三次握手。</p>
+<h4>再次理解“三次握手”<span class="absolute -mt-20" id="再次理解三次握手"></span>
+    <a href="#%e5%86%8d%e6%ac%a1%e7%90%86%e8%a7%a3%e4%b8%89%e6%ac%a1%e6%8f%a1%e6%89%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>在前面几个小节中，我们知道了什么是连接，也了解了 TCP 的三次握手过程和 TCP 状态的变化。在了解这些前提后，我们再来谈谈 TCP 为什么是三次握手。</p>
 <p>TCP 连接除了要保证建立连接的效率、验证全双工之外，虽然它不保证 100%的可靠性，但是它是用于保证可靠性和流量控制维护的某些状态信息（包括 <strong>Socket、序列号和窗口大小</strong>）的前提。</p>
 <p>那么问题就转化为：为什么只有三次握手<strong>才可以初始化 Socket、序列号和窗口大小并建立 TCP 连接</strong>？</p>
 <p>结论：</p>
@@ -1608,8 +1587,8 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 <li>同步双方的初始序列号</li>
 <li>避免资源浪费</li>
 </ul>
-<h4>阻止重复历史连接的初始化<span class="absolute -mt-20" id="阻止重复历史连接的初始化"></span>
-    <a href="#%e9%98%bb%e6%ad%a2%e9%87%8d%e5%a4%8d%e5%8e%86%e5%8f%b2%e8%bf%9e%e6%8e%a5%e7%9a%84%e5%88%9d%e5%a7%8b%e5%8c%96" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><ul>
+<h5>阻止重复历史连接的初始化<span class="absolute -mt-20" id="阻止重复历史连接的初始化"></span>
+    <a href="#%e9%98%bb%e6%ad%a2%e9%87%8d%e5%a4%8d%e5%8e%86%e5%8f%b2%e8%bf%9e%e6%8e%a5%e7%9a%84%e5%88%9d%e5%a7%8b%e5%8c%96" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><ul>
 <li>三次握手的<strong>首要原因是防止旧的重复连接初始化造成混乱</strong>。</li>
 </ul>
 <p>首先谈谈什么是『历史连接』。</p>
@@ -1617,7 +1596,7 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 <blockquote>
 <p>注意，这里的 SYN 不是后面要讲的『重传』SYN，因为序列号不同。</p>
 </blockquote>
-<p>TCP 的三次握手通过==序列号和确认号==的机制来防止旧的重复连接初始化造成混乱。具体来说：</p>
+<p>TCP 的三次握手通过<mark>序列号和确认号</mark>的机制来防止旧的重复连接初始化造成混乱。具体来说：</p>
 <ul>
 <li>在第一次握手中，客户端发送一个 SYN 报文，携带一个随机的初始序列 Seq=x，表示客户端想要建立连接，并告诉服务端自己的序列号。</li>
 <li>在第二次握手中，服务端回复一个 SYN+ACK 报文，携带一个随机的初始序列号 Seq=y，表示服务端同意建立连接，并告诉客户端自己的序列号。同时，服务端也确认了客户端的序列号，将确认号 ack 设置为 x+1，表示期待收到客户端下一个字节的序列号。</li>
@@ -1663,12 +1642,12 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 <p>问：为啥这么确定地说 100%？</p>
 </blockquote>
 <p>因为没有第一次握手，就没有第二次握手。</p>
-<h4>同步双方初始序列号<span class="absolute -mt-20" id="同步双方初始序列号"></span>
-    <a href="#%e5%90%8c%e6%ad%a5%e5%8f%8c%e6%96%b9%e5%88%9d%e5%a7%8b%e5%ba%8f%e5%88%97%e5%8f%b7" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>序列号是 TCP 协议实现可靠传输的一个重要机制，它可以帮助双方识别和处理重复、丢失、乱序、延迟的数据包。</p>
+<h5>同步双方初始序列号<span class="absolute -mt-20" id="同步双方初始序列号"></span>
+    <a href="#%e5%90%8c%e6%ad%a5%e5%8f%8c%e6%96%b9%e5%88%9d%e5%a7%8b%e5%ba%8f%e5%88%97%e5%8f%b7" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><p>序列号是 TCP 协议实现可靠传输的一个重要机制，它可以帮助双方识别和处理重复、丢失、乱序、延迟的数据包。</p>
 <p>初始序列号是建立 TCP 连接时双方协商的一个随机数，它可以防止历史连接的干扰和恶意攻击。</p>
 <p>通过三次握手，双方可以互相确认对方的初始序列号，并在此基础上递增序列号来发送后续的数据包。这样一来一回，才能确保双方的初始序列号能被可靠的同步。</p>
-<h4>避免资源浪费<span class="absolute -mt-20" id="避免资源浪费"></span>
-    <a href="#%e9%81%bf%e5%85%8d%e8%b5%84%e6%ba%90%e6%b5%aa%e8%b4%b9" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>刚才在介绍两次握手时，说明了两次握手只能确保建立单方向的通信信道（客户端-&gt;服务端），这个过程对客户端是无感知的，只要它没有收到第二次握手服务端发送的 SYN+ACK 报文，就会根据超时重传机制发送若干 SYN 报文以请求连接。</p>
+<h5>避免资源浪费<span class="absolute -mt-20" id="避免资源浪费"></span>
+    <a href="#%e9%81%bf%e5%85%8d%e8%b5%84%e6%ba%90%e6%b5%aa%e8%b4%b9" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><p>刚才在介绍两次握手时，说明了两次握手只能确保建立单方向的通信信道（客户端-&gt;服务端），这个过程对客户端是无感知的，只要它没有收到第二次握手服务端发送的 SYN+ACK 报文，就会根据超时重传机制发送若干 SYN 报文以请求连接。</p>
 <img src="TCP 协议.IMG/format,png-20230309230636571.png" alt="两次握手会造成资源浪费" style="zoom:40%;" />
 <p>例如，如果客户端发送的 SYN 报文在网络中阻塞了，重复发送多次 SYN 报文，那么服务端在收到请求后就会建立多个冗余的无效链接，造成不必要的资源浪费。即两次握手会造成消息滞留情况下，服务端重复接受无用的连接请求 SYN 报文，而造成重复分配资源。</p>
 <blockquote>
@@ -1679,14 +1658,14 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 <li>两次握手可以根据 SYN 的序列号来丢弃历史报文，但是不能阻止历史连接。也就是说，如果客户端收到了一个过期的 SYN+ACK 报文（比如之前网络延迟导致的），它可以根据序列号判断这是一个历史连接，并发送 RST 报文来拒绝连接。</li>
 <li>但是服务端在收到客户端的 SYN 报文后，就进入了 ESTABLISHED 状态，并没有『中间状态』来阻止历史连接。也就是说，如果服务端收到了一个过期的 SYN 报文（比如之前网络延迟导致的），它无法根据序列号判断这是一个历史连接，并可能建立一个无效的连接，并向客户端发送数据。</li>
 </ul>
-<h2>3.3 重传机制<span class="absolute -mt-20" id="33-重传机制"></span>
-    <a href="#33-%e9%87%8d%e4%bc%a0%e6%9c%ba%e5%88%b6" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>在上面的示例中，我们知道客户端在发送数据后的一段时间内如果得不到服务端的回应，会重新发送请求连接的报文，这个过程通过『重发机制』完成，重发机制根据不同因素的驱动，主要分为两种：</p>
+<h3>3.3 重传机制<span class="absolute -mt-20" id="33-重传机制"></span>
+    <a href="#33-%e9%87%8d%e4%bc%a0%e6%9c%ba%e5%88%b6" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>在上面的示例中，我们知道客户端在发送数据后的一段时间内如果得不到服务端的回应，会重新发送请求连接的报文，这个过程通过『重发机制』完成，重发机制根据不同因素的驱动，主要分为两种：</p>
 <ul>
 <li>超时重传机制：以固定时间为驱动。如上例。</li>
 <li>快速重传机制：以数据为驱动。</li>
 </ul>
-<h3>超时重传机制<span class="absolute -mt-20" id="超时重传机制"></span>
-    <a href="#%e8%b6%85%e6%97%b6%e9%87%8d%e4%bc%a0%e6%9c%ba%e5%88%b6" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>对于报文的发送方，如果收不到对方的应答，有两种情况（如下图）：</p>
+<h4>超时重传机制<span class="absolute -mt-20" id="超时重传机制"></span>
+    <a href="#%e8%b6%85%e6%97%b6%e9%87%8d%e4%bc%a0%e6%9c%ba%e5%88%b6" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>对于报文的发送方，如果收不到对方的应答，有两种情况（如下图）：</p>
 <ol>
 <li>报文被对方丢弃了</li>
 <li>报文被对方收到了，但是对方发出的确认应答丢包了</li>
@@ -1726,8 +1705,8 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 <img src="TCP 协议.IMG/8.jpg" alt="RTO 应略大于 RTT" style="zoom:40%;" />
 <p>注意，</p>
 <p>尽管经过了一系列实践和测试，但事实上总会存在某些超时重传解决不了的情况，即超时重传的 RTO 宁愿长也不能短，缺点的严重性取决于具体场景。例如像多人网游这样对延迟要求十分高的场景，使用超时重传就会很低效，这就需要使用『快速重传』机制解决。</p>
-<h3>快速重传<span class="absolute -mt-20" id="快速重传"></span>
-    <a href="#%e5%bf%ab%e9%80%9f%e9%87%8d%e4%bc%a0" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>快速重传有两种方式，一种是基于重复 ACK 的快速重传，另一种是基于 SACK 的快速重传：</p>
+<h4>快速重传<span class="absolute -mt-20" id="快速重传"></span>
+    <a href="#%e5%bf%ab%e9%80%9f%e9%87%8d%e4%bc%a0" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>快速重传有两种方式，一种是基于重复 ACK 的快速重传，另一种是基于 SACK 的快速重传：</p>
 <ul>
 <li>基于重复 ACK 的快速重传是指当发送方连续收到三个相同的 ACK 报文时，就认为该序号对应的数据包丢失了，于是在超时定时器到期之前就立即重传该数据包。</li>
 <li>基于 SACK 的快速重传是指当接收方收到失序的数据包时，会在 TCP 头部增加一个 SACK 字段，告诉发送方已经收到的数据包序号范围，这样发送方可以准确地知道哪些数据包丢失了，并且只重传丢失的数据包。</li>
@@ -1756,9 +1735,9 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 <blockquote>
 <p>关于 SACK 的具体实现，参看《TCP/IP 详解 卷 1 协议》第 478 页。</p>
 </blockquote>
-<h2>3.4 连接的断开<span class="absolute -mt-20" id="34-连接的断开"></span>
-    <a href="#34-%e8%bf%9e%e6%8e%a5%e7%9a%84%e6%96%ad%e5%bc%80" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>四次挥手<span class="absolute -mt-20" id="四次挥手"></span>
-    <a href="#%e5%9b%9b%e6%ac%a1%e6%8c%a5%e6%89%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><img src="TCP 协议.IMG/format,png-20230309230614791.png" alt="客户端主动关闭连接 —— TCP 四次挥手" style="zoom:40%;" />
+<h3>3.4 连接的断开<span class="absolute -mt-20" id="34-连接的断开"></span>
+    <a href="#34-%e8%bf%9e%e6%8e%a5%e7%9a%84%e6%96%ad%e5%bc%80" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><h4>四次挥手<span class="absolute -mt-20" id="四次挥手"></span>
+    <a href="#%e5%9b%9b%e6%ac%a1%e6%8c%a5%e6%89%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><img src="TCP 协议.IMG/format,png-20230309230614791.png" alt="客户端主动关闭连接 —— TCP 四次挥手" style="zoom:40%;" />
 <p>TCP 的四次挥手的过程是这样的：</p>
 <ul>
 <li>第一次挥手：主动关闭方（客户端或服务器，上例是客户端）发送一个 <strong>FIN</strong> 标志位为 1 的数据包，表示要结束数据传输，进入 <strong>FIN_WAIT_1</strong> 状态，等待对方的确认。</li>
@@ -1775,8 +1754,8 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 <p>**主动关闭连接的一方才有 TIME_WAIT **状态。</p>
 </li>
 </ul>
-<h3>常见问题<span class="absolute -mt-20" id="常见问题"></span>
-    <a href="#%e5%b8%b8%e8%a7%81%e9%97%ae%e9%a2%98" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><blockquote>
+<h4>常见问题<span class="absolute -mt-20" id="常见问题"></span>
+    <a href="#%e5%b8%b8%e8%a7%81%e9%97%ae%e9%a2%98" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><blockquote>
 <p>FIN 和 ACK 我知道，为什么要有两个 FIN_WAIT 状态呢？</p>
 </blockquote>
 <p>两个 <strong>FIN_WAIT</strong> 状态的区别是，<strong>FIN_WAIT_1</strong> 状态表示主动关闭方（客户端或服务器）发送了 <strong>FIN</strong> 包，等待被动关闭方（服务器或客户端）的 <strong>ACK</strong> 包。而 <strong>FIN_WAIT_2</strong> 状态表示主动关闭方收到了被动关闭方的 <strong>ACK</strong> 包，等待被动关闭方的 <strong>FIN</strong> 包。</p>
@@ -1879,23 +1858,105 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 <li>【主要】使用<code>setsockopt()</code>设置 socket 文件描述符的选项 SO_REUSEADDR 为 1 来允许 TIME_WAIT 状态的 socket 被重用，即允许创建端口号相同，但是 IP 地址不同的多个 socket 文件描述符。</li>
 <li>缩短 TIME_WAIT 的持续时间等。</li>
 </ul>
-<h3>测试<span class="absolute -mt-20" id="测试"></span>
-    <a href="#%e6%b5%8b%e8%af%95" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>下面用一个例子来测试当客户端主动关闭连接时，会出现什么情况。</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// Sock.hpp
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#pragma once
+<h4>测试<span class="absolute -mt-20" id="测试"></span>
+    <a href="#%e6%b5%8b%e8%af%95" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>下面用一个例子来测试当客户端主动关闭连接时，会出现什么情况。</p>
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// Sock.hpp
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">##pragma once
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;cstring&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;cerrno&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;cassert&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;memory&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/socket.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;arpa/inet.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;netinet/in.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;ctype.h&gt;</span><span class="cp">
+</span></span><span class="line"><span class="cl"><span class="cp">##include &lt;iostream&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;string&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;cstring&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;cerrno&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;cassert&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;unistd.h&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;memory&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/types.h&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/socket.h&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;arpa/inet.h&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;netinet/in.h&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;ctype.h&gt;
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Sock</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -1958,7 +2019,9 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 </span></span><span class="line"><span class="cl">        <span class="k">else</span> <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="o">~</span><span class="n">Sock</span><span class="p">()</span> <span class="p">{}</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -1968,8 +2031,34 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
     </button>
   </div>
 </div>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// main.cc
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&#34;Sock.hpp&#34;</span><span class="cp">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// main.cc
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">##include &#34;Sock.hpp&#34;
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -1989,7 +2078,9 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 </span></span><span class="line"><span class="cl">            <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;[&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">clientip</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;:&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">clientport</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;]# &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">sockfd</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -2013,7 +2104,25 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 <img src="TCP 协议.IMG/image-20230725230325537.png" alt="image-20230725230325537" style="zoom:40%;" />
 <p>我们知道文件描述符是有上限的，而且连接本身也会占用资源，如果客户端主动关闭连接后，服务端却没有关闭文件描述符，最终会导致进程崩溃。</p>
 <p>在服务端中增加关闭连接操作：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;Sock.hpp&#34;</span><span class="cp">
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &#34;Sock.hpp&#34;
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -2026,7 +2135,9 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 </span></span><span class="line"><span class="cl">        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">sockfd</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; had closed&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -2044,14 +2155,28 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 <p>文件描述符的生命周期随进程，不论服务端进程是正常退出还是异常退出，只要服务端进程退出，此时就应该立即重启服务器。但问题在于，由于是服务端主动关闭请求，此时服务器必然存在大量处于 TIME_WAIT 状态的连接，而它们在一段时间内占用了 IP 和端口。如果是双 11 这样的场景，发生这种是被称之为事故，是要被定级的。</p>
 <p>操作系统提供了 Listen 套接字的属性，以供地址复用。这样服务器一旦挂掉重启后，虽然存在大量处于 TIME_WAIT 状态的连接，但是这个选项可以绕过 TIME_WAIT 限制，直接复用原先使用的地址。</p>
 <p>只需要在 Socket 初始化时设置选项：</p>
-<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// Sock.hpp::Sock
+<div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// Sock.hpp::Sock
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">Socket</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// ...
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">int</span> <span class="n">opt</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">setsockopt</span><span class="p">(</span><span class="n">listensock</span><span class="p">,</span> <span class="n">SOL_SOCKET</span><span class="p">,</span> <span class="n">SO_REUSEADDR</span> <span class="o">|</span> <span class="n">SO_REUSEPORT</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">opt</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">opt</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// ...
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
       class="code-copy-btn group/copybtn transition-all active:opacity-50 bg-primary-700/5 border border-black/5 text-gray-600 hover:text-gray-900 rounded-md p-1.5 dark:bg-primary-300/10 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50"
       title="Copy code"
@@ -2067,15 +2192,15 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 <p>重启服务端进程，并尝试重新建立连接：</p>
 <img src="TCP 协议.IMG/image-20230725234953769.png" alt="image-20230725234953769" style="zoom:40%;" />
 <p>即使此时这个 PORT 对应的连接处于 TIME_WAIT 状态，由于设置了地址复用选项，可以无视它的存在，跳过这段占用时间。</p>
-<h2>3.5 流量控制<span class="absolute -mt-20" id="35-流量控制"></span>
-    <a href="#35-%e6%b5%81%e9%87%8f%e6%8e%a7%e5%88%b6" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>TCP 除了要保证连接的可靠性，还要保证数据传输的效率。这是因为，TCP 在每次发送数据时，网络和机器本身的承载能力是动态的。提升效率的主要手段在于减少“发送-回应”的次数，即增大回应的粒度，以多条数据为一组作为一次回应的内容，这一组数据在缓冲区中就叫做『滑动窗口』。</p>
+<h3>3.5 流量控制<span class="absolute -mt-20" id="35-流量控制"></span>
+    <a href="#35-%e6%b5%81%e9%87%8f%e6%8e%a7%e5%88%b6" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>TCP 除了要保证连接的可靠性，还要保证数据传输的效率。这是因为，TCP 在每次发送数据时，网络和机器本身的承载能力是动态的。提升效率的主要手段在于减少“发送-回应”的次数，即增大回应的粒度，以多条数据为一组作为一次回应的内容，这一组数据在缓冲区中就叫做『滑动窗口』。</p>
 <p>在上文提到过『缓冲区』，现在我们就对它有了简单的认识：收发缓冲区的『剩余空间』决定了收发的能力。</p>
 <blockquote>
 <p>为什么要流量控制？</p>
 </blockquote>
 <p>由于缓冲区的大小是固定的，剩余空间也是动态变化的，所以进程的收发能力也是动态变化的。上一时刻可能最大能接收 1000 字节的数据，下一时刻可能只能接收 10 字节的数据，如果依然按照这样的速率发送，接收端的接收缓冲区就会经常处于满的状态，这就可能会造成丢包问题（我们知道这可能会触发丢包重传等一系列连锁机制）。因此发送方不能盲目地发送数据，要考虑对端的接收能力。</p>
-<h3>滑动窗口<span class="absolute -mt-20" id="滑动窗口"></span>
-    <a href="#%e6%bb%91%e5%8a%a8%e7%aa%97%e5%8f%a3" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>TCP 的流量控制主要通过<strong>滑动窗口</strong>机制来实现的。</p>
+<h4>滑动窗口<span class="absolute -mt-20" id="滑动窗口"></span>
+    <a href="#%e6%bb%91%e5%8a%a8%e7%aa%97%e5%8f%a3" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>TCP 的流量控制主要通过<strong>滑动窗口</strong>机制来实现的。</p>
 <p>滑动窗口是指在 TCP 连接的数据传输过程中，两端系统使用的流量控制机制。滑动窗口由发送方和接收方各自维护一个窗口大小，表示当前可以发送或接收的数据量。发送方的窗口大小取决于接收方的『窗口大小』字段，即接收方告诉发送方自己还有多少空闲缓存可以接收数据。</p>
 <p>接收方的窗口大小取决于自己的缓存大小和已经接收但未确认的数据量。当接收方收到数据后，会返回一个确认报文，并在报文中携带自己的通告窗口大小，告诉发送方可以继续发送多少数据。当发送方收到确认报文后，会根据通告窗口大小调整自己的窗口大小，并向前滑动窗口，即更新已经发送和确认的序号范围。</p>
 <p>这样，通过滑动窗口协议，可以实现发送方根据接收方的处理能力来调节发送速度，从而实现流量控制。</p>
@@ -2113,14 +2238,14 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 </blockquote>
 <p>不一定。TCP 窗口大小字段本身是 16 位的，所以最大值是 65535 字节。但是，TCP 还支持一种叫做<strong>窗口缩放</strong>的选项，它可以在 TCP 三次握手期间协商一个<strong>缩放因子</strong>，用于将窗口大小乘以一个 2 的幂，从而扩大窗口的范围。窗口缩放选项的值可以从 0 到 14，所以最大的缩放因子是$2^{14}=16384$，这样最大的窗口大小就可以达到$65535\times 16384=1$ GB。</p>
 <p>当然，这个值也受限于操作系统缓冲区的大小和网络状况的影响。</p>
-<h3>*滑动窗口的原理<span class="absolute -mt-20" id="滑动窗口的原理"></span>
-    <a href="#%e6%bb%91%e5%8a%a8%e7%aa%97%e5%8f%a3%e7%9a%84%e5%8e%9f%e7%90%86" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>上面介绍了滑动窗口的概念，下面要介绍缓冲区是如何实现滑动窗口的。</p>
+<h4>*滑动窗口的原理<span class="absolute -mt-20" id="滑动窗口的原理"></span>
+    <a href="#%e6%bb%91%e5%8a%a8%e7%aa%97%e5%8f%a3%e7%9a%84%e5%8e%9f%e7%90%86" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>上面介绍了滑动窗口的概念，下面要介绍缓冲区是如何实现滑动窗口的。</p>
 <p>由于 TCP 为了保证可靠性而付出了一定的代价，所以需要通过多种方式保证其效率，例如减少『发送-接收』的次数，即将若干个数据打包为一组再发送，这一组的大小由一个『窗口结构』维护，因为这个数据包的大小因网络和应用程序实际情况而异，因此它是动态变化的，叫做『滑动窗口』。</p>
 <blockquote>
 <p>为什么减少『发送-接收』的次数就能提高效率呢？</p>
 </blockquote>
 <ul>
-<li>数据在网络中往返的时间越长，通信效率越低。==窗口大小就是指<strong>无需等待确认应答，而可以继续发送数据的最大值</strong>==。</li>
+<li>数据在网络中往返的时间越长，通信效率越低。<mark>窗口大小就是指<strong>无需等待确认应答，而可以继续发送数据的最大值</strong></mark>。</li>
 </ul>
 <p>从数据结构和缓冲区的角度理解：滑动窗口是一个变化的数值，表示当前可以发送或接收的数据量。滑动窗口的大小取决于操作系统缓冲区的大小和网络状况。滑动窗口可以用两个指针来表示，一个指向缓冲区中『已发送或已接收的数据』的第一个字节，另一个指向缓冲区中『未发送或未接收的数据』的第一个字节。『这两个指针之间的距离就是滑动窗口的大小』。当数据发送或接收时，这两个指针会相应地移动，从而实现窗口的滑动。</p>
 <p>以 TCP 的『发送窗口』为例：</p>
@@ -2196,7 +2321,7 @@ $$
 <blockquote>
 <p>窗口的移动和 ACK 有什么关系？</p>
 </blockquote>
-<p>接收方只能在接收窗口内接收数据，并且要及时将数据传递给应用层，以免缓存溢出。当接收方收到发送方发来的数据报文时，就会根据序号和校验和来判断是否正确，并根据累计确认或选择确认的原则，回复 ACK 确认报文，通知对方已经成功接收。如果接收方发现有序号不连续或重复的数据段，就会暂时缓存它们，并重复回复==最后一个正确连续==序号的 ACK 报文，以便让发送方重传丢失或错误的数据段。当接收方将所有缓存中的数据段按序交付给应用层后，就会移动接收窗口的左边界，并向右滑动窗口，准备接收后续数据。</p>
+<p>接收方只能在接收窗口内接收数据，并且要及时将数据传递给应用层，以免缓存溢出。当接收方收到发送方发来的数据报文时，就会根据序号和校验和来判断是否正确，并根据累计确认或选择确认的原则，回复 ACK 确认报文，通知对方已经成功接收。如果接收方发现有序号不连续或重复的数据段，就会暂时缓存它们，并重复回复<mark>最后一个正确连续</mark>序号的 ACK 报文，以便让发送方重传丢失或错误的数据段。当接收方将所有缓存中的数据段按序交付给应用层后，就会移动接收窗口的左边界，并向右滑动窗口，准备接收后续数据。</p>
 <p>例如在上面这个例子中，发送方起初一次性发送了序号 4/5/6 这三个数据包，但是只收到了来自接收方 4 和 5 的 ACK 确认应答，序号 6 暂时没有收到。那么这个状态下窗口的右边界只能从 6 开始，只有收到了对应 ACK 确认应答的数据包才能被滑出窗口外。</p>
 <p>[ACK 的含义] 另外，还记得 ACK 表示的是什么吗？&ndash;对于接收到 ACK 的一方，它代表这对方已经接收到 ACK 序号之前的数据，那么 ACK 就是我下次要发送的下一个数据的序号。只要收到了 ACK，就代表这个序号的数据包被接收到了，没有的话就等下次重发。</p>
 <p>[强调连续性] 在这个意义下，假如在上例中，对于这一组连续的报文，接收方没有收到中间序号为 5 的数据包，在发送方重传以后，如果收到了接收方 5 之后的 ACK 应答，也认为 5 号报文被对方接收；但是如果没有收到连续报文中间的数据的 ACK 应答，例如收到了 4 号和 6 号，但是没有收到 5 号的 ACK，那么发送方会认为对方只收到了 4 号 ACK。这么做的原因是方便稍后重传数据包，使得窗口的左边界能够单调地向一个方向移动：接收到 ACK 就移动（把接收到 ACK 的序号滑出窗口）；没有接收到就不动。</p>
@@ -2205,13 +2330,13 @@ $$
 </blockquote>
 <p>这样窗口的更新方式就比较统一了，只要收到 ACK 应答，序号是几，就更新到几，不用担心报文丢失或确认应答丢失，根据序号的定义，丢失的报文最终是不会被发送方确认的，窗口也就不会越过这个序号。</p>
 <p>由于窗口由一个环形数组维护，因此它不会出现越界问题，需要处理的是跨越起点的两部分。（参考环形队列的解决办法）从上面的例子不难体会到，滑动窗口解决的是效率问题，而重传机制保证了一定程度的可靠性。</p>
-<h2>3.6 拥塞控制<span class="absolute -mt-20" id="36-拥塞控制"></span>
-    <a href="#36-%e6%8b%a5%e5%a1%9e%e6%8e%a7%e5%88%b6" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>网络是一种共享资源，在网络中每时每刻都有无数台机器在使用 TCP 协议进行通信，对于通信的参与方，它们对网络是无感知的。因为通信双方只会交换对方的接收能力，只关心对方的状态。极端地说，如果网络上大部分发送方都在重传数据，那么网络将会越来越拥堵，就像滚雪球一样，更何况网络本身就可能处于阻塞状态。</p>
+<h3>3.6 拥塞控制<span class="absolute -mt-20" id="36-拥塞控制"></span>
+    <a href="#36-%e6%8b%a5%e5%a1%9e%e6%8e%a7%e5%88%b6" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>网络是一种共享资源，在网络中每时每刻都有无数台机器在使用 TCP 协议进行通信，对于通信的参与方，它们对网络是无感知的。因为通信双方只会交换对方的接收能力，只关心对方的状态。极端地说，如果网络上大部分发送方都在重传数据，那么网络将会越来越拥堵，就像滚雪球一样，更何况网络本身就可能处于阻塞状态。</p>
 <p>『拥塞控制』就是控制发送方发送的数据的数量，以避免它们造成或加剧网络拥堵。拥塞控制通过『拥塞窗口』来维护。</p>
 <p>拥塞控制与流量控制的区别：</p>
 <img src="TCP 协议.IMG/image-20231114160740018.png" alt="image-20231114160740018" style="zoom:40%;" />
-<h3>拥塞窗口<span class="absolute -mt-20" id="拥塞窗口"></span>
-    <a href="#%e6%8b%a5%e5%a1%9e%e7%aa%97%e5%8f%a3" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>拥塞窗口和发送窗口的关系：</p>
+<h4>拥塞窗口<span class="absolute -mt-20" id="拥塞窗口"></span>
+    <a href="#%e6%8b%a5%e5%a1%9e%e7%aa%97%e5%8f%a3" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>拥塞窗口和发送窗口的关系：</p>
 <ul>
 <li>
 <p>拥塞窗口是发送方维护的一个状态变量，它表示当前网络的拥塞程度，也就是发送方可以在没有确认的情况下发送的数据量。</p>
@@ -2223,7 +2348,7 @@ $$
 <p>发送窗口的大小等于拥塞窗口和接收窗口（对方接受能力）中的较小值，即 $swnd = min(cwnd, rwnd)$。</p>
 </li>
 <li>
-<p>发送窗口的大小决定了发送方的传输速率和网络的吞吐量，因此发送方要根据网络反馈来调整拥塞窗口的大小，以达到最优的传输效率。也就是说，==拥塞窗口随网络状况动态变化==。</p>
+<p>发送窗口的大小决定了发送方的传输速率和网络的吞吐量，因此发送方要根据网络反馈来调整拥塞窗口的大小，以达到最优的传输效率。也就是说，<mark>拥塞窗口随网络状况动态变化</mark>。</p>
 </li>
 </ul>
 <p>值得注意的是，即使是单台主机一次性向网络中发送大量数据，也可能会引发网络拥塞的上限值，所以发送窗口要尽可能小。</p>
@@ -2247,8 +2372,8 @@ $$
 </ul>
 </li>
 </ul>
-<h3>慢启动<span class="absolute -mt-20" id="慢启动"></span>
-    <a href="#%e6%85%a2%e5%90%af%e5%8a%a8" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>慢启动即在两端建立 TCP 连接或由超时重传导致的丢包后，将拥塞窗口设为一个较小的值（一般是 1），每收到一个 ACK 就增加一个 MSS，使得拥塞窗口呈指数增长。</p>
+<h4>慢启动<span class="absolute -mt-20" id="慢启动"></span>
+    <a href="#%e6%85%a2%e5%90%af%e5%8a%a8" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>慢启动即在两端建立 TCP 连接或由超时重传导致的丢包后，将拥塞窗口设为一个较小的值（一般是 1），每收到一个 ACK 就增加一个 MSS，使得拥塞窗口呈指数增长。</p>
 <blockquote>
 <p>这么做的原因是（引用自 [REC5681]）：</p>
 <p>在传输初始阶段，由于未知网络传输能力，需要缓慢探测可用传输资源，防止短时间内大量数据注入导致拥塞。慢启动算法正是针对这一问题而设计。在数据传输之初或者重传计时器检测到丢包后，需要执行慢启动。</p>
@@ -2258,8 +2383,8 @@ $$
 <blockquote>
 <p>以下内容引用自《TCP/IP 详解 卷 1 协议》第 521 页。</p>
 </blockquote>
-<p>因此，在接收到一个数据段的 ACK 后，通常 cwnd 值会增加到 2，接着会发送两个数据段。如果成功收到相应的新的 ACK，cwnd 会由 2 变 4，由 4 变 8，以此类推。一般情况下假设没有丢包且每个数据包都有相应 ACK，在轮后 W 的值为$ W=2^k$即$k=log_2W$，需要 k 个 RTT 时间操作窗口才能达到 W 大小。这种增长看似很快（以==指数函数增长==)，但若与一开始就允许以最大可用速率（即接收方通知窗口大小）发送相比，仍显缓慢。( W 不会超过 awnd)</p>
-<p>如果假设某个 TCP 连接中接收方的通知窗口非常大（比如说，无穷大），这时 cwnd 就是影响发送速率的主要因素（设发送方有较大发送需求）。如前所述，cwnd 会随着 RTT 呈指数增长。因此，最终 cwnd(W 也如此）会增至很大，大量数据包的发送将导致网络瘫痪 (TCP 吞吐量与 W/RTT 成正比）。当发生上述情况时，cwnd 将大幅度减小（减至原值一半）。这是 TCP 由慢启动阶段至拥塞避免阶段的转折点，与 cwnd 和『==慢启动阈值==』(slow start threshold，$ssthresh$) 相关。</p>
+<p>因此，在接收到一个数据段的 ACK 后，通常 cwnd 值会增加到 2，接着会发送两个数据段。如果成功收到相应的新的 ACK，cwnd 会由 2 变 4，由 4 变 8，以此类推。一般情况下假设没有丢包且每个数据包都有相应 ACK，在轮后 W 的值为$ W=2^k$即$k=log_2W$，需要 k 个 RTT 时间操作窗口才能达到 W 大小。这种增长看似很快（以<mark>指数函数增长</mark>)，但若与一开始就允许以最大可用速率（即接收方通知窗口大小）发送相比，仍显缓慢。( W 不会超过 awnd)</p>
+<p>如果假设某个 TCP 连接中接收方的通知窗口非常大（比如说，无穷大），这时 cwnd 就是影响发送速率的主要因素（设发送方有较大发送需求）。如前所述，cwnd 会随着 RTT 呈指数增长。因此，最终 cwnd(W 也如此）会增至很大，大量数据包的发送将导致网络瘫痪 (TCP 吞吐量与 W/RTT 成正比）。当发生上述情况时，cwnd 将大幅度减小（减至原值一半）。这是 TCP 由慢启动阶段至拥塞避免阶段的转折点，与 cwnd 和『<mark>慢启动阈值</mark>』(slow start threshold，$ssthresh$) 相关。</p>
 <p>下图（左）描述了慢启动操作。数值部分以 RTT 为单位。假设该连接首先发送一个包（图上部），返回一个 ACK，接着在第二个 RTT 时间里发送两个包，会接收到两个 ACK。TCP 发送方每接收一个 ACK 就会执行一次 cwnd 的增长操作，以此类推。</p>
 <img src="TCP 协议.IMG/image-20230724171901886.png" alt="image-20230724171901886" style="zoom:40%;" />
 <p>右图描述了 cwnd 随时间增长的指数函数。图中另一条曲线显示了每两个数据包收到一个 ACK 时 cwnd 的增长情况。通常在 ACK 延时情况下会采用这种方式，这时的 cwnd 仍以指数增长，只是增幅不是很大。正因 ACK 可能会延时到达，所以一些 TCP 操作只在慢启动阶段完成后才返回 ACK。Linux 系统中，这被称为快速确认（快速 ACK 模式）。</p>
@@ -2271,23 +2396,23 @@ $$
 <li>当 cwnd &lt; ssthresh 时，使用慢启动算法。</li>
 <li>当 cwnd &gt;= ssthresh 时，使用『拥塞避免』算法。</li>
 </ul>
-<h3>拥塞避免<span class="absolute -mt-20" id="拥塞避免"></span>
-    <a href="#%e6%8b%a5%e5%a1%9e%e9%81%bf%e5%85%8d" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>如上所述，在连接建立之初以及由超时判定丢包发生的情况下，需要执行慢启动操作。在慢启动阶段，cwnd 会快速增长，帮助确立一个慢启动值。一旦达到阈值，就意味着可能有更多可用的传输资源。如果立即全部占用这些资源，将会使共享路由器队列的其他连接出现严重的丢包和重传情况，从而导致整个网络性能不稳定。</p>
+<h4>拥塞避免<span class="absolute -mt-20" id="拥塞避免"></span>
+    <a href="#%e6%8b%a5%e5%a1%9e%e9%81%bf%e5%85%8d" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>如上所述，在连接建立之初以及由超时判定丢包发生的情况下，需要执行慢启动操作。在慢启动阶段，cwnd 会快速增长，帮助确立一个慢启动值。一旦达到阈值，就意味着可能有更多可用的传输资源。如果立即全部占用这些资源，将会使共享路由器队列的其他连接出现严重的丢包和重传情况，从而导致整个网络性能不稳定。</p>
 <p>为了得到更多的传输资源而不致影响其他连接传输，TCP 实现了拥塞避免算法。一旦确立慢启动闻值，TCP 会进入『拥塞避免』阶段，cwnd 每次的增长值近似于成功传输的数据段大小这种随时间线性增长方式与慢启动的指数增长相比缓慢许多。更准确地说，<strong>每当收到一个 ACK 时，cwnd 增加 1/cwnd。</strong></p>
-<p>例如，假定 ssthresh 为 8：当 8 个 ACK 应答确认到来时，每个确认增加 1/8，8 个 ACK 确认 cwnd 一共增加 1，于是这一次能够发送 9 个 MSS 大小的数据，变成了==线性增长==。</p>
+<p>例如，假定 ssthresh 为 8：当 8 个 ACK 应答确认到来时，每个确认增加 1/8，8 个 ACK 确认 cwnd 一共增加 1，于是这一次能够发送 9 个 MSS 大小的数据，变成了<mark>线性增长</mark>。</p>
 <img src="TCP 协议.IMG/image-20230724173955104.png" alt="image-20230724173955104" style="zoom:40%;" />
 <img src="TCP 协议.IMG/image-20230724173546712.png" alt="image-20230724173546712" style="zoom:40%;" />
 <p>实际上，拥塞避免算法就是将原本慢启动算法的『指数增长』变成了近似『线性增长』，仍然处于增长阶段，但是增长速度缓慢了一些。</p>
 <p>如果一直这样随它增长下去，网络中会出现大量数据，造成一定拥堵，然后出现丢包，这时就需要对丢失的数据包进行重传。</p>
 <p>此时，触发了重传机制后，需要使用『拥塞发生』算法解决。</p>
-<h3>拥塞发生<span class="absolute -mt-20" id="拥塞发生"></span>
-    <a href="#%e6%8b%a5%e5%a1%9e%e5%8f%91%e7%94%9f" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>当有大量的数据包经过重传发送到网络中时，网络处于阻塞状态，需要使用『拥塞发生』算法解决。根据造成拥塞的重传机制，主要包括两种：</p>
+<h4>拥塞发生<span class="absolute -mt-20" id="拥塞发生"></span>
+    <a href="#%e6%8b%a5%e5%a1%9e%e5%8f%91%e7%94%9f" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>当有大量的数据包经过重传发送到网络中时，网络处于阻塞状态，需要使用『拥塞发生』算法解决。根据造成拥塞的重传机制，主要包括两种：</p>
 <ul>
 <li>解决由于超时重传导致的拥塞算法</li>
 <li>解决由于快速重传导致的拥塞算法</li>
 </ul>
-<h4>发生超时重传的拥塞发生算法<span class="absolute -mt-20" id="发生超时重传的拥塞发生算法"></span>
-    <a href="#%e5%8f%91%e7%94%9f%e8%b6%85%e6%97%b6%e9%87%8d%e4%bc%a0%e7%9a%84%e6%8b%a5%e5%a1%9e%e5%8f%91%e7%94%9f%e7%ae%97%e6%b3%95" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>当发生了超时重传，会触发对应的拥塞发生算法：</p>
+<h5>发生超时重传的拥塞发生算法<span class="absolute -mt-20" id="发生超时重传的拥塞发生算法"></span>
+    <a href="#%e5%8f%91%e7%94%9f%e8%b6%85%e6%97%b6%e9%87%8d%e4%bc%a0%e7%9a%84%e6%8b%a5%e5%a1%9e%e5%8f%91%e7%94%9f%e7%ae%97%e6%b3%95" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><p>当发生了超时重传，会触发对应的拥塞发生算法：</p>
 <ul>
 <li>ssthresh 设为 cwnd/2。即当前拥塞窗口大小的一半。</li>
 <li>cwnd 重置为初始值，一般为 10（Linux）。即 10 个 MSS。</li>
@@ -2300,8 +2425,8 @@ $$
 <p>但是这种做法的缺点是对于有较高带宽和较长延迟的（<a href="https://zh.wikipedia.org/zh-cn/%E5%B8%A6%E5%AE%BD%E6%97%B6%E5%BB%B6%E4%B9%98%E7%A7%AF" target="_blank" rel="noopener">大 BDP 链路</a>）网络链路，这么做会使得带宽利用率低下。因为 TCP 发送方经重新慢启动，回归到的还是未丢包状态 (cwnd 启动初始值设置过小）。</p>
 <p>尽管如此，这么做仍然是一种比较激进的策略，毕竟对于通信参与方而言，慢启动会『突然』减少数据流，之前好不容易把速度提上来，这一旦出发了超时重传，速率又跟刚连接时一样了。用户会感受到网络卡顿。</p>
 <p>为解决这一问题，针对不同的丢包情况，重新考虑是否需要重回慢启动状态。若是由重复 ACK 引起的丢包（引发快速重传）cwnd 值将被设为上一个 ssthresh，而非先前的 1 SMSS。在大多数 TCP 版本中，超时仍是引发慢启动的主要原因。这种方法使得 TCP 无须重新慢启动，而只要把传输速率减半即可。</p>
-<h4>发生快速重传的拥塞发生算法<span class="absolute -mt-20" id="发生快速重传的拥塞发生算法"></span>
-    <a href="#%e5%8f%91%e7%94%9f%e5%bf%ab%e9%80%9f%e9%87%8d%e4%bc%a0%e7%9a%84%e6%8b%a5%e5%a1%9e%e5%8f%91%e7%94%9f%e7%ae%97%e6%b3%95" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>我们知道，TCP 的快速重传是基于冗余 ACK 的重传机制，即接收方在收到一个乱序的数据包后，会立即返回对前一个正确收到的数据包的确认报文（ACK），如果发送方连续收到三个或以上相同的 ACK，就认为对应序号的数据包丢失了。此时发送端就会快速地重传，不必等待超时再重传。</p>
+<h5>发生快速重传的拥塞发生算法<span class="absolute -mt-20" id="发生快速重传的拥塞发生算法"></span>
+    <a href="#%e5%8f%91%e7%94%9f%e5%bf%ab%e9%80%9f%e9%87%8d%e4%bc%a0%e7%9a%84%e6%8b%a5%e5%a1%9e%e5%8f%91%e7%94%9f%e7%ae%97%e6%b3%95" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><p>我们知道，TCP 的快速重传是基于冗余 ACK 的重传机制，即接收方在收到一个乱序的数据包后，会立即返回对前一个正确收到的数据包的确认报文（ACK），如果发送方连续收到三个或以上相同的 ACK，就认为对应序号的数据包丢失了。此时发送端就会快速地重传，不必等待超时再重传。</p>
 <blockquote>
 <p>从快速重传机制可以知道，这种错误不会那么严重，因此不必等待代价高昂的超时重传。</p>
 </blockquote>
@@ -2311,8 +2436,8 @@ $$
 <li>进入『快速恢复』算法。</li>
 </ul>
 <p>这种机制的优点是可以快速地检测和恢复丢失的数据包，减少了等待时间和网络负载。</p>
-<h4>快速恢复<span class="absolute -mt-20" id="快速恢复"></span>
-    <a href="#%e5%bf%ab%e9%80%9f%e6%81%a2%e5%a4%8d" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>快速恢复通常与快速重传配合使用，目的是在数据包丢失后，快速恢复发送窗口的大小，避免过度降低发送速率。</p>
+<h5>快速恢复<span class="absolute -mt-20" id="快速恢复"></span>
+    <a href="#%e5%bf%ab%e9%80%9f%e6%81%a2%e5%a4%8d" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><p>快速恢复通常与快速重传配合使用，目的是在数据包丢失后，快速恢复发送窗口的大小，避免过度降低发送速率。</p>
 <p>举个例子，假设发送方发送了数据包 M1,M2,M3,M4,M5，接收方收到了 M1,M2,M4,M5，但没有收到 M3。按照快速重传的规则，接收方会连续发送三个对 M2 的重复确认（ACK），让发送方知道 M3 丢失了，并立即重传 M3。这时，按照快速恢复的规则，发送方会执行以下步骤：</p>
 <ul>
 <li>将 ssthresh 设置为当前拥塞窗口 cwnd 的一半，并重传丢失的数据包 M3。</li>
@@ -2364,8 +2489,8 @@ $$
 <li>网络质量较差，丢包率较高。</li>
 <li>应用对可靠性要求较高，对实时性要求较低。</li>
 </ul>
-<h2>3.7 延迟应答<span class="absolute -mt-20" id="37-延迟应答"></span>
-    <a href="#37-%e5%bb%b6%e8%bf%9f%e5%ba%94%e7%ad%94" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>TCP 中的延迟应答是一种优化策略，它的目的是为了减少网络上的小数据包，提高网络利用率和传输效率。它的原理是接收方在收到数据包后，并不立即发送确认应答，而是等待一段时间，让缓冲区中的数据被处理，从而增大窗口大小，使发送方可以发送更多的数据。</p>
+<h3>3.7 延迟应答<span class="absolute -mt-20" id="37-延迟应答"></span>
+    <a href="#37-%e5%bb%b6%e8%bf%9f%e5%ba%94%e7%ad%94" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>TCP 中的延迟应答是一种优化策略，它的目的是为了减少网络上的小数据包，提高网络利用率和传输效率。它的原理是接收方在收到数据包后，并不立即发送确认应答，而是等待一段时间，让缓冲区中的数据被处理，从而增大窗口大小，使发送方可以发送更多的数据。</p>
 <p>值得注意的是，延迟应答的目的不是保证可靠性，而是保证留有时间让接收缓冲区中的数据尽可能被上层应用程序取出，这样 ACK 中的窗口大小就可以尽可能地大，从而增大网络吞吐量，提高数据的传输效率。</p>
 <p>但是延迟应答也有一些缺点，比如：</p>
 <ul>
@@ -2384,8 +2509,8 @@ $$
 <li>时间限制：超过最大延迟时间就必须发送一个确认应答，一般是 200 毫秒。</li>
 <li>状态限制：如果接收方没有数据要发送，就不能使用捎带应答，只能单独发送确认应答。</li>
 </ul>
-<h2>3.8 捎带应答<span class="absolute -mt-20" id="38-捎带应答"></span>
-    <a href="#38-%e6%8d%8e%e5%b8%a6%e5%ba%94%e7%ad%94" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>捎带应答是在延迟应答的基础上进行的，也就是说，接收方在收到数据包后，并不立即发送确认应答，而是等待一段时间，==看是否有其他数据要发送==。如果有，就把确认应答和数据一起发送，这就是捎带应答。如果没有，就单独发送确认应答。</p>
+<h3>3.8 捎带应答<span class="absolute -mt-20" id="38-捎带应答"></span>
+    <a href="#38-%e6%8d%8e%e5%b8%a6%e5%ba%94%e7%ad%94" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>捎带应答是在延迟应答的基础上进行的，也就是说，接收方在收到数据包后，并不立即发送确认应答，而是等待一段时间，<mark>看是否有其他数据要发送</mark>。如果有，就把确认应答和数据一起发送，这就是捎带应答。如果没有，就单独发送确认应答。</p>
 <p>捎带应答的好处是可以减少网络上的小数据包和开销，提高网络利用率和传输效率。因为如果每次发送一个确认应答或一个数据包，都需要占用一个 TCP 包的报头空间，这些报头空间会占用网络资源，增加网络开销，降低网络性能。而如果把确认应答和数据一起发送，就可以节省一个 TCP 包的报头空间，减少网络资源的消耗，提高网络性能。</p>
 <p>假设有两个主机 A 和 B，它们之间使用 TCP 协议进行通信，A 是发送方，B 是接收方。假设每个数据包的大小是 1000 字节，延迟应答的最大时间是 200 毫秒，每隔两个数据包就必须发送一个确认应答。下面是一个可能的通信过程：</p>
 <ul>
@@ -2402,8 +2527,8 @@ $$
 </ul>
 <p>在这个过程中，在第二次和第四次通信时，B 都使用了捎带应答的机制，在同一个 TCP 包中即发送了确认应答又发送了数据。这样做可以减少网络上的小数据包和开销，并提高网络利用率和传输效率。</p>
 <p>另外，捎带应答在保证发送数据的效率之外，由于捎带应答的报文携带了有效数据，因此对方收到该报文后会对其进行响应，当收到这个响应报文时不仅能够确保发送的数据被对方可靠的收到了，同时也能确保捎带的 ACK 应答也被对方可靠的收到了。</p>
-<h2>3.9 面向字节流<span class="absolute -mt-20" id="39-面向字节流"></span>
-    <a href="#39-%e9%9d%a2%e5%90%91%e5%ad%97%e8%8a%82%e6%b5%81" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>当创建一个 TCP 的 socket 时，同时在内核中会创建一个发送缓冲区和一个接收缓冲区。</p>
+<h3>3.9 面向字节流<span class="absolute -mt-20" id="39-面向字节流"></span>
+    <a href="#39-%e9%9d%a2%e5%90%91%e5%ad%97%e8%8a%82%e6%b5%81" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>当创建一个 TCP 的 socket 时，同时在内核中会创建一个发送缓冲区和一个接收缓冲区。</p>
 <ul>
 <li>
 <p>调用 write 函数就可以将数据写入发送缓冲区中，但是如果发送缓冲区已满，write 函数会阻塞，直到有足够的空间可以写入数据。发送缓冲区当中的数据会由 TCP 自行进行发送，但是发送的字节流的大小会根据窗口大小、拥塞控制、流量控制等因素来动态调整。如果发送的字节数太长，TCP 会将其拆分成多个数据包发出。如果发送的字节数太短，TCP 可能会先将其留在发送缓冲区当中，等到合适的时机再进行发送。</p>
@@ -2418,8 +2543,8 @@ $$
 <li>读 100 个字节数据时，也完全不需要考虑写的时候是怎么写的，既可以一次 read100 个字节，也可以一次 read 一个字节，重复 100 次。</li>
 </ul>
 <p>实际对于 TCP 来说，它并不关心发送缓冲区当中的是什么数据，在 TCP 看来这些只是一个个的字节数据，并且给每个字节分配了一个序号，并通过序号和确认号来保证字节流的顺序和完整性。它的任务就是将这些数据准确无误地发送到对方的接收缓冲区当中就行了，而至于如何解释这些数据完全由上层应用来决定，这就叫做面向字节流。而 OS 也是一样的，它只关心缓冲区的剩余大小，而不关心数据本身。</p>
-<h2>3.10 粘包问题<span class="absolute -mt-20" id="310-粘包问题"></span>
-    <a href="#310-%e7%b2%98%e5%8c%85%e9%97%ae%e9%a2%98" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>首先要明确：</p>
+<h3>3.10 粘包问题<span class="absolute -mt-20" id="310-粘包问题"></span>
+    <a href="#310-%e7%b2%98%e5%8c%85%e9%97%ae%e9%a2%98" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>首先要明确：</p>
 <ul>
 <li>粘包问题中的 “包”，指的是<strong>应用层的数据包</strong>。</li>
 <li>在 TCP 的协议头中，没有如同 UDP 一样的 “报文长度” 这样的字段。</li>
@@ -2438,8 +2563,8 @@ $$
 <p>UDP 没有粘包问题：</p>
 <p>这是因为 UDP 是面向报文的协议，它将数据视为一个个独立的报文，每个报文都有自己的边界和长度。UDP 在发送或接收数据时，都是以报文为单位，不会对报文进行拆分或合并。UDP 不保证报文的顺序和完整性，只负责将报文原封不动地传输给对方。</p>
 <p>UDP 要冗余一些信息是因为 UDP 没有可靠性保证，它不会对丢失、重复、乱序的报文进行处理，这些工作需要交给应用层来完成。所以 UDP 通常会在报文中添加一些额外的信息，如序号、校验和、长度等，来帮助应用层识别和处理异常的报文。</p>
-<h2>3.11 TCP 异常情况<span class="absolute -mt-20" id="311-tcp-异常情况"></span>
-    <a href="#311-tcp-%e5%bc%82%e5%b8%b8%e6%83%85%e5%86%b5" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>这是一个宽泛的问题，下面就 TCP 协议的工作原理和常见的故障场景来简要介绍一些可能的异常情况：</p>
+<h3>3.11 TCP 异常情况<span class="absolute -mt-20" id="311-tcp-异常情况"></span>
+    <a href="#311-tcp-%e5%bc%82%e5%b8%b8%e6%83%85%e5%86%b5" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>这是一个宽泛的问题，下面就 TCP 协议的工作原理和常见的故障场景来简要介绍一些可能的异常情况：</p>
 <ul>
 <li>
 <p>TCP 连接建立过程中的异常。这些异常通常是由于网络不通、目标主机或端口不存在、服务端应用程序阻塞或崩溃等原因导致的。例如：</p>
@@ -2489,8 +2614,9 @@ $$
 <li>如果 TCP 连接断开失败，可以尝试关闭套接字或者检查网络和对方主机是否正常。</li>
 <li>如果 TCP 连接传输数据失败，可以尝试重发数据或者检查网络和对方主机是否正常。</li>
 </ul>
-<h1>4. TCP 小结</h1><h2>小结<span class="absolute -mt-20" id="小结-1"></span>
-    <a href="#%e5%b0%8f%e7%bb%93-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>TCP 协议这么复杂就是因为 TCP 既要保证可靠性，同时又尽可能的提高性能。</p>
+<h2>4. TCP 小结<span class="absolute -mt-20" id="4-tcp-小结"></span>
+    <a href="#4-tcp-%e5%b0%8f%e7%bb%93" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>小结<span class="absolute -mt-20" id="小结-1"></span>
+    <a href="#%e5%b0%8f%e7%bb%93-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>TCP 协议这么复杂就是因为 TCP 既要保证可靠性，同时又尽可能的提高性能。</p>
 <p>可靠性：</p>
 <ul>
 <li>检验和。</li>
@@ -2509,23 +2635,23 @@ $$
 <li>捎带应答。</li>
 </ul>
 <p>需要注意的是，TCP 的这些机制有些能够通过 TCP 报头体现出来的，但还有一些是通过代码逻辑体现出来的。</p>
-<h2>TCP 定时器<span class="absolute -mt-20" id="tcp-定时器"></span>
-    <a href="#tcp-%e5%ae%9a%e6%97%b6%e5%99%a8" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>此外，TCP 当中还设置了各种定时器。</p>
+<h3>TCP 定时器<span class="absolute -mt-20" id="tcp-定时器"></span>
+    <a href="#tcp-%e5%ae%9a%e6%97%b6%e5%99%a8" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>此外，TCP 当中还设置了各种定时器。</p>
 <ul>
 <li>重传定时器：为了控制丢失的报文段或丢弃的报文段，也就是对报文段确认的等待时间。</li>
 <li>坚持定时器：专门为对方零窗口通知而设立的，也就是向对方发送窗口探测的时间间隔。</li>
 <li>保活定时器：为了检查空闲连接的存在状态，也就是向对方发送探查报文的时间间隔。</li>
 <li>TIME_WAIT 定时器：双方在四次挥手后，主动断开连接的一方需要等待的时长。</li>
 </ul>
-<h2>理解传输控制协议<span class="absolute -mt-20" id="理解传输控制协议"></span>
-    <a href="#%e7%90%86%e8%a7%a3%e4%bc%a0%e8%be%93%e6%8e%a7%e5%88%b6%e5%8d%8f%e8%ae%ae" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>TCP 的各种机制实际都没有谈及数据真正的发送，这些都叫做传输数据的策略。TCP 协议是在网络数据传输当中做决策的，它提供的是理论支持，比如 TCP 要求当发出的报文在一段时间内收不到 ACK 应答就应该进行超时重传，而数据真正的发送实际是由底层的 IP 和 MAC 帧完成的。</p>
+<h3>理解传输控制协议<span class="absolute -mt-20" id="理解传输控制协议"></span>
+    <a href="#%e7%90%86%e8%a7%a3%e4%bc%a0%e8%be%93%e6%8e%a7%e5%88%b6%e5%8d%8f%e8%ae%ae" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>TCP 的各种机制实际都没有谈及数据真正的发送，这些都叫做传输数据的策略。TCP 协议是在网络数据传输当中做决策的，它提供的是理论支持，比如 TCP 要求当发出的报文在一段时间内收不到 ACK 应答就应该进行超时重传，而数据真正的发送实际是由底层的 IP 和 MAC 帧完成的。</p>
 <p>TCP 做决策和 IP+MAC 做执行，我们将它们统称为通信细节，它们最终的目的就是为了将数据传输到对端主机。而传输数据的目的是什么则是由应用层决定的。因此应用层决定的是通信的意义，而传输层及其往下的各层决定的是通信的方式。</p>
-<h2>Socket 编程相关问题<span class="absolute -mt-20" id="socket-编程相关问题"></span>
-    <a href="#socket-%e7%bc%96%e7%a8%8b%e7%9b%b8%e5%85%b3%e9%97%ae%e9%a2%98" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>Accept<span class="absolute -mt-20" id="accept"></span>
-    <a href="#accept" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><blockquote>
+<h3>Socket 编程相关问题<span class="absolute -mt-20" id="socket-编程相关问题"></span>
+    <a href="#socket-%e7%bc%96%e7%a8%8b%e7%9b%b8%e5%85%b3%e9%97%ae%e9%a2%98" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><h4>Accept<span class="absolute -mt-20" id="accept"></span>
+    <a href="#accept" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><blockquote>
 <p>accept 要不要参与三次握手的过程呢？</p>
 </blockquote>
-<p>accept() 不需要参与三次握手的过程。三次握手是 TCP 协议在==内核层面==完成的，accept 只是在应用层面从完成队列中==取出==一个已经建立的连接，并返回一个新的套接字。也就是说，连接已经在内核中建立好了，accept() 只是一个查询和返回的过程，并不影响三次握手的逻辑。</p>
+<p>accept() 不需要参与三次握手的过程。三次握手是 TCP 协议在<mark>内核层面</mark>完成的，accept 只是在应用层面从完成队列中<mark>取出</mark>一个已经建立的连接，并返回一个新的套接字。也就是说，连接已经在内核中建立好了，accept() 只是一个查询和返回的过程，并不影响三次握手的逻辑。</p>
 <blockquote>
 <p>如果不调用 accept()，可以建立连接成功吗？</p>
 </blockquote>
@@ -2562,9 +2688,10 @@ $$
 </ul>
 </li>
 </ul>
-<h2>Listen<span class="absolute -mt-20" id="listen"></span>
-    <a href="#listen" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>listen 函数的第二个参数，也就是 backlog 参数，是用来设置完成队列的大小的。它表示餐厅可以同时容纳多少个就餐的顾客。如果 backlog 参数设置得太小，那么餐厅就会很快满座，无法接待更多的顾客。如果 backlog 参数设置得太大，那么餐厅就会浪费空间和资源，而且可能超过餐厅的实际规模。所以，backlog 参数需要根据餐厅的服务能力和顾客的需求来合理设置。</p>
-<h1>参考资料</h1><ul>
+<h3>Listen<span class="absolute -mt-20" id="listen"></span>
+    <a href="#listen" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>listen 函数的第二个参数，也就是 backlog 参数，是用来设置完成队列的大小的。它表示餐厅可以同时容纳多少个就餐的顾客。如果 backlog 参数设置得太小，那么餐厅就会很快满座，无法接待更多的顾客。如果 backlog 参数设置得太大，那么餐厅就会浪费空间和资源，而且可能超过餐厅的实际规模。所以，backlog 参数需要根据餐厅的服务能力和顾客的需求来合理设置。</p>
+<h2>参考资料<span class="absolute -mt-20" id="参考资料"></span>
+    <a href="#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><ul>
 <li>《图解 TCP/IP》</li>
 <li>《TCP/IP 详解 卷 1 协议》</li>
 <li><a href="https://xiaolincoding.com/" target="_blank" rel="noopener">小林 coding</a></li>
