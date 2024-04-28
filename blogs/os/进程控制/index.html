@@ -16,7 +16,7 @@
 fork 函数的位置就是一个分界点，fork 之前的代码由父进程执行，之后的代码分别由父子进程执行。
 实际上，这里的父子进程共享所有代码，只是 fork 函数在语法上限制了子进程执行的语句范围，原因是 OS 会将 fork 的位置传给子进程，让子进程从这个位置开始执行。
 进程调用 fork 函数，当控制转移到内核中的 fork 代码后，内核会做以下事情：
-分配新的内存块和内核数据结构给子进程； 将父进程部分数据结构内容拷贝至子进程； 添加子进程到系统进程列表当中； fork 返回，开始调度器调度。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 ##include &lt;stdio.h&gt; ##include &lt;unistd.h&gt; ##include &lt;stdlib.h&gt; ##include &lt;sys/types.h&gt; int main() { printf(&#34;fork before:PID:%d\n&#34;, getpid()); pid_t id = fork(); if(id == -1)//错误 { printf(&#34;error\n&#34;); } printf(&#34;fork after:PID:%d, PPID:%d\n&#34;, getpid(), getppid()); return 0; } 运行以上代码，查看 PID 和 PPID：" />
+分配新的内存块和内核数据结构给子进程； 将父进程部分数据结构内容拷贝至子进程； 添加子进程到系统进程列表当中； fork 返回，开始调度器调度。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 #include &lt;stdio.h&gt; #include &lt;unistd.h&gt; #include &lt;stdlib.h&gt; #include &lt;sys/types.h&gt; int main() { printf(&#34;fork before:PID:%d\n&#34;, getpid()); pid_t id = fork(); if(id == -1)//错误 { printf(&#34;error\n&#34;); } printf(&#34;fork after:PID:%d, PPID:%d\n&#34;, getpid(), getppid()); return 0; } 运行以上代码，查看 PID 和 PPID：" />
   
   
     <link rel="canonical" href="/blogs/os/%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6/" itemprop="url" />
@@ -29,7 +29,7 @@ fork 函数的位置就是一个分界点，fork 之前的代码由父进程执�
 fork 函数的位置就是一个分界点，fork 之前的代码由父进程执行，之后的代码分别由父子进程执行。
 实际上，这里的父子进程共享所有代码，只是 fork 函数在语法上限制了子进程执行的语句范围，原因是 OS 会将 fork 的位置传给子进程，让子进程从这个位置开始执行。
 进程调用 fork 函数，当控制转移到内核中的 fork 代码后，内核会做以下事情：
-分配新的内存块和内核数据结构给子进程； 将父进程部分数据结构内容拷贝至子进程； 添加子进程到系统进程列表当中； fork 返回，开始调度器调度。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 ##include &lt;stdio.h&gt; ##include &lt;unistd.h&gt; ##include &lt;stdlib.h&gt; ##include &lt;sys/types.h&gt; int main() { printf(&#34;fork before:PID:%d\n&#34;, getpid()); pid_t id = fork(); if(id == -1)//错误 { printf(&#34;error\n&#34;); } printf(&#34;fork after:PID:%d, PPID:%d\n&#34;, getpid(), getppid()); return 0; } 运行以上代码，查看 PID 和 PPID：" />
+分配新的内存块和内核数据结构给子进程； 将父进程部分数据结构内容拷贝至子进程； 添加子进程到系统进程列表当中； fork 返回，开始调度器调度。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 #include &lt;stdio.h&gt; #include &lt;unistd.h&gt; #include &lt;stdlib.h&gt; #include &lt;sys/types.h&gt; int main() { printf(&#34;fork before:PID:%d\n&#34;, getpid()); pid_t id = fork(); if(id == -1)//错误 { printf(&#34;error\n&#34;); } printf(&#34;fork after:PID:%d, PPID:%d\n&#34;, getpid(), getppid()); return 0; } 运行以上代码，查看 PID 和 PPID：" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/blogs/os/%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6/" /><meta property="article:section" content="blogs" />
 
@@ -41,20 +41,20 @@ fork 函数的位置就是一个分界点，fork 之前的代码由父进程执�
 fork 函数的位置就是一个分界点，fork 之前的代码由父进程执行，之后的代码分别由父子进程执行。
 实际上，这里的父子进程共享所有代码，只是 fork 函数在语法上限制了子进程执行的语句范围，原因是 OS 会将 fork 的位置传给子进程，让子进程从这个位置开始执行。
 进程调用 fork 函数，当控制转移到内核中的 fork 代码后，内核会做以下事情：
-分配新的内存块和内核数据结构给子进程； 将父进程部分数据结构内容拷贝至子进程； 添加子进程到系统进程列表当中； fork 返回，开始调度器调度。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 ##include &lt;stdio.h&gt; ##include &lt;unistd.h&gt; ##include &lt;stdlib.h&gt; ##include &lt;sys/types.h&gt; int main() { printf(&#34;fork before:PID:%d\n&#34;, getpid()); pid_t id = fork(); if(id == -1)//错误 { printf(&#34;error\n&#34;); } printf(&#34;fork after:PID:%d, PPID:%d\n&#34;, getpid(), getppid()); return 0; } 运行以上代码，查看 PID 和 PPID：">
+分配新的内存块和内核数据结构给子进程； 将父进程部分数据结构内容拷贝至子进程； 添加子进程到系统进程列表当中； fork 返回，开始调度器调度。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 #include &lt;stdio.h&gt; #include &lt;unistd.h&gt; #include &lt;stdlib.h&gt; #include &lt;sys/types.h&gt; int main() { printf(&#34;fork before:PID:%d\n&#34;, getpid()); pid_t id = fork(); if(id == -1)//错误 { printf(&#34;error\n&#34;); } printf(&#34;fork after:PID:%d, PPID:%d\n&#34;, getpid(), getppid()); return 0; } 运行以上代码，查看 PID 和 PPID：">
   <meta itemprop="wordCount" content="2252"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="进程控制">
 <meta name="twitter:description" content="1. 创建进程 1.1 认识 fork 在 进程概念 中已经说明 fork 函数的用法：在已有的进程中使用 fork 函数，会创建一个子进程，而父进程就是原进程。
 fork 函数的位置就是一个分界点，fork 之前的代码由父进程执行，之后的代码分别由父子进程执行。
 实际上，这里的父子进程共享所有代码，只是 fork 函数在语法上限制了子进程执行的语句范围，原因是 OS 会将 fork 的位置传给子进程，让子进程从这个位置开始执行。
 进程调用 fork 函数，当控制转移到内核中的 fork 代码后，内核会做以下事情：
-分配新的内存块和内核数据结构给子进程； 将父进程部分数据结构内容拷贝至子进程； 添加子进程到系统进程列表当中； fork 返回，开始调度器调度。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 ##include &lt;stdio.h&gt; ##include &lt;unistd.h&gt; ##include &lt;stdlib.h&gt; ##include &lt;sys/types.h&gt; int main() { printf(&#34;fork before:PID:%d\n&#34;, getpid()); pid_t id = fork(); if(id == -1)//错误 { printf(&#34;error\n&#34;); } printf(&#34;fork after:PID:%d, PPID:%d\n&#34;, getpid(), getppid()); return 0; } 运行以上代码，查看 PID 和 PPID：">
+分配新的内存块和内核数据结构给子进程； 将父进程部分数据结构内容拷贝至子进程； 添加子进程到系统进程列表当中； fork 返回，开始调度器调度。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 #include &lt;stdio.h&gt; #include &lt;unistd.h&gt; #include &lt;stdlib.h&gt; #include &lt;sys/types.h&gt; int main() { printf(&#34;fork before:PID:%d\n&#34;, getpid()); pid_t id = fork(); if(id == -1)//错误 { printf(&#34;error\n&#34;); } printf(&#34;fork after:PID:%d, PPID:%d\n&#34;, getpid(), getppid()); return 0; } 运行以上代码，查看 PID 和 PPID：">
 
     <link rel="preload" href="/css/compiled/main.min.5a06ca26e024c4f511f45ee6c33a2a1faefaebe6be8a38d36e100f40a4c59c06.css" as="style" integrity="sha256-WgbKJuAkxPUR9F7mwzoqH6766&#43;a&#43;ijjTbhAPQKTFnAY=" />
     <link href="/css/compiled/main.min.5a06ca26e024c4f511f45ee6c33a2a1faefaebe6be8a38d36e100f40a4c59c06.css" rel="stylesheet" integrity="sha256-WgbKJuAkxPUR9F7mwzoqH6766&#43;a&#43;ijjTbhAPQKTFnAY=" />
 
 
 
-  <link href="/css/custom.min.eb58534bf60e4c559413666e80103be90d592364d446e9daaa9b370907a168f0.css" rel="stylesheet" integrity="sha256-61hTS/YOTFWUE2ZugBA76Q1ZI2TURunaqps3CQehaPA=" />
+  <link href="/css/custom.min.a1ce305bdd6d238adbab91ef2cb7b1e289c923a4f9b0c803784cecf27ff614a6.css" rel="stylesheet" integrity="sha256-oc4wW91tI4rbq5HvLLex4onJI6T5sMgDeEzs8n/2FKY=" />
 
 
 
@@ -918,10 +918,10 @@ fork 函数的位置就是一个分界点，fork 之前的代码由父进程执�
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;stdio.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;unistd.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;stdlib.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/types.h&gt;                                                                                         
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">                                                                                         
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;fork before:PID:%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">getpid</span><span class="p">());</span>
@@ -1030,8 +1030,8 @@ fork 函数的位置就是一个分界点，fork 之前的代码由父进程执�
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;stdio.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;string.h&gt;
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">150</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
@@ -1089,8 +1089,8 @@ fork 函数的位置就是一个分界点，fork 之前的代码由父进程执�
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;stdio.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;stdlib.h&gt;
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">void</span> <span class="nf">show</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;hello world&#34;</span><span class="p">);</span>
@@ -1133,9 +1133,9 @@ fork 函数的位置就是一个分界点，fork 之前的代码由父进程执�
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;stdio.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;stdlib.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;unistd.h&gt;
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">void</span> <span class="nf">show</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;hello world&#34;</span><span class="p">);</span>
@@ -1243,8 +1243,8 @@ fork 函数的位置就是一个分界点，fork 之前的代码由父进程执�
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include&lt;sys/types.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include&lt;sys/wait.h&gt;
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include&lt;sys/types.h&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include&lt;sys/wait.h&gt;
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">pid_t</span> <span class="nf">wait</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span> <span class="n">status</span><span class="p">);</span></span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
@@ -1303,11 +1303,11 @@ fork 函数的位置就是一个分界点，fork 之前的代码由父进程执�
 </span><span class="lnt">32
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;stdio.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;stdlib.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;unistd.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/types.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/wait.h&gt;
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/wait.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">pid_t</span> <span class="n">id</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
@@ -1376,8 +1376,8 @@ fork 函数的位置就是一个分界点，fork 之前的代码由父进程执�
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include&lt;sys/types.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include&lt;sys/wait.h&gt;
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include&lt;sys/types.h&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include&lt;sys/wait.h&gt;
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">pid_t</span> <span class="nf">waitpid</span><span class="p">(</span><span class="n">pid_t</span> <span class="n">pid</span><span class="p">,</span> <span class="kt">int</span><span class="o">*</span> <span class="n">status</span><span class="p">,</span> <span class="kt">int</span> <span class="n">options</span><span class="p">);</span></span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
@@ -1475,7 +1475,7 @@ fork 函数的位置就是一个分界点，fork 之前的代码由父进程执�
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;unistd.h&gt;</span></span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
@@ -1572,8 +1572,8 @@ fork 函数的位置就是一个分界点，fork 之前的代码由父进程执�
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;unistd.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;stdio.h&gt;
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;exec 函数之前、n&#34;</span><span class="p">);</span>
@@ -1659,11 +1659,11 @@ fork 函数的位置就是一个分界点，fork 之前的代码由父进程执�
 </span><span class="lnt">27
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;unistd.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;stdio.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;stdlib.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/types.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##define NUM 16
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define NUM 16
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="n">pid_t</span> <span class="n">id</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
@@ -1752,10 +1752,10 @@ fork 函数的位置就是一个分界点，fork 之前的代码由父进程执�
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;unistd.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;stdio.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;stdlib.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/types.h&gt;
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="n">pid_t</span> <span class="n">id</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
@@ -1844,9 +1844,9 @@ fork 函数的位置就是一个分界点，fork 之前的代码由父进程执�
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">//mycmd
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">##include &lt;stdio.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;string.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;stdlib.h&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span><span class="c1">//命令行参数个数，命令行参数数组
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="k">if</span><span class="p">(</span><span class="n">argc</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">)</span>
@@ -1914,11 +1914,11 @@ fork 函数的位置就是一个分界点，fork 之前的代码由父进程执�
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">//proc2.c
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">##include &lt;unistd.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;stdio.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;stdlib.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/types.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##define NUM 16
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define NUM 16
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="c1">//绝对路径或相对路径都可以
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">myfile</span> <span class="o">=</span> <span class="s">&#34;mycmd&#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
@@ -2004,11 +2004,11 @@ fork 函数的位置就是一个分界点，fork 之前的代码由父进程执�
 </span><span class="lnt">33
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;unistd.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;stdio.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;stdlib.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/types.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##define NUM 16
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define NUM 16
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">myfile</span> <span class="o">=</span> <span class="s">&#34;mycmd&#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
@@ -2078,9 +2078,9 @@ fork 函数的位置就是一个分界点，fork 之前的代码由父进程执�
 </span><span class="lnt">25
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;stdio.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;string.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;stdlib.h&gt;
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span><span class="c1">//命令行参数个数，命令行参数数组
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="k">if</span><span class="p">(</span><span class="n">argc</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">)</span>
@@ -2318,8 +2318,8 @@ fork 函数的位置就是一个分界点，fork 之前的代码由父进程执�
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;string.h&gt;</span><span class="c1">//注意 memset 的头文件
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">##define NUM 1024    </span><span class="c1">//定义缓冲区的长度
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="c1">//注意 memset 的头文件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#define NUM 1024    </span><span class="c1">//定义缓冲区的长度
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl"><span class="kt">char</span> <span class="n">cmd_line</span><span class="p">[</span><span class="n">NUM</span><span class="p">];</span>  <span class="c1">//定义缓冲区字符数组
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
@@ -2417,8 +2417,8 @@ fork 函数的位置就是一个分界点，fork 之前的代码由父进程执�
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##define SIZE 32
-</span></span></span><span class="line"><span class="cl"><span class="cp">##define SEP &#34; &#34;     </span><span class="c1">//定义&#34; &#34;为拆散字符串的分隔符
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#define SIZE 32
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define SEP &#34; &#34;     </span><span class="c1">//定义&#34; &#34;为拆散字符串的分隔符
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">char</span> <span class="n">cmd_line</span><span class="p">[</span><span class="n">NUM</span><span class="p">];</span>  <span class="c1">//定义缓冲区字符数组，保存输入的命令行字符串
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">char</span> <span class="o">*</span><span class="n">g_argv</span><span class="p">[</span><span class="n">SIZE</span><span class="p">];</span>  <span class="c1">//保存拆散后的命令行字符串
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
@@ -2655,15 +2655,15 @@ fork 函数的位置就是一个分界点，fork 之前的代码由父进程执�
 </span><span class="lnt">59
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;unistd.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;stdio.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;stdlib.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/types.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/wait.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;string.h&gt;</span><span class="c1">//注意 memset 的头文件
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">##define NUM 1024    </span><span class="c1">//定义缓冲区的长度
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">##define SIZE 32
-</span></span></span><span class="line"><span class="cl"><span class="cp">##define SEP &#34; &#34;     </span><span class="c1">//定义&#34; &#34;为拆散字符串的分隔符
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/wait.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="c1">//注意 memset 的头文件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#define NUM 1024    </span><span class="c1">//定义缓冲区的长度
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#define SIZE 32
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define SEP &#34; &#34;     </span><span class="c1">//定义&#34; &#34;为拆散字符串的分隔符
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">char</span> <span class="n">cmd_line</span><span class="p">[</span><span class="n">NUM</span><span class="p">];</span>  <span class="c1">//定义缓冲区字符数组，保存输入的命令行字符串
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">char</span> <span class="o">*</span><span class="n">g_argv</span><span class="p">[</span><span class="n">SIZE</span><span class="p">];</span>  <span class="c1">//保存拆散后的命令行字符串
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>

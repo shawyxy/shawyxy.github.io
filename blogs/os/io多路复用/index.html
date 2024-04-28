@@ -78,7 +78,7 @@ I/O 多路复用的实现方式有多种，比如 select，poll，epoll 等，�
 
 
 
-  <link href="/css/custom.min.eb58534bf60e4c559413666e80103be90d592364d446e9daaa9b370907a168f0.css" rel="stylesheet" integrity="sha256-61hTS/YOTFWUE2ZugBA76Q1ZI2TURunaqps3CQehaPA=" />
+  <link href="/css/custom.min.a1ce305bdd6d238adbab91ef2cb7b1e289c923a4f9b0c803784cecf27ff614a6.css" rel="stylesheet" integrity="sha256-oc4wW91tI4rbq5HvLLex4onJI6T5sMgDeEzs8n/2FKY=" />
 
 
 
@@ -1013,7 +1013,7 @@ I/O 多路复用的实现方式有多种，比如 select，poll，epoll 等，�
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">##include &lt;sys/select.h&gt;
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/select.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">select</span><span class="p">(</span><span class="kt">int</span> <span class="n">nfds</span><span class="p">,</span> <span class="n">fd_set</span> <span class="o">*</span><span class="n">readfds</span><span class="p">,</span> <span class="n">fd_set</span> <span class="o">*</span><span class="n">writefds</span><span class="p">,</span> <span class="n">fd_set</span> <span class="o">*</span><span class="n">exceptfds</span><span class="p">,</span> <span class="k">struct</span> <span class="n">timeval</span> <span class="o">*</span><span class="n">timeout</span><span class="p">);</span></span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
@@ -1049,7 +1049,7 @@ I/O 多路复用的实现方式有多种，比如 select，poll，epoll 等，�
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">##include &lt;sys/select.h&gt;
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/select.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">long</span> <span class="kt">int</span> <span class="n">fds_bits</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span> <span class="c1">// 一个长整型数组，每一位对应一个文件描述符
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span> <span class="n">fd_set</span><span class="p">;</span></span></span></code></pre></td></tr></table>
@@ -1226,20 +1226,20 @@ I/O 多路复用的实现方式有多种，比如 select，poll，epoll 等，�
 </span><span class="lnt">82
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##pragma once
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#pragma once
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl"><span class="cp">##include &lt;iostream&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;string&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;cstring&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;cerrno&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;cassert&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;unistd.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;memory&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/types.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/socket.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;arpa/inet.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;netinet/in.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;ctype.h&gt;
+</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;cstring&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;cerrno&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;cassert&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;memory&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/socket.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;arpa/inet.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;netinet/in.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;ctype.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="c1">// 注：为了方便使用，并且将重点放在 select Server 的编写上，
 </span></span></span><span class="line"><span class="cl"><span class="c1">// 所有接口都设置为静态，通过 类名：: 函数名 调用
@@ -1369,19 +1369,19 @@ I/O 多路复用的实现方式有多种，比如 select，poll，epoll 等，�
 </span><span class="lnt">43
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##pragma once
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#pragma once
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl"><span class="cp">##include &lt;iostream&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;cstdarg&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;ctime&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;string&gt;
+</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;cstdarg&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;ctime&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="c1">// 日志级别
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">##define DEBUG   0
-</span></span></span><span class="line"><span class="cl"><span class="cp">##define NORMAL  1
-</span></span></span><span class="line"><span class="cl"><span class="cp">##define WARNING 2
-</span></span></span><span class="line"><span class="cl"><span class="cp">##define ERROR   3
-</span></span></span><span class="line"><span class="cl"><span class="cp">##define FATAL   4
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#define DEBUG   0
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define NORMAL  1
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define WARNING 2
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define ERROR   3
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define FATAL   4
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">LevelMap</span><span class="p">[]</span> <span class="o">=</span> 
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -1396,9 +1396,9 @@ I/O 多路复用的实现方式有多种，比如 select，poll，epoll 等，�
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">logMessage</span><span class="p">(</span><span class="kt">int</span> <span class="n">level</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">format</span><span class="p">,</span> <span class="p">...)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl"><span class="cp">##ifndef DEBUG_SHOW
+</span></span><span class="line"><span class="cl"><span class="cp">#ifndef DEBUG_SHOW
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>    <span class="k">if</span><span class="p">(</span><span class="n">level</span><span class="o">==</span> <span class="n">DEBUG</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="cp">##endif
+</span></span><span class="line"><span class="cl"><span class="cp">#endif
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>    <span class="c1">// 标准部分
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">char</span> <span class="n">stdBuffer</span><span class="p">[</span><span class="mi">1024</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">    <span class="n">time_t</span> <span class="n">timestamp</span> <span class="o">=</span> <span class="n">time</span><span class="p">(</span><span class="k">nullptr</span><span class="p">);</span>
@@ -1489,14 +1489,14 @@ I/O 多路复用的实现方式有多种，比如 select，poll，epoll 等，�
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// SelectServer.hpp
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl"><span class="cp">##ifndef __SELECT_SVR_H__
-</span></span></span><span class="line"><span class="cl"><span class="cp">##define __SELECT_SVR_H__
+</span></span><span class="line"><span class="cl"><span class="cp">#ifndef __SELECT_SVR_H__
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define __SELECT_SVR_H__
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl"><span class="cp">##include &lt;iostream&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/select.h&gt;
+</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/select.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl"><span class="cp">##include &#34;Sock.hpp&#34;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &#34;Log.hpp&#34;
+</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;Sock.hpp&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;Log.hpp&#34;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">SelectServer</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -1520,7 +1520,7 @@ I/O 多路复用的实现方式有多种，比如 select，poll，epoll 等，�
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">_listensock</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="cp">##endif</span></span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="cp">#endif</span></span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
@@ -1633,8 +1633,8 @@ I/O 多路复用的实现方式有多种，比如 select，poll，epoll 等，�
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &#34;selectServer.hpp&#34;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;memory&gt;
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;selectServer.hpp&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;memory&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -1941,9 +1941,9 @@ I/O 多路复用的实现方式有多种，比如 select，poll，epoll 等，�
 </span><span class="lnt">163
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##define BITS 8
-</span></span></span><span class="line"><span class="cl"><span class="cp">##define NUM (sizeof(fd_set) * BITS)
-</span></span></span><span class="line"><span class="cl"><span class="cp">##define FD_NONE -1
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#define BITS 8
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define NUM (sizeof(fd_set) * BITS)
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define FD_NONE -1
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">SelectServer</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -2355,9 +2355,9 @@ I/O 多路复用的实现方式有多种，比如 select，poll，epoll 等，�
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">##define POLLIN		0x001		</span><span class="cm">/* There is data to read.  */</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">##define POLLPRI		0x002		</span><span class="cm">/* There is urgent data to read.  */</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">##define POLLOUT		0x004		</span><span class="cm">/* Writing now will not block.  */</span></span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#define POLLIN		0x001		</span><span class="cm">/* There is data to read.  */</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define POLLPRI		0x002		</span><span class="cm">/* There is urgent data to read.  */</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define POLLOUT		0x004		</span><span class="cm">/* Writing now will not block.  */</span></span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
@@ -2556,21 +2556,21 @@ I/O 多路复用的实现方式有多种，比如 select，poll，epoll 等，�
 </span><span class="lnt">163
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##ifndef __POLL_SVR_H__
-</span></span></span><span class="line"><span class="cl"><span class="cp">##define __POLL_SVR_H__
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#ifndef __POLL_SVR_H__
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define __POLL_SVR_H__
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl"><span class="cp">##include &lt;iostream&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;cerrno&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;cstring&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;string&gt;
+</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;cerrno&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;cstring&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/poll.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/time.h&gt;
+</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/poll.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/time.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl"><span class="cp">##include &#34;Sock.hpp&#34;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &#34;Log.hpp&#34;
+</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;Sock.hpp&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;Log.hpp&#34;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl"><span class="cp">##define FD_NONE -1
+</span></span><span class="line"><span class="cl"><span class="cp">#define FD_NONE -1
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">PollServer</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -2718,7 +2718,7 @@ I/O 多路复用的实现方式有多种，比如 select，poll，epoll 等，�
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">int</span> <span class="n">_timeout</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="cp">##endif</span></span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="cp">#endif</span></span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
@@ -3139,9 +3139,9 @@ I/O 多路复用的实现方式有多种，比如 select，poll，epoll 等，�
 </span><span class="lnt">30
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##pragma once
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#pragma once
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/epoll.h&gt;
+</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/epoll.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Epoll</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -3562,7 +3562,7 @@ I/O 多路复用的实现方式有多种，比如 select，poll，epoll 等，�
 </span><span class="lnt">46
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;functional&gt;
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;functional&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">RequestData</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>

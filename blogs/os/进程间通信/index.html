@@ -102,7 +102,7 @@ System V 信号量">
 
 
 
-  <link href="/css/custom.min.eb58534bf60e4c559413666e80103be90d592364d446e9daaa9b370907a168f0.css" rel="stylesheet" integrity="sha256-61hTS/YOTFWUE2ZugBA76Q1ZI2TURunaqps3CQehaPA=" />
+  <link href="/css/custom.min.a1ce305bdd6d238adbab91ef2cb7b1e289c923a4f9b0c803784cecf27ff614a6.css" rel="stylesheet" integrity="sha256-oc4wW91tI4rbq5HvLLex4onJI6T5sMgDeEzs8n/2FKY=" />
 
 
 
@@ -1271,7 +1271,7 @@ System V 信号量">
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;unistd.h&gt;
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">pipe</span><span class="p">(</span><span class="kt">int</span> <span class="n">pipefd</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span></span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
@@ -1319,9 +1319,9 @@ System V 信号量">
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;iostream&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;assert.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;unistd.h&gt;
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;assert.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
@@ -1359,10 +1359,10 @@ System V 信号量">
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##ifdef DEBUG
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#ifdef DEBUG
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;pipefd[0]: &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">pipefd</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="c1">// 3
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;pipefd[1]: &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">pipefd</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="c1">// 4
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">##endif</span></span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#endif</span></span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
@@ -1431,7 +1431,7 @@ System V 信号量">
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">##include &lt;unistd.h&gt;
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">ssize_t</span> <span class="nf">read</span><span class="p">(</span><span class="kt">int</span> <span class="n">fd</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">buf</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">count</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">ssize_t</span> <span class="nf">write</span><span class="p">(</span><span class="kt">int</span> <span class="n">fd</span><span class="p">,</span> <span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="n">buf</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">count</span><span class="p">);</span></span></span></code></pre></td></tr></table>
@@ -1656,8 +1656,8 @@ System V 信号量">
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">##include &lt;sys/types.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/wait.h&gt;
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/wait.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">pid_t</span> <span class="nf">waitpid</span><span class="p">(</span><span class="kt">pid_t</span> <span class="n">pid</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">status</span><span class="p">,</span> <span class="kt">int</span> <span class="n">options</span><span class="p">);</span></span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
@@ -1753,14 +1753,14 @@ System V 信号量">
 </span><span class="lnt">68
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;iostream&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;string&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;cstdio&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;cstring&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;assert.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;unistd.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/types.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/wait.h&gt;
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;cstdio&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;cstring&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;assert.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/wait.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
@@ -1769,10 +1769,10 @@ System V 信号量">
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">int</span> <span class="n">pipefd</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span> <span class="p">};</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">pipe</span><span class="p">(</span><span class="n">pipefd</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">assert</span><span class="p">(</span><span class="n">n</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">n</span><span class="p">;</span> <span class="c1">// debug &amp;&amp; release assert
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">##ifdef DEBUG
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#ifdef DEBUG
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;pipefd[0]: &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">pipefd</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="c1">// 3
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;pipefd[1]: &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">pipefd</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="c1">// 4
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">##endif
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#endif
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>    <span class="c1">// 2. 创建子进程
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl">    <span class="n">pid_t</span> <span class="n">id</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
@@ -2041,12 +2041,12 @@ System V 信号量">
 </span><span class="lnt">31
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;iostream&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;cassert&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/types.h&gt;
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;cassert&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="cp">##define PROCESS_NUM 3
+</span></span><span class="line"><span class="cl"><span class="cp">#define PROCESS_NUM 3
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -2173,7 +2173,7 @@ System V 信号量">
 </span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;vector&gt;
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -2251,8 +2251,8 @@ System V 信号量">
 </span><span class="lnt">35
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;ctime&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/wait.h&gt;
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;ctime&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/wait.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -2492,14 +2492,14 @@ System V 信号量">
 </span><span class="lnt">54
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##pragma once
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#pragma once
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl"><span class="cp">##include &lt;iostream&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;string&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;vector&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;unordered_map&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;unistd.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;functional&gt;
+</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unordered_map&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;functional&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="k">typedef</span> <span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">()</span><span class="o">&gt;</span> <span class="n">func</span><span class="p">;</span> <span class="c1">// 定义函数包装器类型
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
@@ -2664,18 +2664,18 @@ System V 信号量">
 </span><span class="lnt">98
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;iostream&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;vector&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;cstdlib&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;ctime&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;cassert&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;unistd.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/wait.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/types.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &#34;Method.hpp&#34;
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;cstdlib&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;ctime&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;cassert&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/wait.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;Method.hpp&#34;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="cp">##define PROCESS_NUM 3
+</span></span><span class="line"><span class="cl"><span class="cp">#define PROCESS_NUM 3
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">SendAndWakeup</span><span class="p">(</span><span class="n">pid_t</span> <span class="n">who</span><span class="p">,</span> <span class="kt">int</span> <span class="n">fd</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">command</span><span class="p">)</span> <span class="c1">// 父进程发送命令
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">{</span>
@@ -2939,13 +2939,13 @@ System V 信号量">
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;iostream&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/types.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/stat.h&gt;
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/stat.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="cp">##define FILE_NAME &#34;myfifo&#34;
+</span></span><span class="line"><span class="cl"><span class="cp">#define FILE_NAME &#34;myfifo&#34;
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">mkfifo</span><span class="p">(</span><span class="n">FILE_NAME</span><span class="p">,</span> <span class="mo">0666</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="c1">// 创建失败
@@ -3047,17 +3047,17 @@ System V 信号量">
 </span><span class="lnt">40
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;iostream&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;cstdio&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/stat.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/types.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;unistd.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/wait.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;fcntl.h&gt;
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;cstdio&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/stat.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/wait.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="cp">##define FILE_PATH &#34;./myfifo&#34; </span><span class="c1">// 文件路径
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">##define MODE 0666 </span><span class="c1">// 文件权限
+</span></span><span class="line"><span class="cl"><span class="cp">#define FILE_PATH &#34;./myfifo&#34; </span><span class="c1">// 文件路径
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#define MODE 0666 </span><span class="c1">// 文件权限
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -3161,9 +3161,9 @@ System V 信号量">
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// server.cc
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl"><span class="cp">##include &lt;cstring&gt;
+</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;cstring&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl"><span class="cp">##define BUFF_SIZE 1024       </span><span class="c1">// 缓冲区大小
+</span></span><span class="line"><span class="cl"><span class="cp">#define BUFF_SIZE 1024       </span><span class="c1">// 缓冲区大小
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">void</span> <span class="nf">GetMessage</span><span class="p">(</span><span class="kt">int</span> <span class="n">fd</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -3242,7 +3242,7 @@ System V 信号量">
 </span><span class="lnt">26
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &#34;comm.hpp&#34;
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;comm.hpp&#34;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -3452,8 +3452,8 @@ System V 信号量">
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;sys/ipc.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/shm.h&gt;
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/ipc.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/shm.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">shmget</span><span class="p">(</span><span class="n">key_t</span> <span class="n">key</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">size</span><span class="p">,</span> <span class="kt">int</span> <span class="n">shmflg</span><span class="p">);</span></span></span></code></pre></td></tr></table>
 </div>
@@ -3577,18 +3577,18 @@ System V 信号量">
 </span><span class="lnt">32
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;iostream&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/types.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/ipc.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/shm.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;unistd.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;cstdio&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;cstdlib&gt;
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/ipc.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/shm.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;cstdio&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;cstdlib&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="cp">##define PATH_NAME &#34;./tmp.cc&#34; </span><span class="c1">// 文件路径
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">##define PROJ_ID 0x666              </span><span class="c1">// 标识符
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">##define SHM_SIZE 4096              </span><span class="c1">// 共享内存大小
+</span></span><span class="line"><span class="cl"><span class="cp">#define PATH_NAME &#34;./tmp.cc&#34; </span><span class="c1">// 文件路径
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#define PROJ_ID 0x666              </span><span class="c1">// 标识符
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#define SHM_SIZE 4096              </span><span class="c1">// 共享内存大小
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -4071,7 +4071,7 @@ System V 信号量">
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// shmServer.cc
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl"><span class="cp">##include &#34;comm.hpp&#34;
+</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;comm.hpp&#34;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -4171,7 +4171,7 @@ System V 信号量">
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// shmClient.cc
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl"><span class="cp">##include &#34;comm.hpp&#34;
+</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;comm.hpp&#34;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -4497,9 +4497,9 @@ System V 信号量">
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">##include &lt;sys/types.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/ipc.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/sem.h&gt;
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/ipc.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/sem.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">semget</span><span class="p">(</span><span class="kt">key_t</span> <span class="n">key</span><span class="p">,</span> <span class="kt">int</span> <span class="n">nsems</span><span class="p">,</span> <span class="kt">int</span> <span class="n">semflg</span><span class="p">);</span></span></span></code></pre></td></tr></table>
 </div>
@@ -4573,9 +4573,9 @@ System V 信号量">
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;sys/types.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/ipc.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/sem.h&gt;
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/ipc.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/sem.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">semctl</span><span class="p">(</span><span class="kt">int</span> <span class="n">semid</span><span class="p">,</span> <span class="kt">int</span> <span class="n">semnum</span><span class="p">,</span> <span class="kt">int</span> <span class="n">cmd</span><span class="p">,</span> <span class="p">...);</span></span></span></code></pre></td></tr></table>
 </div>
@@ -4612,9 +4612,9 @@ System V 信号量">
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">##include &lt;sys/types.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/ipc.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/sem.h&gt;
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/ipc.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/sem.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">semop</span><span class="p">(</span><span class="kt">int</span> <span class="n">semid</span><span class="p">,</span> <span class="k">struct</span> <span class="n">sembuf</span> <span class="o">*</span><span class="n">sops</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="n">nsops</span><span class="p">);</span></span></span></code></pre></td></tr></table>
 </div>
@@ -4749,8 +4749,8 @@ System V 信号量">
 </span><span class="lnt">40
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">##include &lt;stdio.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;pthread.h&gt;
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;pthread.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="kt">pthread_mutex_t</span> <span class="n">lock</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">

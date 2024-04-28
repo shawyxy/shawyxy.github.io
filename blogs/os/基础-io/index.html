@@ -98,7 +98,7 @@ I/O（英语：Input/Output），即输入／输出，通常指数据在存储�
 
 
 
-  <link href="/css/custom.min.eb58534bf60e4c559413666e80103be90d592364d446e9daaa9b370907a168f0.css" rel="stylesheet" integrity="sha256-61hTS/YOTFWUE2ZugBA76Q1ZI2TURunaqps3CQehaPA=" />
+  <link href="/css/custom.min.a1ce305bdd6d238adbab91ef2cb7b1e289c923a4f9b0c803784cecf27ff614a6.css" rel="stylesheet" integrity="sha256-oc4wW91tI4rbq5HvLLex4onJI6T5sMgDeEzs8n/2FKY=" />
 
 
 
@@ -1196,8 +1196,8 @@ I/O（英语：Input/Output），即输入／输出，通常指数据在存储�
 </span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;stdio.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;string.h&gt;
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">FILE</span><span class="o">*</span> <span class="n">fp</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="s">&#34;log.txt&#34;</span><span class="p">,</span> <span class="s">&#34;w&#34;</span><span class="p">);</span><span class="c1">//创建 log.txt 新文件
@@ -1259,7 +1259,7 @@ I/O（英语：Input/Output），即输入／输出，通常指数据在存储�
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;stdio.h&gt;
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">FILE</span><span class="o">*</span> <span class="n">fp</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="s">&#34;log.txt&#34;</span><span class="p">,</span> <span class="s">&#34;r&#34;</span><span class="p">);</span>
@@ -1421,12 +1421,12 @@ I/O（英语：Input/Output），即输入／输出，通常指数据在存储�
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;stdio.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;unistd.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;string.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/types.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/stat.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;fcntl.h&gt;
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/stat.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="s">&#34;log.txt&#34;</span><span class="p">,</span> <span class="n">O_WRONLY</span><span class="p">);</span> <span class="c1">// 以只读形式打开文件
@@ -1563,11 +1563,11 @@ I/O（英语：Input/Output），即输入／输出，通常指数据在存储�
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;stdio.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;unistd.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/types.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/stat.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;fcntl.h&gt;
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/stat.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="n">umask</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
@@ -1626,12 +1626,12 @@ I/O（英语：Input/Output），即输入／输出，通常指数据在存储�
 </span><span class="lnt">25
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;stdio.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;string.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/types.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/stat.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;stdlib.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;fcntl.h&gt;
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/stat.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">umask</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
@@ -1710,11 +1710,11 @@ I/O（英语：Input/Output），即输入／输出，通常指数据在存储�
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;stdio.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;unistd.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/types.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/stat.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;fcntl.h&gt;
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/stat.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;stdin, %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">stdin</span><span class="o">-&gt;</span><span class="n">_fileno</span><span class="p">);</span>
@@ -1772,11 +1772,11 @@ I/O（英语：Input/Output），即输入／输出，通常指数据在存储�
 </span><span class="lnt">22
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;stdio.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;unistd.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/types.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/stat.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;fcntl.h&gt;
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/stat.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">close</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> <span class="c1">// 关闭标准输入
@@ -1860,11 +1860,11 @@ I/O（英语：Input/Output），即输入／输出，通常指数据在存储�
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;stdio.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;unistd.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/types.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/stat.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;fcntl.h&gt;
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/stat.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="n">close</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
@@ -1997,11 +1997,11 @@ I/O（英语：Input/Output），即输入／输出，通常指数据在存储�
 </span><span class="lnt">22
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;stdio.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;unistd.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/types.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/stat.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;fcntl.h&gt;
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/stat.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="n">close</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
@@ -2092,7 +2092,7 @@ I/O（英语：Input/Output），即输入／输出，通常指数据在存储�
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;stdio.h&gt;
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;stdout printf</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>                                                    
@@ -2235,11 +2235,11 @@ I/O（英语：Input/Output），即输入／输出，通常指数据在存储�
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;stdio.h&gt;                                                              
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;unistd.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/types.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/stat.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;fcntl.h&gt;
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">                                                              
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/stat.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="s">&#34;log.txt&#34;</span><span class="p">,</span> <span class="n">O_WRONLY</span> <span class="o">|</span> <span class="n">O_CREAT</span><span class="p">,</span> <span class="mo">0666</span><span class="p">);</span>
@@ -2376,7 +2376,7 @@ I/O（英语：Input/Output），即输入／输出，通常指数据在存储�
 </span></span><span class="line"><span class="cl">    <span class="cm">/*  char* _save_gptr;  char* _save_egptr; */</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="n">_IO_lock_t</span> <span class="o">*</span><span class="n">_lock</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="cp">##ifdef _IO_USE_OLD_IO_FILE
+</span></span><span class="line"><span class="cl"><span class="cp">#ifdef _IO_USE_OLD_IO_FILE
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="p">};</span></span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
@@ -2418,7 +2418,7 @@ I/O（英语：Input/Output），即输入／输出，通常指数据在存储�
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">typedef</span> <span class="k">struct</span> <span class="nc">_IO_FILE</span> <span class="n">FILE</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="cp">##include &lt;libio.h&gt;</span></span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;libio.h&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
@@ -2475,8 +2475,8 @@ I/O（英语：Input/Output），即输入／输出，通常指数据在存储�
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;stdio.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;unistd.h&gt;
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;hello world &lt;- printf</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>

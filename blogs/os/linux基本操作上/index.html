@@ -45,7 +45,7 @@
 -a 罗列出包括隐藏文件的所有文件或目录。（隐藏文件或目录通常以.开头） -l 罗列出每个文件的详细信息（不包括隐藏文件或目录） 选项 常用选项（前两个经常用）：
 -r 对目录反向排序； -t 以时间排序； -d 将目录象文件一样显示，而不是显示其下的文件。 如：ls –d 指定目录； -i 输出文件的 i 节点的索引信息。 如 ls –ai 指定文件； -k 以 k 字节的形式表示文件的大小。ls –alk 指定文件； -n 用数字的 UID，GID 代替名称。 （介绍 UID， GID）； -F 在每个文件名后附上一个字符以说明该文件的类型，“*”表示可执行的普通文件；“/”表示目录；“@”表示符号链接；“|”表示 FIFOs；“=”表示套接字（sockets）（目录类型识别）； -s 在 l 文件名后输出该文件的大小；（大小排序，如何找到目录下最大的文件） -R 列出所有子目录下的文件；（递归） -1 一行只输出一个文件。 示例 下面对前两个个选项做出演示：
 直接 ls 不加选项的效果： 1 2 ls clash Code Git test 第一行的 ls 是指令，第二行是该目录下所有的文件（不包括被隐藏的）。这些文件/目录都是我自己创建的。">
-  <meta itemprop="wordCount" content="1298"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Linux基本操作【上】">
+  <meta itemprop="wordCount" content="1294"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Linux基本操作【上】">
 <meta name="twitter:description" content="操作环境：CentOS 7.6
 1. ls 指令 语法 ls [选项] [目录/文件]
 功能 罗列出该目录下所有子目录或文件（不包括被隐藏的文件或目录）；罗列出文件名及各种信息 非常常用的选项 [几分钟就用一次的那种]：
@@ -58,7 +58,7 @@
 
 
 
-  <link href="/css/custom.min.eb58534bf60e4c559413666e80103be90d592364d446e9daaa9b370907a168f0.css" rel="stylesheet" integrity="sha256-61hTS/YOTFWUE2ZugBA76Q1ZI2TURunaqps3CQehaPA=" />
+  <link href="/css/custom.min.a1ce305bdd6d238adbab91ef2cb7b1e289c923a4f9b0c803784cecf27ff614a6.css" rel="stylesheet" integrity="sha256-oc4wW91tI4rbq5HvLLex4onJI6T5sMgDeEzs8n/2FKY=" />
 
 
 
@@ -411,6 +411,12 @@
                 href="#7-man-%e6%8c%87%e4%bb%a4"
                 class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
               >*7. man 指令</a>
+            </li>
+          <li>
+              <a
+                href="#7-cp-%e6%8c%87%e4%bb%a4"
+                class="flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:border gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-400 dark:hover:bg-primary-100/5 dark:hover:text-gray-50 contrast-more:text-gray-900 contrast-more:dark:text-gray-50 contrast-more:border-transparent contrast-more:hover:border-gray-900 contrast-more:dark:hover:border-gray-50"
+              >*7. cp 指令</a>
             </li>
           <li>
               <a
@@ -868,15 +874,7 @@
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%b3%a8%e6%84%8f">注意
-        </a>
-      </li>
-      <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e7%a4%ba%e4%be%8b-7">示例
-        </a>
-      </li>
-      <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#8-mv-%e6%8c%87%e4%bb%a4">*8. mv 指令
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#7-cp-%e6%8c%87%e4%bb%a4">*7. cp 指令
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
@@ -892,15 +890,15 @@
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e7%a4%ba%e4%be%8b-8">示例
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%b3%a8%e6%84%8f">注意
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%b3%a8%e6%84%8f-1">注意
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e7%a4%ba%e4%be%8b-7">示例
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#9-cat-%e6%8c%87%e4%bb%a4">9. cat 指令
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#8-mv-%e6%8c%87%e4%bb%a4">*8. mv 指令
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
@@ -916,6 +914,30 @@
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e7%a4%ba%e4%be%8b-8">示例
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e6%b3%a8%e6%84%8f-1">注意
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#9-cat-%e6%8c%87%e4%bb%a4">9. cat 指令
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e8%af%ad%e6%b3%95-9">语法
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%8a%9f%e8%83%bd-10">功能
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e9%80%89%e9%a1%b9-8">选项
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
         <a class="ltr:pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e7%a4%ba%e4%be%8b-9">示例
         </a>
       </li>
@@ -924,11 +946,11 @@
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e8%af%ad%e6%b3%95-9">语法
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e8%af%ad%e6%b3%95-10">语法
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%8a%9f%e8%83%bd-10">功能
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 contrast-more:text-gray-900 contrast-more:underline contrast-more:dark:text-gray-50 w-full break-words" href="#%e5%8a%9f%e8%83%bd-11">功能
         </a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
@@ -1686,14 +1708,14 @@ Linux/macOS 下是反斜杠&ndash;&rsquo;'</p>
   </div>
 </div>
 <img src="Linux基本操作【上】.IMG/427eaa4e180a960efe62c7e52dda9f7f.png" alt="image.png" style="zoom:40%;" />
-## *7. cp 指令
-### 语法
-cp [选项] [源文件/目标文件  +  目录]
-### 功能
-**cp 命令** 用来将一个或多个源文件或者目录复制到指定的目的文件或目录。它可以将单个源文件复制成一个指定文件名的具体的文件或一个已经存在的目录下。
-注意：cp 命令还支持同时复制多个文件，当一次复制多个文件时，目标文件参数必须是一个已经存在的目录，否则将出现错误。
-### 选项
-<ul>
+<h2>*7. cp 指令<span class="absolute -mt-20" id="7-cp-指令"></span>
+    <a href="#7-cp-%e6%8c%87%e4%bb%a4" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>语法<span class="absolute -mt-20" id="语法-7"></span>
+    <a href="#%e8%af%ad%e6%b3%95-7" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>cp [选项] [源文件/目标文件  +  目录]</p>
+<h3>功能<span class="absolute -mt-20" id="功能-8"></span>
+    <a href="#%e5%8a%9f%e8%83%bd-8" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p><strong>cp 命令</strong> 用来将一个或多个源文件或者目录复制到指定的目的文件或目录。它可以将单个源文件复制成一个指定文件名的具体的文件或一个已经存在的目录下。
+注意：cp 命令还支持同时复制多个文件，当一次复制多个文件时，目标文件参数必须是一个已经存在的目录，否则将出现错误。</p>
+<h3>选项<span class="absolute -mt-20" id="选项-6"></span>
+    <a href="#%e9%80%89%e9%a1%b9-6" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
 <li>-a：此参数的效果和同时指定&quot;-dpR&quot;参数相同；</li>
 <li>-d：当复制符号连接时，把目标文件或目录也建立为符号连接，并指向与源文件或目录连接的原始文件或目录；</li>
 <li>-f：强行复制文件或目录，不论目标文件或目录是否已存在；</li>
@@ -1846,12 +1868,12 @@ tree 一下上级目录</p>
   </div>
 </div>
 <h2>*8. mv 指令<span class="absolute -mt-20" id="8-mv-指令"></span>
-    <a href="#8-mv-%e6%8c%87%e4%bb%a4" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>语法<span class="absolute -mt-20" id="语法-7"></span>
-    <a href="#%e8%af%ad%e6%b3%95-7" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>mv [选项] [源文件/目标文件  +  目录]</p>
-<h3>功能<span class="absolute -mt-20" id="功能-8"></span>
-    <a href="#%e5%8a%9f%e8%83%bd-8" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p><strong>mv 命令</strong> 用来对文件或目录重新命名，或者将文件从一个目录移到另一个目录中。前者为源文件或目录，后者为目标文件或目录。如果将一个文件移到一个已经存在的目标文件中，则目标文件的内容将被覆盖。</p>
-<h3>选项<span class="absolute -mt-20" id="选项-6"></span>
-    <a href="#%e9%80%89%e9%a1%b9-6" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
+    <a href="#8-mv-%e6%8c%87%e4%bb%a4" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>语法<span class="absolute -mt-20" id="语法-8"></span>
+    <a href="#%e8%af%ad%e6%b3%95-8" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>mv [选项] [源文件/目标文件  +  目录]</p>
+<h3>功能<span class="absolute -mt-20" id="功能-9"></span>
+    <a href="#%e5%8a%9f%e8%83%bd-9" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p><strong>mv 命令</strong> 用来对文件或目录重新命名，或者将文件从一个目录移到另一个目录中。前者为源文件或目录，后者为目标文件或目录。如果将一个文件移到一个已经存在的目标文件中，则目标文件的内容将被覆盖。</p>
+<h3>选项<span class="absolute -mt-20" id="选项-7"></span>
+    <a href="#%e9%80%89%e9%a1%b9-7" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
 <li>&ndash;backup=&lt;备份模式&gt;：若需覆盖文件，则覆盖前先行备份；</li>
 <li>-b：当文件存在时，覆盖前，为其创建一个备份；</li>
 <li>-f：若目标文件或目录与现有的文件或目录重复，则直接覆盖现有的文件或目录；</li>
@@ -1929,16 +1951,16 @@ tree 一下上级目录</p>
 </ol>
 <p>注意：mv 与 cp 的结果不同，mv 好像文件“搬家”，文件个数并未增加。而 cp 对文件进行复制，文件个数增加了。</p>
 <h2>9. cat 指令<span class="absolute -mt-20" id="9-cat-指令"></span>
-    <a href="#9-cat-%e6%8c%87%e4%bb%a4" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>语法<span class="absolute -mt-20" id="语法-8"></span>
-    <a href="#%e8%af%ad%e6%b3%95-8" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>cat [选项] [文件]</p>
-<h3>功能<span class="absolute -mt-20" id="功能-9"></span>
-    <a href="#%e5%8a%9f%e8%83%bd-9" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
+    <a href="#9-cat-%e6%8c%87%e4%bb%a4" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>语法<span class="absolute -mt-20" id="语法-9"></span>
+    <a href="#%e8%af%ad%e6%b3%95-9" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>cat [选项] [文件]</p>
+<h3>功能<span class="absolute -mt-20" id="功能-10"></span>
+    <a href="#%e5%8a%9f%e8%83%bd-10" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
 <li>显示文件内容，如果没有文件或文件为-则读取标准输入。</li>
 <li>将多个文件的内容进行连接并打印到标准输出。</li>
 <li>显示文件内容中的不可见字符（控制字符、换行符、制表符等）。</li>
 </ul>
-<h3>选项<span class="absolute -mt-20" id="选项-7"></span>
-    <a href="#%e9%80%89%e9%a1%b9-7" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
+<h3>选项<span class="absolute -mt-20" id="选项-8"></span>
+    <a href="#%e9%80%89%e9%a1%b9-8" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
 <li>-b 对非空输入行编号</li>
 <li>-n 对输出的所有行编号</li>
 <li>-s 不输出多行空行</li>
@@ -1961,7 +1983,7 @@ tree 一下上级目录</p>
 <pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">ls</span>
 </span></span><span class="line"><span class="cl"><span class="n">clash</span>  <span class="n">Code</span>  <span class="n">d1</span>  <span class="n">Git</span>  <span class="n">test</span>  <span class="n">test1</span><span class="p">.</span><span class="n">txt</span>
 </span></span><span class="line"><span class="cl"><span class="n">cat</span> <span class="n">test1</span><span class="p">.</span><span class="n">txt</span> 
-</span></span><span class="line"><span class="cl"><span class="cp">##include &lt;stdio.h&gt;
+</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="n">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="n">pritf</span><span class="p">(</span><span class="s">&#34;hello cat</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
@@ -1999,7 +2021,7 @@ tree 一下上级目录</p>
 </span></span><span class="line"><span class="cl">  <span class="n">pritf</span><span class="p">(</span><span class="s">&#34;hello cat</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">main</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="cp">##include &lt;stdio.h&gt;</span></span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
@@ -2013,10 +2035,10 @@ tree 一下上级目录</p>
 </div>
 <p>虽然它看起来没什么用但还是有点用的（存在即合理，大佬考虑的应用场景很多）</p>
 <h3>补充 echo<span class="absolute -mt-20" id="补充-echo"></span>
-    <a href="#%e8%a1%a5%e5%85%85-echo" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><h4>语法<span class="absolute -mt-20" id="语法-9"></span>
-    <a href="#%e8%af%ad%e6%b3%95-9" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>echo 字符串</p>
-<h4>功能<span class="absolute -mt-20" id="功能-10"></span>
-    <a href="#%e5%8a%9f%e8%83%bd-10" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>打印字符串或将字符串作为内容填入或覆盖文本中。</p>
+    <a href="#%e8%a1%a5%e5%85%85-echo" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><h4>语法<span class="absolute -mt-20" id="语法-10"></span>
+    <a href="#%e8%af%ad%e6%b3%95-10" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>echo 字符串</p>
+<h4>功能<span class="absolute -mt-20" id="功能-11"></span>
+    <a href="#%e5%8a%9f%e8%83%bd-11" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>打印字符串或将字符串作为内容填入或覆盖文本中。</p>
 <h4>示例<span class="absolute -mt-20" id="示例-10"></span>
     <a href="#%e7%a4%ba%e4%be%8b-10" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>打印内容到显示器</p>
 <div class="code-block relative mt-6 first:mt-0 group/code"><div><div class="highlight"><div class="chroma">

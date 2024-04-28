@@ -78,7 +78,7 @@
 
 
 
-  <link href="/css/custom.min.eb58534bf60e4c559413666e80103be90d592364d446e9daaa9b370907a168f0.css" rel="stylesheet" integrity="sha256-61hTS/YOTFWUE2ZugBA76Q1ZI2TURunaqps3CQehaPA=" />
+  <link href="/css/custom.min.a1ce305bdd6d238adbab91ef2cb7b1e289c923a4f9b0c803784cecf27ff614a6.css" rel="stylesheet" integrity="sha256-oc4wW91tI4rbq5HvLLex4onJI6T5sMgDeEzs8n/2FKY=" />
 
 
 
@@ -1026,19 +1026,19 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// Log.hpp
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">##pragma once
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#pragma once
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl"><span class="cp">##include &lt;iostream&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;cstdarg&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;ctime&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;string&gt;
+</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;cstdarg&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;ctime&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="c1">// 日志级别
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">##define DEBUG   0
-</span></span></span><span class="line"><span class="cl"><span class="cp">##define NORMAL  1
-</span></span></span><span class="line"><span class="cl"><span class="cp">##define WARNING 2
-</span></span></span><span class="line"><span class="cl"><span class="cp">##define ERROR   3
-</span></span></span><span class="line"><span class="cl"><span class="cp">##define FATAL   4
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#define DEBUG   0
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define NORMAL  1
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define WARNING 2
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define ERROR   3
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define FATAL   4
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">LevelMap</span><span class="p">[]</span> <span class="o">=</span> 
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -1052,9 +1052,9 @@
 </span></span><span class="line"><span class="cl"><span class="c1">// 打印版本
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">logMessage</span><span class="p">(</span><span class="kt">int</span> <span class="n">level</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">format</span><span class="p">,</span> <span class="p">...)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl"><span class="cp">##ifndef DEBUG_SHOW
+</span></span><span class="line"><span class="cl"><span class="cp">#ifndef DEBUG_SHOW
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>    <span class="k">if</span><span class="p">(</span><span class="n">level</span><span class="o">==</span> <span class="n">DEBUG</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="cp">##endif
+</span></span><span class="line"><span class="cl"><span class="cp">#endif
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>    <span class="c1">// 标准部分
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">char</span> <span class="n">stdBuffer</span><span class="p">[</span><span class="mi">1024</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">    <span class="n">time_t</span> <span class="n">timestamp</span> <span class="o">=</span> <span class="n">time</span><span class="p">(</span><span class="k">nullptr</span><span class="p">);</span>
@@ -1122,8 +1122,8 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// UdpServer.hpp
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">##include &lt;iostream&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;string&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">UdpServer</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -1187,9 +1187,9 @@
 </span><span class="lnt">24
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &#34;UdpServer.hpp&#34;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;memory&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;cstdio&gt;
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;UdpServer.hpp&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;memory&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;cstdio&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">void</span> <span class="nf">usage</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">proc</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -1304,12 +1304,12 @@
 </span><span class="lnt">24
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &#34;Log.hpp&#34;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;cerrno&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;cstring&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/types.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;sys/socket.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;unistd.h&gt;
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;Log.hpp&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;cerrno&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;cstring&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/socket.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">UdpServer</span><span class="p">{</span>    
 </span></span><span class="line"><span class="cl">	<span class="kt">bool</span> <span class="nf">initServer</span><span class="p">()</span>
@@ -1399,9 +1399,9 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">##include &lt;sys/socket.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;netinet/in.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;arpa/inet.h&gt;
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/socket.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;netinet/in.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;arpa/inet.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">bind</span><span class="p">(</span><span class="kt">int</span> <span class="n">sockfd</span><span class="p">,</span> <span class="k">const</span> <span class="k">struct</span> <span class="n">sockaddr</span> <span class="o">*</span><span class="n">addr</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">                <span class="kt">socklen_t</span> <span class="n">addrlen</span><span class="p">);</span></span></span></code></pre></td></tr></table>
 </div>
@@ -1831,9 +1831,9 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// UdpClient.cc
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">##include &#34;UdpClient.hpp&#34;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;memory&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;cstdio&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&#34;UdpClient.hpp&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;memory&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;cstdio&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">void</span> <span class="nf">usage</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">proc</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -2013,7 +2013,7 @@
 </span><span class="lnt">23
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##define SIZE 1024
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#define SIZE 1024
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">void</span> <span class="nf">Start</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 3. 发送数据
@@ -2072,7 +2072,7 @@
 <h3>本地测试<span class="absolute -mt-20" id="本地测试"></span>
     <a href="#%e6%9c%ac%e5%9c%b0%e6%b5%8b%e8%af%95" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>在下面的测试中，可以使用<code>127.0.0.1</code>本地环回地址测试一下上面写好的服务端和客户端程序。端口号随便设置，在这里设置为<code>8080</code>。</p>
 <p>注意，上面的代码中使用了日志，有的日志级别是<code>DEBUG</code>，在测试中可以在编译选项中加上<code>DDUBUG_SHOW</code>以更好地观察现象，这是一个自定义预处理命令。</p>
-<img src="网络编程：UDP socket.IMG/屏幕录制 2023-04-30 17.49.17.gif" alt="屏幕录制 2023-04-30 17.49.17" style="zoom:40%;" />
+<img src="网络编程：UDP socket.IMG/屏幕录制2023-04-30 17.49.17.gif" alt="屏幕录制 2023-04-30 17.49.17" style="zoom:40%;" />
 <p>注意：首先要将服务端运行起来。通过实验结果来看，简易的回声服务端就被实现了，服务端将会在自己的进程中打印客户端发送的数据，并将数据原封不动地返回给客户端，<code>server echo#</code>后面的内容就是客户端返回的数据。</p>
 <h3>netstat 指令<span class="absolute -mt-20" id="netstat-指令"></span>
     <a href="#netstat-%e6%8c%87%e4%bb%a4" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p><code>netstat</code>是一个用于显示网络状态信息的命令行工具。它可以显示各种网络相关的信息，包括活动的网络连接、路由表、接口统计信息等。</p>
@@ -2113,7 +2113,7 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cm">/* Address to accept any incoming messages.  */</span>
-</span></span><span class="line"><span class="cl"><span class="cp">##define	INADDR_ANY		((in_addr_t) 0x00000000)</span></span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="cp">#define	INADDR_ANY		((in_addr_t) 0x00000000)</span></span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
@@ -2157,7 +2157,7 @@
 <p>如果需要从外部网络访问云服务器，需要使用公网 IP 地址。公网 IP 地址是指在 Internet 上可以访问的 IP 地址，可以通过网络地址转换（NAT）技术将公网 IP 地址映射到云服务器的私有地址上，从而实现外部网络对云服务器的访问。</p>
 </blockquote>
 <p>例如运营商提供给我的私有 IP 是<code>172.17.177.235</code>：</p>
-<img src="网络编程：UDP socket.IMG/屏幕录制 2023-04-30 21.43.41.gif" alt="屏幕录制 2023-04-30 21.43.41" style="zoom:40%;" />
+<img src="网络编程：UDP socket.IMG/屏幕录制2023-04-30 21.43.41.gif" alt="屏幕录制 2023-04-30 21.43.41" style="zoom:40%;" />
 <h2>解析命令版<span class="absolute -mt-20" id="解析命令版"></span>
     <a href="#%e8%a7%a3%e6%9e%90%e5%91%bd%e4%bb%a4%e7%89%88" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>上面实现了一个简单的回声服务器，是将数据看作字符串的。有时候客户端发送的数据中可能包含让对端主机执行任务的语句（例如<code>ls -a -l</code>），那么就要对字符串进行分割，然后在服务器中调用字符串对应的指令。这里的字符串分割当然可以自己实现，但本节的终点是实现功能，实际上也是直接把成熟的工具或框架拿来用，这样能保证安全性。</p>
 <h3>popen 函数<span class="absolute -mt-20" id="popen-函数"></span>
@@ -2171,7 +2171,7 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">##include &lt;stdio.h&gt;
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="n">FILE</span> <span class="o">*</span><span class="nf">popen</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">command</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">type</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
@@ -2249,7 +2249,7 @@
 </span><span class="lnt">43
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##define SIZE 1024
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#define SIZE 1024
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">void</span> <span class="nf">Start</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">buffer</span><span class="p">[</span><span class="n">SIZE</span><span class="p">];</span> <span class="c1">// 用来存放读取的数据
@@ -2309,8 +2309,7 @@
 <li>逻辑中使用了<code>strcasestr()</code>函数来查找子串。以过滤非法指令。</li>
 </ul>
 <h3>测试<span class="absolute -mt-20" id="测试-2"></span>
-    <a href="#%e6%b5%8b%e8%af%95-2" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><img src="../../../../var/folders/rn/x47kmrnj7v31hpbbfhlzd2m00000gn/T/com.sindresorhus.Gifski/TemporaryItems/NSIRD_Gifski_NEs8Xj/屏幕录制 2023-04-30 23.02.07.gif" alt="屏幕录制 2023-04-30 23.02.07" style="zoom:40%;" />
-<blockquote>
+    <a href="#%e6%b5%8b%e8%af%95-2" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><blockquote>
 <p>这个程序在缓冲区中还是有一些问题，如果频繁输入不存在的命令将会使<code>popen()</code>函数处于阻塞状态。</p>
 <p>如果客户端发送了<code>rm</code>或<code>rmdir</code>等非法指令，那么客户端将会记录错误信息，并直接返回错误信息。</p>
 <img src="网络编程：UDP socket.IMG/image-20230430231042147.png" alt="image-20230430231042147" style="zoom:40%;" />
@@ -2332,7 +2331,7 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;unordered_map&gt;
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unordered_map&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">class</span> <span class="nc">UdpServer</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
@@ -2502,7 +2501,7 @@
 </div>
 <h3>测试<span class="absolute -mt-20" id="测试-3"></span>
     <a href="#%e6%b5%8b%e8%af%95-3" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>下面将用 2 个客户端和 1 个服务端进行测试。</p>
-<img src="网络编程：UDP socket.IMG/屏幕录制 2023-05-01 15.14.35.gif" alt="屏幕录制 2023-05-01 15.14.35" style="zoom:40%;" />
+<img src="网络编程：UDP socket.IMG/屏幕录制2023-05-01 15.14.35.gif" alt="屏幕录制 2023-05-01 15.14.35" style="zoom:40%;" />
 <p>但是这并不是我们想象中的群聊，这里只有发送信息的客户端才能收到自己发送的消息，而不会立刻显示另一个客户端发送的消息，而是在回显自己发送的几条信息之后才显示。而且我们通过服务端的日志可以看到，实际上客户端是有将每条接收到的数据发送给两个客户端的：</p>
 <img src="网络编程：UDP socket.IMG/image-20230501151941073.png" alt="image-20230501151941073" style="zoom:40%;" />
 <p>出现这样的情况的原因并非客户端拒绝了服务端进程发送的消息，而是 IO 被阻塞了。在上面的客户端程序中，使用的是<code>getline()</code>函数获取用户输入的数据，也就是从标准输入读取数据，那么如果数据没有流向标准输入，<code>getline()</code>后面的逻辑都不会被执行，程序将会在<code>getline()</code>一直等待标准输入的数据。对于群聊中的每一个客户端，它们接收消息和发送消息应该是互不干扰的，就像我们在群里聊天一样。</p>
@@ -2816,7 +2815,7 @@
     </button>
   </div>
 </div>
-<img src="网络编程：UDP socket.IMG/屏幕录制 2023-05-01 19.36.33.gif" alt="屏幕录制 2023-05-01 19.36.33" style="zoom:40%;" />
+<img src="网络编程：UDP socket.IMG/屏幕录制2023-05-01 19.36.33.gif" alt="屏幕录制 2023-05-01 19.36.33" style="zoom:40%;" />
 <p>注意：由于使用了<code>pthread</code>库，因此要增加编译选项：<code>-pthread</code>。</p>
 <p>不论是读还是写的两个线程，它们使用的 socket 都是同一个，那么 sockfd 对应的就是同一个文件。常规情况下，同时对一个文件进行读写会出现问题。但是 UDP/TCP 中的 socket 是全双工的，这意味着它可以同时进行读写操作而不干扰对方线程。</p>
 <h4>管道测试<span class="absolute -mt-20" id="管道测试"></span>
@@ -2829,7 +2828,7 @@
 </ul>
 <p>首先创建两个缓冲区：</p>
 <img src="网络编程：UDP socket.IMG/image-20230501201002778.png" alt="image-20230501201002778" style="zoom:40%;" />
-<img src="网络编程：UDP socket.IMG/屏幕录制 2023-05-01 20.15.32.gif" alt="屏幕录制 2023-05-01 20.15.32" style="zoom:40%;" />
+<img src="网络编程：UDP socket.IMG/屏幕录制2023-05-01 20.15.32.gif" alt="屏幕录制 2023-05-01 20.15.32" style="zoom:40%;" />
 <p>通过管道作为客户端和服务端之间的缓冲区，就可以实现在专门的模块中输入（右边）和输出（中间），这样就不会像上面一样输入和输出乱成一锅粥了。</p>
 <p>这里有一个 bug，就是缓冲区 B 不能收到客户端 A 发送的第一条数据，在测试中也就是“你好，我是客户端 A”这条消息。出现这种情况的原因是没有设计注册的逻辑，这里服务端中添加用户的逻辑是用户端发送第一条消息时判断它是不是新用户，是则添加到哈希表中。因为客户端 A 在发送这条消息时，客户端 B 还没有被添加到表中，因此服务端在群发消息时也就不回将消息发送给客户端 B 了。</p>
 <img src="网络编程：UDP socket.IMG/image-20230501202604922.png" alt="image-20230501202604922" style="zoom:40%;" />

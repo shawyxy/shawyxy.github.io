@@ -66,7 +66,7 @@
 
 
 
-  <link href="/css/custom.min.eb58534bf60e4c559413666e80103be90d592364d446e9daaa9b370907a168f0.css" rel="stylesheet" integrity="sha256-61hTS/YOTFWUE2ZugBA76Q1ZI2TURunaqps3CQehaPA=" />
+  <link href="/css/custom.min.a1ce305bdd6d238adbab91ef2cb7b1e289c923a4f9b0c803784cecf27ff614a6.css" rel="stylesheet" integrity="sha256-oc4wW91tI4rbq5HvLLex4onJI6T5sMgDeEzs8n/2FKY=" />
 
 
 
@@ -1550,31 +1550,31 @@
 </span><span class="lnt">41
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1">## 格式化输出：</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 格式化输出：</span>
 </span></span><span class="line"><span class="cl">date +<span class="s2">&#34;%Y-%m-%d&#34;</span>
 </span></span><span class="line"><span class="cl">2009-12-07
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">## 输出昨天日期：</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 输出昨天日期：</span>
 </span></span><span class="line"><span class="cl">date -d <span class="s2">&#34;1 day ago&#34;</span> +<span class="s2">&#34;%Y-%m-%d&#34;</span>
 </span></span><span class="line"><span class="cl">2012-11-19
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">## 2 秒后输出：</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2 秒后输出：</span>
 </span></span><span class="line"><span class="cl">date -d <span class="s2">&#34;2 second&#34;</span> +<span class="s2">&#34;%Y-%m-%d %H:%M.%S&#34;</span>
 </span></span><span class="line"><span class="cl">2012-11-20 14:21.31
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">## 1234567890 秒：</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 1234567890 秒：</span>
 </span></span><span class="line"><span class="cl">date -d <span class="s2">&#34;1970-01-01 1234567890 seconds&#34;</span> +<span class="s2">&#34;%Y-%m-%d %H:%M:%S&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="c1">## 或者</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 或者</span>
 </span></span><span class="line"><span class="cl">date -d@1234567890 +<span class="s2">&#34;%F %T&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="c1">## 输出结果</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 输出结果</span>
 </span></span><span class="line"><span class="cl">2009-02-13 23:02:30
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">## 时间格式转换：</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 时间格式转换：</span>
 </span></span><span class="line"><span class="cl">date -d <span class="s2">&#34;2009-12-12&#34;</span> +<span class="s2">&#34;%Y/%m/%d %H:%M.%S&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="c1">## 输出结果</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 输出结果</span>
 </span></span><span class="line"><span class="cl">2009/12/12 00:00.00
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">## 时间加减操作：</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 时间加减操作：</span>
 </span></span><span class="line"><span class="cl">date +%Y%m%d                   <span class="c1"># 显示年月日</span>
 </span></span><span class="line"><span class="cl">date -d <span class="s2">&#34;+1 day&#34;</span> +%Y%m%d       <span class="c1"># 显示前一天的日期</span>
 </span></span><span class="line"><span class="cl">date -d <span class="s2">&#34;-1 day&#34;</span> +%Y%m%d       <span class="c1"># 显示后一天的日期</span>
@@ -1583,7 +1583,7 @@
 </span></span><span class="line"><span class="cl">date -d <span class="s2">&#34;-1 year&#34;</span> +%Y%m%d      <span class="c1"># 显示前一年的日期</span>
 </span></span><span class="line"><span class="cl">date -d <span class="s2">&#34;+1 year&#34;</span> +%Y%m%d      <span class="c1"># 显示下一年的日期</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">## 设定时间：</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 设定时间：</span>
 </span></span><span class="line"><span class="cl">date -s                         <span class="c1"># 设置当前时间，只有 root 权限才能设置，其他只能查看</span>
 </span></span><span class="line"><span class="cl">date -s <span class="m">20120523</span>                <span class="c1"># 设置成 20120523，这样会把具体时间设置成 00:00:00</span>
 </span></span><span class="line"><span class="cl">date -s 01:01:01                <span class="c1"># 设置具体时间，不会对日期做更改</span>

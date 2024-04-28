@@ -94,7 +94,7 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
 
 
 
-  <link href="/css/custom.min.eb58534bf60e4c559413666e80103be90d592364d446e9daaa9b370907a168f0.css" rel="stylesheet" integrity="sha256-61hTS/YOTFWUE2ZugBA76Q1ZI2TURunaqps3CQehaPA=" />
+  <link href="/css/custom.min.a1ce305bdd6d238adbab91ef2cb7b1e289c923a4f9b0c803784cecf27ff614a6.css" rel="stylesheet" integrity="sha256-oc4wW91tI4rbq5HvLLex4onJI6T5sMgDeEzs8n/2FKY=" />
 
 
 
@@ -1014,12 +1014,12 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
 </span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">file</span><span class="o">*</span> <span class="n">vm_file</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">void</span><span class="o">*</span> <span class="n">vm_private_data</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl"><span class="cp">##ifndef CONFIG_MMU
+</span></span><span class="line"><span class="cl"><span class="cp">#ifndef CONFIG_MMU
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>    <span class="k">struct</span> <span class="n">vm_region</span><span class="o">*</span> <span class="n">vm_region</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="cp">##endif
-</span></span></span><span class="line"><span class="cl"><span class="cp">##ifdef CONFIG_NUMA
+</span></span><span class="line"><span class="cl"><span class="cp">#endif
+</span></span></span><span class="line"><span class="cl"><span class="cp">#ifdef CONFIG_NUMA
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>    <span class="k">struct</span> <span class="n">mempolicy</span><span class="o">*</span> <span class="n">vm_policy</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="cp">##endif
+</span></span><span class="line"><span class="cl"><span class="cp">#endif
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="p">};</span></span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
@@ -1150,7 +1150,7 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">##include &lt;pthread.h&gt;
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;pthread.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">pthread_create</span><span class="p">(</span><span class="kt">pthread_t</span> <span class="o">*</span><span class="kr">thread</span><span class="p">,</span> <span class="k">const</span> <span class="kt">pthread_attr_t</span> <span class="o">*</span><span class="n">attr</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">                   <span class="kt">void</span> <span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="n">start_routine</span><span class="p">)</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">),</span> <span class="kt">void</span> <span class="o">*</span><span class="n">arg</span><span class="p">);</span></span></span></code></pre></td></tr></table>
@@ -1250,10 +1250,10 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
 </span><span class="lnt">36
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">##include &lt;iostream&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;pthread.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;unistd.h&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cp">##include &lt;string&gt;
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;pthread.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">Print</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">name</span><span class="p">)</span>
@@ -1312,7 +1312,7 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">ps -aL <span class="p">|</span> head -1 <span class="o">&amp;&amp;</span> ps -aL <span class="p">|</span> grep threadTest
-</span></span><span class="line"><span class="cl"><span class="c1">## -L 选项表示查看每个进程内的线程（轻量级进程，Light）。</span></span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="c1"># -L 选项表示查看每个进程内的线程（轻量级进程，Light）。</span></span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="opacity-0 transition group-hover/code:opacity-100 flex gap-1 absolute m-[11px] right-0 top-0">
     <button
@@ -1702,7 +1702,7 @@ vm_area_struct 结构描述了一个给定地址空间中连续区间上的单�
     </button>
   </div>
 </div>
-<img src="线程概念与控制.IMG/屏幕录制 2023-04-06 13.37.30.gif" alt="屏幕录制 2023-04-06 13.37.30" style="zoom:40%;" />
+<img src="线程概念与控制.IMG/屏幕录制2023-04-06 13.37.30.gif" alt="屏幕录制 2023-04-06 13.37.30" style="zoom:40%;" />
 <p>可见，LWP 为 3163 的线程始终存在，说明它就是主线程，其 LWP 和 进程的 PID 是相同的，并且当所有线程退出以后，主线程也会随之退出。</p>
 <h4>pthread_exit 函数终止线程<span class="absolute -mt-20" id="pthread_exit-函数终止线程"></span>
     <a href="#pthread_exit-%e5%87%bd%e6%95%b0%e7%bb%88%e6%ad%a2%e7%ba%bf%e7%a8%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>pthread_exit 函数的功能是终止指定线程。原型：</p>
@@ -1809,7 +1809,7 @@ pthread_exit 或者 return 返回的指针所指向的内存单元必须是全�
     </button>
   </div>
 </div>
-<img src="线程概念与控制.IMG/屏幕录制 2023-04-06 13.56.41.gif" alt="屏幕录制 2023-04-06 13.56.41" style="zoom:40%;" />
+<img src="线程概念与控制.IMG/屏幕录制2023-04-06 13.56.41.gif" alt="屏幕录制 2023-04-06 13.56.41" style="zoom:40%;" />
 <p>可以通过 pthread_join 线程等待，获取线程的退出信息。</p>
 <blockquote>
 <p>在这段代码中，临时值 1234 是一个字面量，它是一个右值，它不能被赋值，也没有持久的存储地址。</p>
@@ -1953,7 +1953,7 @@ pthread_exit 或者 return 返回的指针所指向的内存单元必须是全�
 <img src="线程概念与控制.IMG/image-20230406145719049.png" alt="image-20230406145719049" style="zoom:40%;" />
 <p>并且线程的退出码是-1，这说明 pthread_cancel 函数紧跟在 pthread_create 函数之后，会让线程没有时间执行线程函数中的语句（因为我自定义了返回值是 5678）。所以在 pthread_cancel 函数和 pthread_create 函数之间的 sleep 的作用是延迟取消进程。</p>
 <p>还可以通过之前使用的脚本查看线程信息，为了能不留空隙地打印，在注释掉  pthread_cancel 函数和 pthread_create 函数中间的 sleep 之后，在每次循环的最后 sleep 2 秒，每 1 秒打印线程信息：</p>
-<img src="线程概念与控制.IMG/屏幕录制 2023-04-06 15.04.40.gif" alt="屏幕录制 2023-04-06 15.04.40" style="zoom:40%;" />
+<img src="线程概念与控制.IMG/屏幕录制2023-04-06 15.04.40.gif" alt="屏幕录制 2023-04-06 15.04.40" style="zoom:40%;" />
 <p>可以发现，每次只会打印 1 个线程的信息，它是主线程，即使使用 pthread_create 创建了线程，只要立刻 pthread_cancel 取消线程，那么它就不会被创建。</p>
 <blockquote>
 <p>按常理来说，代码应该是由上至下从左至右依次执行的，这是操作系统的策略吗？</p>
