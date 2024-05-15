@@ -63,8 +63,10 @@ TCP 套接字编程的基本流程是这样的：
 通常情况下，日志信息被保存在文件中，但是这里为了更方便地观察现象，将本应该写入文件的信息通过标准错误流cerr输出到屏幕上（直接使用cout也可以，不过日志一般使用cerr）。
 在这里使用日志的另一个必要性是如果函数执行失败，将会设置一个全局的错误码，它在查错时是有必要的。除此之外，当通过返回值发现函数执行错误时，使用exit()函数强制退出设置的退出码也可以有一个表来保存错误码和错误信息的映射关系。
 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 // Log.">
-  <meta itemprop="wordCount" content="4066"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="网络编程：TCP socket">
-<meta name="twitter:description" content="阅读前导 TCP（Transmission Control Protocol，传输控制协议）提供的是面向连接，可靠的字节流服务。即客户和服务器交换数据前，必须现在双方之间建立一个 TCP 连接，之后才能传输数据。并且提供超时重发，丢弃重复数据，检验数据，流量控制等功能，保证数据能从一端传到另一端。
+  <meta itemprop="wordCount" content="4066">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="网络编程：TCP socket">
+  <meta name="twitter:description" content="阅读前导 TCP（Transmission Control Protocol，传输控制协议）提供的是面向连接，可靠的字节流服务。即客户和服务器交换数据前，必须现在双方之间建立一个 TCP 连接，之后才能传输数据。并且提供超时重发，丢弃重复数据，检验数据，流量控制等功能，保证数据能从一端传到另一端。
 TCP 不同于 UDP，不仅需要实现 UDP 的步骤，还要以一定的手段保证连接的安全性。
 关于 UDP socket 的实践，可以看：网络编程：UDP socket，本文同样按照这篇文章的结构叙述，许多重复的内容也是类似的，部分前导内容也在其中介绍。
 TCP 套接字编程的基本流程是这样的：

@@ -42,8 +42,10 @@
 线程池是一种以空间换时间的做法，例如在 STL 中，通常以 1.5 倍或 2 倍增长。这样做的目的是减少时间，提高效率。实现创建多个线程，用某个数据结构管理它们（例如队列），让多个线程同时在队列中等待任务的派发。那么当任务很多时，就能直接从队列中取出线程，这就将「创建线程」这一操作从「执行任务」的流程中剔除，从整体上节省了时间。
 2. 应用 3. 实现 封装线程 在线程类Thread中用成员函数封装创建线程和销毁线程的接口。并且可以设置要传给线程的各种参数。不可缺少的是线程要执行的任务，即线程函数，除此之外，增加了线程的信息，例如线程的名字。其中线程的信息单独用一个类ThreadData封装。
 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 // #include &lt;functional&gt; // typedef std::function&lt;void* (void*)&gt; func_t; typedef void *(*func_t)(void *);	// 定义一个函数类型 // （要传递给）线程的信息 class ThreadData { public: void* _args;	// 线程参数 std::string _name;	// 线程名称 }; // 线程类 class Thread { public: Thread(int num, func_t callback, void* args) : _func(callback) { char threadName[64]; snprintf(threadName, sizeof(threadName), &#34;Thread:[%d]&#34;, num); _name = threadName; _td.">
-  <meta itemprop="wordCount" content="2266"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="线程池">
-<meta name="twitter:description" content="1. 引入 线程池是一种池化技术，是一种线程的使用方式。对于执行任务的整个过程，执行流的创建与销毁，调度本身就需要花费一定的时间。当线程数量达到一定程度，那么维护线程会消耗一些资源。
+  <meta itemprop="wordCount" content="2266">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="线程池">
+  <meta name="twitter:description" content="1. 引入 线程池是一种池化技术，是一种线程的使用方式。对于执行任务的整个过程，执行流的创建与销毁，调度本身就需要花费一定的时间。当线程数量达到一定程度，那么维护线程会消耗一些资源。
 在生产者消费者模型中，这两个执行流在任意时刻只有其中之一才会访问临界资源；为了提高对临界资源处理的效率，即使实现了多生产多消费，其本质上也是单生产单消费。本质原因是，由于多线程并发访问临界资源可能会出现问题，所以使用条件变量或信号量，以及互斥锁限制了在同一时间段内，只有一个执行流能够访问临界资源。
 线程池是一种以空间换时间的做法，例如在 STL 中，通常以 1.5 倍或 2 倍增长。这样做的目的是减少时间，提高效率。实现创建多个线程，用某个数据结构管理它们（例如队列），让多个线程同时在队列中等待任务的派发。那么当任务很多时，就能直接从队列中取出线程，这就将「创建线程」这一操作从「执行任务」的流程中剔除，从整体上节省了时间。
 2. 应用 3. 实现 封装线程 在线程类Thread中用成员函数封装创建线程和销毁线程的接口。并且可以设置要传给线程的各种参数。不可缺少的是线程要执行的任务，即线程函数，除此之外，增加了线程的信息，例如线程的名字。其中线程的信息单独用一个类ThreadData封装。

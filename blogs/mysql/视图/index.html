@@ -72,8 +72,10 @@
 更新规则：
 只有视图基于单一表时，才可能支持更新操作（INSERT、UPDATE、DELETE）。如果视图包含联合查询、分组操作或子查询，则可能不允许更新。 对视图进行的更新操作必须不违反基表的任何约束。 算法限制：
 视图的处理可以使用 MERGE 或 TEMPTABLE 算法。MERGE 将视图查询与主查询合并，但如果视图包含某些类型的 SQL 结构（如 DISTINCT、GROUP BY、聚合函数、UNION 等），则不能使用 MERGE 算法，只能使用 TEMPTABLE 算法，后者将视图的结果放入临时表中。 WITH CHECK OPTION：">
-  <meta itemprop="wordCount" content="102"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="视图">
-<meta name="twitter:description" content="概念 MySQL 中的视图（View）是一个虚拟表，其内容由查询定义。视图本身不包含数据，这些数据是从一个或多个实际表中派生出来的，通过执行视图定义中的 SQL 查询来动态呈现。使用视图可以有以下几个优点：
+  <meta itemprop="wordCount" content="102">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="视图">
+  <meta name="twitter:description" content="概念 MySQL 中的视图（View）是一个虚拟表，其内容由查询定义。视图本身不包含数据，这些数据是从一个或多个实际表中派生出来的，通过执行视图定义中的 SQL 查询来动态呈现。使用视图可以有以下几个优点：
 简化复杂的查询：通过将复杂的查询封装在视图中，用户可以通过简单地查询视图来获取需要的信息，无需编写复杂的 SQL 语句。 增强数据安全性：可以通过视图向用户展示所需的数据，同时隐藏表中的敏感或不相关的数据，从而限制对实际数据表的直接访问。 逻辑数据独立性：如果底层数据表的结构发生了变化（如添加或删除列），可以通过修改视图而不是修改依赖于这些表的应用程序代码来适应这些变化，这有助于减少维护成本。 操作视图 创建视图的基本语法如下：
 1 2 3 4 CREATE VIEW view_name AS SELECT column1, column2, ... FROM table_name WHERE condition; 测试表：
 创建视图 创建视图首先会执行 SELECT 语句，用查询返回的结果作为视图的内容。

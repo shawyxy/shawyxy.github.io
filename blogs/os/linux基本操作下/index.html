@@ -45,16 +45,18 @@
   <meta itemprop="name" content="Linux基本操作【下】">
   <meta itemprop="description" content="1. more 指令 语法 1 cat [选项] [文件] 功能 查看目标文件内容
 该命令一次显示一屏文本，满屏后停下来，并且在屏幕的底部出现一个提示信息，给出至今己显示的该文件的百分比。可以用下列不同的方法对提示做出回答：
-按 Space 键：显示文本的下一屏内容。 按 Enter 键：只显示文本的下一行内容。 按斜线符|：接着输入一个模式，可以在文本中寻找下一个相匹配的模式。 按 H 键：显示帮助屏，该屏上有相关的帮助信息。 按 B 键：显示上一屏内容。 按 Q 键：退出 more 命令。 选项 -&lt;数字&gt;：指定每屏显示的行数； -d：显示“[press space to continue,&lsquo;q&rsquo; to quit.]”和“[Press &lsquo;h&rsquo; for instructions]”； -c：不进行滚屏操作。每次刷新这个屏幕； -s：将多个空行压缩成一行显示； -u：禁止下划线； &#43;&lt;数字&gt;：从指定数字的行开始显示； -n：对输出的所有行编号。 示例 直接查看文件内容
+按 Space 键：显示文本的下一屏内容。 按 Enter 键：只显示文本的下一行内容。 按斜线符|：接着输入一个模式，可以在文本中寻找下一个相匹配的模式。 按 H 键：显示帮助屏，该屏上有相关的帮助信息。 按 B 键：显示上一屏内容。 按 Q 键：退出 more 命令。 选项 -&lt;数字&gt;：指定每屏显示的行数； -d：显示“[press space to continue,‘q’ to quit.]”和“[Press ‘h’ for instructions]”； -c：不进行滚屏操作。每次刷新这个屏幕； -s：将多个空行压缩成一行显示； -u：禁止下划线； &#43;&lt;数字&gt;：从指定数字的行开始显示； -n：对输出的所有行编号。 示例 直接查看文件内容
 1 more test.txt 指令会将文本内容占满终端窗口，同时在最底部的一行显示进度。按下回车键会往下读取一行，直到进度 100%。或直接按下 q 然后回车，也会停止显示。
 除此之外，可能还会搭配选项使用。
 显示文件的内容，但在显示之前先清屏，并且在屏幕的最下方显示完成的百分比。
 1 more -dc test.txt 显示文件 file 的内容，每 10 行显示一次，而且在显示之前先清屏。
 1 more -c -10 test.txt 然而，more 指令其实使用频率不是很高，因为它有点鸡肋。而且有与它类似比它更好的工具。">
-  <meta itemprop="wordCount" content="1463"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Linux基本操作【下】">
-<meta name="twitter:description" content="1. more 指令 语法 1 cat [选项] [文件] 功能 查看目标文件内容
+  <meta itemprop="wordCount" content="1463">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Linux基本操作【下】">
+  <meta name="twitter:description" content="1. more 指令 语法 1 cat [选项] [文件] 功能 查看目标文件内容
 该命令一次显示一屏文本，满屏后停下来，并且在屏幕的底部出现一个提示信息，给出至今己显示的该文件的百分比。可以用下列不同的方法对提示做出回答：
-按 Space 键：显示文本的下一屏内容。 按 Enter 键：只显示文本的下一行内容。 按斜线符|：接着输入一个模式，可以在文本中寻找下一个相匹配的模式。 按 H 键：显示帮助屏，该屏上有相关的帮助信息。 按 B 键：显示上一屏内容。 按 Q 键：退出 more 命令。 选项 -&lt;数字&gt;：指定每屏显示的行数； -d：显示“[press space to continue,&lsquo;q&rsquo; to quit.]”和“[Press &lsquo;h&rsquo; for instructions]”； -c：不进行滚屏操作。每次刷新这个屏幕； -s：将多个空行压缩成一行显示； -u：禁止下划线； &#43;&lt;数字&gt;：从指定数字的行开始显示； -n：对输出的所有行编号。 示例 直接查看文件内容
+按 Space 键：显示文本的下一屏内容。 按 Enter 键：只显示文本的下一行内容。 按斜线符|：接着输入一个模式，可以在文本中寻找下一个相匹配的模式。 按 H 键：显示帮助屏，该屏上有相关的帮助信息。 按 B 键：显示上一屏内容。 按 Q 键：退出 more 命令。 选项 -&lt;数字&gt;：指定每屏显示的行数； -d：显示“[press space to continue,‘q’ to quit.]”和“[Press ‘h’ for instructions]”； -c：不进行滚屏操作。每次刷新这个屏幕； -s：将多个空行压缩成一行显示； -u：禁止下划线； &#43;&lt;数字&gt;：从指定数字的行开始显示； -n：对输出的所有行编号。 示例 直接查看文件内容
 1 more test.txt 指令会将文本内容占满终端窗口，同时在最底部的一行显示进度。按下回车键会往下读取一行，直到进度 100%。或直接按下 q 然后回车，也会停止显示。
 除此之外，可能还会搭配选项使用。
 显示文件的内容，但在显示之前先清屏，并且在屏幕的最下方显示完成的百分比。

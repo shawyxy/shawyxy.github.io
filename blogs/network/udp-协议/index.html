@@ -78,8 +78,10 @@ TCP (Transmission Control Protocol)：提供可靠的通信传输，是面向连
 TCP 用于在传输层有必要实现可靠传输的情况。由于它是面向有连接并具备顺序控制、重发控制等机制的，所以它可以为应用提供可靠传输。
 而在一方面，UDP 主要用于那些对高速传输和实时性有较高要求的通信或广播通信。我们举一个通过 IP 电话进行通话的例子。如果使用 TCP，数据在传送途中如果丢失会被重发，但这样无法流畅地传输通话人的声音，会导致无法进行正常交流。而采用 UDP，它不会进行重发处理。从而也就不会有声音大幅度延迟到达的问题。即使有部分数据丢失，也只是会影响某一小部分的通话（在实时传送动画或声音时，途中一小部分网络的丢包可能会导致画面或声音的短暂停顿甚至出现混乱。但在实际使用当中，这一点干扰并无大碍。）
 因此，TCP 和 UDP 应该根据应用的目的按需使用。">
-  <meta itemprop="wordCount" content="777"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="UDP 协议">
-<meta name="twitter:description" content="友情链接：网络基础入门
+  <meta itemprop="wordCount" content="777">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="UDP 协议">
+  <meta name="twitter:description" content="友情链接：网络基础入门
 本文适合已经了解了网络基础的同学阅读，即理解了《图解 TCP/IP》前 2 章的内容，了解过 HTTP/HTTPS 协议原理再好不过（至少要理解什么是“协议”），本文结合了《图解 TCP/IP》第 6 章的内容。
 1. 传输层 HTTP/HTTPS 等应用层协议运行在 TCP/IP 等传输层协议之上，通信的场景和需求不同，对应着不同特点的传输层协议。通过分层实现的模型使得每一层协议只关心它本身这层协议，对于它而言，就好像直接将数据抛给对方一样，而实际上数据是通过协议栈向下传递，向上交付才到达对方主机的，这个过程对通信双方主机的同一层协议是透明的。
 因此传输层的协议类型并不影响数据本身，而应用层只关心数据是否能够完整地发送给对方，差异在于传输效率、安全性等方面。

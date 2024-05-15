@@ -51,8 +51,10 @@
 大写单词表示关键字（使用时可以小写，MySQL 会自动优化合并），[ ] 中代表的是可选项。如果没有指定可选项，就根据配置文件选择。 field 表示列名，datatype 表示列的类型。 CHARSET 用于指定表所采用的编码格式，如果没有指定则以所在数据库的编码格式为准。 COLLATE 用于指定表所采用的校验规则，如果没有指定则以所在数据库的校验规则为准。 ENGINE 用于指定表所采用的存储引擎。 COMMENT 用于对指定列添加注释信息。 例子 不同的存储引擎，创建表时底层的文件类型和数量有所不同。
 例如下面在一个名为table_test_db1这个数据库中分别指定存储引擎为 MyISAM 和 InnoDB 创建了名为table_test1和table_test2的表，并且为它们的列属性分别添加了注释信息：
 1 2 3 4 5 6 7 8 mysql&gt; create table table_test1( -&gt; id int comment &#39;用户的 ID&#39; -&gt; )charset=utf8 engine=MyISAM; mysql&gt; create table table_test2( -&gt; name varchar(20) -&gt; )charset=gbk engine=InnoDB; 在/var/lib/mysql/table_test_db1路径下：">
-  <meta itemprop="wordCount" content="307"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="表结构的操作">
-<meta name="twitter:description" content="阅读前导：
+  <meta itemprop="wordCount" content="307">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="表结构的操作">
+  <meta name="twitter:description" content="阅读前导：
 一般来说，对表的操作可以分为对表结构和对表内容的操作。
 对表结构的操作，就是用数据定义语言 DDL 来创建、修改或删除表中的对象，比如字段、索引、约束等。常用的命令有 CREATE、ALTER、DROP 等。 对表内容的操作，就是用数据操作语言 DML 来插入、更新或删除表中的记录，比如数据行或列。常用的命令有 INSERT、UPDATE、DELETE 等。 本文介绍对表结构的操作，在学习 MySQL 的数据类型、表的约束以后，再学习表内容的增删查改。
 创建表 SQL：

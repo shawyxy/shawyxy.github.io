@@ -57,8 +57,10 @@ Create（增加） 插入记录 1 INSERT [INTO] table_name [(column1 [, column2]
 1 2 3 4 5 mysql&gt; create table students( -&gt; id int primary key, -&gt; name varchar(20) not null, -&gt; class int not null -&gt; ); 指定列插入：
 如果插入的是所有列，那么可以省略列名：
 如果将 id 列的属性设置为自增，那么自增的值将是当前 id 的最大值&#43;1，即 3。这允许插入时不指定 id 的值：">
-  <meta itemprop="wordCount" content="1495"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="表内容的操作">
-<meta name="twitter:description" content="阅读前导：
+  <meta itemprop="wordCount" content="1495">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="表内容的操作">
+  <meta name="twitter:description" content="阅读前导：
 一般来说，对表的操作可以分为对表结构和对表内容的操作。
 对表结构的操作，就是用数据定义语言 DDL 来创建、修改或删除表中的对象，比如字段、索引、约束等。常用的命令有 CREATE、ALTER、DROP 等。 对表内容的操作，就是用数据操作语言 DML 来插入、更新或删除表中的记录，比如数据行或列。常用的命令有 INSERT、UPDATE、DELETE 等。 前者已经在介绍了 表结构的操作。
 表的 CRUD CRUD 即：Create（新增），Retrieve（查找），Update（修改），Delete（删除）。

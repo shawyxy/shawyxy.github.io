@@ -78,8 +78,10 @@ System V IPC
 System V 消息队列
 System V 共享内存
 System V 信号量">
-  <meta itemprop="wordCount" content="4913"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="进程间通信">
-<meta name="twitter:description" content="1. 进程间通信 1.1 什么是进程间通信 在 Linux 系统中，进程间通信（Interprocess Communication，IPC）是指在不同进程之间传播或交换信息。
+  <meta itemprop="wordCount" content="4913">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="进程间通信">
+  <meta name="twitter:description" content="1. 进程间通信 1.1 什么是进程间通信 在 Linux 系统中，进程间通信（Interprocess Communication，IPC）是指在不同进程之间传播或交换信息。
 由于每个进程具有独立性，即各自有不同的进程地址空间，任何一个进程的全局变量（比如全局的数组 buffer）在另一个进程中都看不到，所以实现不同进程间的通信的难度是比较大的。
 但进程之间的独立性不是绝对的，我们可以通过通过某种手段实现不同进程能获取到同一块资源，就能实现进程间通信。而这种手段就是操作系统提供了一块内存区域，进程是共享它的。
 因此进程之间要交换数据必须通过内核，在内核中开辟一块缓冲区，在内核中开辟一块缓冲区，进程 A 把数据从用户空间拷到内核缓冲区，进程 B 再从内核缓冲区把数据读走，内核提供的这种机制称为进程间通信。

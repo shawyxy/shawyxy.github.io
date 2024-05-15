@@ -81,8 +81,10 @@
 可以通过man 7 signal指令查看信号相关信息，其中 Action 列就是不同信号的默认处理动作（在 1.8 中会对 Action 列介绍）：
 可能出现的错误：No manual entry for signal in section 7
 意味着系统中没有安装第 7 章的 signal 手册页，centos 可以通过命令安装：">
-  <meta itemprop="wordCount" content="4556"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="进程信号">
-<meta name="twitter:description" content="1. 什么是信号 1.1 信号的作用 我们之所以能理解生活中各种各样的信号，是因为我们知道各种的信号背后蕴含的信息，这些各式各样的信号指导着世界运作。不同信号对应着不同动作的执行。
+  <meta itemprop="wordCount" content="4556">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="进程信号">
+  <meta name="twitter:description" content="1. 什么是信号 1.1 信号的作用 我们之所以能理解生活中各种各样的信号，是因为我们知道各种的信号背后蕴含的信息，这些各式各样的信号指导着世界运作。不同信号对应着不同动作的执行。
 在计算机中，信号是一种进程间通讯的有限制的方式。它们用于在进程之间传递信息或通知进程发生了某个事件的机制。例如在 Linux 中，信号是一种软件中断，它为 Linux 提供了一种处理异步事件的方法。例如，当终端用户输入 Ctrl&#43;C 来中断程序时，它会通过信号机制使进程终止。
 1.2 异步和同步 在进程间信号传递中，异步指的是信号可以在任何时候发送给某个进程，而不需要等待进程处于某种特定状态。信号是进程间通信机制中唯一的异步通信机制。
 通过发送指定信号来通知进程某个异步事件的发送，以迫使进程执行信号处理程序。信号处理完毕后，被中断进程将恢复执行 。

@@ -45,8 +45,10 @@
 -a 罗列出包括隐藏文件的所有文件或目录。（隐藏文件或目录通常以.开头） -l 罗列出每个文件的详细信息（不包括隐藏文件或目录） 选项 常用选项（前两个经常用）：
 -r 对目录反向排序； -t 以时间排序； -d 将目录象文件一样显示，而不是显示其下的文件。 如：ls –d 指定目录； -i 输出文件的 i 节点的索引信息。 如 ls –ai 指定文件； -k 以 k 字节的形式表示文件的大小。ls –alk 指定文件； -n 用数字的 UID，GID 代替名称。 （介绍 UID， GID）； -F 在每个文件名后附上一个字符以说明该文件的类型，“*”表示可执行的普通文件；“/”表示目录；“@”表示符号链接；“|”表示 FIFOs；“=”表示套接字（sockets）（目录类型识别）； -s 在 l 文件名后输出该文件的大小；（大小排序，如何找到目录下最大的文件） -R 列出所有子目录下的文件；（递归） -1 一行只输出一个文件。 示例 下面对前两个个选项做出演示：
 直接 ls 不加选项的效果： 1 2 ls clash Code Git test 第一行的 ls 是指令，第二行是该目录下所有的文件（不包括被隐藏的）。这些文件/目录都是我自己创建的。">
-  <meta itemprop="wordCount" content="1294"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Linux基本操作【上】">
-<meta name="twitter:description" content="操作环境：CentOS 7.6
+  <meta itemprop="wordCount" content="1294">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Linux基本操作【上】">
+  <meta name="twitter:description" content="操作环境：CentOS 7.6
 1. ls 指令 语法 ls [选项] [目录/文件]
 功能 罗列出该目录下所有子目录或文件（不包括被隐藏的文件或目录）；罗列出文件名及各种信息 非常常用的选项 [几分钟就用一次的那种]：
 -a 罗列出包括隐藏文件的所有文件或目录。（隐藏文件或目录通常以.开头） -l 罗列出每个文件的详细信息（不包括隐藏文件或目录） 选项 常用选项（前两个经常用）：

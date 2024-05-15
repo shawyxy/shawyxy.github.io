@@ -52,8 +52,10 @@
 使用方法：下载并解压安装包，然后使用 Visual Studio 2019（或更高版本）打开ConcurrentMemoryPool.sln工程文件，切换到 Debug 模式下的 32 位。
 关于 malloc() 虽然栈内存不需要由用户维护，但是它的空间很小，C&#43;&#43;和 C 程序往往通过 malloc()/free() 来申请和释放堆内存空间（C&#43;&#43;的 new 和 delete 封装了 malloc() 和 free()）。在 Linux 上，malloc() 和 free() 实际上是 glibc 提供的一组函数，malloc() 内部会涉及到 brk() 和 mmap() 这两种系统调用。使用策略如下：">
   <meta itemprop="wordCount" content="8734">
-  <meta itemprop="keywords" content="TCmalloc,Malloc,池化技术,单例模式,内存管理,哈希桶,基数树"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="高并发内存池">
-<meta name="twitter:description" content="涉及知识 池化技术、内存管理、内存分配器、并发编程、单例模式、哈希桶、基数树
+  <meta itemprop="keywords" content="TCmalloc,Malloc,池化技术,单例模式,内存管理,哈希桶,基数树">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="高并发内存池">
+  <meta name="twitter:description" content="涉及知识 池化技术、内存管理、内存分配器、并发编程、单例模式、哈希桶、基数树
 项目介绍 本项目实现了一个高并发内存池（Concurrent Memory Pool），它的内存管理器来自 Google 开源项目 TCMalloc（Thread-Caching Malloc），一个专为高并发应用设计的内存分配器。Golang 是一个原生支持高并发的语言，TCMalloc 功不可没。
 本项目实现了 TCMalloc 的核心功能，是一个简易的内存分配器，最终测试后效率仍然比 malloc 高。
 本文的脉络：

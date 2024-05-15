@@ -54,8 +54,10 @@ MySQL 的所有用户管理工作都通过 user 表来进行，实际上，后�
 创建用户 SQL：
 1 CREATE USER &#39;用户名&#39;@&#39;登录主机&#39; IDENTIFIED BY &#39;密码&#39;; 如果你设置的密码过于简单，由于 MySQL 的密码策略等级，会出现以下错误：
 Your password does not satisfy the current policy requirements 通过SHOW VARIABLES LIKE &#39;validate_password%&#39;;查看密码策略，从而设计符合条件的密码。">
-  <meta itemprop="wordCount" content="277"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="用户管理">
-<meta name="twitter:description" content="查看用户信息 在名为mysql的数据库中有一个表user维护着 MySQL 的用户信息。
+  <meta itemprop="wordCount" content="277">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="用户管理">
+  <meta name="twitter:description" content="查看用户信息 在名为mysql的数据库中有一个表user维护着 MySQL 的用户信息。
 其中：
 user： 表示该用户的用户名。 host： 表示该用户可以从哪个主机登录，localhost 表示只能从本机登录（127.0.0.1），% 表示可以从任意地方登录。 authentication_string： 表示该用户的密码经过 password 函数加密后的值。 xxx_priv： 表示该用户是否拥有对应权限。 其中 password 函数可以对参数进行摘要。
 尝试查看它们的值：

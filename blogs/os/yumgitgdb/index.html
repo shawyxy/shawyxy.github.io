@@ -48,8 +48,10 @@
 包管理器是有“源”的，可以认为 yum 就是从源上下载软件包，由于在国内访问国外源速度很慢，所以建议将源更改为国内源，例如阿里、腾讯、xx 大学源。 链接：yum 更改为阿里源
 1.1 list 命令 1 yum list | grep xx xx 是软件的关键字，使用这条命令会罗列出所有能下载的、与关键字有关的软件。 grep 是一个文本搜索工具。
 1.2 install 命令 1 sudo yum install xx xx 是软件包名。&lt;br /&gt;输入该指令后，如果检索到对于软件包，会提示是否安装（y/n），键入 y 确认安装。&lt;br /&gt;等待出现 complete 出现则说明安装完毕。&lt;br /&gt;【注意】 安装软件操作实际上就是向系统目录写入数据，需要 root 用户或 sudo 执行； yum 一次安装只能一个软件，不能同时安装多个软件。 1.">
-  <meta itemprop="wordCount" content="941"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="yum, git, gdb">
-<meta name="twitter:description" content="使用系统：CentOS 7.6
+  <meta itemprop="wordCount" content="941">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="yum, git, gdb">
+  <meta name="twitter:description" content="使用系统：CentOS 7.6
 1. yum 即 Yellow dog Updater, Modified，它是 Linux 中一个常见的包管理器之一，它能维护大多数软件，就像 App Store 和其他应用商店一样。因此，它本身也是一个软件，在 Linux 下，安装软件通常有两种方式：
 下载源码，在本地编译，生成可执行程序，但是时间比较长，优点是源代码体积小； 直接下载编译好的可执行程序，加以网速的提升，省去了本地编译的时间，缺点是时间取决于软件包的大小和网速。 软件包： 简单地理解为可执行程序，它是需要被编译的，像 Windows 系统的镜像（体积很大），经常使用的办法是下载源码然后在本地编译的，例如 uupdump。
 而 yum 作为包管理器，在 Linux 下就起着 App Store 的作用。简单的安装、升级、卸载等基本操作不在话下。

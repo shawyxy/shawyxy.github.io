@@ -51,8 +51,10 @@
 1 mysql -uroot -p # 以 root 身份登录 修改 root 用户的密码有多个方法，在此介绍其中一种，在命令行中使用：
 1 [root@xy xy]# mysqladmin -uroot -p&#39;旧密码&#39; password &#39;新密码&#39; [注] 如果出现以下提示，则说明密码过于简单：
 1 mysqladmin: unable to change password; error: &#39;Your password does not satisfy the current policy requirements&#39; 连接和退出数据库服务器 1 mysql -uroot -p # 以 root 身份登录 h： 表示你要连接的 MySQL 服务器所在的主机，127.">
-  <meta itemprop="wordCount" content="652"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="数据库基础（一）">
-<meta name="twitter:description" content="安装 MySQL 这是在 Linux 中安装 MySQL 的教程：Linux 下 MySQL 安装。本系列测试用的 MySQL 版本是 5.7，机器是 centOS7.6。
+  <meta itemprop="wordCount" content="652">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="数据库基础（一）">
+  <meta name="twitter:description" content="安装 MySQL 这是在 Linux 中安装 MySQL 的教程：Linux 下 MySQL 安装。本系列测试用的 MySQL 版本是 5.7，机器是 centOS7.6。
 实际应用中，一般 MySQL 服务都是部署在 Linux 主机上的，如果想在 Windows 系统中安装，可以参考：Windows 下 MySQL 安装。
 修改密码 MySQL 在安装时会为用户设置一个默认的随机密码，可以通过：
 1 cat /var/log/mysqld.log | grep &#39;temporary password&#39; 来查看密码：
