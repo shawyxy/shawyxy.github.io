@@ -58,7 +58,7 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
 
   
   <meta itemprop="name" content="TCP 协议">
-  <meta itemprop="description" content=" [重要] 本文默认读者已经体系地学习过操作系统。
+  <meta itemprop="description" content="[重要] 本文默认读者已经体系地学习过操作系统。
 为了读者能更好地学习 TCP 协议，本文首先简单介绍 TCP 协议（是啥），然后再简述 TCP 的主要内容（干嘛的），最后再阐述 TCP 的各个细节（原理）。
 1. 简介 1.1 TCP 协议是什么 与 UDP 不同，TCP（Transmission Control Protocol）则“人如其名”，可以说是对“传输、发送、通信”进行“控制”的“协议”。
 TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控制功能，可以进行丢包时的重发控制，还可以对次序乱掉的分包进行顺序控制。而这些在 UDP 中都没有。此外，TCP 作为一种面向有连接的协议，只有在确认通信对端存在时才会发送数据，从而可以控制通信流量的浪费（由于 UDP 没有连接控制，所以即使对端从一开始就不存在或中途退出网络，数据包还是能够发送出去）。
@@ -69,7 +69,7 @@ TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控�
   <meta itemprop="wordCount" content="3856">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="TCP 协议">
-  <meta name="twitter:description" content=" [重要] 本文默认读者已经体系地学习过操作系统。
+  <meta name="twitter:description" content="[重要] 本文默认读者已经体系地学习过操作系统。
 为了读者能更好地学习 TCP 协议，本文首先简单介绍 TCP 协议（是啥），然后再简述 TCP 的主要内容（干嘛的），最后再阐述 TCP 的各个细节（原理）。
 1. 简介 1.1 TCP 协议是什么 与 UDP 不同，TCP（Transmission Control Protocol）则“人如其名”，可以说是对“传输、发送、通信”进行“控制”的“协议”。
 TCP 与 UDP 的区别相当大。它充分地实现了数据传输时各种控制功能，可以进行丢包时的重发控制，还可以对次序乱掉的分包进行顺序控制。而这些在 UDP 中都没有。此外，TCP 作为一种面向有连接的协议，只有在确认通信对端存在时才会发送数据，从而可以控制通信流量的浪费（由于 UDP 没有连接控制，所以即使对端从一开始就不存在或中途退出网络，数据包还是能够发送出去）。

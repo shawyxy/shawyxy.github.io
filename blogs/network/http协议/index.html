@@ -2373,54 +2373,54 @@ Content-Length: 88
       <tr>
           <th style="text-align: center">Header</th>
           <th style="text-align: left">说明</th>
-          <th style="text-align: left">类型</th>
+          <th>类型</th>
       </tr>
   </thead>
   <tbody>
       <tr>
           <td style="text-align: center">User-Agent</td>
           <td style="text-align: left">声明用户的操作系统和浏览器的版本信息。</td>
-          <td style="text-align: left">请求</td>
+          <td>请求</td>
       </tr>
       <tr>
           <td style="text-align: center">Referer</td>
           <td style="text-align: left">当前页面是哪个页面跳转过来的。</td>
-          <td style="text-align: left">请求</td>
+          <td>请求</td>
       </tr>
       <tr>
           <td style="text-align: center">Content-Length</td>
           <td style="text-align: left">表示内容长度。</td>
-          <td style="text-align: left">有效载荷</td>
+          <td>有效载荷</td>
       </tr>
       <tr>
           <td style="text-align: center">Content-Type</td>
           <td style="text-align: left">表示后面的文档属于什么 MIME 类型。</td>
-          <td style="text-align: left">有效载荷</td>
+          <td>有效载荷</td>
       </tr>
       <tr>
           <td style="text-align: center">Date</td>
           <td style="text-align: left">当前的 GMT 时间。你可以用 setDateHeader 来设置这个头以避免转换时间格式的麻烦。</td>
-          <td style="text-align: left">通用</td>
+          <td>通用</td>
       </tr>
       <tr>
           <td style="text-align: center">Host</td>
           <td style="text-align: left">客户端告知服务器，所请求的资源是在哪个主机的哪个端口上。</td>
-          <td style="text-align: left">请求</td>
+          <td>请求</td>
       </tr>
       <tr>
           <td style="text-align: center">Cookie</td>
           <td style="text-align: left">用于在客户端存储少量信息，通常用于实现会话（session）的功能。</td>
-          <td style="text-align: left">请求</td>
+          <td>请求</td>
       </tr>
       <tr>
           <td style="text-align: center">Location</td>
           <td style="text-align: left">令客户端重定向至指定 URI</td>
-          <td style="text-align: left">响应</td>
+          <td>响应</td>
       </tr>
       <tr>
           <td style="text-align: center">Connection</td>
           <td style="text-align: left">逐跳首部、连接的管理。使用关键字“Keep-Alive”来指示连接应保持开启以接收之后的信息（这是 HTTP 1.1 中的默认情形，而 HTTP 1.0 默认将为每对请求/回复对创建新连接）。</td>
-          <td style="text-align: left">通用</td>
+          <td>通用</td>
       </tr>
   </tbody>
 </table>
@@ -2579,34 +2579,34 @@ max: 一个整数，表示在连接关闭之前，可以在此连接上发送的
 <table>
   <thead>
       <tr>
-          <th style="text-align: left"><strong>属性</strong></th>
-          <th style="text-align: left"><strong>说明</strong></th>
+          <th><strong>属性</strong></th>
+          <th><strong>说明</strong></th>
       </tr>
   </thead>
   <tbody>
       <tr>
-          <td style="text-align: left">NAME=VALUE</td>
-          <td style="text-align: left">赋予 Cookie 的名称和其值（必需项）</td>
+          <td>NAME=VALUE</td>
+          <td>赋予 Cookie 的名称和其值（必需项）</td>
       </tr>
       <tr>
-          <td style="text-align: left">expires=DATE</td>
-          <td style="text-align: left">Cookie 的有效期（若不明确指定则默认为浏览器关闭前为止）</td>
+          <td>expires=DATE</td>
+          <td>Cookie 的有效期（若不明确指定则默认为浏览器关闭前为止）</td>
       </tr>
       <tr>
-          <td style="text-align: left">path=PATH</td>
-          <td style="text-align: left">将服务器上的文件目录作为 Cookie 的适用对象（若不指定则默认为文档所在的文件目录）</td>
+          <td>path=PATH</td>
+          <td>将服务器上的文件目录作为 Cookie 的适用对象（若不指定则默认为文档所在的文件目录）</td>
       </tr>
       <tr>
-          <td style="text-align: left">domain=域名</td>
-          <td style="text-align: left">作为 Cookie 适用对象的域名 （若不指定则默认为创建 Cookie 的服务器的域名）</td>
+          <td>domain=域名</td>
+          <td>作为 Cookie 适用对象的域名 （若不指定则默认为创建 Cookie 的服务器的域名）</td>
       </tr>
       <tr>
-          <td style="text-align: left">Secure</td>
-          <td style="text-align: left">仅在 HTTPS 安全通信时才会发送 Cookie</td>
+          <td>Secure</td>
+          <td>仅在 HTTPS 安全通信时才会发送 Cookie</td>
       </tr>
       <tr>
-          <td style="text-align: left">HttpOnly</td>
-          <td style="text-align: left">加以限制，使 Cookie 不能被 JavaScript 脚本访问</td>
+          <td>HttpOnly</td>
+          <td>加以限制，使 Cookie 不能被 JavaScript 脚本访问</td>
       </tr>
   </tbody>
 </table>

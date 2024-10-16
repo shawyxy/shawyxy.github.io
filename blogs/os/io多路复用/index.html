@@ -2354,7 +2354,7 @@ I/O 多路复用的实现方式有多种，比如 select，poll，epoll 等，�
           <th style="text-align: center">事件</th>
           <th style="text-align: center">描述</th>
           <th style="text-align: center">是否可作为输入</th>
-          <th style="text-align: left">是否可作为输出</th>
+          <th>是否可作为输出</th>
       </tr>
   </thead>
   <tbody>
@@ -2362,67 +2362,67 @@ I/O 多路复用的实现方式有多种，比如 select，poll，epoll 等，�
           <td style="text-align: center">POLLIN</td>
           <td style="text-align: center">数据（包括普通数据和优先数据）可读</td>
           <td style="text-align: center">是</td>
-          <td style="text-align: left">是</td>
+          <td>是</td>
       </tr>
       <tr>
           <td style="text-align: center">POLLRDNORM</td>
           <td style="text-align: center">普通数据可读</td>
           <td style="text-align: center">是</td>
-          <td style="text-align: left">是</td>
+          <td>是</td>
       </tr>
       <tr>
           <td style="text-align: center">POLLRDBAND</td>
           <td style="text-align: center">优先级带数据可读（Linux 不支持）</td>
           <td style="text-align: center">是</td>
-          <td style="text-align: left">是</td>
+          <td>是</td>
       </tr>
       <tr>
           <td style="text-align: center">POLLPRI</td>
           <td style="text-align: center">高优先级数据可读，比如 TCP 带外数据</td>
           <td style="text-align: center">是</td>
-          <td style="text-align: left">是</td>
+          <td>是</td>
       </tr>
       <tr>
           <td style="text-align: center">POLLOUT</td>
           <td style="text-align: center">数据（包括普通数据和优先数据）可写</td>
           <td style="text-align: center">是</td>
-          <td style="text-align: left">是</td>
+          <td>是</td>
       </tr>
       <tr>
           <td style="text-align: center">POLLWRNORM</td>
           <td style="text-align: center">普通数据可写</td>
           <td style="text-align: center">是</td>
-          <td style="text-align: left">是</td>
+          <td>是</td>
       </tr>
       <tr>
           <td style="text-align: center">POLLWRBAND</td>
           <td style="text-align: center">优先级带数据可写</td>
           <td style="text-align: center">是</td>
-          <td style="text-align: left">是</td>
+          <td>是</td>
       </tr>
       <tr>
           <td style="text-align: center">POLLRDHUP</td>
           <td style="text-align: center">TCP 连接被对方关闭，或者对方关闭了写操作，它由 GNU 引入</td>
           <td style="text-align: center">是</td>
-          <td style="text-align: left">是</td>
+          <td>是</td>
       </tr>
       <tr>
           <td style="text-align: center">POLLERR</td>
           <td style="text-align: center">错误</td>
           <td style="text-align: center">否</td>
-          <td style="text-align: left">是</td>
+          <td>是</td>
       </tr>
       <tr>
           <td style="text-align: center">POLLHUP</td>
           <td style="text-align: center">挂起。比如管道的写端被关闭后，读端描述符上将收到 POLLHUP 事件</td>
           <td style="text-align: center">否</td>
-          <td style="text-align: left">是</td>
+          <td>是</td>
       </tr>
       <tr>
           <td style="text-align: center">POLLNVAL</td>
           <td style="text-align: center">文件描述符没有打开</td>
           <td style="text-align: center">否</td>
-          <td style="text-align: left">是</td>
+          <td>是</td>
       </tr>
   </tbody>
 </table>
