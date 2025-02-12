@@ -16,10 +16,10 @@
     
     <item>
       <title>高并发内存池</title>
-      <link>/blogs/projects/%E9%AB%98%E5%B9%B6%E5%8F%91%E5%86%85%E5%AD%98%E6%B1%A0/</link>
+      <link>/docs/projects/%E9%AB%98%E5%B9%B6%E5%8F%91%E5%86%85%E5%AD%98%E6%B1%A0/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/blogs/projects/%E9%AB%98%E5%B9%B6%E5%8F%91%E5%86%85%E5%AD%98%E6%B1%A0/</guid>
+      <guid>/docs/projects/%E9%AB%98%E5%B9%B6%E5%8F%91%E5%86%85%E5%AD%98%E6%B1%A0/</guid>
       <description>
         
         
@@ -53,7 +53,7 @@
 &lt;/ul&gt;
 &lt;p&gt;阈值 128K 是一个经验值，因为 brk() 分配的内存大多都是非常小的块，如果频繁无规律的申请以及释放，会产生大量的内存碎片，而且更容易导致内存泄露。&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;glibc，GNU C Library，是 GNU 项目发布的 C 标准库的实现，为 Linux 系统上的许多应用程序提供核心的 API 接口。在 Windows 平台上，malloc() 是通过 Microsoft 的 C 运行时库（CRT）提供的。&lt;/p&gt;
+  &lt;p&gt;glibc，GNU C Library，是 GNU 项目发布的 C 标准库的实现，为 Linux 系统上的许多应用程序提供核心的 API 接口。在 Windows 平台上，malloc() 是通过 Microsoft 的 C 运行时库（CRT）提供的。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;malloc() 是一个向系统申请内存的通用接口，以供其在各种情况下都可以使用，各方面都很平均，所以它在高并发场景下的性能不会很优秀。不同操作系统和 C 库实现的 malloc() 在细节上可能有所不同，但以下是一些导致 malloc() 在高并发环境下性能下降的通用原因：&lt;/p&gt;
 &lt;p&gt;*&lt;strong&gt;锁的竞争&lt;/strong&gt;&lt;/p&gt;
@@ -127,7 +127,7 @@
     &lt;a href=&#34;#%e8%ae%be%e8%ae%a1%e5%ae%9a%e9%95%bf%e5%86%85%e5%ad%98%e6%b1%a0&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;内存池介绍&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;内存池介绍&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e5%86%85%e5%ad%98%e6%b1%a0%e4%bb%8b%e7%bb%8d&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;内存池用于管理内存分配，通过预先分配一大块内存并将其分割成小块来快速满足内存分配请求。这&lt;strong&gt;减少了操作系统分配内存的次数&lt;/strong&gt;，降低了内存碎片，提高了内存使用效率。内存池特别适用于&lt;strong&gt;频繁分配&lt;/strong&gt;和&lt;strong&gt;释放固定大小内存块&lt;/strong&gt;的场景。&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;池化技术常见的应用有：线程池、数据库连接池、内存池等。&lt;/p&gt;
+  &lt;p&gt;池化技术常见的应用有：线程池、数据库连接池、内存池等。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;在定长内存池中，所有块的大小都是相同的，所以分配内存时只需从池中选择一个空闲块；释放内存时只需要将其标记为可用。而这也避免了因频繁分配和释放不同大小的内存块而产生的内存碎片问题。&lt;/p&gt;
 &lt;h3&gt;实现&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;实现&#34;&gt;&lt;/span&gt;
@@ -139,7 +139,6 @@
 &lt;/ul&gt;
 &lt;p&gt;首先，使用内存池的主体可能不止一个，为了泛型化使用内存池，可以用模版参数作为内存池切分内存块的依据。模板参数的选择可以是非类型模版参数，例如&lt;code&gt;size_t n&lt;/code&gt;，这个参数由使用者指定。&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;template&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;size_t&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;N&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0&#34;&gt;
   &lt;button
@@ -150,8 +149,6 @@
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;本着解决内存碎片问题的想法，比较好的办法是对方要多少我就给多少，而且每个小内存块的大小都是固定的，所以可以用&lt;code&gt;sizeof()&lt;/code&gt;来得到对象的大小。&lt;/p&gt;
 &lt;p&gt;为了提高小内存块分配的速度，我们将被归还的内存块将用一个自由链表 FreeList 组织起来，以供后续直接取出，而不是重新切分。自由链表指的是不使用结构体对象保存结点的首尾地址，而是用每一个内存块的前 4/8 个字节的内容存放下一个内存块的地址，形成逻辑上的链表。注意链表上的结点起始地址不一定像图示一样是连续的，这是因为分配的内存块随时可能被归还。&lt;/p&gt;
@@ -160,7 +157,6 @@
 &lt;p&gt;通过&lt;code&gt;_memory_ptr&lt;/code&gt;和一个偏移量运算，可以分配小内存块；通过将被释放的小内存块头插到自由链表上，可以回收小内存块。但是当请求分配的内存大于实际剩余的内存时会出现越界访问。因此增加一个变量&lt;code&gt;_remainBytes&lt;/code&gt;来记录剩余内存字节数。&lt;/p&gt;
 &lt;p&gt;这是基于以上讨论对内存池的实现：&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// ObjectPool.h
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;#pragma once
@@ -219,14 +215,11 @@
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;需要注意的地方：在释放结点后挂接到链表的过程中，要用指针处理结点的前 4/8 字节的内容。如果插入的是第一个结点，那么它的指针应该指向空，以表示链表结束。&lt;/p&gt;
 &lt;p&gt;存在的问题：&lt;/p&gt;
 &lt;p&gt;在不同平台下指针的大小是不一样的，这就不能用数值来处理结点的指针部分。这可以通过条件编译解决，但是在代码上相同形式的指针在不同平台下的指针也是不一样的。由于要操作的是&lt;code&gt;void*&lt;/code&gt;类型的内存，所以要访问它的地址就需要再套一层指针进行类型转换，这个类型可以是任意的，再解引用后访问到的内存就是符合平台指针的大小了。&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// Commond.h
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// 
@@ -242,19 +235,16 @@
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;如果对象的大小还不足以存放指针，那么自由链表也就无法构建了，因为它的高效性，所以将对象大小&lt;code&gt;objSize&lt;/code&gt;设置为地址大小。除此之外，为了发挥自由链表的作用，当需要分配小内存块时，首先从链表上取。&lt;/p&gt;
 &lt;p&gt;最后，模板参数 T 可能是容器，例如 string 或者 vector，所以要显式地使用定位 new 来调用其构造函数，显式地调用 T 的析构函数。&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;定位 new 和标准 new：&lt;/p&gt;
+  &lt;p&gt;定位 new 和标准 new：&lt;/p&gt;
 &lt;p&gt;标准 new 返回指向堆的地址是由系统决定的。而定位 new（语法：&lt;code&gt;new (pointer) Type()&lt;/code&gt;）允许在指定内存位置上分配对象，而不是在堆上动态分配。在内存池中这样的需求是合理的，因为我们需要在这块内存上在正确的内存位置上构造和析构，以进行精确的内存控制。&lt;/p&gt;
 &lt;p&gt;当释放内存时，也需要释放指定位置的内存空间。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;上面用的是 malloc 开辟内存，为了不使用它，封装了 Windows 下申请内存的接口。例如要申请 1 个 page 的内存，&lt;code&gt;1&amp;lt;&amp;lt;13&lt;/code&gt;相当于&lt;code&gt;1*2^13&lt;/code&gt;个字节。&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// Commond.h
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;
@@ -281,12 +271,9 @@
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;下面是内存池的实现：&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;template&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;ObjectPool&lt;/span&gt;
@@ -346,13 +333,10 @@
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;h3&gt;测试&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;测试&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e6%b5%8b%e8%af%95&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;对比内存池的 New/Delete 和 malloc/free 的性能：Round 是轮次，N 是每轮申请/释放的次数。&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;ObjectPoolTest&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
@@ -405,8 +389,6 @@
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;img src=&#34;高并发内存池.IMG/image-20240301104841296.png&#34; alt=&#34;image-20240301104841296&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;可见，将大块内存托管给内存池，在不断申请和释放小块内存的情况下，效率比 malloc/free 更高。&lt;/p&gt;
@@ -432,7 +414,6 @@
 &lt;h3&gt;设计自由链表&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;设计自由链表&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e8%ae%be%e8%ae%a1%e8%87%aa%e7%94%b1%e9%93%be%e8%a1%a8&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;由于哈希桶的每个位置都是一个自由链表，所以实现一个类以供使用。设计的思路和规范的链表没有什么区别。目前需要用到接口主要有：Push，Pop，Empty 和 Size，后续有新需求后再增加。&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// 自由链表：管理相同大小的小内存块（不大于 256KB)
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;FreeList&lt;/span&gt;
@@ -480,14 +461,11 @@
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;关于链表的头插和头删，最好是画图分析。其次插入和删除的对象都不能为空。当头删结点后，要不要将它的 next 指针置空都可以，因为新内存是被覆盖式地使用，原先的内容不影响。&lt;/p&gt;
 &lt;p&gt;值得注意的是，自由链表的 &lt;code&gt;empty&lt;/code&gt; 函数通常是基于链表头指针是否为 &lt;code&gt;nullptr&lt;/code&gt; 来实现的。这比用一个计数器维护结点个数更安全，更快。&lt;/p&gt;
 &lt;p&gt;简单测试一下：&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Node&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
@@ -520,8 +498,6 @@
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;img src=&#34;高并发内存池.IMG/image-20240301141749492.png&#34; alt=&#34;image-20240301141749492&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;可见，链表确实是头插和头删的。值得注意的是结点内的值会随着插入的进行而发生改变。&lt;/p&gt;
@@ -572,17 +548,15 @@
   &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;例如字节范围 [1, 128]，向 8 字节对齐的意思是分配的内存块只能是 8 的倍数。如果申请 2 字节，那么分配 8 字节；如果申请 76 字节，那么分配 80 字节。&lt;/p&gt;
-&lt;p&gt;内存对齐无法避免内存碎片问题，但是可以通过合理的分配规则来缓解这个问题。采用上面的对齐规则，内存的浪费率只有约 10%。
 $$
 浪费率=浪费的字节数/对齐后的字节数
-$$
+$$&lt;p&gt;
 最坏的情况是浪费的字节数最多，对齐后的字节数最少。注意字节范围 [1,128] 不在讨论的范围之内，一是这个范围的类型数最少，二是“1”有特殊性。&lt;/p&gt;
 &lt;p&gt;字节范围 [129, 1024]，对齐数 16，最大浪费字节数是 15，最小对齐后的字节数是第一个对齐数 144，浪费率=15/144=0.10416。同理可得字节范围 [1025, 8*1024] 的浪费率=127/1152=0.1102；字节范围 [8*1024+1, 64*1024] 的浪费率=1023/9216=0.111。&lt;/p&gt;
 &lt;p&gt;用一个类&lt;code&gt;SizeClass&lt;/code&gt;（规格）来封装字节范围向上对齐的字节数以及字节数与哈希桶下标之间的映射关系。&lt;/p&gt;
 &lt;p&gt;由于转换函数需要在多个分支中调用，所以将运算的逻辑放在它的子函数中。&lt;/p&gt;
 &lt;p&gt;内存对齐的思路比较直接，对齐后的字节数一定是对齐数的倍数，所以只需要处理不是倍数的情况。&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// bytes：字节数		alignNum：对齐数
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;size_t&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;_RoundUp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;size_t&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;bytes&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;size_t&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;alignNum&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
@@ -606,12 +580,9 @@ $$
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;通过字节数找哈希桶的下标的思路也很类似，一个字节范围内的所有字节数除以对齐数，向上取整后的结果都属于一个哈希桶，。由于下标 0 的存在，所以当字节数整除对齐数时需要-1。&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;size_t&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;_Index&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;size_t&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;bytes&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;size_t&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;alignNum&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
@@ -634,12 +605,9 @@ $$
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;然而大佬的思路总是辣么狠，使用了更快的位运算，进一步优化效率。&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// Common.h
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;
@@ -730,14 +698,11 @@ $$
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;将它们设置为静态的，以通过&lt;code&gt;类名 :: 函数名&lt;/code&gt;直接调用，而不通过对象调用。通常与之搭配使用的是将它们设置为内联，因为它们不仅短小，而且会被频繁调用。&lt;/p&gt;
 &lt;p&gt;用两个例子理解位运算的逻辑：&lt;/p&gt;
 &lt;p&gt;bytes=6，alignNum=8：&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;pre&gt;&lt;code&gt;bytes &amp;#43; alignNum - 1=6&amp;#43;8-1=13=1101
 
@@ -758,13 +723,10 @@ alignNum - 1=8-1=7			 =0111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;6 字节向 8 对齐后的字节数是 8 字节。&lt;/p&gt;
 &lt;p&gt;bytes=9，alignNum=16：&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;pre&gt;&lt;code&gt;bytes &amp;#43; alignNum - 1=9&amp;#43;16-1=25=11001
 
@@ -785,8 +747,6 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;9 字节向 16 对齐后的字节数是 16 字节。&lt;/p&gt;
 &lt;p&gt;这个逻辑的关键在于：&lt;/p&gt;
@@ -802,7 +762,6 @@ alignNum - 1=16-1=15		  =01111
 &lt;h3&gt;设计 ThreadCache 类&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;设计-threadcache-类&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e8%ae%be%e8%ae%a1-threadcache-%e7%b1%bb&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;通过上面的讨论，我们知道哈希桶的个数（SizeClass）是 208 个，这与自由链表的数量对应。规定 ThreadCache 只分配小于等于 256KB 的内存。在 C++中尽量用静态常量来代替宏的使用。&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// ThreadCache 最大能分配的内存块大小
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;size_t&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;TC_MAX_BYTES&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;256&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1024&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
@@ -816,12 +775,9 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;在 ThreadCache 中，所有自由链表由一个数组&lt;code&gt;_freeLists&lt;/code&gt;组织起来，下标是链表管理的小块内存的大小。&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// ThreadCache.h
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;ThreadCache&lt;/span&gt;
@@ -845,14 +801,11 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;由于申请/释放内存和其他逻辑与 CentralCache 相关，所以这里先实现一个框架。&lt;/p&gt;
 &lt;p&gt;如果申请的内存小于 256KB，则通过字节数计算哈希桶的下标，若桶中还有可用空间，那么，从该桶中取出一个内存对象；否则通过字节数计算对齐字节数，然后从 CentralCache 中获取内存。&lt;/p&gt;
 &lt;p&gt;释放的内存大于 256KB 的情况是不存在的，因为申请时已经限制了。回收的就是将小内存对象重新挂接到属于它的哈希桶上。&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// ThreadCache.cpp
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// 分配内存
@@ -893,15 +846,12 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;h3&gt;TLS 无锁访问&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;tls-无锁访问&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#tls-%e6%97%a0%e9%94%81%e8%ae%bf%e9%97%ae&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;正常情况下，全局变量可以被所有线程访问。如果 ThreadCache 使用普通的全局变量维护待分配的内存，那么需要锁控制线程访问内存的行为，这会造成效率低下。ThreadCache 作为更接近应用程序的一层，如果线程可以无锁地从 ThreadCache 中申请和释放小块内存，那么就提高了效率。&lt;/p&gt;
 &lt;p&gt;如何实现全局变量只被一个线程访问呢？TLS（Thread Local Storage，线程本地存储）是一种变量的存储方法，这个变量在它所在的线程内是全局可访问的，但是不能被其他线程访问到，这样就保持了数据的线程独立性。从效果上看，TLS 就是不用锁的机制实现了锁的效果。&lt;/p&gt;
 &lt;p&gt;可以使用 &lt;code&gt;__declspec&lt;/code&gt; 关键字声明 &lt;code&gt;thread&lt;/code&gt; 变量。 例如，以下代码声明了一个整数线程局部变量，并用一个值对其进行初始化：&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kr&#34;&gt;__declspec&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;thread&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;tls_i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0&#34;&gt;
   &lt;button
@@ -912,12 +862,9 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;一个进程中的多个线程的 ThreadCache 的归属性是未知的，所以每个 ThreadCache 都应该有一个指针指向自己，作为线程管理资源的入口。&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;//ThreadCache.h
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;
@@ -931,8 +878,6 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;由于这是一个声明，所以置空。&lt;/p&gt;
 &lt;p&gt;关于 TLS：&lt;/p&gt;
@@ -942,7 +887,6 @@ alignNum - 1=16-1=15		  =01111
 &lt;/ul&gt;
 &lt;p&gt;那么现在 ThreadCache 就不能作为普通变量直接定义了，而是由&lt;code&gt;TLSThreadCache_ptr&lt;/code&gt;接管，资源只归属于线程本身。所有向 ThreadCache 申请和释放的请求，都要经过&lt;code&gt;TLSThreadCache_ptr&lt;/code&gt;处理。所以在&lt;code&gt;ConcurrentAlloc.h&lt;/code&gt;中封装 ThreadCache 的分配和回收接口。&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt; &lt;span class=&#34;cpf&#34;&gt;&amp;#34;ThreadCache.h&amp;#34;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;
@@ -986,14 +930,11 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;由于涉及到 PageHeap 的逻辑，所以它暂时是一个框架。内存分配函数中有一个测试用的打印语句，将在测试多线程时打印线程 ID 和&lt;code&gt;TLSThreadCache_ptr&lt;/code&gt;的地址。&lt;/p&gt;
 &lt;h3&gt;测试&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;测试-1&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e6%b5%8b%e8%af%95-1&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;首先验证 TLS 是否起作用。方法是两个线程执行不同的线程函数，在线程函数中向 ThreadCache 申请若干次内存，然后打印线程 ID 和内存地址。&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;Alloc1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
@@ -1025,8 +966,6 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;测试结果：&lt;/p&gt;
 &lt;img src=&#34;高并发内存池.IMG/image-20240301204840284.png&#34; alt=&#34;image-20240301204840284&#34; style=&#34;zoom:40%;&#34; /&gt;
@@ -1045,7 +984,6 @@ alignNum - 1=16-1=15		  =01111
 &lt;p&gt;首先要解决的是用多大的变量存储页号。如果规定一个页的大小是 8KB（2^13Bytes），那么页号的值就是 Span 中链表的起始物理地址除以 2^13 后的值。地址以 Byte 为单位，页号以页为单位，后者同样可以标识页的位置。&lt;/p&gt;
 &lt;p&gt;在 32 位和 64 位下的进程地址空间大小是不同的，后者的地址无法直接用一个&lt;code&gt;unsigned int&lt;/code&gt;存储 [0,2^51]，需要用 64 位保存。使用条件编译以支持在 32/64 位下使用合适的变量存储页号。&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// Common.h
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;#ifdef _WIN64
@@ -1063,13 +1001,10 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;值得注意的是，32 位平台中只有_WIN32 有定义，64 位平台两者都有，所以应该先判断、_WIN64。&lt;/p&gt;
 &lt;p&gt;下面是 Span 的设计：&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;//Common.h
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// Span：双向链表的结点，管理一个以页为单位的自由链表 (Objets)
@@ -1093,8 +1028,6 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;和下面的各个部分的设计一样，这是一个符合目前需求的框架，后面会根据流程的进展按需完善。&lt;/p&gt;
 &lt;p&gt;注意（这和 Span 的合并相关）：一个 Span 由若干 Page 组成，把第一个 Page 的地址作为 Span 的地址，再除以 2^13 作为页号。&lt;/p&gt;
@@ -1102,7 +1035,6 @@ alignNum - 1=16-1=15		  =01111
     &lt;a href=&#34;#%e8%ae%be%e8%ae%a1-spanlist-%e7%b1%bb&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;CentralCache 的核心成员是一个元素类型为 SpanList 的哈希桶数组 _spanLists。这些哈希桶对应着不同的 SizeClass，即不同大小的内存块。双向链表方便在 Span 不再需要时将其归还给 PageHeap。&lt;/p&gt;
 &lt;p&gt;下面是&lt;strong&gt;带头&lt;/strong&gt;循环链表的实现：&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// SpanList：双向链表，管理若干相同规格的 Span
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;SpanList&lt;/span&gt;
@@ -1164,8 +1096,6 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;注意访问 SpanList 时需要申请锁。CentralCache 作为一个缓冲层，它只是一个内存的“搬运工”，所以删除 SpanList 的 Span（自由链表），只是将它从 SpanList 摘出来，而不是将内存释放掉。在将 SpanList 中的所有 Span 都被回收后，需要将哨兵位头结点 Span 的内存也释放掉。&lt;/p&gt;
 &lt;p&gt;如果你发现了诸如下面的警告，不要担心，因为你调用 unlock 的地方编译器不知道你什么时候上锁了（在同一个作用域中成对出现，编译器认为这是安全的）。参阅：&lt;a href=&#34;https://cloud.tencent.com/developer/ask/sof/108816722&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;调用函数 std::_Mutex_base::unlock 之前未能保持锁的调用方&lt;/a&gt;。只要你能保证加锁和解锁在流程中是成对出现的就可以通过编译。这是一个示例：&lt;/p&gt;
@@ -1179,10 +1109,9 @@ alignNum - 1=16-1=15		  =01111
 &lt;li&gt;将单例对象作为一个静态成员变量放在类中，它会在程序启动时自动创建。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;在实践中应该尽量避免使用全局变量，当多个部分的代码需要访问同一个对象时，单例模式可以确保它们都访问的是同一个实例。而且当对象很大时，单例模式可以保证只创建一次对象，节省资源。&lt;/p&gt;
+  &lt;p&gt;在实践中应该尽量避免使用全局变量，当多个部分的代码需要访问同一个对象时，单例模式可以确保它们都访问的是同一个实例。而且当对象很大时，单例模式可以保证只创建一次对象，节省资源。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// CentralCache.h
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;CentralCache&lt;/span&gt;
@@ -1214,12 +1143,9 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;在 C++中，静态成员属于类而不属于任意实例，规定静态对象在类外定义。所以在&lt;code&gt;ThreadCache.cpp&lt;/code&gt;中要创建一个全局静态对象。&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// ThreadCache.cpp
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;CentralCache&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;CentralCache&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_sInst&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0&#34;&gt;
@@ -1231,15 +1157,12 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;h4&gt;慢开始反馈调节&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;慢开始反馈调节&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e6%85%a2%e5%bc%80%e5%a7%8b%e5%8f%8d%e9%a6%88%e8%b0%83%e8%8a%82&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;ThreadCache 向 CentralCache 申请内存 SizeClass 规格的 Object 时，中采用了类似 TCP 慢启动（Slow Start）的算法来管理 ThreadCache 向 CentralCache 的对象请求。这种机制主要用于动态调整每次分配的对象数量，以优化内存使用和减少对 CentralCache 的访问频率。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;初始&lt;/strong&gt;时，这个数量可能相对较小。随着应用程序的运行，如果 ThreadCache 发现它经常耗尽其缓存的对象，它会逐渐增加从 CentralCache 请求的对象数量。这有助于减少频繁的内存请求，从而提高效率。反之，如果 ThreadCache 发现它不经常用完其缓存的对象，它可能会减少对 CentralCache 的请求量，以避免不必要地占用过多的内存资源。&lt;/p&gt;
 &lt;p&gt;本项目的做法是，将 ThreadCache 向 CentralCache 申请 Object 的个数限制在 [2, 512]。&lt;code&gt;num&lt;/code&gt;是当 ThreadCache 为空时，最多需要向 CentralCache 申请对象的个数。&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;SizeClass&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
@@ -1273,12 +1196,9 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;但是这个做法很局限也比较极端，例如对象很小时，num 取 512 也是很多的。为了使得 num 在申请小对象时也尽量不要那么大，在自由链表&lt;code&gt;FreeList&lt;/code&gt;中增加一个计数器&lt;code&gt;_maxSize&lt;/code&gt;（初始值 1），表示 ThreadCache 中的自由链表的最大对象数。它将随着新加入的 Object 数量递增。&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;FreeList&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
@@ -1300,8 +1220,6 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;返回引用的原因是后面在向 CentralCache 申请新 Object 时需要更新&lt;code&gt;_maxSize&lt;/code&gt;。&lt;/p&gt;
 &lt;p&gt;当 ThreadCache 首次向 CentralCache 申请 Object 时，只能申请到一个。下一次是&lt;code&gt;_maxSize+1&lt;/code&gt;，是 2 个。.. 这是一个线性增长的过程，每次只增加一个，是“慢增长”的部分。如果感觉太慢了，可以每次多加几个。&lt;/p&gt;
@@ -1312,7 +1230,6 @@ alignNum - 1=16-1=15		  =01111
 &lt;p&gt;CentralCache 在分配 Object 之前，需要用 ThreadCache 所需的字节数&lt;code&gt;bytes&lt;/code&gt;来计算哈希桶的下标&lt;code&gt;index&lt;/code&gt;，通过&lt;code&gt;GetOneSpan()&lt;/code&gt;从桶里取出一个非空的 Span，将它的首尾地址返回。&lt;/p&gt;
 &lt;p&gt;访问桶之前需要加锁。&lt;code&gt;GetOneSpan()&lt;/code&gt;和 PageHeap 的逻辑相关，将在后面实现。&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// CentralCache.cpp
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;
@@ -1356,8 +1273,6 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;值得注意的是链表迭代的逻辑。正常情况下需要多少个 end 指针就要往后走多少步，但是取出来的子链需要被 ThreadCache 使用，所以子链的最后一个 Object 的 next 指针需要置空，因此 end 只需要走 n-1 步即可。&lt;/p&gt;
 &lt;p&gt;并且如果 Span 的中没有 n 个 Object，那就全部都取出。在这个情况下让循环停下来的条件是&lt;code&gt;NextObj(end)==nullptr&lt;/code&gt;。&lt;/p&gt;
@@ -1368,7 +1283,6 @@ alignNum - 1=16-1=15		  =01111
 &lt;p&gt;之所以 FetchFromCentralCache 函数要返回内存地址，是因为线程申请 ThreadCache 的某个 SizeClass 的 Object 没有了，ThreadCache 才会向 CentralCache 申请，因此返回的主体是线程。&lt;/p&gt;
 &lt;p&gt;首先实现自由链表的 PushRange()，对应地，实现 PopRange()。（画图会更好理解）&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;FreeList&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
@@ -1414,12 +1328,9 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;&lt;code&gt;ThreadCache::FetchFromCentralCache()&lt;/code&gt;的实现：&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// ThreadCache.cpp
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;
@@ -1460,8 +1371,6 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;值得强调的是，&lt;code&gt;ThreadCache::FetchFromCentralCache()&lt;/code&gt;返回的是一个 Object 的地址，它最终会通过线程调用&lt;code&gt;ThreadCache::Allocate()&lt;/code&gt;得到。新申请的 Object 除了这一个分配出去的之外，添加到 ThreadCache 的 SizeClass 规格的自由链表中。&lt;/p&gt;
 &lt;h2&gt;PageHeap&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;pageheap-1&#34;&gt;&lt;/span&gt;
@@ -1469,7 +1378,6 @@ alignNum - 1=16-1=15		  =01111
     &lt;a href=&#34;#%e6%a1%86%e6%9e%b6-2&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;img src=&#34;高并发内存池.IMG/image-20240303182529707.png&#34; alt=&#34;image-20240303182529707&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;PageHeap 的结构和 CentralCache 类似，同样用双链表组织 Span。不同的是 PageHeap 哈希桶的下标按 Span 的页号映射。第 x 号桶挂的都是 x 页 Span。在 TCmalloc 中，对于不大于 256KB 内存申请的情况，页号到 Span 的映射有 128 个，128 个 Page 可以被切成 128*8KB/256KB=4 个 256KB 的对象，这个经验值可以满足大多数情况。为了方便映射，弃用下标为 0 的位置。&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// PageHeap 中哈希桶的个数
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;size_t&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;PH_MAX_PAGES&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;129&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0&#34;&gt;
@@ -1481,8 +1389,6 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;需要强调的是，在 TCMalloc 中一个 Page 等于两个系统分配的 page（4KB）。虽然 PageHeap 以页（page）为单位向操作系统申请内存，但是它管理内存的基本单位为 Span（跨度），Span 中的 Page 是连续的。&lt;/p&gt;
 &lt;img src=&#34;高并发内存池.IMG/image-20240303182831369.png&#34; alt=&#34;image-20240303182831369&#34; style=&#34;zoom:40%;&#34; /&gt;
@@ -1492,7 +1398,6 @@ alignNum - 1=16-1=15		  =01111
 &lt;p&gt;因此单单加桶锁显然不足以解决这个问题，只能给整个哈希表加锁了。CentralCache 使用桶锁的原因是能够保证线程只访问一个确定的桶，而 PageHeap 需要实现 Span 的切割和合并，因而无法保证。&lt;/p&gt;
 &lt;p&gt;此外，PageHeap 在程序运行起来也只需要实例化一次，所以设置为单例模式。&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;PageHeap&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
@@ -1525,8 +1430,6 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;这些成员函数将在稍后实现。&lt;/p&gt;
 &lt;h3&gt;CentralCache::GetOneSpan&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;centralcachegetonespan&#34;&gt;&lt;/span&gt;
@@ -1535,7 +1438,6 @@ alignNum - 1=16-1=15		  =01111
 &lt;p&gt;PageHeap 中的 Span 由若干 Page 组成，它眼里只有一个个 Page，而 CentralCache 的需求和线程申请的 Object 相关，所以 CentralCache 申请内存时需要将字节数转换为页数。逻辑如下：
 首先字节数肯定是来源于 ThreadCache 的，&lt;strong&gt;要保证 PageHeap 向 CentralCache 分配的内存一定不能小于 ThreadCache 一次向 CentralCache 申请的内存大小&lt;/strong&gt;，否则就还要继续申请了（浪费 CPU 资源），所以要计算出 ThreadCache 一次向 CentralCache 申请 Object 的最大个数；然后将个数乘以对象的字节数，再除以 2^13（Page：8KB），算出页数。&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;SizeClass&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
@@ -1565,8 +1467,6 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;现在已经求出了 CentralCache 一次向 PageHeap 申请的页数。下面就是根据页数找到可以取内存的哈希桶。如何切割 Span 呢？&lt;/p&gt;
 &lt;p&gt;Span 是由若干 Page 组成的双向链表，它们在物理上是连续的。那么页号的逆运算就是物理地址：用 Span 的起始页号乘以页大小得到起始地址；用 Span 的页数乘以页大小得到内存的跨度；用起始地址+跨度得到终止地址。&lt;/p&gt;
@@ -1581,12 +1481,11 @@ alignNum - 1=16-1=15		  =01111
 &lt;li&gt;由于多个 Span 之间是连续的，所以划分好以后要将最后一个 Object 的 next 指针置空，表示它和后面的内存无关，防止越界。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;blockquote&gt;
-&lt;p&gt;一个内存块中的 FreeList 能够让一个 Span 中的 Object 在物理上是连续的。线程在使用连续内存时，可以提高 CPU 的高速缓存命中率。&lt;/p&gt;
+  &lt;p&gt;一个内存块中的 FreeList 能够让一个 Span 中的 Object 在物理上是连续的。线程在使用连续内存时，可以提高 CPU 的高速缓存命中率。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;img src=&#34;高并发内存池.IMG/image-20240304110319296.png&#34; alt=&#34;image-20240304110319296&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;当把 Span 切割好以后，将 CentralCache 需要的那一块挂到对应 SizeClass 的 SpanList 上，选择头插到双向链表中的原因是方便 CentralCache 在寻找非空的 Span 时能够直接取出，避免遍历。在 SpanList 中增加头插（对应地增加头删）的逻辑。&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;SpanList&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
@@ -1611,11 +1510,8 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// 获取一个非空的 Span
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// spanList: CentralCache 的某个哈希桶		bytes: Object 的字节数
@@ -1670,8 +1566,6 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;CentralCache::GetOneSpan() 用于从 CentralCache 获取一个非空的 Span，它被 CentralCache::FetchRangeObj() 调用（已经实现），所以要返回 Span 的地址，以供取出一定数量的 Object。&lt;/p&gt;
 &lt;p&gt;值得注意的是，页号 PageId 原本是通过地址除以 2^13 得到的，指针的值是一个无符号整数，但是页号乘以 2^13 后仍然是一个无符号整数，所以要强转成 char*，才能访问这个地址中的内存。&lt;/p&gt;
@@ -1680,7 +1574,6 @@ alignNum - 1=16-1=15		  =01111
 &lt;p&gt;其中&lt;code&gt;PageHeap::NewSpan()&lt;/code&gt;用于 PageHeap 自己取出一个 k 页的 Span 给 CentralCache，k 页可以直接对应 PageHeap 的 k 号桶。而 PageHeap 也要找一个空闲的 Span 才能给，如果没有的话不是直接向系统申请内存，而是向后顺延，尝试找到一个更多页的 Span，切割成 CentralCache 需要的尺寸（页数），然后将剩下的内存挂到自己对应的桶上。如果 PageHeap 发现所有桶都没有 Span，那么它需要调用 SystemAlloc 函数向系统申请。&lt;/p&gt;
 &lt;p&gt;注意，PageHeap 以页为单位管理内存，而操作系统返回的是内存的起始地址，所以要将地址除以 2^13，转换为页号。&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// PageHeap.cpp
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;
@@ -1749,8 +1642,6 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;其他逻辑都比较简单，这里用了一个巧妙的递归，解决了两种情况：&lt;/p&gt;
 &lt;ul&gt;
@@ -1758,7 +1649,7 @@ alignNum - 1=16-1=15		  =01111
 &lt;li&gt;其他情况：只要 k 桶是空的，那么要切分更大的 n 桶。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;递归可以用另外的逻辑代替，但是这里权衡递归的成本和代码复用的收益后，后者更加重要，因为递归最多一层。&lt;/p&gt;
+  &lt;p&gt;递归可以用另外的逻辑代替，但是这里权衡递归的成本和代码复用的收益后，后者更加重要，因为递归最多一层。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h3&gt;PageHeap 的锁问题&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;pageheap-的锁问题&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#pageheap-%e7%9a%84%e9%94%81%e9%97%ae%e9%a2%98&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;h4&gt;CentralCache 向 PageHeap 申请 Span 加 Page 锁&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;centralcache-向-pageheap-申请-span-加-page-锁&#34;&gt;&lt;/span&gt;
@@ -1771,14 +1662,13 @@ alignNum - 1=16-1=15		  =01111
 &lt;img src=&#34;高并发内存池.IMG/image-20240304171858517.png&#34; alt=&#34;image-20240304171858517&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;注意将 Span 挂到桶上是访问桶的操作，所以要加锁，保证原子性。&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;加解锁的位置不要想当然，要从资源竞争的角度理解（想象一个线程在访问临界资源的时候其他线程有没有可能访问，是读还是写，会不会影响线程的行为）。&lt;/p&gt;
+  &lt;p&gt;加解锁的位置不要想当然，要从资源竞争的角度理解（想象一个线程在访问临界资源的时候其他线程有没有可能访问，是读还是写，会不会影响线程的行为）。&lt;/p&gt;
 &lt;p&gt;加锁意味着要访问临界资源；解锁意味着从访问资源出来。脑海里可以有一个流程。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2&gt;内存申请测试&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;内存申请测试&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e5%86%85%e5%ad%98%e7%94%b3%e8%af%b7%e6%b5%8b%e8%af%95&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;现在 ThreadCache、CentralCache 和 PageHeap 的申请流程已经完善，下面用单线程进行内存申请流程的测试。&lt;/p&gt;
 &lt;h3&gt;测试一&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;测试一&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e6%b5%8b%e8%af%95%e4%b8%80&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;AlignTest&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 测试对齐
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
@@ -1798,8 +1688,6 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;在这个函数的位置打一个断点，然后 F5 运行。F11 可以执行每一句，当运行到函数时，按它可以进入函数；F10 不进入函数；在函数内部如果想跳出它，可以按 Shift+F11。这几个快捷键也有按钮对应，多十试几次就会了：&lt;/p&gt;
 &lt;img src=&#34;高并发内存池.IMG/image-20240305094339692.png&#34; alt=&#34;image-20240305094339692&#34; style=&#34;zoom:40%;&#34; /&gt;
@@ -1808,7 +1696,6 @@ alignNum - 1=16-1=15		  =01111
 &lt;img src=&#34;高并发内存池.IMG/image-20240305113314038.png&#34; alt=&#34;image-20240305113314038&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;通过监视窗口（调试-&amp;gt;窗口-&amp;gt;监视）看到变量值的变化（也可鼠标悬停）。这是第一条语句（申请 6 字节）的执行流程（希望大家看到名称就能想像它在哪一层，其实就是供应商供货到超市，还是比较好懂的）：&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;1. 由于申请的 bytes=6 小于 256KB，所以由 ThreadCache::Allocate(bytes) 分配
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  2. 通过 bytes 算出对齐数 alignSize=8 和桶索引 index=0，但是 index 位置的桶是空的，进入 FetchFromCentralCache(index, alignSize) 从 CentralCache 获取
@@ -1829,8 +1716,6 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;通过这个流程，可以体会到将 CentralCache 和 PageHeap 设置为单例模式的作用。例如 ThreadCache 通过 CentralCache 开放的接口（FetchRangeObj）来申请一些 Object；CentralCache 通过 PageHeap 开放的接口（NewSpan）来向系统申请一个新 Span。这就好像银行虽然在那里，但是有的事不用银行主动帮你干，而是它已经设计好处理事件的逻辑，你去自助机器上操作。&lt;/p&gt;
 &lt;img src=&#34;高并发内存池.IMG/image-20240304210154630.png&#34; alt=&#34;image-20240304210154630&#34; style=&#34;zoom:40%;&#34; /&gt;
@@ -1842,7 +1727,6 @@ alignNum - 1=16-1=15		  =01111
 &lt;h3&gt;测试二&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;测试二&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e6%b5%8b%e8%af%95%e4%ba%8c&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;我们知道在初始情况 PageHeap 向系统申请了 8KB 的内存，下面测试单线程在申请 8KB 内存后，再申请 8Bytes，看看 PageHeap 会不会再申请向系统申请一个 Span。&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;AlignTest2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
@@ -1862,14 +1746,12 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;当在 CentralCache::FetchRangeObj() 中分配空间后，可以看到 PageHeap 确实向系统申请了内存，然后分给了 CentralCache，因为是头插，所以新 Span 的 next 是老 Span。&lt;/p&gt;
 &lt;img src=&#34;高并发内存池.IMG/image-20240305124539628.png&#34; alt=&#34;image-20240305124539628&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;老 Span 就是第一次申请的 8KB，全部被循环申请了，其中 46 是慢开始反馈调节得到的 batchNum（一次从 CentralCache 中获取多少个 Object）。这可以通过打印 batchNum 得知。&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;注意慢开始反馈调节使用了&lt;code&gt;min()&lt;/code&gt;，如果使用&lt;code&gt;std::min()&lt;/code&gt;，将会调用&lt;code&gt;&amp;lt;algorithm&amp;gt;&lt;/code&gt;的函数模板；但是&lt;code&gt;&amp;lt;Windows.h&lt;/code&gt;中也有一个&lt;code&gt;min&lt;/code&gt;，如果右键-&amp;gt;转到定义，你会知道它是一个宏：&lt;/p&gt;
+  &lt;p&gt;注意慢开始反馈调节使用了&lt;code&gt;min()&lt;/code&gt;，如果使用&lt;code&gt;std::min()&lt;/code&gt;，将会调用&lt;code&gt;&amp;lt;algorithm&amp;gt;&lt;/code&gt;的函数模板；但是&lt;code&gt;&amp;lt;Windows.h&lt;/code&gt;中也有一个&lt;code&gt;min&lt;/code&gt;，如果右键-&amp;gt;转到定义，你会知道它是一个宏：&lt;/p&gt;
 &lt;img src=&#34;高并发内存池.IMG/image-20240305131105769.png&#34; alt=&#34;image-20240305131105769&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;由于二者冲突而函数模板需要推演，所以编译器会优先选择更快的宏。所以不要用&lt;code&gt;std::min()&lt;/code&gt;。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -1878,13 +1760,12 @@ alignNum - 1=16-1=15		  =01111
     &lt;a href=&#34;#threadcachedeallocate&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;线程使用后的对象被 ThreadCache 回收，而 ThreadCache 是线程私有的。当 ThreadCache 中积累了过多的对象时，需要将部分对象返回给 CentralCache，以便其他线程使用。&lt;/p&gt;
 &lt;p&gt;解决办法是限定自由链表的长度。这个长度被规定为：ThreadCache 一次性向 CentralCache 申请的 Object 的个数。&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;为什么不直接设置为一个固定值？&lt;/p&gt;
+  &lt;p&gt;为什么不直接设置为一个固定值？&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;不同的应用程序和工作负载可能会有不同的内存使用模式，因此不同线程需要的 Object 个数不同。将 Object 最大个数与 ThreadCache 的申请行为相关联，可以确保自由链表的长度既不会太小也不会太大，从而优化内存使用。&lt;/p&gt;
 &lt;p&gt;另外，ThreadCache 和 CentralCache 之间的交互涉及同步操作，这可能是一个成本较高的过程，尤其是在多线程环境中。通过将自由链表的长度与 ThreadCache 的请求行为相匹配，可以减少线程之间为了内存分配而进行的同步次数，从而提高性能。&lt;/p&gt;
 &lt;p&gt;在 TCMalloc 的实现中，也考虑到了限制单个线程的内存上限，即 ThreadCache 整体占用的内存不能超过某个值。&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// 回收内存
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ThreadCache&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Deallocate&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ptr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;size_t&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;bytes&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
@@ -1918,12 +1799,9 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;补充链表 PopRange 接口，用于头删一段 Object。&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;FreeList&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
@@ -1962,8 +1840,6 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;注意，这里删除到倒数第一个 Object 时就要停下来，和之前取 Object 时一样，将最后一个 Object 的 next 指针置空。两个输出型参数用于返回给 CentralCache，只有拿到地址才能操作。&lt;/p&gt;
 &lt;h3&gt;CentralCache::ReleaseListToSpans&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;centralcachereleaselisttospans&#34;&gt;&lt;/span&gt;
@@ -1976,7 +1852,6 @@ alignNum - 1=16-1=15		  =01111
 &lt;p&gt;这样以后再要插入 Object 到 CentralCache 对应的 SpanList 上，只需要用 Object 的地址除以 2^13 得到的页号查询哈希表，就能直接找到 Span 的首地址，进行头插。&lt;/p&gt;
 &lt;p&gt;为 PageHeap 增加哈希表：&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;unordered_map&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;PAGE_ID&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Span&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_idSpanMap&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0&#34;&gt;
   &lt;button
@@ -1987,12 +1862,9 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;用一个函数作为地址和 Span 地址的转换：&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// 返回从 Object 地址到 Span 首地址的映射
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Span&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;PageHeap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MapObjectToSpan&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;objAdr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
@@ -2017,8 +1889,6 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;assert() 的参数为 false，它将生效，用于定位错误。&lt;/p&gt;
 &lt;p&gt;需要在 PageHeap::NewSpan() 的不同分支中增加映射的逻辑：&lt;/p&gt;
@@ -2027,7 +1897,6 @@ alignNum - 1=16-1=15		  =01111
 &lt;p&gt;这是遍历链表和加解桶锁的框架。start 指针和 bytes 两个参数能够划定内存的范围，使用 end 也可。&lt;/p&gt;
 &lt;img src=&#34;高并发内存池.IMG/image-20240305170009392.png&#34; alt=&#34;image-20240305170009392&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// ThreadCache 释放若干 Object 到 CentralCache 的某个 Span 中
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// start: ThreadCache 返回的一段内存的地址 bytes: 返回内存的字节数
@@ -2082,8 +1951,6 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;当&lt;code&gt;span-&amp;gt;_usedCount == 0&lt;/code&gt;时，说明这个 Span 中的所有 Object 都被归还，意味着这部分内存暂时没有被需要。将其返回给 PageHeap 可以使这部分内存重新整合，可能用于满足其他大小的内存请求。如果保留在 CentralCache 中，虽然对于相同大小的内存请求响应更快，但可能导致内存的不充分利用，特别是在内存需求动态变化的情况下。而且 CentralCache 主要用于处理频繁的、大小相对固定的内存请求。如果它还要负责保留大量不再使用的内存，可能会影响其处理效率和响应速度。&lt;/p&gt;
 &lt;p&gt;将 Span 还给 PageHeap 之前需要将它从 CentralCache 的桶中取出，这个过程需要持有桶锁，并且为了后续内存的安全使用，将 Span &lt;strong&gt;作为结点的信息&lt;/strong&gt;清空，注意不要将页号和页数还原，因为这是 PageHeap 后续合并 Span 的依据。在对 PageHeap 访问的前后也需要加大锁。&lt;/p&gt;
@@ -2095,7 +1962,6 @@ alignNum - 1=16-1=15		  =01111
 &lt;p&gt;向前合并，就是将后面的 Span 加到前面，然后更新前面的页数。需要注意的是要保证地址是连续的，就是要判断&lt;strong&gt;后面的页号是否等于前面的页号+页数&lt;/strong&gt;。例如图中前面的页号+页数是 4，刚好等于后面的页号 4，说明它们在被 PageHeap 切割时是连续的。向后合并也是一样的。可以在一个循环中不断合并，只要不符合相邻的条件就可以停止合并。&lt;/p&gt;
 &lt;p&gt;现在问题来了，&lt;code&gt;span-&amp;gt;_usedCount == 0&lt;/code&gt;的另一种情况是调用 PageHeap::NewSpan() 时新分配 Span 时，此时 Span 也是一个 Span 都没有被分配出去。为了让合并和切分的操作不冲突，用一个 bool 类型的变量&lt;code&gt;_isUsed&lt;/code&gt;来标记 Span 是否已经被 CentralCache 使用，作为 Span 的成员。&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Span&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
@@ -2110,8 +1976,6 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;在 CentralCache::GetOneSpan() 获取新 Span 后，立即将它改为 true，注意要在桶锁中进行。&lt;/p&gt;
 &lt;img src=&#34;高并发内存池.IMG/image-20240306185952551.png&#34; alt=&#34;image-20240306185952551&#34; style=&#34;zoom:40%;&#34; /&gt;
@@ -2121,7 +1985,7 @@ alignNum - 1=16-1=15		  =01111
 &lt;img src=&#34;高并发内存池.IMG/image-20240307161512524.png&#34; alt=&#34;image-20240307161512524&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;这个过程是可能的，因为它们在被 PageHeap 分配之前属于一个 Span，内存是连续的，那么只要 Span 之间是相邻的，那么 SpanA2 的头和 SpanA1 的尾是可以合并的。当原先被使用的 Page 被还回来时仍然会这么合并。&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;举个例子，现在有两个&lt;strong&gt;相邻&lt;/strong&gt;的两个 Span：&lt;/p&gt;
+  &lt;p&gt;举个例子，现在有两个&lt;strong&gt;相邻&lt;/strong&gt;的两个 Span：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Span A1：空闲页面 [1, 40]，映射关系：&amp;lt;1, A1&amp;gt;，&amp;lt;40, A1&amp;gt;&lt;/li&gt;
 &lt;li&gt;Span A2：空闲页面 [41, 60]，映射关系：&amp;lt;41, A2&amp;gt;，&amp;lt;60, A2&amp;gt;&lt;/li&gt;
@@ -2142,7 +2006,6 @@ alignNum - 1=16-1=15		  =01111
 &lt;p&gt;除此之外，如果合并后的 Span 超过了 PageHeap 管理的最大 Span 规格（128 个 Page），那么就直接将它归还给操作系统，也要记得释放 Span 的空间。向前和向后合并的逻辑比较简单，而且是类似的。&lt;/p&gt;
 &lt;p&gt;首先补充向操作系统释放内存的函数：&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// Common.h
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;
@@ -2163,11 +2026,8 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// PageHeap 回收空闲的 Span，合并相邻的 Span
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;PageHeap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ReleaseSpanToPageHeap&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Span&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;span&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
@@ -2191,15 +2051,12 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;注意向前或向后合并是以当前 Span 为基准的，所以向后合并不需要更新 Span 的页号，只需要更新它的页数。&lt;/p&gt;
 &lt;p&gt;在 PageHeap::NewSpan() 中增加哈希映射：&lt;/p&gt;
 &lt;img src=&#34;高并发内存池.IMG/image-20240308011651150.png&#34; alt=&#34;image-20240308011651150&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;下面是 PageHeap::ReleaseSpanToPageHeap() 的实现，逻辑还是比较清晰的：&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// PageHeap 回收空闲的 Span，合并相邻的 Span
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;PageHeap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ReleaseSpanToPageHeap&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Span&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;span&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
@@ -2291,14 +2148,11 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;h2&gt;内存释放测试&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;内存释放测试&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e5%86%85%e5%ad%98%e9%87%8a%e6%94%be%e6%b5%8b%e8%af%95&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;测试一&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;测试一-1&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e6%b5%8b%e8%af%95%e4%b8%80-1&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;对应地，下面用单线程测试释放内存的流程。首先实现 ConcurrentFree() 最基本的功能，这个函数稍后要完善，参数 bytes 可以在函数内求得，这里只是为了测试运行起来。&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// ConcurrentAlloc.h
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;
@@ -2323,11 +2177,8 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;ConcurrentFreeTest&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
@@ -2351,8 +2202,6 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;如果你的测试用例不能走到 PageHeap 合并的逻辑，这是因为慢增长申请的内存大小不足以通过这个条件，可以多申请几次：&lt;/p&gt;
 &lt;img src=&#34;高并发内存池.IMG/image-20240307173717970.png&#34; alt=&#34;image-20240307173717970&#34; style=&#34;zoom:40%;&#34; /&gt;
@@ -2370,7 +2219,6 @@ alignNum - 1=16-1=15		  =01111
 &lt;h3&gt;测试二&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;测试二-1&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e6%b5%8b%e8%af%95%e4%ba%8c-1&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;下面来进行多线程测试：让两个线程分别执行各自的线程函数，在函数内批量申请和释放内存。&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;MultiThreadAlloc1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
@@ -2418,8 +2266,6 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;可以在刚才 PageHeap.cpp 的 110 行打断点，看到相同的流程：&lt;/p&gt;
 &lt;img src=&#34;高并发内存池.IMG/image-20240307202700411.png&#34; alt=&#34;image-20240307202700411&#34; style=&#34;zoom:40%;&#34; /&gt;
@@ -2430,7 +2276,6 @@ alignNum - 1=16-1=15		  =01111
 &lt;p&gt;我们规定 PageHeap 的最大规格 Span 是 128 页，即 128*8B=1024KB=1MB。ThreadCache 的最大规格 Object 是 256KB（256KB/8B=32 页）。那么小于 256KB（32 页）的内存请求由 ThreadCache 负责；大于 256KB（32 页）且小于 1MB（128 页）的内存请求由 PageHeap 负责；大于 1MB（32 页）的内存请求交给操作系统。&lt;/p&gt;
 &lt;p&gt;和之前的申请逻辑一样，不能刚好只申请线程需要的那么多内存，留一些富余比较好快速地处理后续的内存申请；256KB 的内存申请不算小，所以很可能会由 PageHeap 代为申请，而 PageHeap 按页为单位（8KB）向操作系统申请内存，所以在之前实现的向上对齐函数&lt;code&gt;RoundUp()&lt;/code&gt;中将大于 256KB 的内存按页（8KB）来对齐。&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// 获取向上对齐后的字节数
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;inline&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;size_t&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;RoundUp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;size_t&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;bytes&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
@@ -2453,13 +2298,10 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;例如 258KB 的内存等于 32 页（256KB）+8KB，这 1KB 不足一页算作一页，最终对齐到 33 页，向 PageHeap 申请 33*8KB=264KB，这多余的 6KB 就是内存碎片。&lt;/p&gt;
 &lt;p&gt;那么现在可以完善线程池的内存分配函数：&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// ConcurrentAlloc.h
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;ConcurrentAlloc&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;size_t&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;bytes&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
@@ -2488,15 +2330,12 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;值得注意的是，内存是由线程调用线程池开放的接口 ConcurrentAlloc() 申请的，所以这个函数可以决定从哪里申请内存。超过 256KB 的内存不通过 ThreadCache 而直接访问 PageHeap。&lt;/p&gt;
 &lt;h4&gt;释放&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;释放&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e9%87%8a%e6%94%be&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;和申请对应：小于 256KB（32 页）的内存释放给 ThreadCache；大于 256KB（32 页）且小于 1MB（128 页）的内存释放给 PageHeap；大于 1MB（32 页）的内存释放给操作系统的堆区。和大内存的申请一样，也是直接还给 PageHeap。&lt;/p&gt;
 &lt;p&gt;那么现在可以完善线程池的内存回收函数：&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;ConcurrentFree&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ptr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
@@ -2526,12 +2365,9 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;两个测试用例，可以注释掉另外一个测试，这里我先测试申请 129 页的：&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;c1&#34;&gt;//大内存申请和释放测试
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;BigAllocTest&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
@@ -2552,8 +2388,6 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;申请调用 PageHeap::NewSpan()，走的是大于 128 页的逻辑：&lt;/p&gt;
 &lt;img src=&#34;高并发内存池.IMG/image-20240308011948672.png&#34; alt=&#34;image-20240308011948672&#34; style=&#34;zoom:40%;&#34; /&gt;
@@ -2571,7 +2405,6 @@ alignNum - 1=16-1=15		  =01111
     &lt;a href=&#34;#%e7%94%a8%e5%86%85%e5%ad%98%e6%b1%a0%e4%bb%a3%e6%9b%bf-new-%e5%92%8c-delete-%e7%ae%a1%e7%90%86%e5%af%b9%e8%b1%a1&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;在目前的实现中，Span 哨兵位头结点以及 ThreadCache 实例都是用 new 和 delete 申请和释放的，为了彻底脱离使用 malloc/free 函数，分别为它们增加一个内存池，用于分配 Span 和线程创建 ThreadCache 实例。&lt;/p&gt;
 &lt;p&gt;在 SpanList 中修改如下：&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;SpanList&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
@@ -2596,14 +2429,11 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;由于每一个 SpanList 只需要一个哨兵位头结点 Span，因此将 Span 池设置为静态的，所有 SpanList 都从它申请 Span，静态成员要在类外创建实例（CentralCache.cpp）。&lt;/p&gt;
 &lt;img src=&#34;高并发内存池.IMG/image-20240310043943897.png&#34; alt=&#34;image-20240310043943897&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;项目中所有使用 new 和 delete 创建和释放 Span 的地方都要替换成（前提是增加&lt;code&gt;ObjectPool&amp;lt;T&amp;gt;&lt;/code&gt;成员，并创建实例）：&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;ObjectPool&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;xxxPool&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 1. 创建 xxx 池
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;
@@ -2621,8 +2451,6 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;项目中有不少需要替换的地方，这里就不一一截图了（可以 Ctrl+F），可以看本项目的实现。&lt;/p&gt;
 &lt;p&gt;因为 ThreadCache 由线程私有，所以要将它的内存池设置为静态的，这样每个 ThreadCache 的对象就来自同一个内存池中。&lt;/p&gt;
@@ -2642,7 +2470,6 @@ alignNum - 1=16-1=15		  =01111
 &lt;p&gt;初始情况下，如果线程 1 正好在第一个红框切换，线程 2 从头开始执行，此时&lt;code&gt;_remainBytes&lt;/code&gt;是上一个线程修改后的值，那么它不会进入&lt;code&gt;if (objSize &amp;gt; _remainBytes)&lt;/code&gt;分支，那么&lt;code&gt;_memory_ptr&lt;/code&gt;此时为&lt;code&gt;nullptr&lt;/code&gt;，这会使定位 new 访问空指针。&lt;/p&gt;
 &lt;p&gt;解决办法是 ThreadCache 在使用&lt;code&gt;New()&lt;/code&gt;的前后加互斥锁。在 ObjectPool 中增加互斥锁成员变量：&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;template&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;ObjectPool&lt;/span&gt;
@@ -2658,8 +2485,6 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;加锁：&lt;/p&gt;
 &lt;img src=&#34;高并发内存池.IMG/image-20240310055022324.png&#34; alt=&#34;image-20240310055022324&#34; style=&#34;zoom:40%;&#34; /&gt;
@@ -2667,7 +2492,6 @@ alignNum - 1=16-1=15		  =01111
     &lt;a href=&#34;#%e7%bb%bc%e5%90%88%e6%b5%8b%e8%af%95&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;下面在多线程环境下分别测试 malloc/free 和 ConcurrentAlloc/ConcurrentFree 的性能，放在&lt;code&gt;Benchmark.cpp&lt;/code&gt;中（基准测试）。&lt;/p&gt;
 &lt;p&gt;在此之前建议仍用之前的单线程用例测试，以保证申请和回收的逻辑是通的，也比较好调试。&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#include&amp;#34;ConcurrentAlloc.h&amp;#34;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;using&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cout&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
@@ -2799,8 +2623,6 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;h3&gt;测试一&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;测试一-2&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e6%b5%8b%e8%af%95%e4%b8%80-2&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;测试 4 个线程，10 轮，每轮 10000 次申请和释放固定大小的内存空间（同一个桶）：&lt;/p&gt;
@@ -2831,7 +2653,7 @@ alignNum - 1=16-1=15		  =01111
 &lt;li&gt;读多写少：在许多内存分配场景中，对基数树的读操作（如查找 Span）远多于写操作（如插入或删除 Span）。由于&lt;strong&gt;读操作不会改变树的状态&lt;/strong&gt;，它们可以并发进行，而不需要锁。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;blockquote&gt;
-&lt;p&gt;在无法完全避免锁的场景下，TCMalloc 可能采用更细粒度的锁策略，例如仅在特定部分的基数树结构上使用锁，而不是对整个结构加锁。&lt;/p&gt;
+  &lt;p&gt;在无法完全避免锁的场景下，TCMalloc 可能采用更细粒度的锁策略，例如仅在特定部分的基数树结构上使用锁，而不是对整个结构加锁。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;基数树能够最大限度地减少锁的使用，从而提高性能，尤其是在多线程高并发的环境中。&lt;/p&gt;
 &lt;h3&gt;TCMalloc 中的基数树使用&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;tcmalloc-中的基数树使用&#34;&gt;&lt;/span&gt;
@@ -2851,7 +2673,6 @@ alignNum - 1=16-1=15		  =01111
 &lt;h4&gt;单层基数树&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;单层基数树&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e5%8d%95%e5%b1%82%e5%9f%ba%e6%95%b0%e6%a0%91&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;单层基数树直接通过数组查询。&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;//单层基数树
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;template&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;BITS&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
@@ -2891,15 +2712,12 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;数组的内容是 Span 的地址，下标对应着页号。非模板参数&lt;code&gt;BITS&lt;/code&gt;对应着该平台下最大页号占的位数。&lt;code&gt;LENGTH&lt;/code&gt;成员表示页数，其值是$2^{BITS}$。&lt;/p&gt;
 &lt;p&gt;在 32 位平台中，BITS 的值是&lt;code&gt;32-PAGE_SHIFT&lt;/code&gt;。1 个 Page 是 8KB，LENGTH 的值是$2^{32-13}=2^{19}$，所以 BITS 的值是 19，表示存储页号最多要用 19 位。求出它的目的是事先将内存申请好，以应付所有的情况。这个数组的大小是$2^{19}&lt;em&gt;4B=2^{20}KB&lt;/em&gt;2=2MB$，是合理的。但是 64 位下这个数组的大小是$2^{64-13}*8B=2^{54}B=2^{24}GB$，需要用三层基数树划分。&lt;/p&gt;
 &lt;h4&gt;二层基数树&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;二层基数树&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e4%ba%8c%e5%b1%82%e5%9f%ba%e6%95%b0%e6%a0%91&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;在 32 位平台中，需要 19 位保存页号。将前 5 位和后 14 位分别作为第一层和第二层的键（Key），分别&lt;strong&gt;最多&lt;/strong&gt;需要$2^5&lt;em&gt;4B=2^7B$和$2^5&lt;/em&gt;2^{14}*4B=2MB$的空间。二层基数树初始状态只需要为第一层数组开辟空间，第二层数组按需开辟。&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;//二层基数树
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;template&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;BITS&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
@@ -2973,14 +2791,11 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;&lt;code&gt;Ensure()&lt;/code&gt;用于当需要建立页号与其 Span 之间的映射关系时，如果用于映射该页号的空间没有开辟时，则会为它开辟。&lt;/p&gt;
 &lt;h4&gt;三层基数树&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;三层基数树&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e4%b8%89%e5%b1%82%e5%9f%ba%e6%95%b0%e6%a0%91&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;和二层基数树的结构类似。&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;//三层基数树
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;template&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;BITS&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
@@ -3077,8 +2892,6 @@ alignNum - 1=16-1=15		  =01111
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;h3&gt;用基数树代替哈希表&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;用基数树代替哈希表&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e7%94%a8%e5%9f%ba%e6%95%b0%e6%a0%91%e4%bb%a3%e6%9b%bf%e5%93%88%e5%b8%8c%e8%a1%a8&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;由于测试的平台选择了 32 位，可以随便选几层基数树，这里将二层哈希表的实现放在&lt;code&gt;PageMap.h&lt;/code&gt;中。Common.h 包含它以后，将 PageHeap 的哈希表换成基数树：&lt;/p&gt;
@@ -3154,7 +2967,7 @@ alignNum - 1=16-1=15		  =01111
 &lt;li&gt;初步学习了如何调试多线程程序。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;记录一下：在项目的测试过程中，我花费了许多时间去尝试查错，在多线程测试中，出现最多的问题是非法访问内存/空指针。原因是 Span 的_size 从一个正常的值突然变成了 42 亿九千万这样的随机值，调用 SpanList 的 PopRange() 后导致非法访问。如果你出现了类似的问题，并且在 NextObj() 或报错，建议你查一下所有与它有关的逻辑。&lt;/p&gt;
+  &lt;p&gt;记录一下：在项目的测试过程中，我花费了许多时间去尝试查错，在多线程测试中，出现最多的问题是非法访问内存/空指针。原因是 Span 的_size 从一个正常的值突然变成了 42 亿九千万这样的随机值，调用 SpanList 的 PopRange() 后导致非法访问。如果你出现了类似的问题，并且在 NextObj() 或报错，建议你查一下所有与它有关的逻辑。&lt;/p&gt;
 &lt;p&gt;调试运行起来后总是崩溃（不明原因），总是难以观察流程，打印大法永不过时。从头到尾查了一通，发现好几个莫名其妙的问题都是拼写错误造成的，而那些比较容易分析的问题总是逻辑上的小错误。&lt;/p&gt;
 &lt;p&gt;教训：写的时候一定要头脑清醒，磨刀不误砍柴工，调试的过程又长又痛苦。&lt;/p&gt;
 &lt;p&gt;不过万事开头难，之前 Visual Studio 调试的都是简单的逻辑，光这个项目调的次数都有之前加起来的多很多了，也学习了一些调试技巧。&lt;/p&gt;
