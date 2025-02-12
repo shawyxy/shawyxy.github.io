@@ -1,0 +1,1 @@
+body{font-family:arial,hei,simhei,黑体,simsun,宋体}strong{font-weight:700}.content :where(blockquote):not(:where([class~=not-prose],[class~=not-prose] *)){margin-top:1.5rem;--tw-border-opacity:1;border-color:rgb(209 213 219/var(--tw-border-opacity));font-style:normal;--tw-text-opacity:1;color:rgb(55 65 81/var(--tw-text-opacity))}
