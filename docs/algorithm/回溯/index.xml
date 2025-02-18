@@ -30,8 +30,8 @@
     &lt;a href=&#34;#%e8%be%93%e5%85%a5%e8%a7%92%e5%ba%a6%e9%80%89%e6%88%96%e4%b8%8d%e9%80%89&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;输入角度就是从无到有构建答案的过程，是从递归树的根节点到叶子节点的过程。每一层都代表着一个元素，每层的两个分支都表示“选或者不选”。&lt;/p&gt;
 &lt;h3&gt;答案角度，枚举选哪个&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;答案角度枚举选哪个&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e7%ad%94%e6%a1%88%e8%a7%92%e5%ba%a6%e6%9e%9a%e4%b8%be%e9%80%89%e5%93%aa%e4%b8%aa&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;这个角度更像双指针，dfs(i)表示枚举每一个元素，在每个dfs()内部，有一个循环for(j in range(i, n))，枚举i后面的所有剩余元素。这样i之前的元素就表示已经被考虑过的，j之后的元素就表示未被考虑过的。&lt;/p&gt;
-&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/letter-combinations-of-a-phone-number/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;17. 电话号码的字母组合&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;17-电话号码的字母组合httpsleetcodecnproblemsletter-combinations-of-a-phone-number&#34;&gt;&lt;/span&gt;
-    &lt;a href=&#34;#17-%e7%94%b5%e8%af%9d%e5%8f%b7%e7%a0%81%e7%9a%84%e5%ad%97%e6%af%8d%e7%bb%84%e5%90%88httpsleetcodecnproblemsletter-combinations-of-a-phone-number&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;给定一个仅包含数字 &lt;code&gt;2-9&lt;/code&gt; 的字符串，返回所有它能表示的字母组合。答案可以按 &lt;strong&gt;任意顺序&lt;/strong&gt; 返回。&lt;/p&gt;
+&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/letter-combinations-of-a-phone-number/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;17. 电话号码的字母组合&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;17-电话号码的字母组合&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#17-%e7%94%b5%e8%af%9d%e5%8f%b7%e7%a0%81%e7%9a%84%e5%ad%97%e6%af%8d%e7%bb%84%e5%90%88&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;给定一个仅包含数字 &lt;code&gt;2-9&lt;/code&gt; 的字符串，返回所有它能表示的字母组合。答案可以按 &lt;strong&gt;任意顺序&lt;/strong&gt; 返回。&lt;/p&gt;
 &lt;p&gt;给出数字到字母的映射如下（与电话按键相同）。注意 1 不对应任何字母。&lt;/p&gt;
 &lt;img src=&#34;./.子集型回溯.assets/200px-telephone-keypad2svg.png&#34; alt=&#34;img&#34; style=&#34;zoom:40%;&#34; /&gt;
 &lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
@@ -133,8 +133,8 @@
 &lt;li&gt;时间复杂度：$O()$。&lt;/li&gt;
 &lt;li&gt;空间复杂度：$O()$。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/subsets/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;78. 子集&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;78-子集httpsleetcodecnproblemssubsets&#34;&gt;&lt;/span&gt;
-    &lt;a href=&#34;#78-%e5%ad%90%e9%9b%86httpsleetcodecnproblemssubsets&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;给你一个整数数组 &lt;code&gt;nums&lt;/code&gt; ，数组中的元素 &lt;strong&gt;互不相同&lt;/strong&gt; 。返回该数组所有可能的&lt;/p&gt;
+&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/subsets/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;78. 子集&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;78-子集&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#78-%e5%ad%90%e9%9b%86&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;给你一个整数数组 &lt;code&gt;nums&lt;/code&gt; ，数组中的元素 &lt;strong&gt;互不相同&lt;/strong&gt; 。返回该数组所有可能的&lt;/p&gt;
 &lt;p&gt;子集（幂集）。&lt;/p&gt;
 &lt;p&gt;解集 &lt;strong&gt;不能&lt;/strong&gt; 包含重复的子集。你可以按 &lt;strong&gt;任意顺序&lt;/strong&gt; 返回解集。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
@@ -261,8 +261,8 @@
 &lt;li&gt;时间复杂度：$O()$。&lt;/li&gt;
 &lt;li&gt;空间复杂度：$O()$。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/permutations/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;46. 全排列&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;46-全排列httpsleetcodecnproblemspermutations&#34;&gt;&lt;/span&gt;
-    &lt;a href=&#34;#46-%e5%85%a8%e6%8e%92%e5%88%97httpsleetcodecnproblemspermutations&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;给定一个不含重复数字的数组 &lt;code&gt;nums&lt;/code&gt; ，返回其 &lt;em&gt;所有可能的全排列&lt;/em&gt; 。你可以 &lt;strong&gt;按任意顺序&lt;/strong&gt; 返回答案。&lt;/p&gt;
+&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/permutations/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;46. 全排列&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;46-全排列&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#46-%e5%85%a8%e6%8e%92%e5%88%97&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;给定一个不含重复数字的数组 &lt;code&gt;nums&lt;/code&gt; ，返回其 &lt;em&gt;所有可能的全排列&lt;/em&gt; 。你可以 &lt;strong&gt;按任意顺序&lt;/strong&gt; 返回答案。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
 
@@ -362,8 +362,8 @@
 &lt;li&gt;时间复杂度：$O(n)$。&lt;/li&gt;
 &lt;li&gt;空间复杂度：$O(n)$。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/palindrome-partitioning/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;131. 分割回文串&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;131-分割回文串httpsleetcodecnproblemspalindrome-partitioning&#34;&gt;&lt;/span&gt;
-    &lt;a href=&#34;#131-%e5%88%86%e5%89%b2%e5%9b%9e%e6%96%87%e4%b8%b2httpsleetcodecnproblemspalindrome-partitioning&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;给你一个字符串 &lt;code&gt;s&lt;/code&gt;，请你将 &lt;code&gt;s&lt;/code&gt; 分割成一些子串，使每个子串都是&lt;/p&gt;
+&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/palindrome-partitioning/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;131. 分割回文串&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;131-分割回文串&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#131-%e5%88%86%e5%89%b2%e5%9b%9e%e6%96%87%e4%b8%b2&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;给你一个字符串 &lt;code&gt;s&lt;/code&gt;，请你将 &lt;code&gt;s&lt;/code&gt; 分割成一些子串，使每个子串都是&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;回文串&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;。返回 &lt;code&gt;s&lt;/code&gt; 所有可能的分割方案。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
@@ -528,8 +528,8 @@
 &lt;li&gt;时间复杂度：$O(n2^n)$。&lt;/li&gt;
 &lt;li&gt;空间复杂度：$O(n)$。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/letter-case-permutation/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;784. 字母大小写全排列&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;784-字母大小写全排列httpsleetcodecnproblemsletter-case-permutation&#34;&gt;&lt;/span&gt;
-    &lt;a href=&#34;#784-%e5%ad%97%e6%af%8d%e5%a4%a7%e5%b0%8f%e5%86%99%e5%85%a8%e6%8e%92%e5%88%97httpsleetcodecnproblemsletter-case-permutation&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;给定一个字符串 &lt;code&gt;s&lt;/code&gt; ，通过将字符串 &lt;code&gt;s&lt;/code&gt; 中的每个字母转变大小写，我们可以获得一个新的字符串。&lt;/p&gt;
+&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/letter-case-permutation/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;784. 字母大小写全排列&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;784-字母大小写全排列&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#784-%e5%ad%97%e6%af%8d%e5%a4%a7%e5%b0%8f%e5%86%99%e5%85%a8%e6%8e%92%e5%88%97&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;给定一个字符串 &lt;code&gt;s&lt;/code&gt; ，通过将字符串 &lt;code&gt;s&lt;/code&gt; 中的每个字母转变大小写，我们可以获得一个新的字符串。&lt;/p&gt;
 &lt;p&gt;返回 &lt;em&gt;所有可能得到的字符串集合&lt;/em&gt; 。以 &lt;strong&gt;任意顺序&lt;/strong&gt; 返回输出。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
@@ -720,8 +720,8 @@
 &lt;li&gt;时间复杂度：$O(n2^n)$。&lt;/li&gt;
 &lt;li&gt;空间复杂度：$O(n)$。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/UEcfPD/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;LCP 51. 烹饪料理&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;lcp-51-烹饪料理httpsleetcodecnproblemsuecfpd&#34;&gt;&lt;/span&gt;
-    &lt;a href=&#34;#lcp-51-%e7%83%b9%e9%a5%aa%e6%96%99%e7%90%86httpsleetcodecnproblemsuecfpd&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;欢迎各位勇者来到力扣城，城内设有烹饪锅供勇者制作料理，为自己恢复状态。&lt;/p&gt;
+&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/UEcfPD/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;LCP 51. 烹饪料理&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;lcp-51-烹饪料理&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#lcp-51-%e7%83%b9%e9%a5%aa%e6%96%99%e7%90%86&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;欢迎各位勇者来到力扣城，城内设有烹饪锅供勇者制作料理，为自己恢复状态。&lt;/p&gt;
 &lt;p&gt;勇者背包内共有编号为 &lt;code&gt;0 ~ 4&lt;/code&gt; 的五种食材，其中 &lt;code&gt;materials[j]&lt;/code&gt; 表示第 &lt;code&gt;j&lt;/code&gt; 种食材的数量。通过这些食材可以制作若干料理，&lt;code&gt;cookbooks[i][j]&lt;/code&gt; 表示制作第 &lt;code&gt;i&lt;/code&gt; 种料理需要第 &lt;code&gt;j&lt;/code&gt; 种食材的数量，而 &lt;code&gt;attribute[i] = [x,y]&lt;/code&gt; 表示第 &lt;code&gt;i&lt;/code&gt; 道料理的美味度 &lt;code&gt;x&lt;/code&gt; 和饱腹感 &lt;code&gt;y&lt;/code&gt;。&lt;/p&gt;
 &lt;p&gt;在饱腹感不小于 &lt;code&gt;limit&lt;/code&gt; 的情况下，请返回勇者可获得的最大美味度。如果无法满足饱腹感要求，则返回 &lt;code&gt;-1&lt;/code&gt;。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt;&lt;/p&gt;
@@ -892,8 +892,8 @@
 &lt;li&gt;时间复杂度：$O(n2^m)$。其中$m$是料理的数量，$n$是食材的种类数。&lt;/li&gt;
 &lt;li&gt;空间复杂度：$O(m)$。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/maximum-rows-covered-by-columns/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;2397. 被列覆盖的最多行数&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;2397-被列覆盖的最多行数httpsleetcodecnproblemsmaximum-rows-covered-by-columns&#34;&gt;&lt;/span&gt;
-    &lt;a href=&#34;#2397-%e8%a2%ab%e5%88%97%e8%a6%86%e7%9b%96%e7%9a%84%e6%9c%80%e5%a4%9a%e8%a1%8c%e6%95%b0httpsleetcodecnproblemsmaximum-rows-covered-by-columns&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;给你一个下标从 &lt;strong&gt;0&lt;/strong&gt; 开始、大小为 &lt;code&gt;m x n&lt;/code&gt; 的二进制矩阵 &lt;code&gt;matrix&lt;/code&gt; ；另给你一个整数 &lt;code&gt;numSelect&lt;/code&gt;，表示你必须从 &lt;code&gt;matrix&lt;/code&gt; 中选择的 &lt;strong&gt;不同&lt;/strong&gt; 列的数量。&lt;/p&gt;
+&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/maximum-rows-covered-by-columns/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;2397. 被列覆盖的最多行数&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;2397-被列覆盖的最多行数&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#2397-%e8%a2%ab%e5%88%97%e8%a6%86%e7%9b%96%e7%9a%84%e6%9c%80%e5%a4%9a%e8%a1%8c%e6%95%b0&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;给你一个下标从 &lt;strong&gt;0&lt;/strong&gt; 开始、大小为 &lt;code&gt;m x n&lt;/code&gt; 的二进制矩阵 &lt;code&gt;matrix&lt;/code&gt; ；另给你一个整数 &lt;code&gt;numSelect&lt;/code&gt;，表示你必须从 &lt;code&gt;matrix&lt;/code&gt; 中选择的 &lt;strong&gt;不同&lt;/strong&gt; 列的数量。&lt;/p&gt;
 &lt;p&gt;如果一行中所有的 &lt;code&gt;1&lt;/code&gt; 都被你选中的列所覆盖，则认为这一行被 &lt;strong&gt;覆盖&lt;/strong&gt; 了。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;形式上&lt;/strong&gt;，假设 &lt;code&gt;s = {c1, c2, ...., cnumSelect}&lt;/code&gt; 是你选择的列的集合。对于矩阵中的某一行 &lt;code&gt;row&lt;/code&gt; ，如果满足下述条件，则认为这一行被集合 &lt;code&gt;s&lt;/code&gt; &lt;strong&gt;覆盖&lt;/strong&gt;：&lt;/p&gt;
 &lt;ul&gt;
@@ -1078,8 +1078,8 @@
 &lt;li&gt;时间复杂度：$O(row&lt;em&gt;col&lt;/em&gt;2^{col})$。&lt;/li&gt;
 &lt;li&gt;空间复杂度：$O(col)$。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/maximum-good-people-based-on-statements/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;2151. 基于陈述统计最多好人数&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;2151-基于陈述统计最多好人数httpsleetcodecnproblemsmaximum-good-people-based-on-statements&#34;&gt;&lt;/span&gt;
-    &lt;a href=&#34;#2151-%e5%9f%ba%e4%ba%8e%e9%99%88%e8%bf%b0%e7%bb%9f%e8%ae%a1%e6%9c%80%e5%a4%9a%e5%a5%bd%e4%ba%ba%e6%95%b0httpsleetcodecnproblemsmaximum-good-people-based-on-statements&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;游戏中存在两种角色：&lt;/p&gt;
+&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/maximum-good-people-based-on-statements/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;2151. 基于陈述统计最多好人数&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;2151-基于陈述统计最多好人数&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#2151-%e5%9f%ba%e4%ba%8e%e9%99%88%e8%bf%b0%e7%bb%9f%e8%ae%a1%e6%9c%80%e5%a4%9a%e5%a5%bd%e4%ba%ba%e6%95%b0&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;游戏中存在两种角色：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;好人&lt;/strong&gt;：该角色只说真话。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;坏人&lt;/strong&gt;：该角色可能说真话，也可能说假话。&lt;/li&gt;
@@ -1313,8 +1313,8 @@
 &lt;li&gt;时间复杂度：$O()$。&lt;/li&gt;
 &lt;li&gt;空间复杂度：$O()$。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/maximum-number-of-achievable-transfer-requests/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;1601. 最多可达成的换楼请求数目&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;1601-最多可达成的换楼请求数目httpsleetcodecnproblemsmaximum-number-of-achievable-transfer-requests&#34;&gt;&lt;/span&gt;
-    &lt;a href=&#34;#1601-%e6%9c%80%e5%a4%9a%e5%8f%af%e8%be%be%e6%88%90%e7%9a%84%e6%8d%a2%e6%a5%bc%e8%af%b7%e6%b1%82%e6%95%b0%e7%9b%aehttpsleetcodecnproblemsmaximum-number-of-achievable-transfer-requests&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;我们有 &lt;code&gt;n&lt;/code&gt; 栋楼，编号从 &lt;code&gt;0&lt;/code&gt; 到 &lt;code&gt;n - 1&lt;/code&gt; 。每栋楼有若干员工。由于现在是换楼的季节，部分员工想要换一栋楼居住。&lt;/p&gt;
+&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/maximum-number-of-achievable-transfer-requests/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;1601. 最多可达成的换楼请求数目&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;1601-最多可达成的换楼请求数目&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#1601-%e6%9c%80%e5%a4%9a%e5%8f%af%e8%be%be%e6%88%90%e7%9a%84%e6%8d%a2%e6%a5%bc%e8%af%b7%e6%b1%82%e6%95%b0%e7%9b%ae&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;我们有 &lt;code&gt;n&lt;/code&gt; 栋楼，编号从 &lt;code&gt;0&lt;/code&gt; 到 &lt;code&gt;n - 1&lt;/code&gt; 。每栋楼有若干员工。由于现在是换楼的季节，部分员工想要换一栋楼居住。&lt;/p&gt;
 &lt;p&gt;给你一个数组 &lt;code&gt;requests&lt;/code&gt; ，其中 &lt;code&gt;requests[i] = [fromi, toi]&lt;/code&gt; ，表示一个员工请求从编号为 &lt;code&gt;fromi&lt;/code&gt; 的楼搬到编号为 &lt;code&gt;toi&lt;/code&gt; 的楼。&lt;/p&gt;
 &lt;p&gt;一开始 &lt;strong&gt;所有楼都是满的&lt;/strong&gt;，所以从请求列表中选出的若干个请求是可行的需要满足 &lt;strong&gt;每栋楼员工净变化为 0&lt;/strong&gt; 。意思是每栋楼 &lt;strong&gt;离开&lt;/strong&gt; 的员工数目 &lt;strong&gt;等于&lt;/strong&gt; 该楼 &lt;strong&gt;搬入&lt;/strong&gt; 的员工数数目。比方说 &lt;code&gt;n = 3&lt;/code&gt; 且两个员工要离开楼 &lt;code&gt;0&lt;/code&gt; ，一个员工要离开楼 &lt;code&gt;1&lt;/code&gt; ，一个员工要离开楼 &lt;code&gt;2&lt;/code&gt; ，如果该请求列表可行，应该要有两个员工搬入楼 &lt;code&gt;0&lt;/code&gt; ，一个员工搬入楼 &lt;code&gt;1&lt;/code&gt; ，一个员工搬入楼 &lt;code&gt;2&lt;/code&gt; 。&lt;/p&gt;
 &lt;p&gt;请你从原请求列表中选出若干个请求，使得它们是一个可行的请求列表，并返回所有可行列表中最大请求数目。&lt;/p&gt;
@@ -1500,8 +1500,8 @@
 &lt;li&gt;时间复杂度：$O(n2^m)$。&lt;/li&gt;
 &lt;li&gt;空间复杂度：$O(m+n)$。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/additive-number/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;306. 累加数&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;306-累加数httpsleetcodecnproblemsadditive-number&#34;&gt;&lt;/span&gt;
-    &lt;a href=&#34;#306-%e7%b4%af%e5%8a%a0%e6%95%b0httpsleetcodecnproblemsadditive-number&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;累加数&lt;/strong&gt; 是一个字符串，组成它的数字可以形成累加序列。&lt;/p&gt;
+&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/additive-number/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;306. 累加数&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;306-累加数&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#306-%e7%b4%af%e5%8a%a0%e6%95%b0&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;累加数&lt;/strong&gt; 是一个字符串，组成它的数字可以形成累加序列。&lt;/p&gt;
 &lt;p&gt;一个有效的 &lt;strong&gt;累加序列&lt;/strong&gt; 必须 &lt;strong&gt;至少&lt;/strong&gt; 包含 3 个数。除了最开始的两个数以外，序列中的每个后续数字必须是它之前两个数字之和。&lt;/p&gt;
 &lt;p&gt;给你一个只包含数字 &lt;code&gt;&#39;0&#39;-&#39;9&#39;&lt;/code&gt; 的字符串，编写一个算法来判断给定输入是否是 &lt;strong&gt;累加数&lt;/strong&gt; 。如果是，返回 &lt;code&gt;true&lt;/code&gt; ；否则，返回 &lt;code&gt;false&lt;/code&gt; 。&lt;/p&gt;
 &lt;p&gt;**说明：**累加序列里的数，除数字 0 之外，&lt;strong&gt;不会&lt;/strong&gt; 以 0 开头，所以不会出现 &lt;code&gt;1, 2, 03&lt;/code&gt; 或者 &lt;code&gt;1, 02, 3&lt;/code&gt; 的情况。&lt;/p&gt;
@@ -1707,8 +1707,8 @@
 &lt;li&gt;时间复杂度：$O()$。&lt;/li&gt;
 &lt;li&gt;空间复杂度：$O()$。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/restore-ip-addresses/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;93. 复原 IP 地址&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;93-复原-ip-地址httpsleetcodecnproblemsrestore-ip-addresses&#34;&gt;&lt;/span&gt;
-    &lt;a href=&#34;#93-%e5%a4%8d%e5%8e%9f-ip-%e5%9c%b0%e5%9d%80httpsleetcodecnproblemsrestore-ip-addresses&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;有效 IP 地址&lt;/strong&gt; 正好由四个整数（每个整数位于 &lt;code&gt;0&lt;/code&gt; 到 &lt;code&gt;255&lt;/code&gt; 之间组成，且不能含有前导 &lt;code&gt;0&lt;/code&gt;），整数之间用 &lt;code&gt;&#39;.&#39;&lt;/code&gt; 分隔。&lt;/p&gt;
+&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/restore-ip-addresses/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;93. 复原 IP 地址&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;93-复原-ip-地址&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#93-%e5%a4%8d%e5%8e%9f-ip-%e5%9c%b0%e5%9d%80&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;有效 IP 地址&lt;/strong&gt; 正好由四个整数（每个整数位于 &lt;code&gt;0&lt;/code&gt; 到 &lt;code&gt;255&lt;/code&gt; 之间组成，且不能含有前导 &lt;code&gt;0&lt;/code&gt;），整数之间用 &lt;code&gt;&#39;.&#39;&lt;/code&gt; 分隔。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;例如：&lt;code&gt;&amp;quot;0.1.2.201&amp;quot;&lt;/code&gt; 和&lt;code&gt; &amp;quot;192.168.1.1&amp;quot;&lt;/code&gt; 是 &lt;strong&gt;有效&lt;/strong&gt; IP 地址，但是 &lt;code&gt;&amp;quot;0.011.255.245&amp;quot;&lt;/code&gt;、&lt;code&gt;&amp;quot;192.168.1.312&amp;quot;&lt;/code&gt; 和 &lt;code&gt;&amp;quot;192.168@1.1&amp;quot;&lt;/code&gt; 是 &lt;strong&gt;无效&lt;/strong&gt; IP 地址。&lt;/li&gt;
 &lt;/ul&gt;
@@ -1840,8 +1840,8 @@
 &lt;li&gt;时间复杂度：$O()$。&lt;/li&gt;
 &lt;li&gt;空间复杂度：$O()$。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/find-the-punishment-number-of-an-integer/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;2698. 求一个整数的惩罚数&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;2698-求一个整数的惩罚数httpsleetcodecnproblemsfind-the-punishment-number-of-an-integer&#34;&gt;&lt;/span&gt;
-    &lt;a href=&#34;#2698-%e6%b1%82%e4%b8%80%e4%b8%aa%e6%95%b4%e6%95%b0%e7%9a%84%e6%83%a9%e7%bd%9a%e6%95%b0httpsleetcodecnproblemsfind-the-punishment-number-of-an-integer&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;给你一个正整数 &lt;code&gt;n&lt;/code&gt; ，请你返回 &lt;code&gt;n&lt;/code&gt; 的 &lt;strong&gt;惩罚数&lt;/strong&gt; 。&lt;/p&gt;
+&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/find-the-punishment-number-of-an-integer/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;2698. 求一个整数的惩罚数&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;2698-求一个整数的惩罚数&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#2698-%e6%b1%82%e4%b8%80%e4%b8%aa%e6%95%b4%e6%95%b0%e7%9a%84%e6%83%a9%e7%bd%9a%e6%95%b0&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;给你一个正整数 &lt;code&gt;n&lt;/code&gt; ，请你返回 &lt;code&gt;n&lt;/code&gt; 的 &lt;strong&gt;惩罚数&lt;/strong&gt; 。&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;n&lt;/code&gt; 的 &lt;strong&gt;惩罚数&lt;/strong&gt; 定义为所有满足以下条件 &lt;code&gt;i&lt;/code&gt; 的数的平方和：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;1 &amp;lt;= i &amp;lt;= n&lt;/code&gt;&lt;/li&gt;
@@ -2054,9 +2054,9 @@
       <description>
         
         
-        &lt;h2&gt;&lt;a href=&#34;https://www.lintcode.com/problem/849/description&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;849 · 基础计算器 III&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;849--基础计算器-iiihttpswwwlintcodecomproblem849description&#34;&gt;&lt;/span&gt;
-    &lt;a href=&#34;#849--%e5%9f%ba%e7%a1%80%e8%ae%a1%e7%ae%97%e5%99%a8-iiihttpswwwlintcodecomproblem849description&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/decode-string/description/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;394. 字符串解码&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;394-字符串解码httpsleetcodecnproblemsdecode-stringdescription&#34;&gt;&lt;/span&gt;
-    &lt;a href=&#34;#394-%e5%ad%97%e7%ac%a6%e4%b8%b2%e8%a7%a3%e7%a0%81httpsleetcodecnproblemsdecode-stringdescription&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;给定一个经过编码的字符串，返回它解码后的字符串。&lt;/p&gt;
+        &lt;h2&gt;&lt;a href=&#34;https://www.lintcode.com/problem/849/description&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;849 · 基础计算器 III&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;849--基础计算器-iii&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#849--%e5%9f%ba%e7%a1%80%e8%ae%a1%e7%ae%97%e5%99%a8-iii&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/decode-string/description/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;394. 字符串解码&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;394-字符串解码&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#394-%e5%ad%97%e7%ac%a6%e4%b8%b2%e8%a7%a3%e7%a0%81&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;给定一个经过编码的字符串，返回它解码后的字符串。&lt;/p&gt;
 &lt;p&gt;编码规则为: &lt;code&gt;k[encoded_string]&lt;/code&gt;，表示其中方括号内部的 &lt;code&gt;encoded_string&lt;/code&gt; 正好重复 &lt;code&gt;k&lt;/code&gt; 次。注意 &lt;code&gt;k&lt;/code&gt; 保证为正整数。&lt;/p&gt;
 &lt;p&gt;你可以认为输入字符串总是有效的；输入字符串中没有额外的空格，且输入的方括号总是符合格式要求的。&lt;/p&gt;
 &lt;p&gt;此外，你可以认为原始数据不包含数字，所有的数字只表示重复的次数 &lt;code&gt;k&lt;/code&gt; ，例如不会出现像 &lt;code&gt;3a&lt;/code&gt; 或 &lt;code&gt;2[4]&lt;/code&gt; 的输入。&lt;/p&gt;
@@ -2079,8 +2079,8 @@
 &lt;li&gt;&lt;code&gt;s&lt;/code&gt; 保证是一个 &lt;strong&gt;有效&lt;/strong&gt; 的输入。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;s&lt;/code&gt; 中所有整数的取值范围为 &lt;code&gt;[1, 300]&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/number-of-atoms/description/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;726. 原子的数量&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;726-原子的数量httpsleetcodecnproblemsnumber-of-atomsdescription&#34;&gt;&lt;/span&gt;
-    &lt;a href=&#34;#726-%e5%8e%9f%e5%ad%90%e7%9a%84%e6%95%b0%e9%87%8fhttpsleetcodecnproblemsnumber-of-atomsdescription&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;给你一个字符串化学式 &lt;code&gt;formula&lt;/code&gt; ，返回 &lt;strong&gt;每种原子的数量&lt;/strong&gt; 。&lt;/p&gt;
+&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/number-of-atoms/description/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;726. 原子的数量&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;726-原子的数量&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#726-%e5%8e%9f%e5%ad%90%e7%9a%84%e6%95%b0%e9%87%8f&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;给你一个字符串化学式 &lt;code&gt;formula&lt;/code&gt; ，返回 &lt;strong&gt;每种原子的数量&lt;/strong&gt; 。&lt;/p&gt;
 &lt;p&gt;原子总是以一个大写字母开始，接着跟随 0 个或任意个小写字母，表示原子的名字。&lt;/p&gt;
 &lt;p&gt;如果数量大于 1，原子后会跟着数字表示原子的数量。如果数量等于 1 则不会跟数字。&lt;/p&gt;
 &lt;ul&gt;
@@ -2129,8 +2129,8 @@
         &lt;h2&gt;预备知识：&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;预备知识&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e9%a2%84%e5%a4%87%e7%9f%a5%e8%af%86&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;【视频】&lt;a href=&#34;https://www.bilibili.com/video/BV1mY411D7f6/?spm_id_from=333.788&amp;amp;vd_source=b46c022ff65a946442d77e8b7b4b2646&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;回溯算法套路③排列型回溯+N皇后【基础算法精讲 16】&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;【STL】&lt;a href=&#34;https://yuihuang.com/cpp-algorithm-next-permutation/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;常用C++ algorithm：next_permutation&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/permutations/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;46. 全排列&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;46-全排列httpsleetcodecnproblemspermutations&#34;&gt;&lt;/span&gt;
-    &lt;a href=&#34;#46-%e5%85%a8%e6%8e%92%e5%88%97httpsleetcodecnproblemspermutations&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;给定一个不含重复数字的数组 &lt;code&gt;nums&lt;/code&gt; ，返回其 &lt;em&gt;所有可能的全排列&lt;/em&gt; 。你可以 &lt;strong&gt;按任意顺序&lt;/strong&gt; 返回答案。&lt;/p&gt;
+&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/permutations/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;46. 全排列&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;46-全排列&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#46-%e5%85%a8%e6%8e%92%e5%88%97&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;给定一个不含重复数字的数组 &lt;code&gt;nums&lt;/code&gt; ，返回其 &lt;em&gt;所有可能的全排列&lt;/em&gt; 。你可以 &lt;strong&gt;按任意顺序&lt;/strong&gt; 返回答案。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
 
@@ -2285,8 +2285,8 @@
 &lt;li&gt;时间复杂度：$O(n*n!)$。&lt;/li&gt;
 &lt;li&gt;空间复杂度：$O(n)$。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/n-queens/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;51. N 皇后&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;51-n-皇后httpsleetcodecnproblemsn-queens&#34;&gt;&lt;/span&gt;
-    &lt;a href=&#34;#51-n-%e7%9a%87%e5%90%8ehttpsleetcodecnproblemsn-queens&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;按照国际象棋的规则，皇后可以攻击与之处在同一行或同一列或同一斜线上的棋子。&lt;/p&gt;
+&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/n-queens/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;51. N 皇后&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;51-n-皇后&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#51-n-%e7%9a%87%e5%90%8e&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;按照国际象棋的规则，皇后可以攻击与之处在同一行或同一列或同一斜线上的棋子。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;n 皇后问题&lt;/strong&gt; 研究的是如何将 &lt;code&gt;n&lt;/code&gt; 个皇后放置在 &lt;code&gt;n×n&lt;/code&gt; 的棋盘上，并且使皇后彼此之间不能相互攻击。&lt;/p&gt;
 &lt;p&gt;给你一个整数 &lt;code&gt;n&lt;/code&gt; ，返回所有不同的 &lt;strong&gt;n 皇后问题&lt;/strong&gt; 的解决方案。&lt;/p&gt;
 &lt;p&gt;每一种解法包含一个不同的 &lt;strong&gt;n 皇后问题&lt;/strong&gt; 的棋子放置方案，该方案中 &lt;code&gt;&#39;Q&#39;&lt;/code&gt; 和 &lt;code&gt;&#39;.&#39;&lt;/code&gt; 分别代表了皇后和空位。&lt;/p&gt;
@@ -2521,8 +2521,8 @@
 &lt;li&gt;时间复杂度：$O(n^2*n!)$。每找到一个答案需要$O(n^2)$，叶子节点个数是$O(n!)$。&lt;/li&gt;
 &lt;li&gt;空间复杂度：$O(n)$。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/minimum-moves-to-spread-stones-over-grid/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;2850. 将石头分散到网格图的最少移动次数&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;2850-将石头分散到网格图的最少移动次数httpsleetcodecnproblemsminimum-moves-to-spread-stones-over-grid&#34;&gt;&lt;/span&gt;
-    &lt;a href=&#34;#2850-%e5%b0%86%e7%9f%b3%e5%a4%b4%e5%88%86%e6%95%a3%e5%88%b0%e7%bd%91%e6%a0%bc%e5%9b%be%e7%9a%84%e6%9c%80%e5%b0%91%e7%a7%bb%e5%8a%a8%e6%ac%a1%e6%95%b0httpsleetcodecnproblemsminimum-moves-to-spread-stones-over-grid&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;给你一个大小为 &lt;code&gt;3 * 3&lt;/code&gt; ，下标从 &lt;strong&gt;0&lt;/strong&gt; 开始的二维整数矩阵 &lt;code&gt;grid&lt;/code&gt; ，分别表示每一个格子里石头的数目。网格图中总共恰好有 &lt;code&gt;9&lt;/code&gt; 个石头，一个格子里可能会有 &lt;strong&gt;多个&lt;/strong&gt; 石头。&lt;/p&gt;
+&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/minimum-moves-to-spread-stones-over-grid/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;2850. 将石头分散到网格图的最少移动次数&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;2850-将石头分散到网格图的最少移动次数&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#2850-%e5%b0%86%e7%9f%b3%e5%a4%b4%e5%88%86%e6%95%a3%e5%88%b0%e7%bd%91%e6%a0%bc%e5%9b%be%e7%9a%84%e6%9c%80%e5%b0%91%e7%a7%bb%e5%8a%a8%e6%ac%a1%e6%95%b0&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;给你一个大小为 &lt;code&gt;3 * 3&lt;/code&gt; ，下标从 &lt;strong&gt;0&lt;/strong&gt; 开始的二维整数矩阵 &lt;code&gt;grid&lt;/code&gt; ，分别表示每一个格子里石头的数目。网格图中总共恰好有 &lt;code&gt;9&lt;/code&gt; 个石头，一个格子里可能会有 &lt;strong&gt;多个&lt;/strong&gt; 石头。&lt;/p&gt;
 &lt;p&gt;每一次操作中，你可以将一个石头从它当前所在格子移动到一个至少有一条公共边的相邻格子。&lt;/p&gt;
 &lt;p&gt;请你返回每个格子恰好有一个石头的 &lt;strong&gt;最少移动次数&lt;/strong&gt; 。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
@@ -2717,8 +2717,8 @@
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;综上所述，剪枝策略的选择和顺序应基于问题的具体情况和剪枝条件的特性。理想的剪枝顺序是首先应用能够排除最大搜索空间的条件，随后是更具体、更细致的条件，这样可以在尽可能少的计算步骤中找到问题的解。在实际应用中，确定最有效的剪枝顺序可能需要通过实验和调整来优化。&lt;/p&gt;
-&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/combinations/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;77. 组合&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;77-组合httpsleetcodecnproblemscombinations&#34;&gt;&lt;/span&gt;
-    &lt;a href=&#34;#77-%e7%bb%84%e5%90%88httpsleetcodecnproblemscombinations&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;给定两个整数 &lt;code&gt;n&lt;/code&gt; 和 &lt;code&gt;k&lt;/code&gt;，返回范围 &lt;code&gt;[1, n]&lt;/code&gt; 中所有可能的 &lt;code&gt;k&lt;/code&gt; 个数的组合。&lt;/p&gt;
+&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/combinations/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;77. 组合&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;77-组合&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#77-%e7%bb%84%e5%90%88&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;给定两个整数 &lt;code&gt;n&lt;/code&gt; 和 &lt;code&gt;k&lt;/code&gt;，返回范围 &lt;code&gt;[1, n]&lt;/code&gt; 中所有可能的 &lt;code&gt;k&lt;/code&gt; 个数的组合。&lt;/p&gt;
 &lt;p&gt;你可以按 &lt;strong&gt;任何顺序&lt;/strong&gt; 返回答案。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
@@ -2911,8 +2911,8 @@
 &lt;li&gt;时间复杂度：$O(C(n, k)k)$。&lt;/li&gt;
 &lt;li&gt;空间复杂度：$O(k)$。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/combination-sum-iii/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;216. 组合总和 III&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;216-组合总和-iiihttpsleetcodecnproblemscombination-sum-iii&#34;&gt;&lt;/span&gt;
-    &lt;a href=&#34;#216-%e7%bb%84%e5%90%88%e6%80%bb%e5%92%8c-iiihttpsleetcodecnproblemscombination-sum-iii&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;找出所有相加之和为 &lt;code&gt;n&lt;/code&gt; 的 &lt;code&gt;k&lt;/code&gt; 个数的组合，且满足下列条件：&lt;/p&gt;
+&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/combination-sum-iii/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;216. 组合总和 III&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;216-组合总和-iii&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#216-%e7%bb%84%e5%90%88%e6%80%bb%e5%92%8c-iii&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;找出所有相加之和为 &lt;code&gt;n&lt;/code&gt; 的 &lt;code&gt;k&lt;/code&gt; 个数的组合，且满足下列条件：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;只使用数字1到9&lt;/li&gt;
 &lt;li&gt;每个数字 &lt;strong&gt;最多使用一次&lt;/strong&gt;&lt;/li&gt;
@@ -3132,8 +3132,8 @@
 &lt;li&gt;时间复杂度：$O(C(9, k)k)$。&lt;/li&gt;
 &lt;li&gt;空间复杂度：$O(k)$。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/generate-parentheses/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;22. 括号生成&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;22-括号生成httpsleetcodecnproblemsgenerate-parentheses&#34;&gt;&lt;/span&gt;
-    &lt;a href=&#34;#22-%e6%8b%ac%e5%8f%b7%e7%94%9f%e6%88%90httpsleetcodecnproblemsgenerate-parentheses&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;数字 &lt;code&gt;n&lt;/code&gt; 代表生成括号的对数，请你设计一个函数，用于能够生成所有可能的并且 &lt;strong&gt;有效的&lt;/strong&gt; 括号组合。&lt;/p&gt;
+&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/generate-parentheses/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;22. 括号生成&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;22-括号生成&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#22-%e6%8b%ac%e5%8f%b7%e7%94%9f%e6%88%90&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;数字 &lt;code&gt;n&lt;/code&gt; 代表生成括号的对数，请你设计一个函数，用于能够生成所有可能的并且 &lt;strong&gt;有效的&lt;/strong&gt; 括号组合。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
 
@@ -3289,8 +3289,8 @@
 &lt;li&gt;时间复杂度：$O(C(2n,n)n)$。&lt;/li&gt;
 &lt;li&gt;空间复杂度：$O(n)$。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/remove-invalid-parentheses/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;301. 删除无效的括号&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;301-删除无效的括号httpsleetcodecnproblemsremove-invalid-parentheses&#34;&gt;&lt;/span&gt;
-    &lt;a href=&#34;#301-%e5%88%a0%e9%99%a4%e6%97%a0%e6%95%88%e7%9a%84%e6%8b%ac%e5%8f%b7httpsleetcodecnproblemsremove-invalid-parentheses&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;给你一个由若干括号和字母组成的字符串 &lt;code&gt;s&lt;/code&gt; ，删除最小数量的无效括号，使得输入的字符串有效。&lt;/p&gt;
+&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/remove-invalid-parentheses/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;301. 删除无效的括号&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;301-删除无效的括号&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#301-%e5%88%a0%e9%99%a4%e6%97%a0%e6%95%88%e7%9a%84%e6%8b%ac%e5%8f%b7&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;给你一个由若干括号和字母组成的字符串 &lt;code&gt;s&lt;/code&gt; ，删除最小数量的无效括号，使得输入的字符串有效。&lt;/p&gt;
 &lt;p&gt;返回所有可能的结果。答案可以按 &lt;strong&gt;任意顺序&lt;/strong&gt; 返回。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
@@ -3591,8 +3591,8 @@
     &lt;a href=&#34;#%e8%be%93%e5%85%a5%e8%a7%92%e5%ba%a6%e9%80%89%e6%88%96%e4%b8%8d%e9%80%89&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;输入角度就是从无到有构建答案的过程，是从递归树的根节点到叶子节点的过程。每一层都代表着一个元素，每层的两个分支都表示“选或者不选”。&lt;/p&gt;
 &lt;h3&gt;答案角度，枚举选哪个&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;答案角度枚举选哪个&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e7%ad%94%e6%a1%88%e8%a7%92%e5%ba%a6%e6%9e%9a%e4%b8%be%e9%80%89%e5%93%aa%e4%b8%aa&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;这个角度更像双指针，dfs(i)表示枚举每一个元素，在每个dfs()内部，有一个循环for(j in range(i, n))，枚举i后面的所有剩余元素。这样i之前的元素就表示已经被考虑过的，j之后的元素就表示未被考虑过的。&lt;/p&gt;
-&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/subsets/description/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;78. 子集&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;78-子集httpsleetcodecnproblemssubsetsdescription&#34;&gt;&lt;/span&gt;
-    &lt;a href=&#34;#78-%e5%ad%90%e9%9b%86httpsleetcodecnproblemssubsetsdescription&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;给你一个整数数组 &lt;code&gt;nums&lt;/code&gt; ，数组中的元素 &lt;strong&gt;互不相同&lt;/strong&gt; 。返回该数组所有可能的&lt;/p&gt;
+&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/subsets/description/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;78. 子集&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;78-子集&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#78-%e5%ad%90%e9%9b%86&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;给你一个整数数组 &lt;code&gt;nums&lt;/code&gt; ，数组中的元素 &lt;strong&gt;互不相同&lt;/strong&gt; 。返回该数组所有可能的&lt;/p&gt;
 &lt;p&gt;子集&lt;/p&gt;
 &lt;p&gt;（幂集）。&lt;/p&gt;
 &lt;p&gt;解集 &lt;strong&gt;不能&lt;/strong&gt; 包含重复的子集。你可以按 &lt;strong&gt;任意顺序&lt;/strong&gt; 返回解集。&lt;/p&gt;
@@ -3655,8 +3655,8 @@
 &lt;li&gt;时间复杂度：$O(n)$。&lt;/li&gt;
 &lt;li&gt;空间复杂度：$O(n)$。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2&gt;&lt;a href=&#34;https://www.nowcoder.com/practice/92e6247998294f2c933906fdedbc6e6a&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;字符串的全部子序列&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;字符串的全部子序列httpswwwnowcodercompractice92e6247998294f2c933906fdedbc6e6a&#34;&gt;&lt;/span&gt;
-    &lt;a href=&#34;#%e5%ad%97%e7%ac%a6%e4%b8%b2%e7%9a%84%e5%85%a8%e9%83%a8%e5%ad%90%e5%ba%8f%e5%88%97httpswwwnowcodercompractice92e6247998294f2c933906fdedbc6e6a&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;
+&lt;h2&gt;&lt;a href=&#34;https://www.nowcoder.com/practice/92e6247998294f2c933906fdedbc6e6a&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;字符串的全部子序列&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;字符串的全部子序列&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e5%ad%97%e7%ac%a6%e4%b8%b2%e7%9a%84%e5%85%a8%e9%83%a8%e5%ad%90%e5%ba%8f%e5%88%97&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;
     &lt;img src=&#34;.././.%e7%bb%8f%e5%85%b8%e9%80%92%e5%bd%92%e8%bf%87%e7%a8%8b.assets/image-20240814192207667.png&#34; alt=&#34;image-20240814192207667&#34; loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
 &lt;h3&gt;选或不选&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;选或不选-1&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e9%80%89%e6%88%96%e4%b8%8d%e9%80%89-1&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;h4&gt;思路&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;思路-1&#34;&gt;&lt;/span&gt;
@@ -3702,8 +3702,8 @@
 &lt;li&gt;时间复杂度：$O(n)$。&lt;/li&gt;
 &lt;li&gt;空间复杂度：$O(n)$。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/subsets-ii/description/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;90. 子集 II&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;90-子集-iihttpsleetcodecnproblemssubsets-iidescription&#34;&gt;&lt;/span&gt;
-    &lt;a href=&#34;#90-%e5%ad%90%e9%9b%86-iihttpsleetcodecnproblemssubsets-iidescription&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;给你一个整数数组 &lt;code&gt;nums&lt;/code&gt; ，其中可能包含重复元素，请你返回该数组所有可能的&lt;/p&gt;
+&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/subsets-ii/description/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;90. 子集 II&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;90-子集-ii&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#90-%e5%ad%90%e9%9b%86-ii&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;给你一个整数数组 &lt;code&gt;nums&lt;/code&gt; ，其中可能包含重复元素，请你返回该数组所有可能的&lt;/p&gt;
 &lt;p&gt;子集&lt;/p&gt;
 &lt;p&gt;（幂集）。&lt;/p&gt;
 &lt;p&gt;解集 &lt;strong&gt;不能&lt;/strong&gt; 包含重复的子集。返回的解集中，子集可以按 &lt;strong&gt;任意顺序&lt;/strong&gt; 排列。&lt;/p&gt;
@@ -3835,8 +3835,8 @@
 &lt;li&gt;时间复杂度：$O(n)$。&lt;/li&gt;
 &lt;li&gt;空间复杂度：$O(n)$。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/combinations/description/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;77. 组合&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;77-组合httpsleetcodecnproblemscombinationsdescription&#34;&gt;&lt;/span&gt;
-    &lt;a href=&#34;#77-%e7%bb%84%e5%90%88httpsleetcodecnproblemscombinationsdescription&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;给定两个整数 &lt;code&gt;n&lt;/code&gt; 和 &lt;code&gt;k&lt;/code&gt;，返回范围 &lt;code&gt;[1, n]&lt;/code&gt; 中所有可能的 &lt;code&gt;k&lt;/code&gt; 个数的组合。&lt;/p&gt;
+&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/combinations/description/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;77. 组合&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;77-组合&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#77-%e7%bb%84%e5%90%88&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;给定两个整数 &lt;code&gt;n&lt;/code&gt; 和 &lt;code&gt;k&lt;/code&gt;，返回范围 &lt;code&gt;[1, n]&lt;/code&gt; 中所有可能的 &lt;code&gt;k&lt;/code&gt; 个数的组合。&lt;/p&gt;
 &lt;p&gt;你可以按 &lt;strong&gt;任何顺序&lt;/strong&gt; 返回答案。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
 \[
@@ -3893,8 +3893,8 @@
 &lt;li&gt;时间复杂度：$O(n)$。&lt;/li&gt;
 &lt;li&gt;空间复杂度：$O(n)$。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/combination-sum/description/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;39. 组合总和&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;39-组合总和httpsleetcodecnproblemscombination-sumdescription&#34;&gt;&lt;/span&gt;
-    &lt;a href=&#34;#39-%e7%bb%84%e5%90%88%e6%80%bb%e5%92%8chttpsleetcodecnproblemscombination-sumdescription&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;给你一个 &lt;strong&gt;无重复元素&lt;/strong&gt; 的整数数组 &lt;code&gt;candidates&lt;/code&gt; 和一个目标整数 &lt;code&gt;target&lt;/code&gt; ，找出 &lt;code&gt;candidates&lt;/code&gt; 中可以使数字和为目标数 &lt;code&gt;target&lt;/code&gt; 的 所有 &lt;strong&gt;不同组合&lt;/strong&gt; ，并以列表形式返回。你可以按 &lt;strong&gt;任意顺序&lt;/strong&gt; 返回这些组合。&lt;/p&gt;
+&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/combination-sum/description/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;39. 组合总和&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;39-组合总和&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#39-%e7%bb%84%e5%90%88%e6%80%bb%e5%92%8c&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;给你一个 &lt;strong&gt;无重复元素&lt;/strong&gt; 的整数数组 &lt;code&gt;candidates&lt;/code&gt; 和一个目标整数 &lt;code&gt;target&lt;/code&gt; ，找出 &lt;code&gt;candidates&lt;/code&gt; 中可以使数字和为目标数 &lt;code&gt;target&lt;/code&gt; 的 所有 &lt;strong&gt;不同组合&lt;/strong&gt; ，并以列表形式返回。你可以按 &lt;strong&gt;任意顺序&lt;/strong&gt; 返回这些组合。&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;candidates&lt;/code&gt; 中的 &lt;strong&gt;同一个&lt;/strong&gt; 数字可以 &lt;strong&gt;无限制重复被选取&lt;/strong&gt; 。如果至少一个数字的被选数量不同，则两种组合是不同的。&lt;/p&gt;
 &lt;p&gt;对于给定的输入，保证和为 &lt;code&gt;target&lt;/code&gt; 的不同组合数少于 &lt;code&gt;150&lt;/code&gt; 个。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
@@ -3980,8 +3980,8 @@
 &lt;li&gt;时间复杂度：$O(n)$。&lt;/li&gt;
 &lt;li&gt;空间复杂度：$O(n)$。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/combination-sum-ii/description/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;40. 组合总和 II&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;40-组合总和-iihttpsleetcodecnproblemscombination-sum-iidescription&#34;&gt;&lt;/span&gt;
-    &lt;a href=&#34;#40-%e7%bb%84%e5%90%88%e6%80%bb%e5%92%8c-iihttpsleetcodecnproblemscombination-sum-iidescription&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;给定一个候选人编号的集合 &lt;code&gt;candidates&lt;/code&gt; 和一个目标数 &lt;code&gt;target&lt;/code&gt; ，找出 &lt;code&gt;candidates&lt;/code&gt; 中所有可以使数字和为 &lt;code&gt;target&lt;/code&gt; 的组合。&lt;/p&gt;
+&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/combination-sum-ii/description/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;40. 组合总和 II&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;40-组合总和-ii&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#40-%e7%bb%84%e5%90%88%e6%80%bb%e5%92%8c-ii&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;给定一个候选人编号的集合 &lt;code&gt;candidates&lt;/code&gt; 和一个目标数 &lt;code&gt;target&lt;/code&gt; ，找出 &lt;code&gt;candidates&lt;/code&gt; 中所有可以使数字和为 &lt;code&gt;target&lt;/code&gt; 的组合。&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;candidates&lt;/code&gt; 中的每个数字在每个组合中只能使用 &lt;strong&gt;一次&lt;/strong&gt; 。&lt;/p&gt;
 &lt;p&gt;**注意：**解集不能包含重复的组合。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 1:&lt;/strong&gt;&lt;/p&gt;
@@ -4068,8 +4068,8 @@
 &lt;li&gt;时间复杂度：$O(n)$。&lt;/li&gt;
 &lt;li&gt;空间复杂度：$O(n)$。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/permutations/description/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;46. 全排列&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;46-全排列httpsleetcodecnproblemspermutationsdescription&#34;&gt;&lt;/span&gt;
-    &lt;a href=&#34;#46-%e5%85%a8%e6%8e%92%e5%88%97httpsleetcodecnproblemspermutationsdescription&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;给定一个不含重复数字的数组 &lt;code&gt;nums&lt;/code&gt; ，返回其 &lt;em&gt;所有可能的全排列&lt;/em&gt; 。你可以 &lt;strong&gt;按任意顺序&lt;/strong&gt; 返回答案。&lt;/p&gt;
+&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/permutations/description/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;46. 全排列&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;46-全排列&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#46-%e5%85%a8%e6%8e%92%e5%88%97&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;给定一个不含重复数字的数组 &lt;code&gt;nums&lt;/code&gt; ，返回其 &lt;em&gt;所有可能的全排列&lt;/em&gt; 。你可以 &lt;strong&gt;按任意顺序&lt;/strong&gt; 返回答案。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
 \[1,2,3\]\[\[1,2,3\]\[1,3,2\]\[2,1,3\]\[2,3,1\]\[3,1,2\]\[3,2,1\]&lt;p&gt;]&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
@@ -4255,8 +4255,8 @@
 &lt;li&gt;时间复杂度：$O(n! \times\ n)$。生成一个排列需要$O(n!)$，一共$n$个排列。&lt;/li&gt;
 &lt;li&gt;空间复杂度：$O(n)$。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/permutations-ii/description/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;47. 全排列 II&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;47-全排列-iihttpsleetcodecnproblemspermutations-iidescription&#34;&gt;&lt;/span&gt;
-    &lt;a href=&#34;#47-%e5%85%a8%e6%8e%92%e5%88%97-iihttpsleetcodecnproblemspermutations-iidescription&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;给定一个可包含重复数字的序列 &lt;code&gt;nums&lt;/code&gt; ，&lt;em&gt;&lt;strong&gt;按任意顺序&lt;/strong&gt;&lt;/em&gt; 返回所有不重复的全排列。&lt;/p&gt;
+&lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/permutations-ii/description/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;47. 全排列 II&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;47-全排列-ii&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#47-%e5%85%a8%e6%8e%92%e5%88%97-ii&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;给定一个可包含重复数字的序列 &lt;code&gt;nums&lt;/code&gt; ，&lt;em&gt;&lt;strong&gt;按任意顺序&lt;/strong&gt;&lt;/em&gt; 返回所有不重复的全排列。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
 \[1,1,2\]\[\[1,1,2\]\[1,2,1\]\[2,1,1\]&lt;p&gt;]&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
@@ -4412,8 +4412,8 @@
 &lt;li&gt;时间复杂度：$O(n! \times\ n)$。生成一个排列需要$O(n!)$，一共$n$个排列。&lt;/li&gt;
 &lt;li&gt;空间复杂度：$O(n)$。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2&gt;&lt;a href=&#34;https://www.nowcoder.com/practice/1de82c89cc0e43e9aa6ee8243f4dbefd?tab=note&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;用递归函数和栈逆序一个栈&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;用递归函数和栈逆序一个栈httpswwwnowcodercompractice1de82c89cc0e43e9aa6ee8243f4dbefdtabnote&#34;&gt;&lt;/span&gt;
-    &lt;a href=&#34;#%e7%94%a8%e9%80%92%e5%bd%92%e5%87%bd%e6%95%b0%e5%92%8c%e6%a0%88%e9%80%86%e5%ba%8f%e4%b8%80%e4%b8%aa%e6%a0%88httpswwwnowcodercompractice1de82c89cc0e43e9aa6ee8243f4dbefdtabnote&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;描述&lt;/p&gt;
+&lt;h2&gt;&lt;a href=&#34;https://www.nowcoder.com/practice/1de82c89cc0e43e9aa6ee8243f4dbefd?tab=note&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;用递归函数和栈逆序一个栈&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;用递归函数和栈逆序一个栈&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e7%94%a8%e9%80%92%e5%bd%92%e5%87%bd%e6%95%b0%e5%92%8c%e6%a0%88%e9%80%86%e5%ba%8f%e4%b8%80%e4%b8%aa%e6%a0%88&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;描述&lt;/p&gt;
 &lt;p&gt;一个栈依次压入1,2,3,4,5，那么从栈顶到栈底分别为5,4,3,2,1。将这个栈转置后，从栈顶到栈底为1,2,3,4,5，也就是实现栈中元素的逆序，但是只能用递归函数来实现，不能用其他数据结构。&lt;/p&gt;
 &lt;p&gt;输入描述：&lt;/p&gt;
 &lt;p&gt;输入数据第一行一个整数N为栈中元素的个数。&lt;/p&gt;
@@ -4448,8 +4448,8 @@
   &lt;/button&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;h2&gt;&lt;a href=&#34;https://www.luogu.com.cn/problem/P1177&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;用递归函数和栈排序&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;用递归函数和栈排序httpswwwluogucomcnproblemp1177&#34;&gt;&lt;/span&gt;
-    &lt;a href=&#34;#%e7%94%a8%e9%80%92%e5%bd%92%e5%87%bd%e6%95%b0%e5%92%8c%e6%a0%88%e6%8e%92%e5%ba%8fhttpswwwluogucomcnproblemp1177&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;算法&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;算法&#34;&gt;&lt;/span&gt;
+&lt;h2&gt;&lt;a href=&#34;https://www.luogu.com.cn/problem/P1177&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;用递归函数和栈排序&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;用递归函数和栈排序&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e7%94%a8%e9%80%92%e5%bd%92%e5%87%bd%e6%95%b0%e5%92%8c%e6%a0%88%e6%8e%92%e5%ba%8f&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;算法&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;算法&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e7%ae%97%e6%b3%95&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;h4&gt;思路&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;思路-15&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e6%80%9d%e8%b7%af-15&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;h4&gt;代码&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;代码-15&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e4%bb%a3%e7%a0%81-15&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
@@ -4489,8 +4489,8 @@
 &lt;li&gt;时间复杂度：$O(n)$。&lt;/li&gt;
 &lt;li&gt;空间复杂度：$O(n)$。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2&gt;&lt;a href=&#34;https://www.lintcode.com/problem/169/description&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;169 · 汉诺塔&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;169--汉诺塔httpswwwlintcodecomproblem169description&#34;&gt;&lt;/span&gt;
-    &lt;a href=&#34;#169--%e6%b1%89%e8%af%ba%e5%a1%94httpswwwlintcodecomproblem169description&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;
+&lt;h2&gt;&lt;a href=&#34;https://www.lintcode.com/problem/169/description&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;169 · 汉诺塔&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;169--汉诺塔&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#169--%e6%b1%89%e8%af%ba%e5%a1%94&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;
     &lt;img src=&#34;.././.%e7%bb%8f%e5%85%b8%e9%80%92%e5%bd%92%e8%bf%87%e7%a8%8b.assets/image-20240816211013264.png&#34; alt=&#34;image-20240816211013264&#34; loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
 &lt;h3&gt;算法&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;算法-2&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e7%ae%97%e6%b3%95-2&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;h4&gt;思路&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;思路-17&#34;&gt;&lt;/span&gt;
