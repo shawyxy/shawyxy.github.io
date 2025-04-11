@@ -23,7 +23,7 @@
 
   <meta itemprop="name" content="GCD并查集">
   <meta itemprop="description" content="2709. 最大公约数遍历 给你一个下标从 0 开始的整数数组 nums ，你可以在一些下标之间遍历。对于两个下标 i 和 j（i != j），当且仅当 gcd(nums[i], nums[j]) &gt; 1 时，我们可以在两个下标之间通行，其中 gcd 是两个数的 最大公约数 。">
-  <meta itemprop="wordCount" content="1578">
+  <meta itemprop="wordCount" content="2129">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="GCD并查集">
   <meta name="twitter:description" content="2709. 最大公约数遍历 给你一个下标从 0 开始的整数数组 nums ，你可以在一些下标之间遍历。对于两个下标 i 和 j（i != j），当且仅当 gcd(nums[i], nums[j]) &gt; 1 时，我们可以在两个下标之间通行，其中 gcd 是两个数的 最大公约数 。">
@@ -1558,12 +1558,27 @@
 <p>你需要判断 <code>nums</code> 数组中 <strong>任意</strong> 两个满足 <code>i &lt; j</code> 的下标 <code>i</code> 和 <code>j</code> ，是否存在若干次通行可以从 <code>i</code> 遍历到 <code>j</code> 。</p>
 <p>如果任意满足条件的下标对都可以遍历，那么返回 <code>true</code> ，否则返回 <code>false</code> 。</p>
 <p><strong>示例 1：</strong></p>
-\[2,3,6\]\[0\]\[2\]\[2\]\[1\]\[0\]\[2\]\[1\]\[2\]<p>) = gcd(3, 6) = 3 &gt; 1 。</p>
+<p>**输入：**nums = </p>
+\[2,3,6\]<p>
+**输出：**true
+**解释：**这个例子中，总共有 3 个下标对：(0, 1) ，(0, 2) 和 (1, 2) 。
+从下标 0 到下标 1 ，我们可以遍历 0 -&gt; 2 -&gt; 1 ，我们可以从下标 0 到 2 是因为 gcd(nums</p>
+\[0\]<p>, nums</p>
+\[2\]<p>) = gcd(2, 6) = 2 &gt; 1 ，从下标 2 到 1 是因为 gcd(nums</p>
+\[2\]<p>, nums</p>
+\[1\]<p>) = gcd(6, 3) = 3 &gt; 1 。
+从下标 0 到下标 2 ，我们可以直接遍历，因为 gcd(nums</p>
+\[0\]<p>, nums</p>
+\[2\]<p>) = gcd(2, 6) = 2 &gt; 1 。同理，我们也可以从下标 1 到 2 因为 gcd(nums</p>
+\[1\]<p>, nums</p>
+\[2\]<p>) = gcd(3, 6) = 3 &gt; 1 。</p>
 <p><strong>示例 2：</strong></p>
+<p>**输入：**nums = </p>
 \[3,9,5\]<p>
 **输出：**false
 **解释：**我们没法从下标 0 到 2 ，所以返回 false 。</p>
 <p><strong>示例 3：</strong></p>
+<p>**输入：**nums = </p>
 \[4,3,12,8\]<p>
 **输出：**true
 **解释：**总共有 6 个下标对：(0, 1) ，(0, 2) ，(0, 3) ，(1, 2) ，(1, 3) 和 (2, 3) 。所有下标对之间都存在可行的遍历，所以返回 true 。</p>
@@ -1603,14 +1618,52 @@
 <p>返回数组 <code>answer</code> ，其中<code>answer.length == queries.length</code> 。如果第 <code>i</code> 个查询中指向的城市 <code>ai</code> 和 <code>bi</code> 连通，则 <code>answer[i]</code> 为 <code>true</code> ；如果不连通，则 <code>answer[i]</code> 为 <code>false</code> 。</p>
 <p><strong>示例 1：</strong></p>
 <p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2020/10/18/ex1.jpg" alt="" loading="lazy" /></p>
-\[\[1,4\]\[2,5\]\[3,6\]\[false,false,true\]\[1,4\]\[2,5\]\[3,6\]<p>   3 与 6 连通，存在路径 3&ndash;6</p>
+<p>**输入：**n = 6, threshold = 2, queries = </p>
+\[\[1,4\]<p>,</p>
+\[2,5\]<p>,</p>
+\[3,6\]<p>]
+<strong>输出：</strong></p>
+\[false,false,true\]<p>
+**解释：**每个数的因数如下：
+1:   1
+2:   1, 2
+3:   1, <strong>3</strong>
+4:   1, 2, <strong>4</strong>
+5:   1, <strong>5</strong>
+6:   1, 2, <strong>3</strong>, <strong>6</strong>
+所有大于阈值的的因数已经加粗标识，只有城市 3 和 6 共享公约数 3 ，因此结果是：
+</p>
+\[1,4\]<p>   1 与 4 不连通
+</p>
+\[2,5\]<p>   2 与 5 不连通
+</p>
+\[3,6\]<p>   3 与 6 连通，存在路径 3&ndash;6</p>
 <p><strong>示例 2：</strong></p>
 <p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2020/10/18/tmp.jpg" alt="" loading="lazy" /></p>
-\[\[4,5\]\[3,4\]\[3,2\]\[2,6\]\[1,3\]\[true,true,true,true,true\]<p>
+<p>**输入：**n = 6, threshold = 0, queries = </p>
+\[\[4,5\]<p>,</p>
+\[3,4\]<p>,</p>
+\[3,2\]<p>,</p>
+\[2,6\]<p>,</p>
+\[1,3\]<p>]
+<strong>输出：</strong></p>
+\[true,true,true,true,true\]<p>
 **解释：**每个数的因数与上一个例子相同。但是，由于阈值为 0 ，所有的因数都大于阈值。因为所有的数字共享公因数 1 ，所以所有的城市都互相连通。</p>
 <p><strong>示例 3：</strong></p>
 <p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2020/10/16/ex3.jpg" alt="" loading="lazy" /></p>
-\[\[4,5\]\[4,5\]\[3,2\]\[2,3\]\[3,4\]\[false,false,false,false,false\]\[x, y\]\[x，y\]\[y，x\]<p> 。</p>
+<p>**输入：**n = 5, threshold = 1, queries = </p>
+\[\[4,5\]<p>,</p>
+\[4,5\]<p>,</p>
+\[3,2\]<p>,</p>
+\[2,3\]<p>,</p>
+\[3,4\]<p>]
+<strong>输出：</strong></p>
+\[false,false,false,false,false\]<p>
+**解释：**只有城市 2 和 4 共享的公约数 2 严格大于阈值 1 ，所以只有这两座城市是连通的。
+注意，同一对节点 </p>
+\[x, y\]<p> 可以有多个查询，并且查询 </p>
+\[x，y\]<p> 等同于查询 </p>
+\[y，x\]<p> 。</p>
 <p><strong>提示：</strong></p>
 <ul>
 <li><code>2 &lt;= n &lt;= 104</code></li>
@@ -1649,14 +1702,17 @@
 <p>返回 <em>图中最大连通组件的大小</em> 。</p>
 <p><strong>示例 1：</strong></p>
 <p><img src="https://assets.leetcode.com/uploads/2018/12/01/ex1.png" alt="" loading="lazy" /></p>
+<p>**输入：**nums = </p>
 \[4,6,15,35\]<p>
 **输出：**4</p>
 <p><strong>示例 2：</strong></p>
 <p><img src="https://assets.leetcode.com/uploads/2018/12/01/ex2.png" alt="" loading="lazy" /></p>
+<p>**输入：**nums = </p>
 \[20,50,9,63\]<p>
 **输出：**2</p>
 <p><strong>示例 3：</strong></p>
 <p><img src="https://assets.leetcode.com/uploads/2018/12/01/ex3.png" alt="" loading="lazy" /></p>
+<p>**输入：**nums = </p>
 \[2,3,6,7,4,12,21,39\]<p>
 **输出：**8</p>
 <p><strong>提示：</strong></p>
@@ -1692,17 +1748,27 @@
 </ul>
 <p>如果能使用上述交换方式将 <code>nums</code> 按 <strong>非递减顺序</strong> 排列，返回 <code>true</code> ；否则，返回 <code>false</code> 。</p>
 <p><strong>示例 1：</strong></p>
-\[7,21,3\]\[7,21,3\]<p> 的排序：</p>
+<p>**输入：**nums = </p>
+\[7,21,3\]<p>
+**输出：**true
+**解释：**可以执行下述操作完成对 </p>
+\[7,21,3\]<p> 的排序：</p>
 <ul>
 <li>交换 7 和 21 因为 gcd(7,21) = 7 。nums = \[**21**,**7**,3\]</li>
 <li>交换 21 和 3 因为 gcd(21,3) = 3 。nums = \[**3**,7,**21**\]</li>
 </ul>
 <p><strong>示例 2：</strong></p>
+<p>**输入：**nums = </p>
 \[5,2,6,2\]<p>
 **输出：**false
 **解释：**无法完成排序，因为 5 不能与其他元素交换。</p>
 <p><strong>示例 3：</strong></p>
-\[10,5,9,3,15\]\[10,5,9,3,15\]<p> 的排序：</p>
+<p>**输入：**nums = </p>
+\[10,5,9,3,15\]<p>
+**输出：**true
+<strong>解释：</strong>
+可以执行下述操作完成对 </p>
+\[10,5,9,3,15\]<p> 的排序：</p>
 <ul>
 <li>交换 10 和 15 因为 gcd(10,15) = 5 。nums = \[**15**,5,9,3,**10**\]</li>
 <li>交换 15 和 3 因为 gcd(15,3) = 3 。nums = \[**3**,5,9,**15**,10\]</li>

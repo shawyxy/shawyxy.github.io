@@ -27,7 +27,7 @@
   <meta itemprop="name" content="高并发内存池">
   <meta itemprop="description" content="涉及知识 池化技术、内存管理、内存分配器、并发编程、单例模式、哈希桶、基数树
 项目介绍 本项目实现了一个高并发内存池（Concurrent Memory Pool），它的内存管理器来自 Google 开源项目 TCMalloc（Thread-Caching Malloc），一个专为高并发应用设计的内存分配器。Golang 是一个原生支持高并发的语言，TCMalloc 功不可没。">
-  <meta itemprop="wordCount" content="32693">
+  <meta itemprop="wordCount" content="32752">
   <meta itemprop="keywords" content="TCmalloc,Malloc,池化技术,单例模式,内存管理,哈希桶,基数树">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="高并发内存池">
@@ -2277,6 +2277,8 @@
   </tbody>
 </table>
 <p>例如字节范围 [1, 128]，向 8 字节对齐的意思是分配的内存块只能是 8 的倍数。如果申请 2 字节，那么分配 8 字节；如果申请 76 字节，那么分配 80 字节。</p>
+<p>内存对齐无法避免内存碎片问题，但是可以通过合理的分配规则来缓解这个问题。采用上面的对齐规则，内存的浪费率只有约 10%。
+</p>
 $$
 浪费率=浪费的字节数/对齐后的字节数
 $$<p>

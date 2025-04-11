@@ -26,7 +26,7 @@
   <meta itemprop="name" content="TCP 协议">
   <meta itemprop="description" content="[重要] 本文默认读者已经体系地学习过操作系统。
 为了读者能更好地学习 TCP 协议，本文首先简单介绍 TCP 协议（是啥），然后再简述 TCP 的主要内容（干嘛的），最后再阐述 TCP 的各个细节（原理）。">
-  <meta itemprop="wordCount" content="45199">
+  <meta itemprop="wordCount" content="45214">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="TCP 协议">
   <meta name="twitter:description" content="[重要] 本文默认读者已经体系地学习过操作系统。
@@ -2721,6 +2721,8 @@
 <li>SND.NXT：指向未发送但可发送范围的第一个字节的序列号（黄色的起始位置）。<strong>它的意义是指示发送方下一次要发送的数据的位置</strong>，作用是维护蓝色区域。</li>
 <li>SND.WND：表示发送/提供窗口的大小（红色方框）。</li>
 </ul>
+<p>由图，可以得到右边界指针：
+</p>
 $$
 SND.UNA+SND.WND
 $$<p>
@@ -2729,6 +2731,8 @@ SND.NXT 和 SND.UNA+SND.WND（右边界）之间的差值表示『可用窗口�
 <li>如果 SND.NXT 等于 SND.UNA+SND.WND，那么表示可用窗口为 0，发送方必须停止发送数据，直到收到接收方的窗口更新。</li>
 <li>如果 SND.NXT 小于 SND.UNA+SND.WND，那么表示可用窗口为正，发送方可以继续发送数据，直到达到窗口的右边界。</li>
 </ul>
+<p>即：
+</p>
 $$
 可用窗口大小 = [红色方框]SND.WND -[蓝色区域](SND.NXT - SND.UNA)
 $$<p>

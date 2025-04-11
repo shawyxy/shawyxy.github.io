@@ -8768,6 +8768,8 @@ HTTP 是一种基于文本的协议，虽然易于理解和实现，但也带来
 &lt;li&gt;SND.NXT：指向未发送但可发送范围的第一个字节的序列号（黄色的起始位置）。&lt;strong&gt;它的意义是指示发送方下一次要发送的数据的位置&lt;/strong&gt;，作用是维护蓝色区域。&lt;/li&gt;
 &lt;li&gt;SND.WND：表示发送/提供窗口的大小（红色方框）。&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;由图，可以得到右边界指针：
+&lt;/p&gt;
 $$
 SND.UNA+SND.WND
 $$&lt;p&gt;
@@ -8776,6 +8778,8 @@ SND.NXT 和 SND.UNA+SND.WND（右边界）之间的差值表示『可用窗口�
 &lt;li&gt;如果 SND.NXT 等于 SND.UNA+SND.WND，那么表示可用窗口为 0，发送方必须停止发送数据，直到收到接收方的窗口更新。&lt;/li&gt;
 &lt;li&gt;如果 SND.NXT 小于 SND.UNA+SND.WND，那么表示可用窗口为正，发送方可以继续发送数据，直到达到窗口的右边界。&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;即：
+&lt;/p&gt;
 $$
 可用窗口大小 = [红色方框]SND.WND -[蓝色区域](SND.NXT - SND.UNA)
 $$&lt;p&gt;

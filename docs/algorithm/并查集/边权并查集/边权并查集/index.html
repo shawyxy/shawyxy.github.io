@@ -23,7 +23,7 @@
 
   <meta itemprop="name" content="边权并查集">
   <meta itemprop="description" content="399. 除法求值 给你一个变量对数组 equations 和一个实数值数组 values 作为已知条件，其中 equations[i] = [Ai, Bi] 和 values[i] 共同表示等式 Ai / Bi = values[i] 。每个 Ai 或 Bi 是一个表示单个变量的字符串。">
-  <meta itemprop="wordCount" content="1046">
+  <meta itemprop="wordCount" content="1020">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="边权并查集">
   <meta name="twitter:description" content="399. 除法求值 给你一个变量对数组 equations 和一个实数值数组 values 作为已知条件，其中 equations[i] = [Ai, Bi] 和 values[i] 共同表示等式 Ai / Bi = values[i] 。每个 Ai 或 Bi 是一个表示单个变量的字符串。">
@@ -1530,11 +1530,44 @@
 <p>**注意：**输入总是有效的。你可以假设除法运算中不会出现除数为 0 的情况，且不存在任何矛盾的结果。</p>
 <p>**注意：**未在等式列表中出现的变量是未定义的，因此无法确定它们的答案。</p>
 <p><strong>示例 1：</strong></p>
-\[\["a","b"\]\["b","c"\]\[2.0,3.0\]\[\["a","c"\]\["b","a"\]\["a","e"\]\["a","a"\]\["x","x"\]\[6.00000,0.50000,-1.00000,1.00000,-1.00000\]\[6.0, 0.5, -1.0, 1.0, -1.0 \]<p>
+<p>**输入：**equations = </p>
+\[\["a","b"\]<p>,</p>
+\["b","c"\]<p>], values = </p>
+\[2.0,3.0\]<p>, queries = </p>
+\[\["a","c"\]<p>,</p>
+\["b","a"\]<p>,</p>
+\["a","e"\]<p>,</p>
+\["a","a"\]<p>,</p>
+\["x","x"\]<p>]
+<strong>输出：</strong></p>
+\[6.00000,0.50000,-1.00000,1.00000,-1.00000\]<p>
+<strong>解释：</strong>
+条件：<em>a / b = 2.0</em>, <em>b / c = 3.0</em>
+问题：<em>a / c = ?</em>, <em>b / a = ?</em>, <em>a / e = ?</em>, <em>a / a = ?</em>, <em>x / x = ?</em>
+结果：</p>
+\[6.0, 0.5, -1.0, 1.0, -1.0 \]<p>
 注意：x 是未定义的 =&gt; -1.0</p>
 <p><strong>示例 2：</strong></p>
-\[\["a","b"\]\["b","c"\]\["bc","cd"\]\[1.5,2.5,5.0\]\[\["a","c"\]\["c","b"\]\["bc","cd"\]\["cd","bc"\]\[3.75000,0.40000,5.00000,0.20000\]<p><strong>示例 3：</strong></p>
-\[\["a","b"\]\[0.5\]\[\["a","b"\]\["b","a"\]\["a","c"\]\["x","y"\]\[0.50000,2.00000,-1.00000,-1.00000\]<p><strong>提示：</strong></p>
+<p>**输入：**equations = </p>
+\[\["a","b"\]<p>,</p>
+\["b","c"\]<p>,</p>
+\["bc","cd"\]<p>], values = </p>
+\[1.5,2.5,5.0\]<p>, queries = </p>
+\[\["a","c"\]<p>,</p>
+\["c","b"\]<p>,</p>
+\["bc","cd"\]<p>,</p>
+\["cd","bc"\]<p>]
+<strong>输出：</strong></p>
+\[3.75000,0.40000,5.00000,0.20000\]<p><strong>示例 3：</strong></p>
+<p>**输入：**equations = </p>
+\[\["a","b"\]<p>], values = </p>
+\[0.5\]<p>, queries = </p>
+\[\["a","b"\]<p>,</p>
+\["b","a"\]<p>,</p>
+\["a","c"\]<p>,</p>
+\["x","y"\]<p>]
+<strong>输出：</strong></p>
+\[0.50000,2.00000,-1.00000,-1.00000\]<p><strong>提示：</strong></p>
 <ul>
 <li><code>1 &lt;= equations.length &lt;= 20</code></li>
 <li><code>equations[i].length == 2</code></li>

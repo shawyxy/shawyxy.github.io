@@ -28,12 +28,27 @@
 &lt;p&gt;你需要判断 &lt;code&gt;nums&lt;/code&gt; 数组中 &lt;strong&gt;任意&lt;/strong&gt; 两个满足 &lt;code&gt;i &amp;lt; j&lt;/code&gt; 的下标 &lt;code&gt;i&lt;/code&gt; 和 &lt;code&gt;j&lt;/code&gt; ，是否存在若干次通行可以从 &lt;code&gt;i&lt;/code&gt; 遍历到 &lt;code&gt;j&lt;/code&gt; 。&lt;/p&gt;
 &lt;p&gt;如果任意满足条件的下标对都可以遍历，那么返回 &lt;code&gt;true&lt;/code&gt; ，否则返回 &lt;code&gt;false&lt;/code&gt; 。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
-\[2,3,6\]\[0\]\[2\]\[2\]\[1\]\[0\]\[2\]\[1\]\[2\]&lt;p&gt;) = gcd(3, 6) = 3 &amp;gt; 1 。&lt;/p&gt;
+&lt;p&gt;**输入：**nums = &lt;/p&gt;
+\[2,3,6\]&lt;p&gt;
+**输出：**true
+**解释：**这个例子中，总共有 3 个下标对：(0, 1) ，(0, 2) 和 (1, 2) 。
+从下标 0 到下标 1 ，我们可以遍历 0 -&amp;gt; 2 -&amp;gt; 1 ，我们可以从下标 0 到 2 是因为 gcd(nums&lt;/p&gt;
+\[0\]&lt;p&gt;, nums&lt;/p&gt;
+\[2\]&lt;p&gt;) = gcd(2, 6) = 2 &amp;gt; 1 ，从下标 2 到 1 是因为 gcd(nums&lt;/p&gt;
+\[2\]&lt;p&gt;, nums&lt;/p&gt;
+\[1\]&lt;p&gt;) = gcd(6, 3) = 3 &amp;gt; 1 。
+从下标 0 到下标 2 ，我们可以直接遍历，因为 gcd(nums&lt;/p&gt;
+\[0\]&lt;p&gt;, nums&lt;/p&gt;
+\[2\]&lt;p&gt;) = gcd(2, 6) = 2 &amp;gt; 1 。同理，我们也可以从下标 1 到 2 因为 gcd(nums&lt;/p&gt;
+\[1\]&lt;p&gt;, nums&lt;/p&gt;
+\[2\]&lt;p&gt;) = gcd(3, 6) = 3 &amp;gt; 1 。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;**输入：**nums = &lt;/p&gt;
 \[3,9,5\]&lt;p&gt;
 **输出：**false
 **解释：**我们没法从下标 0 到 2 ，所以返回 false 。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 3：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;**输入：**nums = &lt;/p&gt;
 \[4,3,12,8\]&lt;p&gt;
 **输出：**true
 **解释：**总共有 6 个下标对：(0, 1) ，(0, 2) ，(0, 3) ，(1, 2) ，(1, 3) 和 (2, 3) 。所有下标对之间都存在可行的遍历，所以返回 true 。&lt;/p&gt;
@@ -73,14 +88,52 @@
 &lt;p&gt;返回数组 &lt;code&gt;answer&lt;/code&gt; ，其中&lt;code&gt;answer.length == queries.length&lt;/code&gt; 。如果第 &lt;code&gt;i&lt;/code&gt; 个查询中指向的城市 &lt;code&gt;ai&lt;/code&gt; 和 &lt;code&gt;bi&lt;/code&gt; 连通，则 &lt;code&gt;answer[i]&lt;/code&gt; 为 &lt;code&gt;true&lt;/code&gt; ；如果不连通，则 &lt;code&gt;answer[i]&lt;/code&gt; 为 &lt;code&gt;false&lt;/code&gt; 。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2020/10/18/ex1.jpg&#34; alt=&#34;&#34; loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
-\[\[1,4\]\[2,5\]\[3,6\]\[false,false,true\]\[1,4\]\[2,5\]\[3,6\]&lt;p&gt;   3 与 6 连通，存在路径 3&amp;ndash;6&lt;/p&gt;
+&lt;p&gt;**输入：**n = 6, threshold = 2, queries = &lt;/p&gt;
+\[\[1,4\]&lt;p&gt;,&lt;/p&gt;
+\[2,5\]&lt;p&gt;,&lt;/p&gt;
+\[3,6\]&lt;p&gt;]
+&lt;strong&gt;输出：&lt;/strong&gt;&lt;/p&gt;
+\[false,false,true\]&lt;p&gt;
+**解释：**每个数的因数如下：
+1:   1
+2:   1, 2
+3:   1, &lt;strong&gt;3&lt;/strong&gt;
+4:   1, 2, &lt;strong&gt;4&lt;/strong&gt;
+5:   1, &lt;strong&gt;5&lt;/strong&gt;
+6:   1, 2, &lt;strong&gt;3&lt;/strong&gt;, &lt;strong&gt;6&lt;/strong&gt;
+所有大于阈值的的因数已经加粗标识，只有城市 3 和 6 共享公约数 3 ，因此结果是：
+&lt;/p&gt;
+\[1,4\]&lt;p&gt;   1 与 4 不连通
+&lt;/p&gt;
+\[2,5\]&lt;p&gt;   2 与 5 不连通
+&lt;/p&gt;
+\[3,6\]&lt;p&gt;   3 与 6 连通，存在路径 3&amp;ndash;6&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2020/10/18/tmp.jpg&#34; alt=&#34;&#34; loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
-\[\[4,5\]\[3,4\]\[3,2\]\[2,6\]\[1,3\]\[true,true,true,true,true\]&lt;p&gt;
+&lt;p&gt;**输入：**n = 6, threshold = 0, queries = &lt;/p&gt;
+\[\[4,5\]&lt;p&gt;,&lt;/p&gt;
+\[3,4\]&lt;p&gt;,&lt;/p&gt;
+\[3,2\]&lt;p&gt;,&lt;/p&gt;
+\[2,6\]&lt;p&gt;,&lt;/p&gt;
+\[1,3\]&lt;p&gt;]
+&lt;strong&gt;输出：&lt;/strong&gt;&lt;/p&gt;
+\[true,true,true,true,true\]&lt;p&gt;
 **解释：**每个数的因数与上一个例子相同。但是，由于阈值为 0 ，所有的因数都大于阈值。因为所有的数字共享公因数 1 ，所以所有的城市都互相连通。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 3：&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2020/10/16/ex3.jpg&#34; alt=&#34;&#34; loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
-\[\[4,5\]\[4,5\]\[3,2\]\[2,3\]\[3,4\]\[false,false,false,false,false\]\[x, y\]\[x，y\]\[y，x\]&lt;p&gt; 。&lt;/p&gt;
+&lt;p&gt;**输入：**n = 5, threshold = 1, queries = &lt;/p&gt;
+\[\[4,5\]&lt;p&gt;,&lt;/p&gt;
+\[4,5\]&lt;p&gt;,&lt;/p&gt;
+\[3,2\]&lt;p&gt;,&lt;/p&gt;
+\[2,3\]&lt;p&gt;,&lt;/p&gt;
+\[3,4\]&lt;p&gt;]
+&lt;strong&gt;输出：&lt;/strong&gt;&lt;/p&gt;
+\[false,false,false,false,false\]&lt;p&gt;
+**解释：**只有城市 2 和 4 共享的公约数 2 严格大于阈值 1 ，所以只有这两座城市是连通的。
+注意，同一对节点 &lt;/p&gt;
+\[x, y\]&lt;p&gt; 可以有多个查询，并且查询 &lt;/p&gt;
+\[x，y\]&lt;p&gt; 等同于查询 &lt;/p&gt;
+\[y，x\]&lt;p&gt; 。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;2 &amp;lt;= n &amp;lt;= 104&lt;/code&gt;&lt;/li&gt;
@@ -119,14 +172,17 @@
 &lt;p&gt;返回 &lt;em&gt;图中最大连通组件的大小&lt;/em&gt; 。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2018/12/01/ex1.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;**输入：**nums = &lt;/p&gt;
 \[4,6,15,35\]&lt;p&gt;
 **输出：**4&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2018/12/01/ex2.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;**输入：**nums = &lt;/p&gt;
 \[20,50,9,63\]&lt;p&gt;
 **输出：**2&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 3：&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2018/12/01/ex3.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;**输入：**nums = &lt;/p&gt;
 \[2,3,6,7,4,12,21,39\]&lt;p&gt;
 **输出：**8&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
@@ -162,17 +218,27 @@
 &lt;/ul&gt;
 &lt;p&gt;如果能使用上述交换方式将 &lt;code&gt;nums&lt;/code&gt; 按 &lt;strong&gt;非递减顺序&lt;/strong&gt; 排列，返回 &lt;code&gt;true&lt;/code&gt; ；否则，返回 &lt;code&gt;false&lt;/code&gt; 。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
-\[7,21,3\]\[7,21,3\]&lt;p&gt; 的排序：&lt;/p&gt;
+&lt;p&gt;**输入：**nums = &lt;/p&gt;
+\[7,21,3\]&lt;p&gt;
+**输出：**true
+**解释：**可以执行下述操作完成对 &lt;/p&gt;
+\[7,21,3\]&lt;p&gt; 的排序：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;交换 7 和 21 因为 gcd(7,21) = 7 。nums = \[**21**,**7**,3\]&lt;/li&gt;
 &lt;li&gt;交换 21 和 3 因为 gcd(21,3) = 3 。nums = \[**3**,7,**21**\]&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;**输入：**nums = &lt;/p&gt;
 \[5,2,6,2\]&lt;p&gt;
 **输出：**false
 **解释：**无法完成排序，因为 5 不能与其他元素交换。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 3：&lt;/strong&gt;&lt;/p&gt;
-\[10,5,9,3,15\]\[10,5,9,3,15\]&lt;p&gt; 的排序：&lt;/p&gt;
+&lt;p&gt;**输入：**nums = &lt;/p&gt;
+\[10,5,9,3,15\]&lt;p&gt;
+**输出：**true
+&lt;strong&gt;解释：&lt;/strong&gt;
+可以执行下述操作完成对 &lt;/p&gt;
+\[10,5,9,3,15\]&lt;p&gt; 的排序：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;交换 10 和 15 因为 gcd(10,15) = 5 。nums = \[**15**,5,9,3,**10**\]&lt;/li&gt;
 &lt;li&gt;交换 15 和 3 因为 gcd(15,3) = 3 。nums = \[**3**,5,9,**15**,10\]&lt;/li&gt;
@@ -381,7 +447,14 @@
 &lt;p&gt;再给你一个整数数组 &lt;code&gt;queries&lt;/code&gt; 。第 &lt;code&gt;j&lt;/code&gt; 个查询的答案是满足 &lt;code&gt;lefti &amp;lt;= queries[j] &amp;lt;= righti&lt;/code&gt; 的 &lt;strong&gt;长度最小区间 &lt;code&gt;i&lt;/code&gt; 的长度&lt;/strong&gt; 。如果不存在这样的区间，那么答案是 &lt;code&gt;-1&lt;/code&gt; 。&lt;/p&gt;
 &lt;p&gt;以数组形式返回对应查询的所有答案。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
-\[\[1,4\]\[2,4\]\[3,6\]\[4,4\]\[2,3,4,5\]\[3,3,1,4\]&lt;p&gt;
+&lt;p&gt;**输入：**intervals = &lt;/p&gt;
+\[\[1,4\]&lt;p&gt;,&lt;/p&gt;
+\[2,4\]&lt;p&gt;,&lt;/p&gt;
+\[3,6\]&lt;p&gt;,&lt;/p&gt;
+\[4,4\]&lt;p&gt;], queries = &lt;/p&gt;
+\[2,3,4,5\]&lt;p&gt;
+&lt;strong&gt;输出：&lt;/strong&gt;&lt;/p&gt;
+\[3,3,1,4\]&lt;p&gt;
 **解释：**查询处理如下：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Query = 2 ：区间 \[2,4\] 是包含 2 的最小区间，答案为 4 - 2 + 1 = 3 。&lt;/li&gt;
@@ -390,7 +463,14 @@
 &lt;li&gt;Query = 5 ：区间 \[3,6\] 是包含 5 的最小区间，答案为 6 - 3 + 1 = 4 。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
-\[\[2,3\]\[2,5\]\[1,8\]\[20,25\]\[2,19,5,22\]\[2,-1,4,6\]&lt;p&gt;
+&lt;p&gt;**输入：**intervals = &lt;/p&gt;
+\[\[2,3\]&lt;p&gt;,&lt;/p&gt;
+\[2,5\]&lt;p&gt;,&lt;/p&gt;
+\[1,8\]&lt;p&gt;,&lt;/p&gt;
+\[20,25\]&lt;p&gt;], queries = &lt;/p&gt;
+\[2,19,5,22\]&lt;p&gt;
+&lt;strong&gt;输出：&lt;/strong&gt;&lt;/p&gt;
+\[2,-1,4,6\]&lt;p&gt;
 **解释：**查询处理如下：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Query = 2 ：区间 \[2,3\] 是包含 2 的最小区间，答案为 3 - 2 + 1 = 2 。&lt;/li&gt;
@@ -433,7 +513,11 @@
 &lt;p&gt;所有查询中不会存在两个查询都满足 &lt;code&gt;queries[i][0] &amp;lt; queries[j][0] &amp;lt; queries[i][1] &amp;lt; queries[j][1]&lt;/code&gt;。&lt;/p&gt;
 &lt;p&gt;返回一个数组 &lt;code&gt;answer&lt;/code&gt;，对于范围 &lt;code&gt;[0, queries.length - 1]&lt;/code&gt; 中的每个 &lt;code&gt;i&lt;/code&gt;，&lt;code&gt;answer[i]&lt;/code&gt; 是处理完&lt;strong&gt;前&lt;/strong&gt; &lt;code&gt;i + 1&lt;/code&gt; 个查询后，从城市 &lt;code&gt;0&lt;/code&gt; 到城市 &lt;code&gt;n - 1&lt;/code&gt; 的最短路径的_长度_。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
-\[\[2, 4\]\[0, 2\]\[0, 4\]&lt;p&gt;]&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输入：&lt;/strong&gt; n = 5, queries = &lt;/p&gt;
+\[\[2, 4\]&lt;p&gt;, &lt;/p&gt;
+\[0, 2\]&lt;p&gt;, &lt;/p&gt;
+\[0, 4\]&lt;p&gt;]&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输出：&lt;/strong&gt; &lt;/p&gt;
 \[3, 2, 1\]&lt;p&gt;&lt;strong&gt;解释：&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2024/06/28/image8.jpg&#34; alt=&#34;&#34; loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;新增一条从 2 到 4 的道路后，从 0 到 4 的最短路径长度为 3。&lt;/p&gt;
@@ -442,7 +526,10 @@
 &lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2024/06/28/image10.jpg&#34; alt=&#34;&#34; loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;新增一条从 0 到 4 的道路后，从 0 到 4 的最短路径长度为 1。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
-\[\[0, 3\]\[0, 2\]&lt;p&gt;]&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输入：&lt;/strong&gt; n = 4, queries = &lt;/p&gt;
+\[\[0, 3\]&lt;p&gt;, &lt;/p&gt;
+\[0, 2\]&lt;p&gt;]&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输出：&lt;/strong&gt; &lt;/p&gt;
 \[1, 1\]&lt;p&gt;&lt;strong&gt;解释：&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2024/06/28/image11.jpg&#34; alt=&#34;&#34; loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;新增一条从 0 到 3 的道路后，从 0 到 3 的最短路径长度为 1。&lt;/p&gt;
@@ -1012,11 +1099,17 @@ Y&lt;/code&gt;&lt;/pre&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx-o
 &lt;p&gt;返回矩阵中 &lt;strong&gt;省份&lt;/strong&gt; 的数量。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2020/12/24/graph1.jpg&#34; alt=&#34;&#34; loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
-\[\[1,1,0\]\[1,1,0\]\[0,0,1\]&lt;p&gt;]&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输入：&lt;/strong&gt; isConnected = &lt;/p&gt;
+\[\[1,1,0\]&lt;p&gt;,&lt;/p&gt;
+\[1,1,0\]&lt;p&gt;,&lt;/p&gt;
+\[0,0,1\]&lt;p&gt;]&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;输出：&lt;/strong&gt; 2&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2020/12/24/graph2.jpg&#34; alt=&#34;&#34; loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
-\[\[1,0,0\]\[0,1,0\]\[0,0,1\]&lt;p&gt;]
+&lt;p&gt;&lt;strong&gt;输入：&lt;/strong&gt; isConnected = &lt;/p&gt;
+\[\[1,0,0\]&lt;p&gt;,&lt;/p&gt;
+\[0,1,0\]&lt;p&gt;,&lt;/p&gt;
+\[0,0,1\]&lt;p&gt;]
 &lt;strong&gt;输出：&lt;/strong&gt; 3&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
@@ -1083,13 +1176,27 @@ Y&lt;/code&gt;&lt;/pre&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx-o
 &lt;p&gt;岛屿总是被水包围，并且每座岛屿只能由水平方向和/或竖直方向上相邻的陆地连接形成。&lt;/p&gt;
 &lt;p&gt;此外，你可以假设该网格的四条边均被水包围。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;**输入：**grid = &lt;/p&gt;
 \[
-  \[&#34;1&#34;,&#34;1&#34;,&#34;1&#34;,&#34;1&#34;,&#34;0&#34;\]\[&#34;1&#34;,&#34;1&#34;,&#34;0&#34;,&#34;1&#34;,&#34;0&#34;\]\[&#34;1&#34;,&#34;1&#34;,&#34;0&#34;,&#34;0&#34;,&#34;0&#34;\]\[&#34;0&#34;,&#34;0&#34;,&#34;0&#34;,&#34;0&#34;,&#34;0&#34;\]&lt;p&gt;
+  \[&#34;1&#34;,&#34;1&#34;,&#34;1&#34;,&#34;1&#34;,&#34;0&#34;\]&lt;p&gt;,
+&lt;/p&gt;
+\[&#34;1&#34;,&#34;1&#34;,&#34;0&#34;,&#34;1&#34;,&#34;0&#34;\]&lt;p&gt;,
+&lt;/p&gt;
+\[&#34;1&#34;,&#34;1&#34;,&#34;0&#34;,&#34;0&#34;,&#34;0&#34;\]&lt;p&gt;,
+&lt;/p&gt;
+\[&#34;0&#34;,&#34;0&#34;,&#34;0&#34;,&#34;0&#34;,&#34;0&#34;\]&lt;p&gt;
 ]&lt;/p&gt;
 &lt;p&gt;**输出：**1&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;**输入：**grid = &lt;/p&gt;
 \[
-  \[&#34;1&#34;,&#34;1&#34;,&#34;0&#34;,&#34;0&#34;,&#34;0&#34;\]\[&#34;1&#34;,&#34;1&#34;,&#34;0&#34;,&#34;0&#34;,&#34;0&#34;\]\[&#34;0&#34;,&#34;0&#34;,&#34;1&#34;,&#34;0&#34;,&#34;0&#34;\]\[&#34;0&#34;,&#34;0&#34;,&#34;0&#34;,&#34;1&#34;,&#34;1&#34;\]&lt;p&gt;
+  \[&#34;1&#34;,&#34;1&#34;,&#34;0&#34;,&#34;0&#34;,&#34;0&#34;\]&lt;p&gt;,
+&lt;/p&gt;
+\[&#34;1&#34;,&#34;1&#34;,&#34;0&#34;,&#34;0&#34;,&#34;0&#34;\]&lt;p&gt;,
+&lt;/p&gt;
+\[&#34;0&#34;,&#34;0&#34;,&#34;1&#34;,&#34;0&#34;,&#34;0&#34;\]&lt;p&gt;,
+&lt;/p&gt;
+\[&#34;0&#34;,&#34;0&#34;,&#34;0&#34;,&#34;1&#34;,&#34;1&#34;\]&lt;p&gt;
 ]&lt;/p&gt;
 &lt;p&gt;**输出：**3&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
@@ -1183,20 +1290,25 @@ Y&lt;/code&gt;&lt;/pre&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx-o
     &lt;a href=&#34;#990-%e7%ad%89%e5%bc%8f%e6%96%b9%e7%a8%8b%e7%9a%84%e5%8f%af%e6%bb%a1%e8%b6%b3%e6%80%a7&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;给定一个由表示变量之间关系的字符串方程组成的数组，每个字符串方程 &lt;code&gt;equations[i]&lt;/code&gt; 的长度为 &lt;code&gt;4&lt;/code&gt;，并采用两种不同的形式之一：&lt;code&gt;&amp;quot;a==b&amp;quot;&lt;/code&gt; 或 &lt;code&gt;&amp;quot;a!=b&amp;quot;&lt;/code&gt;。在这里，a 和 b 是小写字母（不一定不同），表示单字母变量名。&lt;/p&gt;
 &lt;p&gt;只有当可以将整数分配给变量名，以便满足所有给定的方程时才返回 &lt;code&gt;true&lt;/code&gt;，否则返回 &lt;code&gt;false&lt;/code&gt;。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输入：&lt;/strong&gt;&lt;/p&gt;
 \[&#34;a==b&#34;,&#34;b!=a&#34;\]&lt;p&gt;
 **输出：**false
 **解释：**如果我们指定，a = 1 且 b = 1，那么可以满足第一个方程，但无法满足第二个方程。没有办法分配变量同时满足这两个方程。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输入：&lt;/strong&gt;&lt;/p&gt;
 \[&#34;b\==a&#34;,&#34;a\==b&#34;\]&lt;p&gt;
 **输出：**true
 **解释：**我们可以指定 a = 1 且 b = 1 以满足满足这两个方程。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 3：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输入：&lt;/strong&gt;&lt;/p&gt;
 \[&#34;a\==b&#34;,&#34;b\==c&#34;,&#34;a\==c&#34;\]&lt;p&gt;
 **输出：**true&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 4：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输入：&lt;/strong&gt;&lt;/p&gt;
 \[&#34;a\==b&#34;,&#34;b\!=c&#34;,&#34;c\==a&#34;\]&lt;p&gt;
 **输出：**false&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 5：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输入：&lt;/strong&gt;&lt;/p&gt;
 \[&#34;c\==c&#34;,&#34;b\==d&#34;,&#34;x\!=z&#34;\]&lt;p&gt;
 **输出：**true&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
@@ -1269,9 +1381,36 @@ Y&lt;/code&gt;&lt;/pre&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx-o
 &lt;p&gt;现在，我们想合并这些账户。如果两个账户都有一些共同的邮箱地址，则两个账户必定属于同一个人。请注意，即使两个账户具有相同的名称，它们也可能属于不同的人，因为人们可能具有相同的名称。一个人最初可以拥有任意数量的账户，但其所有账户都具有相同的名称。&lt;/p&gt;
 &lt;p&gt;合并账户后，按以下格式返回账户：每个账户的第一个元素是名称，其余元素是 &lt;strong&gt;按字符 ASCII 顺序排列&lt;/strong&gt; 的邮箱地址。账户本身可以以 &lt;strong&gt;任意顺序&lt;/strong&gt; 返回。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
-\[\[&#34;John&#34;, &#34;johnsmith@mail.com&#34;, &#34;john00@mail.com&#34;\]\[&#34;John&#34;, &#34;johnnybravo@mail.com&#34;\]\[&#34;John&#34;, &#34;johnsmith@mail.com&#34;, &#34;john\_newyork@mail.com&#34;\]\[&#34;Mary&#34;, &#34;mary@mail.com&#34;\]\[\[&#34;John&#34;, &#39;john00@mail.com&#39;, &#39;john\_newyork@mail.com&#39;, &#39;johnsmith@mail.com&#39;\]\[&#34;John&#34;, &#34;johnnybravo@mail.com&#34;\]\[&#34;Mary&#34;, &#34;mary@mail.com&#34;\]\[\[&#39;Mary&#39;，&#39;mary@mail.com&#39;\]\[&#39;John&#39;，&#39;johnnybravo@mail.com&#39;\]\[&#39;John&#39;，&#39;john00@mail.com&#39;，&#39;john\_newyork@mail.com&#39;，&#39;johnsmith@mail.com&#39;\]&lt;p&gt;] 也是正确的。&lt;/p&gt;
+&lt;p&gt;**输入：**accounts = &lt;/p&gt;
+\[\[&#34;John&#34;, &#34;johnsmith@mail.com&#34;, &#34;john00@mail.com&#34;\]&lt;p&gt;, &lt;/p&gt;
+\[&#34;John&#34;, &#34;johnnybravo@mail.com&#34;\]&lt;p&gt;, &lt;/p&gt;
+\[&#34;John&#34;, &#34;johnsmith@mail.com&#34;, &#34;john\_newyork@mail.com&#34;\]&lt;p&gt;, &lt;/p&gt;
+\[&#34;Mary&#34;, &#34;mary@mail.com&#34;\]&lt;p&gt;]
+&lt;strong&gt;输出：&lt;/strong&gt;&lt;/p&gt;
+\[\[&#34;John&#34;, &#39;john00@mail.com&#39;, &#39;john\_newyork@mail.com&#39;, &#39;johnsmith@mail.com&#39;\]&lt;p&gt;,  &lt;/p&gt;
+\[&#34;John&#34;, &#34;johnnybravo@mail.com&#34;\]&lt;p&gt;, &lt;/p&gt;
+\[&#34;Mary&#34;, &#34;mary@mail.com&#34;\]&lt;p&gt;]
+&lt;strong&gt;解释：&lt;/strong&gt;
+第一个和第三个 John 是同一个人，因为他们有共同的邮箱地址 &amp;ldquo;&lt;a href=&#34;mailto:johnsmith@mail.com&#34; &gt;johnsmith@mail.com&lt;/a&gt;&amp;rdquo;。
+第二个 John 和 Mary 是不同的人，因为他们的邮箱地址没有被其他帐户使用。
+可以以任何顺序返回这些列表，例如答案 &lt;/p&gt;
+\[\[&#39;Mary&#39;，&#39;mary@mail.com&#39;\]&lt;p&gt;，&lt;/p&gt;
+\[&#39;John&#39;，&#39;johnnybravo@mail.com&#39;\]&lt;p&gt;，
+&lt;/p&gt;
+\[&#39;John&#39;，&#39;john00@mail.com&#39;，&#39;john\_newyork@mail.com&#39;，&#39;johnsmith@mail.com&#39;\]&lt;p&gt;] 也是正确的。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
-\[\[&#34;Gabe&#34;,&#34;Gabe0@m.co&#34;,&#34;Gabe3@m.co&#34;,&#34;Gabe1@m.co&#34;\]\[&#34;Kevin&#34;,&#34;Kevin3@m.co&#34;,&#34;Kevin5@m.co&#34;,&#34;Kevin0@m.co&#34;\]\[&#34;Ethan&#34;,&#34;Ethan5@m.co&#34;,&#34;Ethan4@m.co&#34;,&#34;Ethan0@m.co&#34;\]\[&#34;Hanzo&#34;,&#34;Hanzo3@m.co&#34;,&#34;Hanzo1@m.co&#34;,&#34;Hanzo0@m.co&#34;\]\[&#34;Fern&#34;,&#34;Fern5@m.co&#34;,&#34;Fern1@m.co&#34;,&#34;Fern0@m.co&#34;\]\[\[&#34;Ethan&#34;,&#34;Ethan0@m.co&#34;,&#34;Ethan4@m.co&#34;,&#34;Ethan5@m.co&#34;\]\[&#34;Gabe&#34;,&#34;Gabe0@m.co&#34;,&#34;Gabe1@m.co&#34;,&#34;Gabe3@m.co&#34;\]\[&#34;Hanzo&#34;,&#34;Hanzo0@m.co&#34;,&#34;Hanzo1@m.co&#34;,&#34;Hanzo3@m.co&#34;\]\[&#34;Kevin&#34;,&#34;Kevin0@m.co&#34;,&#34;Kevin3@m.co&#34;,&#34;Kevin5@m.co&#34;\]\[&#34;Fern&#34;,&#34;Fern0@m.co&#34;,&#34;Fern1@m.co&#34;,&#34;Fern5@m.co&#34;\]&lt;p&gt;]&lt;/p&gt;
+&lt;p&gt;**输入：**accounts = &lt;/p&gt;
+\[\[&#34;Gabe&#34;,&#34;Gabe0@m.co&#34;,&#34;Gabe3@m.co&#34;,&#34;Gabe1@m.co&#34;\]&lt;p&gt;,&lt;/p&gt;
+\[&#34;Kevin&#34;,&#34;Kevin3@m.co&#34;,&#34;Kevin5@m.co&#34;,&#34;Kevin0@m.co&#34;\]&lt;p&gt;,&lt;/p&gt;
+\[&#34;Ethan&#34;,&#34;Ethan5@m.co&#34;,&#34;Ethan4@m.co&#34;,&#34;Ethan0@m.co&#34;\]&lt;p&gt;,&lt;/p&gt;
+\[&#34;Hanzo&#34;,&#34;Hanzo3@m.co&#34;,&#34;Hanzo1@m.co&#34;,&#34;Hanzo0@m.co&#34;\]&lt;p&gt;,&lt;/p&gt;
+\[&#34;Fern&#34;,&#34;Fern5@m.co&#34;,&#34;Fern1@m.co&#34;,&#34;Fern0@m.co&#34;\]&lt;p&gt;]
+&lt;strong&gt;输出：&lt;/strong&gt;&lt;/p&gt;
+\[\[&#34;Ethan&#34;,&#34;Ethan0@m.co&#34;,&#34;Ethan4@m.co&#34;,&#34;Ethan5@m.co&#34;\]&lt;p&gt;,&lt;/p&gt;
+\[&#34;Gabe&#34;,&#34;Gabe0@m.co&#34;,&#34;Gabe1@m.co&#34;,&#34;Gabe3@m.co&#34;\]&lt;p&gt;,&lt;/p&gt;
+\[&#34;Hanzo&#34;,&#34;Hanzo0@m.co&#34;,&#34;Hanzo1@m.co&#34;,&#34;Hanzo3@m.co&#34;\]&lt;p&gt;,&lt;/p&gt;
+\[&#34;Kevin&#34;,&#34;Kevin0@m.co&#34;,&#34;Kevin3@m.co&#34;,&#34;Kevin5@m.co&#34;\]&lt;p&gt;,&lt;/p&gt;
+\[&#34;Fern&#34;,&#34;Fern0@m.co&#34;,&#34;Fern1@m.co&#34;,&#34;Fern5@m.co&#34;\]&lt;p&gt;]&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;1 &amp;lt;= accounts.length &amp;lt;= 1000&lt;/code&gt;&lt;/li&gt;
@@ -1850,9 +1989,28 @@ text = &amp;#34;I am happy today but was sad yesterday&amp;#34;&lt;/code&gt;&lt;
         &lt;h2&gt;&lt;a href=&#34;https://leetcode.cn/problems/merge-intervals/description/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;56. 合并区间&lt;/a&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;56-合并区间&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#56-%e5%90%88%e5%b9%b6%e5%8c%ba%e9%97%b4&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;以数组 &lt;code&gt;intervals&lt;/code&gt; 表示若干个区间的集合，其中单个区间为 &lt;code&gt;intervals[i] = [starti, endi]&lt;/code&gt; 。请你合并所有重叠的区间，并返回 &lt;em&gt;一个不重叠的区间数组，该数组需恰好覆盖输入中的所有区间&lt;/em&gt; 。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
-\[\[1,3\]\[2,6\]\[8,10\]\[15,18\]\[\[1,6\]\[8,10\]\[15,18\]\[1,3\]\[2,6\]\[1,6\]&lt;p&gt;.&lt;/p&gt;
+&lt;p&gt;**输入：**intervals = &lt;/p&gt;
+\[\[1,3\]&lt;p&gt;,&lt;/p&gt;
+\[2,6\]&lt;p&gt;,&lt;/p&gt;
+\[8,10\]&lt;p&gt;,&lt;/p&gt;
+\[15,18\]&lt;p&gt;]
+&lt;strong&gt;输出：&lt;/strong&gt;&lt;/p&gt;
+\[\[1,6\]&lt;p&gt;,&lt;/p&gt;
+\[8,10\]&lt;p&gt;,&lt;/p&gt;
+\[15,18\]&lt;p&gt;]
+**解释：**区间 &lt;/p&gt;
+\[1,3\]&lt;p&gt; 和 &lt;/p&gt;
+\[2,6\]&lt;p&gt; 重叠, 将它们合并为 &lt;/p&gt;
+\[1,6\]&lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
-\[\[1,4\]\[4,5\]\[\[1,5\]\[1,4\]\[4,5\]&lt;p&gt; 可被视为重叠区间。&lt;/p&gt;
+&lt;p&gt;**输入：**intervals = &lt;/p&gt;
+\[\[1,4\]&lt;p&gt;,&lt;/p&gt;
+\[4,5\]&lt;p&gt;]
+&lt;strong&gt;输出：&lt;/strong&gt;&lt;/p&gt;
+\[\[1,5\]&lt;p&gt;]
+**解释：**区间 &lt;/p&gt;
+\[1,4\]&lt;p&gt; 和 &lt;/p&gt;
+\[4,5\]&lt;p&gt; 可被视为重叠区间。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;1 &amp;lt;= intervals.length &amp;lt;= 10^4&lt;/code&gt;&lt;/li&gt;
@@ -1947,11 +2105,48 @@ text = &amp;#34;I am happy today but was sad yesterday&amp;#34;&lt;/code&gt;&lt;
 &lt;p&gt;你可以 &lt;strong&gt;任意多次交换&lt;/strong&gt; 在 &lt;code&gt;pairs&lt;/code&gt; 中任意一对索引处的字符。&lt;/p&gt;
 &lt;p&gt;返回在经过若干次交换后，&lt;code&gt;s&lt;/code&gt; 可以变成的按字典序最小的字符串。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 1:&lt;/strong&gt;&lt;/p&gt;
-\[\[0,3\]\[1,2\]\[0\]\[3\]\[1\]\[2\]&lt;p&gt;, s = &amp;ldquo;bacd&amp;rdquo;&lt;/p&gt;
+&lt;p&gt;**输入：**s = &amp;ldquo;dcab&amp;rdquo;, pairs = &lt;/p&gt;
+\[\[0,3\]&lt;p&gt;,&lt;/p&gt;
+\[1,2\]&lt;p&gt;]
+&lt;strong&gt;输出：&lt;/strong&gt;&amp;ldquo;bacd&amp;rdquo;
+&lt;strong&gt;解释：&lt;/strong&gt;
+交换 s&lt;/p&gt;
+\[0\]&lt;p&gt; 和 s&lt;/p&gt;
+\[3\]&lt;p&gt;, s = &amp;ldquo;bcad&amp;rdquo;
+交换 s&lt;/p&gt;
+\[1\]&lt;p&gt; 和 s&lt;/p&gt;
+\[2\]&lt;p&gt;, s = &amp;ldquo;bacd&amp;rdquo;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
-\[\[0,3\]\[1,2\]\[0,2\]\[0\]\[3\]\[0\]\[2\]\[1\]\[2\]&lt;p&gt;, s = &amp;ldquo;abcd&amp;rdquo;&lt;/p&gt;
+&lt;p&gt;**输入：**s = &amp;ldquo;dcab&amp;rdquo;, pairs = &lt;/p&gt;
+\[\[0,3\]&lt;p&gt;,&lt;/p&gt;
+\[1,2\]&lt;p&gt;,&lt;/p&gt;
+\[0,2\]&lt;p&gt;]
+&lt;strong&gt;输出：&lt;/strong&gt;&amp;ldquo;abcd&amp;rdquo;
+&lt;strong&gt;解释：&lt;/strong&gt;
+交换 s&lt;/p&gt;
+\[0\]&lt;p&gt; 和 s&lt;/p&gt;
+\[3\]&lt;p&gt;, s = &amp;ldquo;bcad&amp;rdquo;
+交换 s&lt;/p&gt;
+\[0\]&lt;p&gt; 和 s&lt;/p&gt;
+\[2\]&lt;p&gt;, s = &amp;ldquo;acbd&amp;rdquo;
+交换 s&lt;/p&gt;
+\[1\]&lt;p&gt; 和 s&lt;/p&gt;
+\[2\]&lt;p&gt;, s = &amp;ldquo;abcd&amp;rdquo;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 3：&lt;/strong&gt;&lt;/p&gt;
-\[\[0,1\]\[1,2\]\[0\]\[1\]\[1\]\[2\]\[0\]\[1\]&lt;p&gt;, s = &amp;ldquo;abc&amp;rdquo;&lt;/p&gt;
+&lt;p&gt;**输入：**s = &amp;ldquo;cba&amp;rdquo;, pairs = &lt;/p&gt;
+\[\[0,1\]&lt;p&gt;,&lt;/p&gt;
+\[1,2\]&lt;p&gt;]
+&lt;strong&gt;输出：&lt;/strong&gt;&amp;ldquo;abc&amp;rdquo;
+&lt;strong&gt;解释：&lt;/strong&gt;
+交换 s&lt;/p&gt;
+\[0\]&lt;p&gt; 和 s&lt;/p&gt;
+\[1\]&lt;p&gt;, s = &amp;ldquo;bca&amp;rdquo;
+交换 s&lt;/p&gt;
+\[1\]&lt;p&gt; 和 s&lt;/p&gt;
+\[2\]&lt;p&gt;, s = &amp;ldquo;bac&amp;rdquo;
+交换 s&lt;/p&gt;
+\[0\]&lt;p&gt; 和 s&lt;/p&gt;
+\[1\]&lt;p&gt;, s = &amp;ldquo;abc&amp;rdquo;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;1 &amp;lt;= s.length &amp;lt;= 10^5&lt;/code&gt;&lt;/li&gt;
@@ -2073,7 +2268,11 @@ text = &amp;#34;I am happy today but was sad yesterday&amp;#34;&lt;/code&gt;&lt;
 &lt;p&gt;相同长度的两个数组 &lt;code&gt;source&lt;/code&gt; 和 &lt;code&gt;target&lt;/code&gt; 间的 &lt;strong&gt;汉明距离&lt;/strong&gt; 是元素不同的下标数量。形式上，其值等于满足 &lt;code&gt;source[i] != target[i]&lt;/code&gt; （&lt;strong&gt;下标从 0 开始&lt;/strong&gt;）的下标 &lt;code&gt;i&lt;/code&gt;（&lt;code&gt;0 &amp;lt;= i &amp;lt;= n-1&lt;/code&gt;）的数量。&lt;/p&gt;
 &lt;p&gt;在对数组 &lt;code&gt;source&lt;/code&gt; 执行 &lt;strong&gt;任意&lt;/strong&gt; 数量的交换操作后，返回 &lt;code&gt;source&lt;/code&gt; 和 &lt;code&gt;target&lt;/code&gt; 间的 &lt;strong&gt;最小汉明距离&lt;/strong&gt; 。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
-\[1,2,3,4\]\[2,1,4,5\]\[\[0,1\]\[2,3\]&lt;p&gt;]
+&lt;p&gt;**输入：**source = &lt;/p&gt;
+\[1,2,3,4\]&lt;p&gt;, target = &lt;/p&gt;
+\[2,1,4,5\]&lt;p&gt;, allowedSwaps = &lt;/p&gt;
+\[\[0,1\]&lt;p&gt;,&lt;/p&gt;
+\[2,3\]&lt;p&gt;]
 **输出：**1
 **解释：**source 可以按下述方式转换：&lt;/p&gt;
 &lt;ul&gt;
@@ -2082,12 +2281,20 @@ text = &amp;#34;I am happy today but was sad yesterday&amp;#34;&lt;/code&gt;&lt;
 source 和 target 间的汉明距离是 1 ，二者有 1 处元素不同，在下标 3 。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
-\[1,2,3,4\]\[1,3,2,4\]&lt;p&gt;, allowedSwaps = []
+&lt;p&gt;**输入：**source = &lt;/p&gt;
+\[1,2,3,4\]&lt;p&gt;, target = &lt;/p&gt;
+\[1,3,2,4\]&lt;p&gt;, allowedSwaps = []
 **输出：**2
 **解释：**不能对 source 执行交换操作。
 source 和 target 间的汉明距离是 2 ，二者有 2 处元素不同，在下标 1 和下标 2 。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 3：&lt;/strong&gt;&lt;/p&gt;
-\[5,1,2,4,3\]\[1,5,4,2,3\]\[\[0,4\]\[4,2\]\[1,3\]\[1,4\]&lt;p&gt;]
+&lt;p&gt;**输入：**source = &lt;/p&gt;
+\[5,1,2,4,3\]&lt;p&gt;, target = &lt;/p&gt;
+\[1,5,4,2,3\]&lt;p&gt;, allowedSwaps = &lt;/p&gt;
+\[\[0,4\]&lt;p&gt;,&lt;/p&gt;
+\[4,2\]&lt;p&gt;,&lt;/p&gt;
+\[1,3\]&lt;p&gt;,&lt;/p&gt;
+\[1,4\]&lt;p&gt;]
 **输出：**0&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
@@ -2124,8 +2331,14 @@ source 和 target 间的汉明距离是 2 ，二者有 2 处元素不同，在�
 &lt;p&gt;人和座位由一个整数数组 &lt;code&gt;row&lt;/code&gt; 表示，其中 &lt;code&gt;row[i]&lt;/code&gt; 是坐在第 &lt;code&gt;i&lt;/code&gt; 个座位上的人的 &lt;strong&gt;ID&lt;/strong&gt;。情侣们按顺序编号，第一对是 &lt;code&gt;(0, 1)&lt;/code&gt;，第二对是 &lt;code&gt;(2, 3)&lt;/code&gt;，以此类推，最后一对是 &lt;code&gt;(2n-2, 2n-1)&lt;/code&gt;。&lt;/p&gt;
 &lt;p&gt;返回 &lt;em&gt;最少交换座位的次数，以便每对情侣可以并肩坐在一起&lt;/em&gt;。 _每次_交换可选择任意两人，让他们站起来交换座位。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 1:&lt;/strong&gt;&lt;/p&gt;
-\[0,2,1,3\]\[1\]\[2\]&lt;p&gt;的位置即可。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输入:&lt;/strong&gt; row = &lt;/p&gt;
+\[0,2,1,3\]&lt;p&gt;
+&lt;strong&gt;输出:&lt;/strong&gt; 1
+&lt;strong&gt;解释:&lt;/strong&gt; 只需要交换row&lt;/p&gt;
+\[1\]&lt;p&gt;和row&lt;/p&gt;
+\[2\]&lt;p&gt;的位置即可。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 2:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输入:&lt;/strong&gt; row = &lt;/p&gt;
 \[3,2,0,1\]&lt;p&gt;
 &lt;strong&gt;输出:&lt;/strong&gt; 0
 &lt;strong&gt;解释:&lt;/strong&gt; 无需交换座位，所有的情侣都已经可以手牵手了。&lt;/p&gt;
@@ -2194,8 +2407,13 @@ source 和 target 间的汉明距离是 2 ，二者有 2 处元素不同，在�
     &lt;a href=&#34;#128-%e6%9c%80%e9%95%bf%e8%bf%9e%e7%bb%ad%e5%ba%8f%e5%88%97&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;给定一个未排序的整数数组 &lt;code&gt;nums&lt;/code&gt; ，找出数字连续的最长序列（不要求序列元素在原数组中连续）的长度。&lt;/p&gt;
 &lt;p&gt;请你设计并实现时间复杂度为 &lt;code&gt;O(n)&lt;/code&gt; 的算法解决此问题。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
-\[100,4,200,1,3,2\]\[1, 2, 3, 4\]&lt;p&gt;。它的长度为 4。&lt;/p&gt;
+&lt;p&gt;**输入：**nums = &lt;/p&gt;
+\[100,4,200,1,3,2\]&lt;p&gt;
+**输出：**4
+**解释：**最长数字连续序列是 &lt;/p&gt;
+\[1, 2, 3, 4\]&lt;p&gt;。它的长度为 4。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;**输入：**nums = &lt;/p&gt;
 \[0,3,7,2,5,8,4,6,0,1\]&lt;p&gt;
 **输出：**9&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
@@ -2269,7 +2487,13 @@ source 和 target 间的汉明距离是 2 ，二者有 2 处元素不同，在�
 &lt;p&gt;如果一块石头的 &lt;strong&gt;同行或者同列&lt;/strong&gt; 上有其他石头存在，那么就可以移除这块石头。&lt;/p&gt;
 &lt;p&gt;给你一个长度为 &lt;code&gt;n&lt;/code&gt; 的数组 &lt;code&gt;stones&lt;/code&gt; ，其中 &lt;code&gt;stones[i] = [xi, yi]&lt;/code&gt; 表示第 &lt;code&gt;i&lt;/code&gt; 块石头的位置，返回 &lt;strong&gt;可以移除的石子&lt;/strong&gt; 的最大数量。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
-\[\[0,0\]\[0,1\]\[1,0\]\[1,2\]\[2,1\]\[2,2\]&lt;p&gt;]
+&lt;p&gt;**输入：**stones = &lt;/p&gt;
+\[\[0,0\]&lt;p&gt;,&lt;/p&gt;
+\[0,1\]&lt;p&gt;,&lt;/p&gt;
+\[1,0\]&lt;p&gt;,&lt;/p&gt;
+\[1,2\]&lt;p&gt;,&lt;/p&gt;
+\[2,1\]&lt;p&gt;,&lt;/p&gt;
+\[2,2\]&lt;p&gt;]
 **输出：**5
 **解释：**一种移除 5 块石头的方法如下所示：&lt;/p&gt;
 &lt;ol&gt;
@@ -2281,7 +2505,12 @@ source 和 target 间的汉明距离是 2 ，二者有 2 处元素不同，在�
 石头 \[0,0\] 不能移除，因为它没有与另一块石头同行/列。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
-\[\[0,0\]\[0,2\]\[1,1\]\[2,0\]\[2,2\]&lt;p&gt;]
+&lt;p&gt;**输入：**stones = &lt;/p&gt;
+\[\[0,0\]&lt;p&gt;,&lt;/p&gt;
+\[0,2\]&lt;p&gt;,&lt;/p&gt;
+\[1,1\]&lt;p&gt;,&lt;/p&gt;
+\[2,0\]&lt;p&gt;,&lt;/p&gt;
+\[2,2\]&lt;p&gt;]
 **输出：**3
 **解释：**一种移除 3 块石头的方法如下所示：&lt;/p&gt;
 &lt;ol&gt;
@@ -2291,7 +2520,11 @@ source 和 target 间的汉明距离是 2 ，二者有 2 处元素不同，在�
 石头 \[0,0\] 和 \[1,1\] 不能移除，因为它们没有与另一块石头同行/列。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;&lt;strong&gt;示例 3：&lt;/strong&gt;&lt;/p&gt;
-\[\[0,0\]\[0,0\]&lt;p&gt; 是平面上唯一一块石头，所以不可以移除它。&lt;/p&gt;
+&lt;p&gt;**输入：**stones = &lt;/p&gt;
+\[\[0,0\]&lt;p&gt;]
+**输出：**0
+&lt;strong&gt;解释：&lt;/strong&gt;&lt;/p&gt;
+\[0,0\]&lt;p&gt; 是平面上唯一一块石头，所以不可以移除它。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;1 &amp;lt;= stones.length &amp;lt;= 1000&lt;/code&gt;&lt;/li&gt;
@@ -2324,9 +2557,11 @@ source 和 target 间的汉明距离是 2 ，二者有 2 处元素不同，在�
 &lt;p&gt;总之，它们通过相似性形成了两个关联组：&lt;code&gt;{&amp;quot;tars&amp;quot;, &amp;quot;rats&amp;quot;, &amp;quot;arts&amp;quot;}&lt;/code&gt; 和 &lt;code&gt;{&amp;quot;star&amp;quot;}&lt;/code&gt;。注意，&lt;code&gt;&amp;quot;tars&amp;quot;&lt;/code&gt; 和 &lt;code&gt;&amp;quot;arts&amp;quot;&lt;/code&gt; 是在同一组中，即使它们并不相似。形式上，对每个组而言，要确定一个单词在组中，只需要这个词和该组中至少一个单词相似。&lt;/p&gt;
 &lt;p&gt;给你一个字符串列表 &lt;code&gt;strs&lt;/code&gt;。列表中的每个字符串都是 &lt;code&gt;strs&lt;/code&gt; 中其它所有字符串的一个字母异位词。请问 &lt;code&gt;strs&lt;/code&gt; 中有多少个相似字符串组？&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;**输入：**strs = &lt;/p&gt;
 \[&#34;tars&#34;,&#34;rats&#34;,&#34;arts&#34;,&#34;star&#34;\]&lt;p&gt;
 **输出：**2&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;**输入：**strs = &lt;/p&gt;
 \[&#34;omv&#34;,&#34;ovm&#34;\]&lt;p&gt;
 **输出：**1&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
@@ -2406,19 +2641,36 @@ source 和 target 间的汉明距离是 2 ，二者有 2 处元素不同，在�
 &lt;p&gt;请返回只经过陆地格子能从最 &lt;strong&gt;上面&lt;/strong&gt; 一行走到最 &lt;strong&gt;下面&lt;/strong&gt; 一行的 &lt;strong&gt;最后一天&lt;/strong&gt; 。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2021/07/27/1.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
-\[\[1,1\]\[2,1\]\[1,2\]\[2,2\]&lt;p&gt;]
+&lt;p&gt;**输入：**row = 2, col = 2, cells = &lt;/p&gt;
+\[\[1,1\]&lt;p&gt;,&lt;/p&gt;
+\[2,1\]&lt;p&gt;,&lt;/p&gt;
+\[1,2\]&lt;p&gt;,&lt;/p&gt;
+\[2,2\]&lt;p&gt;]
 **输出：**2
 **解释：**上图描述了矩阵从第 0 天开始是如何变化的。
 可以从最上面一行到最下面一行的最后一天是第 2 天。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2021/07/27/2.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
-\[\[1,1\]\[1,2\]\[2,1\]\[2,2\]&lt;p&gt;]
+&lt;p&gt;**输入：**row = 2, col = 2, cells = &lt;/p&gt;
+\[\[1,1\]&lt;p&gt;,&lt;/p&gt;
+\[1,2\]&lt;p&gt;,&lt;/p&gt;
+\[2,1\]&lt;p&gt;,&lt;/p&gt;
+\[2,2\]&lt;p&gt;]
 **输出：**1
 **解释：**上图描述了矩阵从第 0 天开始是如何变化的。
 可以从最上面一行到最下面一行的最后一天是第 1 天。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 3：&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2021/07/27/3.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
-\[\[1,2\]\[2,1\]\[3,3\]\[2,2\]\[1,1\]\[1,3\]\[2,3\]\[3,2\]\[3,1\]&lt;p&gt;]
+&lt;p&gt;**输入：**row = 3, col = 3, cells = &lt;/p&gt;
+\[\[1,2\]&lt;p&gt;,&lt;/p&gt;
+\[2,1\]&lt;p&gt;,&lt;/p&gt;
+\[3,3\]&lt;p&gt;,&lt;/p&gt;
+\[2,2\]&lt;p&gt;,&lt;/p&gt;
+\[1,1\]&lt;p&gt;,&lt;/p&gt;
+\[1,3\]&lt;p&gt;,&lt;/p&gt;
+\[2,3\]&lt;p&gt;,&lt;/p&gt;
+\[3,2\]&lt;p&gt;,&lt;/p&gt;
+\[3,1\]&lt;p&gt;]
 **输出：**3
 **解释：**上图描述了矩阵从第 0 天开始是如何变化的。
 可以从最上面一行到最下面一行的最后一天是第 3 天。&lt;/p&gt;
@@ -2459,17 +2711,36 @@ source 和 target 间的汉明距离是 2 ，二者有 2 处元素不同，在�
 &lt;p&gt;返回一个 &lt;strong&gt;布尔数组&lt;/strong&gt; &lt;code&gt;result&lt;/code&gt; ，其中元素遵循此规则：如果第 &lt;code&gt;j&lt;/code&gt; 个好友请求 &lt;strong&gt;成功&lt;/strong&gt; ，那么 &lt;code&gt;result[j]&lt;/code&gt; 就是 &lt;code&gt;true&lt;/code&gt; ；否则，为 &lt;code&gt;false&lt;/code&gt; 。&lt;/p&gt;
 &lt;p&gt;**注意：**如果 &lt;code&gt;uj&lt;/code&gt; 和 &lt;code&gt;vj&lt;/code&gt; 已经是直接朋友，那么他们之间的请求将仍然 &lt;strong&gt;成功&lt;/strong&gt; 。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
-\[\[0,1\]\[\[0,2\]\[2,1\]\[true,false\]&lt;p&gt;
+&lt;p&gt;**输入：**n = 3, restrictions = &lt;/p&gt;
+\[\[0,1\]&lt;p&gt;], requests = &lt;/p&gt;
+\[\[0,2\]&lt;p&gt;,&lt;/p&gt;
+\[2,1\]&lt;p&gt;]
+&lt;strong&gt;输出：&lt;/strong&gt;&lt;/p&gt;
+\[true,false\]&lt;p&gt;
 &lt;strong&gt;解释：&lt;/strong&gt;
 请求 0 ：用户 0 和 用户 2 可以成为朋友，所以他们成为直接朋友。
 请求 1 ：用户 2 和 用户 1 不能成为朋友，因为这会使 用户 0 和 用户 1 成为间接朋友 (1&amp;ndash;2&amp;ndash;0) 。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
-\[\[0,1\]\[\[1,2\]\[0,2\]\[true,false\]&lt;p&gt;
+&lt;p&gt;**输入：**n = 3, restrictions = &lt;/p&gt;
+\[\[0,1\]&lt;p&gt;], requests = &lt;/p&gt;
+\[\[1,2\]&lt;p&gt;,&lt;/p&gt;
+\[0,2\]&lt;p&gt;]
+&lt;strong&gt;输出：&lt;/strong&gt;&lt;/p&gt;
+\[true,false\]&lt;p&gt;
 &lt;strong&gt;解释：&lt;/strong&gt;
 请求 0 ：用户 1 和 用户 2 可以成为朋友，所以他们成为直接朋友。
 请求 1 ：用户 0 和 用户 2 不能成为朋友，因为这会使 用户 0 和 用户 1 成为间接朋友 (0&amp;ndash;2&amp;ndash;1) 。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 3：&lt;/strong&gt;&lt;/p&gt;
-\[\[0,1\]\[1,2\]\[2,3\]\[\[0,4\]\[1,2\]\[3,1\]\[3,4\]\[true,false,true,false\]&lt;p&gt;
+&lt;p&gt;**输入：**n = 5, restrictions = &lt;/p&gt;
+\[\[0,1\]&lt;p&gt;,&lt;/p&gt;
+\[1,2\]&lt;p&gt;,&lt;/p&gt;
+\[2,3\]&lt;p&gt;], requests = &lt;/p&gt;
+\[\[0,4\]&lt;p&gt;,&lt;/p&gt;
+\[1,2\]&lt;p&gt;,&lt;/p&gt;
+\[3,1\]&lt;p&gt;,&lt;/p&gt;
+\[3,4\]&lt;p&gt;]
+&lt;strong&gt;输出：&lt;/strong&gt;&lt;/p&gt;
+\[true,false,true,false\]&lt;p&gt;
 &lt;strong&gt;解释：&lt;/strong&gt;
 请求 0 ：用户 0 和 用户 4 可以成为朋友，所以他们成为直接朋友。
 请求 1 ：用户 1 和 用户 2 不能成为朋友，因为他们之间存在限制。
@@ -2518,15 +2789,32 @@ source 和 target 间的汉明距离是 2 ，二者有 2 处元素不同，在�
 &lt;p&gt;返回可以删除的最大边数，如果 Alice 和 Bob 无法完全遍历图，则返回 -1 。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;&lt;img src=&#34;https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2020/09/06/5510ex1.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34; /&gt;&lt;/strong&gt;&lt;/p&gt;
-\[\[3,1,2\]\[3,2,3\]\[1,1,3\]\[1,2,4\]\[1,1,2\]\[2,3,4\]\[1,1,2\]\[1,1,3\]&lt;p&gt; 这两条边，Alice 和 Bob 仍然可以完全遍历这个图。再删除任何其他的边都无法保证图可以完全遍历。所以可以删除的最大边数是 2 。&lt;/p&gt;
+&lt;p&gt;**输入：**n = 4, edges = &lt;/p&gt;
+\[\[3,1,2\]&lt;p&gt;,&lt;/p&gt;
+\[3,2,3\]&lt;p&gt;,&lt;/p&gt;
+\[1,1,3\]&lt;p&gt;,&lt;/p&gt;
+\[1,2,4\]&lt;p&gt;,&lt;/p&gt;
+\[1,1,2\]&lt;p&gt;,&lt;/p&gt;
+\[2,3,4\]&lt;p&gt;]
+**输出：**2
+**解释：**如果删除 &lt;/p&gt;
+\[1,1,2\]&lt;p&gt; 和 &lt;/p&gt;
+\[1,1,3\]&lt;p&gt; 这两条边，Alice 和 Bob 仍然可以完全遍历这个图。再删除任何其他的边都无法保证图可以完全遍历。所以可以删除的最大边数是 2 。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;&lt;img src=&#34;https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2020/09/06/5510ex2.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34; /&gt;&lt;/strong&gt;&lt;/p&gt;
-\[\[3,1,2\]\[3,2,3\]\[1,1,4\]\[2,1,4\]&lt;p&gt;]
+&lt;p&gt;**输入：**n = 4, edges = &lt;/p&gt;
+\[\[3,1,2\]&lt;p&gt;,&lt;/p&gt;
+\[3,2,3\]&lt;p&gt;,&lt;/p&gt;
+\[1,1,4\]&lt;p&gt;,&lt;/p&gt;
+\[2,1,4\]&lt;p&gt;]
 **输出：**0
 **解释：**注意，删除任何一条边都会使 Alice 和 Bob 无法完全遍历这个图。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 3：&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;&lt;img src=&#34;https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2020/09/06/5510ex3.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34; /&gt;&lt;/strong&gt;&lt;/p&gt;
-\[\[3,2,3\]\[1,1,2\]\[2,3,4\]&lt;p&gt;]
+&lt;p&gt;**输入：**n = 4, edges = &lt;/p&gt;
+\[\[3,2,3\]&lt;p&gt;,&lt;/p&gt;
+\[1,1,2\]&lt;p&gt;,&lt;/p&gt;
+\[2,3,4\]&lt;p&gt;]
 &lt;strong&gt;输出：&lt;/strong&gt;-1
 **解释：**在当前图中，Alice 无法从其他节点到达节点 4 。类似地，Bob 也不能达到节点 1 。因此，图无法完全遍历。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
@@ -2564,14 +2852,17 @@ source 和 target 间的汉明距离是 2 ，二者有 2 处元素不同，在�
 &lt;p&gt;请注意，反斜杠字符是转义的，因此 &lt;code&gt;&#39;\&#39;&lt;/code&gt; 用 &lt;code&gt;&#39;\\&#39;&lt;/code&gt; 表示。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2018/12/15/1.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;**输入：**grid = &lt;/p&gt;
 \[&#34; /&#34;,&#34;/ &#34;\]&lt;p&gt;
 **输出：**2&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2018/12/15/2.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;**输入：**grid = &lt;/p&gt;
 \[&#34; /&#34;,&#34;  &#34;\]&lt;p&gt;
 **输出：**1&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 3：&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2018/12/15/4.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;**输入：**grid = &lt;/p&gt;
 \[&#34;/\\\\&#34;,&#34;\\\\/&#34;\]&lt;p&gt;
 **输出：**5
 **解释：**回想一下，因为 \ 字符是转义的，所以 &amp;ldquo;/\\&amp;rdquo; 表示 /\，而 &amp;ldquo;\\/&amp;rdquo; 表示 \/。&lt;/p&gt;
@@ -2614,12 +2905,18 @@ source 和 target 间的汉明距离是 2 ，二者有 2 处元素不同，在�
 &lt;p&gt;两个单元格 &lt;code&gt;(a, b)&lt;/code&gt; 和 &lt;code&gt;(x, y)&lt;/code&gt; 之间的 &lt;strong&gt;曼哈顿距离&lt;/strong&gt; 等于 &lt;code&gt;| a - x | + | b - y |&lt;/code&gt; ，其中 &lt;code&gt;|val|&lt;/code&gt; 表示 &lt;code&gt;val&lt;/code&gt; 的绝对值。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2023/07/02/example1.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
-\[\[1,0,0\]\[0,0,0\]\[0,0,1\]&lt;p&gt;]
+&lt;p&gt;**输入：**grid = &lt;/p&gt;
+\[\[1,0,0\]&lt;p&gt;,&lt;/p&gt;
+\[0,0,0\]&lt;p&gt;,&lt;/p&gt;
+\[0,0,1\]&lt;p&gt;]
 **输出：**0
 **解释：**从 (0, 0) 到 (n - 1, n - 1) 的每条路径都经过存在小偷的单元格 (0, 0) 和 (n - 1, n - 1) 。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2023/07/02/example2.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
-\[\[0,0,1\]\[0,0,0\]\[0,0,0\]&lt;p&gt;]
+&lt;p&gt;**输入：**grid = &lt;/p&gt;
+\[\[0,0,1\]&lt;p&gt;,&lt;/p&gt;
+\[0,0,0\]&lt;p&gt;,&lt;/p&gt;
+\[0,0,0\]&lt;p&gt;]
 **输出：**2
 &lt;strong&gt;解释：&lt;/strong&gt;
 上图所示路径的安全系数为 2：&lt;/p&gt;
@@ -2629,7 +2926,11 @@ source 和 target 间的汉明距离是 2 ，二者有 2 处元素不同，在�
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;示例 3：&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2023/07/02/example3.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
-\[\[0,0,0,1\]\[0,0,0,0\]\[0,0,0,0\]\[1,0,0,0\]&lt;p&gt;]
+&lt;p&gt;**输入：**grid = &lt;/p&gt;
+\[\[0,0,0,1\]&lt;p&gt;,&lt;/p&gt;
+\[0,0,0,0\]&lt;p&gt;,&lt;/p&gt;
+\[0,0,0,0\]&lt;p&gt;,&lt;/p&gt;
+\[1,0,0,0\]&lt;p&gt;]
 **输出：**2
 &lt;strong&gt;解释：&lt;/strong&gt;
 上图所示路径的安全系数为 2：&lt;/p&gt;
@@ -2676,11 +2977,22 @@ source 和 target 间的汉明距离是 2 ，二者有 2 处元素不同，在�
 &lt;p&gt;返回结果数组 &lt;code&gt;answer&lt;/code&gt; 。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2022/10/19/yetgriddrawio.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
-\[\[1,2,3\]\[2,5,7\]\[3,5,1\]\[5,6,2\]\[5,8,1\]&lt;p&gt;
+&lt;p&gt;**输入：**grid = &lt;/p&gt;
+\[\[1,2,3\]&lt;p&gt;,&lt;/p&gt;
+\[2,5,7\]&lt;p&gt;,&lt;/p&gt;
+\[3,5,1\]&lt;p&gt;], queries = &lt;/p&gt;
+\[5,6,2\]&lt;p&gt;
+&lt;strong&gt;输出：&lt;/strong&gt;&lt;/p&gt;
+\[5,8,1\]&lt;p&gt;
 **解释：**上图展示了每个查询中访问并获得分数的单元格。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2022/10/20/yetgriddrawio-2.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
-\[\[5,2,1\]\[1,1,2\]\[3\]\[0\]&lt;p&gt;
+&lt;p&gt;**输入：**grid = &lt;/p&gt;
+\[\[5,2,1\]&lt;p&gt;,&lt;/p&gt;
+\[1,1,2\]&lt;p&gt;], queries = &lt;/p&gt;
+\[3\]&lt;p&gt;
+&lt;strong&gt;输出：&lt;/strong&gt;&lt;/p&gt;
+\[0\]&lt;p&gt;
 **解释：**无法获得分数，因为左上角单元格的值大于等于 3 。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
@@ -2723,7 +3035,11 @@ source 和 target 间的汉明距离是 2 ，二者有 2 处元素不同，在�
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2023/08/27/example1.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
-\[\[1,2\]\[1,3\]\[2,4\]\[2,5\]&lt;p&gt;]
+&lt;p&gt;**输入：**n = 5, edges = &lt;/p&gt;
+\[\[1,2\]&lt;p&gt;,&lt;/p&gt;
+\[1,3\]&lt;p&gt;,&lt;/p&gt;
+\[2,4\]&lt;p&gt;,&lt;/p&gt;
+\[2,5\]&lt;p&gt;]
 **输出：**4
 **解释：**恰好有一个质数编号的节点路径有：&lt;/p&gt;
 &lt;ul&gt;
@@ -2735,7 +3051,12 @@ source 和 target 间的汉明距离是 2 ，二者有 2 处元素不同，在�
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2023/08/27/example2.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
-\[\[1,2\]\[1,3\]\[2,4\]\[3,5\]\[3,6\]&lt;p&gt;]
+&lt;p&gt;**输入：**n = 6, edges = &lt;/p&gt;
+\[\[1,2\]&lt;p&gt;,&lt;/p&gt;
+\[1,3\]&lt;p&gt;,&lt;/p&gt;
+\[2,4\]&lt;p&gt;,&lt;/p&gt;
+\[3,5\]&lt;p&gt;,&lt;/p&gt;
+\[3,6\]&lt;p&gt;]
 **输出：**6
 **解释：**恰好有一个质数编号的节点路径有：&lt;/p&gt;
 &lt;ul&gt;
@@ -2787,15 +3108,33 @@ source 和 target 间的汉明距离是 2 ，二者有 2 处元素不同，在�
 &lt;p&gt;注意，一条路径和它反向的路径算作 &lt;strong&gt;同一&lt;/strong&gt; 路径。比方说， &lt;code&gt;0 -&amp;gt; 1&lt;/code&gt; 与 &lt;code&gt;1 -&amp;gt; 0&lt;/code&gt; 视为同一条路径。单个节点也视为一条合法路径。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2022/08/04/f9caaac15b383af9115c5586779dec5.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
-\[1,3,2,1,3\]\[\[0,1\]\[0,2\]\[2,3\]\[2,4\]\[2\]\[0\]&lt;p&gt; 。&lt;/p&gt;
+&lt;p&gt;**输入：**vals = &lt;/p&gt;
+\[1,3,2,1,3\]&lt;p&gt;, edges = &lt;/p&gt;
+\[\[0,1\]&lt;p&gt;,&lt;/p&gt;
+\[0,2\]&lt;p&gt;,&lt;/p&gt;
+\[2,3\]&lt;p&gt;,&lt;/p&gt;
+\[2,4\]&lt;p&gt;]
+**输出：**6
+**解释：**总共有 5 条单个节点的好路径。
+还有 1 条好路径：1 -&amp;gt; 0 -&amp;gt; 2 -&amp;gt; 4 。
+（反方向的路径 4 -&amp;gt; 2 -&amp;gt; 0 -&amp;gt; 1 视为跟 1 -&amp;gt; 0 -&amp;gt; 2 -&amp;gt; 4 一样的路径）
+注意 0 -&amp;gt; 2 -&amp;gt; 3 不是一条好路径，因为 vals&lt;/p&gt;
+\[2\]&lt;p&gt; &amp;gt; vals&lt;/p&gt;
+\[0\]&lt;p&gt; 。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2022/08/04/149d3065ec165a71a1b9aec890776ff.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
-\[1,1,2,2,3\]\[\[0,1\]\[1,2\]\[2,3\]\[2,4\]&lt;p&gt;]
+&lt;p&gt;**输入：**vals = &lt;/p&gt;
+\[1,1,2,2,3\]&lt;p&gt;, edges = &lt;/p&gt;
+\[\[0,1\]&lt;p&gt;,&lt;/p&gt;
+\[1,2\]&lt;p&gt;,&lt;/p&gt;
+\[2,3\]&lt;p&gt;,&lt;/p&gt;
+\[2,4\]&lt;p&gt;]
 **输出：**7
 **解释：**总共有 5 条单个节点的好路径。
 还有 2 条好路径：0 -&amp;gt; 1 和 2 -&amp;gt; 3 。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 3：&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2022/08/04/31705e22af3d9c0a557459bc7d1b62d.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;**输入：**vals = &lt;/p&gt;
 \[1\]&lt;p&gt;, edges = []
 **输出：**1
 **解释：**这棵树只有一个节点，所以只有一条好路径。&lt;/p&gt;
@@ -2846,7 +3185,10 @@ source 和 target 间的汉明距离是 2 ，二者有 2 处元素不同，在�
 &lt;li&gt;&lt;code&gt;ans[1]&lt;/code&gt; 是字符串数目最多的组所包含的字符串数目。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
-\[&#34;a&#34;,&#34;b&#34;,&#34;ab&#34;,&#34;cde&#34;\]\[2,3\]&lt;p&gt;
+&lt;p&gt;**输入：**words = &lt;/p&gt;
+\[&#34;a&#34;,&#34;b&#34;,&#34;ab&#34;,&#34;cde&#34;\]&lt;p&gt;
+&lt;strong&gt;输出：&lt;/strong&gt;&lt;/p&gt;
+\[2,3\]&lt;p&gt;
 &lt;strong&gt;解释：&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;words\[0\] 可以得到 words\[1\] （将 &amp;lsquo;a&amp;rsquo; 替换为 &amp;lsquo;b&amp;rsquo;）和 words\[2\] （添加 &amp;lsquo;b&amp;rsquo;）。所以 words\[0\] 与 words\[1\] 和 words\[2\] 关联。&lt;/li&gt;
@@ -2856,7 +3198,10 @@ source 和 target 间的汉明距离是 2 ，二者有 2 处元素不同，在�
 所以，words 可以分成 2 个组 \[&#34;a&#34;,&#34;b&#34;,&#34;ab&#34;\] 和 \[&#34;cde&#34;\] 。最大的组大小为 3 。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
-\[&#34;a&#34;,&#34;ab&#34;,&#34;abc&#34;\]\[1,3\]&lt;p&gt;
+&lt;p&gt;**输入：**words = &lt;/p&gt;
+\[&#34;a&#34;,&#34;ab&#34;,&#34;abc&#34;\]&lt;p&gt;
+&lt;strong&gt;输出：&lt;/strong&gt;&lt;/p&gt;
+\[1,3\]&lt;p&gt;
 &lt;strong&gt;解释：&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;words\[0\] 与 words\[1\] 关联。&lt;/li&gt;
@@ -2909,13 +3254,53 @@ source 和 target 间的汉明距离是 2 ，二者有 2 处元素不同，在�
 &lt;p&gt;题目保证按照上面规则 &lt;code&gt;answer&lt;/code&gt; 数组是唯一的。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2020/10/25/rank1.jpg&#34; alt=&#34;&#34; loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
-\[\[1,2\]\[3,4\]\[\[1,2\]\[2,3\]\[0\]\[0\]\[0\]\[1\]\[0\]\[1\]\[0\]\[0\]\[0\]\[0\]\[1\]\[0\]\[1\]\[0\]\[0\]\[0\]\[0\]\[0\]\[1\]\[1\]\[1\]\[1\]\[0\]\[1\]\[1\]\[1\]\[1\]\[0\]\[0\]\[1\]\[1\]\[0\]&lt;p&gt; 的秩都为 2 。&lt;/p&gt;
+&lt;p&gt;**输入：**matrix = &lt;/p&gt;
+\[\[1,2\]&lt;p&gt;,&lt;/p&gt;
+\[3,4\]&lt;p&gt;]
+&lt;strong&gt;输出：&lt;/strong&gt;&lt;/p&gt;
+\[\[1,2\]&lt;p&gt;,&lt;/p&gt;
+\[2,3\]&lt;p&gt;]
+&lt;strong&gt;解释：&lt;/strong&gt;
+matrix&lt;/p&gt;
+\[0\]\[0\]&lt;p&gt; 的秩为 1 ，因为它是所在行和列的最小整数。
+matrix&lt;/p&gt;
+\[0\]\[1\]&lt;p&gt; 的秩为 2 ，因为 matrix&lt;/p&gt;
+\[0\]\[1\]&lt;p&gt; &amp;gt; matrix&lt;/p&gt;
+\[0\]\[0\]&lt;p&gt; 且 matrix&lt;/p&gt;
+\[0\]\[0\]&lt;p&gt; 的秩为 1 。
+matrix&lt;/p&gt;
+\[1\]\[0\]&lt;p&gt; 的秩为 2 ，因为 matrix&lt;/p&gt;
+\[1\]\[0\]&lt;p&gt; &amp;gt; matrix&lt;/p&gt;
+\[0\]\[0\]&lt;p&gt; 且 matrix&lt;/p&gt;
+\[0\]\[0\]&lt;p&gt; 的秩为 1 。
+matrix&lt;/p&gt;
+\[1\]\[1\]&lt;p&gt; 的秩为 3 ，因为 matrix&lt;/p&gt;
+\[1\]\[1\]&lt;p&gt; &amp;gt; matrix&lt;/p&gt;
+\[0\]\[1\]&lt;p&gt;， matrix&lt;/p&gt;
+\[1\]\[1\]&lt;p&gt; &amp;gt; matrix&lt;/p&gt;
+\[1\]\[0\]&lt;p&gt; 且 matrix&lt;/p&gt;
+\[0\]\[1\]&lt;p&gt; 和 matrix&lt;/p&gt;
+\[1\]\[0\]&lt;p&gt; 的秩都为 2 。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2020/10/25/rank2.jpg&#34; alt=&#34;&#34; loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
-\[\[7,7\]\[7,7\]\[\[1,1\]\[1,1\]&lt;p&gt;]&lt;/p&gt;
+&lt;p&gt;**输入：**matrix = &lt;/p&gt;
+\[\[7,7\]&lt;p&gt;,&lt;/p&gt;
+\[7,7\]&lt;p&gt;]
+&lt;strong&gt;输出：&lt;/strong&gt;&lt;/p&gt;
+\[\[1,1\]&lt;p&gt;,&lt;/p&gt;
+\[1,1\]&lt;p&gt;]&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 3：&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2020/10/25/rank3.jpg&#34; alt=&#34;&#34; loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
-\[\[20,-21,14\]\[-19,4,19\]\[22,-47,24\]\[-19,4,19\]\[\[4,2,3\]\[1,3,4\]\[5,1,6\]\[1,3,4\]&lt;p&gt;]&lt;/p&gt;
+&lt;p&gt;**输入：**matrix = &lt;/p&gt;
+\[\[20,-21,14\]&lt;p&gt;,&lt;/p&gt;
+\[-19,4,19\]&lt;p&gt;,&lt;/p&gt;
+\[22,-47,24\]&lt;p&gt;,&lt;/p&gt;
+\[-19,4,19\]&lt;p&gt;]
+&lt;strong&gt;输出：&lt;/strong&gt;&lt;/p&gt;
+\[\[4,2,3\]&lt;p&gt;,&lt;/p&gt;
+\[1,3,4\]&lt;p&gt;,&lt;/p&gt;
+\[5,1,6\]&lt;p&gt;,&lt;/p&gt;
+\[1,3,4\]&lt;p&gt;]&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;m == matrix.length&lt;/code&gt;&lt;/li&gt;
@@ -2953,9 +3338,60 @@ source 和 target 间的汉明距离是 2 ，二者有 2 处元素不同，在�
 &lt;p&gt;返回一个数组 &lt;code&gt;result&lt;/code&gt; ，其中 &lt;code&gt;result[i]&lt;/code&gt; 表示第 &lt;code&gt;i&lt;/code&gt; 次消除操作对应掉落的砖块数目。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;，消除可能指向是没有砖块的空白位置，如果发生这种情况，则没有砖块掉落。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
-\[\[1,0,0,0\]\[1,1,1,0\]\[\[1,0\]\[2\]\[\[1,0,0,0\]\[**1**,1,1,0\]\[\[1,0,0,0\]\[0,**1**,**1**,0\]\[\[1,0,0,0\]\[0,0,0,0\]\[2\]&lt;p&gt; 。&lt;/p&gt;
+&lt;p&gt;**输入：**grid = &lt;/p&gt;
+\[\[1,0,0,0\]&lt;p&gt;,&lt;/p&gt;
+\[1,1,1,0\]&lt;p&gt;], hits = &lt;/p&gt;
+\[\[1,0\]&lt;p&gt;]
+&lt;strong&gt;输出：&lt;/strong&gt;&lt;/p&gt;
+\[2\]&lt;p&gt;
+**解释：**网格开始为：
+&lt;/p&gt;
+\[\[1,0,0,0\]&lt;p&gt;，
+&lt;/p&gt;
+\[**1**,1,1,0\]&lt;p&gt;]
+消除 (1,0) 处加粗的砖块，得到网格：
+&lt;/p&gt;
+\[\[1,0,0,0\]&lt;p&gt;
+&lt;/p&gt;
+\[0,**1**,**1**,0\]&lt;p&gt;]
+两个加粗的砖不再稳定，因为它们不再与顶部相连，也不再与另一个稳定的砖相邻，因此它们将掉落。得到网格：
+&lt;/p&gt;
+\[\[1,0,0,0\]&lt;p&gt;,
+&lt;/p&gt;
+\[0,0,0,0\]&lt;p&gt;]
+因此，结果为 &lt;/p&gt;
+\[2\]&lt;p&gt; 。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
-\[\[1,0,0,0\]\[1,1,0,0\]\[\[1,1\]\[1,0\]\[0,0\]\[\[1,0,0,0\]\[1,**1**,0,0\]\[\[1,0,0,0\]\[1,0,0,0\]\[\[1,0,0,0\]\[**1**,0,0,0\]\[\[1,0,0,0\]\[0,0,0,0\]\[0,0\]&lt;p&gt; 。&lt;/p&gt;
+&lt;p&gt;**输入：**grid = &lt;/p&gt;
+\[\[1,0,0,0\]&lt;p&gt;,&lt;/p&gt;
+\[1,1,0,0\]&lt;p&gt;], hits = &lt;/p&gt;
+\[\[1,1\]&lt;p&gt;,&lt;/p&gt;
+\[1,0\]&lt;p&gt;]
+&lt;strong&gt;输出：&lt;/strong&gt;&lt;/p&gt;
+\[0,0\]&lt;p&gt;
+**解释：**网格开始为：
+&lt;/p&gt;
+\[\[1,0,0,0\]&lt;p&gt;,
+&lt;/p&gt;
+\[1,**1**,0,0\]&lt;p&gt;]
+消除 (1,1) 处加粗的砖块，得到网格：
+&lt;/p&gt;
+\[\[1,0,0,0\]&lt;p&gt;,
+&lt;/p&gt;
+\[1,0,0,0\]&lt;p&gt;]
+剩下的砖都很稳定，所以不会掉落。网格保持不变：
+&lt;/p&gt;
+\[\[1,0,0,0\]&lt;p&gt;,
+&lt;/p&gt;
+\[**1**,0,0,0\]&lt;p&gt;]
+接下来消除 (1,0) 处加粗的砖块，得到网格：
+&lt;/p&gt;
+\[\[1,0,0,0\]&lt;p&gt;,
+&lt;/p&gt;
+\[0,0,0,0\]&lt;p&gt;]
+剩下的砖块仍然是稳定的，所以不会有砖块掉落。
+因此，结果为 &lt;/p&gt;
+\[0,0\]&lt;p&gt; 。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;m == grid.length&lt;/code&gt;&lt;/li&gt;
@@ -2995,11 +3431,29 @@ source 和 target 间的汉明距离是 2 ，二者有 2 处元素不同，在�
 &lt;p&gt;由于答案可能会很大，请将结果对 &lt;code&gt;10^9 + 7&lt;/code&gt; 取余数。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2020/08/30/bb.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
-\[2,1,3\]\[2,3,1\]&lt;p&gt; 能得到相同的 BST 。没有其他得到相同 BST 的方案了。&lt;/p&gt;
+&lt;p&gt;**输入：**nums = &lt;/p&gt;
+\[2,1,3\]&lt;p&gt;
+**输出：**1
+**解释：**我们将 nums 重排， &lt;/p&gt;
+\[2,3,1\]&lt;p&gt; 能得到相同的 BST 。没有其他得到相同 BST 的方案了。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;&lt;img src=&#34;https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2020/08/30/ex1.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34; /&gt;&lt;/strong&gt;&lt;/p&gt;
-\[3,4,5,1,2\]\[3,1,2,4,5\]\[3,1,4,2,5\]\[3,1,4,5,2\]\[3,4,1,2,5\]\[3,4,1,5,2\]&lt;p&gt;&lt;strong&gt;示例 3：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;**输入：**nums = &lt;/p&gt;
+\[3,4,5,1,2\]&lt;p&gt;
+**输出：**5
+**解释：**下面 5 个数组会得到相同的 BST：
+&lt;/p&gt;
+\[3,1,2,4,5\]&lt;p&gt;
+&lt;/p&gt;
+\[3,1,4,2,5\]&lt;p&gt;
+&lt;/p&gt;
+\[3,1,4,5,2\]&lt;p&gt;
+&lt;/p&gt;
+\[3,4,1,2,5\]&lt;p&gt;
+&lt;/p&gt;
+\[3,4,1,5,2\]&lt;p&gt;&lt;strong&gt;示例 3：&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;&lt;img src=&#34;https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2020/08/30/ex4.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34; /&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;**输入：**nums = &lt;/p&gt;
 \[1,2,3\]&lt;p&gt;
 **输出：**0
 **解释：**没有别的排列顺序能得到相同的 BST 。&lt;/p&gt;
@@ -3034,24 +3488,29 @@ source 和 target 间的汉明距离是 2 ，二者有 2 处元素不同，在�
 &lt;p&gt;坐标平面内有一个左下角在原点，右上角在 &lt;code&gt;(xCorner, yCorner)&lt;/code&gt; 的矩形。你需要判断是否存在一条从左下角到右上角的路径满足：路径 &lt;strong&gt;完全&lt;/strong&gt; 在矩形内部，&lt;strong&gt;不会&lt;/strong&gt; 触碰或者经过 &lt;strong&gt;任何&lt;/strong&gt; 圆的内部和边界，同时 &lt;strong&gt;只&lt;/strong&gt; 在起点和终点接触到矩形。&lt;/p&gt;
 &lt;p&gt;如果存在这样的路径，请你返回 &lt;code&gt;true&lt;/code&gt; ，否则返回 &lt;code&gt;false&lt;/code&gt; 。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;**输入：**X = 3, Y = 4, circles = &lt;/p&gt;
 \[\[2,1,1\]&lt;p&gt;]&lt;/p&gt;
 &lt;p&gt;**输出：**true&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;解释：&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2024/05/18/example2circle1.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;黑色曲线表示一条从 &lt;code&gt;(0, 0)&lt;/code&gt; 到 &lt;code&gt;(3, 4)&lt;/code&gt; 的路径。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;**输入：**X = 3, Y = 3, circles = &lt;/p&gt;
 \[\[1,1,2\]&lt;p&gt;]&lt;/p&gt;
 &lt;p&gt;**输出：**false&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;解释：&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2024/05/18/example1circle.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;不存在从 &lt;code&gt;(0, 0)&lt;/code&gt; 到 &lt;code&gt;(3, 3)&lt;/code&gt; 的路径。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 3：&lt;/strong&gt;&lt;/p&gt;
-\[\[2,1,1\]\[1,2,1\]&lt;p&gt;]&lt;/p&gt;
+&lt;p&gt;**输入：**X = 3, Y = 3, circles = &lt;/p&gt;
+\[\[2,1,1\]&lt;p&gt;,&lt;/p&gt;
+\[1,2,1\]&lt;p&gt;]&lt;/p&gt;
 &lt;p&gt;**输出：**false&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;解释：&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2024/05/18/example0circle.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;不存在从 &lt;code&gt;(0, 0)&lt;/code&gt; 到 &lt;code&gt;(3, 3)&lt;/code&gt; 的路径。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 4：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;**输入：**X = 4, Y = 4, circles = &lt;/p&gt;
 \[\[5,5,1\]&lt;p&gt;]&lt;/p&gt;
 &lt;p&gt;**输出：**true&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;解释：&lt;/strong&gt;&lt;/p&gt;
@@ -3462,15 +3921,40 @@ source 和 target 间的汉明距离是 2 ，二者有 2 处元素不同，在�
 &lt;p&gt;给你一个整数 &lt;code&gt;m&lt;/code&gt; ，请你找出二进制字符串上存在长度为 &lt;code&gt;m&lt;/code&gt; 的一组 &lt;code&gt;1&lt;/code&gt; 的最后步骤。一组 &lt;code&gt;1&lt;/code&gt; 是一个连续的、由 &lt;code&gt;1&lt;/code&gt; 组成的子串，且左右两边不再有可以延伸的 &lt;code&gt;1&lt;/code&gt; 。&lt;/p&gt;
 &lt;p&gt;返回存在长度 &lt;strong&gt;恰好&lt;/strong&gt; 为 &lt;code&gt;m&lt;/code&gt; 的 &lt;strong&gt;一组 &lt;code&gt;1&lt;/code&gt;&lt;/strong&gt;  的最后步骤。如果不存在这样的步骤，请返回 &lt;code&gt;-1&lt;/code&gt; 。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
-\[&#34;1&#34;, &#34;1&#34;\]\[&#34;1&#34;, &#34;1&#34;, &#34;1&#34;\]\[&#34;111&#34;, &#34;1&#34;\]\[&#34;11111&#34;\]&lt;p&gt;
+&lt;p&gt;&lt;strong&gt;输入：&lt;strong&gt;arr = \[3,5,1,2,4\], m = 1
+&lt;strong&gt;输出：&lt;strong&gt;4
+&lt;strong&gt;解释：&lt;/strong&gt;
+步骤 1：&amp;ldquo;00&lt;/strong&gt;1&lt;/strong&gt;00&amp;rdquo;，由 1 构成的组：\[&#34;1&#34;\]
+步骤 2：&amp;ldquo;0010&lt;/strong&gt;1&lt;/strong&gt;&amp;quot;，由 1 构成的组：&lt;/p&gt;
+\[&#34;1&#34;, &#34;1&#34;\]&lt;p&gt;
+步骤 3：&amp;rdquo;&lt;strong&gt;1&lt;/strong&gt;0101&amp;quot;，由 1 构成的组：&lt;/p&gt;
+\[&#34;1&#34;, &#34;1&#34;, &#34;1&#34;\]&lt;p&gt;
+步骤 4：&amp;ldquo;1&lt;strong&gt;1&lt;/strong&gt;101&amp;rdquo;，由 1 构成的组：&lt;/p&gt;
+\[&#34;111&#34;, &#34;1&#34;\]&lt;p&gt;
+步骤 5：&amp;ldquo;111&lt;strong&gt;1&lt;/strong&gt;1&amp;rdquo;，由 1 构成的组：&lt;/p&gt;
+\[&#34;11111&#34;\]&lt;p&gt;
 存在长度为 1 的一组 1 的最后步骤是步骤 4 。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
-\[&#34;1&#34;\]\[&#34;1&#34;, &#34;1&#34;\]\[&#34;1&#34;, &#34;1&#34;, &#34;1&#34;\]\[&#34;1&#34;, &#34;111&#34;\]\[&#34;11111&#34;\]&lt;p&gt;
+&lt;p&gt;&lt;strong&gt;输入：&lt;strong&gt;arr = \[3,1,5,4,2\], m = 2
+&lt;strong&gt;输出：&lt;/strong&gt;-1
+&lt;strong&gt;解释：&lt;/strong&gt;
+步骤 1：&amp;ldquo;00&lt;/strong&gt;1&lt;/strong&gt;00&amp;rdquo;，由 1 构成的组：&lt;/p&gt;
+\[&#34;1&#34;\]&lt;p&gt;
+步骤 2：&amp;quot;&lt;strong&gt;1&lt;/strong&gt;0100&amp;quot;，由 1 构成的组：&lt;/p&gt;
+\[&#34;1&#34;, &#34;1&#34;\]&lt;p&gt;
+步骤 3：&amp;ldquo;1010&lt;strong&gt;1&lt;/strong&gt;&amp;quot;，由 1 构成的组：&lt;/p&gt;
+\[&#34;1&#34;, &#34;1&#34;, &#34;1&#34;\]&lt;p&gt;
+步骤 4：&amp;ldquo;101&lt;strong&gt;1&lt;/strong&gt;1&amp;rdquo;，由 1 构成的组：&lt;/p&gt;
+\[&#34;1&#34;, &#34;111&#34;\]&lt;p&gt;
+步骤 5：&amp;ldquo;1&lt;strong&gt;1&lt;/strong&gt;111&amp;rdquo;，由 1 构成的组：&lt;/p&gt;
+\[&#34;11111&#34;\]&lt;p&gt;
 不管是哪一步骤都无法形成长度为 2 的一组 1 。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 3：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;**输入：**arr = &lt;/p&gt;
 \[1\]&lt;p&gt;, m = 1
 **输出：**1&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 4：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;**输入：**arr = &lt;/p&gt;
 \[2,1\]&lt;p&gt;, m = 2
 **输出：**2&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
@@ -3517,12 +4001,43 @@ source 和 target 间的汉明距离是 2 ，二者有 2 处元素不同，在�
 &lt;p&gt;如果有多种可行解，请返回它们中的 &lt;strong&gt;任意一个&lt;/strong&gt; 。如果没办法阻止洪水，请返回一个 &lt;strong&gt;空的数组&lt;/strong&gt; 。&lt;/p&gt;
 &lt;p&gt;请注意，如果你选择抽干一个装满水的湖泊，它会变成一个空的湖泊。但如果你选择抽干一个空的湖泊，那么将无事发生。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
-\[1,2,3,4\]\[-1,-1,-1,-1\]\[1\]\[1,2\]\[1,2,3\]\[1,2,3,4\]&lt;p&gt;
+&lt;p&gt;**输入：**rains = &lt;/p&gt;
+\[1,2,3,4\]&lt;p&gt;
+&lt;strong&gt;输出：&lt;/strong&gt;&lt;/p&gt;
+\[-1,-1,-1,-1\]&lt;p&gt;
+**解释：**第一天后，装满水的湖泊包括 &lt;/p&gt;
+\[1\]&lt;p&gt;
+第二天后，装满水的湖泊包括 &lt;/p&gt;
+\[1,2\]&lt;p&gt;
+第三天后，装满水的湖泊包括 &lt;/p&gt;
+\[1,2,3\]&lt;p&gt;
+第四天后，装满水的湖泊包括 &lt;/p&gt;
+\[1,2,3,4\]&lt;p&gt;
 没有哪一天你可以抽干任何湖泊的水，也没有湖泊会发生洪水。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
-\[1,2,0,0,2,1\]\[-1,-1,2,1,-1,-1\]\[1\]\[1,2\]\[1\]\[2\]\[1,2\]\[-1,-1,1,2,-1,-1\]&lt;p&gt; 也是另一个可行的没有洪水的方案。&lt;/p&gt;
+&lt;p&gt;**输入：**rains = &lt;/p&gt;
+\[1,2,0,0,2,1\]&lt;p&gt;
+&lt;strong&gt;输出：&lt;/strong&gt;&lt;/p&gt;
+\[-1,-1,2,1,-1,-1\]&lt;p&gt;
+**解释：**第一天后，装满水的湖泊包括 &lt;/p&gt;
+\[1\]&lt;p&gt;
+第二天后，装满水的湖泊包括 &lt;/p&gt;
+\[1,2\]&lt;p&gt;
+第三天后，我们抽干湖泊 2 。所以剩下装满水的湖泊包括 &lt;/p&gt;
+\[1\]&lt;p&gt;
+第四天后，我们抽干湖泊 1 。所以暂时没有装满水的湖泊了。
+第五天后，装满水的湖泊包括 &lt;/p&gt;
+\[2\]&lt;p&gt;。
+第六天后，装满水的湖泊包括 &lt;/p&gt;
+\[1,2\]&lt;p&gt;。
+可以看出，这个方案下不会有洪水发生。同时， &lt;/p&gt;
+\[-1,-1,1,2,-1,-1\]&lt;p&gt; 也是另一个可行的没有洪水的方案。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 3：&lt;/strong&gt;&lt;/p&gt;
-\[1,2,0,1,2\]\[1,2\]&lt;p&gt;。我们可以在第三天抽干一个湖泊的水。
+&lt;p&gt;**输入：**rains = &lt;/p&gt;
+\[1,2,0,1,2\]&lt;p&gt;
+&lt;strong&gt;输出：&lt;/strong&gt;[]
+**解释：**第二天后，装满水的湖泊包括 &lt;/p&gt;
+\[1,2\]&lt;p&gt;。我们可以在第三天抽干一个湖泊的水。
 但第三天后，湖泊 1 和 2 都会再次下雨，所以不管我们第三天抽干哪个湖泊的水，另一个湖泊都会发生洪水。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
@@ -3555,9 +4070,48 @@ source 和 target 间的汉明距离是 2 ，二者有 2 处元素不同，在�
 &lt;p&gt;请你返回一个长度为 &lt;code&gt;n&lt;/code&gt; 的整数数组 &lt;code&gt;answer&lt;/code&gt; ，其中 &lt;code&gt;answer[i]&lt;/code&gt;是第 &lt;code&gt;i&lt;/code&gt; 次删除操作以后的 &lt;strong&gt;最大&lt;/strong&gt; 子段和。&lt;/p&gt;
 &lt;p&gt;**注意：**一个下标至多只会被删除一次。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
-\[1,2,5,6,1\]\[0,3,2,4,1\]\[14,7,2,2,0\]\[0,2,5,6,1\]\[2,5,6,1\]\[0,2,5,0,1\]\[2,5\]\[0,2,0,0,1\]\[2\]\[0,2,0,0,0\]\[2\]\[0,0,0,0,0\]\[14,7,2,2,0\]&lt;p&gt; 。&lt;/p&gt;
+&lt;p&gt;**输入：**nums = &lt;/p&gt;
+\[1,2,5,6,1\]&lt;p&gt;, removeQueries = &lt;/p&gt;
+\[0,3,2,4,1\]&lt;p&gt;
+&lt;strong&gt;输出：&lt;/strong&gt;&lt;/p&gt;
+\[14,7,2,2,0\]&lt;p&gt;
+**解释：**用 0 表示被删除的元素，答案如下所示：
+查询 1 ：删除第 0 个元素，nums 变成 &lt;/p&gt;
+\[0,2,5,6,1\]&lt;p&gt; ，最大子段和为子段 &lt;/p&gt;
+\[2,5,6,1\]&lt;p&gt; 的和 14 。
+查询 2 ：删除第 3 个元素，nums 变成 &lt;/p&gt;
+\[0,2,5,0,1\]&lt;p&gt; ，最大子段和为子段 &lt;/p&gt;
+\[2,5\]&lt;p&gt; 的和 7 。
+查询 3 ：删除第 2 个元素，nums 变成 &lt;/p&gt;
+\[0,2,0,0,1\]&lt;p&gt; ，最大子段和为子段 &lt;/p&gt;
+\[2\]&lt;p&gt; 的和 2 。
+查询 4 ：删除第 4 个元素，nums 变成 &lt;/p&gt;
+\[0,2,0,0,0\]&lt;p&gt; ，最大子段和为子段 &lt;/p&gt;
+\[2\]&lt;p&gt; 的和 2 。
+查询 5 ：删除第 1 个元素，nums 变成 &lt;/p&gt;
+\[0,0,0,0,0\]&lt;p&gt; ，最大子段和为 0 ，因为没有任何子段存在。
+所以，我们返回 &lt;/p&gt;
+\[14,7,2,2,0\]&lt;p&gt; 。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
-\[3,2,11,1\]\[3,2,1,0\]\[16,5,3,0\]\[3,2,11,0\]\[3,2,11\]\[3,2,0,0\]\[3,2\]\[3,0,0,0\]\[3\]\[0,0,0,0\]\[16,5,3,0\]&lt;p&gt; 。&lt;/p&gt;
+&lt;p&gt;**输入：**nums = &lt;/p&gt;
+\[3,2,11,1\]&lt;p&gt;, removeQueries = &lt;/p&gt;
+\[3,2,1,0\]&lt;p&gt;
+&lt;strong&gt;输出：&lt;/strong&gt;&lt;/p&gt;
+\[16,5,3,0\]&lt;p&gt;
+**解释：**用 0 表示被删除的元素，答案如下所示：
+查询 1 ：删除第 3 个元素，nums 变成 &lt;/p&gt;
+\[3,2,11,0\]&lt;p&gt; ，最大子段和为子段 &lt;/p&gt;
+\[3,2,11\]&lt;p&gt; 的和 16 。
+查询 2 ：删除第 2 个元素，nums 变成 &lt;/p&gt;
+\[3,2,0,0\]&lt;p&gt; ，最大子段和为子段 &lt;/p&gt;
+\[3,2\]&lt;p&gt; 的和 5 。
+查询 3 ：删除第 1 个元素，nums 变成 &lt;/p&gt;
+\[3,0,0,0\]&lt;p&gt; ，最大子段和为子段 &lt;/p&gt;
+\[3\]&lt;p&gt; 的和 3 。
+查询 5 ：删除第 0 个元素，nums 变成 &lt;/p&gt;
+\[0,0,0,0\]&lt;p&gt; ，最大子段和为 0 ，因为没有任何子段存在。
+所以，我们返回 &lt;/p&gt;
+\[16,5,3,0\]&lt;p&gt; 。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;n == nums.length == removeQueries.length&lt;/code&gt;&lt;/li&gt;
@@ -3592,10 +4146,24 @@ source 和 target 间的汉明距离是 2 ，二者有 2 处元素不同，在�
 &lt;p&gt;请你返回满足要求的 &lt;strong&gt;任意&lt;/strong&gt; 子数组的 &lt;strong&gt;大小&lt;/strong&gt; 。如果没有这样的子数组，返回 &lt;code&gt;-1&lt;/code&gt; 。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;子数组&lt;/strong&gt; 是数组中一段连续非空的元素序列。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
-\[1,3,4,3,1\]\[3,4,3\]&lt;p&gt; 大小为 3 ，每个元素都大于 6 / 3 = 2 。
+&lt;p&gt;**输入：**nums = &lt;/p&gt;
+\[1,3,4,3,1\]&lt;p&gt;, threshold = 6
+**输出：**3
+**解释：**子数组 &lt;/p&gt;
+\[3,4,3\]&lt;p&gt; 大小为 3 ，每个元素都大于 6 / 3 = 2 。
 注意这是唯一合法的子数组。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
-\[6,5,6,5,8\]\[8\]\[6,5\]\[6,5,6\]\[6,5,6,5\]\[6,5,6,5,8\]&lt;p&gt; 都是符合条件的子数组。
+&lt;p&gt;**输入：**nums = &lt;/p&gt;
+\[6,5,6,5,8\]&lt;p&gt;, threshold = 7
+**输出：**1
+**解释：**子数组 &lt;/p&gt;
+\[8\]&lt;p&gt; 大小为 1 ，且 8 &amp;gt; 7 / 1 = 7 。所以返回 1 。
+注意子数组 &lt;/p&gt;
+\[6,5\]&lt;p&gt; 大小为 2 ，每个元素都大于 7 / 2 = 3.5 。
+类似的，子数组 &lt;/p&gt;
+\[6,5,6\]&lt;p&gt; ，&lt;/p&gt;
+\[6,5,6,5\]&lt;p&gt; ，&lt;/p&gt;
+\[6,5,6,5,8\]&lt;p&gt; 都是符合条件的子数组。
 所以返回 2, 3, 4 和 5 都可以。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
@@ -3802,11 +4370,44 @@ source 和 target 间的汉明距离是 2 ，二者有 2 处元素不同，在�
 &lt;p&gt;**注意：**输入总是有效的。你可以假设除法运算中不会出现除数为 0 的情况，且不存在任何矛盾的结果。&lt;/p&gt;
 &lt;p&gt;**注意：**未在等式列表中出现的变量是未定义的，因此无法确定它们的答案。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
-\[\[&#34;a&#34;,&#34;b&#34;\]\[&#34;b&#34;,&#34;c&#34;\]\[2.0,3.0\]\[\[&#34;a&#34;,&#34;c&#34;\]\[&#34;b&#34;,&#34;a&#34;\]\[&#34;a&#34;,&#34;e&#34;\]\[&#34;a&#34;,&#34;a&#34;\]\[&#34;x&#34;,&#34;x&#34;\]\[6.00000,0.50000,-1.00000,1.00000,-1.00000\]\[6.0, 0.5, -1.0, 1.0, -1.0 \]&lt;p&gt;
+&lt;p&gt;**输入：**equations = &lt;/p&gt;
+\[\[&#34;a&#34;,&#34;b&#34;\]&lt;p&gt;,&lt;/p&gt;
+\[&#34;b&#34;,&#34;c&#34;\]&lt;p&gt;], values = &lt;/p&gt;
+\[2.0,3.0\]&lt;p&gt;, queries = &lt;/p&gt;
+\[\[&#34;a&#34;,&#34;c&#34;\]&lt;p&gt;,&lt;/p&gt;
+\[&#34;b&#34;,&#34;a&#34;\]&lt;p&gt;,&lt;/p&gt;
+\[&#34;a&#34;,&#34;e&#34;\]&lt;p&gt;,&lt;/p&gt;
+\[&#34;a&#34;,&#34;a&#34;\]&lt;p&gt;,&lt;/p&gt;
+\[&#34;x&#34;,&#34;x&#34;\]&lt;p&gt;]
+&lt;strong&gt;输出：&lt;/strong&gt;&lt;/p&gt;
+\[6.00000,0.50000,-1.00000,1.00000,-1.00000\]&lt;p&gt;
+&lt;strong&gt;解释：&lt;/strong&gt;
+条件：&lt;em&gt;a / b = 2.0&lt;/em&gt;, &lt;em&gt;b / c = 3.0&lt;/em&gt;
+问题：&lt;em&gt;a / c = ?&lt;/em&gt;, &lt;em&gt;b / a = ?&lt;/em&gt;, &lt;em&gt;a / e = ?&lt;/em&gt;, &lt;em&gt;a / a = ?&lt;/em&gt;, &lt;em&gt;x / x = ?&lt;/em&gt;
+结果：&lt;/p&gt;
+\[6.0, 0.5, -1.0, 1.0, -1.0 \]&lt;p&gt;
 注意：x 是未定义的 =&amp;gt; -1.0&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
-\[\[&#34;a&#34;,&#34;b&#34;\]\[&#34;b&#34;,&#34;c&#34;\]\[&#34;bc&#34;,&#34;cd&#34;\]\[1.5,2.5,5.0\]\[\[&#34;a&#34;,&#34;c&#34;\]\[&#34;c&#34;,&#34;b&#34;\]\[&#34;bc&#34;,&#34;cd&#34;\]\[&#34;cd&#34;,&#34;bc&#34;\]\[3.75000,0.40000,5.00000,0.20000\]&lt;p&gt;&lt;strong&gt;示例 3：&lt;/strong&gt;&lt;/p&gt;
-\[\[&#34;a&#34;,&#34;b&#34;\]\[0.5\]\[\[&#34;a&#34;,&#34;b&#34;\]\[&#34;b&#34;,&#34;a&#34;\]\[&#34;a&#34;,&#34;c&#34;\]\[&#34;x&#34;,&#34;y&#34;\]\[0.50000,2.00000,-1.00000,-1.00000\]&lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;**输入：**equations = &lt;/p&gt;
+\[\[&#34;a&#34;,&#34;b&#34;\]&lt;p&gt;,&lt;/p&gt;
+\[&#34;b&#34;,&#34;c&#34;\]&lt;p&gt;,&lt;/p&gt;
+\[&#34;bc&#34;,&#34;cd&#34;\]&lt;p&gt;], values = &lt;/p&gt;
+\[1.5,2.5,5.0\]&lt;p&gt;, queries = &lt;/p&gt;
+\[\[&#34;a&#34;,&#34;c&#34;\]&lt;p&gt;,&lt;/p&gt;
+\[&#34;c&#34;,&#34;b&#34;\]&lt;p&gt;,&lt;/p&gt;
+\[&#34;bc&#34;,&#34;cd&#34;\]&lt;p&gt;,&lt;/p&gt;
+\[&#34;cd&#34;,&#34;bc&#34;\]&lt;p&gt;]
+&lt;strong&gt;输出：&lt;/strong&gt;&lt;/p&gt;
+\[3.75000,0.40000,5.00000,0.20000\]&lt;p&gt;&lt;strong&gt;示例 3：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;**输入：**equations = &lt;/p&gt;
+\[\[&#34;a&#34;,&#34;b&#34;\]&lt;p&gt;], values = &lt;/p&gt;
+\[0.5\]&lt;p&gt;, queries = &lt;/p&gt;
+\[\[&#34;a&#34;,&#34;b&#34;\]&lt;p&gt;,&lt;/p&gt;
+\[&#34;b&#34;,&#34;a&#34;\]&lt;p&gt;,&lt;/p&gt;
+\[&#34;a&#34;,&#34;c&#34;\]&lt;p&gt;,&lt;/p&gt;
+\[&#34;x&#34;,&#34;y&#34;\]&lt;p&gt;]
+&lt;strong&gt;输出：&lt;/strong&gt;&lt;/p&gt;
+\[0.50000,2.00000,-1.00000,-1.00000\]&lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;1 &amp;lt;= equations.length &amp;lt;= 20&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;equations[i].length == 2&lt;/code&gt;&lt;/li&gt;

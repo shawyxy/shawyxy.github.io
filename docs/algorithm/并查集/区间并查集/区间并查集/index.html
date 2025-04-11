@@ -23,7 +23,7 @@
 
   <meta itemprop="name" content="区间并查集">
   <meta itemprop="description" content="1851. 包含每个查询的最小区间 给你一个二维整数数组 intervals ，其中 intervals[i] = [lefti, righti] 表示第 i 个区间开始于 lefti 、结束于 righti（包含两侧取值，闭区间）。区间的 长度 定义为区间中包含的整数数目，更正式地表达是 righti - lefti &#43; 1 。">
-  <meta itemprop="wordCount" content="1384">
+  <meta itemprop="wordCount" content="1463">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="区间并查集">
   <meta name="twitter:description" content="1851. 包含每个查询的最小区间 给你一个二维整数数组 intervals ，其中 intervals[i] = [lefti, righti] 表示第 i 个区间开始于 lefti 、结束于 righti（包含两侧取值，闭区间）。区间的 长度 定义为区间中包含的整数数目，更正式地表达是 righti - lefti &#43; 1 。">
@@ -1538,7 +1538,14 @@
 <p>再给你一个整数数组 <code>queries</code> 。第 <code>j</code> 个查询的答案是满足 <code>lefti &lt;= queries[j] &lt;= righti</code> 的 <strong>长度最小区间 <code>i</code> 的长度</strong> 。如果不存在这样的区间，那么答案是 <code>-1</code> 。</p>
 <p>以数组形式返回对应查询的所有答案。</p>
 <p><strong>示例 1：</strong></p>
-\[\[1,4\]\[2,4\]\[3,6\]\[4,4\]\[2,3,4,5\]\[3,3,1,4\]<p>
+<p>**输入：**intervals = </p>
+\[\[1,4\]<p>,</p>
+\[2,4\]<p>,</p>
+\[3,6\]<p>,</p>
+\[4,4\]<p>], queries = </p>
+\[2,3,4,5\]<p>
+<strong>输出：</strong></p>
+\[3,3,1,4\]<p>
 **解释：**查询处理如下：</p>
 <ul>
 <li>Query = 2 ：区间 \[2,4\] 是包含 2 的最小区间，答案为 4 - 2 + 1 = 3 。</li>
@@ -1547,7 +1554,14 @@
 <li>Query = 5 ：区间 \[3,6\] 是包含 5 的最小区间，答案为 6 - 3 + 1 = 4 。</li>
 </ul>
 <p><strong>示例 2：</strong></p>
-\[\[2,3\]\[2,5\]\[1,8\]\[20,25\]\[2,19,5,22\]\[2,-1,4,6\]<p>
+<p>**输入：**intervals = </p>
+\[\[2,3\]<p>,</p>
+\[2,5\]<p>,</p>
+\[1,8\]<p>,</p>
+\[20,25\]<p>], queries = </p>
+\[2,19,5,22\]<p>
+<strong>输出：</strong></p>
+\[2,-1,4,6\]<p>
 **解释：**查询处理如下：</p>
 <ul>
 <li>Query = 2 ：区间 \[2,3\] 是包含 2 的最小区间，答案为 3 - 2 + 1 = 2 。</li>
@@ -1590,7 +1604,11 @@
 <p>所有查询中不会存在两个查询都满足 <code>queries[i][0] &lt; queries[j][0] &lt; queries[i][1] &lt; queries[j][1]</code>。</p>
 <p>返回一个数组 <code>answer</code>，对于范围 <code>[0, queries.length - 1]</code> 中的每个 <code>i</code>，<code>answer[i]</code> 是处理完<strong>前</strong> <code>i + 1</code> 个查询后，从城市 <code>0</code> 到城市 <code>n - 1</code> 的最短路径的_长度_。</p>
 <p><strong>示例 1：</strong></p>
-\[\[2, 4\]\[0, 2\]\[0, 4\]<p>]</p>
+<p><strong>输入：</strong> n = 5, queries = </p>
+\[\[2, 4\]<p>, </p>
+\[0, 2\]<p>, </p>
+\[0, 4\]<p>]</p>
+<p><strong>输出：</strong> </p>
 \[3, 2, 1\]<p><strong>解释：</strong></p>
 <p><img src="https://assets.leetcode.com/uploads/2024/06/28/image8.jpg" alt="" loading="lazy" /></p>
 <p>新增一条从 2 到 4 的道路后，从 0 到 4 的最短路径长度为 3。</p>
@@ -1599,7 +1617,10 @@
 <p><img src="https://assets.leetcode.com/uploads/2024/06/28/image10.jpg" alt="" loading="lazy" /></p>
 <p>新增一条从 0 到 4 的道路后，从 0 到 4 的最短路径长度为 1。</p>
 <p><strong>示例 2：</strong></p>
-\[\[0, 3\]\[0, 2\]<p>]</p>
+<p><strong>输入：</strong> n = 4, queries = </p>
+\[\[0, 3\]<p>, </p>
+\[0, 2\]<p>]</p>
+<p><strong>输出：</strong> </p>
 \[1, 1\]<p><strong>解释：</strong></p>
 <p><img src="https://assets.leetcode.com/uploads/2024/06/28/image11.jpg" alt="" loading="lazy" /></p>
 <p>新增一条从 0 到 3 的道路后，从 0 到 3 的最短路径长度为 1。</p>
